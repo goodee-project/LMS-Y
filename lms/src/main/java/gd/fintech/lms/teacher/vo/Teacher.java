@@ -13,9 +13,9 @@ public class Teacher {
 	private String teacherBirth;//강사 생년월일
 	private String teacherAddressMain;//강사 메인주소
 	private String teacherAddressSub;//강사 서브주소
-	private String teacherImage;//강사 이미지
-	private String teacherAccessdate;//강사 승인날짜
-	private String teacherUpdatedate;//강사 업데이트날짜
-	private String managerIdAccess;//승인한 운영자 아이디
+	private String teacherImage;//강사 프로필 사진
+	private String teacherAccessDate;//강사 계정 활성화 일시
+	private String teacherUpdateDate;//강사 업데이트날짜 일시
+	private String managerIdAccess;//계정을 승인한 운영자의 아이디
 	private String teacherInfo;//강사 한줄소개  
 }

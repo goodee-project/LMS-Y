@@ -2,7 +2,7 @@ package gd.fintech.lms.admin.vo;
 
 import lombok.Data;
 
-// 관리자 정보 VO
+// 관리자 정보 관련 vo
 @Data
 public class Admin {
 	private String adminId;		// 관리자 아이디

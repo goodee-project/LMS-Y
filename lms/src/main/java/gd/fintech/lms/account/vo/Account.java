@@ -9,6 +9,6 @@ public class Account {
 	private String accountPw;	// 계정 비밀번호
 	private String accountState;	// 계정 상태
 	private int accountLevel;		// 계정 등급
-	private String accountCreatedate;	// 계정 생성일
-	private String accountUpdatedate;	// 계정 수정일
+	private String accountCreateDate;	// 계정 생성일
+	private String accountUpdateDate;	// 계정 수정일
 }

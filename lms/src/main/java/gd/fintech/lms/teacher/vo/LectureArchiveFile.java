@@ -5,7 +5,7 @@ import lombok.Data;
 //강좌 자료실 첨부파일 VO
 @Data
 public class LectureArchiveFile {
-	private String lectureArchiveFileUuid; //강좌 자료실 첨부파일 UUID
+	private String lectureArchiveFileUUID; //강좌 자료실 첨부파일 UUID
 	private String lectureArchiveFileOriginal; //강좌 자료실 첨부파일 원본 이름
 	private int lectureArchiveNo;//강좌 자료실 고유번호
 	private int lectureArchiveFileSize;//첨부파일 크기

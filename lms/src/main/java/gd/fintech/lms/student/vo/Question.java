@@ -5,13 +5,15 @@ import lombok.Data;
 @Data
 public class Question {
 	
-	private int question_no; // 번호
-	private int lecture_no; // 강좌번호
-	private String account_id; // 학생의 id
-	private String question_writer; // 질문 작성자
-	private String question_title;// 질문 제목
-	private String question_contenxt; //질문 내용 
-	private int qeustion_count; //질문 조회수
-	private String question_password;// 질문 비밀번호
-	//진행중
+	private int questionNo; // 질문번호
+	private int lectureNo; // 강좌번호
+	private String accountId; // 학생의 id
+	private String questionWriter; // 질문 작성자
+	private String questionTitle;// 질문 제목
+	private String questionContext; //질문 내용
+	private String questionCreateDate; //질문 생성 날짜
+	private String questionUpdateDate; //질문 수정 날짜
+	private int questionCount; //질문 조회수
+	private String questionPassword;// 질문 비밀번호 (비밀글 사용시)
+	
 }

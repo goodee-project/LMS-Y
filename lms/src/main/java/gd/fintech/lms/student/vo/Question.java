@@ -9,6 +9,9 @@ public class Question {
 	private int lecture_no; // 강좌번호
 	private String account_id; // 학생의 id
 	private String question_writer; // 질문 작성자
-	private String qeustion_title;// 질문 제목 
+	private String question_title;// 질문 제목
+	private String question_contenxt; //질문 내용 
+	private int qeustion_count; //질문 조회수
+	private String question_password;// 질문 비밀번호
 	//진행중
 }

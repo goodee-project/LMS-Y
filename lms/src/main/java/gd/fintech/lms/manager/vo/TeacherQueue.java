@@ -2,7 +2,7 @@ package gd.fintech.lms.manager.vo;
 
 import lombok.Data;
 
-// 강사승인대기vo : 운영자가 강사의 아이디를 승인하기 전 대기하는 데이터
+// 강사승인대기vo : 운영자가 강사의 아이디를 승인하기 전 대기 vo
 @Data
 public class TeacherQueue {
 	private String teacherId; // 강사 아이디

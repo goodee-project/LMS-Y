@@ -15,5 +15,6 @@ public class Question {
 	private String questionUpdateDate; //질문 수정 날짜
 	private int questionCount; //질문 조회수
 	private String questionPassword;// 질문 비밀번호 (비밀글 사용시)
+	//리스트 끌고오기
 	
 }

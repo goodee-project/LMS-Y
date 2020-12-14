@@ -11,4 +11,6 @@ public class ClassRegistration {
 	private String classRegistrationPoint;// 학생이 매기는 수강점수
 	private String classRegistrationReview;// 학생이 수강에대한 리뷰
 	private String classRegistrationCreateDate;// 학생이 신청한 날짜
+	private String cancelCreateDate;// 학생 수강 취소일
+	private String cancelContent;// 취소 이유(내용)
 }

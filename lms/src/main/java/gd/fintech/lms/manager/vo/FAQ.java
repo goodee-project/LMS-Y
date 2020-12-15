@@ -13,6 +13,7 @@ public class FAQ {
   private String faqCreateDate;// FAQ 작성 날짜 
   private String faqUpdateDate;// FAQ 수정 날짜
   private int faqCount; // FAQ 조회수
+  private String faqCategory; //FAQ 카테고리
   
   
 

@@ -27,5 +27,5 @@ public class QuestionComment {
 	private String questionCommentUpdateDate;
 	
 	// 해당 질문을 참조하고 있는 첨부파일 리스트
-	private List<QuestionCommentFile> questionFileList;
+	private List<QuestionCommentFile> questionCommentFileList;
 }

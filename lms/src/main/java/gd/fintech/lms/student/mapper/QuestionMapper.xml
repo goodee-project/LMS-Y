@@ -1,4 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.QuestionMapper">
+	<!-- 질문게시판 목록 강사의 댓글과 파일 및 페이징-->
+	<resultMap type="gd.fintech.lms.student.vo.Question" id="selectQustionOneComment">
+		<result property="questionNo" column="question_no"/>
+		<result property="lectureNo" column="lecture_no"/>
+		<result property="accountId" column="account_id"/>
+		<result property="questionWriter" column="question_writer"/>
+		<result property="questionTitle" column="question_title"/>
+		<result property="questionContext" column="question_context"/>
+		<result property="questionCreateDate" column="question_createdate"/>
+		<result property="questionUpdateDate" column="question_updatedate"/>
+		<result property="questionCount" column="question_count"/>
+		<result property="questionPassword" column="question_password"/>
+		<!-- 작업중 -->
+	<collection property="questionComment" ofType="gd.fintech.lms.teacher.vo.QuestionComment">
+		<result property="questionCommentNo" column="question_comment_no"/>
+		<result property="questionNo" column="question_no"/>
+		<result property="accountId" column="account_id"/>
+		<result property="questionCommentContext" column="question_comment_context"/>
+		<result property="questionCommentCreateDate" column="question_comment_createdate"/>
+		<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>
+		<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
+			<result property="questionCommentFileUUID" column="question_comment_file_uuid"/>
+			<result property="questionCommentFileOriginal" column="question_comment_file_original"/>
+			<result property="questionCommentNo" column="qeustion_comment_no"/>
+			<result property="questionCommentFileSize" column="question_comment_file_size"/>
+			<result property="questionCommentFileType" column="question_comment_file_type"/>
+			<result property="questionCommentFileCount" column="question_comment_file_count"/>
+			<result property="questionCommentFileCreateDate" column="question_comment_file_createdate"/>
+		</collection>
+	</collection>
+	</resultMap>
+	<select id="selectQuestionListByPage" resultType="gd.fintech.lms.student.vo.Question">
+		
+	</select>
+	
+	
+	
+	<insert id="insertQuestion" parameterType="gd.fintech.lms.student.vo.Question">
+		INSERT INTO question(
+		question_Writer,
+		question_title,
+		question_context,
+		question_createdate,
+		question_updatedate,
+		) VALUES (
+			#{questionWriter}
+			#{questionTitle}
+			#{questionContext}
+			NOW(),
+			NOW()
+		)	
+	</insert>
+	
+	<select id="selectQuestionOne" resultType="gd.fintech.lms.student.vo.Question">
+		SELECT
+			question_no questionNo,
+			lecture_no lectureNo,
+			account_id accountId,
+			question_writer questionWriter,
+			question_title questionTitle,
+			question_context questionContext,
+			question_createdate questionCreateDate,
+			question_updatedate questionUpdateDate,
+			question_count questionCount,
+			question_password questionPassword
+		FROM question
+		ORDER BY question_no DESC
+		
+	</select> 
+	
+	
 </mapper>

@@ -9,12 +9,14 @@ import gd.fintech.lms.student.vo.ClassRegistration;
 
 @Mapper
 public interface ClassRegistrationCancelMapper {
-	List<ClassRegistration> selectClassRegistrationByPage(Map<String,Integer>Map);
+	
 	//학생이 신청한 수강 목록
+	List<ClassRegistration> selectClassRegistrationByPage(Map<String,Integer>Map);
 	
-	int deleteClassRegistrationcancel(int classRegistrationNo);
 	//수강 취소(삭제)
+	int deleteClassRegistrationcancel(int classRegistrationNo);
 	
-	int insertCancel(String cancelContent);
 	//취소 사유 입력
+	int insertCancel(String cancelContent);
+	
 }

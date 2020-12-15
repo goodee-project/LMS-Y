@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<title>login</title>
+<title>loginAdmin</title>
 </head>
 <body>
 <div class=container>
@@ -27,7 +27,27 @@
 		<li class="nav-item">
 		  	<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/adminLogin">관리자</a>
 		</li>
-	</ul>
+	</ul><br>
+	<form action="${pageContext.request.contextPath}/adminLogin" method="post">
+	<div align="center">
+		<h5>관리자 로그인</h5>
+		<table>
+			<tr>
+				<td>아이디</td>
+				<td>
+					<input class="form-control col-sm-10" type="text" id="accountId" name="accountId" placeholder="아이디 입력">
+				</td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td>
+					<input class="form-control col-sm-10" type="password" id="accountPw" name="accountPw" placeholder="비밀번호 입력">
+				</td>
+			</tr>
+		</table><br>
+		<button class="btn btn-primary col-sm-2" type="submit">로그인</button>
+	</div>
+	</form>
 </div>
 </body>
 </html>

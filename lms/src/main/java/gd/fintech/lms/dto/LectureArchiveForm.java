@@ -1,4 +1,4 @@
-package gd.fintech.lms.dto.LectureArchiveForm;
+package gd.fintech.lms.dto;
 
 import java.util.List;
 

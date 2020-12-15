@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.teacher.mapper.LectureNoticeMapper">
+	<!-- 강좌별 공지사항 수정 -->
+	<update id="upldateLetureNotice" parameterType="gd.fintech.lms.teacher.vo.LectureNotice">
+		
+	</update>
+	<!-- 강좌별 공지사항 삭제 -->
+	<delete id="deleteLetureNotice" parameterType="int">
+		
+	</delete>
+	<!-- 강좌별 공지사항 입력(추가) -->
+	<insert id="insertLetureNotice" parameterType="gd.fintech.lms.teacher.vo.LectureNotice">
+	
+	</insert>
+	<!-- 강좌별 공지사항 목록 및 페이징 -->
+	<select id="selectLectrueNoticeListByPage" resultType="gd.fintech.lms.teacher.vo.LectureNotice">
+		
+	</select>
+	<!--강좌별 공지사항 목록 상세보기  -->
+	<select id="selectLectureNoticeOne" resultType="gd.fintech.lms.teacher.vo.LectureNotice">
+	
+	</select>
+	<!-- 강좌별 공지사항 목록 페이징 카운트 -->
+	<select id="selectLectureNoticeCount" resultType="int">
+	
+	</select>
+</mapper>

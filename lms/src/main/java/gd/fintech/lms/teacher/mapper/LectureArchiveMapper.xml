@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.teacher.mapper.LectureArchiveMapper">
+	<!-- 자료실 목록 및 페이징 -->
+	<resultMap type=" gd.fintech.lms.teacher.vo.LectureArchive" id="selectLectureArchiveOneResult">
+		<result property="lectureArchiveNo" column="lecture_archive_no"/>
+		<result property="lectureNo" column="lecture_no" />
+		<result property="accountId" column="account_id" />
+		<result property="lectureArchiveWriter" column="lecture_archive_writer" />
+		<result property="lectureArchiveTitle" column="lecture_archive_title" />
+		<result property="lectureArchiveContent" column="lecture_archive_content" />
+		<result property="lectureArchiveCreateDate" column="lecture_archive_createdate" />
+		<result property="lectureArchiveUpdateDate" column="lecture_archive_updatedate" />
+		<result property="lectureArchiveCount" column="lecture_archive_count" />
+		<collection property="lectureArchiveFileList" ofType=" gd.fintech.lms.teacher.vo.LectureArchiveFile">
+			<result property="lectureArchiveFileUUID" column="lecture_archive_file_uuid" />
+			<result property="lectureArchiveFileOriginal" column="lecture_archive_file_original" />
+			<result property="lectureArchiveNo" column="lecture_archive_no" />
+			<result property="lectureArchiveFileSize" column="lecture_archive_file_size" />
+			<result property="lectureArchiveFileType" column="lecture_archive_file_type" />
+			<result property="lectureArchiveFileCount" column="lecture_archive_file_count" />
+			<result property="lectureArchiveFileCreateDate" column="lecture_archive_file_createdate" />
+		</collection>
+	</resultMap>
+	<select id="selectLectureArchiveListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.LectureArchive">
+		
+	</select>
+	<!-- 자료실 페이지 카운트 -->
+	<select id="selectLectureArchiveCount" resultType="int">
+		
+	</select>
+	<!-- 자료실 상세보기 -->
+	<select id="selectLectureArchive" parameterType="int" resultMap="selectLectureArchiveOneResult">
+		
+	</select>
+	<!-- 자료실 입력(추가) -->
+	<insert id="insertLectureArchive" parameterType="gd.fintech.lms.teacher.vo.LectureArchive">
+		<selectKey resultType="int" keyProperty="lectureArchiveNo" order="AFTER">
+			
+		</selectKey>
+	</insert>
+	<!-- 자료실 수정 -->
+	<update id="updateLectureArchive" parameterType="gd.fintech.lms.teacher.vo.LectureArchive">
+	
+	</update>
+	<!-- 자료실 삭제 -->
+	<delete id="deleteLectureArchive" parameterType="int">
+	
+	</delete>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.teacher.mapper.AttendanceMapper">
+	<!-- 출석에 필요한 학생 목록 -->
+	<select id="selectStudentList" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Attendance" >
+		
+	</select>
+	<!-- 출석 입력 -->
+	<insert id="insertAttendance" parameterType="gd.fintech.lms.teacher.vo.Attendance">
+		
+	</insert>
+	<!-- 출석 수정 -->
+	<update id="updateAttendance" parameterType="gd.fintech.lms.teacher.vo.Attendance">
+	
+	</update>
+</mapper>

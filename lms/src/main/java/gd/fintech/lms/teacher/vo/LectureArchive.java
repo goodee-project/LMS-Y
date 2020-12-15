@@ -1,5 +1,7 @@
 package gd.fintech.lms.teacher.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 //강좌 자료실 VO
@@ -15,4 +17,5 @@ public class LectureArchive {
 	private String lectureArchiveCreateDate;//강좌 자료실 정보 생성 일시
 	private String lectureArchiveUpdateDate;//강좌 자료실 정보 업데이트 일시
 	private int lectureArchiveCount;//강좌 자료실 조회수
+	private List<LectureArchiveFile> lectureArchiveFileList;//Multipart를 위한 프로퍼티 추가
 }

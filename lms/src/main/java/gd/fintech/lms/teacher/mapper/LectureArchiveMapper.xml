@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.LectureArchiveMapper">
 	<!-- 자료실 목록 및 페이징 -->
-	<resultMap type=" gd.fintech.lms.teacher.vo.LectureArchive" id="selectLectureArchiveOneResult">
+	<resultMap type="gd.fintech.lms.teacher.vo.LectureArchive" id="selectLectureArchiveOneResult">
 		<result property="lectureArchiveNo" column="lecture_archive_no"/>
 		<result property="lectureNo" column="lecture_no" />
 		<result property="accountId" column="account_id" />
@@ -12,7 +12,7 @@
 		<result property="lectureArchiveCreateDate" column="lecture_archive_createdate" />
 		<result property="lectureArchiveUpdateDate" column="lecture_archive_updatedate" />
 		<result property="lectureArchiveCount" column="lecture_archive_count" />
-		<collection property="lectureArchiveFileList" ofType=" gd.fintech.lms.teacher.vo.LectureArchiveFile">
+		<collection property="lectureArchiveFileList" ofType="gd.fintech.lms.teacher.vo.LectureArchiveFile">
 			<result property="lectureArchiveFileUUID" column="lecture_archive_file_uuid" />
 			<result property="lectureArchiveFileOriginal" column="lecture_archive_file_original" />
 			<result property="lectureArchiveNo" column="lecture_archive_no" />

@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.manager.vo.LMSNotice;
 
-// 	LMS 공지사항 mapper
+// LMS 공지사항 mapper
 @Mapper
 public interface LMSNoticeMapper {
 	List<LMSNotice> selectLMSNoticeListByPage(int beginRow, int rowPerPage); // 공지사항 리스트 페이지

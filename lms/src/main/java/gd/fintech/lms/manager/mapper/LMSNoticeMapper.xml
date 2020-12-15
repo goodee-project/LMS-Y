@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="gd.fintech.lms.manager.mapper.LMSNoticeMapper"></mapper>
+<mapper namespace="gd.fintech.lms.manager.mapper.LMSNoticeMapper">
+	<select id="selectLMSNoticeListByPage" parameterType="int" resultType="gd.fintech.lms.manager.vo.LMSNotice">
+		SELECT lms_notice_no, lms_notice_title, lms_notice_writer, lms_notice_updatedate
+		FROM lms_notice
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<select id="selectLMSNoticeDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.LMSNotice">
+		SELECT lms_notice_no, lms_notice_title, lms_notice_content, lms_notice_writer, lms_notice_updatedate, lms_notice_count
+		FROM lms_notice
+		WHERE lms_notice_no = #{lmsNoticeNo}
+	</select>
+	
+	<insert id="insertLMSNotice" parameterType="gd.fintech.lms.manager.vo.LMSNotice">
+		INSERT INTO lms_notice(account_id, lms_notice_writer, lms_notice_title, lms_notice_content, lms_notice_createdate, lms_notice_updatedate)
+		VALUES (#{accountId}, #{lmsNoticeWriter}, #{lmsNoticeTitle}, #{lmsNoticeContent}, NOW(), NOW())
+	</insert>
+	<update id="updateLMSNotice" parameterType="gd.fintech.lms.manager.vo.LMSNotice">
+		
+	</update>
+	<delete id="deleteLMSNotice" parameterType="int">
+		
+	</delete>
+</mapper>

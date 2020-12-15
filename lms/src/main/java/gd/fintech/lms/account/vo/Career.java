@@ -2,12 +2,22 @@ package gd.fintech.lms.account.vo;
 
 import lombok.Data;
 
-// 경력(운영자,강사) 정보가 담긴 vo 
+// 경력(운영자,강사)의 정보가 담긴 VO
+
 @Data
 public class Career {
-	private int careerNo;			// 경력번호(순번)
-	private String accountId;		// 경력 아이디 
-	private String careerContent;	// 경력 내용
-	private String careerStartDate;	// 경력 시작일
-	private String careerEndDate;	// 경력 끝일
+	// 경력 번호(AUTO_INCREMENT, PK)
+	private int careerNo;			
+	
+	// 계정 아이디(FK)
+	private String accountId;		
+	
+	// 경력 내용
+	private String careerContent;	
+	
+	// 경력 시작일
+	private String careerStartDate;	
+	
+	// 경력 끝일
+	private String careerEndDate;	
 }

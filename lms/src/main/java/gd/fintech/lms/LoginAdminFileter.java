@@ -12,15 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-// admin 계층의 로그인 처리를 위한 필터
+// admin 계층의 로그인 처리를 위한 필터 클래스
+
 @WebFilter(urlPatterns = "/auth/admin/*")
 public class LoginAdminFileter implements Filter{
-
+	// 인덱스 페이지로 이동하는 요청이 일어날 때 계정권한이 세션에 없으면 로그인 페이지로 이동하는 필터 메소드
+	// 매개변수: 서블릿 request, 서블릿 response, 필터 체인(순서)
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		System.out.println("관리자 로그인 필터 실행");
-		HttpSession session = ((HttpServletRequest)request).getSession();	// HttpSession 형변환하여 세션 받아오기
+		// HttpSession 형변환하여 세션 받아오기
+		HttpSession session = ((HttpServletRequest)request).getSession();
 		// 세션에 저장된 권리자 권한값(4)이 없으면 초기 로그인 페이지로 리다이렉트
 		if(!session.getAttribute("accountLevel").equals(4)) {
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "/login");

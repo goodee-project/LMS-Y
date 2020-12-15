@@ -4,11 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 부트스트랩 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<title>studentIndex</title>
+<title>signUpTeacher</title>
 </head>
 <body>
-	<h1>학생 인덱스</h1>
+	<h1>강사 회원가입 페이지</h1>
 </body>
 </html>

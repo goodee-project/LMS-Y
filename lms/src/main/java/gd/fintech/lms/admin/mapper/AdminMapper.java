@@ -7,9 +7,8 @@ import gd.fintech.lms.admin.vo.Admin;
 // 관리자 정보 Mapper
 @Mapper
 public interface AdminMapper {
-	// 관리자가 자신의 개인정보를 조회
-	Admin selectAdmin(String adminId);
-		
-	// 관리자가 자신의 개인정보를 수정
-	int updateAdmin(Admin admin);
+	// 관리자 개인정보를 출력
+	// 매개변수: 관리자 아이디
+	// 리턴값: 관리자 아이데에 해당하는 관리자 정보
+	Admin selectAdmin(String accountId);
 }

@@ -3,5 +3,52 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.SubjectMapper">
-
+	<!-- 과목 정보를 입력하는 쿼리문 -->
+	<insert id="insertSubject" parameterType="gd.fintech.lms.manager.vo.Subject">
+		INSERT INTO subject (
+			subject_name,
+			subject_createdate,
+			subject_updatedate,
+			sunject_totalday,
+			subject_info,
+		) VALUES (
+			${subjectName},
+			NOW(),
+			NOW(),
+			${sunjectTotalDay},
+			${subjectInfo},
+		)	
+	</insert>
+	
+	<!-- 과목 정보를 수정하는 쿼리문 -->	
+	<update id="updateSubject" parameterType="gd.fintech.lms.manager.vo.Subject">
+		UPDATE subject SET
+			subject_name = #{subjectName},
+			subject_updatedate = NOW(),
+			sunject_totalday = #{sunjectTotalDay},
+			subject_info = #{subjectInfo}
+		WHERE subject_no = #{subjectNo}
+	</update>
+	
+	<!-- 과목 정보를 페이징하여 리스트로 출력 -->
+	<select id="selectSubjectList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Subject">
+		SELECT
+			subject_no subjectNo,
+			subject_name subjectName
+		FROM subject
+		LIMIT 0, 15
+	</select>
+	
+	<!-- 과목 정보 상세보기 -->
+	<select id="selectSubjectDetail" parameterType="Integer" resultType="gd.fintech.lms.manager.vo.Subject">
+		SELECT
+			subject_no subjectNo,
+			subject_name subjectName,
+			subject_createdate subjectCreateDate,
+			subject_updatedate subjectUpdateDate,
+			subject_totalday sunjectTotalDay,
+			subject_info subjectInfo
+		FROM subject
+		WHERE subject_no = #{subjectNo}
+	</select>
 </mapper>

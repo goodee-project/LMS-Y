@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="gd.fintech.lms.admin.mapper.AdminMapper"></mapper>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.admin.mapper.AdminMapper">
+	<!-- 관리자가 자신의 개인정보를 출력하는 쿼리문 -->
+	<select id="selectAdmin" parameterType="String" resultType="gd.fintech.lms.admin.vo.Admin">
+		SELECT
+			admin_email,
+			admin_phone,
+			admin_name
+		FROM admin
+		WHERE account_id = #{accountId}
+	</select>
+</mapper>

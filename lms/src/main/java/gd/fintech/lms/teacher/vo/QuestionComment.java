@@ -1,5 +1,7 @@
 package gd.fintech.lms.teacher.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 강의별 질문게시판의 댓글 관련 정보 vo
@@ -11,4 +13,7 @@ public class QuestionComment {
 	private String questionCommentContext;		// 덧글 내용
 	private String questionCommentCreateDate;	// 이 행을 생성한 날짜
 	private String questionCommentUpdateDate;	// 이 행을 수정한 날짜
+	
+	// 해당 질문을 참조하고 있는 첨부파일 리스트
+	private List<QuestionCommentFile> questionFileList;
 }

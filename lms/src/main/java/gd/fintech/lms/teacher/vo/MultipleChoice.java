@@ -1,5 +1,7 @@
 package gd.fintech.lms.teacher.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 시험의 객관식 문제 관련 정보 vo
@@ -12,4 +14,7 @@ public class MultipleChoice {
 	private String multipleChoiceAnswer;		// 객관식 문제 정답
 	private String multipleChoiceCreateDate;	// 이 행을 생성한 날짜
 	private String multipleChoiceUpdateDate;	// 이 행을 수정한 날짜
+	
+	// 해당 문제를 참조하고 있는 객관식 보기 리스트
+	private List<MultipleChoiceExample> multipleChoiceExampleList;
 }

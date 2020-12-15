@@ -8,10 +8,10 @@ import lombok.Data;
 
 @Data
 public class MultipleChoice {
-	// 객관식 문제 고유번호 (AUTO_INCREMENT)
+	// 객관식 문제 고유번호 (PK, AUTO_INCREMENT)
 	private int multipleChoiceNo;
 	
-	// 객관식 문제를 등록한 시험이 있는 강좌 고유번호 (강좌당 시험은 1회만 시행)
+	// 객관식 문제를 등록한 시험이 있는 강좌 고유번호 (FK)
 	private int lectureNo;
 	
 	// 시험지에 표시되는 객관식 문제의 번호
@@ -23,10 +23,10 @@ public class MultipleChoice {
 	// 객관식 문제 정답
 	private String multipleChoiceAnswer;
 	
-	// 이 행을 생성한 날짜
+	// 이 행을 생성한 날짜 (사용자 임의 기입 불가, NOW())
 	private String multipleChoiceCreateDate;
 	
-	// 이 행을 수정한 날짜
+	// 이 행을 수정한 날짜 (사용자 임의 기입 불가, NOW())
 	private String multipleChoiceUpdateDate;
 	
 	// 해당 문제를 참조하고 있는 객관식 보기 리스트

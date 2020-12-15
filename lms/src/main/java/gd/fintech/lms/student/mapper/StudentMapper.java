@@ -29,5 +29,7 @@ public interface StudentMapper {
 	int updateStudent(Student student);
 	//학생 정보 수정액션
 	
+	int deleteStudent(String studentId);
+	//학생 삭제 
 	
 }

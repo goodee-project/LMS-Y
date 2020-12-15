@@ -1,1 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.student.mapper.StudentMapper">
+
+	<select id="selectStudentListByPage" resultType="gd.fintech.lms.student.vo.Student">
+		<!--학생 리스트 페이징 -->
+	</select>
+	
+	<select id="selectStudentOne" resultType="gd.fintech.lms.student.vo.Student">
+		SELECT
+			student_id studentId,
+			student_email studentEmail,
+			student_name studentName,
+			student_phone studentPhone,
+			student_gender studentGender,
+			student_Image studentImage,
+			student_accessdate studentAccessDate,
+			student_updatedate studentUpdateDate,
+			manager_id_access mangerIdAccess
+		FROM 
+			student
+		ORDER BY manager_id_access DESC
+		<!-- 학생 상세보기 (운영자 승인일 기준)-->
+	</select>
+	
+	<select id="selectStudentAll" parameterType="Integer">
+		SELECT COUNT(*) FROM student
+		<!--  학생 전체보기 -->
+	</select>
+	
+	<select id="updateStudentForm" parameterType="String" resultType="gd.fintech.lms.student.vo.Student">
+		SELECT
+			student_id studentId,
+			student_email studentEmail,
+			student_name studentName,
+			student_phone studentPhone,
+			student_gender studentGender,
+			student_Image studentImage,
+			student_accessdate studentAccessDate,
+			student_updatedate studentUpdateDate
+		FROM student
+		WHERE student_id=#{studentId}
+		<!-- 학생 정보 수정 폼(주소를 제외한것) -->
+	</select>
+	
+	<update id="updateStudent" parameterType="gd.fintech.lms.student.vo.Student" >
+		UPDATE student
+		SET
+			student_email=#{studentEamil},
+			studnet_name=#{studentName},
+			student_Phone=#{studentPhone},
+			student_gender=#{studentGender},
+			student_birth=#{studentBirth},
+			student_address_main=#{studentAdressMain},
+			student_address_sub=#{studentAdressSub},
+			
+		WHERE student_id=#{studentId}
+		<!-- 학생 정보 수정 액션-->
+	</update>
+	
+	<delete id="deleteStudent" parameterType="Integer">
+		DELETE FROM student WHERE student_id=#{studentId}
+		<!-- 학생 삭제 -->
+	</delete>
+		
+</mapper>
+

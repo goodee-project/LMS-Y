@@ -5,11 +5,11 @@ import lombok.Data;
 // 과제제출 첨부파일 vo : 과제제출에 올라갈 파일의 vo
 @Data
 public class ReportSubmitFile {
-	private String reportSubmitFileUUID; // 과제제출 파일UUID
-	private String reportSubmitFileOriginal; // 과제제출 파일의 원래 이름
-	private int reportSubmitNo; // 과제제출 번호
-	private int reportSubmitFileSize; // 과제제출 파일 사이즈
-	private String reportSubmitFileType; // 과제제출 파일 확장자
-	private int reportSubmitFileCount; // 과제제출 파일 다운로드수 
-	private String reportSubmitFileCreateDate; // 과제제출 파일 입력날짜
+	private String reportSubmitFileUUID; 		// 과제제출 파일UUID
+	private String reportSubmitFileOriginal; 	// 과제제출 파일의 원래 이름
+	private int reportSubmitNo; 				// 과제제출 번호
+	private int reportSubmitFileSize; 			// 과제제출 파일 사이즈
+	private String reportSubmitFileType; 		// 과제제출 파일 확장자
+	private int reportSubmitFileCount; 			// 과제제출 파일 다운로드수 
+	private String reportSubmitFileCreateDate; 	// 과제제출 파일 입력날짜
 }

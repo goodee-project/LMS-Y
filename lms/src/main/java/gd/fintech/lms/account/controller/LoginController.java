@@ -51,28 +51,29 @@ public class LoginController {
 	// 로그인뷰에서 로그인 버튼 클릭시 로그인 여부를 처리하는 메소드
 	// 매개변수: 로그인뷰에 입력된 ID,PW 데이터 담는 커맨드객체, 세션을 이용할 HttpSession)
 	// 리턴값: 각 계층별 권한에 따른 인덱스뷰로 리다이렉트(LoginController의 매핑값으로)
-	@PostMapping("/adminLogin")
-	public String adminLogin(Account account, HttpSession session) {
+	@PostMapping("/login")
+	public String login(Account account, HttpSession session) {
 		// 서비스에서 계정 조회 결과 가져오기
-		Account memberCk = memberService.getMemberById(account);		
+		Account memberCk = memberService.getMemberById(account);
 		// 계정이 없는 경우(조회 결과가 null인 경우)
 		if(memberCk == null) {
 			return "redirect:/login";
 		}
-		// 계정이 있는 경우 세션에 id 정보 담기
-		session.setAttribute("accountId", account.getAccountId());
+		// 계정이 있는 경우 세션에 아이디 정보 담기
+		session.setAttribute("accountId", memberCk.getAccountId());
 		// 계정이 있는 경우 세션에 level 정보 담기
-		session.setAttribute("accountLevel", account.getAccountLevel());
+		session.setAttribute("accountLevel", memberCk.getAccountLevel());
+		
 		// 학생 권한에 따른 인덱스 페이지 이동
-		if(account.getAccountLevel() == 1) {
+		if(memberCk.getAccountLevel() == 1) {
 			return "redirect:/auth/student/index";
 		}
 		// 강사 권한에 따른 인덱스 페이지 이동
-		else if(account.getAccountLevel() == 2) {
+		else if(memberCk.getAccountLevel() == 2) {
 			return "redirect:/auth/teacher/index";
 		}
 		// 운영자 권한에 따른 인덱스 페이지 이동
-		else if(account.getAccountLevel() == 3) {
+		else if(memberCk.getAccountLevel() == 3) {
 			return "redirect:/auth/manager/index";
 		}
 		// 관리자 권한에 따른 페이지 이동

@@ -28,20 +28,20 @@
 		  	<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/adminLogin">관리자</a>
 		</li>
 	</ul><br>
-	<form action="${pageContext.request.contextPath}/teacherLogin" method="post">
+	<form action="${pageContext.request.contextPath}/login" method="post">
 	<div align="center">
 		<h5>강사 로그인</h5>
 		<table>
 			<tr>
 				<td>아이디</td>
 				<td>
-					<input class="form-control col-sm-10" type="text" id="adminId" placeholder="아이디 입력">
+					<input class="form-control col-sm-10" type="text" id="accountId" name="accountId" placeholder="아이디 입력">
 				</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
 				<td>
-					<input class="form-control col-sm-10" type="password" id="adminPw" placeholder="비밀번호 입력">
+					<input class="form-control col-sm-10" type="password" id="accountPw" name="accountPw" placeholder="비밀번호 입력">
 				</td>
 			</tr>
 		</table><br>

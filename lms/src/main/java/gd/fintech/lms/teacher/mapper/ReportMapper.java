@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import gd.fintech.lms.student.vo.ReportSubmit;
 import gd.fintech.lms.teacher.vo.Report;
 
 // 강좌에 연결된 과제를 관리하는 테이블의 매퍼
@@ -25,4 +26,10 @@ public interface ReportMapper {
 	// 매개변수: 과제 객체, setter를 사용해 변경할 행 고유번호 reportNo, 변경할 정보 reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
 	// 리턴값: 변경된 행 갯수
 	int updateReport(Report report);
+	
+	
+	// 학생이 제출한 과제 평가
+	// 매개변수, 과제제출 객체, setter를 사용해 변경할 행 고유번호 reportSubmitNo, 변경할 정보 reportSubmitPoint, reportSubmitFeedback을 넣을 것
+	// 리턴값: 변경된 행 갯수
+	int updateReportSubmitResult(ReportSubmit reportSubmit);
 }

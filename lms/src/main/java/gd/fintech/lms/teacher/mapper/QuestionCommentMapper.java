@@ -19,4 +19,6 @@ public interface QuestionCommentMapper {
 	// 매개변수: 댓글 객체, setter를 사용해 변경할 행 고유번호 questionCommentNo, 변경할 정보 questionCommentContext를 넣을 것
 	// 리턴값: 변경된 행 갯수
 	int updateQuestionComment(QuestionComment questionComment);
+	
+	// DELETE 매핑은 질문게시판 댓글 삭제(질문의 답변 삭제)가 안되는 것이 맞다고 생각하여 등록하지 않음. 필요시 추가예정
 }

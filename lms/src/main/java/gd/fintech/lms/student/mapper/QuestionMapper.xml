@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.QuestionMapper">
 	<!-- 질문게시판 목록 강사의 댓글과 파일 및 페이징-->
-	<resultMap type="gd.fintech.lms.student.vo.Question" id="selectQustionOneComment">
+	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOneCommentResult">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>
 		<result property="accountId" column="account_id"/>
@@ -32,9 +32,9 @@
 	</collection>
 	</resultMap>
 	
-	<!--학생이 보는 질문게시판 리스트  -->
+	<!--학생이 보는 질문게시판 리스트 페이징-->
 	<select id="selectQuestionListByPage" resultType="gd.fintech.lms.student.vo.Question">
-		
+		SELECT
 	</select>
 	
 	
@@ -62,6 +62,7 @@
 			#{questionCount}
 		)	
 	</insert>
+	
 	<!-- 학생의 질문 상세보기 -->
 	<select id="selectQuestionOne" resultType="gd.fintech.lms.student.vo.Question">
 		SELECT
@@ -81,8 +82,10 @@
 	
 	<!-- 학생의 질문 수정 폼 -->
 	<update id="updateQuestionForm">
-	
+		
 	</update>
+	
+	<!-- 학생의 질문 수정 -->
 	
 	<!-- 학생의(자신의) 질문삭제 -->
 	<delete id="">

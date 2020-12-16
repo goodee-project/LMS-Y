@@ -1,5 +1,7 @@
 package gd.fintech.lms.manager.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 과목 정보 vo
@@ -23,4 +25,7 @@ public class Subject {
 	
 	// 과목 정보
 	private String subjectInfo;
+	
+	// 과목 정보 리스트
+	private List<Subject>subjectInfoList;
 }

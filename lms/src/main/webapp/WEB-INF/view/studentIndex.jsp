@@ -10,5 +10,13 @@
 </head>
 <body>
 	<h1>학생 인덱스</h1>
+	<h1></h1>
+	<!-- 학생 더보기 -->
+	<div>학생<a href="${pageContext.request.contextPath}/studentIndex">더보기</a></div>
+	<div>
+		<table border="1">
+		
+		</table>
+	</div>
 </body>
 </html>

@@ -3,8 +3,9 @@
 <mapper namespace="gd.fintech.lms.student.mapper.StudentMapper">
 	
 	
-	<!-- 학생(내정보) 상세보기 (운영자 승인일 기준)-->
-	<select id="selectStudentOne" resultType="gd.fintech.lms.student.vo.Student">
+	
+	<!-- 학생(내정보) 상세보기-->
+	<select id="selectStudentOne" parameterType="String" resultType="gd.fintech.lms.student.vo.Student">
 		SELECT
 			account_id accountId,
 			student_email studentEmail,
@@ -19,7 +20,7 @@
 			manager_id_access mangerIdAccess
 		FROM 
 			student
-		ORDER BY manager_id_access DESC
+		ORDER BY account_id  DESC
 	</select>
 	
 	<!-- 학생 정보 수정 폼 -->

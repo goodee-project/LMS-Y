@@ -22,7 +22,7 @@ public class LoginFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("로그인 필터 실행");
+		System.out.println("로그인 필터 실행-----------------");
 		// HttpSession 형변환하여 세션 가져오기
 		HttpSession session = ((HttpServletRequest)request).getSession();	
 		// 세션에 저장된 ID 값이 없으면 초기 로그인 페이지로 이동

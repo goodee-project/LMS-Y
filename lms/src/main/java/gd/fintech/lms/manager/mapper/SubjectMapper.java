@@ -21,9 +21,9 @@ public interface SubjectMapper {
 	// 리턴값: 변경된 행의 갯수
 	int updateSubject(Subject subject);
 	
-	// 과목 정보를 페이징하여 리스트로 출력
-	// 매개변수:
-	// 리턴값: 
+	// 과목 정보의 일부를 페이징하여 리스트로 출력
+	// 매개변수: Map.put()을 사용하여 페이징 변수 beginRow(해당 페이지), rowPerPage(해당 페이지에서 표시할 항목수)
+	// 리턴값: 과목 정보 리스트
 	List<Subject> selectSubjectList(Map<String, Integer> map);
 	
 	// 과목 정보 상세보기

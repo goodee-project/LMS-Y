@@ -36,7 +36,7 @@
 			subject_no subjectNo,
 			subject_name subjectName
 		FROM subject
-		LIMIT 0, 15
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 과목 정보 상세보기 -->

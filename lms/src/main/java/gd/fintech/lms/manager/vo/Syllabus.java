@@ -2,7 +2,7 @@ package gd.fintech.lms.manager.vo;
 
 import lombok.Data;
 
-// 강의 계획서 vo
+// 강의계획서 vo
 
 @Data
 public class Syllabus {

@@ -26,18 +26,18 @@ public interface QuestionMapper {
 	Question updateQuestion(Question question);
 		
 	//학생의 질문 삭제
-	//매개변수: 질문게시판 게시물 번호
+	//매개변수: 질문게시판 질문 번호
 	//리턴값: 삭제된 질문
 	int deleteQuestion(int questionNo);
 
 	//학생의 질문 리스트 출력(페이징)
-	//매개변수: 
-	//리턴값: 
+	//매개변수: map을 이용해 beginRow,rowPerPage 
+	//리턴값: 페이지의 질문 게시판(리스트)
 	List<Question> selectQuestionListByPage(Map<String,Integer>Map);
 	
 	//학생의 질문 상세보기
-	//매개변수: 
-	//리턴값:
+	//매개변수: 질문 번호
+	//리턴값: 질문의 모든 정보
 	List<Question> selectQuestionOne(int questionNo);
 	
 }

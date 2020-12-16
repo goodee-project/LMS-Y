@@ -3,6 +3,33 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.admin.mapper.ManagerQueueMapper">
+	<!-- 회원가입 승인대기 중인 운영자의 개인정보의 일부를 페이징하여 리스트로 출력하는 쿼리문 -->
+	<select id="selectManagerQueueList" parameterType="java.util.Map" resultType="gd.fintech.lms.admin.vo.ManagerQueue">
+		SELECT
+			manager_name managerName,
+			manager_email managerEmail,
+			manager_phone managerPhone,
+			manager_address_main managerAddressMain,
+			manager_gender managerGender
+		FROM manager_queue
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 쿼리문 -->
+	<select id="selectManagerQueueDetail" parameterType="String" resultType="gd.fintech.lms.admin.vo.ManagerQueue">
+		SELECT
+			account_id accountId,
+			manager_email managerEmail,
+			manager_phone managerPhone,
+			manager_name managerName,
+			manager_gender managerGender,
+			manager_birth managerBirth,
+			manager_address_main managerAddressMain,
+			manager_address_sub managerAddressSub
+		FROM manager_queue
+		WHERE account_id = #{accountId}
+	</select>
+	
 	<!-- 회원가입 시 운영자의 개인정보를 입력하는 쿼리문 -->
 	<insert id="insertManagerQueue" parameterType="gd.fintech.lms.admin.vo.ManagerQueue">
 		INSERT INTO managerQueue (
@@ -28,31 +55,7 @@
 	
 	<!-- 관리자가 운영자의 회원가입을 승인 시 운영자의 개인정보를 삭제하는 쿼리문 -->
 	<delete id="deleteManagerQueue" parameterType="String">
-		DELETE FROM managerQueue
+		DELETE FROM manager_queue
 		WHERE account_id = #{accountId}
 	</delete>
-	
-	<!-- 승인대기 중인 운영자의 개인정보를 페이징하여 리스트로 출력하는 쿼리문 -->
-	<select id="selectManagerQueueList" parameterType="java.util.Map" resultType="gd.fintech.lms.admin.vo.ManagerQueue">
-		SELECT
-			manager_name managerName,
-			manager_phone managerPhone
-		FROM manager_queue
-		LIMIT #{beginRow}, #{rowPerPage}
-	</select>
-	
-	<!-- 승인대기 중인 운영자의 개인정보 상세정보를 출력하는 쿼리문 -->
-	<select id="selectManagerQueueDetail" parameterType="String" resultType="gd.fintech.lms.admin.vo.ManagerQueue">
-		SELECT
-			account_id accountId,
-			manager_email managerEmail,
-			manager_phone managerPhone,
-			manager_name managerName,
-			manager_gender managerGender,
-			manager_birth managerBirth,
-			manager_address_main managerAddressMain,
-			manager_address_sub managerAddressSub
-		FROM manager_queue
-		WHERE account_id = #{accountId}
-	</select>
 </mapper>

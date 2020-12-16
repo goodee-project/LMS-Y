@@ -18,7 +18,7 @@ public class Subject {
 	// 과목 수정일자
 	private String subjectUpdateDate;
 	
-	// 과목 총일수
+	// 과목 총 이수일수
 	private int subjectTotalDay;
 	
 	// 과목 정보

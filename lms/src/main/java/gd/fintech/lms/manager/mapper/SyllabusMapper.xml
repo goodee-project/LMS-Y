@@ -3,6 +3,22 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.SyllabusMapper">
+	<!-- 강의계획서의 정보를 출력하는 쿼리문 -->
+	<select id="selectSyllabusDetail" parameterType="Integer" resultType="gd.fintech.lms.manager.vo.Syllabus">
+		SELECT
+			syllabus_no syllabusNo,
+			lecture_no lectureNo,
+			syllabus_content syllabusContent,
+			syllabus_teachersign syllabusTeacherSign,
+			syllabus_teachersign_date syllabusTeacherSignDate,
+			syllabus_managersign syllabusManagerSign,
+			syllabus_managersign_date syllabusManagerSignDate,
+			syllabus_createdate syllabusCreateDate,
+			syllabus_updatedate syllabusUpdateDate
+		FROM syllabus
+		WHERE syllabus_no = #{syllabusNo}
+	</select>
+	
 	<!-- 강사가 강의계획서를 작성하는 쿼리문 -->
 	<insert id="insertSyllabus" parameterType="gd.fintech.lms.manager.vo.Syllabus">
 		INSERT INTO syllabus (
@@ -18,39 +34,34 @@
 		)
 	</insert>
 	
-	<!-- 강사가 강의계획서를 수정(수정 시 승인을 전부 취소)하는 쿼리문 -->
+	<!-- 강사가 강의계획서 내용을 수정(수정 시 승인을 전부 취소)하는 쿼리문 -->
 	<update id="updateSyllabus" parameterType="gd.fintech.lms.manager.vo.Syllabus">
-		UPDATE syllabus SET
+		UPDATE syllabus
+		SET
 			syllabus_content = ${syllabusContent},
+			syllabus_teachersign = NULL,
+			syllabus_teachersign_date = NULL,
+			syllabus_managersign = NULL,
+			syllabus_managersign_date = NULL,
 			syllabus_updatedate = NOW()
 		WHERE syllabus_no = #{syllabusNo}
 	</update>
 	
-	<!-- 강의계획서의 정보를 출력하는 쿼리문 -->
-	<select id="selectSyllabusDetail" parameterType="Integer" resultType="gd.fintech.lms.manager.vo.Syllabus">
-		SELECT
-			syllabus_no syllabusNo,
-			lecture_no lectureNo,
-			syllabus_content syllabusContent,
-			syllabus_teachersign syllabusTeacherSign,
-			syllabus_managersign syllabusManagerSign,
-			syllabus_createdate syllabusCreateDate,
-			syllabus_updatedate syllabusUpdateDate
-		FROM syllabus
-		WHERE syllabus_no = #{syllabusNo}
-	</select>
-	
 	<!-- 강사가 강의계획서를 승인하는 쿼리문 -->
 	<update id="updateSyllabusTeacherSign">
-		UPDATE syllabus SET
-			syllabus_teachersign = #{syllabusTeacherSign}
+		UPDATE syllabus
+		SET
+			syllabus_teachersign = #{syllabusTeacherSign},
+			syllabus_teachersign_date = NOW()
 		WHERE syllabus_no = #{syllabusNo}
 	</update>
 	
 	<!-- 운영자가 강의계획서를 승인하는 쿼리문 -->
 	<update id="updateSyllabusManagerSign">
-		UPDATE syllabus SET
+		UPDATE syllabus
+		SET
 			syllabus_managersign = #{syllabusManagerSign}
+			syllabus_managersign_date = NOW()
 		WHERE syllabus_no = #{syllabusNo}
 	</update>
 </mapper>

@@ -8,20 +8,20 @@ import gd.fintech.lms.manager.vo.Syllabus;
 
 @Mapper
 public interface SyllabusMapper {
+	// 강의계획서의 정보를 출력
+	// 매개변수: 강의계획서 고유번호
+	// 리턴값: 강의계획서 고유번호에 해당하는 강의계획서 정보
+	Syllabus selectSyllabusDetail(int syllabusNo);
+	
 	// 강사가 강의계획서를 작성
 	// 매개변수: 강의계획서 정보
 	// 리턴값: 변경된 행의 갯수
 	int insertSyllabus(Syllabus syllabus);
 	
-	// 강사가 강의계획서를 수정(수정 시 승인을 전부 취소)
+	// 강사가 강의계획서 내용을 수정(수정 시 승인을 전부 취소)
 	// 매개변수: 강의계획서 정보
 	// 리턴값: 변경된 행의 갯수
 	int updateSyllabus(Syllabus syllabus);
-	
-	// 강의계획서의 정보를 출력
-	// 매개변수: 강의계획서 고유번호
-	// 리턴값: 강의계획서 고유번호에 해당하는 강의계획서 정보
-	Syllabus selectSyllabusDetail(int syllabusNo);
 	
 	// 강사가 강의계획서를 승인
 	// 매개변수: 승인할 강의계획서 고유번호

@@ -8,6 +8,18 @@
 	</update>
 	<!-- 강사 정보 상세보기 -->
 	<select id="selectTeacherOne" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Teacher">
-		
+		SELECT 
+			account_id accountId,
+			teacher_email teacherEmail,
+			teacher_name teacherName,
+			teacher_phone teacherPhone,
+			teacher_gender teacherGender,
+			teacher_birth teacherBirth,
+			teacher_address_main teacherAddressMain,
+			teacher_address_sub teacherAddressSub,
+			teacher_image teacherImage,
+			teacher_info teacherInfo 
+		FROM teacher 
+		WHERE account_id = #{accountId}
 	</select>
 </mapper>

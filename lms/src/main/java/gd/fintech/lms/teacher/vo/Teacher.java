@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Teacher {
 	//강사 아이디
-	private String teacherId;
+	private String accountId;
 	
 	//강사 이메일
 	private String teacherEmail;

@@ -18,7 +18,7 @@ public interface LectureManagerMapper {
 	
 	// 강좌 개수
 	// 리턴값: 행의 총 개수
-	int selectLecTotalCount();
+	int selectLectureTotalCount();
 	
 	// 강좌 입력
 	// 매개변수: 강좌의 정보

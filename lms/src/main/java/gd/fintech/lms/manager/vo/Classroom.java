@@ -6,10 +6,10 @@ import lombok.Data;
 
 @Data
 public class Classroom {
-	// 강의실 번호 
+	// 강의실 고유번호 
 	private int classroomNo; 
 	
-	// 강의실 위치
+	// 강의실 번호
 	private int classroomNumber; 
 	
 	// 강의실 규격

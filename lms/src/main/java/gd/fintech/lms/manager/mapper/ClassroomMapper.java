@@ -21,12 +21,17 @@ public interface ClassroomMapper {
 	
 	// 강의실 수정
 	// 매개변수: 강의실 정보
-	// 리턴값: 행의 수정
+	// 리턴값: 해당하는 행의 수정
 	int updateClassroom(Classroom classroom);
 	
 	// 강의실 삭제
-	// 매개변수: 강의실 번호 
-	// 리턴값:  행의 삭제
+	// 매개변수: 강의실 고유번호 
+	// 리턴값: 해당하는 행의 삭제
 	int deleteClassroom(int classroomNo);	
+	
+	// 강의실 상세보기
+	// 매개변수: 강의실 고유번호
+	// 리턴값: 해당하는 강의실의 상세한 정보
+	Classroom classroomOne(int classroomNo);
 
 }

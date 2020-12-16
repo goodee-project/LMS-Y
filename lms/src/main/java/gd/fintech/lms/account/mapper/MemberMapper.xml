@@ -3,6 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.account.mapper.MemberMapper">
+	<!-- 계정 정보(계정ID, 계정권한)를 조회하는 쿼리 -->
 	<select id="selectMemberById" parameterType="gd.fintech.lms.account.vo.Account" resultType="gd.fintech.lms.account.vo.Account">
 		SELECT 
 			account_id accountId, 

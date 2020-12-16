@@ -19,7 +19,7 @@
 			manager_id_access mangerIdAccess
 		FROM 
 			student
-		ORDER BY manager_id_access DESC	
+		ORDER BY manager_id_access DESC
 	</select>
 	
 	<!-- 학생 정보 수정 폼 -->

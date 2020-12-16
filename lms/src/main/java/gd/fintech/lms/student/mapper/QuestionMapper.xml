@@ -62,7 +62,7 @@
 			#{questionCount}
 		)	
 	</insert>
-	
+	<!-- 학생의 질문 상세보기 -->
 	<select id="selectQuestionOne" resultType="gd.fintech.lms.student.vo.Question">
 		SELECT
 			question_no questionNo,
@@ -86,7 +86,7 @@
 	
 	<!-- 학생의(자신의) 질문삭제 -->
 	<delete id="">
-	account_id
+	
 	</delete>
 	
 	

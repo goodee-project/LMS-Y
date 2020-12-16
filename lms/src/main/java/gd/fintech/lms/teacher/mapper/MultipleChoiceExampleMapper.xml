@@ -3,21 +3,40 @@
 <mapper namespace="gd.fintech.lms.teacher.mapper.MultipleChoiceExampleMapper">
 	<!-- 객관식 보기 생성 쿼리 -->
 	<insert id="insertMultipleChoiceExample" parameterType="gd.fintech.lms.teacher.vo.MultipleChoiceExample">
-		
+		INSERT INTO multiplechoice_example (
+			multiplechoice_no,
+			multiplechoice_example_id,
+			multiplechoice_example_content,
+			multiplechoice_example_createdate,
+			multiplechoice_example_updatedate
+		) VALUES (
+			#{multipleChoiceNo},
+			#{multipleChoiceExampleId},
+			#{multipleChoiceExampleContent},
+			NOW(),
+			NOW()
+		)
 	</insert>
 	
 	<!-- 객관식 보기 수정 쿼리 -->
 	<update id="updateMultipleChoiceExample">
-		
+		UPDATE multiplechoice_example
+		SET
+			multiplechoice_example_id = #{multipleChoiceExampleId},
+			multiplechoice_example_content = #{multipleChoiceExampleContent},
+			multiplechoice_example_updatedate = NOW()
+		WHERE multiplechoice_example_no = #{multipleChoiceExampleNo}
 	</update>
 	
 	<!-- 객관식 보기 삭제 쿼리 -->
 	<delete id="deleteMultipleChoiceExample">
-		
+		DELETE FROM multiplechoice_example
+		WHERE multiplechoice_example_no = #{multipleChoiceExampleNo}
 	</delete>
 	
 	<!-- 객관식 문제에 포함된 객관식 보기 삭제 쿼리 -->
 	<delete id="deleteMultipleChoiceExampleByMultipleChoiceNo">
-		
+		DELETE FROM multiplechoice_example
+		WHERE multiplechoice_no = #{multipleChoiceNo}
 	</delete>
 </mapper>

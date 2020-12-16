@@ -3,11 +3,27 @@
 <mapper namespace="gd.fintech.lms.teacher.mapper.QuestionCommentMapper">
 	<!-- 질문게시판 댓글 생성 쿼리 -->
 	<insert id="insertQuestionComment">
-		
+		INSERT INTO question_comment (
+			question_no,
+			account_id,
+			question_comment_context,
+			question_comment_createdate,
+			question_comment_updatedate
+		) VALUES (
+			#{questionNo},
+			#{accountId},
+			#{questionCommentContext},
+			NOW(),
+			NOW()
+		)
 	</insert>
 	
 	<!-- 질문게시판 댓글 수정 쿼리 -->
 	<update id="updateQuestionComment">
-		
+		UPDATE question_comment
+		SET
+			question_comment_context = #{questionCommentContext},
+			question_comment_updatedate = NOW()
+		WHERE question_comment_no = #{questionCommentNo}
 	</update>
 </mapper>

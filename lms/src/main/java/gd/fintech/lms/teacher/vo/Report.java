@@ -1,5 +1,8 @@
 package gd.fintech.lms.teacher.vo;
 
+import java.util.List;
+
+import gd.fintech.lms.student.vo.ReportSubmit;
 import lombok.Data;
 
 // 과제 정보 관련 vo
@@ -29,4 +32,7 @@ public class Report {
 	
 	// 과제 마감일
 	private String reportEndDate;
+	
+	// 해당 과제를 참조하고 있는 과제제출 리스트
+	private List<ReportSubmit> reportSubmitList;
 }

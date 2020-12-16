@@ -11,7 +11,7 @@ public interface QuestionCommentFileMapper {
 	// SELECT 매핑은 QuestionMapper쪽으로 위임함
 	
 	// 질문에 대한 댓글의 첨부파일 생성
-	// 매개변수: 첨부파일 객체, setter를 사용해 추가할 정보 questionCommentFileOriginal, questionCommentNo, questionCommentFileSize, questionCommentFileType을 넣을 것
+	// 매개변수: 첨부파일 객체, setter를 사용해 추가할 정보 questionCommentFileUUID, questionCommentFileOriginal, questionCommentNo, questionCommentFileSize, questionCommentFileType을 넣을 것
 	// 리턴값: 변경된 행 갯수
 	int insertQuestionCommentFile(QuestionCommentFile questionCommentFile);
 	
@@ -19,9 +19,4 @@ public interface QuestionCommentFileMapper {
 	// 매개변수: 삭제할 첨부파일의 UUID
 	// 리턴값: 변경된 행 갯수
 	int deleteQuestionCommentFile(int questionCommentFileUUID);
-	
-	// 댓글 고유번호를 이용해 질문에 대한 댓글의 첨부파일 삭제
-	// 매개변수: 삭제할 첨부파일을 가지고 있는 댓글 고유번호
-	// 리턴값: 변경된 행 갯수
-	int deleteQuestionCommentFileByQuestionCommentNo(int questionCommentNo);
 }

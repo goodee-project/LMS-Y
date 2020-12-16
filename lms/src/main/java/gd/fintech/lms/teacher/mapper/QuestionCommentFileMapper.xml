@@ -2,17 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.QuestionCommentFileMapper">
 	<!-- 질문게시판 댓글의 첨부파일 생성 쿼리 -->
-	<insert id="insertQuestionCommentFile">
-		
+	<insert id="insertQuestionCommentFile" parameterType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
+		INSERT INTO question_comment_file (
+			question_comment_file_uuid,
+			question_comment_file_original,
+			question_comment_no,
+			question_comment_file_size,
+			question_comment_file_type,
+			question_comment_file_createdate,
+			question_comment_file_updatedate
+		) VALUES (
+			#{questionCommentFileUUID},
+			#{questionCommentFileOriginal},
+			#{questionCommentNo},
+			#{questionCommentFileSize},
+			#{questionCommentFileType},
+			NOW(),
+			NOW()
+		)
 	</insert>
 	
 	<!-- 질문게시판 댓글의 첨부파일 삭제 쿼리 -->
-	<delete id="deleteQuestionCommentFile">
-		
-	</delete>
-	
-	<!-- 질문게시판 댓글에 포함된 첨부파일 삭제 쿼리 -->
-	<delete id="deleteQuestionCommentFileByQuestionCommentNo">
-		
+	<delete id="deleteQuestionCommentFile" parameterType="int">
+		DELETE FROM question_comment_file
+		WHERE question_comment_file_uuid = #{questionCommentFileUUID}
 	</delete>
 </mapper>

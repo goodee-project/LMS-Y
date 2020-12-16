@@ -25,7 +25,7 @@ public interface MultipleChoiceExampleMapper {
 	// 리턴값: 변경된 행 갯수
 	int deleteMultipleChoiceExample(int multipleChoiceExampleNo);
 	
-	// 객관식 문제 고유번호를 이용해 객관식 보기 삭제
+	// 객관식 문제 고유번호를 이용해 객관식 보기 삭제 (객관식 문제 삭제 시 보기 일괄삭제용)
 	// 매개변수: 삭제할 객관식 보기를 가지고 있는 객관식 문제 고유번호
 	// 리턴값: 변경된 행 갯수
 	int deleteMultipleChoiceExampleByMultipleChoiceNo(int multipleChoiceNo);

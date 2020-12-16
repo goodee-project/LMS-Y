@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.manager.mapper.FAQMapper">
+
+	<!-- FAQ  페이징 -->
+	<select id="selectFAQListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.FAQ" >
+	 SELECT 
+		faq_no faqNo, 
+		faq_writer faqWriter, 
+		faq_title faqTitle, 
+		faq_updatedate fagUpdateDate,
+		faq_category faqCategory
+	 FROM faq 
+	 LIMIT #{beginRow},#{rowPerPage}
+	
+	
+	</select>
+  
+    <!-- FAQ 행의 개수 -->
+	 <select id="selectFAQTotalCount" resultType="int">
+
+	  SELECT 
+	 	COUNT(*)
+	  FROM faq	
+		
+	</select>
+	 
+	 <!-- FAQ의 상세정보 -->
+	<select id="selectFAQOne">
+	 SELECT 
+		faq_no faqNo,
+		faq_title faqTitle,
+	    faq_writer faqWriter,
+		faq_content faqContent,
+		faq_updatedate faqUpdateDate,
+		faq_count faqCount,
+		faq_category faqCategory
+	FROM  faq
+	WHERE faq_no = #{faqNo}
+		
+	</select>
+	<!-- FAQ 입력 -->
+	<insert id="insertFAQ" parameterType="gd.fintech.lms.manager.vo.FAQ">
+	 	
+	 INSERT INTO faq(   
+     	account_id,
+		faq_writer,
+	    faq_title,
+	    faq_content,
+	    faq_category ,
+		faq_createdate,
+		faq_updatedate
+	)VALUE(
+		#{accountId},
+		#{faqWriter},
+		#{faqTitle},
+		#{faqContent},
+		#{faqCategory},
+	    NOW(),
+		NOW()
+    )
+	
+	</insert>
+	
+	<!-- FAQ 수정  -->
+	<update id="updateFAQ" parameterType="gd.fintech.lms.manager.vo.FAQ" >
+	UPDATE faq 
+	SET 
+		faq_title = #{FaqTitle} , 
+		faq_content= #{FaqContent},
+		faq_updatedate = NOW(),
+		faq_category = #{FAQCategory}
+	WHERE faq_no = #{faqNo}
+	
+	</update>
+    
+    <!-- FAQ 삭제  -->
+	<delete id="deleteFAQ">
+	DELETE FROM faq
+	WHERE faq_no =#{faqNo}
+	
+	</delete>
+
+
+</mapper>

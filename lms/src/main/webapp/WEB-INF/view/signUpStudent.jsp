@@ -48,7 +48,7 @@
 			<tr>
 				<td>전화번호</td>
 				<td>
-					<input class="form-control col-sm-4" type="number" id="studentPhone" name="studentPhone" placeholder="- 빼고 숫자만 입력">
+					<input class="form-control col-sm-4" type="tel" id="studentPhone" name="studentPhone" placeholder="- 빼고 숫자만 입력">
 				</td>
 			</tr>
 			<tr>
@@ -60,6 +60,18 @@
 					<div class="form-check-inline">
 					    <input type="radio" class="form-check-input" name="studentGender">여
 					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>생년월일</td>
+				<td>
+					<input class="form-control col-sm-4" type="date" id="studentBirth" name="studentBirth">
+				</td>
+			</tr>
+			<tr>
+				<td>생년월일</td>
+				<td>
+					<input class="form-control col-sm-4" type="date" id="studentBirth" name="studentBirth">
 				</td>
 			</tr>
 		</table>

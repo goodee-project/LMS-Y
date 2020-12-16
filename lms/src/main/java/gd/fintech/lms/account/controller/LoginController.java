@@ -1,11 +1,16 @@
 package gd.fintech.lms.account.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.account.service.MemberService;
@@ -49,16 +54,26 @@ public class LoginController {
 	}
 	
 	// 로그인뷰에서 로그인 버튼 클릭시 로그인 여부를 처리하는 메소드
-	// 매개변수: 로그인뷰에 입력된 ID,PW 데이터 담는 커맨드객체, 세션을 이용할 HttpSession)
+	// 매개변수: 로그인뷰에 입력된 ID,PW 데이터 담는 커맨드객체, 세션을 이용할 HttpSession), 페이지레벨(계층별 페이지에 레벨을 두어 접근가능한 계정을 구분하기 위함)
 	// 리턴값: 각 계층별 권한에 따른 인덱스뷰로 리다이렉트(LoginController의 매핑값으로)
 	@PostMapping("/login")
-	public String login(Account account, HttpSession session) {
+	public String login(Account account, HttpSession session,
+			@RequestParam(value = "pageLevel") int pageLevel,
+			HttpServletResponse response) throws IOException {
+		System.out.println(pageLevel + "페이지 레벨");
 		// 서비스에서 계정 조회 결과 가져오기
 		Account memberCk = memberService.getMemberById(account);
-		// 계정이 없는 경우(조회 결과가 null인 경우)
-		if(memberCk == null) {
+		
+		// 계정이 없는 경우, 로그인 페이지별 상위 레벨의 계정에 접근시 해당 계정에 대한 로그인 제한하기
+		if(pageLevel != memberCk.getAccountLevel() || memberCk == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('해당 계정에 접근권한이 없습니다.'); history.go(-1);</script>");
+			out.flush();
 			return "redirect:/login";
 		}
+		
+		
 		// 계정이 있는 경우 세션에 아이디 정보 담기
 		session.setAttribute("accountId", memberCk.getAccountId());
 		// 계정이 있는 경우 세션에 level 정보 담기

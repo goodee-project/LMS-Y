@@ -21,7 +21,6 @@ public class MemberService {
 	public Account getMemberById(Account account) {	
 		// 계정 조회 값을 Account VO 객체에 담기
 		Account memberCk = memberMapper.selectMemberById(account);	
-		System.out.println(memberCk + ": 서비스에서 받은 계정 조회값");
 		if(memberCk != null) {
 			return memberCk;
 		}

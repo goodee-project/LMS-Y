@@ -17,7 +17,7 @@ public interface TeacherQueueMapper {
 	// 강사 승인대기 상세보기
 	// 매개변수 : 강사계정ID
 	// 리턴값 : 강사승인대기의 모든 정보
-	TeacherQueue selectTeacherQueueDetail(String teacherId); 
+	TeacherQueue selectTeacherQueueDetail(String accountId); 
 	
 	// 강사 승인대기 정보 입력
 	// 매개변수 : 강사승인대기의 모든 정보
@@ -27,5 +27,5 @@ public interface TeacherQueueMapper {
 	// 강사 승인대기 정보 삭제
 	// 매개변수 : 강사계정ID
 	// 리턴값 : 행삭제
-	int deleteTeacherQueue(String teacherId); 
+	int deleteTeacherQueue(String accountId); 
 }

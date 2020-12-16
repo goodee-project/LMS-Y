@@ -17,7 +17,7 @@ public interface StudentQueueMapper {
 	// 학생 승인대기 인원보기
 	// 매개변수 : 학생계정ID
 	// 리턴값 : 학생승인대기의 모든 정보
-	StudentQueue selectStudentQueueDetail(String studentId);
+	StudentQueue selectStudentQueueDetail(String accountId);
 	
 	// 학생 승인대기 정보 입력
 	// 매개변수 : 학생승인대기의 모든 정보
@@ -27,5 +27,5 @@ public interface StudentQueueMapper {
 	// 학생 승인대기 정보 삭제
 	// 매개변수 : 학생계정ID
 	// 리턴값 : 행삭제
-	int deleteStudentQueue(String studentId);
+	int deleteStudentQueue(String accountId);
 }

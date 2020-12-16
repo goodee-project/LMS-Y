@@ -1,15 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.StudentQueueMapper">
-	<select id="selectStudentQueueList">
-	
+	<!-- 학생 승인대기 리스트-->
+	<select id="selectStudentQueueList" resultType="gd.fintech.lms.manager.vo.StudentQueue">
+		SELECT
+			student_name, 
+			student_phone
+		FROM student_queue
 	</select>
-	<select id="selectStudentQueueDetail">
-	
+	<!-- 학생 승인대기 상세보기 -->
+	<select id="selectStudentQueueDetail" resultType="gd.fintech.lms.manager.vo.StudentQueue">
+		SELECT
+			account_id accountId,
+			student_email studentEmail,
+			student_name studentName, 
+			student_phone studentPhone,
+			student_gender studentGender,
+			student_birth studentBirth,
+			student_address_main studentAddressMail,
+			student_address_sub studentAddressSub
+		FROM student_queue
+		WHERE account_id = #{accountId}
 	</select>
 	
+	<!-- 학생 승인대기 정보 입력 -->
 	<insert id="insertStudentQueue">
+		INSERT INTO student_queue(
+			account_id,
+			student_email,
+			student_name,
+			student_phone,
+			student_gender,
+			student_birth,
+			student_address_main,
+			student_address_sub
+		) VALUES (
+			#{accountId},
+			#{studentEmail},
+			#{studentName},
+			#{studentPhone},
+			#{studentGender},
+			#{studentBirth},
+			#{studentAddressMail},
+			#{studentAddressSub}
+		)
 	</insert>
+	<!-- 학생 승인대기 정보 삭제 -->
 	<delete id="deleteStudentQueue">
+		DELETE FROM student_queue
+		WHERE account_id = #{studentQueue}
 	</delete>
 </mapper>

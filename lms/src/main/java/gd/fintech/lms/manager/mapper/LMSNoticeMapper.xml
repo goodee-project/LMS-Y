@@ -35,6 +35,10 @@
 		WHERE lms_notice_title LIKE '%#{lmsNoticeTitle}%' OR lms_notice_writer LIKE '%#{lmsNoticeWriter}%'
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	<select id="selectLMSNoticeCount">
+		SELECT COUNT(*) lmsNoticeCount
+		FROM lms_notice
+	</select>
 	
 	<!-- lms공지사항 입력 -->
 	<insert id="insertLMSNotice" parameterType="gd.fintech.lms.manager.vo.LMSNotice">

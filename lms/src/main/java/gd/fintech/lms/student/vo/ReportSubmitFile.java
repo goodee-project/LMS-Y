@@ -16,7 +16,7 @@ public class ReportSubmitFile {
 	private int reportSubmitNo;
 	
 	// 과제제출 파일 사이즈
-	private int reportSubmitFileSize;
+	private long reportSubmitFileSize;
 	
 	// 과제제출 파일 확장자
 	private String reportSubmitFileType;

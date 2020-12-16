@@ -1,4 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.TeacherQueueMapper">
+	<!-- 강사 승인대기 리스트-->
+	<select id="selectTeacherQueueList" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
+		SELECT
+			teacher_name, 
+			teacher_phone
+		FROM teacher_queue
+	</select>
+	<!-- 강사 승인대기 상세보기 -->
+	<select id="selectTeacherQueueDetail" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
+		SELECT
+			account_id accountId,
+			teacher_email teacherEmail,
+			teacher_name teacherName, 
+			teacher_phone teacherPhone,
+			teacher_gender teacherGender,
+			teacher_birth teacherBirth,
+			teacher_address_main teacherAddressMail,
+			teacher_address_sub teacherAddressSub
+		FROM teacher_queue
+		WHERE account_id = #{accountId}
+	</select>
+	
+	<!-- 강사 승인대기 정보 입력 -->
+	<insert id="insertTeacherQueue">
+		INSERT INTO teacher_queue(
+			account_id,
+			teacher_email,
+			teacher_name,
+			teacher_phone,
+			teacher_gender,
+			teacher_birth,
+			teacher_address_main,
+			teacher_address_sub
+		) VALUES (
+			#{accountId},
+			#{teacherEmail},
+			#{teacherName},
+			#{teacherPhone},
+			#{teacherGender},
+			#{teacherBirth},
+			#{teacherAddressMail},
+			#{teacherAddressSub}
+		)
+	</insert>
+	<!-- 강사 승인대기 정보 삭제 -->
+	<delete id="deleteTeacherQueue">
+		DELETE FROM teacher_queue
+		WHERE account_id = #{accountId}
+	</delete>
 </mapper>

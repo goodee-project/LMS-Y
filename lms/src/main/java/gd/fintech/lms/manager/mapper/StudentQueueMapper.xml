@@ -48,6 +48,6 @@
 	<!-- 학생 승인대기 정보 삭제 -->
 	<delete id="deleteStudentQueue">
 		DELETE FROM student_queue
-		WHERE account_id = #{studentQueue}
+		WHERE account_id = #{accountId}
 	</delete>
 </mapper>

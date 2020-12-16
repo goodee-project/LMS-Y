@@ -16,7 +16,7 @@ public class QuestionCommentFile {
 	private int questionCommentNo;
 	
 	// 첨부파일 용량
-	private int questionCommentFileSize;
+	private long questionCommentFileSize;
 	
 	// 첨부파일 MIME 타입
 	private String questionCommentFileType;

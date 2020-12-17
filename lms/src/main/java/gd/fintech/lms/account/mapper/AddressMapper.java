@@ -1,5 +1,7 @@
 package gd.fintech.lms.account.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.account.vo.Address;
@@ -8,6 +10,7 @@ import gd.fintech.lms.account.vo.Address;
 
 @Mapper
 public interface AddressMapper {
-	// 모든 주소를 조회하는 메소드
-	Address selectAddress();	
+	// 우편번호로 주소 목록을 조회하는 메소드
+	// 매개변수: 우편번호
+	List<Address> getAddressByZipCode(String zipCode);
 }

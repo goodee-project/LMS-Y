@@ -76,6 +76,5 @@
 			</tr>
 		</table>
 	</form>
-</div>	
-</.body>
+</div>
 </html>

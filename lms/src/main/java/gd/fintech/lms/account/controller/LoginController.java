@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.account.vo.Account;
-import gd.fintech.lms.account.service.MemberService;
+import gd.fintech.lms.account.service.AccountService;
 
 // 로그인 처리를 위한 컨트롤러 클래스
 
 @Controller
 public class LoginController {
 	// MemberService 객체 주입
-	@Autowired MemberService memberService;	
+	@Autowired AccountService accountService;
 	
 	// 처음 접속시 로그인을 위한 페이지로 이동하는 메소드
 	// 리턴값: 전체 login 뷰페이지
@@ -60,9 +60,9 @@ public class LoginController {
 	public String login(Account account, HttpSession session,
 			@RequestParam(value = "pageLevel") int pageLevel,
 			HttpServletResponse response) throws IOException {
-		System.out.println(pageLevel + "페이지 레벨");
-		// 서비스에서 계정 조회 결과 가져오기
-		Account memberCk = memberService.getMemberById(account);
+		//System.out.println(pageLevel + "페이지 레벨");
+		// 서비스에서 계정 조회 결과(accountId, accountLevel) 가져오기
+		Account memberCk = accountService.getMemberById(account);
 		
 		// 계정이 없는 경우, 로그인 페이지별 상위 레벨의 계정에 접근시 해당 계정에 대한 로그인 제한하기
 		if(pageLevel != memberCk.getAccountLevel() || memberCk == null) {
@@ -73,10 +73,9 @@ public class LoginController {
 			return "redirect:/login";
 		}
 		
-		
 		// 계정이 있는 경우 세션에 아이디 정보 담기
 		session.setAttribute("accountId", memberCk.getAccountId());
-		// 계정이 있는 경우 세션에 level 정보 담기
+		// 계정이 있는 경우 세션에 level 담기
 		session.setAttribute("accountLevel", memberCk.getAccountLevel());
 		
 		// 학생 권한에 따른 인덱스 페이지 이동

@@ -95,4 +95,13 @@ public class LoginController {
 			return "redirect:/auth/admin/index";
 		}	
 	}
+	
+	// 로그아웃을 위한 기능 메소드
+	// 매개변수: 세션값(세션에 등록된 계정을 삭제하기 위함)
+	// 리턴값: 초기 로그인뷰
+	@GetMapping("/auth/logout")
+	public String logout(HttpSession session) {
+		session.invalidate(); 	// 세션 종료
+		return "/login";
+	}
 }

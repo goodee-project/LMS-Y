@@ -13,4 +13,11 @@
 			account_id = #{accountId}
 			AND account_pw = PASSWORD(#{accountPw})
 	</select>
+	
+	<!-- 계정 활성화 여부를 수정하는 쿼리 -->
+	<update id="updateAccountStateByAccountId" parameterType="gd.fintech.lms.account.vo.Account">
+		UPDATE account
+		SET account_state = "활성화"
+		WHERE account_id = #{accountId}
+	</update>
 </mapper>

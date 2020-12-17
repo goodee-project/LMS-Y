@@ -25,10 +25,6 @@ public interface FAQCategoryMapper {
 	// 리턴값: 행의 수정
 	int updateFAQCategory(FAQCategory faqCategory);
 		
-	// FAQ카테고리 삭제
-	// 매개변수: 카테고리  
-	// 리턴값:  행의 삭제
-	int deleteFAQCategory(int faqCategoryNo);	
 	
 
 }

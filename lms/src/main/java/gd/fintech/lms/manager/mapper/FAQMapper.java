@@ -17,7 +17,7 @@ public interface FAQMapper {
   	
   	// FAQ 개수
   	// 리턴값: FAQ의 행의 총 개수
-	int selectFAQTotalCount();
+	int selectFAQCount();
 	
 	// FAQ 입력
 	// 매개변수: FAQ의 정보  
@@ -37,7 +37,7 @@ public interface FAQMapper {
 	// FAQ 상세보기
 	// 매개변수: FAQ의 번호
 	// 리턴값: 선택한 FAQ번호 해당하는 FAQ 상세한 정보  
-	FAQ selectFAQOne(int faqNo); 
+	FAQ selectFAQDetail(int faqNo); 
 
 	
 	

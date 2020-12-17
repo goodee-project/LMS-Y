@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.FAQMapper">
 
-	<!-- FAQ  페이징 -->
+	<!-- FAQ  목록  -->
 	<select id="selectFAQListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.FAQ" >
 	 SELECT 
-		faq_no faqNo, 
-		faq_writer faqWriter, 
-		faq_title faqTitle, 
-		faq_updatedate fagUpdateDate,
-		faq_category faqCategory
+	   faq_no faqNo, 
+	   faq_writer faqWriter, 
+	   faq_title faqTitle, 
+       faq_updatedate fagUpdateDate,
+	   faq_category faqCategory
 	 FROM faq 
 	 LIMIT #{beginRow},#{rowPerPage}
 	
@@ -17,7 +17,7 @@
 	</select>
   
     <!-- FAQ 행의 개수 -->
-	 <select id="selectFAQTotalCount" resultType="int">
+	 <select id="selectFAQCount" resultType="int">
 
 	  SELECT 
 	 	COUNT(*)
@@ -26,7 +26,7 @@
 	</select>
 	 
 	 <!-- FAQ의 상세정보 -->
-	<select id="selectFAQOne">
+	<select id="selectFAQDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.FAQ">
 	 SELECT 
 		faq_no faqNo,
 		faq_title faqTitle,
@@ -73,13 +73,13 @@
 	WHERE faq_no = #{faqNo}
 	
 	</update>
-    
-    <!-- FAQ 삭제  -->
-	<delete id="deleteFAQ">
-	DELETE FROM faq
-	WHERE faq_no =#{faqNo}
 	
-	</delete>
+    <!-- 선택한 FAQ 삭제 -->
+    <delete id="deleteFAQ" parameterType="int">
+     DELETE FROM faq
+     WHERE faq_no = #{faqNo}
+    </delete>
+   
 
 
 </mapper>

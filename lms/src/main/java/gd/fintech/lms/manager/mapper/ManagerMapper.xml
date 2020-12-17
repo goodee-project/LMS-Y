@@ -1,13 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.ManagerMapper">
-
-	<select id="select">
-	
-	
-	
+ 
+     <!-- 운영자의 정보 상세보기 -->
+	<select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
+	 SELECT
+	 	manager_email managerEmail,
+	 	manager_phone managerPhone,
+	 	manager_name managerName,
+	 	manager_gender managerGender,
+	 	manager_birth managerBirth,
+	 	manager_position managerPosition,
+	 	manager_address_main managerAddressMain,
+	 	manager_address_sub managerAddressSub,
+	 	manager_image managerImage	
+	 FROM manager
+	 WHERE account_id =#{accountId}
 	
 	</select>
+	
+	
+	
+	<!-- 운영자의 정보 수정하기  -->
+	<update id= "updateManager" parameterType="gd.fintech.lms.manager.vo.Manager">
+	  UPDATE manager 
+	  SET
+		manager_email =#{managerEmail},	 	 
+		manager_phone =#{managerPhone},
+		manager_name  =#{managerName},
+		manager_gender =#{managerGender},
+		manager_birth  	=#{managerBirth},
+		manager_position =#{managerPosition},
+		manager_address_main =#{managerAddressMain},
+		manager_address_sub  =#{managerAddressSub},
+		manager_image =#{managerImage}
+	  WHERE account_id = #{accountId}
+		
+	</update>
+	
+	<!-- 운영자 정보 입력 -->
+	<insert id="insertManager" parameterType="gd.fintech.lms.manager.vo.Manager">
+		INSERT INTO manager (
+			account_id,
+			manager_email,
+			manager_name,
+			manager_phone,
+			manager_gender,
+			manager_birth,
+			manager_address_main,
+			manager_address_sub
+		) VALUES (
+			#{accountId},
+			#{managerEmail},
+			#{managerName},
+			#{managerPhone},
+			#{managerGender},
+			#{managerBirth},
+			#{managerAddressMain},
+			#{managerAddressSub}
+		)
+	</insert>
+	
+	
 
 
 

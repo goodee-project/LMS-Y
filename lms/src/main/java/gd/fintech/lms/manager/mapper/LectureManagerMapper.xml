@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.manager.mapper.LectureManagerMapper">
+	
+	
+	<!-- 운영자가 개설한 강좌의 리스트 -->
+	<select id="selectLectureListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Lecture">
+	 SELECT 
+       lecture_no lectureNo,
+       teacher_name teacherName,
+       lecture_name lectureName,
+       lecture_startdate lectureName,
+       lecture_enddate lectureEndDate,
+       lecture_total lectureTotal,
+       lecture_updatedate lectureUpdateDate
+	 FROM lecture 
+	 LIMIT #{beginRow},#{rowPerPage} 
+	  
+	</select>
+	 <!-- 총 강좌 수 -->
+	 <select id="selectLectureCount" resultType="int">
+	  SELECT 
+	 	COUNT(*)
+	  FROM lecture	
+		
+	</select>
+	
+	<!--  강좌 개설 -->
+	<insert id="insertLecture" parameterType="gd.fintech.lms.manager.vo.Lecture">
+  	INSERT INTO lecture(
+	  account_id,
+	  subject_no,
+	  teacher_name,
+ 	  lecture_name,
+	  textbook_isbn,
+	  lecture_startdate,
+	  lecture_enddate,
+	  lecture_total,
+	  syllabus_no,
+	  classroom_no,
+	  lecture_createdate,
+	  lecture_updatedate
+	 
+    )VALUES (
+	  #{accountId},
+	  #{subjectNo},
+	  #{teacherName},
+	  #{lectureName},
+	  #{textbookIsbn},
+	  #{lectureStartDate},
+	  #{lectureEndDate},
+	  #{lectureTotal},
+	  #{syllabusNo},
+	  #{classroomNo},
+	  NOW(),
+	  NOW()
+	
+	)
+	
+	</insert>
+	
+	<!-- 강좌 수정 -->
+	<update id="updateLecture" parameterType="gd.fintech.lms.manager.vo.Lecture" >
+	 UPDATE lecture
+     SET
+        account_id = #{accountId},
+        subject_no = #{subjectNo},
+        teacher_name =#{teacherName},
+        lecture_name =#{lectureName},
+        textbook_isbn =#{textbookIsbn},
+        lecture_startdate =#{lectureStartDate},
+        lecture_endDate =#{lectureEndDate},
+        lecture_total =#{lectureTotal},
+        classroom_no =#{ClassroomNo},
+        lecture_updatedate = NOW()
+     WHERE lecture_no =#{lectureNo}
+	
+	
+	</update>
+	
+	
+
+	
+</mapper>

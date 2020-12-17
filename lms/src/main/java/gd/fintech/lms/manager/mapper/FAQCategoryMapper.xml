@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.manager.mapper.FAQCategoryMapper">
+	
+	<!-- faq 카테고리 리스트 -->
+ 	<select id="selectFAQCategoryList" resultType="gd.fintech.lms.manager.vo.FAQCategory">
+    SELECT 
+		faq_category faqCategory
+ 	FROM faq_category
+ 
+ 	</select>
+	
+	  <!-- faq 카테고리를 추가 -->
+	<insert id="insertFAQCategory" parameterType="gd.fintech.lms.manager.vo.FAQCategory">
+	INSERT INTO faq_category(   
+      faq_category 
+	)VALUE(
+	  #{faqCategory}
+    )
+	
+	</insert>
+	
+	<!-- faq 카테고리를 수정 -->
+	<update id="updateFAQCategory" parameterType="gd.fintech.lms.manager.vo.FAQCategory" >
+	UPDATE faq_category
+    SET
+      faq_category = #{faqCategory}
+    WHERE faq_category = #{faqCategory}
+	
+	
+	</update>
+	
+
+
+</mapper>

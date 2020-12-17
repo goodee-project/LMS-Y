@@ -18,8 +18,8 @@
 		SELECT
 			account_id accountId,
 			manager_email managerEmail,
-			manager_phone managerPhone,
 			manager_name managerName,
+			manager_phone managerPhone,
 			manager_gender managerGender,
 			manager_birth managerBirth,
 			manager_address_main managerAddressMain,
@@ -34,7 +34,7 @@
 			account_id,
 			manager_email,
 			manager_name,
-			namager_phone,
+			manager_phone,
 			manager_gender,
 			manager_birth,
 			manager_address_main,

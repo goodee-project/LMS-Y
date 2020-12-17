@@ -5,11 +5,11 @@
 <mapper namespace="gd.fintech.lms.account.mapper.AddressMapper">
 	<select id="getAddressByZipCode" parameterType="String" resultType="gd.fintech.lms.account.vo.Address">
 		SELECT 
-			zip_code,
-			province,
-			city,
-			town,
-			street
+			zip_code zipCode,
+			province province,
+			city city,
+			town town,
+			street street
 		FROM address
 		WHERE zip_code = #{zipCode}
 	</select>

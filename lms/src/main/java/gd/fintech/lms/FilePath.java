@@ -16,7 +16,7 @@ public class FilePath {
 		if (System.getProperty("os.name").toLowerCase().equals("linux")) { // 리눅스 운영체제일 경우 (LMS-Y AWS 인스턴스)
 			// Tomcat 경로를 붙여주고, ROOT 패스에 lms-upload 경로를 만들어 사용
 			// war파일과 연관된 경로로 설정 시 첨부파일이 계속 초기화되기에, 부득이하게 편법을 사용함
-			filePath = TOMCAT_PATH+"/webapps/ROOT/lms/upload";
+			filePath = TOMCAT_PATH+"/webapps/ROOT/lms-upload";
 		} else { // 리눅스 운영체제가 아닐 경우 (Windows + STS 개발 환경)
 			// 프로젝트 경로를 받아오고, \\(역슬래시)를 /(슬래시)로 바꿔줌
 			String projectPath = System.getProperty("user.dir").replaceAll("\\\\", "/");

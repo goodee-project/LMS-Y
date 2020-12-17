@@ -12,6 +12,7 @@
 	<h1>강사 인덱스</h1>
 	<div></div>
 	<a href="${pageContext.request.contextPath}/auth/teacher/teacherOne?accountId=${accountId}">[강사정보]</a>
+	<a href="${pageContext.request.contextPath}/auth/teacher/modifyTeacher?accountId=${accountId}">[수정]</a>
 	<a href="${pageContext.request.contextPath}/auth/teacher/teacherOne">[공지사항]</a>
 	<a href="${pageContext.request.contextPath}/">[로그아웃]</a>
 </body>

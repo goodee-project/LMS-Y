@@ -19,4 +19,9 @@ public interface TeacherMapper {
 	//리턴값:변경된 행 갯수
 	int updateTeacherInfo(Teacher teacher);
 	
+	//강사 승인대기 정보 입력
+	//매개변수:강사승인대기의 모든정보
+	//리턴값:변경된 행 갯수
+	int insertTeacher(Teacher teacher);
+	
 }

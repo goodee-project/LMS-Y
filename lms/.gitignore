@@ -102,3 +102,6 @@ local.properties
 .sts4-cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
+
+# Uploaded file path
+**/src/main/resources/static/upload/

@@ -23,6 +23,9 @@ public class MultipleChoice {
 	// 객관식 문제 정답
 	private String multipleChoiceAnswer;
 	
+	// 객관식 문제에 부여된 점수
+	private int multipleChoiceScore;
+	
 	// 이 행을 생성한 날짜 (사용자 임의 기입 불가, NOW())
 	private String multipleChoiceCreateDate;
 	

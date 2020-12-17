@@ -78,6 +78,14 @@
 		WHERE r.report_no = #{reportNo}
 	</select>
 	
+	<!-- 과제 갯수 출력 쿼리 -->
+	<select id="selectReportCount" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM report
+		WHERE lecture_no = #{lectureNo}
+	</select>
+	
 	<!-- 과제 생성 쿼리 -->
 	<insert id="insertReport" parameterType="gd.fintech.lms.teacher.vo.Report">
 		INSERT INTO report (

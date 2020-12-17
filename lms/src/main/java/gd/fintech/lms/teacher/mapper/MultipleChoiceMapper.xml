@@ -6,6 +6,7 @@
 		<result property="multipleChoiceNo" column="multiplechoice_no" />
 		<result property="lectureNo" column="lecture_no" />
 		<result property="multipleChoiceQuestion" column="multiplechoice_question" />
+		<result property="multipleChoiceScore" column="multiplechoice_score" />
 		<result property="multipleChoiceCreateDate" column="multiplechoice_createdate" />
 		<result property="multipleChoiceUpdateDate" column="multiplechoice_updatedate" />
 		<collection property="multipleChoiceExampleList" ofType="gd.fintech.lms.teacher.vo.MultipleChoiceExample">
@@ -22,6 +23,7 @@
 			m.lecture_no,
 			m.multiplechoice_id,
 			m.multiplechoice_question,
+			m.multiplechoice_score,
 			m.multiplechoice_createdate,
 			m.multiplechoice_updatedate,
 			me.multiplechoice_example_no,
@@ -43,10 +45,19 @@
 			multiplechoice_id multipleChoiceId,
 			multiplechoice_question multipleChoiceQuestion,
 			multiplechoice_answer multipleChoiceAnswer,
+			multiplechoice_score multipleChoiceScore,
 			multiplechoice_createdate multipleChoiceCreateDate,
 			multiplechoice_updatedate multipleChoiceUpdateDate
 		FROM multiplechoice
 		WHERE multiplechoice_no = #{multipleChoiceNo}
+	</select>
+	
+	<!-- 객관식 문제 갯수 출력 쿼리 -->
+	<select id="selectMultipleChoiceCount" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM multiplechoice
+		WHERE lecture_no = #{lecture_no}
 	</select>
 	
 	<!-- 객관식 문제 생성 쿼리 -->
@@ -56,6 +67,7 @@
 			multiplechoice_id,
 			multiplechoice_question,
 			multiplechoice_answer,
+			multiplechoice_score,
 			multiplechoice_createdate,
 			multiplechoice_updatedate
 		) VALUES (
@@ -63,6 +75,7 @@
 			#{multipleChoiceId},
 			#{multipleChoiceQuestion},
 			#{multipleChoiceAnswer},
+			#{multipleChoiceScore},
 			NOW(),
 			NOW()
 		)
@@ -75,6 +88,7 @@
 			multiplechoice_id = #{multipleChoiceId},
 			multiplechoice_question = #{multipleChoiceQuestion},
 			multiplechoice_answer = #{multipleChoiceAnswer},
+			multiplechoice_score = #{multipleChoiceScore},
 			multiplechoice_updatedate = NOW()
 		WHERE multiplechoice_no = #{multipleChoiceNo}
 	</update>

@@ -10,14 +10,19 @@
 	<result property="classRegistrationPoint" column="class_registration_point"/>
 	<result property="classRegistrationReview" column="class_registration_review"/>
 	<result property="classRegistrationCreateDate" column="class_registration_createdate"/>
-	<collection property="LectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
-		<result property="" column=""/>
-		<result property="" column=""/>
-		<result property="" column=""/>
-		<result property="" column=""/>
-		<result property="" column=""/>
-		<result property="" column=""/>
-		<result property="" column=""/>
+	<collection property="lectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
+		<result property="accountId" column="account_id"/>
+		<result property="subjectNo" column="subject_no"/>
+		<result property="teacherName" column="teacher_name"/>
+		<result property="lectureName" column="lecture_name"/>
+		<result property="textbookISBN" column="textbook"/>
+		<result property="lectureStartDate" column=""/>
+		<result property="lectureEndDate" column=""/>
+		<result property="lectureTotal" column=""/>
+		<result property="syllabusNo" column=""/>
+		<result property="classroomNo" column=""/>
+		<result property="lectureCreateDate" column=""/>
+		<result property="lectureUpdateDate" column=""/>
 		<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
 			<result property="subjectNo" column="subject_no"/>
 			<result property="subjectName" column="subject_name"/>
@@ -29,7 +34,7 @@
 		<!-- lectrue 에 먼저 생성 후 가지고 와야함 -->
 	</collection>
 </resultMap>
-	<select id="selectClassRegistrationOne" parameterType="" resultMap="ResultClassRegistration">
+	<select id="selectClassRegistrationOne" parameterType="int" resultMap="ResultClassRegistration">
 		
 	</select>
 		

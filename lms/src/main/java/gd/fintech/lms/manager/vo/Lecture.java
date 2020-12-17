@@ -49,5 +49,8 @@ public class Lecture {
 	
 	// 강좌 정보 리스트
 	private List<Lecture>lectureInfo;
+	
+	// 강좌의 과목 정보 리스트
+	private List<Subject>subjectInfoList;
 
 }

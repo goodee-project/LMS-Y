@@ -24,7 +24,7 @@ public class Question {
 	private String questionTitle;		
 	
 	//질문 내용
-	private String questionContext;		
+	private String questionContent;		
 	
 	//질문 생성 날짜
 	private String questionCreateDate;	

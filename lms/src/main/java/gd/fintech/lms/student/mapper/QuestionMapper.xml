@@ -9,7 +9,7 @@
 			account_id accountId,
 			question_writer questionWriter,
 			question_title questionTitle,
-			question_context questionContext,
+			question_content questionContent,
 			question_createdate questionCreateDate,
 			question_updatedate questionUpdateDate,
 			question_count questionCount,
@@ -26,7 +26,7 @@
 		<result property="accountId" column="account_id"/>
 		<result property="questionWriter" column="question_writer"/>
 		<result property="questionTitle" column="question_title"/>
-		<result property="questionContext" column="question_context"/>
+		<result property="questionContent" column="question_content"/>
 		<result property="questionCreateDate" column="question_createdate"/>
 		<result property="questionUpdateDate" column="question_updatedate"/>
 		<result property="questionCount" column="question_count"/>
@@ -35,7 +35,7 @@
 			<result property="questionCommentNo" column="question_comment_no"/>
 			<result property="questionNo" column="question_no"/>
 			<result property="accountId" column="account_id"/>
-			<result property="questionCommentContext" column="question_comment_context"/>
+			<result property="questionCommentContent" column="question_comment_context"/>
 			<result property="questionCommentCreateDate" column="question_comment_createdate"/>
 			<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>
 			<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
@@ -58,7 +58,7 @@
 			q.account_id,
 			q.question_writer,
 			q.question_title,
-			q.question_context,
+			q.question_content,
 			q.question_createdate,
 			q.question_updatedate,
 			q.question_count,
@@ -67,7 +67,7 @@
 			qc.question_no,
 			qc.account_id,
 			qc.question_comment_writer,
-			qc.question_comment_context,
+			qc.question_comment_content,
 			qc.question_comment_createdate,
 			qc.question_comment_updatedate,
 			qcf.question_comment_file_uuid,
@@ -93,7 +93,7 @@
 			lecture_no lectureNo,
 			question_writer questionWriter,
 			question_title questionTitle,
-			question_context questionContext,
+			question_context questionContent,
 			question_createdate questionCreateDate,
 			question_updatedate questionUpdateDate,
 			question_count questionCount,
@@ -103,7 +103,7 @@
 			#{lectureNo},
 			#{questionWriter},
 			#{questionTitle},
-			#{questionContext},
+			#{questionContent},
 			NOW(),
 			NOW(),
 			#{questionCount},
@@ -120,7 +120,7 @@
 			account_id accountId,
 			question_writer questionWriter,
 			question_title questionTitle,
-			question_context questionContext,
+			question_context questionContent,
 			question_createdate questionCreateDate,
 			question_updatedate questionUpdateDate,
 			question_count questionCount
@@ -134,7 +134,7 @@
 		UPDATE question
 		SET
 			question_title=#{questionTitle},
-			question_context=#{questionContext},
+			question_content=#{questionContent},
 			question_updatedate=NOW()
 		WHERE account_id=#{accountId}
 	</update>

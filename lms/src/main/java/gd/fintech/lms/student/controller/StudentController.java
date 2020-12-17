@@ -1,6 +1,6 @@
 package gd.fintech.lms.student.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class StudentController {
 	@GetMapping("/auth/student/&&&&&&")
 	public String studentOne(Model model,
 			@RequestParam(value="accountId")String accountId) {
-		List<Student> studentOne=studentService.getStudentOne(accountId);
+		Student studentOne=studentService.getStudentOne(accountId);
 		model.addAttribute("studentOne",studentOne);
 		return "studentOne";
 	}

@@ -2,8 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.StudentMapper">
 	
-	
-	
+	<!-- 학생 회원가입시 필요한 기본정보 -->
+	<insert id="insertStudent" parameterType="gd.fintech.lms.student.vo.Student">
+	INSERT INTO student_queue(
+			account_id,
+			student_email,
+			student_name,
+			student_phone,
+			student_gender,
+			student_birth,
+			student_address_main,
+			student_address_sub
+		) VALUES (
+			#{accountId},
+			#{studentEmail},
+			#{studentName},
+			#{studentPhone},
+			#{studentGender},
+			#{studentBirth},
+			#{studentAddressMail},
+			#{studentAddressSub}
+		)
+	</insert>
 	<!-- 학생(내정보) 상세보기-->
 	<select id="selectStudentOne" parameterType="String" resultType="gd.fintech.lms.student.vo.Student">
 		SELECT

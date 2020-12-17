@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import gd.fintech.lms.student.vo.ReportSubmit;
 
 // 과제제출 mapper
-
 @Mapper
 public interface ReportSubmitMapper {
 	// 과제제출 세부내용

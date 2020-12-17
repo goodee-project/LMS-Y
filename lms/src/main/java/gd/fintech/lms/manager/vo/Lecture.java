@@ -1,5 +1,7 @@
 package gd.fintech.lms.manager.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 //  강좌 vo :  운영자가 개설할 강좌 관련 vo
@@ -44,5 +46,8 @@ public class Lecture {
 	
 	// 강좌 수정날짜
 	private String lectureUpdateDate; 
+	
+	// 강좌 정보 리스트
+	private List<Lecture>lectureInfo;
 
 }

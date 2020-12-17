@@ -6,7 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.student.vo.AnswerSheet;
-
+// 학생이 내는 답안지 
 @Mapper
 public interface AnswerSheetMapper {
 	

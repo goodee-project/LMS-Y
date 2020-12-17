@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.QuestionMapper">
-	<!-- 질문게시판 목록 강사의 댓글과 파일 및 페이징-->
-	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOneCommentResult">
+	<!--학생이 보는 질문게시판 리스트 페이징-->
+	<select id="selectQuestionListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.Question">
+		SELECT
+			question_no questionNo,
+			Lecture_no lectureNo,
+			account_id accountId,
+			question_writer questionWriter,
+			question_title questionTitle,
+			question_context questionContext,
+			question_createdate questionCreateDate,
+			question_updatedate questionUpdateDate,
+			question_count questionCount,
+			question_password questionPassword
+		FROM
+			question
+		WHERE question_no=#{questionNo}
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
+	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>
 		<result property="accountId" column="account_id"/>
@@ -13,29 +31,59 @@
 		<result property="questionUpdateDate" column="question_updatedate"/>
 		<result property="questionCount" column="question_count"/>
 		<result property="questionPassword" column="question_password"/>
-	<collection property="questionComment" ofType="gd.fintech.lms.teacher.vo.QuestionComment">
-		<result property="questionCommentNo" column="question_comment_no"/>
-		<result property="questionNo" column="question_no"/>
-		<result property="accountId" column="account_id"/>
-		<result property="questionCommentContext" column="question_comment_context"/>
-		<result property="questionCommentCreateDate" column="question_comment_createdate"/>
-		<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>
-		<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
-			<result property="questionCommentFileUUID" column="question_comment_file_uuid"/>
-			<result property="questionCommentFileOriginal" column="question_comment_file_original"/>
-			<result property="questionCommentNo" column="qeustion_comment_no"/>
-			<result property="questionCommentFileSize" column="question_comment_file_size"/>
-			<result property="questionCommentFileType" column="question_comment_file_type"/>
-			<result property="questionCommentFileCount" column="question_comment_file_count"/>
-			<result property="questionCommentFileCreateDate" column="question_comment_file_createdate"/>
+		<collection property="questionComment" ofType="gd.fintech.lms.teacher.vo.QuestionComment">
+			<result property="questionCommentNo" column="question_comment_no"/>
+			<result property="questionNo" column="question_no"/>
+			<result property="accountId" column="account_id"/>
+			<result property="questionCommentContext" column="question_comment_context"/>
+			<result property="questionCommentCreateDate" column="question_comment_createdate"/>
+			<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>
+			<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
+				<result property="questionCommentFileUUID" column="question_comment_file_uuid"/>
+				<result property="questionCommentFileOriginal" column="question_comment_file_original"/>
+				<result property="questionCommentNo" column="qeustion_comment_no"/>
+				<result property="questionCommentFileSize" column="question_comment_file_size"/>
+				<result property="questionCommentFileType" column="question_comment_file_type"/>
+				<result property="questionCommentFileCount" column="question_comment_file_count"/>
+				<result property="questionCommentFileCreateDate" column="question_comment_file_createdate"/>
+			</collection>
 		</collection>
-	</collection>
 	</resultMap>
 	
-	<!--학생이 보는 질문게시판 리스트 페이징-->
-	<select id="selectQuestionListByPage" resultType="gd.fintech.lms.student.vo.Question">
+	<!-- 학생의 질문 상세보기 -->
+	<select id="selectQuestionOne" parameterType="int" resultMap="ResultQustionOne">
 		SELECT
-	</select>
+			q.question_no,
+			q.lecture_no,
+			q.account_id,
+			q.question_writer,
+			q.question_title,
+			q.question_context,
+			q.question_createdate,
+			q.question_updatedate,
+			q.question_count,
+			q.question_password,
+			qc.question_comment_no,
+			qc.question_no,
+			qc.account_id,
+			qc.question_comment_writer,
+			qc.question_comment_context,
+			qc.question_comment_createdate,
+			qc.question_comment_updatedate,
+			qcf.question_comment_file_uuid,
+			qcf.question_comment_file_original,
+			qcf.question_comment_no,
+			qcf.question_comment_file_size,
+			qcf.question_comment_file_type,
+			qcf.question_comment_file_count,
+			qcf.question_comment_file_createdate
+		FROM question q
+			LEFT JOIN question_comment qc
+				ON q.question_no = qc.question_no
+			LEFT JOIN question_comment_file qcf
+				ON qc.question_comment_no = qcf.question_comment_no
+		WHERE q.question_no=#{questionNo}	
+	</select> 
 	
 	
 	<!-- 질문 추가 -->
@@ -43,32 +91,6 @@
 		INSERT INTO question(
 			
 			lecture_no lectureNo,
-			account_id accountId,
-			question_writer questionWriter,
-			question_title questionTitle,
-			question_context questionContext,
-			question_createdate questionCreateDate,
-			question_updatedate questionUpdateDate,
-			question_count questionCount
-		
-		) VALUES (
-			#{lectureNo},
-			#{accountId}
-			#{questionWriter}
-			#{questionTitle}
-			#{questionContext}
-			NOW(),
-			NOW(),
-			#{questionCount}
-		)	
-	</insert>
-	
-	<!-- 학생의 질문 상세보기 -->
-	<select id="selectQuestionOne" resultType="gd.fintech.lms.student.vo.Question">
-		SELECT
-			question_no questionNo,
-			lecture_no lectureNo,
-			account_id accountId,
 			question_writer questionWriter,
 			question_title questionTitle,
 			question_context questionContext,
@@ -76,20 +98,50 @@
 			question_updatedate questionUpdateDate,
 			question_count questionCount,
 			question_password questionPassword
-		FROM question
-		ORDER BY question_no DESC	
-	</select> 
+		
+		) VALUES (
+			#{lectureNo},
+			#{questionWriter},
+			#{questionTitle},
+			#{questionContext},
+			NOW(),
+			NOW(),
+			#{questionCount},
+			#{questionPassword}
+		)	
+	</insert>
+	
 	
 	<!-- 학생의 질문 수정 폼 -->
-	<update id="updateQuestionForm">
-		
-	</update>
+	<select id="updateQuestionForm" parameterType="int" resultType="gd.fintech.lms.student.vo.Question">
+		SELECT
+			question_no questionNo,
+			Lecture_no lectureNo,
+			account_id accountId,
+			question_writer questionWriter,
+			question_title questionTitle,
+			question_context questionContext,
+			question_createdate questionCreateDate,
+			question_updatedate questionUpdateDate,
+			question_count questionCount
+		FROM
+			question
+		WHERE question_no=#{questionNo}
+	</select>
 	
 	<!-- 학생의 질문 수정 -->
+	<update id="updateQuestion" parameterType="gd.fintech.lms.student.vo.Question">
+		UPDATE question
+		SET
+			question_title=#{questionTitle},
+			question_context=#{questionContext},
+			question_updatedate=NOW()
+		WHERE account_id=#{accountId}
+	</update>
 	
-	<!-- 학생의(자신의) 질문삭제 -->
-	<delete id="">
-	
+	<!-- 학생의 (자신의) 질문 삭제 -->
+	<delete id="deleteQuestion" parameterType="String">
+		DELETE FROM question WHERE account_id=#{accountId}
 	</delete>
 	
 	

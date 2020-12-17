@@ -53,8 +53,8 @@
 			student_gender=#{studentGender},
 			student_birth=#{studentBirth},
 			student_address_main=#{studentAdressMain},
-			student_address_sub=#{studentAdressSub}
-			
+			student_address_sub=#{studentAdressSub},
+			student_updatedate=#{studentUpdatedate}
 		WHERE account_id=#{accountId}
 	</update>
 </mapper>

@@ -28,7 +28,7 @@ public interface QuestionMapper {
 	//학생의 질문 삭제
 	//매개변수: 질문게시판 질문 번호
 	//리턴값: 삭제된 질문
-	int deleteQuestion(int questionNo);
+	int deleteQuestion(String accountId);
 
 	//학생의 질문 리스트 출력(페이징)
 	//매개변수: map을 이용해 beginRow,rowPerPage 

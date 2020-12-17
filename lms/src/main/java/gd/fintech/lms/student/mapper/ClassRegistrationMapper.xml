@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.ClassRegistrationMapper">
-<!-- 수강신청 목록의 수강 상세보기 -->
+<!-- 수강신청 목록의 과목 상세보기 -->
 <resultMap type="gd.fintech.lms.student.vo.ClassRegistration" id="ResultClassRegistration">
 	<result property="classRegistrationNo" column="class_registraion_no"/>
 	<result property="lectureNo" column="lecture_no"/>
@@ -10,19 +10,31 @@
 	<result property="classRegistrationPoint" column="class_registration_point"/>
 	<result property="classRegistrationReview" column="class_registration_review"/>
 	<result property="classRegistrationCreateDate" column="class_registration_createdate"/>
-	<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
-		<result property="subjectNo" column="subject_no"/>
-		<result property="subjectName" column="subject_name"/>
-		<result property="subjectCreateDate" column="subject_createdate"/>
-		<result property="subjectUpdateDate" column="subject_updatedate"/>
-		<result property="subjectTotalDay" column="subject_totalday"/>
-		<result property="subjectInfo" column="subject_info"/>
+	<collection property="LectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
+		<result property="" column=""/>
+		<result property="" column=""/>
+		<result property="" column=""/>
+		<result property="" column=""/>
+		<result property="" column=""/>
+		<result property="" column=""/>
+		<result property="" column=""/>
+		<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
+			<result property="subjectNo" column="subject_no"/>
+			<result property="subjectName" column="subject_name"/>
+			<result property="subjectCreateDate" column="subject_createdate"/>
+			<result property="subjectUpdateDate" column="subject_updatedate"/>
+			<result property="subjectTotalDay" column="subject_totalday"/>
+			<result property="subjectInfo" column="subject_info"/>
+		</collection>
+		<!-- lectrue 에 먼저 생성 후 가지고 와야함 -->
 	</collection>
 </resultMap>
+	<select id="selectClassRegistrationOne" parameterType="" resultMap="ResultClassRegistration">
+		
+	</select>
 		
 	<!-- 학생이 신청한 수강목록 페이징 -->
-	<select id="selectClassRegistrationByPage"  parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
-	
+	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultMap="ResultClassRegistration">
 		
 	</select>
 	

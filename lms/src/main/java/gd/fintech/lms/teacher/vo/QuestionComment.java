@@ -18,7 +18,7 @@ public class QuestionComment {
 	private String accountId;
 	
 	// 덧글 내용
-	private String questionCommentContext;
+	private String questionCommentContent;
 	
 	// 이 행을 생성한 날짜 (사용자 임의 기입 불가, NOW())
 	private String questionCommentCreateDate;

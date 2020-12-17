@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.QuestionCommentMapper">
-	<!-- 질문게시판 댓글 생성 쿼리 -->
+	<!-- 질문게시판 댓글 생성 쿼리 (실행 후 자동 삽입된 기본키 반환) -->
 	<insert id="insertQuestionComment">
+		<selectKey resultType="int" keyProperty="questionCommentNo" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO question_comment (
 			question_no,
 			account_id,
-			question_comment_context,
+			question_comment_content,
 			question_comment_createdate,
 			question_comment_updatedate
 		) VALUES (
 			#{questionNo},
 			#{accountId},
-			#{questionCommentContext},
+			#{questionCommentContent},
 			NOW(),
 			NOW()
 		)
@@ -22,7 +25,7 @@
 	<update id="updateQuestionComment">
 		UPDATE question_comment
 		SET
-			question_comment_context = #{questionCommentContext},
+			question_comment_content = #{questionCommentContent},
 			question_comment_updatedate = NOW()
 		WHERE question_comment_no = #{questionCommentNo}
 	</update>

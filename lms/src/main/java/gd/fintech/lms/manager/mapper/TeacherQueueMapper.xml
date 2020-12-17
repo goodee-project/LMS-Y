@@ -4,8 +4,9 @@
 	<!-- 강사 승인대기 리스트-->
 	<select id="selectTeacherQueueList" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
 		SELECT
-			teacher_name, 
-			teacher_phone
+			teacher_name teacherName,
+			teacher_email teacherEmail, 
+			teacher_phone teacherPhone
 		FROM teacher_queue
 	</select>
 	<!-- 강사 승인대기 상세보기 -->

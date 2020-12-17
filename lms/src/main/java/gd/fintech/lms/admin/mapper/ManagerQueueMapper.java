@@ -16,6 +16,11 @@ public interface ManagerQueueMapper {
 	// 리턴값: 회원가입 승인대기 중인 운영자의 개인정보의 일부 리스트
 	List<ManagerQueue> selectManagerQueueList(Map<String, Integer> map);
 	
+	// 
+	//
+	//
+	int selectManagerQueueCount();
+	
 	// 회원가입 승인대기 중인 운영자의 개인정보를 출력
 	// 매개변수: 운영자 아이디
 	// 리턴값: 운영자 아이디에 해당하는 회원가입 승인대기 중인 운영자의 개인정보

@@ -15,6 +15,13 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 교재 정보 리스트의 페이징을 위해 전체 항목 수를 출력하는 쿼리문 -->
+	<select id="selectTextbookCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM textbook
+	</select>
+	
 	<!-- 교재 정보의 상세정보 출력하는 쿼리문 -->
 	<select id="selectTextbookDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.Textbook">
 		SELECT

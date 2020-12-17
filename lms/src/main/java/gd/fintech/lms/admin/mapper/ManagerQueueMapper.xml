@@ -13,6 +13,11 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!--  -->
+	<select id="">
+	
+	</select>
+	
 	<!-- 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 쿼리문 -->
 	<select id="selectManagerQueueDetail" parameterType="String" resultType="gd.fintech.lms.admin.vo.ManagerQueue">
 		SELECT

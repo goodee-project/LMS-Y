@@ -42,7 +42,7 @@
 				<td>${teacher.teacherInfo}</td>
 			</tr>
 			<tr>
-				<td><a href="#"/>수정</td>
+				<td><a href="/auth/teacher/modifyTeacher?accountId=${accountId}">수정</a></td>
 			</tr>
 		</table>
 </body>

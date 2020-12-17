@@ -11,7 +11,7 @@ import gd.fintech.lms.manager.vo.StudentQueue;
 @Mapper
 public interface StudentQueueMapper {
 	// 학생 승인대기 리스트
-	// 리턴값 : 학생승인대기 정보(이름, 전화번호)의 리스트 
+	// 리턴값 : 학생승인대기 정보(계정ID, 이름, 이메일, 전화번호)의 리스트 
 	List<StudentQueue> selectStudentQueueList(); 
 	
 	// 학생 승인대기 인원보기

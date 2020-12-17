@@ -4,6 +4,7 @@
 	<!-- 학생 승인대기 리스트-->
 	<select id="selectStudentQueueList" resultType="gd.fintech.lms.manager.vo.StudentQueue">
 		SELECT
+			account_id accountId,
 			student_name studentName,
 			student_email studentEmail, 
 			student_phone studentPhone

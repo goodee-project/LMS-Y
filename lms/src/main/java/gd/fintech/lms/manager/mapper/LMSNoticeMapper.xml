@@ -32,7 +32,8 @@
 			lms_notice_writer lmsNoticeWriter, 
 			lms_notice_updatedate lmsNoticeUpdateDate
 		FROM lms_notice
-		WHERE lms_notice_title LIKE '%#{lmsNoticeTitle}%' OR lms_notice_writer LIKE '%#{lmsNoticeWriter}%'
+		WHERE lms_notice_title LIKE '%#{lmsNoticeTitle}%' 
+		OR lms_notice_writer LIKE '%#{lmsNoticeWriter}%'
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<select id="selectLMSNoticeCount">

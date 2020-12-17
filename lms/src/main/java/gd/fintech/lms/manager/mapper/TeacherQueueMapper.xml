@@ -4,6 +4,7 @@
 	<!-- 강사 승인대기 리스트-->
 	<select id="selectTeacherQueueList" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
 		SELECT
+			account_id accountId,
 			teacher_name teacherName,
 			teacher_email teacherEmail, 
 			teacher_phone teacherPhone

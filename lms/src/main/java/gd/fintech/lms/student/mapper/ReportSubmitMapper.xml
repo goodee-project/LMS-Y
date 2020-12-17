@@ -8,7 +8,7 @@
 		<result property="reportSubmitUpdateDate" column="report_submit_updatedate"/>
 		<result property="reportSubmitTitle" column="report_submit_title"/>
 		<result property="reportSubmitContent" column="report_submit_content"/>
-		<result property="reportSubmitPoint" column="report_submit_point"/>
+		<result property="reportSubmitScore" column="report_submit_score"/>
 		<result property="reportSubmitFeedback" column="report_submit_feedback"/>
 		<collection property="reportSubmitFileList" ofType="gd.fintech.lms.student.vo.ReportSubmitFile">
 			<result property="reportSubmitFileUUID" column="report_submit_file_uuid"/>
@@ -26,7 +26,7 @@
 			rs.report_submit_updatedate,
 			rs.report_submit_title,
 			rs.report_submit_content,
-			rs.report_submit_point,
+			rs.report_submit_score,
 			rs.report_submit_feedback,
 			rsf.report_submit_file_uuid,
 			rsf.report_submit_file_original,
@@ -39,7 +39,7 @@
 		WHERE rs.report_submit_no = #{report_submit_no}
 	</select>
 	
-	<!-- 과제제출 정보 입력 -->
+	<!-- 과제제출 정보 입력, 자동 증가값인 reportSubmitNo를 읽어오기위한 selectKey -->
 	<insert id="insertReportSubmit" parameterType="gd.fintech.lms.student.vo.ReportSubmit">
 		<selectKey resultType="int" keyProperty="reportSubmitNo" order="AFTER">
 	  		SELECT LAST_INSERT_ID()

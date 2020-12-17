@@ -30,7 +30,7 @@ public class ReportSubmit {
 	private String reportSubmitContent;
 	
 	// 과제 점수 
-	private int reportSubmitPoint;
+	private int reportSubmitScore;
 	
 	// 과제 피드백
 	private String reportSubmitFeedback;

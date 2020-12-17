@@ -11,7 +11,7 @@ import gd.fintech.lms.manager.vo.TeacherQueue;
 @Mapper
 public interface TeacherQueueMapper {
 	// 강사 승인대기 리스트
-	// 리턴값 : 강사승인대기 정보(이름, 전화번호)의 리스트 
+	// 리턴값 : 강사승인대기 정보(계정ID, 이름, 이메일, 전화번호)의 리스트 
 	List<TeacherQueue> selectTeacherQueueList();
 	
 	// 강사 승인대기 상세보기

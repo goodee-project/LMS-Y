@@ -18,10 +18,10 @@ public interface ManagerQueueMapper {
 	
 	// 회원가입 승인대기 중인 운영자의 개인정보를 출력
 	// 매개변수: 운영자 아이디
-	// 리턴값: 운영자 아이디에 해당하는 회원가입 승인대기 중인 운영자의 개인정보 상세보기
+	// 리턴값: 운영자 아이디에 해당하는 회원가입 승인대기 중인 운영자의 개인정보
 	ManagerQueue selectManagerQueueDetail(String accountId);
 	
-	// 회원가입 시 운영자의 개인정보를 입력
+	// 회원가입 시 운영자가 자신의 개인정보를 입력
 	// 매개변수: 회원가입 승인대기 중인 운영자의 개인정보 
 	// 리턴값: 변경된 행의 갯수
 	int insertManagerQueue(ManagerQueue managerQueue);

@@ -10,13 +10,13 @@ public class Manager {
 	private String accountId; 
 	
 	// 운영자 E-mail
-	private String managerEmail; 
-	
-	// 운영자 핸드폰 번호
-	private String managerPhone;
+	private String managerEmail;
 	
 	// 운영자 이름
 	private String managerName;
+	
+	// 운영자 핸드폰 번호
+	private String managerPhone;
 	
 	// 운영자 성별 
 	private String managerGender;

@@ -12,11 +12,11 @@ public class ManagerQueue {
 	// 운영자 이메일
 	private String managerEmail;
 	
-	// 운영자 전화번호
-	private String managerPhone;
-	
 	// 운영자 이름
 	private String managerName;
+	
+	// 운영자 전화번호
+	private String managerPhone;
 	
 	// 운영자 성별
 	private String managerGender;

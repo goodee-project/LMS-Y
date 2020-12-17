@@ -8,9 +8,7 @@
 		SELECT
 			manager_name managerName,
 			manager_email managerEmail,
-			manager_phone managerPhone,
-			manager_address_main managerAddressMain,
-			manager_gender managerGender
+			manager_phone managerPhone
 		FROM manager_queue
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -30,13 +28,13 @@
 		WHERE account_id = #{accountId}
 	</select>
 	
-	<!-- 회원가입 시 운영자의 개인정보를 입력하는 쿼리문 -->
+	<!-- 회원가입 시 운영자가 자신의 개인정보를 입력하는 쿼리문 -->
 	<insert id="insertManagerQueue" parameterType="gd.fintech.lms.admin.vo.ManagerQueue">
 		INSERT INTO managerQueue (
 			account_id,
 			manager_email,
-			namager_phone,
 			manager_name,
+			namager_phone,
 			manager_gender,
 			manager_birth,
 			manager_address_main,
@@ -44,8 +42,8 @@
 		) VALUES (
 			#{accountId},
 			#{managerEmail},
-			#{managerPhone},
 			#{managerName},
+			#{managerPhone},
 			#{managerGender},
 			#{managerBirth},
 			#{managerAddressMain},

@@ -19,6 +19,10 @@
 		WHERE question_no=#{questionNo}
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
+	
+	<select id="selectQuestionCount" parameterType="int" resultType="gd.fintech.lms.student.vo.Question">
+		SELECT COUNT(*) FROM question
+	</select>
 	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
@@ -87,9 +91,12 @@
 	
 	
 	<!-- 질문 추가 -->
-	<insert id="insertQuestion" parameterType="gd.fintech.lms.student.vo.Question">
+	<insert id="insertQuestion">
+		<selectKey resultType="int" keyProperty="questionNo" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO question(
-			
+			question_no questionNo,
 			lecture_no lectureNo,
 			question_writer questionWriter,
 			question_title questionTitle,
@@ -100,6 +107,7 @@
 			question_password questionPassword
 		
 		) VALUES (
+			#{questionNo},
 			#{lectureNo},
 			#{questionWriter},
 			#{questionTitle},

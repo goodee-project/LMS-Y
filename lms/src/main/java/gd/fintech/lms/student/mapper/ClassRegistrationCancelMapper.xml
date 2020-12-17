@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="gd.fintech.lms.student.mapper.ClassRegistrationCancelMapper">
+	<!-- 수강신청 취소 사유입력  -->
+	<insert id="insertCancel" parameterType="gd.fintech.lms.student.vo.AnswerSheet">
+		INSERT INTO class_registration_cancel(
+				class_registration_no,
+				cancel_createdate,
+				cancel_content
+		) VALUES (
+			#{classRegistrationNo},
+			NOW(),
+			#{cancelContent}
+		)
+	</insert>
+	<!-- 수강 취소(삭제) -->
+	<delete id="deleteClassRegistrationcancel" parameterType="int">
+		DELETE FROM class_registarion_cancel WHERE class_registration_no=#{classRegistrationNo}
+	</delete>
 </mapper>

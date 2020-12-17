@@ -4,7 +4,7 @@
 	
 	<!-- 학생 회원가입시 필요한 기본정보 -->
 	<insert id="insertStudent" parameterType="gd.fintech.lms.student.vo.Student">
-	INSERT INTO student_queue(
+	INSERT INTO student(
 			account_id,
 			student_email,
 			student_name,

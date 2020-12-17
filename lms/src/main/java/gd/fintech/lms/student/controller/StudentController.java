@@ -23,9 +23,4 @@ public class StudentController {
 		model.addAttribute("studentOne",studentOne);
 		return "studentOne";
 	}
-	
-	//학생 정보 수정폼
-	
-	//학생 정보 수정 액션
-	// 추후 생성
 }

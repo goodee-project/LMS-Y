@@ -31,16 +31,61 @@
 			<result property="subjectTotalDay" column="subject_totalday"/>
 			<result property="subjectInfo" column="subject_info"/>
 		</collection>
-		<!-- lectrue 에 먼저 생성 후 가지고 와야함 -->
 	</collection>
 </resultMap>
-	<select id="selectClassRegistrationOne" parameterType="int" resultMap="ResultClassRegistration">
-		
-	</select>
 		
 	<!-- 학생이 신청한 수강목록 페이징 -->
 	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultMap="ResultClassRegistration">
-		
+		SELECT
+			class_registration_no classRegistrationNo,
+			lecture_no,
+			account_id,
+			class_registration_state,
+			class_registration_point,
+			class_registration_review,
+			class_registration_createdate
+		FROM
+			class_registration
+		WHERE class_registration_no=#{classRegistrationNo}
+		LIMIT #{beginRow}, #{rowPerPage}
+			
+	</select>
+	
+	<!-- 학생이 신청한 수강의 강의 정보 -->
+	<select id="selectClassRegistrationOne" parameterType="int" resultMap="ResultClassRegistration">
+		SELECT
+		cr.class_registration_no,
+		cr.lecture_no,
+		cr.account_id,
+		cr.class_registration_state,
+		cr.class_registration_point,
+		cr.class_registration_review,
+		cr.class_registration_createdate,
+		lc.lecture_no,
+		lc.account_id,
+		lc.subject_no,
+		lc.teacher_name,
+		lc.lecture_name,
+		lc.textbook_isbn,
+		lc.lecture_startdate,
+		lc.lecture_enddate,
+		lc.lecture_total,
+		lc.syllabus_no,
+		lc.classroom_no,
+		lc.lecture_createdate,
+		lc.lecture_updatedate,
+		sj.subject_no,
+		sj.subject_name,
+		sj.subject_createdate,
+		sj.subject_updatedate,
+		sj.subject_totalday,
+		sj.subject_info
+		FROM class_registration cr
+			LEFT JOIN lecture lc
+				ON cr.lecture_no = lc.lecture_no
+			LEFT JOIN subject sj
+				ON lc.subject_no = sj.subject_no
+		WHERE cr.class_registration_no 
 	</select>
 	
 	

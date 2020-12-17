@@ -35,6 +35,11 @@ public interface QuestionMapper {
 	//리턴값: 페이지의 질문 게시판(리스트)
 	List<Question> selectQuestionListByPage(Map<String,Integer>Map);
 	
+	//학생의 질문 리스트
+	//매개변수: 
+	//리턴값: 
+	int selectQuestionCount();
+	
 	//학생의 질문 상세보기
 	//매개변수: 질문 번호
 	//리턴값: 질문의 모든 정보

@@ -38,7 +38,7 @@
 	</select>
 	
 	<!-- 단일 객관식 문제 정보 출력 쿼리 -->
-	<select id="selectMultipleChoiceOne" parameterType="int" resultType="gd.fintech.lms.teacher.vo.MultipleChoice">
+	<select id="selectMultipleChoiceDetail" parameterType="int" resultType="gd.fintech.lms.teacher.vo.MultipleChoice">
 		SELECT
 			multiplechoice_no multipleChoiceNo,
 			lecture_no lectureNo,

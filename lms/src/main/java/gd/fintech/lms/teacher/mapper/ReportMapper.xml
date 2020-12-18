@@ -12,13 +12,15 @@
 			report_updatedate reportUpdateDate,
 			report_startdate reportStartDate,
 			report_enddate reportEndDate
-		FROM report
-		WHERE lecture_no = #{lectureNo}
+		FROM report r
+			INNER JOIN lecture l
+				ON r.lecture_no = l.lecture_no
+		WHERE l.account_id = #{accountId}
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 단일 과제 정보 및 과제제출 리스트 출력 쿼리 및 VO에 조인 결과를 한번에 담기 위한 resultMap -->
-	<resultMap type="gd.fintech.lms.teacher.vo.Report" id="resultReportOne">
+	<resultMap type="gd.fintech.lms.teacher.vo.Report" id="resultReportDetail">
 		<result property="reportNo" column="report_no" />
 		<result property="lectureNo" column="lecture_no" />
 		<result property="reportTitle" column="report_title" />
@@ -46,7 +48,7 @@
 			</collection>
 		</collection>
 	</resultMap>
-	<select id="selectReportOne" parameterType="int" resultMap="resultReportOne">
+	<select id="selectReportDetail" parameterType="int" resultMap="resultReportDetail">
 		SELECT
 			r.report_no,
 			r.lecture_no,
@@ -60,7 +62,7 @@
 			rs.account_id,
 			rs.report_submit_title,
 			rs.report_submit_content,
-			rs.report_submit_point,
+			rs.report_submit_score,
 			rs.report_submit_feedback,
 			rs.report_submit_createdate,
 			rs.report_submit_updatedate,
@@ -79,11 +81,13 @@
 	</select>
 	
 	<!-- 과제 갯수 출력 쿼리 -->
-	<select id="selectReportCount" parameterType="int" resultType="int">
+	<select id="selectReportCount" parameterType="String" resultType="int">
 		SELECT
 			COUNT(*)
-		FROM report
-		WHERE lecture_no = #{lectureNo}
+		FROM report r
+			INNER JOIN lecture l
+				ON r.lecture_no = l.lecture_no
+		WHERE l.account_id = #{accountId}
 	</select>
 	
 	<!-- 과제 생성 쿼리 -->
@@ -120,10 +124,10 @@
 	</update>
 	
 	<!-- 학생이 제출한 과제 평가 쿼리 -->
-	<update id="updateReportSubmitResult" parameterType="gd.fintech.lms.student.vo.ReportSubmit">
+	<update id="updateReportSubmitEvaluation" parameterType="gd.fintech.lms.student.vo.ReportSubmit">
 		UPDATE report_submit
 		SET
-			report_submit_point = #{reportSubmitPoint},
+			report_submit_score = #{reportSubmitScore},
 			report_submit_feedback = #{reportSubmitFeedback}
 		WHERE report_submit_no = #{reportSubmitNo}
 	</update>

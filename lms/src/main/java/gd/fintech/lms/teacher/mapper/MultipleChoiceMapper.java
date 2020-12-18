@@ -10,8 +10,6 @@ import gd.fintech.lms.teacher.vo.MultipleChoice;
 
 @Mapper
 public interface MultipleChoiceMapper {
-	// TODO MultipleChoiceService에 객관식 문제 생성 메서드 작성 시 객관식 보기들도 생성할 것
-	
 	// 해당 강의에서 출제한 시험의 객관식 문제 및 보기들을 출력 (정답 제외)
 	// 매개변수: 시험이 등록된 강좌의 번호
 	// 리턴값: 객관식 문제들의 리스트
@@ -20,7 +18,7 @@ public interface MultipleChoiceMapper {
 	// 객관식 문제 고유번호에 해당하는 문제의 정보를 출력 (정답 포함)
 	// 매개변수: 객관식 문제 고유번호
 	// 리턴값: 해당 객관식 문제 객체 하나
-	MultipleChoice selectMultipleChoiceOne(int multipleChoiceNo);
+	MultipleChoice selectMultipleChoiceDetail(int multipleChoiceNo);
 	
 	// 해당 강의에서 출제한 시험의 객관식 문제 갯수 출력
 	// 매개변수: 시험이 등록된 강좌의 번호

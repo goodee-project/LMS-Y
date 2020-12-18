@@ -33,9 +33,9 @@ public interface QuestionMapper {
 	//학생의 질문 리스트 출력(페이징)
 	//매개변수: map을 이용해 beginRow,rowPerPage 
 	//리턴값: 페이지의 질문 게시판(리스트)
-	List<Question> selectQuestionListByPage(Map<String,Integer>Map);
+	List<Question> selectQuestionListByPage(Map<String,Integer>map);
 	
-	//학생의 질문 리스트
+	//학생들이 질문한 리스트)
 	//매개변수: 
 	//리턴값: 
 	int selectQuestionCount();

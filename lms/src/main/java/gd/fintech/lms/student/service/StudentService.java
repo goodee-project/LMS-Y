@@ -15,7 +15,7 @@ public class StudentService {
 	//학생 자신의 정보 상세보기
 	//매개변수:학생의 계정번호
 	//리턴값: 학생의 정보를 출력
-	public Student getStudentOne(String accountId){
+	public Student getStudentDetail(String accountId){
 		return studentMapper.selectStudentOne(accountId);
 	}
 }

@@ -14,10 +14,34 @@
 			AND account_pw = PASSWORD(#{accountPw})
 	</select>
 	
-	<!-- 계정 활성화 여부를 수정하는 쿼리 -->
-	<update id="updateAccountStateByAccountId" parameterType="gd.fintech.lms.account.vo.Account">
+	<!-- 모든 계정의 목록을 조회하는 쿼리 -->
+	<select id="selectMemberAll" parameterType="java.util.Map" resultType="gd.fintech.lms.account.vo.Account">
+		SELECT 
+			account_id accountId,
+			account_state accountState,
+			account_level accountLevel,
+			account_createdate accountCreateDate,
+			account_updatedate accountUpdateDate
+		FROM account 
+		ORDER BY account_createdate DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 계정 상태를 활성화로 수정하는 쿼리 -->
+	<update id="updateAccountStateActiveByAccountId" parameterType="String">
 		UPDATE account
-		SET account_state = "활성화"
+		SET 
+			account_state = "활성화" ,
+			account_updatedate = NOW()
+		WHERE account_id = #{accountId}
+	</update>
+	
+	<!-- 계정 상태를 탈퇴로 수정하는 쿼리  -->
+	<update id="updateAccountStateInvalidByAccountId" parameterType="String">
+		UPDATE account
+		SET 
+			account_state = "탈퇴" ,
+			account_updatedate = NOW()
 		WHERE account_id = #{accountId}
 	</update>
 </mapper>

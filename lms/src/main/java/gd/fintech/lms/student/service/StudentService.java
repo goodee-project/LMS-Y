@@ -33,8 +33,8 @@ public class StudentService {
 	//학생 회원가입 정보(기본정보)
 	//매개변수:학생의 
 	//리턴값: 승인대기 
-	public int createStudentFromQueue(Student student) {
-		return studentMapper.insertStudentFromQueue(student);
+	public int createStudentFromQueue(String accountId) {
+		return studentMapper.insertStudentFromQueue(accountId);
 	}
 	
 }

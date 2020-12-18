@@ -15,6 +15,7 @@
 		<result property="studentAccessDate" column="student_accessdate"/>
 		<result property="studentUpdateDate" column="student_updatedate"/>
 		<result property="mangerIdAccess" column="manager_id_access"/>
+		
 		<collection property="lectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
 			<result property="lectureNo" column="lecture_no"/>
 			<result property="accountId" column="account_id"/>
@@ -29,6 +30,7 @@
 			<result property="classroomNo" column="classroom_no"/>
 			<result property="lectureCreateDate" column="lecture_createdate"/>
 			<result property="lectureUpdateDate" column="lecture_updatedate"/>
+			
 			<collection property="reportInfoList" ofType="gd.fintech.lms.teacher.vo.Report">
 				<result property="reportNo" column="report_no"/>
 				<result property="lectureNo" column="lecture_no"/>

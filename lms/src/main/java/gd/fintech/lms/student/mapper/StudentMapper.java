@@ -9,7 +9,7 @@ public interface StudentMapper {
 	//학생 회원가입 정보(기본정보)
 	//매개변수:학생Vo
 	//리턴값:해당하는 행 수정한 값
-	int insertStudentFromQueue(Student student);
+	int insertStudentFromQueue(String accountId);
 	
 	//학생 상세보기(정보보기)
 	//매개변수: 학생계정의id

@@ -16,9 +16,9 @@ public interface SubjectMapper {
 	// 리턴값: 과목 정보 리스트
 	List<Subject> selectSubjectList(Map<String, Integer> map);
 	
-	// 과목 정보 리스트의 페이징을 위해 전체 항목수 출력
+	// 과목 정보 리스트의 페이징을 위해 총 항목수 출력
 	// 매개변수: 없음
-	// 리턴값: 전체 항목 수
+	// 리턴값: 과목 정보 총 항목수
 	int selectSubjectCount();
 	
 	// 과목 정보를 출력

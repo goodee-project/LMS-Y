@@ -15,7 +15,7 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<!-- 교재 정보 리스트의 페이징을 위해 전체 항목 수를 출력하는 쿼리문 -->
+	<!-- 교재 정보 리스트의 페이징을 위해 총 항목수를 출력하는 쿼리문 -->
 	<select id="selectTextbookCount" resultType="int">
 		SELECT
 			COUNT(*)

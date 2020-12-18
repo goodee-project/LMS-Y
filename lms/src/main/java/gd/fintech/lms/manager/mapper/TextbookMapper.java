@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import gd.fintech.lms.manager.vo.Textbook;
 
 // 교재 정보 Mapper
+
 @Mapper
 public interface TextbookMapper {
 	// 교재 정보의 일부를 페이징하여 리스트로 출력
@@ -15,9 +16,9 @@ public interface TextbookMapper {
 	// 리턴값: 교재 정보 리스트
 	List<Textbook> selectTextbookList(Map<String, Integer> map);
 	
-	// 교재 정보 리스트의 페이징을 위해 전체 항목수 출력
+	// 교재 정보 리스트의 페이징을 위해 총 항목수 출력
 	// 매개변수: 없음
-	// 리턴값: 전체 항목 수
+	// 리턴값: 교재 정보 총 항목수
 	int selectTextbookCount();
 	
 	// 교재 정보의 상세정보 출력

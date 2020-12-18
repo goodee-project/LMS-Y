@@ -15,7 +15,6 @@ public interface ClassRegistrationMapper {
 	//리턴값: 수강신청한 목록 리스트
 	List<ClassRegistration> selectClassRegistrationListByPage(Map<String,Integer>Map);
 	 
-	//고민해보기
 	//수강 신청한 수강 과목 상세보기(과목 정보보기)
 	//매개변수: 
 	//리턴값:

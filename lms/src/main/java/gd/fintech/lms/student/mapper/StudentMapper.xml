@@ -1,9 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.StudentMapper">
+
+	<!-- 학생이 볼 과제 -->
+	<resultMap type="gd.fintech.lms.student.vo.Student" id="resultStudentReport">
+		<result property="accountId" column="account_id"/>
+		<result property="studentEmail" column="student_email"/>
+		<result property="studentName" column="student_name"/>
+		<result property="studentPhone" column="student_phone"/>
+		<result property="studentGender" column="student_gender"/>
+		<result property="studentBirth" column="student_birth"/>
+		<result property="studentAddressMain" column="student_address_main"/>
+		<result property="studentAddressSub" column="student_address_sub"/>
+		<result property="studentAccessDate" column="student_accessdate"/>
+		<result property="studentUpdateDate" column="student_updatedate"/>
+		<result property="mangerIdAccess" column="manager_id_access"/>
+		<collection property="lectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
+			<result property="lectureNo" column="lecture_no"/>
+			<result property="accountId" column="account_id"/>
+			<result property="subjectNo" column="subject_no"/>
+			<result property="teacherName" column="teacher_name"/>
+			<result property="lectureName" column="lecture_name"/>
+			<result property="textbookISBN" column="textbook_isbn"/>
+			<result property="lectureStartDate" column="lecture_startdate"/>
+			<result property="lectureEndDate" column="lecture_enddate"/>
+			<result property="lectureTotal" column="lecture_total"/>
+			<result property="syllabusNo" column="syllabus_no"/>
+			<result property="classroomNo" column="classroom_no"/>
+			<result property="lectureCreateDate" column="lecture_createdate"/>
+			<result property="lectureUpdateDate" column="lecture_updatedate"/>
+			<collection property="reportInfoList" ofType="gd.fintech.lms.teacher.vo.Report">
+				<result property="reportNo" column="report_no"/>
+				<result property="lectureNo" column="lecture_no"/>
+				<result property="reportTitle" column="report_title"/>
+				<result property="reportContent" column="report_content"/>
+				<result property="reportCreateDate" column="report_createdate"/>
+				<result property="reportUpdateDate" column="report_updatedate"/>
+				<result property="reportStartDate" column="report_startdate"/>
+				<result property="reportEndDate" column="report_enddate"/>
+				</collection>
+		</collection>
+	</resultMap>
+	<!-- 해당 강좌에 강사가 낸 과제를 학생이 보기 -->
+	<select id="resultStudentReport" parameterType="String" resultMap="resultStudentReport">
+	SELECT
+		s.account_id,
+		s.student_email,
+		s.student_name,
+		s.student_phone,
+		s.student_gender,
+		s.student_birth,
+		s.student_address_main,
+		s.student_address_sub,
+		s.student_image,
+		s.student_accessdate,
+		s.student_updatedate,
+		s.manager_id_access,
+		l.lecture_no,
+		l.account_id,
+		l.subject_no,
+		l.teacher_name,
+		l.lecture_name,
+		l.textbook_isbn,
+		l.lecture_startdate,
+		l.lecture_enddate,
+		l.lecture_total,
+		l.syllabus_no,
+		l.classroom_no,
+		l.lecture_createdate,
+		l.lecture_updatedate,
+		r.report_no,
+		r.lecture_no,
+		r.report_title,
+		r.report_content,
+		r.report_createdate,
+		r.report_updatedate,
+		r.report_startdate,
+		r.report_enddate
+	FROM student s
+		LEFT JOIN lecture l
+			ON s.account_id=l.account_id
+				LEFT JOIN report r
+				ON l.lecture_no =r.lecture_no
+	WHERE s.account_id
+	</select>
 	
 	<!-- 학생 회원가입시 필요한 기본정보 -->
-	<insert id="insertStudent" parameterType="gd.fintech.lms.student.vo.Student">
+	<insert id="insertStudentFromQueue" parameterType="String">
 	INSERT INTO student(
 			account_id,
 			student_email,
@@ -12,17 +95,25 @@
 			student_gender,
 			student_birth,
 			student_address_main,
-			student_address_sub
-		) VALUES (
-			#{accountId},
-			#{studentEmail},
-			#{studentName},
-			#{studentPhone},
-			#{studentGender},
-			#{studentBirth},
-			#{studentAddressMail},
-			#{studentAddressSub}
-		)
+			student_address_sub,
+			student_accessdate ,
+			student_updatedate ,
+			<!-- manager_access_id -->
+		) SELECT
+			account_id,
+			student_email,
+			student_name,
+			student_phone,
+			student_gender,
+			student_birth,
+			student_address_main,
+			student_address_sub,
+			NOW(),
+			NOW(),
+			<!-- manager_access_id -->
+		
+	FROM student_queue
+	WHERE account_id=#{accountId}
 	</insert>
 	<!-- 학생(내정보) 상세보기-->
 	<select id="selectStudentOne" parameterType="String" resultType="gd.fintech.lms.student.vo.Student">

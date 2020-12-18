@@ -1,4 +1,4 @@
-package gd.fintech.lms.student.vo;
+package gd.fintech.lms.dto;
 
 import java.util.List;
 

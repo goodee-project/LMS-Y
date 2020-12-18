@@ -11,18 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.account.mapper.AccountMapper;
-import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.admin.mapper.ManagerQueueMapper;
 import gd.fintech.lms.admin.vo.ManagerQueue;
 import gd.fintech.lms.manager.mapper.ManagerMapper;
-import gd.fintech.lms.manager.vo.Manager;
 
 // 관리자가 하는 업무를 위한 서비스
 
 @Service
 @Transactional
 public class AdminService {
-	Logger logger = LoggerFactory.getLogger(AdminService.class);
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	// 회원가입 승인대기 중인 운영자 개인정보 Mapper
 	@Autowired private ManagerQueueMapper managerQueueMapper;
@@ -66,19 +64,31 @@ public class AdminService {
 	
 	// 관리자가 운영자의 회원가입을 승인하는 메소드
 	// 매개변수: 
-	// 운영자 개인정보
-	// 운영자 아이디
-	// 계정 정보
+	// accountId(운영자 아이디)
 	// 리턴값:
 	// 운영자의 개인정보를 Manager에 저장
-	// 운영자의 개인정보을 ManagerQueue에서 삭제
+	// 운영자의 개인정보를 ManagerQueue에서 삭제
 	// 운영자의 계정의 활성화 여부를 활성화로 변경
-	public void approveManagerMembership(Manager manager, String accountId, Account account) {
+	public void approveManagerMembership(String accountId) {
+		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 Manager에 입력
-		managerMapper.insertManager(manager);
+		managerMapper.insertManagerFromQueue(accountId);
 		// 아이디에 해당하는 운영자의 개인정보를 ManagerQueue에서 삭제 
 		managerQueueMapper.deleteManagerQueue(accountId);
 		// 아이디에 해당하는 계정의 활성화 여부를 활성화로 변경
 		accountMapper.updateAccountStateActiveByAccountId(accountId);
+	}
+	
+	// 관리자가 운영자의 회원가입을 거부하는 메소드
+	// 매개변수: accountId(아이디)
+	// 리턴값:
+	// 운영자의 개인정보를 ManagerQueue에서 삭제
+	// 운영자의 계정의 활성화 여부를 탈퇴로 변경
+	public void unapproveManagerMembership(String accountId) {
+		logger.debug(accountId.toString());
+		// 아이디에 해당하는 운영자의 개인정보를 ManagerQueue에서 삭제 
+		managerQueueMapper.deleteManagerQueue(accountId);
+		// 아이디에 해당하는 계정의 활성화 여부를 탈퇴로 변경
+		accountMapper.updateAccountStateInvalidByAccountId(accountId);
 	}
 }

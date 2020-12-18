@@ -7,7 +7,6 @@
 	<select id="selectSyllabusDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.Syllabus">
 		SELECT
 			syllabus_no syllabusNo,
-			lecture_no lectureNo,
 			syllabus_content syllabusContent,
 			syllabus_teachersign syllabusTeacherSign,
 			syllabus_teachersign_date syllabusTeacherSignDate,
@@ -22,12 +21,10 @@
 	<!-- 강사가 강의계획서를 작성하는 쿼리문 -->
 	<insert id="insertSyllabus" parameterType="gd.fintech.lms.manager.vo.Syllabus">
 		INSERT INTO syllabus (
-			lecture_no,
 			syllabus_content,
 			syllabus_createdate,
 			syllabus_updatedate
 		) VALUES (
-			lectureNo,
 			syllabusContent,
 			NOW(),
 			NOW()

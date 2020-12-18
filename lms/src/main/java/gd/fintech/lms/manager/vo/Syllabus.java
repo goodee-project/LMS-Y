@@ -8,10 +8,7 @@ import lombok.Data;
 public class Syllabus {
 	// 강의계획서 고유번호
 	private int syllabusNo;
-	
-	// 강좌 고유번호
-	private int lectureNo;
-	
+
 	// 강의계획서 내용
 	private String syllabusContent;
 	

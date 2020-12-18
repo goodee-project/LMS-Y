@@ -4,14 +4,14 @@
 	<!-- 과제 리스트 출력 쿼리 -->
 	<select id="selectReportList" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.Report">
 		SELECT
-			report_no reportNo,
-			lecture_no lectureNo,
-			report_title reportTitle,
-			report_content reportContent,
-			report_createdate reportCreateDate,
-			report_updatedate reportUpdateDate,
-			report_startdate reportStartDate,
-			report_enddate reportEndDate
+			r.report_no reportNo,
+			r.lecture_no lectureNo,
+			r.report_title reportTitle,
+			r.report_content reportContent,
+			r.report_createdate reportCreateDate,
+			r.report_updatedate reportUpdateDate,
+			r.report_startdate reportStartDate,
+			r.report_enddate reportEndDate
 		FROM report r
 			INNER JOIN lecture l
 				ON r.lecture_no = l.lecture_no

@@ -52,7 +52,7 @@
 						<td>
 							메인주소: <input type="text" name="teacherAddressMain" id="teacherAddressMain" value="${teacher.teacherAddressMain}">
 							서브주소: <input type="text" name="teacherAddressSub" id="teacherAddressSub" value="${teacher.teacherAddressSub}">
-							<input type="button" name="주소찾기" value="주소찾기" onClick="window.open('http://localhost/lms/auth/addressOne','width=70px','height=70px')">
+							<input type="button" name="주소찾기" value="주소찾기" onClick="window.open('http://localhost/lms/auth/teacher/addressOne?currentPage=1','width=70px','height=70px')">
 						</td>
 						
 					</tr>

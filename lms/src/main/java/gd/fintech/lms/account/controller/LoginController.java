@@ -23,10 +23,27 @@ public class LoginController {
 	@Autowired AccountService accountService;
 	
 	// 처음 접속시 로그인을 위한 페이지로 이동하는 메소드
+	// 만약 세션에 계정이 등록되어 있는데 로그인 페이지로 접속시 해당 계정권한의 인덱스로 이동
+	// 세션에 등록된 계정이 상위 레벨의 페이지로 접속시 해당 세션에 등록된 권한 인덱스 페이지로 이동
+	// 매개변수: HttpSession
 	// 리턴값: 전체 login 뷰페이지
 	@GetMapping({"/","/login"})
-	public String login() {
-		return "login";
+	public String login(HttpSession session) {
+		if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(1)) {
+			return "redirect:/auth/student/index";
+		}
+		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(2)) {
+			return "redirect:/auth/teacher/index";
+		}
+		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(3)) {
+			return "redirect:/auth/manager/index";
+		}
+		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(4)) {
+			return "redirect:/auth/admin/index";
+		}
+		else {
+			return "login";
+		}
 	}
 	// 학생 로그인 화면으로 이동하는 메소드
 	// 리턴값: 학생 login 뷰페이지

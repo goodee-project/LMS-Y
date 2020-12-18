@@ -11,7 +11,7 @@ public interface TestMapper {
 	// 해당 강의의 시험을 출력 (문제 목록 및 보기 목록은 MultipleChoiceMapper에게 위임)
 	// 매개변수: 가져올 시험을 생성한 강좌의 고유번호
 	// 리턴값: 해당 시험 객체
-	Test selectTestOne(int lectureNo);
+	Test selectTestDetail(int lectureNo);
 	
 	// 시험 생성
 	// 매개변수: 시험 객체, setter를 사용해 추가할 정보 lectureNo, testStartDate, testEndDate, testContent를 넣을 것

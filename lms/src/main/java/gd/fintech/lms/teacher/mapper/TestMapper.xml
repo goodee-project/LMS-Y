@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.TestMapper">
 	<!-- 단일 시험 정보 출력 쿼리 -->
-	<select id="selectTestOne" parameterType="int" resultType="gd.fintech.lms.teacher.vo.Test">
+	<select id="selectTestDetail" parameterType="int" resultType="gd.fintech.lms.teacher.vo.Test">
 		SELECT
 			lecture_no lectureNo,
 			test_startdate testStartDate,

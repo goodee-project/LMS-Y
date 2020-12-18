@@ -27,20 +27,35 @@ public class ReportService {
 	// #1: 개설된 강좌에 배정된 강사의 ID
 	// #2: 표시할 페이지 번호
 	// 리턴값: 등록된 과제 리스트
-	public List<Report> getReportList(String accountId, int currentPage) {
+	public List<Map<String, Object>> getReportList(String accountId, int currentPage) {
+		// 리턴값으로 보낼 리스트 생성
+		List<Map<String, Object>> returnList = new ArrayList<>();
+		
+		// rowPerPage 및 beginRow 설정
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 
+		// 테스트용 코드
 		logger.debug("beginRow = "+beginRow);
 		logger.debug("rowPerPage = "+rowPerPage);
 		
+		// ReportList를 가져오기 위한 파라미터 설정
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("accountId", accountId);
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		
-		// TODO 등록된 각 과제별로 과제제출 갯수를 끼워넣어서 같이 출력하는 방법을 고민해보기
-		return reportMapper.selectReportList(paramMap);
+		// ReportList를 가져오고, Report별로 ReportSubmit 갯수를 첨부해서 Map의 List를 리턴함
+		List<Report> list = reportMapper.selectReportList(paramMap);
+		for (Report report : list) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("report", report);
+			map.put("reportSubmitCount", reportMapper.selectReportSubmitCount(report.getReportNo()));
+			
+			returnList.add(map);
+		}
+		
+		return returnList;
 	}
 	
 	// 해당 과제에 대한 상세 정보 출력 (제출된 과제 포함)

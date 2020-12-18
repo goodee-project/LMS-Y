@@ -32,7 +32,7 @@
 			<result property="accountId" column="account_id" />
 			<result property="reportSubmitTitle" column="report_submit_title" />
 			<result property="reportSubmitContent" column="report_submit_content" />
-			<result property="reportSubmitPoint" column="report_submit_point" />
+			<result property="reportSubmitScore" column="report_submit_score" />
 			<result property="reportSubmitFeedback" column="report_submit_feedback" />
 			<result property="reportSubmitCreateDate" column="report_submit_createdate" />
 			<result property="reportSubmitUpdateDate" column="report_submit_updatedate" />

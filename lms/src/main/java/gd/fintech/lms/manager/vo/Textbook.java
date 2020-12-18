@@ -1,5 +1,7 @@
 package gd.fintech.lms.manager.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 교재 정보 vo
@@ -32,5 +34,8 @@ public class Textbook {
 	
 	// 교재 정보 수정일자
 	private String textbookUpdateDate;
+	
+	// 교재 정보 리스트
+	private List<Textbook>textbookInfoList;
 	
 }

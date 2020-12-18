@@ -9,7 +9,7 @@
        lecture_no lectureNo,
        teacher_name teacherName,
        lecture_name lectureName,
-       lecture_startdate lectureName,
+       lecture_startdate lectureStartDate,
        lecture_enddate lectureEndDate,
        lecture_total lectureTotal,
        lecture_updatedate lectureUpdateDate
@@ -77,8 +77,23 @@
 	
 	</update>
 	
-	<!-- 강좌정보 및 강의실정보 및 과목정보를 출력하는 쿼리를 위한  resultMap  -->
-	<resultMap type="gd.fintech.lms.manager.vo.Lecture" id="resultLectureOne">
+	<!-- accountId로 불러오는 강좌 정보 -->
+	<select id="selectTearcherLectureDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
+	  SELECT 
+        lecture_no lectureNo,
+        teacher_name teacherName,
+        lecture_name lectureName,
+        lecture_startdate lectureStartDate,
+        lecture_enddate lectureEndDate,
+        lecture_total lectureTotal,
+        lecture_updatedate lectureUpdateDate
+	 FROM lecture 
+	 WHERE account_id =#{accountId}
+	
+	</select>
+	
+	<!-- 강좌정보 및 강의실정보 및 과목정보 및 교재정보를  출력하는 쿼리를 위한  resultMap  -->
+	<resultMap type="gd.fintech.lms.manager.vo.Lecture" id="resultLectureDetail">
 	<result property="lectureNo" column="lecture_no" />
 	<result property="accountId" column="account_id" />
 	<result property="subjectNo" column="subject_no" />
@@ -100,8 +115,14 @@
     	 	   <result property="classroomNo" column="classroom_no"/>
     	 	   <result property="classroomNumber" column="classroom_number"/>
          </collection>	
+         	   <collection property="textbookInfoList" ofType="gd.fintech.lms.manager.vo.Textbook">
+    	 	   	     <result property="textbookISBN" column="textbook_isbn"/>
+    	 	         <result property="textbookTitle" column="textbook_title"/>
+    	 	         <result property="textbookWriter" column="textbook_writer"/>
+    	 	         <result property="textbookPrice" column="textbook_price"/>
+                </collection>	
 	</resultMap>
-	<select id="selectLectureOne" parameterType="int" resultMap="resultLectureOne">
+	<select id="selectLectureDetail" parameterType="int" resultMap="resultLectureDetail">
 	 SELECT 
      	l.lecture_no,
 		l.account_id,
@@ -110,6 +131,9 @@
 	    l.teacher_name,
 	    l.lecture_name,
 		l.textbook_isbn,
+		t.textbook_title,
+		t.textbook_writer,
+		t.textbook_price,
 		l.lecture_startdate,
 		l.lecture_enddate,
 		l.lecture_total,
@@ -119,10 +143,11 @@
 	 FROM lecture l
 		LEFT JOIN subject s
 			ON l.subject_no = s.subject_no
+		LEFT JOIN textbook t 
+			ON l.textbook_isbn = t.textbook_isbn
 		LEFT JOIN classroom c
-			ON l.classroom_no = c.classroom_no
+			ON l.classroom_no = c.classroom_no	
 	 WHERE l.lecture_no = #{lectureNo}
-	
 	</select>
 
 	

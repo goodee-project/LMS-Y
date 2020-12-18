@@ -35,10 +35,16 @@ public interface LectureManagerMapper {
 	// 리턴값:  행의 수정
 	int updateLecture(Lecture lecture); 
 	
-	// 강좌 상세
+	// 강좌 번호를 이용한 강좌 상세보기
 	// 매개변수: 강좌의 번호
-	// 리턴값: 행의 상세한 정보
-	Lecture selectLectureOne(int lectureNo); 
+	// 리턴값: 행의 상세정보
+	Lecture selectLectureDetail(int lectureNo); 
+	
+	
+	// accountId 를 이용한 강좌의 상세보기
+	// 매개변수: accountId
+	// 리턴값: accountId에 해당하는 상세정보
+	Lecture selectTearcherLectureDetail(String accountId);
 
 
 }

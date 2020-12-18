@@ -17,13 +17,13 @@ import gd.fintech.lms.student.vo.Student;
 public class StudentController {
 	Logger logger = LoggerFactory.getLogger(StudentController.class);
 	@Autowired StudentService studentService;
-	@Autowired 
+	 
 	
 	
 	
 	//다시짜기
 	
-	//학생 상세보기
+	/*학생 상세보기
 	@GetMapping("/auth/student/studentDetail")
 	public String studentDetail(Model model,
 			@RequestParam(value="accountId", required = false)String accountId) {
@@ -31,6 +31,8 @@ public class StudentController {
 		model.addAttribute("accountId",accountId);
 		return "studentDetail";
 	}
+	*/
+	/*
 	//학생 과제물 보기
 	@GetMapping("/auth/student/studentReport")
 	public String studentReport(Model model,
@@ -39,6 +41,8 @@ public class StudentController {
 		model.addAttribute("accountId",accountId);
 		return "studentReport";
 	}
+	*/
+	
 	//학생정보 수정 폼
 	@GetMapping("/auth/studentModify")
 	public String modifyStudent(Model model,

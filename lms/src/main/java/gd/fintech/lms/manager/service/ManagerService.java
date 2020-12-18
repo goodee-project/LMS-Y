@@ -89,8 +89,8 @@ public class ManagerService {
 	// 매개변수:
 	// 학생 테이블에 기입할 모든 정보
 	// 계정 ID
-	public void approveStudentMembership(Student student, String accountId) {
-		studentMapper.insertStudent(student);
+	public void approveStudentMembership(String accountId) {
+		studentMapper.insertStudentFromQueue(accountId);
 		studentQueueMapper.deleteStudentQueue(accountId);
 		accountMapper.updateAccountStateActiveByAccountId(accountId);
 	}
@@ -114,8 +114,8 @@ public class ManagerService {
 	// 매개변수:
 	// 강사 테이블에 기입할 모든 정보
 	// 계정 ID
-	public void approveTeacherMembership(Teacher teacher, String accountId) {
-		teacherMapper.insertTeacher(teacher);
+	public void approveTeacherMembership(String accountId) {
+		teacherMapper.insertTeacherFromQueue(accountId);
 		teacherQueueMapper.deleteTeacherQueue(accountId);
 		accountMapper.updateAccountStateActiveByAccountId(accountId);
 	}

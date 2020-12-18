@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>adminIndex</title>
+		<title>관리자 인덱스</title>
 	</head>
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->

@@ -2,21 +2,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<!-- 부트스트랩 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<title>studentIndex</title>
-</head>
-<body>
-	<h1>학생 인덱스</h1>
-	<h1></h1>
-	<!-- 학생 더보기 -->
-	<div>학생<a href="${pageContext.request.contextPath}/studentIndex">더보기</a></div>
-	<div>
-		<table border="1">
+	<head>
+		<meta charset="UTF-8">
+		<title>학생 인덱스</title>
+	</head>
+	<body>
+		<!-- 부트스트랩(CSS) 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		</table>
-	</div>
-</body>
+		<div class=container>
+			<div class="jumbotron">
+				<h1>학생 인덱스</h1>
+			</div>
+		</div>
+	</body>
 </html>

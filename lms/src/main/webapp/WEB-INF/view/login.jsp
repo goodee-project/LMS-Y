@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>login</title>
+		<title>LMS 로그인</title>
 	</head>
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->

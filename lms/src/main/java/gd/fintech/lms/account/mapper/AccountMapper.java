@@ -13,7 +13,7 @@ import gd.fintech.lms.account.vo.Account;
 
 @Mapper
 public interface AccountMapper {
-	// Account 테이블에서 계정 조회하는 메소드
+	// Account 테이블에서 계정 조회하는 메소드(로그인을 위함)
 	// 매개변수: 로그인폼에서 입력한 ID, PW
 	// 리턴값: 등록된 계정 정보인지 여부를 조회하여 반환
 	Account selectMemberById(Account account);
@@ -22,6 +22,11 @@ public interface AccountMapper {
 	// 매개변수: 페이징을 위한 시작페이지, 한페이지에 출력되는 행의 수(Integer 형으로 받음)
 	// 리턴값: 모든 계정을 조회한 결과리스트
 	List<Account> selectMemberAll(Map<String, Integer> map);
+	
+	// Account 테이블에 계정을 입력하는 메소드
+	// 매개변수: 회원가입시 입력된 정보
+	// 리턴값: 계정테이블에 입력한 행
+	int insertAccount(Account account);
 	
 	// Account 테이블에서 계정 상태를 활성화로 수정하는 메소드
 	// 매개변수: 계정 ID
@@ -32,4 +37,9 @@ public interface AccountMapper {
 	// 매개변수: 계정 ID
 	// 리턴값: 계정상태를 탈퇴로 수정한 행
 	int updateAccountStateInvalidByAccountId(String accountId);
+	
+	// 계정 비밀번호를 수정하는 메소드
+	// 매개변수: 계정의 ID, PW변경폼에서 입력한 비밀번호
+	// 리턴값: 계정의 비밀번호를 변경한 행
+	int updateAccountPasswordByAccountId(Account account);
 }

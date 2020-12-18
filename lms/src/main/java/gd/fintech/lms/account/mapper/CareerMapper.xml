@@ -30,17 +30,28 @@
 	<!-- 경력 내용을 입력하기 위한 쿼리 -->
 	<insert id="insertCareer" parameterType="gd.fintech.lms.account.vo.Career">
 		INSERT INTO career (
-		  account_id accountId,
-		  career_content careerContent,
-		  career_startdate careerStartDate,
-		  career_enddate careerEndDate
+		  account_id,
+		  career_content,
+		  career_startdate,
+		  career_enddate
 		) VALUES (
 		  #{accountId},
 		  #{careerContent},
 		  #{careerStartDate},
-		  #{careerEndDate}"
+		  #{careerEndDate}
 		)
 	</insert>
+	
+	<!-- 경력 내용을 수정하기 위한 쿼리 -->
+	<update id="updateCareerByCareerNo">
+		UPDATE career
+		<set>
+			<if test="careerContent != null">career_content = #{careerContent},</if>
+			<if test="careerStartDate != null">career_startdate = #{careerStartDate},</if>
+			<if test="careerEndDate != null">career_enddate = #{careerEndDate}</if>
+		</set>
+		WHERE career_no = #{careerNo}
+	</update>
 	
 	<!-- 해당 계정의 경력 내용을 모두 삭제하는 쿼리 -->
 	<delete id="deleteCareerByAccountId" parameterType="String">

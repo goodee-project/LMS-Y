@@ -26,6 +26,11 @@ public interface CareerMapper {
 	// 리턴값: 경력을 입력한 행의 수
 	int insertCareer(Career career);
 	
+	// 경력 내용을 수정하기 위한 메소드
+	// 매개변수: 수정폼에서 수정한 데이터(경력내용, 시작일자, 마친일자)
+	// 리턴값: 경력이 수정된 행
+	int updateCareerByCareerNo(Career career);
+	
 	// 해당 계정 ID의 모든 경력을 삭제하는 메소드
 	// 매개변수: 계정의 ID 값
 	// 리턴값: ID에 따른 경력을 삭제한 행

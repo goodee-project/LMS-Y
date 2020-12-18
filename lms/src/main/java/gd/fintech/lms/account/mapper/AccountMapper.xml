@@ -27,6 +27,23 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 계정을 입력하는 쿼리(계정 상태는 대기가 기본값) -->
+	<insert id="insertAccount" parameterType="gd.fintech.lms.account.vo.Account">
+		INSERT INTO account (
+			account_id,
+			account_pw,
+			account_level,
+			account_createdate,
+			account_updatedate)
+		VALUES(
+			#{accountId},
+			PASSWORD(#{accountPw}),
+			#{accountLevel},
+			NOW(),
+			NOW()
+		)
+	</insert>
+	
 	<!-- 계정 상태를 활성화로 수정하는 쿼리 -->
 	<update id="updateAccountStateActiveByAccountId" parameterType="String">
 		UPDATE account
@@ -41,6 +58,15 @@
 		UPDATE account
 		SET 
 			account_state = "탈퇴" ,
+			account_updatedate = NOW()
+		WHERE account_id = #{accountId}
+	</update>
+	
+	<!-- 계정 비밀번호를 수정하는 메소드 -->
+	<update id="updateAccountPasswordByAccountId" parameterType="gd.fintech.lms.account.vo.Account">
+		UPDATE account
+		SET 
+			account_pw = PASSWORD(#{accountPw}),
 			account_updatedate = NOW()
 		WHERE account_id = #{accountId}
 	</update>

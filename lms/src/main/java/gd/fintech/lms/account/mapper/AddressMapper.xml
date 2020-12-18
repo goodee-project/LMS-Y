@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.account.mapper.AddressMapper">
-	<!-- 주소 정보 조회 쿼리문 -->
+	<!-- 우편번호를 조건으로 주소 정보 목록을 조회하는 쿼리문 -->
 	<select id="getAddressByZipCode" parameterType="java.util.Map" resultType="gd.fintech.lms.account.vo.Address">
 		SELECT 
 			id ID,
@@ -14,12 +14,12 @@
 			street street
 		FROM address
 		WHERE zip_code = #{zipCode}
-		ORDER BY id DESC
+		ORDER BY id ASC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
-	<!-- 주소 전체 정보 목록  -->
+	<!-- 주소 전체 목록 정보를 조회하는 쿼리문  -->
 	<select id="getSelectAddressByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.account.vo.Address">
-			SELECT 
+		SELECT 
 			id ID,
 			zip_code zipCode,
 			province province,
@@ -30,7 +30,7 @@
 		ORDER BY id ASC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
-	<!-- 페이징 카운트 -->
+	<!-- 주소 전체 페이징 카운트 -->
 	<select id="selectAddressCount" resultType="int">
 		SELECT COUNT(*) addressCount
 		FROM address

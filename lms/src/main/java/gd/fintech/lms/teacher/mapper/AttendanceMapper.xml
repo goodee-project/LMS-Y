@@ -3,7 +3,26 @@
 <mapper namespace="gd.fintech.lms.teacher.mapper.AttendanceMapper">
 	<!-- 출석에 필요한 학생 목록 -->
 	<select id="selectStudentList" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Attendance" >
-		
+		SELECT
+			cr.account_id, 
+		 	s.student_name, 
+			s.student_gender, 
+			a.attendance_state, 
+			a.attendance_remark
+		FROM
+			class_registration cr
+		LEFT OUTER JOIN
+			student s ON
+			cr.account_id = s.account_id
+		LEFT OUTER JOIN
+			attendance a ON
+			cr.account_id = a.account_id AND
+		WHERE
+			cr.class_registration_state = "수강중" OR
+			cr.class_registration_state = "수료" AND
+			cr.lecture_no = #{lectureNo}
+		ORDER BY
+			s.student_name
 	</select>
 	<!-- 출석 입력 -->
 	<insert id="insertAttendance" parameterType="gd.fintech.lms.teacher.vo.Attendance">

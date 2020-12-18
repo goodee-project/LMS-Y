@@ -15,6 +15,8 @@ import gd.fintech.lms.account.vo.Address;
 import gd.fintech.lms.teacher.mapper.TeacherMapper;
 import gd.fintech.lms.teacher.vo.Teacher;
 
+//강사 자신의 정보 수정 및 상세보기 할 수 있는 서비스
+
 @Service
 @Transactional
 public class TeacherService {

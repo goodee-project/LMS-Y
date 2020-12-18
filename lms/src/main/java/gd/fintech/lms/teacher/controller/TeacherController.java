@@ -15,6 +15,9 @@ import gd.fintech.lms.manager.service.LMSNoticeService;
 import gd.fintech.lms.teacher.service.TeacherService;
 import gd.fintech.lms.teacher.vo.Teacher;
 
+
+////강사 자신의 정보 수정 및 상세보기 할 수 있는 컨트롤러
+
 @Controller
 public class TeacherController {
 	// TeacherService 객체 주입

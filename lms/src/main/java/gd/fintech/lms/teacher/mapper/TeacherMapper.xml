@@ -2,26 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.TeacherMapper">
 	<!-- 강사 정보 입력 -->
-	<insert id="insertTeacher">
+	<insert id="insertTeacherFromQueue">
 		INSERT INTO teacher_queue(
-			account_id,
-			teacher_email,
-			teacher_name,
-			teacher_phone,
-			teacher_gender,
-			teacher_birth,
-			teacher_address_main,
-			teacher_address_sub
-		) VALUES (
-			#{accountId},
-			#{teacherEmail},
-			#{teacherName},
-			#{teacherPhone},
-			#{teacherGender},
-			#{teacherBirth},
-			#{teacherAddressMail},
-			#{teacherAddressSub}
-		)
+            account_id,
+            teacher_email,
+            teacher_name,
+            teacher_phone,
+            teacher_gender,
+            teacher_birth,
+            teacher_address_main,
+            teacher_address_sub,
+            teacher_accessdate,
+            teacher_updatedate
+
+        ) SELECT
+            account_id,
+            teacher_email,
+            teacher_name,
+            teacher_phone,
+            teacher_gender,
+            teacher_birth,
+            teacher_address_main,
+            teacher_address_sub,
+            NOW(),
+            NOW()
+            FROM teacher_queue
+            WHERE accont_id = #{accountId}
 	</insert>
 	<!-- 강사 정보 수정 -->
 	<update id="updateTeacherInfo" parameterType="gd.fintech.lms.teacher.vo.Teacher">

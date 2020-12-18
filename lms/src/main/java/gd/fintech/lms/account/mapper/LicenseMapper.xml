@@ -3,4 +3,69 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.account.mapper.LicenseMapper">
+	<!-- 자격증 리스트를 모두 조회하기 위한 쿼리 -->
+	<select id="selectLicenseAll" parameterType="java.util.Map" resultType="gd.fintech.lms.account.vo.License">
+		SELECT
+			license_no licenseNo,
+			account_id accountId,
+			license_number licenseNumber,
+			license_name licenseName,
+			license_agency licenseAgency,
+			license_getdate licenseGetDate
+		FROM license
+		ORDER BY license_no DESC
+	</select>
+	
+	<!-- 계정ID 값으로 자격증 내용을 조회하는 쿼리 -->
+	<select id="selectLicenseByAccountId" parameterType="String" resultType="gd.fintech.lms.account.vo.License">
+		SELECT
+			license_no licenseNo,
+			license_number licenseNumber,
+			license_name licenseName,
+			license_agency licenseAgency,
+			license_getdate licenseGetDate
+		FROM license
+		WHERE account_id = #{accountId}
+	</select>
+	
+	<!-- 자격증을 입력하기 위한 쿼리 -->
+	<insert id="insertLicense" parameterType="gd.fintech.lms.account.vo.License">
+		INSERT INTO license (
+			account_Id,
+			license_number,
+			license_name,
+			license_agency,
+			license_getdate
+		) VALUES (
+			#{accountId},
+			#{licenseNumber},
+			#{licenseName},
+			#{licenseAgency},
+			#{licenseGetDate}
+		)
+	</insert>
+	
+	<!-- 자격증 내용을 수정하기 위한 쿼리 -->
+	<update id="updateLicenseByLicenseNo" parameterType="gd.fintech.lms.account.vo.License">
+		UPDATE license
+		<set>
+			<if test="licenseNumber != null">license_number = #{licenseNumber},</if>
+			<if test="licenseName != null">license_name = #{licenseName},</if>
+			<if test="licenseAgency != null">license_agency = #{licenseAgency},</if>
+			<if test="licenseGetDate != null">license_getdate = #{licenseGetDate}</if>
+		</set>
+		WHERE license_no = #{licenseNo}
+	</update>
+	
+	<!-- 해당 계정의 모든 자격증 내용을 삭제하기 위한 쿼리 -->
+	<delete id="deleteLicenseByAccountId" parameterType="String">
+		DELETE FROM license
+		WHERE account_Id = #{accountId}
+	</delete>
+	
+	<!-- 계정의 자격증 리스트 중 하나만 삭제하기 위한 쿼리 -->
+	<delete id="deleteLicenseByLicenseNo" parameterType="int">
+		DELETE FROM license
+		WHERE license_no = #{licenseNo}
+	</delete>
 </mapper>

@@ -17,7 +17,7 @@ public interface CareerMapper {
 	List<Career> selectCareerAll(Map<String, Integer> map);
 	
 	// 계정 ID별 경력 목록을 조회하는 메소드
-	// 매개변수: 계정의 ID 값
+	// 매개변수: 계정의 ID 값(운영자, 강사)
 	// 리턴값: ID에 따른 경력 정보 조회 결과값
 	List<Career> selectCareerByAccountId(String accountId);
 	

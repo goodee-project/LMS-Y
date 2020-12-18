@@ -13,10 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import gd.fintech.lms.manager.mapper.LMSNoticeMapper;
 import gd.fintech.lms.manager.vo.LMSNotice;
 
+// LMS공지사항 서비스
+
 @Service
 @Transactional
 public class LMSNoticeService {
+	// 디버그 logger
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	// lms 공지사항 mapper
 	@Autowired private LMSNoticeMapper lmsNoticeMapper;
 	
 	// LMS공지사항의 리스트를 보여주는 페이징 서비스

@@ -24,14 +24,22 @@ import gd.fintech.lms.teacher.vo.Teacher;
 
 @Service
 public class ManagerService {
-	@Autowired SubjectMapper subjectMapper;
-	@Autowired TextbookMapper textbookMapper;
-	@Autowired SyllabusMapper syllabusMapper;
-	@Autowired StudentQueueMapper studentQueueMapper;
-	@Autowired TeacherQueueMapper teacherQueueMapper;
-	@Autowired StudentMapper studentMapper;
-	@Autowired TeacherMapper teacherMapper;
-	@Autowired AccountMapper accountMapper;
+	// 과목 정보 mapper
+	@Autowired private SubjectMapper subjectMapper;
+	// 교재 정보 mapper
+	@Autowired private TextbookMapper textbookMapper;
+	// 강의계획서 mapper
+	@Autowired private SyllabusMapper syllabusMapper;
+	// 학생 승인대기 mapper
+	@Autowired private StudentQueueMapper studentQueueMapper;
+	// 강사 승인대기 mapper
+	@Autowired private TeacherQueueMapper teacherQueueMapper;
+	// 학생 mapper
+	@Autowired private StudentMapper studentMapper;
+	// 강사 mapper
+	@Autowired private TeacherMapper teacherMapper;
+	// 계정 mapper
+	@Autowired private AccountMapper accountMapper;
 	
 	// 운영자가 강의계획서를 서명하는 서비스 메소드
 	// 매개변수: 

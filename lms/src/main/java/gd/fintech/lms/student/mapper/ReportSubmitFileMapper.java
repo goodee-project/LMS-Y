@@ -5,7 +5,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.student.vo.ReportSubmitFile;
+
 // 과제제출 첨부파일 mapper
+
 @Mapper
 public interface ReportSubmitFileMapper {
 	// 과제제출에 포함된 첨부파일의 이름 리스트 출력

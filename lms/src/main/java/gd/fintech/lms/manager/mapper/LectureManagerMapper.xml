@@ -46,7 +46,7 @@
 	  #{subjectNo},
 	  #{teacherName},
 	  #{lectureName},
-	  #{textbookIsbn},
+	  #{textbookISBN},
 	  #{lectureStartDate},
 	  #{lectureEndDate},
 	  #{lectureTotal},
@@ -67,7 +67,7 @@
         subject_no = #{subjectNo},
         teacher_name =#{teacherName},
         lecture_name =#{lectureName},
-        textbook_isbn =#{textbookIsbn},
+        textbook_isbn =#{textbookISBN},
         lecture_startdate =#{lectureStartDate},
         lecture_endDate =#{lectureEndDate},
         lecture_total =#{lectureTotal},
@@ -75,10 +75,55 @@
         lecture_updatedate = NOW()
      WHERE lecture_no =#{lectureNo}
 	
-	
 	</update>
 	
+	<!-- 강좌정보 및 강의실정보 및 과목정보를 출력하는 쿼리를 위한  resultMap  -->
+	<resultMap type="gd.fintech.lms.manager.vo.Lecture" id="resultLectureOne">
+	<result property="lectureNo" column="lecture_no" />
+	<result property="accountId" column="account_id" />
+	<result property="subjectNo" column="subject_no" />
+	<result property="teacherName" column="teacher_Name" />
+	<result property="lectureName" column="lecture_Name" />
+	<result property="textbookISBN" column="textbook_isbn" />
+	<result property="lectureStartDate" column="lecture_startdate"/>
+	<result property="lectureEndDate" column="lecture_enddate" />
+	<result property="lectureTotal" column="lecture_total" />
+	<result property="syllabusNo" column="syllabus_no"/>
+    <result property="classroomNo" column="classroom_no"/>
+    <result property="lectureCreateDate" column="lecture_createdate"/>
+    <result property="lectureUpdateDate" column="lecture_updatedate"/>
+    <collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
+    		  <result property="subjectNo" column="subject_no"/>
+    	 	  <result property="subjectName" column="subject_name"/>
+    </collection>
+    	 <collection property="classroomInfoList" ofType="gd.fintech.lms.manager.vo.Classroom">
+    	 	   <result property="classroomNo" column="classroom_no"/>
+    	 	   <result property="classroomNumber" column="classroom_number"/>
+         </collection>	
+	</resultMap>
+	<select id="selectLectureOne" parameterType="int" resultMap="resultLectureOne">
+	 SELECT 
+     	l.lecture_no,
+		l.account_id,
+		l.subject_no,
+		s.subject_name,
+	    l.teacher_name,
+	    l.lecture_name,
+		l.textbook_isbn,
+		l.lecture_startdate,
+		l.lecture_enddate,
+		l.lecture_total,
+		l.syllabus_no,
+		l.classroom_no,
+		c.classroom_number
+	 FROM lecture l
+		LEFT JOIN subject s
+			ON l.subject_no = s.subject_no
+		LEFT JOIN classroom c
+			ON l.classroom_no = c.classroom_no
+	 WHERE l.lecture_no = #{lectureNo}
 	
+	</select>
 
 	
 </mapper>

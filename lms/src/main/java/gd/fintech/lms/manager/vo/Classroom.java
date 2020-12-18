@@ -1,5 +1,7 @@
 package gd.fintech.lms.manager.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 강의실 vo : 운영자가 관리할 강의실  관련 vo
@@ -18,5 +20,6 @@ public class Classroom {
 	// 강의실 수용 인원
 	private int classroomTotal;
 	
-
+	//강의실정보
+	private List<Classroom>classroomInfoList;
 }

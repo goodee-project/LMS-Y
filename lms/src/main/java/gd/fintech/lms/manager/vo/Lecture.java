@@ -52,5 +52,8 @@ public class Lecture {
 	
 	// 강좌의 과목 정보 리스트
 	private List<Subject>subjectInfoList;
+	
+	//강좌의 강의실 정보 리스트
+	private List<Classroom>classroomInfoList;
 
 }

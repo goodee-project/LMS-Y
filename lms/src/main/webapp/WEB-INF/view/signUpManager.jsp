@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>signUpManager</title>
+<title>회원가입</title>
 </head>
 <body>
 	<h1>운영자 회원가입 페이지</h1>

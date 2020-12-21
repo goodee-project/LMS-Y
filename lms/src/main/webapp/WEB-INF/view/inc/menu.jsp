@@ -18,7 +18,7 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/studentLogin">로그아웃</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
 	</nav>
@@ -42,7 +42,7 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherOne?accountId=${accountId}">내정보 상세보기</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/teacherLogin">로그아웃</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
 	</nav>
@@ -63,7 +63,7 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/managerLogin">로그아웃</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
 	</nav>
@@ -84,7 +84,7 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/adminLogin">로그아웃</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
 	</nav>

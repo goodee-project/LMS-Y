@@ -38,6 +38,11 @@ public interface AccountMapper {
 	// 리턴값: 계정상태를 탈퇴로 수정한 행
 	int updateAccountStateInvalidByAccountId(String accountId);
 	
+	// Account 테이블에서 계정 상태를 거절로 수정하는 메소드
+	// 매개변수: 계정 ID
+	// 리턴값: 계정상태를 거절로 수정한 행
+	int updateAccountStateRejectByAccountId(String accountId);
+	
 	// 계정 비밀번호를 수정하는 메소드
 	// 매개변수: 계정의 ID, PW변경폼에서 입력한 비밀번호
 	// 리턴값: 계정의 비밀번호를 변경한 행

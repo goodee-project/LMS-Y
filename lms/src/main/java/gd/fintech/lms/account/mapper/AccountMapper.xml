@@ -62,6 +62,15 @@
 		WHERE account_id = #{accountId}
 	</update>
 	
+	<!-- 계정 상태를 거절로 수정하는 쿼리  -->
+	<update id="updateAccountStateRejectByAccountId" parameterType="String">
+		UPDATE account
+		SET 
+			account_state = "거절" ,
+			account_updatedate = NOW()
+		WHERE account_id = #{accountId}
+	</update>
+	
 	<!-- 계정 비밀번호를 수정하는 메소드 -->
 	<update id="updateAccountPasswordByAccountId" parameterType="gd.fintech.lms.account.vo.Account">
 		UPDATE account

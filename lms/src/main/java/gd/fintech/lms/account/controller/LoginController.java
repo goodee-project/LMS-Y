@@ -30,16 +30,16 @@ public class LoginController {
 	@GetMapping({"/","/login"})
 	public String login(HttpSession session) {
 		if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(1)) {
-			return "redirect:/auth/student/index";
+			return "redirect:/student/index";
 		}
 		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(2)) {
-			return "redirect:/auth/teacher/index";
+			return "redirect:/teacher/index";
 		}
 		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(3)) {
-			return "redirect:/auth/manager/index";
+			return "redirect:/manager/index";
 		}
 		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(4)) {
-			return "redirect:/auth/admin/index";
+			return "redirect:/admin/index";
 		}
 		else {
 			return "login";
@@ -105,26 +105,26 @@ public class LoginController {
 		
 		// 학생 권한에 따른 인덱스 페이지 이동
 		if(memberCk.getAccountLevel() == 1) {
-			return "redirect:/auth/student/index";
+			return "redirect:/student/index";
 		}
 		// 강사 권한에 따른 인덱스 페이지 이동
 		else if(memberCk.getAccountLevel() == 2) {
-			return "redirect:/auth/teacher/index";
+			return "redirect:/teacher/index";
 		}
 		// 운영자 권한에 따른 인덱스 페이지 이동
 		else if(memberCk.getAccountLevel() == 3) {
-			return "redirect:/auth/manager/index";
+			return "redirect:/manager/index";
 		}
 		// 관리자 권한에 따른 페이지 이동
 		else {
-			return "redirect:/auth/admin/index";
+			return "redirect:/admin/index";
 		}	
 	}
 	
 	// 로그아웃을 위한 기능 메소드
 	// 매개변수: 세션값(세션에 등록된 계정을 삭제하기 위함)
 	// 리턴값: 초기 로그인뷰
-	@GetMapping("/auth/logout")
+	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate(); 	// 세션 종료
 		return "/login";

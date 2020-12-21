@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>signUpTeacher</title>
+<title>회원가입</title>
 </head>
 <body>
 	<h1>강사 회원가입 페이지</h1>

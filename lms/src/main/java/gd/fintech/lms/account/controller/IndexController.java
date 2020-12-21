@@ -9,25 +9,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 	// 학생 페이지로 이동하는 메소드
 	// 리턴값: studentIndex(뷰이름)
-	@GetMapping("/auth/student/index")
+	@GetMapping("/student/index")
 	public String studentIndex() {
 		return "studentIndex";
 	}
 	// 강사 페이지로 이동하는 메소드
 	// 리턴값: teacherIndex(뷰이름)
-	@GetMapping("/auth/teacher/index")
+	@GetMapping("/teacher/index")
 	public String teacherIndex() {
 		return "teacherIndex";
 	}
 	// 운영자 페이지로 이동하는 메소드
 	// 리턴값: managerIndex(뷰이름)
-	@GetMapping("/auth/manager/index")
+	@GetMapping("/manager/index")
 	public String managerIndex() {
 		return "managerIndex";
 	}
 	// 관리자 페이지로 이동하는 메소드
 	// 리턴값: adminIndex(뷰이름)
-	@GetMapping("/auth/admin/index")
+	@GetMapping("/admin/index")
 	public String adminIndex() {
 		return "adminIndex";
 	}

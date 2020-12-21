@@ -70,7 +70,7 @@ public class TeacherService {
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("beginRow", beginRow);
 		
-		List<Address> addressList = addressMapper.getSelectAddressByPage(paramMap);
+		List<Address> addressList = addressMapper.selectAddressByPage(paramMap);
 		logger.debug(addressList+"<--- addressList");
 		
 		Map<String,Object>map = new HashMap<String,Object>();

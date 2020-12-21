@@ -3,7 +3,7 @@ package gd.fintech.lms.student.vo;
 import lombok.Data;
 //학생이 수강을 취소하는 vo
 @Data
-public class ClassRegistraionCancel {
+public class ClassRegistrationCancel {
 		//수강 신청 번호
 		private int classRegistrationNo;
 	

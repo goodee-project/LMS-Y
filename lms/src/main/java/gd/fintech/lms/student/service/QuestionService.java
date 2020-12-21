@@ -46,4 +46,31 @@ public class QuestionService {
 	public Question getQuestionOne(int questionNo) {
 		return questionMapper.selectQuestionOne(questionNo);
 	}
+	
+	//학생의 질문 삭제
+	//매개변수:학생의 번호
+	//리턴값:학생의 번호별로 질문을 삭제함
+	public int removeQuestion(String accountId) {
+		return questionMapper.deleteQuestion(accountId);
+	}
+	
+	//학생의 질문 입력 
+	//매개변수:질문 vo
+	//리턴값:입력할 질문의 양식
+	public int addQeustion(Question question) {
+		return questionMapper.insertQuestion(question);
+	}
+	
+	
+	//정리 요망
+	
+	//학생의 질문 조회수
+	//매개변수:
+	//리턴값:
+	public int selectQuestionCount() {
+		return questionMapper.selectQuestionCount();
+	}
+	
+	
+	
 }

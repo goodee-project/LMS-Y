@@ -23,13 +23,6 @@ public class StudentService {
 		return student;
 	}
 	
-	//학생 과제 보기
-	//매개변수:학생의 게정번호
-	//리턴값: 학생번호에 해당하는 과제
-	public Student getStudentResult(String accountId) {
-		return studentMapper.resultStudentReport(accountId);
-	}
-	
 	//학생 회원가입 정보(기본정보)
 	//매개변수:학생의 
 	//리턴값: 승인대기 

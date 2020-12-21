@@ -17,6 +17,6 @@ public interface AnswerSheetMapper {
 	//학생(내가)이 낸 답지 상세보기
 	//매개변수: 답안지의 번호
 	//리턴값: 해당 답안지의 상세보기
-	AnswerSheet selectAnswerSheetOne(int multipleChoiceNo);
+	AnswerSheet selectAnswerSheetOne(String accountId);
 	
 }

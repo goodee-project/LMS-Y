@@ -43,49 +43,6 @@
 				</collection>
 		</collection>
 	</resultMap>
-	<!-- 해당 강좌에 강사가 낸 과제를 학생이 보기 -->
-	<select id="resultStudentReport" parameterType="String" resultMap="resultStudentReport">
-	SELECT
-		s.account_id,
-		s.student_email,
-		s.student_name,
-		s.student_phone,
-		s.student_gender,
-		s.student_birth,
-		s.student_address_main,
-		s.student_address_sub,
-		s.student_image,
-		s.student_accessdate,
-		s.student_updatedate,
-		s.manager_id_access,
-		l.lecture_no,
-		l.account_id,
-		l.subject_no,
-		l.teacher_name,
-		l.lecture_name,
-		l.textbook_isbn,
-		l.lecture_startdate,
-		l.lecture_enddate,
-		l.lecture_total,
-		l.syllabus_no,
-		l.classroom_no,
-		l.lecture_createdate,
-		l.lecture_updatedate,
-		r.report_no,
-		r.lecture_no,
-		r.report_title,
-		r.report_content,
-		r.report_createdate,
-		r.report_updatedate,
-		r.report_startdate,
-		r.report_enddate
-	FROM student s
-		LEFT JOIN lecture l
-			ON s.account_id=l.account_id
-				LEFT JOIN report r
-				ON l.lecture_no =r.lecture_no
-	WHERE s.account_id
-	</select>
 	
 	<!-- 학생 회원가입시 필요한 기본정보 -->
 	<insert id="insertStudentFromQueue" parameterType="String">

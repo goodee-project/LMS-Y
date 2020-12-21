@@ -20,10 +20,10 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
 	<select id="selectQuestionCount" parameterType="int" resultType="gd.fintech.lms.student.vo.Question">
 		SELECT COUNT(*) FROM question
 	</select>
-	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>

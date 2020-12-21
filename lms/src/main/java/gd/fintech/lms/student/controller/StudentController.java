@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.account.service.AccountService;
 import gd.fintech.lms.student.service.StudentService;
 import gd.fintech.lms.student.vo.Student;
 
@@ -17,39 +20,35 @@ import gd.fintech.lms.student.vo.Student;
 public class StudentController {
 	Logger logger = LoggerFactory.getLogger(StudentController.class);
 	@Autowired StudentService studentService;
+	@Autowired AccountService accountService;
 	 
+	//
 	
-	
-	
-	//다시짜기
-	
-	/*학생 상세보기
-	@GetMapping("/auth/student/studentDetail")
-	public String studentDetail(Model model,
-			@RequestParam(value="accountId", required = false)String accountId) {
-		Student studentOne=studentService.getStudentDetail(accountId);
-		model.addAttribute("accountId",accountId);
+	//학생 자신의 정보 상세보기
+	@GetMapping("/")
+	public String getStudentDetail(Model model,
+			@RequestParam(value="accountId")String accountId) {
+		Student studentDetail= studentService.getStudentDetail(accountId);
+		model.addAttribute("studentDetail",studentDetail);
 		return "studentDetail";
 	}
-	*/
-	/*
-	//학생 과제물 보기
-	@GetMapping("/auth/student/studentReport")
-	public String studentReport(Model model,
-			@RequestParam(value="accountId")String accountId) {
-		Student studentReport=studentService.getStudentResult(accountId);
-		model.addAttribute("accountId",accountId);
-		return "studentReport";
-	}
-	*/
+	
+	//학생의 과제보기
+	
 	
 	//학생정보 수정 폼
 	@GetMapping("/auth/studentModify")
-	public String modifyStudent(Model model,
+	public String getStudentModifyForm(Model model,
 			@RequestParam(value="accountId")String accountId) {
-		model.addAttribute("accountId",accountId);
+		Student studentModify = accountService.getStudentModifyForm(accountId); 
+		model.addAttribute("studentModify",studentModify);
 		return "studentModify";
 	}
-	//학생정보 수정 액션
 	
+	//학생정보 수정 액션
+	@PostMapping("from과 동일")
+	public String modifyStudentAction(Student student) {
+		accountService.modifyStudentAction(student);
+		return "studnetModify";
+	}
 }

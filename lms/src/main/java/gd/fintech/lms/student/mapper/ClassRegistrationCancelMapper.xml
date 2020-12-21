@@ -3,7 +3,7 @@
 <mapper
 	namespace="gd.fintech.lms.student.mapper.ClassRegistrationCancelMapper">
 	<!-- 수강신청 취소 사유입력  -->
-	<insert id="insertCancel" parameterType="gd.fintech.lms.student.vo.AnswerSheet">
+	<insert id="insertCancel" parameterType="gd.fintech.lms.student.vo.ClassRegistration">
 		INSERT INTO class_registration_cancel(
 				class_registration_no,
 				cancel_createdate,

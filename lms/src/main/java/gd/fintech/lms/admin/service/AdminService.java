@@ -15,7 +15,7 @@ import gd.fintech.lms.admin.mapper.ManagerQueueMapper;
 import gd.fintech.lms.admin.vo.ManagerQueue;
 import gd.fintech.lms.manager.mapper.ManagerMapper;
 
-// 관리자가 하는 업무를 위한 서비스
+// 관리자가 하는 업무 Service
 
 @Service
 @Transactional
@@ -31,8 +31,8 @@ public class AdminService {
 	
 	// 회원가입 승인대기 중인 운영자의 정보 리스트를 페이징하여 출력하는 메소드
 	// 매개변수:
-	// currentPage(현재 페이지)
-	// rowPerPage(페이지 당 표시할 항목수)
+	// #1. currentPage(현재 페이지)
+	// #2. rowPerPage(페이지 당 표시할 항목수)
 	// 리턴값: 회원가입 승인대기 중인 운영자의 정보 리스트
 	public List<ManagerQueue> getManagerQueueList(int currentPage, int rowPerPage) {
 		// beginRow는 해당 페이지이다.
@@ -55,7 +55,7 @@ public class AdminService {
 	}
 	
 	// 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 메소드
-	// 매개변수: 아이디
+	// 매개변수: accountId(아이디)
 	// 리턴값: 아이디에 해당하는 회원가입 승인대기 중인 운영자의 개인정보
 	public ManagerQueue getManagerQueueDetail(String accountId) {
 		ManagerQueue managerQueueDetail = managerQueueMapper.selectManagerQueueDetail(accountId);
@@ -63,12 +63,11 @@ public class AdminService {
 	}
 	
 	// 관리자가 운영자의 회원가입을 승인하는 메소드
-	// 매개변수: 
-	// accountId(운영자 아이디)
+	// 매개변수: accountId(아이디)
 	// 리턴값:
-	// 운영자의 개인정보를 Manager에 저장
-	// 운영자의 개인정보를 ManagerQueue에서 삭제
-	// 운영자의 계정의 활성화 여부를 활성화로 변경
+	// #1. 운영자의 개인정보를 Manager에 저장
+	// #2. 운영자의 개인정보를 ManagerQueue에서 삭제
+	// #3. 운영자의 계정의 활성화 여부를 활성화로 변경
 	public void approveManagerMembership(String accountId) {
 		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 Manager에 입력
@@ -82,9 +81,9 @@ public class AdminService {
 	// 관리자가 운영자의 회원가입을 거부하는 메소드
 	// 매개변수: accountId(아이디)
 	// 리턴값:
-	// 운영자의 개인정보를 ManagerQueue에서 삭제
-	// 운영자의 계정의 활성화 여부를 탈퇴로 변경
-	public void unapproveManagerMembership(String accountId) {
+	// #1. 운영자의 개인정보를 ManagerQueue에서 삭제
+	// #2. 운영자의 계정의 활성화 여부를 탈퇴로 변경
+	public void disapproveManagerMembership(String accountId) {
 		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 ManagerQueue에서 삭제 
 		managerQueueMapper.deleteManagerQueue(accountId);

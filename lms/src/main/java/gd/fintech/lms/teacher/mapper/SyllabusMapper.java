@@ -1,8 +1,10 @@
-package gd.fintech.lms.manager.mapper;
+package gd.fintech.lms.teacher.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import gd.fintech.lms.manager.vo.Syllabus;
+import gd.fintech.lms.teacher.vo.Syllabus;
+
+
 
 // 강의계획서를 작성 및 수정, 강의계획서 승인과 출력을 하는 Mapper
 

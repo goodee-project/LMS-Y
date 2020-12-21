@@ -31,7 +31,7 @@ public interface ManagerQueueMapper {
 	// 리턴값: 변경된 행의 갯수
 	int insertManagerQueue(ManagerQueue managerQueue);
 		
-	// 관리자가 운영자의 회원가입을 승인 시 운영자의 개인정보를 삭제
+	// 관리자가 운영자의 회원가입을 승인 또는 거부 시 운영자의 개인정보를 삭제
 	// 매개변수: 운영자 아이디
 	// 리턴값: 변경된 행의 갯수
 	int deleteManagerQueue(String accountId);

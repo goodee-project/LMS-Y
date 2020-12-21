@@ -18,7 +18,7 @@
 	<select id="selectManagerQueueCount" resultType="int">
 		SELECT
 			COUNT(*)
-		FROM ManagerQueue
+		FROM manager_queue
 	</select>
 	
 	<!-- 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 쿼리문 -->
@@ -59,7 +59,7 @@
 		)
 	</insert>
 	
-	<!-- 관리자가 운영자의 회원가입을 승인 시 운영자의 개인정보를 삭제하는 쿼리문 -->
+	<!-- 관리자가 운영자의 회원가입을 승인 또는 거부 시 운영자의 개인정보를 삭제하는 쿼리문 -->
 	<delete id="deleteManagerQueue" parameterType="String">
 		DELETE FROM manager_queue
 		WHERE account_id = #{accountId}

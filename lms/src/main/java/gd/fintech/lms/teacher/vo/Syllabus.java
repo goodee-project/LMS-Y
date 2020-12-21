@@ -1,4 +1,4 @@
-package gd.fintech.lms.manager.vo;
+package gd.fintech.lms.teacher.vo;
 
 import lombok.Data;
 

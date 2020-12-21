@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="gd.fintech.lms.manager.mapper.SyllabusMapper">
+<mapper namespace="gd.fintech.lms.teacher.mapper.SyllabusMapper">
 	<!-- 강의계획서의 정보를 출력하는 쿼리문 -->
-	<select id="selectSyllabusDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.Syllabus">
+	<select id="selectSyllabusDetail" parameterType="int" resultType="gd.fintech.lms.teacher.vo.Syllabus">
 		SELECT
 			syllabus_no syllabusNo,
 			syllabus_content syllabusContent,
@@ -19,7 +19,7 @@
 	</select>
 	
 	<!-- 강사가 강의계획서를 작성하는 쿼리문 -->
-	<insert id="insertSyllabus" parameterType="gd.fintech.lms.manager.vo.Syllabus">
+	<insert id="insertSyllabus" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		INSERT INTO syllabus (
 			syllabus_content,
 			syllabus_createdate,
@@ -32,7 +32,7 @@
 	</insert>
 	
 	<!-- 강사가 강의계획서 내용을 수정(수정 시 서명을 전부 취소)하는 쿼리문 -->
-	<update id="updateSyllabus" parameterType="gd.fintech.lms.manager.vo.Syllabus">
+	<update id="updateSyllabus" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		UPDATE syllabus
 		SET
 			syllabus_content = ${syllabusContent},
@@ -45,7 +45,7 @@
 	</update>
 	
 	<!-- 강사가 강의계획서를 서명하는 쿼리문 -->
-	<update id="updateSyllabusTeacherSign" parameterType="gd.fintech.lms.manager.vo.Syllabus">
+	<update id="updateSyllabusTeacherSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		UPDATE syllabus
 		SET
 			syllabus_teachersign = #{syllabusTeacherSign},
@@ -54,7 +54,7 @@
 	</update>
 	
 	<!-- 운영자가 강의계획서에 서명하는 쿼리문 -->
-	<update id="updateSyllabusManagerSign" parameterType="gd.fintech.lms.manager.vo.Syllabus">
+	<update id="updateSyllabusManagerSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		UPDATE syllabus
 		SET
 			syllabus_managersign = #{syllabusManagerSign}

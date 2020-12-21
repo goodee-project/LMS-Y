@@ -30,13 +30,16 @@
 		<a class="navbar-brand">LMS</a>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-			    <a class="nav-link" href="${pageContext.request.contextPath}/#">강사강좌조회</a>
+			    <a class="nav-link" href="${pageContext.request.contextPath}/auth/teacher/teacherLecture?accountId=${accountId}&&currentPage=1">강사강좌조회</a>
 			</li>
 			<li class="nav-item">
 			  	<a class="nav-link" href="${pageContext.request.contextPath}/#">강사과제생성</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
+			</li>
+			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/auth/teacher/teacherOne?accountId=${accountId}">내정보 상세보기</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/auth/logout">로그아웃</a>

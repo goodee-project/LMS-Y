@@ -63,4 +63,7 @@ public class Lecture {
 	// 강좌의 교재 정보 리스트 
 	private List<Textbook>textbookInfoList;
 	
+	//과목 vo 추가
+	private Subject	subject;
+	
 }

@@ -27,7 +27,7 @@
 		</div>
 	</div>
 	<div class=container>
-		<form id="" method="post" action="${pageContext.request.contextPath}/auth/teacher/modifyTeacher">
+		<form id="" method="post" action="${pageContext.request.contextPath}/teacher/modifyTeacher">
 			<table class="table">
 				<tr>
 					<td>강사 아이디</td>
@@ -62,7 +62,7 @@
 						서브주소: <input type="text" name="teacherAddressSub"
 						id="teacherAddressSub" value="${teacher.teacherAddressSub}">
 						<input type="button" name="주소찾기" value="주소찾기"
-						onClick="window.open('http://localhost/lms/auth/teacher/addressOne?currentPage=1','width=70px','height=70px')">
+						onClick="window.open('http://localhost/lms/teacher/addressOne?currentPage=1','width=70px','height=70px')">
 					</td>
 
 				</tr>

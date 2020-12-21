@@ -12,9 +12,9 @@ import gd.fintech.lms.teacher.vo.LectureNotice;
 @Mapper
 public interface LectureNoticeMapper {
 	//강좌별 공지사항 목록 및 페이징
-	//매개변수:Map.put()을 사용해 페이징 변수 및 공지사항 목록을 삽입
+	//매개변수:Map.put()을 사용해 강좌고유번호,페이징 변수 및 공지사항 목록을 삽입 
 	//리턴값:공지사항 전체 목록
-	List<LectureNotice> selectLectrueNoticeListByPage(Map<String,Integer>map);
+	List<LectureNotice> selectLectrueNoticeListByPage(Map<String, Object> map);
 	
 	//강좌별 공지사항 상세보기
 	//매개변수:강좌 공지사항 고유번호
@@ -37,5 +37,8 @@ public interface LectureNoticeMapper {
 	int deleteLetureNotice(int lectureNoticeNo);
 	
 	//강좌별 공지사항 카운트
-	int selectLectureNoticeCount();
+	//매개변수:강좌 고유번호
+	int selectLectureNoticeCount(int lectureNo);
+
+	
 }

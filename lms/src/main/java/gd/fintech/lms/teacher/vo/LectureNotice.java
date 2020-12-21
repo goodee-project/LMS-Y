@@ -1,5 +1,6 @@
 package gd.fintech.lms.teacher.vo;
 
+import gd.fintech.lms.manager.vo.Lecture;
 import lombok.Data;
 
 
@@ -27,4 +28,7 @@ public class LectureNotice {
 	
 	//강좌 공지사항 조회수
 	private int lectureNoticeCount;
+	
+	//강의 vo 추가
+	private Lecture lecture;
 }

@@ -31,7 +31,7 @@ public class TeacherLectureController {
 	// 강사 강좌 목록 페이지 메서드
 	// 매개변수:강사 아이디
 	// 리턴값:강사 아이디 참조하여 정보를 띄우는 뷰페이지
-	@GetMapping("/auth/teacher/teacherLecture")
+	@GetMapping("/teacher/teacherLecture")
 	public String teacherLecture(Model model,
 			@RequestParam(value="accountId")String accountId,
 			@RequestParam(value = "currentPage") int currentPage) {
@@ -50,7 +50,7 @@ public class TeacherLectureController {
 	// 강사 강좌 상세 페이지 메서드
 	// 매개변수:강좌 고유번호
 	// 리턴값:강좌 고유번호 참조하여 정보를 띄우는 뷰페이지
-	@GetMapping("/auth/teacher/teacherLectureOne")
+	@GetMapping("/teacher/teacherLectureOne")
 	public String teacherLectureOne(Model model, 
 			@RequestParam(value = "lectureNo",required = false) int lectureNo) {
 		// 강좌 정보 고유번호를 통해 DB정보를 가져옴

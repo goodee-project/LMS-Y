@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.LectureNoticeMapper">
+	<!-- 강좌별 공지사항 목록 및 페이징 -->
+	<resultMap type="gd.fintech.lms.teacher.vo.LectureNotice" id="ResultLectureNoticeList">
+		<result property="lectureNoticeNo" column="lecture_notice_no"/>
+		<result property="lectureNo" column="lecture_notice_no"/>
+		<result property="lectureNoticeTitle" column="lecture_notice_title"/>
+		<result property="lectureNoticeContent" column="lecture_notice_content"/>
+		<result property="lectureNoticeCreateDate" column="lecture_notice_createdate"/>
+		<result property="lectureNoticeUpdateDate" column="lecture_notice_updatedate"/>
+		<result property="lectureNoticeCount" column="lecture_notice_count"/>
+		<collection property="lecture" ofType="gd.fintech.lms.manager.vo.Lecture">
+			<result property="teacherName" column="teacher_name"/>
+			<result property="lectureNo" column="lecture_no"/>
+		</collection>
+	</resultMap>
+	<select id="selectLectrueNoticeListByPage" parameterType="java.util.Map" resultMap="ResultLectureNoticeList">
+		SELECT
+			lnn.lecture_notice_no,
+			l.teacher_name,
+			l.lecture_no,
+			lnn.lecture_notice_title,
+			lnn.lecture_notice_content,
+			lnn.lecture_notice_createdate,
+			lnn.lecture_notice_updatedate,
+			lnn.lecture_notice_count
+		FROM lecture l
+		JOIN lecture_notice lnn
+		ON l.lecture_no = lnn.lecture_no
+		WHERE l.lecture_no = #{lectureNo}
+		ORDER BY lnn.lecture_notice_no DESC
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	<!--강좌별 공지사항 목록 상세보기  -->
+	<select id="selectLectureNoticeOne" parameterType="java.util.Map" resultMap="ResultLectureNoticeList">
+		SELECT
+			lnn.lecture_notice_no,
+			l.teacher_name,
+			l.lecture_no,
+			lnn.lecture_notice_title,
+			lnn.lecture_notice_content,
+			lnn.lecture_notice_createdate,
+			lnn.lecture_notice_updatedate,
+			lnn.lecture_notice_count
+		FROM lecture l
+		JOIN lecture_notice lnn
+		ON l.lecture_no = lnn.lecture_no
+		WHERE l.lecture_no = #{lectureNo}
+	</select>
+	<!-- 강좌별 공지사항 목록 페이징 카운트 -->
+	<select id="selectLectureNoticeCount" parameterType="int" resultType="int">
+		SELECT
+			COUNT(*) lectureNoticeCount
+		FROM lecture_notice
+		WHERE lecture_no = #{lectureNo}
+	</select>
 	<!-- 강좌별 공지사항 수정 -->
 	<update id="upldateLetureNotice" parameterType="gd.fintech.lms.teacher.vo.LectureNotice">
 		
@@ -13,16 +67,4 @@
 	<insert id="insertLetureNotice" parameterType="gd.fintech.lms.teacher.vo.LectureNotice">
 	
 	</insert>
-	<!-- 강좌별 공지사항 목록 및 페이징 -->
-	<select id="selectLectrueNoticeListByPage" resultType="gd.fintech.lms.teacher.vo.LectureNotice">
-		
-	</select>
-	<!--강좌별 공지사항 목록 상세보기  -->
-	<select id="selectLectureNoticeOne" resultType="gd.fintech.lms.teacher.vo.LectureNotice">
-	
-	</select>
-	<!-- 강좌별 공지사항 목록 페이징 카운트 -->
-	<select id="selectLectureNoticeCount" resultType="int">
-	
-	</select>
 </mapper>

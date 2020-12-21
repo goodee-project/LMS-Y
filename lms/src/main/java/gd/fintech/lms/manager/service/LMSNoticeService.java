@@ -55,10 +55,9 @@ public class LMSNoticeService {
 	}
 	
 	// LMS공지사항의 검색기능 페이징
-	// 매개변수 : 현재 페이지와 검색어
+	// 매개변수 : 현재 페이지, 검색어
 	// 리턴값 : 검색한 현재 페이지의 공지사항 리스트
-	public Map<String, Object> getLMSNoticeListSearch(Map<String, Object> map) {
-		int currentPage = (int) map.get("currentPage");
+	public Map<String, Object> getLMSNoticeListSearch(int currentPage, String lmsNoticeSearch) {
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
 		int noticeCount = lmsNoticeMapper.selectLMSNoticeCount();
@@ -69,8 +68,8 @@ public class LMSNoticeService {
 		Map<String, Object> pageMap = new HashMap<>();
 		pageMap.put("rowPerPage", rowPerPage);
 		pageMap.put("beginRow", beginRow);
-		pageMap.put("lmsNoticeTitle", map.get("lmsNoticeSearch"));
-		pageMap.put("lmsNoticeWriter", map.get("lmsNoticeSearch"));
+		pageMap.put("lmsNoticeTitle", lmsNoticeSearch);
+		pageMap.put("lmsNoticeWriter", lmsNoticeSearch);
 		List<LMSNotice> lmsNoticeList = lmsNoticeMapper.selectLMSNoticeListSearch(pageMap);
 		logger.debug(""+lmsNoticeList);
 		

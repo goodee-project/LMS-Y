@@ -19,7 +19,7 @@ import gd.fintech.lms.teacher.vo.Test;
 
 @Service
 @Transactional
-abstract public class TestService {
+public class TestService {
 	// 디버깅 메세지 출력을 위한 로거
 	Logger logger = LoggerFactory.getLogger(ReportService.class);
 	
@@ -70,12 +70,16 @@ abstract public class TestService {
 	// 객관식 문제 생성
 	// 매개변수: 객관식 문제 객체, setter를 사용해 추가할 정보 lectureNo, multipleChoiceId, multipleChoiceQuestion, multipleChoiceAnswer, multipleChoiceScore를 넣을 것
 	public void insertMultipleChoice(MultipleChoice multipleChoice) {
+		logger.debug("multipleChoice = "+multipleChoice.toString());
+		
 		multipleChoiceMapper.insertMultipleChoice(multipleChoice);
 	}
 
 	// 객관식 문제 수정
 	// 매개변수: 객관식 문제 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceNo, 변경할 정보 multipleChoiceId, multipleChoiceQuestion, multipleChoiceAnswer, multipleChoiceScore를 넣을 것
 	public void updateMultipleChoice(MultipleChoice multipleChoice) {
+		logger.debug("multipleChoice = "+multipleChoice.toString());
+		
 		multipleChoiceMapper.updateMultipleChoice(multipleChoice);
 	}
 
@@ -88,12 +92,16 @@ abstract public class TestService {
 	// 객관식 보기 생성
 	// 매개변수: 객관식 보기 객체, setter를 사용해 추가할 정보 multipleChoiceNo, multipleChoiceExampleId, multipleChoiceExampleContent를 넣을 것
 	public void insertMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
+		logger.debug("multipleChoiceExample = "+multipleChoiceExample.toString());
+		
 		multipleChoiceExampleMapper.insertMultipleChoiceExample(multipleChoiceExample);
 	}
 
 	// 객관식 보기 수정
 	// 매개변수: 객관식 보기 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceExampleNo, 변경할 정보 multipleChoiceExampleId, multipleChoiceExampleContent를 넣을 것
 	public void updateMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
+		logger.debug("multipleChoiceExample = "+multipleChoiceExample.toString());
+		
 		multipleChoiceExampleMapper.updateMultipleChoiceExample(multipleChoiceExample);
 	}
 

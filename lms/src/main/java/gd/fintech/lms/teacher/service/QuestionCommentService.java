@@ -30,6 +30,19 @@ public class QuestionCommentService {
 	// 질문게시판 댓글 파일 관리를 위한 매퍼
 	@Autowired private QuestionCommentFileMapper questionCommentFileMapper;
 	
+	// UUID를 이용해 원본 파일명 출력
+	// 매개변수: 질문게시판 댓글에 등록된 첨부파일 UUID
+	// 리턴값: 원본 파일명
+	public String getQuestionCommentFileOriginal(String questionCommentFileUUID) {
+		return questionCommentFileMapper.selectQuestionCommentFileOriginal(questionCommentFileUUID);
+	}
+	
+	// UUID에 해당되는 파일의 다운로드 횟수를 1 증가
+	// 매개변수: 질문게시판 댓글에 등록된 첨부파일 UUID
+	public void increaseQuestionCommentFileCount(String questionCommentFileUUID) {
+		questionCommentFileMapper.updateQuestionCommentFileCountIncrease(questionCommentFileUUID);
+	}
+	
 	// DTO를 받아와 해당 질문게시판 게시글의 댓글을 생성
 	// 매개변수: 질문게시판 댓글 커맨드 객체 (MultipartFile 포함 가능)
 	public void createQuestionComment(QuestionCommentForm questionCommentForm) {
@@ -42,11 +55,11 @@ public class QuestionCommentService {
 		
 		// 파일이 있을 경우 for문을 돌면서 MultipartFile을 VO로 변환 후 댓글 첨부파일 추가
 		for (MultipartFile mf : questionCommentForm.getQuestionCommentFileList()) {
-			String filenameUUID = UUID.randomUUID().toString().replaceAll("-", "");
+			String fileNameUUID = UUID.randomUUID().toString().replaceAll("-", "");
 			
 			try {
 				// 물리적 파일을 생성(하드디스크)
-				String fileName = FilePath.getFilePath()+filenameUUID;
+				String fileName = FilePath.getFilePath()+fileNameUUID;
 				mf.transferTo(new File(fileName));
 				
 				logger.debug("파일 생성됨: "+fileName);
@@ -59,7 +72,7 @@ public class QuestionCommentService {
 			}
 			
 			QuestionCommentFile questionCommentFile = new QuestionCommentFile();
-			questionCommentFile.setQuestionCommentFileUUID(filenameUUID);
+			questionCommentFile.setQuestionCommentFileUUID(fileNameUUID);
 			questionCommentFile.setQuestionCommentFileOriginal(mf.getOriginalFilename());
 			questionCommentFile.setQuestionCommentNo(questionComment.getQuestionCommentNo()); // selectKey 이용, 위에 추가한 댓글의 고유번호를 가져와서 등록
 			questionCommentFile.setQuestionCommentFileSize(mf.getSize());
@@ -79,11 +92,11 @@ public class QuestionCommentService {
 		
 		// 파일이 있을 경우 for문을 돌면서 MultipartFile을 VO로 변환 후 댓글 첨부파일 추가
 		for (MultipartFile mf : questionCommentForm.getQuestionCommentFileList()) {
-			String filenameUUID = UUID.randomUUID().toString().replaceAll("-", "");
+			String fileNameUUID = UUID.randomUUID().toString().replaceAll("-", "");
 			
 			try {
 				// 물리적 파일을 생성(하드디스크)
-				String fileName = FilePath.getFilePath()+filenameUUID;
+				String fileName = FilePath.getFilePath()+fileNameUUID;
 				mf.transferTo(new File(fileName));
 				
 				logger.debug("파일 생성됨: "+fileName);
@@ -96,7 +109,7 @@ public class QuestionCommentService {
 			}
 			
 			QuestionCommentFile questionCommentFile = new QuestionCommentFile();
-			questionCommentFile.setQuestionCommentFileUUID(filenameUUID);
+			questionCommentFile.setQuestionCommentFileUUID(fileNameUUID);
 			questionCommentFile.setQuestionCommentFileOriginal(mf.getOriginalFilename());
 			questionCommentFile.setQuestionCommentNo(questionComment.getQuestionCommentNo()); // selectKey 이용, 위에 추가한 댓글의 고유번호를 가져와서 등록
 			questionCommentFile.setQuestionCommentFileSize(mf.getSize());

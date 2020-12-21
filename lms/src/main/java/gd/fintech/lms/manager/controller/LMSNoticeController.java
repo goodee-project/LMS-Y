@@ -55,7 +55,7 @@ public class LMSNoticeController {
 	// currentPage(현재 페이지)
 	// lmsNoticeSearch(lms공지사항 검색어)
 	// 리턴값 : 검색한 공지사항 페이지 출력
-	@GetMapping("/*/lmsNoticeList")
+	@GetMapping("/*/lmsNoticeListSearch")
 	public String lmsNoticeListSearch(Model model,
 			@RequestParam(value="currentPage") int currentPage,
 			@RequestParam(value="lmsNoticeSearch", required = false) String lmsNoticeSearch) {

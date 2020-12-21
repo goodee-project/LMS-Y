@@ -5,11 +5,12 @@
 	<!-- FAQ  목록  -->
 	<select id="selectFAQListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.FAQ" >
 	 SELECT 
-	   faq_no faqNo, 
-	   faq_writer faqWriter, 
-	   faq_title faqTitle, 
-       faq_updatedate fagUpdateDate,
-	   faq_category faqCategory
+	    faq_no faqNo,
+		faq_title faqTitle,
+	    faq_writer faqWriter,
+		faq_updatedate faqUpdateDate,
+		faq_count faqCount,
+		faq_category faqCategory
 	 FROM faq 
 	 LIMIT #{beginRow},#{rowPerPage}
 	

@@ -81,8 +81,16 @@ public class LoginController {
 		// 서비스에서 계정 조회 결과(accountId, accountLevel) 가져오기
 		Account memberCk = accountService.getMemberById(account);
 		
-		// 계정이 없는 경우, 로그인 페이지별 상위 레벨의 계정에 접근시 해당 계정에 대한 로그인 제한하기
-		if(pageLevel != memberCk.getAccountLevel() || memberCk == null) {
+		// 계정이 없는 경우
+		if(memberCk == null) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('로그인 정보를 다시 확인하세요.'); history.go(-1);</script>");
+			out.flush();
+			return "redirect:/login";
+		}
+		// 로그인 페이지별 상위 레벨의 계정에 접근시 해당 계정에 대한 로그인 제한하기
+		else if(pageLevel != memberCk.getAccountLevel()) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('해당 계정에 접근권한이 없습니다.'); history.go(-1);</script>");

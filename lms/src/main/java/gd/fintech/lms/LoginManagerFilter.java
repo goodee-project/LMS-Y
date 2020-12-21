@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 // 운영자 로그은 처리를 위한 필터 클래스
 
 @WebFilter(urlPatterns = "/auth/manager/*")
-public class LoginManagerFileter implements Filter{
+public class LoginManagerFilter implements Filter{
 	// 인덱스 페이지로 이동하는 요청이 일어날 때 계정권한이 세션에 없으면 로그인 페이지로 이동하는 필터 메소드
 	// 매개변수: 서블릿 request, 서블릿 response, 필터 체인(순서)
 	@Override

@@ -1,6 +1,5 @@
 package gd.fintech.lms.account.service;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,23 +82,23 @@ public class AccountService {
 	}
 	
 	// 운영자 자신의 정보를 상세조회 메소드
-	// 매개변수:
+	// 매개변수:운영자 계정 ID
 	// 리턴값:
-	public Manager getManagerOne(Manager manager) {
-		return null;
+	public Manager getManagerOne(String accountId) {
+		return managerMapper.selectManagerOne(accountId);
 	}
 	
 	// 운영자 자신의 정보를 수정하는 액션 메소드
 	// 매개변수: 운영자의 계정 ID
 	// 리턴값: 운영자의 정보를 수정한 행
 	public int modifyManagerAction(Manager manager) {
-		return 0;
+		return managerMapper.updateManager(manager);
 	}
 	
 	// 관리자의 정보를 조회하는 메소드
 	// 매개변수: 관리자의 계정 ID
 	// 리턴값: 관리자의 정보를 조회한 리턴값
-	public Admin getAdminOne(Admin admin) {
-		return null;
+	public Admin getAdminOne(String accountId) {
+		return adminMapper.selectAdmin(accountId);
 	}
 }

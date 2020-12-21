@@ -25,7 +25,7 @@ public class StudentController {
 	//
 	
 	//학생 자신의 정보 상세보기
-	@GetMapping("/")
+	@GetMapping("/student/studentDetail")
 	public String getStudentDetail(Model model,
 			@RequestParam(value="accountId")String accountId) {
 		Student studentDetail= studentService.getStudentDetail(accountId);

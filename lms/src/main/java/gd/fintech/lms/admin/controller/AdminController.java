@@ -24,7 +24,9 @@ public class AdminController {
 	@Autowired private AdminService adminService;
 	
 	// 회원가입 승인대기 중인 운영자 리스트 페이지로 이동하는 메소드
-	// 매개변수: currentPage(현재 페이지)
+	// 매개변수:
+	// #1. model
+	// #2. currentPage(현재 페이지)
 	// 리턴값: managerQueueList(회원가입 승인대기 중인 운영자 리스트 페이지)
 	// 페이지 처리한 운영자 리스트를 출력
 	// 페이지 표시 네비게이션 바 출력
@@ -75,10 +77,12 @@ public class AdminController {
 	}
 	
 	// 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 메소드
-	// 매개변수: accountId(아이디)
+	// 매개변수:
+	// #1. model
+	// #2. accountId(아이디)
 	// 리턴값: managerQueueDetail(아이디에 해당하는 운영자의 개인정보를 출력하는 페이지)
 	@GetMapping("/admin/managerQueueDetail")
-	public String managerQueueDetail(Model model, @RequestParam(value = "accountId", required = false) String accountId) {
+	public String managerQueueDetail(Model model, @RequestParam(value = "accountId") String accountId) {
 		//logger.debug(accountId.toString());
 		ManagerQueue managerQueueDetail = adminService.getManagerQueueDetail(accountId);
 		//logger.debug(managerQueueDetail.toString());

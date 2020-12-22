@@ -20,50 +20,51 @@ public class QuestionController {
 	@Autowired QuestionService questionService;
 	
 	//질문 리스트 10개씩 보여줌(페이징)
-	@GetMapping("/auth/questionList")
+	@GetMapping("student/studentQuestionList")
 	public String questionList(Model model,
 			@RequestParam(value="currentPage")int currentPage) {
 		int rowPerPage=10;
 		List<Question>selectQuestionCount = questionService.getQuestionListByPage(currentPage, rowPerPage);
 		model.addAttribute("selectQuestionCount",selectQuestionCount);
 		model.addAttribute("currentPage",currentPage);
-		return  "questionList";
+		return  "student/studentQuestionList";
 	}
 	
 	//질문 입력 폼
-	@GetMapping("/student/addQuestion")
+	@GetMapping("student/addQuestion")
 	public String addQuestion() {
-		return "addQuestion";
+		return "student/addQuestion";
 	}
 	
 	//질문 입력 액션
-	@PostMapping("/student/addQuestion")
+	@PostMapping("student/addQuestion")
 	public String addQuestion(Question question) {
 		questionService.addQeustion(question);
 		return "redirect:/student/questionList";
 	}
 	
 	//학생의 질문 상세보기
+	@GetMapping("student/studentQuestionOne")
 	public String questionOne(Model model,
 			@RequestParam(value="questionNo")int questionNo) {
 		Question questionOne = questionService.getQuestionOne(questionNo);
 		model.addAttribute("questionOne",questionOne);
-		return "questionOne";
+		return "student/studentQuestionOne";
 	}
 	
 	//질문 수정 폼
-	@GetMapping("/student/questionModify")
+	@GetMapping("student/questionModify")
 	public String questionModify(Model model,
 			@RequestParam(value="currentPage")int currentPage,
 			@RequestParam(value="questionNo")int questionNo) {
 		Question questionModify = questionService.modifyQuestionForm(questionNo);
 		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("questionModify",questionModify);
-		return "questionModify";
+		return "student/questionModify";
 	}
 	
 	//질문 수정 액션
-	@PostMapping("/student/questionModify")
+	@PostMapping("student/questionModify")
 	public String questioModify(Question question,@RequestParam(value="currentPage")int currentPage) {
 		questionService.modifyQuestion(question);
 		return "redirect:/student/questionList?currentPage="+currentPage;

@@ -16,8 +16,8 @@
 			question_password questionPassword
 		FROM
 			question
-		WHERE lecutre_no
-		ORDER BY question_no=#{questionNo} DESC
+		WHERE lecture_no=#{lectureNo}
+		ORDER BY question_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -89,7 +89,7 @@
 				ON q.question_no = qc.question_no
 			LEFT JOIN question_comment_file qcf
 				ON qc.question_comment_no = qcf.question_comment_no
-		WHERE q.account_id=#{accountId}	
+		WHERE q.question_id=#{questionId}	
 	</select> 
 	
 	

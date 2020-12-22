@@ -6,12 +6,14 @@
 		INSERT INTO answerSheet(
 				multipleChoice_no,
 				account_id,
-				answer_select
+				answer_select,
+				answer_score
 	
 		) VALUES (
 			#{multipleChoiceNo},
 			#{accountId},
-			#{answerSelect}
+			#{answerSelect},
+			0
 	
 		)
 	</insert>

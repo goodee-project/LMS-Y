@@ -22,33 +22,27 @@ public class StudentController {
 	@Autowired StudentService studentService;
 	@Autowired AccountService accountService;
 	 
-	//
-	
 	//학생 자신의 정보 상세보기
-	@GetMapping("/student/studentDetail")
+	@GetMapping("student/studentDetail")
 	public String getStudentDetail(Model model,
-			@RequestParam(value="accountId")String accountId) {
+			@RequestParam(value="accountId",required=false)String accountId) {
 		Student studentDetail= studentService.getStudentDetail(accountId);
 		model.addAttribute("studentDetail",studentDetail);
-		return "studentDetail";
-	}
-	
-	//학생의 과제보기
-	
-	
+		return "student/studentDetail";
+	}	
 	//학생정보 수정 폼
-	@GetMapping("/auth/studentModify")
+	@GetMapping("student/studentModify")
 	public String getStudentModifyForm(Model model,
-			@RequestParam(value="accountId")String accountId) {
+			@RequestParam(value="accountId",required=false)String accountId) {
 		Student studentModify = accountService.getStudentModifyForm(accountId); 
 		model.addAttribute("studentModify",studentModify);
-		return "studentModify";
+		return "student/studentModify";
 	}
 	
 	//학생정보 수정 액션
-	@PostMapping("from과 동일")
+	@PostMapping("student/studentModify")
 	public String modifyStudentAction(Student student) {
 		accountService.modifyStudentAction(student);
-		return "studnetModify";
+		return "student/studnetModify";
 	}
 }

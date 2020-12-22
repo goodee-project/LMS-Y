@@ -21,22 +21,22 @@ public class ClassRegistrationController {
 	@Autowired ClassRegistrationCancelService classRegistrationCancelService;
 	
 	//학생의 수강신청 목록 리스트(페이징)
-	@GetMapping("/student/classRegistrationList")
+	@GetMapping("student/classRegistrationList")
 	public String getClassRegistrationListByPage(Model model,
 			@RequestParam(value="currentPage")int currentPage) {
 		int rowPerPage=10;
 		List<ClassRegistration>selectClassRegistrationCount = classRegistrationService.getClassRegistrationListByPage(currentPage, rowPerPage);
 		model.addAttribute("selectClassRegistrationCount",selectClassRegistrationCount);
 		model.addAttribute("currentPage",currentPage);
-		return "classRegistrationList";
+		return "student/classRegistrationList";
 	}
 	//학생이 수강신청한 과목 정보보기(상세보기)
-	@GetMapping("/student/classRegistrationDetail")
+	@GetMapping("student/classRegistrationDetail")
 	public String getClassRegistrtaionOne(Model model,
 			@RequestParam(value="subjectNo")int subjectNo) {
 		ClassRegistration selectClassRegistrationOne = classRegistrationService.getClassRegistrtaionOne(subjectNo);
 		model.addAttribute("selectClassRegistrationOne",selectClassRegistrationOne);
-		return "classRegistrationDetail";
+		return "student/classRegistrationDetail";
 	}
 	
 	//학생 수강신청 취소
@@ -48,13 +48,13 @@ public class ClassRegistrationController {
 	}
 	
 	//학생 수강신청 사유 입력폼
-	@GetMapping("/student/classRegistrationCanelReasonForm")
+	@GetMapping("student/classRegistrationCanelReasonForm")
 	public String addCancel() {
-			return "classRegistrationCanelReasonForm";
+			return "student/classRegistrationCanelReasonForm";
 	}
 	
 	//학생 수강신청 사유 입력 액션
-	@PostMapping("/student/classRegistrationCanelReasonForm")
+	@PostMapping("student/classRegistrationCanelReasonForm")
 	public String addCancel(
 			@RequestParam(value="content")String content,
 			@RequestParam(value="classRegistrationNo")int classRegistrationNo) {

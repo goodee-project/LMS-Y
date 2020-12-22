@@ -27,35 +27,35 @@
 			<div>
 				<table border="1">
 					<tr>
-						<th>아이디</th>						
+						<td>아이디</td>						
 						<td>${managerQueue.accountId}</td>
 					</tr>
 					<tr>
-						<th>Email</th>
+						<td>Email</td>
 						<td>${managerQueue.managerEmail}</td>
 					</tr>
 					<tr>
-						<th>이름</th>
+						<td>이름</td>
 						<td>${managerQueue.managerName}</td>
 					</tr>
 					<tr>
-						<th>핸드폰 번호</th>
+						<td>핸드폰 번호</td>
 						<td>${managerQueue.managerPhone}</td>
 					</tr>
 					<tr>
-						<th>성별</th>
+						<td>성별</td>
 						<td>${managerQueue.managerGender}</td>
 					</tr>
 					<tr>
-						<th>생년월일</th>
+						<td>생년월일</td>
 						<td>${managerQueue.managerBirth}</td>
 					</tr>
 					<tr>
-						<th>주소</th>
+						<td>주소</td>
 						<td>${managerQueue.managerAddressMain}</td>
 					</tr>
 					<tr>
-						<th>상세주소</th>
+						<td>상세주소</td>
 						<td>${managerQueue.managerAddressSub}</td>
 					</tr>
 				</table>

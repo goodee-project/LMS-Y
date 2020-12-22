@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>회원가입 승인대기 중인 운영자 목록</title>
+		<title>과목 목록</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,27 +22,26 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>회원가입 승인대기 중인 운영자 목록</h1>
+			<h1>과목 목록</h1>
 			
+			<!-- 내용 -->
 			<div>
 				<table border="1">
 					<thead>
 						<tr>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>Email</th>
-							<th>핸드폰 번호</th>
+							<th>고유번호</th>
+							<th>과목명</th>
+							<th>총 이수일수</th>
 						</tr>
 					</thead>
 					
 					<tbody>
-						<c:forEach var="mql" items="${managerQueueList}">
-							<tr class="clickable-row" data-href="${pageContext.request.contextPath}/admin/managerQueueDetail?accountId=${mql.accountId}">
-								<td>${mql.accountId}</td>
-								<td>${mql.managerName}</td>
-								<td>${mql.managerEmail}</td>
-								<td>${mql.managerPhone}</td>
-							</tr>							
+						<c:forEach var="sl" items="${subjectList}">
+							<tr class="clickable-row" data-href="${pageContext.request.contextPath}/manager/subjectDetail?subjectNo=${s.subjectNo}">
+								<td>${sl.subjectNo}</td>
+								<td>${sl.subjectName}</td>
+								<td>${sl.subjectTotalDay}</td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -53,7 +52,7 @@
 				<!-- 처음버튼 -->
 				<c:choose>
 					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=1">
+						<a href="${pageContext.request.contextPath}/manager/subjectList?currentPage=1">
 							[처음]
 						</a>
 					</c:when>
@@ -67,7 +66,7 @@
 				<!-- 이전버튼 -->
 				<c:choose>
 					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${currnetPage - 1}">
+						<a href="${pageContext.request.contextPath}/manager/subjectList?currentPage=${currnetPage - 1}">
 							[이전]
 						</a>
 					</c:when>
@@ -88,7 +87,7 @@
 								</a>
 							</c:when>
 							<c:otherwise>
-								<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${i}">
+								<a href="${pageContext.request.contextPath}/manager/subjectList?currentPage=${i}">
 									[${i}]
 								</a>
 							</c:otherwise>
@@ -99,7 +98,7 @@
 				<!-- 다음버튼 -->
 				<c:choose>
 					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${currnetPage + 1}">
+						<a href="${pageContext.request.contextPath}/manager/subjectList?currentPage=${currnetPage + 1}">
 							[다음]
 						</a>
 					</c:when>
@@ -113,7 +112,7 @@
 				<!-- 마지막 버튼 -->
 				<c:choose>
 					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${lastPage}">
+						<a href="${pageContext.request.contextPath}/manager/subjectList?currentPage=${lastPage}">
 							[마지막]
 						</a>
 					</c:when>

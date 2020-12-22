@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -135,15 +136,17 @@ public class QuestionCommentService {
 		logger.debug("");
 		
 		// 검증 및 검사를 위한 객체
-		Lecture lecture = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
+		List<Lecture> lectureList = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
 		Question question = questionMapper.selectQuestionOne(questionCommentForm.getQuestionNo());
 		
-		logger.debug("강사가 관리하는 강좌: "+lecture);
+		logger.debug("강사가 관리하는 강좌: "+lectureList);
 		logger.debug("학생이 작성한 질문: "+question);
 		
 		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
-		if (lecture.getLectureNo() != question.getLectureNo()) {
-			return false;
+		for (Lecture l : lectureList) {
+			if (l.getLectureNo() != question.getLectureNo()) {
+				return false;
+			}
 		}
 		
 		// accountId를 이용해 sessionTeacherName을 가져옴
@@ -196,12 +199,17 @@ public class QuestionCommentService {
 		String sessionAccountId = (String)session.getAttribute("accountId");
 		
 		// 검증 및 검사를 위한 객체
-		Lecture lecture = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
+		List<Lecture> lectureList = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
 		Question question = questionMapper.selectQuestionOne(questionCommentForm.getQuestionNo());
+
+		logger.debug("강사가 관리하는 강좌: "+lectureList);
+		logger.debug("학생이 작성한 질문: "+question);
 		
 		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
-		if (lecture.getLectureNo() != question.getLectureNo()) {
-			return false;
+		for (Lecture l : lectureList) {
+			if (l.getLectureNo() != question.getLectureNo()) {
+				return false;
+			}
 		}
 		
 		// DTO를 VO로 변환 후 댓글 수정

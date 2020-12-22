@@ -89,7 +89,7 @@
 				ON q.question_no = qc.question_no
 			LEFT JOIN question_comment_file qcf
 				ON qc.question_comment_no = qcf.question_comment_no
-		WHERE q.accoutId=#{accountId}	
+		WHERE q.account_id=#{accountId}	
 	</select> 
 	
 	

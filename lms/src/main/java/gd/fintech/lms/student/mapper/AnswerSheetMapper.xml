@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.AnswerSheetMapper">
-	<!-- 학생이 낼 답안지 입력 폼-->
+	<!-- 학생이 낼 답안지 입력 -->
 	<insert id="insertAnswerSheet" parameterType="gd.fintech.lms.student.vo.AnswerSheet">
 		INSERT INTO answerSheet(
 				multipleChoice_no,
@@ -16,9 +16,6 @@
 		)
 	</insert>
 	
-	<!-- 학생이낸 답안지 입력실행 폼 -->
-	
-	
 	<!-- 학생이 낸 답안지 상세보기(정답 포함) -->
 	<select id="selectAnswerSheetOne" parameterType="String"  resultType="gd.fintech.lms.student.vo.AnswerSheet">
 		SELECT
@@ -27,7 +24,7 @@
 			answer_select answerSelect,
 			answer_score answerScore
 		FROM
-			answerSheet
+			answersheet
 		WHERE
 			account_id=#{accountId}
 	</select>

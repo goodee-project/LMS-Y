@@ -39,9 +39,9 @@
 			            },
 			            success : function(data){
 				            let str = `<div class="form-group">
-				            		   <select multiple class="form-control" id="sel">`;
+				            		   <select multiple class="form-control" name="accountAddressMain">`;
 				            for(let i=0; i<data.length; i++) {
-				            	str += '<option>' + data[i] + '</option>';
+				            	str += '<option value='+ data[i] +'>' + data[i] + '</option>';
 					        }					
 							str += '</select> </div>';
 			                $('#addAddr').empty();
@@ -60,18 +60,19 @@
 		<div class="jumbotron">
 			<h1>학생 회원가입 페이지</h1>
 		</div>
-		<form action="${pageContext.request.contextPath}/signUp" method="post" id="signUpForm">
+		<form action="${pageContext.request.contextPath}/signUpStudent" method="post" id="signUpForm">
+			<input class="form-control col-sm-4" type="hidden" name="accountLevel" value="1">
 			<table class="table table-bordered">
 				<tr>
 					<td>아이디</td>
 					<td>
-						<input class="form-control col-sm-4" type="text" id="studentId" name="studentId" placeholder="아이디 입력">
+						<input class="form-control col-sm-4" type="text" id="studentId" name="accountId" placeholder="아이디 입력">
 					</td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
 					<td>
-						<input class="form-control col-sm-4" type="password" id="studentPw" name="studentPw" placeholder="비밀번호 입력">
+						<input class="form-control col-sm-4" type="password" id="studentPw" name="accountPw" placeholder="비밀번호 입력">
 					</td>
 				</tr>
 				<tr>
@@ -84,36 +85,36 @@
 				<tr>
 					<td>이메일</td>
 					<td>
-						<input class="form-control col-sm-4" type="text" id="studentEmail" name="studentEmail" placeholder="이메일 입력">
+						<input class="form-control col-sm-4" type="text" id="studentEmail" name="accountEmail" placeholder="이메일 입력">
 					</td>
 				</tr>
 				<tr>
 					<td>이름</td>
 					<td>
-						<input class="form-control col-sm-4" type="text" id="studentName" name="studentName" placeholder="이름 입력">
+						<input class="form-control col-sm-4" type="text" id="studentName" name="accountName" placeholder="이름 입력">
 					</td>
 				</tr>
 				<tr>
 					<td>전화번호</td>
 					<td>
-						<input class="form-control col-sm-4" type="tel" id="studentPhone" name="studentPhone" placeholder="- 빼고 숫자만 입력">
+						<input class="form-control col-sm-4" type="tel" id="studentPhone" name="accountPhone" placeholder="- 빼고 숫자만 입력">
 					</td>
 				</tr>
 				<tr>
 					<td>성별</td>
 					<td>
 						<div class="form-check-inline">
-						    <input type="radio" class="form-check-input" name="studentGender">남
+						    <input type="radio" class="form-check-input" value="남" name="accountGender">남
 						</div>
 						<div class="form-check-inline">
-						    <input type="radio" class="form-check-input" name="studentGender">여
+						    <input type="radio" class="form-check-input" value="여" name="accountGender">여
 						</div>
 					</td>
 				</tr>
 				<tr>
 					<td>생년월일</td>
 					<td>
-						<input class="form-control col-sm-4" type="date" id="studentBirth" name="studentBirth">
+						<input class="form-control col-sm-4" type="date" id="studentBirth" name="accountBirth">
 					</td>
 				</tr>
 				<tr>
@@ -128,7 +129,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input class="form-control col-sm-7" type="text" id="subAddress" name="subAddress" placeholder="상세주소">
+						<input class="form-control col-sm-7" type="text" id="subAddress" name="accountAddressSub" placeholder="상세주소">
 					</td>
 				</tr>
 			</table><br>

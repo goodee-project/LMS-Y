@@ -1,30 +1,48 @@
 package gd.fintech.lms.account.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import gd.fintech.lms.account.service.SignUpService;
+import gd.fintech.lms.dto.SignUpForm;
 
 
 // 회원가입 처리를 위한 컨트롤러 클래스(페이지 이동)
 
 @Controller
 public class SignUpController {
+	// SignUpService 객체 주입
+	@Autowired private SignUpService signUpService;
+	
 	// 학생 회원가입 페이지로 이동하는 메소드
 	// 리턴값: 학생 회원가입 뷰
 	@GetMapping("/signUpStudent")
 	public String signUpStudent() {
-		return "signUpStudent";
+		return "account/signUpStudent";
 	}
+	// 학생 회원가입시 입력정보를 계정,학생승인대기 테이블에 입력하는 메소드
+	// 매개변수: 회원가입폼에서 입력된 값
+	// 리턴값: 학생로그인페이지	
+	@PostMapping("/signUpStudent")
+	public String signUpStudentAction(SignUpForm signUpForm) {
+		System.out.println("회원가입폼에서 입력된 값: " + signUpForm);
+		//signUpService.createSignUpAccount(signUpForm);
+		return "redirect:/studentLogin";
+	}
+	
 	// 강사 회원가입 페이지로 이동하는 메소드
 	// 리턴값: 강사 회원가입 뷰
 	@GetMapping("/signUpTeacher")
 	public String signUpTeacher() {
-		return "signUpTeacher";
+		return "account/signUpTeacher";
 	}	
 	// 운영자 회원가입 페이지로 이동하는 메소드
 	// 리턴값: 운영자 회원가입 뷰
 	@GetMapping("/signUpManager")
 	public String signUpManager() {
-		return "signUpManager";
+		return "account/signUpManager";
 	}
 }

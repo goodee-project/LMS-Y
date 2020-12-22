@@ -42,32 +42,32 @@ public class LoginController {
 			return "redirect:/admin/index";
 		}
 		else {
-			return "login";
+			return "account/login";
 		}
 	}
 	// 학생 로그인 화면으로 이동하는 메소드
 	// 리턴값: 학생 login 뷰페이지
 	@GetMapping("/studentLogin")
 	public String studentLogin() {
-		return "loginStudent";
+		return "account/loginStudent";
 	}
 	// 강사 로그인 화면으로 이동하는 메소드
 	// 리턴값: 강사 login 뷰페이지
 	@GetMapping("/teacherLogin")
 	public String teacherLogin() {
-		return "loginTeacher";
+		return "account/loginTeacher";
 	}
 	// 운영자 로그인 화면으로 이동하는 메소드
 	// 리턴값: 운영자 login 뷰페이지
 	@GetMapping("/managerLogin")
 	public String managerLogin() {
-		return "loginManager";
+		return "account/loginManager";
 	}	
 	// 관리자 로그인 화면으로 이동하는 메소드
 	// 리턴값: 관리자 login 뷰페이지
 	@GetMapping("/adminLogin")
 	public String adminLogin() {
-		return "loginAdmin";
+		return "account/loginAdmin";
 	}
 	
 	// 로그인뷰에서 로그인 버튼 클릭시 로그인 여부를 처리하는 메소드
@@ -127,6 +127,6 @@ public class LoginController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate(); 	// 세션 종료
-		return "/login";
+		return "account/login";
 	}
 }

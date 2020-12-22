@@ -28,7 +28,7 @@
 	</select>
 	
 	<!-- 계정을 입력하는 쿼리(계정 상태는 대기가 기본값) -->
-	<insert id="insertAccount" parameterType="gd.fintech.lms.account.vo.Account">
+	<insert id="insertAccount" parameterType="gd.fintech.lms.dto.SignUpForm">
 		INSERT INTO account (
 			account_id,
 			account_pw,

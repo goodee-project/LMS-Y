@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.dto.SignUpForm;
 
 // 회원 계정 등록 정보에 관한 인터페이스(로그인 기능)
 // Account(계정) 테이블에서 데이터를 삭제하면 안 되는 것으로 규정(상태만 변경)
@@ -26,7 +27,7 @@ public interface AccountMapper {
 	// Account 테이블에 계정을 입력하는 메소드
 	// 매개변수: 회원가입시 입력된 정보
 	// 리턴값: 계정테이블에 입력한 행
-	int insertAccount(Account account);
+	int insertAccount(SignUpForm signUpForm);
 	
 	// Account 테이블에서 계정 상태를 활성화로 수정하는 메소드
 	// 매개변수: 계정 ID

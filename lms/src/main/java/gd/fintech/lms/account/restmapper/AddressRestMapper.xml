@@ -4,9 +4,9 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.account.restmapper.AddressRestMapper">
 	<!-- 테스트.우편번호를 조건으로 주소 정보 목록을 조회하는 쿼리문 -->
-	<select id="selectAddressByRestApi" parameterType="String" resultType="String">
+	<select id="selectRestAddressByZipCode" parameterType="String" resultType="String">
 		SELECT 
-			CONCAT(_UTF8MB4'(우편번호)',zip_code,
+			CONCAT(
 			_utf8mb4' ',province,
 			_utf8mb4' ',city,
 			_UTF8MB4' ',town,

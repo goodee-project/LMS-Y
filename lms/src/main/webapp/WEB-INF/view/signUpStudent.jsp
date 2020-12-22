@@ -7,18 +7,7 @@
 		<title>회원가입</title>
 		<!-- jQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script>
-			var zipCode = $('#zipCode').val();
-		
-			let addrList = `<div class="form-group">
-					  <label for="sel">주소선택</label>
-					  <select multiple class="form-control" id="sel">					  
-					    	<option>1</option>
-					    	<option>2</option>
-					    	<option>3</option>			    
-					  </select>
-					  </div>`
-		
+		<script>		
 			$(document).ready(function() {
 				// 초기 아이디 입력칸으로 포커싱
 				$('#studentId').focus();
@@ -37,8 +26,28 @@
 				});
 				// 우편번호 검색시 요소 추가
 				$('#zipCodeSearch').click(function() {
-					$('#addAddr').empty();
-					$('#addAddr').append(addrList);
+					if($('#zipCode').val() == '') {
+						alert('우편번호를 입력하시오');
+						return;
+					}
+					$.ajax({			             
+			            url : '${pageContext.request.contextPath}/address',
+			            type : 'get',
+			            data : {zipCode:$('#zipCode').val()},
+			            error : function(){
+			                alert('데이터에 오류가 있습니다.');
+			            },
+			            success : function(data){
+				            let str = `<div class="form-group">
+				            		   <select multiple class="form-control" id="sel">`;
+				            for(let i=0; i<data.length; i++) {
+				            	str += '<option>' + data[i] + '</option>';
+					        }					
+							str += '</select> </div>';
+			                $('#addAddr').empty();
+							$('#addAddr').append(str);
+			            }			             
+			        });
 				});
 			});
 		</script>
@@ -111,8 +120,8 @@
 					<td rowspan="2">주소</td>
 					<td>
 						<div class="input-group">
-							<input class="form-control col-sm-3" type="text" id="zipCode" name="zipCode" placeholder="우편번호 입력">
-							<a href="${pageContext.request.contextPath}/address?zipCode=${zipCode}" class="btn btn-outline-primary" id="zipCodeSearch">우편번호 검색</a>
+							<input class="form-control col-sm-3" type="text" id="zipCode" placeholder="우편번호 입력">
+							<button class="btn btn-outline-primary" type="button" id="zipCodeSearch">우편번호 검색</button>
 						</div>
 						<div id="addAddr"></div>
 					</td>

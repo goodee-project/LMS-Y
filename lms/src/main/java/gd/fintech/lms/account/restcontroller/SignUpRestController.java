@@ -3,17 +3,15 @@ package gd.fintech.lms.account.restcontroller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import gd.fintech.lms.account.restservice.SignUpRestService;
-import gd.fintech.lms.account.vo.Address;
 
-// 회원가입 처리를 위한 컨트롤러 클래스
+// 회원가입시 주소 정보를 가져오기 위한 비동기 컨트롤러 클래스
 
-@Controller
+@RestController
 public class SignUpRestController {
 	// SignUpService 객체 주입
 	@Autowired SignUpRestService signUpRestService;
@@ -24,11 +22,7 @@ public class SignUpRestController {
 	// RequestParam(넘겨진 우편번호)
 	// 리턴값: 학생 회원가입 폼
 	@GetMapping("/address")
-	public String addressListByZipCode(Model model,
-			@RequestParam(value = "zipCode", required = true) String zipCode) {
-		System.out.println(zipCode + ": 입력된 우편번호");
-		List<String> list =  signUpRestService.getAddressListByZipCode(zipCode);
-		model.addAttribute("list", list);
-		return "signUpStudent";
+	public List<String> addressListByZipCode(@RequestParam(value = "zipCode", required = true) String zipCode) {
+		return signUpRestService.getAddressListByZipCode(zipCode);
 	}
 }

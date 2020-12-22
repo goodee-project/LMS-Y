@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-// 회원가입 처리를 위한 컨트롤러 클래스
+// 회원가입 처리를 위한 컨트롤러 클래스(페이지 이동)
 
 @Controller
 public class SignUpController {

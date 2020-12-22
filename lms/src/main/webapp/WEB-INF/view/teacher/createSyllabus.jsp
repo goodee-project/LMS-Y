@@ -25,7 +25,7 @@
 			<h1>강의계획서 작성</h1>
 			
 			<div>
-				<form action="${pageContext.request.contextPath}/teacher/writeSyllabus?syllabusNo=${syllabus.syllabusNo}">
+				<form action="${pageContext.request.contextPath}/teacher/createSyllabus?syllabusNo=${syllabus.syllabusNo}">
 					<table border="1">
 						<tr>
 							<td>

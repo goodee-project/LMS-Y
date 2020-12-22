@@ -37,7 +37,7 @@
 					
 					<tbody>
 						<c:forEach var="sl" items="${subjectList}">
-							<tr class="clickable-row" data-href="${pageContext.request.contextPath}/manager/subjectDetail?subjectNo=${s.subjectNo}">
+							<tr class="clickable-row" data-href="${pageContext.request.contextPath}/manager/subjectDetail?subjectNo=${sl.subjectNo}">
 								<td>${sl.subjectNo}</td>
 								<td>${sl.subjectName}</td>
 								<td>${sl.subjectTotalDay}</td>

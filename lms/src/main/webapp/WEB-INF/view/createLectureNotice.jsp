@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->
-			<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 			<div class=container>
 				<div class="jumbotron">
@@ -17,8 +17,11 @@
 			</div>
 			<div class=container>
 				<form method="post" action="${pageContext.request.contextPath}/teacher/createLectureNotice">
-					<input type="hidden" name="lectureNo" value="${lectureNo}">
 					<table class="table">
+						<tr>
+							<td>강좌번호</td>
+							<td><input type="text" type="text" name="lectureNo" value="${lectureNo}" readonly="readonly"></td>
+						</tr>
 						<tr>
 							<td>제목</td>
 							<td><input type="text" name="lectureNoticeTitle"></td>

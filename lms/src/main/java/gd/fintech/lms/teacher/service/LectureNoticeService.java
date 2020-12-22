@@ -70,10 +70,24 @@ public class LectureNoticeService {
 		return lectureNotice;
 	}
 	
-	//공지사항 추가 메서드
+	//강좌별 공지사항 추가 메서드
 	//매개변수:lectureNotice
-	//리턴값:
+	//리턴값:공지사항 추가
 	public int createLectureNotice(LectureNotice lectureNotice) {
 		return lectureNoticeMapper.insertLetureNotice(lectureNotice);
+	}
+	
+	//강좌별 공지사항 수정 메서드
+	//매개변수:공지사항 고유번호
+	//리턴값:공지사항 수정
+	public int modifyLectureNotice(LectureNotice lectureNotice) {
+		return lectureNoticeMapper.upldateLetureNotice(lectureNotice);
+	}
+	
+	//강좌별 공지사항 삭제
+	//매개변수:공지사항 고유번호
+	//리턴값:공지사항 삭제
+	public void removeLectureNotice(int lectureNoticeNo) {
+		lectureNoticeMapper.deleteLetureNotice(lectureNoticeNo);
 	}
 }

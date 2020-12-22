@@ -17,7 +17,10 @@
 			</div>
 		</div>
 		<div class="container">
-			<div align="right"><a href="">수정</a>&nbsp;&nbsp;<a href="">삭제</a></div>
+			<div align="right">
+			<a href="${pageContext.request.contextPath}/teacher/modifyLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">수정</a>&nbsp;&nbsp;
+			<a href="${pageContext.request.contextPath}">삭제</a>
+			</div>
 			<table class="table">
 				<tr>
 					<td>공지 번호</td>

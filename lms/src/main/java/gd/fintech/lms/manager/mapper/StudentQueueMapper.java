@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import gd.fintech.lms.dto.SignUpForm;
 import gd.fintech.lms.manager.vo.StudentQueue;
 
 // 학생 승인대기 mapper
@@ -22,7 +23,7 @@ public interface StudentQueueMapper {
 	// 학생 승인대기 정보 입력
 	// 매개변수 : 학생승인대기의 모든 정보
 	// 리턴값 : 행 추가
-	int insertStudentQueue(StudentQueue studentQueue);
+	int insertStudentQueue(SignUpForm signUpForm);
 	
 	// 학생 승인대기 정보 삭제
 	// 매개변수 : 학생계정ID

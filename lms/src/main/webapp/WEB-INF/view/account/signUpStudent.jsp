@@ -16,6 +16,7 @@
 					if($('#studentId').val() == '') {
 						$('#studentId').focus();
 						$('#idCkMsg').text('아이디를 입력하세요');
+						return;
 					}else {
 						$('#studentPw').focus();
 						$('#idCkMsg').text('');

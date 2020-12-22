@@ -28,6 +28,6 @@ public class SignUpService {
 	// 회원가입시 Student_Queue 테이블에 회원 정보를 입력하는 메소드
 	// 매개변수: 회원가입폼에서 입력된 회원정보(id,email,name,phone,gender,birth,mainAddress,sub)
 	public int createSignUpStudentQueue(SignUpForm signUpForm) {	
-		return studentQueueMapper.insertStudentQueue(signUpForm);;
+		return studentQueueMapper.insertStudentQueue(signUpForm);
 	}
 }

@@ -9,12 +9,14 @@
 		INSERT INTO question_comment (
 			question_no,
 			account_id,
+			question_comment_writer,
 			question_comment_content,
 			question_comment_createdate,
 			question_comment_updatedate
 		) VALUES (
 			#{questionNo},
 			#{accountId},
+			#{questionCommentWriter},
 			#{questionCommentContent},
 			NOW(),
 			NOW()

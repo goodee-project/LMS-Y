@@ -10,14 +10,17 @@ import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.FilePath;
+import gd.fintech.lms.dto.QuestionCommentForm;
 import gd.fintech.lms.student.service.QuestionService;
 import gd.fintech.lms.student.vo.Question;
 import gd.fintech.lms.teacher.service.QuestionCommentService;
@@ -65,8 +68,21 @@ public class QuestionCommentController {
 	// 질문게시판 댓글 작성
 	// 리턴값: teacherCreateQuestionComment.jsp 뷰 포워딩
 	@GetMapping("/teacher/createQuestionComment")
-	public String createQuestionComment() {
+	public String createQuestionComment(
+			@RequestParam("questionNo") int questionNo,
+			Model model) {
+		Question question = questionService.getQuestionOne(questionNo);
+		
+		model.addAttribute("question", question);
 		return "teacherCreateQuestionComment";
+	}
+	@PostMapping("/teacher/createQuestionComment")
+	public String createQuestionComment(
+			QuestionCommentForm questionCommentForm,
+			HttpSession session) {
+		questionCommentService.createQuestionComment(questionCommentForm, session);
+		
+		return "redirect:/teacher/questionList";
 	}
 	
 	// 질문게시판 댓글 수정

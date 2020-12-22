@@ -1,9 +1,12 @@
 package gd.fintech.lms.teacher.service;
 
 import java.io.File;
-import java.util.*;
+import java.util.UUID;
 
-import org.slf4j.*;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,10 +14,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.dto.QuestionCommentForm;
+import gd.fintech.lms.manager.mapper.LectureManagerMapper;
+import gd.fintech.lms.manager.vo.Lecture;
+import gd.fintech.lms.student.mapper.QuestionMapper;
+import gd.fintech.lms.student.vo.Question;
 import gd.fintech.lms.teacher.mapper.QuestionCommentFileMapper;
 import gd.fintech.lms.teacher.mapper.QuestionCommentMapper;
+import gd.fintech.lms.teacher.mapper.TeacherMapper;
 import gd.fintech.lms.teacher.vo.QuestionComment;
 import gd.fintech.lms.teacher.vo.QuestionCommentFile;
+import gd.fintech.lms.teacher.vo.Teacher;
 
 // 질문게시판 댓글을 관리하는 서비스
 
@@ -23,6 +32,11 @@ import gd.fintech.lms.teacher.vo.QuestionCommentFile;
 public class QuestionCommentService {
 	// 디버깅 메세지 출력을 위한 로거
 	Logger logger = LoggerFactory.getLogger(QuestionCommentService.class);
+	
+	// 검증 및 변수를 가져오는 데 사용하는 매퍼
+	@Autowired private TeacherMapper teacherMapper;
+	@Autowired private LectureManagerMapper lectureManagerMapper;
+	@Autowired private QuestionMapper questionMapper;
 	
 	// 질문게시판 댓글 관리를 위한 매퍼
 	@Autowired private QuestionCommentMapper questionCommentMapper;
@@ -44,12 +58,32 @@ public class QuestionCommentService {
 	}
 	
 	// DTO를 받아와 해당 질문게시판 게시글의 댓글을 생성
-	// 매개변수: 질문게시판 댓글 커맨드 객체 (MultipartFile 포함 가능)
-	public void createQuestionComment(QuestionCommentForm questionCommentForm) {
+	// 매개변수: 
+	// #1: 질문게시판 댓글 커맨드 객체 (MultipartFile 포함 가능)
+	// #2: 현재 로그인한 사용자를 검증하기 위한 세션 객체
+	public boolean createQuestionComment(QuestionCommentForm questionCommentForm, HttpSession session) {
+		// 현재 로그인한 사용자
+		String sessionAccountId = (String)session.getAttribute("accountId");
+		
+		// 검증 및 검사를 위한 객체
+		Lecture lecture = lectureManagerMapper.selectTearcherLectureDetail(sessionAccountId);
+		Teacher teacher = teacherMapper.selectTeacherOne(sessionAccountId);
+		Question question = questionMapper.selectQuestionOne(questionCommentForm.getQuestionNo());
+		
+		// 강사 권한이 없을 경우 실행 중단 후 false 반환
+		if (teacher == null) {
+			return false;
+		}
+		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
+		if (lecture.getLectureNo() != question.getLectureNo()) {
+			return false;
+		}
+		
 		// DTO를 VO로 변환 후 댓글 추가
 		QuestionComment questionComment = new QuestionComment();
 		questionComment.setQuestionNo(questionCommentForm.getQuestionNo());
-		questionComment.setAccountId(questionCommentForm.getAccountId());
+		questionComment.setAccountId(sessionAccountId);
+		questionComment.setQuestionCommentWriter(teacher.getTeacherName());
 		questionComment.setQuestionCommentContent(questionCommentForm.getQuestionCommentContent());
 		questionCommentMapper.insertQuestionComment(questionComment);
 		
@@ -79,6 +113,8 @@ public class QuestionCommentService {
 			questionCommentFile.setQuestionCommentFileType(mf.getContentType());
 			questionCommentFileMapper.insertQuestionCommentFile(questionCommentFile);
 		}
+		
+		return true;
 	}
 	
 	// DTO를 받아와 해당 질문게시판 게시글의 댓글을 수정

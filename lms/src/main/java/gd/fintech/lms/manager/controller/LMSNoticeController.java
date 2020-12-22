@@ -2,6 +2,8 @@ package gd.fintech.lms.manager.controller;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +18,10 @@ import gd.fintech.lms.manager.vo.LMSNotice;
 
 @Controller
 public class LMSNoticeController {
+	// debug를 하기위한 logger 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	// lms 공지사항 서비스
-	@Autowired LMSNoticeService lmsNoticeService;
+	@Autowired private LMSNoticeService lmsNoticeService;
 	
 	// lms 공지사항 리스트 출력
 	// 매개변수 :
@@ -28,6 +32,7 @@ public class LMSNoticeController {
 	public String lmsNoticeList(Model model,
 			@RequestParam(value="currentPage") int currentPage) {
 		Map<String, Object> map = lmsNoticeService.getLMSNoticeListByPage(currentPage);
+		logger.debug(map.toString());
 		
 		model.addAttribute("lmsNoticeList", map.get("lmsNoticeList"));
 		model.addAttribute("currentPage", currentPage);
@@ -44,6 +49,8 @@ public class LMSNoticeController {
 	public String lmsNoticeDetail (Model model,
 			@RequestParam(value="lmsNoticeNo") int lmsNoticeNo) {
 		LMSNotice lmsNotice = lmsNoticeService.getLMSNoticeDetail(lmsNoticeNo);
+		logger.debug(lmsNotice.toString());
+		
 		model.addAttribute("lmsNotice", lmsNotice);
 		return "lmsNoticeDetail";
 	}
@@ -60,6 +67,7 @@ public class LMSNoticeController {
 			@RequestParam(value="currentPage") int currentPage,
 			@RequestParam(value="lmsNoticeSearch", required = false) String lmsNoticeSearch) {
 		Map<String, Object> map = lmsNoticeService.getLMSNoticeListSearch(currentPage, lmsNoticeSearch);
+		logger.debug(map.toString());
 		
 		model.addAttribute("lmsNoticeList", map.get("lmsNoticeList"));
 		model.addAttribute("currentPage", currentPage);
@@ -80,6 +88,7 @@ public class LMSNoticeController {
 	// 리턴값 : 입력한 공지사항 페이지 출력
 	@PostMapping("/manager/createLMSNotice")
 	public String createLMSNotice(LMSNotice lmsNotice) {
+		logger.debug(lmsNotice.toString());
 		lmsNoticeService.createLMSNotice(lmsNotice);
 		return "redirect:/*/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
 	}
@@ -92,7 +101,9 @@ public class LMSNoticeController {
 	@GetMapping("/manager/modifyLMSNotice")
 	public String modifyLMSNotice(Model model,
 			@RequestParam(value="lmsNoticeNo") int lmsNoticeNo) {
-		model.addAttribute("lmsNoticeDetail", lmsNoticeService.getLMSNoticeDetail(lmsNoticeNo));
+		LMSNotice lmsNotice = lmsNoticeService.getLMSNoticeDetail(lmsNoticeNo);
+		logger.debug(lmsNotice.toString());
+		model.addAttribute("lmsNoticeDetail", lmsNotice);
 		return "modifyLMSNotice";
 	}
 	
@@ -101,6 +112,7 @@ public class LMSNoticeController {
 	// 리턴값 : 수정한 공지사항 페이지 출력
 	@PostMapping("/manager/modifyLMSNotice")
 	public String modifyLMSNotice(LMSNotice lmsNotice) {
+		logger.debug(lmsNotice.toString());
 		lmsNoticeService.modifyLMSNotice(lmsNotice);
 		return "redirect:/*/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
 	}

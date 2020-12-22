@@ -38,7 +38,7 @@ public class LMSNoticeService {
 		pageMap.put("rowPerPage", rowPerPage);
 		pageMap.put("beginRow", beginRow);
 		List<LMSNotice> lmsNoticeList = lmsNoticeMapper.selectLMSNoticeListByPage(pageMap);
-		logger.debug(""+lmsNoticeList);
+		logger.debug(lmsNoticeList.toString());
 		
 		Map<String, Object> noticeMap = new HashMap<>();
 		noticeMap.put("lmsNoticeList", lmsNoticeList);
@@ -71,7 +71,7 @@ public class LMSNoticeService {
 		pageMap.put("lmsNoticeTitle", lmsNoticeSearch);
 		pageMap.put("lmsNoticeWriter", lmsNoticeSearch);
 		List<LMSNotice> lmsNoticeList = lmsNoticeMapper.selectLMSNoticeListSearch(pageMap);
-		logger.debug(""+lmsNoticeList);
+		logger.debug(lmsNoticeList.toString());
 		
 		Map<String, Object> noticeMap = new HashMap<>();
 		noticeMap.put("lmsNoticeList", lmsNoticeList);
@@ -84,6 +84,7 @@ public class LMSNoticeService {
 	// 매개변수 : LMS공지사항의 정보
 	// 리턴값 : 추가된 행의 수
 	public int createLMSNotice(LMSNotice lmsNotice) {
+		logger.debug(lmsNotice.toString());
 		return lmsNoticeMapper.insertLMSNotice(lmsNotice);
 	}
 	
@@ -91,6 +92,7 @@ public class LMSNoticeService {
 	// 매개변수 : LMS공지사항의 정보
 	// 리턴값 : 수정된 행의 수
 	public int modifyLMSNotice(LMSNotice lmsNotice) {
+		logger.debug(lmsNotice.toString());
 		return lmsNoticeMapper.updateLMSNotice(lmsNotice);
 	}
 	

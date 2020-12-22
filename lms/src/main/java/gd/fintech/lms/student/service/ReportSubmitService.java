@@ -38,6 +38,7 @@ public class ReportSubmitService {
 	// 매개변수 : 과제제출할 학생의 계정 id
 	// 리턴값 : 강좌 1개에 대한 과제리스트
 	public List<Report> getReportList(String accountId) {
+		logger.debug(accountId.toString());
 		return reportSubmitMapper.selectReportList(accountId);
 	}
 	
@@ -48,6 +49,7 @@ public class ReportSubmitService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("reportNo", reportNo);
 		map.put("accountId", accountId);
+		logger.debug(map.toString());
 		
 		return reportSubmitMapper.selectReportSubmitDetail(map);
 	}
@@ -60,6 +62,7 @@ public class ReportSubmitService {
 		reportSubmit.setAccountId(reportSubmitForm.getAccountId());
 		reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
 		reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent());
+		logger.debug(reportSubmitForm.toString());
 		
 		reportSubmitMapper.insertReportSubmit(reportSubmit);
 		
@@ -77,6 +80,7 @@ public class ReportSubmitService {
 				reportSubmitFile.setReportSubmitFileType(mf.getContentType());
 				reportSubmitFileList.add(reportSubmitFile);
 				logger.debug(reportSubmitFile.toString());
+				
 				try {
 					mf.transferTo(new File(FilePath.getFilePath()+fileUUID));
 				} catch(Exception e) {
@@ -100,6 +104,7 @@ public class ReportSubmitService {
 		reportSubmit.setAccountId(reportSubmitForm.getAccountId());
 		reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
 		reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent());
+		logger.debug(reportSubmitForm.toString());
 		
 		reportSubmitMapper.updateReportSubmit(reportSubmit);
 		
@@ -117,6 +122,7 @@ public class ReportSubmitService {
 				reportSubmitFile.setReportSubmitFileType(mf.getContentType());
 				reportSubmitFileList.add(reportSubmitFile);
 				logger.debug(reportSubmitFile.toString());
+				
 				try {
 					mf.transferTo(new File(FilePath.getFilePath()+fileUUID));
 				} catch(Exception e) {
@@ -135,6 +141,8 @@ public class ReportSubmitService {
 	// 과제제출한 첨부파일을 삭제
 	// 매개변수 : 첨부파일의 UUID
 	public void removeReportSubmitFile(String reportSubmitFileUUID) {
+		logger.debug(reportSubmitFileUUID);
+		
 		File file = new File(FilePath.getFilePath()+reportSubmitFileUUID);
 		if(file.exists()) {
 			file.delete();

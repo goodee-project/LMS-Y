@@ -1,5 +1,9 @@
 package gd.fintech.lms.manager.controller;
 
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.manager.service.QueueService;
+import gd.fintech.lms.manager.vo.StudentQueue;
+import gd.fintech.lms.manager.vo.TeacherQueue;
 
 @Controller
 public class QueueController {
+	// debug를 하기위한 logger 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	// 매니저가 관리하는 학생,강사 승인대기 서비스
 	@Autowired private QueueService queueService;
 	
@@ -18,7 +26,9 @@ public class QueueController {
 	// 리턴값 : 학생 승인대기 리스트 
 	@GetMapping("/manager/studentQueueList")
 	public String studentQueueList(Model model) {
-		model.addAttribute("studentQueueList",queueService.getStudentQueueList());
+		List<StudentQueue> studentQueueList = queueService.getStudentQueueList();
+		logger.debug(studentQueueList.toString());
+		model.addAttribute("studentQueueList", studentQueueList);
 		return "studentQueueList";
 	}
 	
@@ -30,7 +40,9 @@ public class QueueController {
 	@GetMapping("/manager/studentQueueDetail")
 	public String StudentQueueDetail(Model model,
 			@RequestParam(value="accountId") String accountId) {
-		model.addAttribute("studentQueueDetail", queueService.getStudentQueueDetail(accountId));
+		StudentQueue studentQueueDetail = queueService.getStudentQueueDetail(accountId);
+		logger.debug(studentQueueDetail.toString());
+		model.addAttribute("studentQueueDetail", studentQueueDetail);
 		return "studentQueueDetail";
 	}
 	
@@ -59,7 +71,9 @@ public class QueueController {
 	// 리턴값 : 강사 승인대기 리스트 
 	@GetMapping("/manager/teacherQueueList")
 	public String teacherQueueList(Model model) {
-		model.addAttribute("teacherQueueList",queueService.getTeacherQueueList());
+		List<TeacherQueue> teacherQueueList = queueService.getTeacherQueueList();
+		logger.debug(teacherQueueList.toString());
+		model.addAttribute("teacherQueueList", teacherQueueList);
 		return "teacherQueueList";
 	}
 	
@@ -71,7 +85,9 @@ public class QueueController {
 	@GetMapping("/manager/teacherQueueDetail")
 	public String teacherQueueDetail(Model model,
 			@RequestParam(value="accountId") String accountId) {
-		model.addAttribute("teacherQueueDetail", queueService.getTeacherQueueDetail(accountId));
+		TeacherQueue teacherQueueDetail = queueService.getTeacherQueueDetail(accountId);
+		logger.debug(teacherQueueDetail.toString());
+		model.addAttribute("teacherQueueDetail", teacherQueueDetail);
 		return "teacherQueueDetail";
 	}
 	

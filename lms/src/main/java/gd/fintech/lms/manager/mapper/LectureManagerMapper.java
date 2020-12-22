@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.manager.vo.Lecture;
 
-// 강좌에 대한 메퍼 인터페이스
+// 운영자의 강좌에 대한 메퍼 인터페이스
 
 @Mapper
 public interface LectureManagerMapper {
@@ -44,7 +44,7 @@ public interface LectureManagerMapper {
 	// accountId 를 이용한 강좌의 상세보기
 	// 매개변수: accountId
 	// 리턴값: accountId에 해당하는 상세정보
-	Lecture selectTearcherLectureDetail(String accountId);
+	Lecture selectTeacherLectureDetail(String accountId);
 
 
 }

@@ -78,7 +78,7 @@
 	</update>
 	
 	<!-- accountId로 불러오는 강좌 정보 -->
-	<select id="selectTearcherLectureDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
+	<select id="selectTeacherLectureDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
 	  SELECT 
         lecture_no lectureNo,
         teacher_name teacherName,

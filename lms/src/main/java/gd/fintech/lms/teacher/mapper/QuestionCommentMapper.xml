@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.QuestionCommentMapper">
+	<!-- 단일 댓글에 대한 상세정보 출력 쿼리 및 VO에 조인 결과를 한번에 담기 위한 resultMap -->
+	<resultMap type="gd.fintech.lms.teacher.vo.QuestionComment" id="resultQuestionCommentDetail">
+		<result property="questionCommentNo" column="question_comment_no" />
+		<result property="questionNo" column="question_no" />
+		<result property="accountId" column="account_id" />
+		<result property="questionCommentWriter" column="question_comment_writer" />
+		<result property="questionCommentContent" column="question_comment_context" />
+		<result property="questionCommentCreateDate" column="question_comment_createdate" />
+		<result property="questionCommentUpdateDate" column="question_comment_updatedate" />
+		<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
+			<result property="questionCommentFileUUID" column="question_comment_file_uuid" />
+			<result property="questionCommentFileOriginal" column="question_comment_file_original" />
+			<result property="questionCommentNo" column="qeustion_comment_no" />
+			<result property="questionCommentFileSize" column="question_comment_file_size" />
+			<result property="questionCommentFileType" column="question_comment_file_type" />
+			<result property="questionCommentFileCount" column="question_comment_file_count" />
+			<result property="questionCommentFileCreateDate" column="question_comment_file_createdate" />
+		</collection>
+	</resultMap>
+	<select id="selectQuestionCommentDetail" parameterType="int" resultMap="resultQuestionCommentDetail">
+		SELECT
+			qc.question_comment_no,
+			qc.question_no,
+			qc.account_id,
+			qc.question_comment_writer,
+			qc.question_comment_content,
+			qc.question_comment_createdate,
+			qc.question_comment_updatedate,
+			qcf.question_comment_file_uuid,
+			qcf.question_comment_file_original,
+			qcf.question_comment_no,
+			qcf.question_comment_file_size,
+			qcf.question_comment_file_type,
+			qcf.question_comment_file_count,
+			qcf.question_comment_file_createdate
+		FROM question_comment qc
+			LEFT JOIN question_comment_file qcf
+				ON qc.question_comment_no = qcf.question_comment_no
+		WHERE qc.question_comment_no = #{questionCommentNo}	
+	</select>
+
 	<!-- 질문게시판 댓글 생성 쿼리 (실행 후 자동 삽입된 기본키 반환) -->
 	<insert id="insertQuestionComment">
 		<selectKey resultType="int" keyProperty="questionCommentNo" order="AFTER">

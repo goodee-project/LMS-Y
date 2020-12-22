@@ -2,6 +2,8 @@ package gd.fintech.lms.teacher.service;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,13 @@ public class ReportService {
 	
 	// 해당 강좌에 등록된 과제 리스트를 출력 (currentPage 페이지의 내용 10개만 보여줌)
 	// 매개변수:
-	// #1: 개설된 강좌에 배정된 강사의 ID
-	// #2: 표시할 페이지 번호
+	// #1: 표시할 페이지 번호
+	// #2: 현재 로그인한 사용자의 정보가 담긴 세션 객체
 	// 리턴값: 등록된 과제 리스트
-	public List<Map<String, Object>> getReportList(String accountId, int currentPage) {
+	public List<Map<String, Object>> getReportList(int currentPage, HttpSession session) {
+		// 현재 로그인한 사용자의 정보
+		String sessionAccountId = (String)session.getAttribute("accountId");
+		
 		// 리턴값으로 보낼 리스트 생성
 		List<Map<String, Object>> returnList = new ArrayList<>();
 		
@@ -41,7 +46,7 @@ public class ReportService {
 		
 		// ReportList를 가져오기 위한 파라미터 설정
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("accountId", accountId);
+		paramMap.put("accountId", sessionAccountId);
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		
@@ -68,24 +73,18 @@ public class ReportService {
 	// 과제 생성
 	// 매개변수: 과제 객체, setter를 사용해 추가할 정보 lectureNo, reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
 	public void createReport(Report report) {
-		logger.debug("report = "+report.toString());
-		
 		reportMapper.insertReport(report);
 	}
 	
 	// 과제 수정
 	// 매개변수: 과제 객체, setter를 사용해 변경할 행 고유번호 reportNo, 변경할 정보 reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
 	public void modifyReport(Report report) {
-		logger.debug("report = "+report.toString());
-		
 		reportMapper.updateReport(report);
 	}
 	
 	// 학생이 제출한 과제 평가
 	// 매개변수, 과제제출 객체, setter를 사용해 변경할 행 고유번호 reportSubmitNo, 변경할 정보 reportSubmitScore, reportSubmitFeedback을 넣을 것
 	public void evaluateReportSubmit(ReportSubmit reportSubmit) {
-		logger.debug("reportSubmit = "+reportSubmit.toString());
-		
 		reportMapper.updateReportSubmitEvaluation(reportSubmit);
 	}
 }

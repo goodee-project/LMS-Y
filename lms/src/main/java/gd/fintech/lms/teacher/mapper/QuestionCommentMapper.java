@@ -8,7 +8,10 @@ import gd.fintech.lms.teacher.vo.QuestionComment;
 
 @Mapper
 public interface QuestionCommentMapper {
-	// SELECT 매핑은 QuestionMapper쪽으로 위임함
+	// 단일 댓글에 대한 상세 정보 출력
+	// 매개변수: 댓글 고유번호
+	// 리턴값: 댓글 첨부파일을 포함한 댓글의 상세정보
+	QuestionComment selectQuestionCommentDetail(int questionCommentNo);
 	
 	// 질문에 대한 댓글 생성
 	// 매개변수: 댓글 객체, setter를 사용해 추가할 정보 questionNo, accountId, questionCommentWriter, questionCommentContent를 넣을 것

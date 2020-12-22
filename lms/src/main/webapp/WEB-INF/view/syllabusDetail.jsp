@@ -79,7 +79,7 @@
 				<table>
 					<tr>
 						<td>
-							${syllabus.contert}
+							${syllabus.content}
 						<td>
 					</tr>				
 				</table>

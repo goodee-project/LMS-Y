@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>교재 목록</title>
+		<title>교재 정보 목록</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,10 +22,17 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>교재 목록</h1>
+			<h1>교재 정보 목록</h1>
 			
 			<div>
 				<table border="1">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
 				</table>
 			</div>
 		</div>

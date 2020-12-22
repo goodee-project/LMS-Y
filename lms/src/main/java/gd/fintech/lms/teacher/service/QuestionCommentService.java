@@ -62,28 +62,26 @@ public class QuestionCommentService {
 	// #1: 질문게시판 댓글 커맨드 객체 (MultipartFile 포함 가능)
 	// #2: 현재 로그인한 사용자를 검증하기 위한 세션 객체
 	public boolean createQuestionComment(QuestionCommentForm questionCommentForm, HttpSession session) {
-		// 현재 로그인한 사용자
+		// 현재 로그인한 사용자의 정보
 		String sessionAccountId = (String)session.getAttribute("accountId");
 		
 		// 검증 및 검사를 위한 객체
-		Lecture lecture = lectureManagerMapper.selectTearcherLectureDetail(sessionAccountId);
-		Teacher teacher = teacherMapper.selectTeacherOne(sessionAccountId);
+		Lecture lecture = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
 		Question question = questionMapper.selectQuestionOne(questionCommentForm.getQuestionNo());
 		
-		// 강사 권한이 없을 경우 실행 중단 후 false 반환
-		if (teacher == null) {
-			return false;
-		}
 		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
 		if (lecture.getLectureNo() != question.getLectureNo()) {
 			return false;
 		}
 		
+		// accountId를 이용해 sessionTeacherName을 가져옴
+		String sessionTeacherName = teacherMapper.selectTeacherOne(sessionAccountId).getTeacherName();
+		
 		// DTO를 VO로 변환 후 댓글 추가
 		QuestionComment questionComment = new QuestionComment();
 		questionComment.setQuestionNo(questionCommentForm.getQuestionNo());
 		questionComment.setAccountId(sessionAccountId);
-		questionComment.setQuestionCommentWriter(teacher.getTeacherName());
+		questionComment.setQuestionCommentWriter(sessionTeacherName);
 		questionComment.setQuestionCommentContent(questionCommentForm.getQuestionCommentContent());
 		questionCommentMapper.insertQuestionComment(questionComment);
 		

@@ -14,9 +14,6 @@ public class QuestionCommentForm {
 	// 덧글을 등록한 특정 질문의 고유번호
 	private int questionNo;
 	
-	// 덧글 작성자의 계정 ID
-	private String accountId;
-	
 	// 덧글 내용
 	private String questionCommentContent;
 	

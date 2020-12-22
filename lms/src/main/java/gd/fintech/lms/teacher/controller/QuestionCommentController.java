@@ -47,7 +47,7 @@ public class QuestionCommentController {
 		List<Question> list = questionService.getQuestionListByPage(currentPage, 10);
 		
 		model.addAttribute("questionList", list);
-		return "teacherQuestionList";
+		return "teacher/questionList";
 	}
 	
 	// 질문게시판의 게시글 상세내용 출력
@@ -62,7 +62,7 @@ public class QuestionCommentController {
 		Question question = questionService.getQuestionOne(questionNo);
 		
 		model.addAttribute("question", question);
-		return "teacherQuestionDetail";
+		return "teacher/questionDetail";
 	}
 	
 	// 질문게시판 댓글 작성
@@ -74,7 +74,7 @@ public class QuestionCommentController {
 		Question question = questionService.getQuestionOne(questionNo);
 		
 		model.addAttribute("question", question);
-		return "teacherCreateQuestionComment";
+		return "teacher/createQuestionComment";
 	}
 	@PostMapping("/teacher/createQuestionComment")
 	public String createQuestionComment(
@@ -92,7 +92,7 @@ public class QuestionCommentController {
 	@GetMapping("/teacher/modifyQuestionComment")
 	public String modifyQuestionComment(
 			@RequestParam("questionCommentNo") int questionCommentNo) {
-		return "teacherModifyQuestionComment";
+		return "teacher/modifyQuestionComment";
 	}
 	
 	// 질문게시판 댓글의 첨부파일 다운로드

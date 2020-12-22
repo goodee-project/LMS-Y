@@ -31,7 +31,7 @@ public class ClassroomController {
 	public String ClassroomList(Model model) {
 		List<Classroom> classroomList = classroomService.getClassroomList();
 		model.addAttribute("classroomList", classroomList);
-		return "classroomList";
+		return "manager/classroomList";
 			
 	}
 	
@@ -40,7 +40,7 @@ public class ClassroomController {
 	// 리턴값: 강의실 입력 액션 
 	@GetMapping("/manager/createClassroom")
 	public String createClassroom() {
-		return "createClassroom";
+		return "manager/createClassroom";
 	}
 	
 	
@@ -62,7 +62,7 @@ public class ClassroomController {
 			@RequestParam(name="classroomNo")int classroomNo) {
 		Classroom classroom = classroomService.getClassroomDetail(classroomNo);
 		model.addAttribute("classroom", classroom);
-		return "modifyClassroom";
+		return "manager/modifyClassroom";
 	}
 	
 	// 강의실 정보 수정 액션 

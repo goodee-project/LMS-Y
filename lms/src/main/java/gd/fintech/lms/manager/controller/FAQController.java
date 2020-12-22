@@ -44,7 +44,7 @@ public class FAQController {
 	  model.addAttribute("currentPage", currentPage);
 	  model.addAttribute("faqList",faqList);
 	  logger.debug("lastPage"+ lastPage );
-	  return "FAQList";
+	  return "manager/FAQList";
 	}
 	
 	
@@ -52,7 +52,7 @@ public class FAQController {
 	// 리턴값: FAQ 입력 액션
 	@GetMapping("/manager/createFAQ")
 	public String createFAQ() {
-	return "createFAQ";
+	return "manager/createFAQ";
 	}
 	
 	
@@ -64,6 +64,28 @@ public class FAQController {
 		faqService.createFAQ(faq);
 		return "redirect:/manager/FAQList";
 	}
+	
+	// FAQ 수정 
+	// 매개변수: 
+	// 리턴값:
+	@GetMapping("/manager/modifyFAQ")
+	public String modifyFAQ(Model model, @RequestParam(name="faqNo")int faqNo) {
+		FAQ faq = faqService.getFAQDetail(faqNo);
+		model.addAttribute("faq", faq);
+		return "/manager/FAQList";
+		
+	}
+	
+	// FAQ 수정
+	// 매개변수:
+	// 리턴값: 
+	@PostMapping("/manager/modifyFAQ")
+	public String modifyFAQ(FAQ faq) {
+		faqService.modifyFAQ(faq);
+		return "redirect:/getFAQDetail?faqNo="+faq.getFaqNo();
+	}
+	
+	
 	
 	
 	

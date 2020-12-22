@@ -41,10 +41,10 @@ public interface LectureManagerMapper {
 	Lecture selectLectureDetail(int lectureNo); 
 	
 	
-	// accountId 를 이용한 강좌의 상세보기
+	// accountId 를 이용한 강좌 리스트
 	// 매개변수: accountId
-	// 리턴값: accountId에 해당하는 상세정보
-	Lecture selectTeacherLectureDetail(String accountId);
+	// 리턴값: accountId에 해당하는 강좌 리스트
+	List<Lecture> selectTeacherLectureDetail(String accountId);
 
 
 }

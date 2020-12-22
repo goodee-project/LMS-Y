@@ -17,6 +17,9 @@ public class QuestionComment {
 	// 덧글 작성자의 계정 ID
 	private String accountId;
 	
+	// 덧글 작성자명
+	private String questionCommentWriter;
+	
 	// 덧글 내용
 	private String questionCommentContent;
 	

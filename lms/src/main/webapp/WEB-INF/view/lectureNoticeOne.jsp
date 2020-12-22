@@ -19,7 +19,7 @@
 		<div class="container">
 			<div align="right">
 			<a href="${pageContext.request.contextPath}/teacher/modifyLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">수정</a>&nbsp;&nbsp;
-			<a href="${pageContext.request.contextPath}">삭제</a>
+			<a href="${pageContext.request.contextPath}/teacher/removeLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">삭제</a>
 			</div>
 			<table class="table">
 				<tr>

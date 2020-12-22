@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +91,11 @@ public class LectureNoticeService {
 	//리턴값:공지사항 삭제
 	public void removeLectureNotice(int lectureNoticeNo) {
 		lectureNoticeMapper.deleteLetureNotice(lectureNoticeNo);
+	}
+	//강좌별 공지사항 조회수 카운트 메서드
+	//강좌 공지사항 고유번호
+	//리턴값:조회수 증가
+	public int increaseLectureNoticeCount(int lectureNoticeNo) {
+		return lectureNoticeMapper.updateLectureNoticeCount(lectureNoticeNo);
 	}
 }

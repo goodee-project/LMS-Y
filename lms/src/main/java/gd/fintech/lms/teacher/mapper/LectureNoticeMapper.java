@@ -39,6 +39,10 @@ public interface LectureNoticeMapper {
 	//강좌별 공지사항 카운트
 	//매개변수:강좌 고유번호
 	int selectLectureNoticeCount(int lectureNo);
-
+	
+	//강좌별 공지사항 조회수 카운트
+	//매개변수:강좌 공지사항 고유번호에 해당하는 자료실 정보
+	//리턴값:변경된 행 갯수
+	int updateLectureNoticeCount(int lectureNoticeNo);
 	
 }

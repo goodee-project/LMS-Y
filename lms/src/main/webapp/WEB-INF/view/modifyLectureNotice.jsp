@@ -20,7 +20,7 @@
 						<table class="table">
 							<tr>
 								<td>공지번호</td>
-								<td><input type="text" type="text" name="lectureNoticeNo" value="${lectureNotice.lectureNoticeNo}" readonly="readonly"></td>
+								<td><input type="text" name="lectureNoticeNo" value="${lectureNotice.lectureNoticeNo}" readonly="readonly"></td>
 							</tr>
 							<tr>
 								<td>제목</td>

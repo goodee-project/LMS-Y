@@ -16,7 +16,8 @@
 			question_password questionPassword
 		FROM
 			question
-		WHERE question_no=#{questionNo}
+		WHERE lecutre_no
+		ORDER BY question_no=#{questionNo} DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -24,6 +25,7 @@
 	<select id="selectQuestionCount" parameterType="int" resultType="gd.fintech.lms.student.vo.Question">
 		SELECT COUNT(*) FROM question
 	</select>
+	
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>
@@ -39,6 +41,7 @@
 			<result property="questionCommentNo" column="question_comment_no"/>
 			<result property="questionNo" column="question_no"/>
 			<result property="accountId" column="account_id"/>
+			<result property="questionCommentWritter" column="question_comment_writer"></result>
 			<result property="questionCommentContent" column="question_comment_context"/>
 			<result property="questionCommentCreateDate" column="question_comment_createdate"/>
 			<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>
@@ -86,7 +89,7 @@
 				ON q.question_no = qc.question_no
 			LEFT JOIN question_comment_file qcf
 				ON qc.question_comment_no = qcf.question_comment_no
-		WHERE q.question_no=#{questionNo}	
+		WHERE q.accoutId=#{accountId}	
 	</select> 
 	
 	

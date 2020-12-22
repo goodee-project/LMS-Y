@@ -41,7 +41,7 @@
 			<result property="questionCommentNo" column="question_comment_no"/>
 			<result property="questionNo" column="question_no"/>
 			<result property="accountId" column="account_id"/>
-			<result property="questionCommentWritter" column="question_comment_writer"></result>
+			<result property="questionCommentWriter" column="question_comment_writer"></result>
 			<result property="questionCommentContent" column="question_comment_context"/>
 			<result property="questionCommentCreateDate" column="question_comment_createdate"/>
 			<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>

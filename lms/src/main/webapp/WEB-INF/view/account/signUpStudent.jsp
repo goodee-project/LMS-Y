@@ -11,6 +11,31 @@
 			$(document).ready(function() {
 				// 초기 아이디 입력칸으로 포커싱
 				$('#studentId').focus();
+				// 아이디 중복체크
+				$('#studentId').blur(function() {
+					if($('#studentId').val() == '') {
+						$('#studentId').focus();
+						$('#idCkMsg').text('아이디를 입력하세요');
+					}else {
+						$('#studentPw').focus();
+						$('#idCkMsg').text('');
+					}
+					$.ajax({
+						url: '${pageContext.request.contextPath}/accountIdCheck',
+						type: 'post',
+						data: {accountId:$('#studentId').val()},
+						success: function(data) {
+							if(data == 'noPass') {
+								$('#idCkMsg').text('아이디가 중복됩니다.');
+								$('#studentId').focus();
+								
+							}else {
+								$('#idCkMsg').text('');
+								return;
+							}
+						}
+					});
+				});
 				// 비밀번호 확인
 				$('#studentPwCk').blur(function() {
 					if($('#studentPw').val() != $('#studentPwCk').val()) {
@@ -67,6 +92,7 @@
 					<td>아이디</td>
 					<td>
 						<input class="form-control col-sm-4" type="text" id="studentId" name="accountId" placeholder="아이디 입력">
+						<div id="idCkMsg"></div>
 					</td>
 				</tr>
 				<tr>

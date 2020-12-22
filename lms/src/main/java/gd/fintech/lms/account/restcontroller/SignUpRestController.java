@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,18 @@ import gd.fintech.lms.account.restservice.SignUpRestService;
 public class SignUpRestController {
 	// SignUpService 객체 주입
 	@Autowired SignUpRestService signUpRestService;
+	
+	// 아이디 중복체크를 위한 메소드
+	// 매개변수: 계정 아이디
+	// 리턴값: 회원가입페이지
+	@PostMapping("/accountIdCheck")
+	public String accountIdCheck(@RequestParam(value = "accountId", required = true) String accountId) {
+		String idCk = signUpRestService.getAccountId(accountId);
+		if(idCk == null) {
+			return "pass";
+		}
+		return "noPass";
+	}
 	
 	// 회원가입을 위한 주소 목록을 받아오는 메소드
 	// 매개변수:

@@ -57,15 +57,6 @@ public class LectureNoticeController {
 		return "/teacher/lectureNotice";
 
 	}
-	//쿠키생성 메서드
-	@GetMapping("/teacher/teacherIndex")
-	private String index(HttpServletResponse response) {
-		Cookie cookie =new Cookie("view",null); 	//view라는 이름의 쿠키 생성
-		cookie.setComment("게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
-		cookie.setMaxAge(60*60*24*365);			//해당 쿠키의 유효시간을 설정 (초 기준)
-		response.addCookie(cookie);				//사용자에게 해당 쿠키를 추가
-		return "/teacher/teacherIndex";
-	}
 
 	// 강좌별 공지사항 상세보기 페이지 메서드
 	// 매개변수:깅좌별 공지사항 고유번호
@@ -78,13 +69,14 @@ public class LectureNoticeController {
 		// 강좌별 공지사항 상세보기
 		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNoticeNo);
 
-		
 		// 세션정보
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		// 세션에 있는 아이디를 가져옴
 		String accountId = (String) session.getAttribute("accountId");
+		//로깅을 이용한 디버그
 		logger.debug(accountId+"<--- accountId");
 		
+		//조회수 증가
 		long update_time = 0;
 		//세션에 저장된 조회 시간 검색
 		if(session.getAttribute("update_time"+lectureNoticeNo) !=null) {
@@ -93,11 +85,10 @@ public class LectureNoticeController {
 		//시스템 현재시간
 		long current_time = System.currentTimeMillis();
 		if(current_time - update_time>24*60*601000) {
+			//조회수 증가 코드
 			lectureNoticeService.increaseLectureNoticeCount(lectureNoticeNo);
 			session.setAttribute("update_time"+lectureNoticeNo, current_time);
 		}
-			
-		//lectureNoticeService.increaseLectureNoticeCount(lectureNoticeNo);
 		// 모델로 뷰에 값 전달
 		model.addAttribute("lectureNotice", lectureNotice);
 		return "/teacher/lectureNoticeOne";

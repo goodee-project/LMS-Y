@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.account.service.AccountService;
 import gd.fintech.lms.admin.service.AdminService;
+import gd.fintech.lms.admin.vo.Admin;
 import gd.fintech.lms.admin.vo.ManagerQueue;
 
 // 관리자가 하는 업무 Controller
@@ -19,11 +21,28 @@ import gd.fintech.lms.admin.vo.ManagerQueue;
 @Controller
 public class AdminController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
+	// 계정 관련 Service
+	@Autowired private AccountService accountService;
 	// 관리자가 하는 업무 Service
 	@Autowired private AdminService adminService;
 	
-	// 회원가입 승인대기 중인 운영자 리스트 페이지로 이동하는 메소드
+	// 관리자 정보 페이지를 출력하는 메소드
+	// 매개변수:
+	// #1. model
+	// #2. accountId(아이디)
+	// 리턴값: adminDetail(관리자 정보를 출력하는 페이지)
+	@GetMapping("/admin/adminDetail")
+	public String adminDetail(Model model, @RequestParam(value = "accountId") String accountId) {
+		logger.debug(accountId.toString());
+		Admin adminDetail = accountService.getAdminOne(accountId);
+		logger.debug(adminDetail.toString());
+		model.addAttribute("adminDetail", adminDetail);
+		
+		return "adminDetail";
+	}
+	
+	// 회원가입 승인대기 중인 운영자 리스트 페이지를 출력하는 메소드
 	// 매개변수:
 	// #1. model
 	// #2. currentPage(현재 페이지)
@@ -76,7 +95,7 @@ public class AdminController {
 		return "managerQueueList";
 	}
 	
-	// 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 메소드
+	// 회원가입 승인대기 중인 운영자의 개인정보 페이지를 출력하는 메소드
 	// 매개변수:
 	// #1. model
 	// #2. accountId(아이디)

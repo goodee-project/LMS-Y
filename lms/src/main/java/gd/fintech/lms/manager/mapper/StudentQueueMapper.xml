@@ -38,13 +38,13 @@
 			student_address_sub
 		) VALUES (
 			#{accountId},
-			#{accountEmail},
-			#{accountName},
-			#{accountPhone},
-			#{accountGender},
-			#{accountBirth},
-			#{accountAddressMain},
-			#{accountAddressSub}
+			#{studentEmail},
+			#{studentName},
+			#{studentPhone},
+			#{studentGender},
+			#{studentBirth},
+			#{studentAddressMain},
+			#{studentAddressSub}
 		)
 	</insert>
 	<!-- 학생 승인대기 정보 삭제 -->

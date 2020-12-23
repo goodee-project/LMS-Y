@@ -43,7 +43,7 @@
 			#{teacherPhone},
 			#{teacherGender},
 			#{teacherBirth},
-			#{teacherAddressMail},
+			#{teacherAddressMain},
 			#{teacherAddressSub}
 		)
 	</insert>

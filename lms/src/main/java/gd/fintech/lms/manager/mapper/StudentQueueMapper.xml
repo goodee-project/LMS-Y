@@ -11,7 +11,7 @@
 		FROM student_queue
 	</select>
 	<!-- 학생 승인대기 상세보기 -->
-	<select id="selectStudentQueueDetail" resultType="gd.fintech.lms.manager.vo.StudentQueue">
+	<select id="selectStudentQueueDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.StudentQueue">
 		SELECT
 			account_id accountId,
 			student_email studentEmail,
@@ -26,7 +26,7 @@
 	</select>
 	
 	<!-- 학생 승인대기 정보 입력 -->
-	<insert id="insertStudentQueue">
+	<insert id="insertStudentQueue" parameterType="gd.fintech.lms.manager.vo.StudentQueue">
 		INSERT INTO student_queue(
 			account_id,
 			student_email,
@@ -48,7 +48,7 @@
 		)
 	</insert>
 	<!-- 학생 승인대기 정보 삭제 -->
-	<delete id="deleteStudentQueue">
+	<delete id="deleteStudentQueue" parameterType="String">
 		DELETE FROM student_queue
 		WHERE account_id = #{accountId}
 	</delete>

@@ -105,7 +105,7 @@
 		)
 	</insert>
 	<!-- 과제제출 정보 수정 -->
-	<update id="updateReportSubmit">
+	<update id="updateReportSubmit" parameterType="gd.fintech.lms.student.vo.ReportSubmit">
 		UPDATE report_submit
 		SET
 			report_submit_updatedate = NOW(),

@@ -11,7 +11,7 @@
 		FROM teacher_queue
 	</select>
 	<!-- 강사 승인대기 상세보기 -->
-	<select id="selectTeacherQueueDetail" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
+	<select id="selectTeacherQueueDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
 		SELECT
 			account_id accountId,
 			teacher_email teacherEmail,
@@ -26,7 +26,7 @@
 	</select>
 	
 	<!-- 강사 승인대기 정보 입력 -->
-	<insert id="insertTeacherQueue">
+	<insert id="insertTeacherQueue" parameterType="gd.fintech.lms.manager.vo.TeacherQueue">
 		INSERT INTO teacher_queue(
 			account_id,
 			teacher_email,
@@ -48,7 +48,7 @@
 		)
 	</insert>
 	<!-- 강사 승인대기 정보 삭제 -->
-	<delete id="deleteTeacherQueue">
+	<delete id="deleteTeacherQueue" parameterType="String">
 		DELETE FROM teacher_queue
 		WHERE account_id = #{accountId}
 	</delete>

@@ -36,7 +36,8 @@
 		OR lms_notice_writer LIKE '%#{lmsNoticeWriter}%'
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
-	<select id="selectLMSNoticeCount">
+	<!-- lms 공지사항 게시물 갯수 카운트 -->
+	<select id="selectLMSNoticeCount" resultType="int">
 		SELECT COUNT(*) lmsNoticeCount
 		FROM lms_notice
 	</select>

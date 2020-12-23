@@ -56,6 +56,6 @@ public class ClassroomService {
 	// 매개변수: 강의실의 고유번호
 	// 리턴값:  강의실 고유번호에 해당하는 상세정보
 	public Classroom getClassroomDetail(int classroomNo) {
-		return classroomMapper.classroomOne(classroomNo);
+		return classroomMapper.classroomDetail(classroomNo);
 	}
 }

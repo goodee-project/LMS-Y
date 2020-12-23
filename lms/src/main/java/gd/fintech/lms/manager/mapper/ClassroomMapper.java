@@ -32,6 +32,6 @@ public interface ClassroomMapper {
 	// 강의실 상세보기
 	// 매개변수: 강의실 고유번호
 	// 리턴값: 해당하는 강의실의 상세한 정보
-	Classroom classroomOne(int classroomNo);
+	Classroom classroomDetail(int classroomNo);
 
 }

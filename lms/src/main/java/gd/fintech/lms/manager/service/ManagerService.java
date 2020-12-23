@@ -56,7 +56,7 @@ public class ManagerService {
 	// 운영자의 개인 정보를 볼수있는 서비스 메소드 
 	// 매개변수: 운영자의 계정 ID
 	// 리턴값: 운영자의 상세 정보 
-	public Manager getManagerOne(String accountId) {
+	public Manager getManagerDetail(String accountId) {
 		return managerMapper.selectManagerOne(accountId);
 	}
 	

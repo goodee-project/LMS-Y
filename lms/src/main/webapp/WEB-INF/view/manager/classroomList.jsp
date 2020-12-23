@@ -25,19 +25,15 @@
 			<h1>classroomList</h1>
 			
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
 						<th>강의실 고유번호</th>
 						<th>강의실 번호</th>
-						<th>강의실 규격</th>
-						<th>강의실 정원수</th>
 					</tr>
 				<c:forEach items="${classroomList}" var="c">
 					<tr>
 						<td>${c.classroomNo}</td>
 						<td>${c.classroomNumber}</td>
-						<td>${c.classroomSize}</td>
-						<td>${c.classroomTotal}</td>
 					</tr>
 					
 				

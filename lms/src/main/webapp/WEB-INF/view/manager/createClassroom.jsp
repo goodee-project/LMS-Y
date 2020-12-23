@@ -28,7 +28,7 @@
 			<div>
 				<form method="post" action="${pageContext.request.contextPath}/manager/classroom/createClassroom">
 					
-					<table border="1">
+					<table class="table">
 						<tr>
 								<td>강의실 번호</td>
 								<td><input type="text" name="classroomNumber" > </td>

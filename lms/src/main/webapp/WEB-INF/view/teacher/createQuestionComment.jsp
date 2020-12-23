@@ -9,6 +9,8 @@
 		
 		<!-- jQuery 스크립트 -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- NAVER SmartEditor2 스크립트 -->
+		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
 		<script>
 			$(document).ready(function() {
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
@@ -46,8 +48,34 @@
 						}
 					});
 
-					// 유효성 검사를 만족했을 경우 submit
+					// 유효성 검사를 만족했을 경우 NAVER SmartEditor2 작업 후 submit
+					// oEditors.getById 뒤에 textarea의 id를 넣어줄 것!
+					oEditors.getById["questionCommentContent"].exec("UPDATE_CONTENTS_FIELD", []);
 					$('#questionCommentForm').submit();
+				});
+
+				// NAVER SmartEditor2 적용 코드
+				let oEditors = [];
+				nhn.husky.EZCreator.createInIFrame({
+					oAppRef: oEditors,
+					elPlaceHolder: "questionCommentContent",		// 적용할 textarea 태그의 id 속성
+					sSkinURI: "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",	
+					htParams : {
+						bUseToolbar : true,							// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseVerticalResizer : true,					// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseModeChanger : true,						// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+						//bSkipXssFilter : true,					// client-side xss filter 무시 여부 (true:사용하지 않음 / 그외:사용)
+						//aAdditionalFontList : aAdditionalFontSet,	// 추가 글꼴 목록
+						fOnBeforeUnload : function(){
+							//alert("완료!");
+						},
+						I18N_LOCALE : "ko_KR"
+					}, //boolean
+					fOnAppLoad : function(){
+						//예제 코드
+						//oEditors.getById["ir1"].exec("PASTE_HTML", ["로딩이 완료된 후에 본문에 삽입되는 text입니다."]);
+					},
+					fCreator: "createSEditor2"
 				});
 			});
 		</script>
@@ -82,7 +110,7 @@
 						
 					<div>
 						댓글 내용:
-						<textarea id="questionCommentContent" name="questionCommentContent" cols="20" rows="4"></textarea>
+						<textarea id="questionCommentContent" name="questionCommentContent" cols="20" rows="4" style="width: 100%"></textarea>
 					</div>
 					<div>
 						첨부파일:

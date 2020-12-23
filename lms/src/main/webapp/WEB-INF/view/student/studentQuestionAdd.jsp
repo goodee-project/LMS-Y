@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>[여기에 이 페이지의 특징을 잘 살린 제목을 넣어주세요]</title>
+		<title>질문 추가하기</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -26,9 +26,8 @@
 				<h1>학생 질문 추가</h1>
 			</div>
 		</div>
-			<div class="container">
-				<form method="post" action="/student/studentQuestionAdd">
-					<table class="table">
+				<form method="post" action="${pageContext.request.contextPath}/student/studentQuestionAdd">
+					<table border="1">
 						
 						<tr>
 							<td>강좌번호</td>
@@ -44,19 +43,20 @@
 						
 						<tr>
 							<td>계정Id</td>
+							<td><input type="text" name="accountId" value="${question.accountId}" readonly="readonly"></td>
+							
 							<td>작성자</td>	
-							<td>${question.accountId}</td>
-							<td>${question.questionWriter}</td>
+							<td><input type="text" name="questionWriter" value="${question.questionWriter}"></td>
 						</tr>
 						
 						<tr>
 							<td>제목</td>
-							<td>${question.questionTitle}</td>
+							<td><input type="text" name="questionTitle" value="${question.questionTitle}"></td>
 						</tr>
 						
 						<tr>
 							<td>내용</td>
-							<td>${question.questionContent}</td>
+							<td><textarea= cols="60" row="10" name="questionContent" value="${question.questionContent}"></textarea></td>
 						</tr>
 						
 						<tr>
@@ -72,11 +72,10 @@
 						
 						<tr>
 							<td>비밀번호</td>
-							<td>${question.questionPassword}</td>
+							<td><input type="password" name="questionPassword" value="${questionPassword}"></td>
 						</tr>
 					</table>
 					<button type="submit">[등록]</button>
 				</form>
-		</div>
 	</body>
 </html>

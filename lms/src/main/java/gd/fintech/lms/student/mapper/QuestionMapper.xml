@@ -89,7 +89,7 @@
 				ON q.question_no = qc.question_no
 			LEFT JOIN question_comment_file qcf
 				ON qc.question_comment_no = qcf.question_comment_no
-		WHERE q.question_id=#{questionId}	
+		WHERE q.question_no=#{questionNo}	   
 	</select> 
 	
 	
@@ -99,25 +99,21 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO question(
-			question_no questionNo,
 			lecture_no lectureNo,
 			question_writer questionWriter,
 			question_title questionTitle,
 			question_context questionContent,
 			question_createdate questionCreateDate,
 			question_updatedate questionUpdateDate,
-			question_count questionCount,
 			question_password questionPassword
 		
 		) VALUES (
-			#{questionNo},
 			#{lectureNo},
 			#{questionWriter},
 			#{questionTitle},
 			#{questionContent},
 			NOW(),
 			NOW(),
-			#{questionCount},
 			#{questionPassword}
 		)	
 	</insert>

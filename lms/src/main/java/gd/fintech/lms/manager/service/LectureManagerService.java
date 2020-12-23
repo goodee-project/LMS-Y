@@ -11,7 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.manager.mapper.LectureManagerMapper;
+import gd.fintech.lms.manager.mapper.SubjectMapper;
+import gd.fintech.lms.manager.mapper.TextbookMapper;
 import gd.fintech.lms.manager.vo.Lecture;
+import gd.fintech.lms.manager.vo.Subject;
+import gd.fintech.lms.manager.vo.Textbook;
 
 // /Lecture 를 관리하는 서비스 
 
@@ -23,6 +27,12 @@ public class LectureManagerService {
 	
     // LectureManager에 대한 메퍼
 	@Autowired LectureManagerMapper lectureManagerMapper;
+	
+	// 과목 정보 
+	@Autowired SubjectMapper subjectMapper;
+	
+	// 교재 정보
+	@Autowired TextbookMapper textbookMapper;
 	
 	
 	// 강좌의 정보를 출력하는 서비스
@@ -38,6 +48,7 @@ public class LectureManagerService {
 		
 		return lectureManagerMapper.selectLectureListByPage(map);
 	}
+	
 	
 	
 	
@@ -73,6 +84,19 @@ public class LectureManagerService {
 		return lectureManagerMapper.deleteLecture(lectureNo);	
 	}
 	
+	// 강좌 상세보기 서비스 
+	// 매개변수: 강좌 고유번호
+	// 리턴값: 강좌 고유번호에 대한 강좌 상세보기
+	public Lecture managerLectureDetail(int lectureNo) {
+		return lectureManagerMapper.selectLectureDetail(lectureNo);
+	}
 	
-
+	public List<Subject> getSubjectList(Map<String, Integer> map){
+		return  subjectMapper.selectSubjectList(map);
+		
+	}
+	
+	public List<Textbook> getTextbookList(Map<String, Integer> map) {
+		return textbookMapper.selectTextbookList(map);
+	}
 }

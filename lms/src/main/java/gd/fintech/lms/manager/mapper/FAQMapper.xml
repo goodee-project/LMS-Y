@@ -30,9 +30,11 @@
 	<select id="selectFAQDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.FAQ">
 	 SELECT 
 		faq_no faqNo,
+		account_id accountId,
 		faq_title faqTitle,
 	    faq_writer faqWriter,
 		faq_content faqContent,
+		faq_createDate faqCreateDate,
 		faq_updatedate faqUpdateDate,
 		faq_count faqCount,
 		faq_category faqCategory

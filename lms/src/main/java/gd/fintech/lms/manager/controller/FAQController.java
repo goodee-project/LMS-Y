@@ -85,6 +85,16 @@ public class FAQController {
 		return "redirect:/getFAQDetail?faqNo="+faq.getFaqNo();
 	}
 	
+	// 강의실 상세정보
+	// 리턴값: 입력한 classroomNo에 해당하는 강의실 상세정보 
+	@GetMapping("/manager/FAQDetail")
+	public String faqDetail(Model model,
+			@RequestParam("faqNo")int faqNo) {
+		FAQ faq = faqService.getFAQDetail(faqNo);
+		model.addAttribute("faq", faq);
+		return "manager/FAQDetail";
+		
+	}
 	
 	
 	

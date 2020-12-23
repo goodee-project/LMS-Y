@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>classroomDetail</title>
+<title>강의실 상세보기</title>
 </head>
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
@@ -24,12 +24,12 @@
 					</tr>
 				   
 					<tr>
-						<td>강의실 호수번</td>
+						<td>강의실 호실</td>
 						<td>${classroom.classroomNumber}</td>
 					</tr>
 					
 					<tr>
-						<td>강의실 규격</td>
+						<td>강의실 면적</td>
 						<td>${classroom.classroomSize}</td>
 					</tr>
 					

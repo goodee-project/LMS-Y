@@ -62,6 +62,7 @@ public class ClassroomController {
 			@RequestParam(name="classroomNo")int classroomNo) {
 		Classroom classroom = classroomService.getClassroomDetail(classroomNo);
 		model.addAttribute("classroom", classroom);
+		logger.debug("Classroom"+ classroom );
 		return "manager/modifyClassroom";
 	}
 	
@@ -70,7 +71,8 @@ public class ClassroomController {
 	@PostMapping("/manager/modifyClassroom")
 	public String modifyClassroom(Classroom classroom) {
 		classroomService.modifyClassroom(classroom);
-		return "redirect:/manager/getClassroomDetail?classroomNo="+classroom.getClassroomNo();
+		logger.debug("Classroom"+ classroom );
+		return "redirect:/manager/ClassroomDetail?classroomNo="+classroom.getClassroomNo();
 	}
 	
 	// 강의실 상세정보

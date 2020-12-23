@@ -15,7 +15,7 @@ public interface AddressMapper {
 	// 우편번호로 주소 목록을 조회(검색) 메소드
 	// 매개변수: 우편번호
 	// 리턴값: 우편번호에 따른 주소 목록 리스트
-	List<Address> selectAddressByZipCode(String zipCode);
+	List<String> selectAddressByZipCode(String zipCode);
 	
 	// 주소 전체 목록을 조회하는 메소드
 	// 매개변수: 페이징을 위한 시작페이지, 한 페이지 행의 수

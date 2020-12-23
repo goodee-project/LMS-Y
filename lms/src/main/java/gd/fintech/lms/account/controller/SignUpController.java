@@ -28,9 +28,8 @@ public class SignUpController {
 	// 리턴값: 학생로그인페이지	
 	@PostMapping("/signUpStudent")
 	public String signUpStudentAction(SignUpForm signUpForm) {
-		System.out.println("회원가입폼에서 입력된 값: " + signUpForm);
 		// account(계정) 테이블에 입력되는 메소드
-		signUpService.createSignUpAccount(signUpForm);	
+		signUpService.createSignUpAccount(signUpForm);
 		// student_queue(학생승인대기) 테이블에 입력되는 메소드
 		signUpService.createSignUpStudentQueue(signUpForm);	
 		return "redirect:/studentLogin";

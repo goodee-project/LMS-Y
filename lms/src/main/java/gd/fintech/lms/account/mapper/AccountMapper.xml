@@ -14,6 +14,13 @@
 			AND account_pw = PASSWORD(#{accountPw})
 	</select>
 	
+	<!-- 아이디 중복체크를 위한 쿼리 -->
+	<select id="selectAccountId" parameterType="String" resultType="String">
+		SELECT account_id
+		FROM account
+		WHERE account_id = #{accountId}
+	</select>
+	
 	<!-- 모든 계정의 목록을 조회하는 쿼리 -->
 	<select id="selectMemberAll" parameterType="java.util.Map" resultType="gd.fintech.lms.account.vo.Account">
 		SELECT 
@@ -28,7 +35,7 @@
 	</select>
 	
 	<!-- 계정을 입력하는 쿼리(계정 상태는 대기가 기본값) -->
-	<insert id="insertAccount" parameterType="gd.fintech.lms.dto.SignUpForm">
+	<insert id="insertAccount" parameterType="gd.fintech.lms.account.vo.Account">
 		INSERT INTO account (
 			account_id,
 			account_pw,

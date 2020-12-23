@@ -4,17 +4,15 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.account.mapper.AddressMapper">
 	<!-- 우편번호를 조건으로 주소 정보 목록을 조회하는 쿼리문 -->
-	<select id="selectAddressByZipCode" parameterType="String" resultType="gd.fintech.lms.account.vo.Address">
+	<select id="selectAddressByZipCode" parameterType="String" resultType="String">
 		SELECT 
-			id ID,
-			zip_code zipCode,
-			province province,
-			city city,
-			town town,
-			street street
+			CONCAT(
+			_utf8mb4' ',province,
+			_utf8mb4' ',city,
+			_UTF8MB4' ',town,
+			_UTF8MB4' ',street) AS 'address'
 		FROM address
 		WHERE zip_code = #{zipCode}
-		ORDER BY id ASC
 	</select>
 		
 	<!-- 주소 전체 목록 정보를 조회하는 쿼리문  -->

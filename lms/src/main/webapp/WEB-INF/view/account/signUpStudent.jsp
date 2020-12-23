@@ -27,7 +27,7 @@
 						data: {accountId:$('#studentId').val()},
 						success: function(data) {
 							if(data == 'noPass') {
-								$('#idCkMsg').text('아이디가 중복됩니다.');
+								$('#idCkMsg').text('아이디가 중복됩니다');
 								$('#studentId').focus();
 								
 							}else {
@@ -44,7 +44,16 @@
 						$('#studentPwCk').focus();
 					}else {
 						$('#pwCkMsg').text('');
-					}					
+					}
+				});
+				// 이메일 입력 유효성 검사
+				$('#studentEmail').blur(function() {
+					if($('#studentEmail').val() == '') {
+						$('#emailCkMsg').text('이메일을 입력하세요');
+						$('#studentEmail').focus();
+					}else {
+						$('#emailCkMsg').text('');
+					}
 				});
 				// 전화번호 숫자만 입력
 				$("#studentPhone").on("keyup", function() {
@@ -61,13 +70,13 @@
 			            type : 'get',
 			            data : {zipCode:$('#zipCode').val()},
 			            error : function(){
-			                alert('데이터에 오류가 있습니다.');
+			                alert('데이터에 오류가 있습니다');
 			            },
 			            success : function(data){
 				            let str = `<div class="form-group">
 				            		   <select multiple class="form-control" name="accountAddressMain">`;
 				            for(let i=0; i<data.length; i++) {
-				            	str += '<option value='+ data[i] +'>' + data[i] + '</option>';
+				            	str += '<option>' + data[i] + '</option>';
 					        }					
 							str += '</select> </div>';
 			                $('#addAddr').empty();
@@ -113,6 +122,7 @@
 					<td>이메일</td>
 					<td>
 						<input class="form-control col-sm-4" type="text" id="studentEmail" name="accountEmail" placeholder="이메일 입력">
+						<div id="emailCkMsg"></div>
 					</td>
 				</tr>
 				<tr>

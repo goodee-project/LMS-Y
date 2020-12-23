@@ -11,7 +11,9 @@ import gd.fintech.lms.account.mapper.SignUpMapper;
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.dto.SignUpForm;
 import gd.fintech.lms.manager.mapper.StudentQueueMapper;
+import gd.fintech.lms.manager.mapper.TeacherQueueMapper;
 import gd.fintech.lms.manager.vo.StudentQueue;
+import gd.fintech.lms.manager.vo.TeacherQueue;
 
 // 회원가입 기능을 위한 서비스 클래스
 
@@ -24,6 +26,8 @@ public class SignUpService {
 	@Autowired private AddressMapper addressMapper;
 	// StudentQueueMapper 객체 주입
 	@Autowired private StudentQueueMapper studentQueueMapper;
+	// TeacherQueueMapper 객체 주입
+	@Autowired private TeacherQueueMapper teacherQueueMapper;
 	
 	// 회원가입시 Account 테이블에 회원 정보를 입력하는 메소드(vo로 전환)
 	// 매걔변수: 회원가입폼에서 입력된 회원정보(id,pw,level)
@@ -51,6 +55,22 @@ public class SignUpService {
 		studentQueue.setStudentAddressMain(signUpForm.getAccountAddressMain());
 		studentQueue.setStudentAddressSub(signUpForm.getAccountAddressSub());
 		return studentQueueMapper.insertStudentQueue(studentQueue);
+	}
+	
+	// 회원가입시 Teacher_Queue 테이블에 회원 정보를 입력하는 메소드(vo로 전환)
+	// 매개변수: 회원가입폼에서 입력된 회원정보(id,email,name,phone,gender,birth,mainAddress,sub)
+	// 리턴값: 강사 승인대기에 입력하는 매퍼
+	public int createSignUpTeacherQueue(SignUpForm signUpForm) {
+		TeacherQueue teacherQueue = new TeacherQueue();
+		teacherQueue.setAccountId(signUpForm.getAccountId());
+		teacherQueue.setTeacherEmail(signUpForm.getAccountEmail());
+		teacherQueue.setTeacherName(signUpForm.getAccountName());
+		teacherQueue.setTeacherPhone(signUpForm.getAccountPhone());
+		teacherQueue.setTeacherGender(signUpForm.getAccountGender());
+		teacherQueue.setTeacherBirth(signUpForm.getAccountBirth());
+		teacherQueue.setTeacherAddressMain(signUpForm.getAccountAddressMain());
+		teacherQueue.setTeacherAddressSub(signUpForm.getAccountAddressSub());
+		return teacherQueueMapper.insertTeacherQueue(teacherQueue);
 	}
 	
 	// 계정ID로 중복 체크를 위한 메소드

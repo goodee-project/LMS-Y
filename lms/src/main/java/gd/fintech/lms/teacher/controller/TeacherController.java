@@ -31,7 +31,7 @@ public class TeacherController {
 			@RequestParam(value = "accountId", required = false) String accountId) {
 		Teacher teacher = teacherService.getTeacherOne(accountId);
 		model.addAttribute("teacher", teacher);
-		return "teacherOne";
+		return "/teacher/teacherOne";
 	}
 
 	// 강사정보 수정 폼으로 이동하는 메서드
@@ -39,14 +39,14 @@ public class TeacherController {
 	public String modifyTeacher(Model model, @RequestParam(value = "accountId") String accountId) {
 		Teacher teacher = teacherService.getTeacherOne(accountId);
 		model.addAttribute("teacher", teacher);
-		return "modifyTeacher";
+		return "/teacher/modifyTeacher";
 	}
 
 	// 강사정보 수정 액션
 	@PostMapping("/teacher/modifyTeacher")
 	public String modifyTeacher(Teacher teacher) {
 		teacherService.getTeacherUpdate(teacher);
-		return "teacherOne";
+		return "/teacher/teacherOne";
 	}
 
 	// 주소 목록을 띄우는 페이지 메서드
@@ -64,7 +64,7 @@ public class TeacherController {
 		model.addAttribute("addressList",addressList);
 		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("lastPage",lastPage);
-		return "addressOne";
+		return "/teacher/addressOne";
 	}
 
 }

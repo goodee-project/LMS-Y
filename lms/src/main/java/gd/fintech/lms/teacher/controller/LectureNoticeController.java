@@ -1,5 +1,7 @@
 package gd.fintech.lms.teacher.controller;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,37 +54,53 @@ public class LectureNoticeController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("lectureNo", lectureNo);
-		return "lectureNotice";
+		return "/teacher/lectureNotice";
 
+	}
+	//쿠키생성 메서드
+	@GetMapping("/teacher/teacherIndex")
+	private String index(HttpServletResponse response) {
+		Cookie cookie =new Cookie("view",null); 	//view라는 이름의 쿠키 생성
+		cookie.setComment("게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
+		cookie.setMaxAge(60*60*24*365);			//해당 쿠키의 유효시간을 설정 (초 기준)
+		response.addCookie(cookie);				//사용자에게 해당 쿠키를 추가
+		return "/teacher/teacherIndex";
 	}
 
 	// 강좌별 공지사항 상세보기 페이지 메서드
 	// 매개변수:깅좌별 공지사항 고유번호
 	// 리턴값:강좌별 공지사항 고유번호를 참조하여 공지사항 정보를 띄우는 뷰페이지 //ServletRequest request,
-	@RequestMapping("/teacher/lectureNoticeOne")
-	public String LectureNoticeOne(Model model, HttpServletResponse response, HttpServletRequest request,
+	@GetMapping("/teacher/lectureNoticeOne")
+	public String LectureNoticeOne(Model model, 
+			HttpServletResponse response, 
+			HttpServletRequest request,
 			@RequestParam(value = "lectureNoticeNo") int lectureNoticeNo) {
 		// 강좌별 공지사항 상세보기
 		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNoticeNo);
-		
-		int countCheck = 0;
-		
-		// 상세정보 조회시 카운트 증가
-		if (countCheck > 0) {
-			lectureNoticeService.increaseLectureNoticeCount(lectureNoticeNo);
-		}
 
+		
 		// 세션정보
 		HttpSession session = ((HttpServletRequest) request).getSession();
 		// 세션에 있는 아이디를 가져옴
-		// String accountId = (String) session.getAttribute("accountId");
-		// logger.debug(accountId+"<--- accountId");
-		// 강좌별 공지사항 조회수
+		String accountId = (String) session.getAttribute("accountId");
+		logger.debug(accountId+"<--- accountId");
+		
+		long update_time = 0;
+		//세션에 저장된 조회 시간 검색
+		if(session.getAttribute("update_time"+lectureNoticeNo) !=null) {
+			update_time = (long)session.getAttribute("update_time"+lectureNoticeNo);
+		}
+		//시스템 현재시간
+		long current_time = System.currentTimeMillis();
+		if(current_time - update_time>24*60*601000) {
+			lectureNoticeService.increaseLectureNoticeCount(lectureNoticeNo);
+			session.setAttribute("update_time"+lectureNoticeNo, current_time);
+		}
+			
 		//lectureNoticeService.increaseLectureNoticeCount(lectureNoticeNo);
-
 		// 모델로 뷰에 값 전달
 		model.addAttribute("lectureNotice", lectureNotice);
-		return "lectureNoticeOne";
+		return "/teacher/lectureNoticeOne";
 	}
 
 	// 강좌별 공지사항 입력 폼 메서드
@@ -95,7 +114,7 @@ public class LectureNoticeController {
 		lectureNotice.getLectureNo();
 		// 모델로 강좌 고유번호 뷰에 전달
 		model.addAttribute("lectureNo", lectureNo);
-		return "createLectureNotice";
+		return "/teacher/createLectureNotice";
 	}
 
 	// 강좌별 공지사항 입력 액션 메서드
@@ -115,7 +134,7 @@ public class LectureNoticeController {
 		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNoticeNo);
 
 		model.addAttribute("lectureNotice", lectureNotice);
-		return "modifyLectureNotice";
+		return "/teacher/modifyLectureNotice";
 	}
 
 	// 강좌별 공지사항 수정 액션 메서드

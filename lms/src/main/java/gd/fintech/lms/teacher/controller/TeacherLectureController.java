@@ -44,7 +44,7 @@ public class TeacherLectureController {
 		model.addAttribute("teacherLectureList", teacherLectureList);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("accountId",accountId);
-		return "teacherLecture";
+		return "/teacher/teacherLecture";
 	}
 
 	// 강사 강좌 상세 페이지 메서드
@@ -59,7 +59,7 @@ public class TeacherLectureController {
 		logger.debug("lecture -->" + lecture);
 		// model을 이용해 뷰에 lecture 정보를 보냄
 		model.addAttribute("lecture", lecture);
-		return "teacherLectureOne";
+		return "/teacher/teacherLectureOne";
 	}
 
 }

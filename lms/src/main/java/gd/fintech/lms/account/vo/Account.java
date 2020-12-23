@@ -12,6 +12,9 @@ public class Account {
 	// 계정 비밀번호
 	private String accountPw;	
 	
+	// 계정 이메일
+	private String accountEmail;
+	
 	// 계정 상태(활성화, 비활성화, 승인대기)
 	private String accountState;
 	

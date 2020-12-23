@@ -34,6 +34,10 @@ public class SignUpRestController {
 	// 리턴값: 회원가입페이지
 	@PostMapping("/accountEmailCheck")
 	public String accountEmailCheck(@RequestParam(value = "accountEmail", required = true) String accountEmail) {
+		String emailCk = signUpService.getAccountEmail(accountEmail);
+		if(emailCk == null) {
+			return "pass";
+		}
 		return "noPass";
 	}
 	

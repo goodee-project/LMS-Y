@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import gd.fintech.lms.account.mapper.AccountMapper;
 import gd.fintech.lms.account.mapper.AddressMapper;
+import gd.fintech.lms.account.mapper.SignUpMapper;
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.dto.SignUpForm;
 import gd.fintech.lms.manager.mapper.StudentQueueMapper;
@@ -18,8 +18,8 @@ import gd.fintech.lms.manager.vo.StudentQueue;
 @Service
 @Transactional
 public class SignUpService {
-	// AccountMapper 객체 주입
-	@Autowired private AccountMapper accountMapper;
+	// SignUpMapper 객체 주입
+	@Autowired private SignUpMapper signUpMapper;
 	// AddressMapper 객체 주입
 	@Autowired private AddressMapper addressMapper;
 	// StudentQueueMapper 객체 주입
@@ -32,8 +32,9 @@ public class SignUpService {
 		Account account = new Account();
 		account.setAccountId(signUpForm.getAccountId());
 		account.setAccountPw(signUpForm.getAccountPw());
+		account.setAccountEmail(signUpForm.getAccountEmail());
 		account.setAccountLevel(signUpForm.getAccountLevel());
-		return accountMapper.insertAccount(account);
+		return signUpMapper.insertAccount(account);
 	}
 	
 	// 회원가입시 Student_Queue 테이블에 회원 정보를 입력하는 메소드(vo로 전환)
@@ -56,7 +57,14 @@ public class SignUpService {
 	// 매개변수: 계정ID
 	// 리턴값: 조회되는 계정 ID
 	public String getAccountId(String accountId) {
-		return accountMapper.selectAccountId(accountId);
+		return signUpMapper.selectAccountId(accountId);
+	}
+	
+	// 계정 이메일로 중복 체크를 위한 메소드
+	// 매개변수: 계정 이메일
+	// 리턴값: 조회되는 계정 이메일
+	public String getAccountEmail(String accountEmail) {
+		return signUpMapper.selectAccountEmail(accountEmail);
 	}
 	
 	// 우편주소로 주소 리스트를 조회 메소드

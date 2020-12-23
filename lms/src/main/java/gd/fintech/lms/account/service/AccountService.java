@@ -52,13 +52,6 @@ public class AccountService {
 		return studentMapper.selectStudentOne(accountId);
 	}
 	
-	// 학생 자신의 정보을 수정하기 위해 수정폼에서 출력하는 메소드
-	// 매개변수: 학생의 계정 ID
-	// 리턴값: 수정폼에서 출력할 학생 개인정보 조회한 리턴값
-	public Student getStudentModifyForm(String accountId) {
-		return studentMapper.updateStudentForm(accountId);
-	}
-	
 	// 학생 자신의 정보 수정 액션 메소드
 	// 매개변수: 학생개인정보 수정폼에서 변경하여 입력된 학생 정보
 	// 리턴값: 학생 정보 수정된 행

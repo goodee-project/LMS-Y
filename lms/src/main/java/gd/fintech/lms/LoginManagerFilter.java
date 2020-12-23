@@ -31,7 +31,7 @@ public class LoginManagerFilter implements Filter{
 			return;
 		}	
 		// 세션에 저장된 운영자의 권한(3)이 없으면 초기 로그인 페이지로 리다이렉트
-		if(session.getAttribute("accountLevel") == null || !session.getAttribute("accountLevel").equals(3)) {
+		if(session.getAttribute("accountLevel") == null || !session.getAttribute("accountLevel").equals(AccountLevel.MANAGER.getValue())) {
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "/login");
 			return;
 		}

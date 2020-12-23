@@ -31,7 +31,7 @@ public class LoginStudentFilter implements Filter{
 			return;
 		}	
 		// 학생의 권한값(1)이 세션에 없으면 로그인 페이지로 리다이렉트
-		if(session.getAttribute("accountLevel") == null || !session.getAttribute("accountLevel").equals(1)) {
+		if(session.getAttribute("accountLevel") == null || !session.getAttribute("accountLevel").equals(AccountLevel.STUDENT.getValue())) {
 			((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath() + "/login");
 			return;
 		}

@@ -14,13 +14,6 @@
 			AND account_pw = PASSWORD(#{accountPw})
 	</select>
 	
-	<!-- 아이디 중복체크를 위한 쿼리 -->
-	<select id="selectAccountId" parameterType="String" resultType="String">
-		SELECT account_id
-		FROM account
-		WHERE account_id = #{accountId}
-	</select>
-	
 	<!-- 모든 계정의 목록을 조회하는 쿼리 -->
 	<select id="selectMemberAll" parameterType="java.util.Map" resultType="gd.fintech.lms.account.vo.Account">
 		SELECT 
@@ -33,23 +26,6 @@
 		ORDER BY account_createdate DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
-	
-	<!-- 계정을 입력하는 쿼리(계정 상태는 대기가 기본값) -->
-	<insert id="insertAccount" parameterType="gd.fintech.lms.account.vo.Account">
-		INSERT INTO account (
-			account_id,
-			account_pw,
-			account_level,
-			account_createdate,
-			account_updatedate)
-		VALUES(
-			#{accountId},
-			PASSWORD(#{accountPw}),
-			#{accountLevel},
-			NOW(),
-			NOW()
-		)
-	</insert>
 	
 	<!-- 계정 상태를 활성화로 수정하는 쿼리 -->
 	<update id="updateAccountStateActiveByAccountId" parameterType="String">

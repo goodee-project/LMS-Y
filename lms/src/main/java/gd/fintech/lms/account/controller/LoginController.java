@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.account.service.AccountService;
+import gd.fintech.lms.AccountLevel;
 
 // 로그인 처리를 위한 컨트롤러 클래스
 
@@ -29,16 +30,16 @@ public class LoginController {
 	// 리턴값: 전체 login 뷰페이지
 	@GetMapping({"/","/login"})
 	public String login(HttpSession session) {
-		if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(1)) {
+		if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(AccountLevel.STUDENT.getValue())) {
 			return "redirect:/student/index";
 		}
-		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(2)) {
+		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(AccountLevel.TEACHER.getValue())) {
 			return "redirect:/teacher/index";
 		}
-		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(3)) {
+		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(AccountLevel.MANAGER.getValue())) {
 			return "redirect:/manager/index";
 		}
-		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(4)) {
+		else if(session.getAttribute("accountLevel") != null && session.getAttribute("accountLevel").equals(AccountLevel.ADMIN.getValue())) {
 			return "redirect:/admin/index";
 		}
 		else {
@@ -77,7 +78,6 @@ public class LoginController {
 	public String login(Account account, HttpSession session,
 			@RequestParam(value = "pageLevel") int pageLevel,
 			HttpServletResponse response) throws IOException {
-		//System.out.println(pageLevel + "페이지 레벨");
 		// 서비스에서 계정 조회 결과(accountId, accountLevel) 가져오기
 		Account memberCk = accountService.getMemberById(account);
 		
@@ -104,15 +104,15 @@ public class LoginController {
 		session.setAttribute("accountLevel", memberCk.getAccountLevel());
 		
 		// 학생 권한에 따른 인덱스 페이지 이동
-		if(memberCk.getAccountLevel() == 1) {
+		if(memberCk.getAccountLevel() == AccountLevel.STUDENT.getValue()) {
 			return "redirect:/student/index";
 		}
 		// 강사 권한에 따른 인덱스 페이지 이동
-		else if(memberCk.getAccountLevel() == 2) {
+		else if(memberCk.getAccountLevel() == AccountLevel.TEACHER.getValue()) {
 			return "redirect:/teacher/index";
 		}
 		// 운영자 권한에 따른 인덱스 페이지 이동
-		else if(memberCk.getAccountLevel() == 3) {
+		else if(memberCk.getAccountLevel() == AccountLevel.MANAGER.getValue()) {
 			return "redirect:/manager/index";
 		}
 		// 관리자 권한에 따른 페이지 이동

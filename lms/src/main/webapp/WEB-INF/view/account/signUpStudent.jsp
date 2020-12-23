@@ -15,11 +15,10 @@
 				$('#studentId').blur(function() {
 					if($('#studentId').val() == '') {
 						$('#studentId').focus();
-						$('#idCkMsg').text('아이디를 입력하세요');
+						$('#idMsg').text('아이디를 입력하세요');
 						return;
 					}else {
-						$('#studentPw').focus();
-						$('#idCkMsg').text('');
+						$('#idMsg').text('');
 					}
 					$.ajax({
 						url: '${pageContext.request.contextPath}/accountIdCheck',
@@ -27,12 +26,11 @@
 						data: {accountId:$('#studentId').val()},
 						success: function(data) {
 							if(data == 'noPass') {
-								$('#idCkMsg').text('아이디가 중복됩니다');
+								$('#idMsg').text('아이디가 중복됩니다');
 								$('#studentId').focus();
-								
-							}else {
-								$('#idCkMsg').text('');
 								return;
+							}else {
+								$('#idMsg').text('');
 							}
 						}
 					});
@@ -42,6 +40,7 @@
 					if($('#studentPw').val() != $('#studentPwCk').val()) {
 						$('#pwCkMsg').text('비밀번호를 다시 확인하세요');
 						$('#studentPwCk').focus();
+						return;
 					}else {
 						$('#pwCkMsg').text('');
 					}
@@ -51,9 +50,24 @@
 					if($('#studentEmail').val() == '') {
 						$('#emailCkMsg').text('이메일을 입력하세요');
 						$('#studentEmail').focus();
+						return;
 					}else {
 						$('#emailCkMsg').text('');
 					}
+					$.ajax({
+						url: '${pageContext.request.contextPath}/accountEmailCheck',
+						type: 'post',
+						data: {accountEmail:$('#studentEmail').val()},
+						success: function(data) {
+							if(data == 'noPass') {
+								$('#emailCkMsg').text('이메일이 중복됩니다');
+								$('#studentEmail').focus();
+								return;
+							}else {
+								$('#emailCkMsg').text('');
+							}
+						}
+					});
 				});
 				// 전화번호 숫자만 입력
 				$("#studentPhone").on("keyup", function() {
@@ -84,6 +98,19 @@
 			            }			             
 			        });
 				});
+				// 가입하기 버튼 클릭시 유효성 검사
+				$('#btnSubmit').click(function() {
+					if($('#studentPw').val() == '' || $('#studentPwCk').val() == '' || $('#studentName').val() == '' || $('#studentPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#studentBirth').val() == '' || $('#zipCode').val() == '' || $('#subAddress').val() == '' || $('select[name=accountAddressMain]').val() == '') {
+						console.log($("input[name='accountGender']:checked").val());
+						console.log($('#studentBirth').val());
+						console.log($('select[name=accountAddressMain]').val());
+						alert('입력부분을 다시 확인하세요');
+						return;
+					} else {
+						$('#signUpForm').submit();
+					}
+				});
+				console.log();
 			});
 		</script>
 	</head>
@@ -102,13 +129,14 @@
 					<td>아이디</td>
 					<td>
 						<input class="form-control col-sm-4" type="text" id="studentId" name="accountId" placeholder="아이디 입력">
-						<div id="idCkMsg"></div>
+						<div id="idMsg"></div>
 					</td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
 					<td>
 						<input class="form-control col-sm-4" type="password" id="studentPw" name="accountPw" placeholder="비밀번호 입력">
+						<div id="pwMsg"></div>
 					</td>
 				</tr>
 				<tr>
@@ -171,7 +199,7 @@
 				</tr>
 			</table><br>
 			<div align="center">
-				<button class="btn btn-secondary" type="submit" id="btnSubmit">가입하기</button>
+				<button class="btn btn-secondary" type="button" id="btnSubmit">가입하기</button>
 				<a href="${pageContext.request.contextPath}/studentLogin" class="btn btn-danger" id="cancel">취소하기</a>		
 			</div><br>
 		</form>

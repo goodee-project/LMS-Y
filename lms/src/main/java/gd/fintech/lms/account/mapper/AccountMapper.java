@@ -18,20 +18,10 @@ public interface AccountMapper {
 	// 리턴값: 등록된 계정 정보인지 여부를 조회하여 반환
 	Account selectMemberById(Account account);
 	
-	// 계정 ID 중복 체크를 위한 메소드
-	// 매개변수: 계정 ID
-	// 리턴값: 계정 ID 조회 결과
-	String selectAccountId(String accountId);
-	
 	// Account 테이블에 등록된 모든 계정을 조회하는 메소드
 	// 매개변수: 페이징을 위한 시작페이지, 한페이지에 출력되는 행의 수(Integer 형으로 받음)
 	// 리턴값: 모든 계정을 조회한 결과리스트
 	List<Account> selectMemberAll(Map<String, Integer> map);
-	
-	// Account 테이블에 계정을 입력하는 메소드
-	// 매개변수: 회원가입시 입력된 정보
-	// 리턴값: 계정테이블에 입력한 행
-	int insertAccount(Account account);
 	
 	// Account 테이블에서 계정 상태를 활성화로 수정하는 메소드
 	// 매개변수: 계정 ID

@@ -68,15 +68,24 @@
 					</div>
 					<c:forEach var="qcf" items="${qc.questionCommentFileList}">
 						<div>
-							<a href="/teacher/downloadQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
+							<a href="${pageContext.request.contextPath}/teacher/downloadQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
 								${qcf.questionCommentFileOriginal}
-							</a>,
+							</a>
 							${qcf.questionCommentFileSize}B, 
 							${qcf.questionCommentFileType},
 							${qcf.questionCommentFileCount}회 다운로드,
 							${qcf.questionCommentFileCreateDate}
 						</div>
 					</c:forEach>
+					<%-- 세션의 accountId와 댓글 작성자 accountId가 같을때만 수정버튼 표시 --%>
+					${accountId}
+					${qc.accountId}
+					${accountId == qc.accountId}
+					<c:if test="${accountId == qc.accountId}">
+						<div>
+							<a href="${pageContext.request.contextPath}/teacher/modifyQuestionComment?questionCommentNo=${qc.questionCommentNo}">수정</a>
+						</div>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>

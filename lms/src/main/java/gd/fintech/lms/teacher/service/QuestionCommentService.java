@@ -142,7 +142,7 @@ public class QuestionCommentService {
 		// 현재 로그인한 사용자의 정보
 		String sessionAccountId = (String)session.getAttribute("accountId");
 		
-		logger.debug("");
+		logger.debug("로그인 사용자 ID: "+sessionAccountId);
 		
 		// 검증 및 검사를 위한 객체
 		List<Lecture> lectureList = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
@@ -152,10 +152,16 @@ public class QuestionCommentService {
 		logger.debug("학생이 작성한 질문: "+question);
 		
 		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
+		boolean isCorrectTeacher = false;
 		for (Lecture l : lectureList) {
-			if (l.getLectureNo() != question.getLectureNo()) {
-				return false;
+			if (l.getLectureNo() == question.getLectureNo()) {
+				isCorrectTeacher = true;
 			}
+		}
+		
+		logger.debug("강사의 해당 강좌 관리 가능 여부: "+isCorrectTeacher);
+		if (!isCorrectTeacher) {
+			return false;
 		}
 		
 		// accountId를 이용해 sessionTeacherName을 가져옴
@@ -172,30 +178,32 @@ public class QuestionCommentService {
 		questionCommentMapper.insertQuestionComment(questionComment);
 		
 		// 파일이 있을 경우 for문을 돌면서 MultipartFile을 VO로 변환 후 댓글 첨부파일 추가
-		for (MultipartFile mf : questionCommentForm.getQuestionCommentFileList()) {
-			String fileNameUUID = UUID.randomUUID().toString().replaceAll("-", "");
-			
-			try {
-				// 물리적 파일을 생성(하드디스크)
-				String fileName = FilePath.getFilePath()+fileNameUUID;
-				mf.transferTo(new File(fileName));
+		if (questionCommentForm.getQuestionCommentFileList() != null) {
+			for (MultipartFile mf : questionCommentForm.getQuestionCommentFileList()) {
+				String fileNameUUID = UUID.randomUUID().toString().replaceAll("-", "");
 				
-				logger.debug("파일 생성됨: "+fileName);
-			} catch (Exception e) { // 해당 파일 생성 실패 시
-				// 원래 예외 메세지를 출력함
-				e.printStackTrace();
+				try {
+					// 물리적 파일을 생성(하드디스크)
+					String fileName = FilePath.getFilePath()+fileNameUUID;
+					mf.transferTo(new File(fileName));
+					
+					logger.debug("파일 생성됨: "+fileName);
+				} catch (Exception e) { // 해당 파일 생성 실패 시
+					// 원래 예외 메세지를 출력함
+					e.printStackTrace();
+					
+					// Transactional 기능을 수행하는 Service 컴포넌트에게 예외 발생을 알려 작업 내역을 롤백하도록 유도함
+					throw new RuntimeException(e);
+				}
 				
-				// Transactional 기능을 수행하는 Service 컴포넌트에게 예외 발생을 알려 작업 내역을 롤백하도록 유도함
-				throw new RuntimeException(e);
+				QuestionCommentFile questionCommentFile = new QuestionCommentFile();
+				questionCommentFile.setQuestionCommentFileUUID(fileNameUUID);
+				questionCommentFile.setQuestionCommentFileOriginal(mf.getOriginalFilename());
+				questionCommentFile.setQuestionCommentNo(questionComment.getQuestionCommentNo()); // selectKey 이용, 위에 추가한 댓글의 고유번호를 가져와서 등록
+				questionCommentFile.setQuestionCommentFileSize(mf.getSize());
+				questionCommentFile.setQuestionCommentFileType(mf.getContentType());
+				questionCommentFileMapper.insertQuestionCommentFile(questionCommentFile);
 			}
-			
-			QuestionCommentFile questionCommentFile = new QuestionCommentFile();
-			questionCommentFile.setQuestionCommentFileUUID(fileNameUUID);
-			questionCommentFile.setQuestionCommentFileOriginal(mf.getOriginalFilename());
-			questionCommentFile.setQuestionCommentNo(questionComment.getQuestionCommentNo()); // selectKey 이용, 위에 추가한 댓글의 고유번호를 가져와서 등록
-			questionCommentFile.setQuestionCommentFileSize(mf.getSize());
-			questionCommentFile.setQuestionCommentFileType(mf.getContentType());
-			questionCommentFileMapper.insertQuestionCommentFile(questionCommentFile);
 		}
 		
 		return true;

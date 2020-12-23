@@ -40,6 +40,7 @@
 				<div>
 					게시글 내용: ${question.questionContent}
 				</div>
+				${map }
 				<form method="POST" action="${pageContext.request.contextPath}/teacher/modifyQuestionComment">
 					<input type="hidden" name="questionCommentNo" value="${map.questionComment.questionCommentNo}">
 						

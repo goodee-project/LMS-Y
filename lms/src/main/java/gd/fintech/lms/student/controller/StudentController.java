@@ -2,6 +2,8 @@ package gd.fintech.lms.student.controller;
 
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,15 @@ public class StudentController {
 	Logger logger = LoggerFactory.getLogger(StudentController.class);
 	@Autowired StudentService studentService;
 	 
+	//학생 자신의 과제물을 보기
+	@GetMapping("/student/?")
+	public String getReportDetail(Model model,
+			@RequestParam(value="accountId")String accountId) {
+		List<Student> studentReportDetail = studentService.getReportDetail(accountId);
+		model.addAttribute("studentReportDetail",studentReportDetail);
+		return "/student/?";
+		
+	}
 	//학생 자신의 정보 상세보기
 	@GetMapping("/student/studentDetail")
 	public String getStudentDetail(Model model,

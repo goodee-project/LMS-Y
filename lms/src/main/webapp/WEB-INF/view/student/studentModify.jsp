@@ -43,11 +43,8 @@
 								$('').text('');
 								}
 					});
-				//성별 선택 검사
-				$('').focus();
-				$('').blur(function(){
-					}
-              	}
+				//
+              	});
         </script>
 	</head>
 	<body>

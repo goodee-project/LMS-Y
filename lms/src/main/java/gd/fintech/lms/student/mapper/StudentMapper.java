@@ -1,5 +1,7 @@
 package gd.fintech.lms.student.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.student.vo.Student;
@@ -24,6 +26,6 @@ public interface StudentMapper {
 	//학생이 볼 과제
 	//매개변수: 학생계정id
 	//리턴값:해당행 출력
-	Student resultStudentReport(String accountId);
+	List<Student> selectReportOne(String accountId);
 	
 }

@@ -1,5 +1,7 @@
 package gd.fintech.lms.student.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +32,11 @@ public class StudentService {
 		return studentMapper.updateStudent(student);
 	}
 	
+	//학생이 볼 해당 강좌의 자신의 과제
+	//매개변수:학생의 id
+	//리턴값:학생에 해당하는 과제물 출력
+	public List<Student> getReportDetail(String accountId) {
+		return studentMapper.selectReportOne(accountId);
+	}
 	
 }

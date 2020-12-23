@@ -16,13 +16,13 @@
 				</div>
 			</div>
 			<div class="container">
-				<a class="btn" href="${pageContext.request.contextPath}/teacher/createLectureNotice?lectureNo=${lectureNo}">추가</a>
+				<a href="${pageContext.request.contextPath}/teacher/createLectureNotice?lectureNo=${lectureNo}">추가</a>
 				<table class="table">
 					<thead>
 						<tr>
 							<td>공지 번호</td>
 							<td>공지 제목</td>
-							<td>작성 일</td>
+							<td>작성일</td>
 							<td>조회 수</td>
 							<td>상세보기</td>
 						</tr>

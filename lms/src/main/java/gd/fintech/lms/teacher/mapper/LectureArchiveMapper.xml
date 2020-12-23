@@ -23,28 +23,90 @@
 		</collection>
 	</resultMap>
 	<select id="selectLectureArchiveListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.LectureArchive">
-		
+		SELECT
+			lecture_archive_no lectureArchiveNo, 
+			lecture_archive_writer lectureArchiveWriter, 
+			lecture_archive_title lectureArchiveTitle, 
+			lecture_archive_createdate lectureArchiveCreateDate, 
+			lecture_archive_count lectureArchiveCount
+		FROM lecture_archive
+		WHERE lecture_no = #{lectureNo}
+		ORDER BY lecture_archive_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 자료실 페이지 카운트 -->
 	<select id="selectLectureArchiveCount" resultType="int">
-		
+		SELECT
+  			COUNT(*) lectureAchiveCount
+  		FROM lecture_archive
+  		WHERE lecture_no = #{lectureNo};
 	</select>
 	<!-- 자료실 상세보기 -->
-	<select id="selectLectureArchive" parameterType="int" resultMap="ResultLectureArchiveOne">
-		
+	<select id="selectLectureArchiveOne" parameterType="int" resultMap="ResultLectureArchiveOne">
+		SELECT
+  			la.lecture_archive_no, 
+  			la.lecture_no, 
+  			la.account_id, 
+  			la.lecture_archive_writer, 
+  			la.lecture_archive_title, 
+  			la.lecture_archive_content, 
+  			la.lecture_archive_createdate, 
+  			la.lecture_archive_updatedate, 
+  			la.lecture_archive_count, 
+  			laf.lecture_archive_file_uuid, 
+  			laf.lecture_archive_file_original, 
+  			laf.lecture_archive_file_size, 
+  			laf.lecture_archive_file_type, 
+  			laf.lecture_archive_file_count
+  		FROM lecture_archive la
+  		LEFT OUTER JOIN lecture_archive_file laf 
+  		ON la.lecture_archive_no = laf.lecture_archive_no
+  		WHERE la.lecture_archive_no = #{lectureArchiveNo}
 	</select>
 	<!-- 자료실 입력(추가) -->
 	<insert id="insertLectureArchive" parameterType="gd.fintech.lms.teacher.vo.LectureArchive">
 		<selectKey resultType="int" keyProperty="lectureArchiveNo" order="AFTER">
-			
+			SELECT LAST_INSERT_ID()
 		</selectKey>
+		INSERT INTO lecture_archive (
+  			lecture_no, 
+  			account_id, 
+  			lecture_archive_writer, 
+  			lecture_archive_title, 
+  			lecture_archive_content, 
+  			lecture_archive_createdate, 
+  			lecture_archive_updatedate, 
+  			lecture_archive_count
+  		) VALUES (
+  			#{lectureNo}, 
+  			#{accountId}, 
+  			#{lectureArchiveWriter}, 
+  			#{lectureArchiveTitle}, 
+  			#{lectureArchiveContent}, 
+  			NOW(), 
+  			NOW(), 
+  			0
+  		)
 	</insert>
 	<!-- 자료실 수정 -->
 	<update id="updateLectureArchive" parameterType="gd.fintech.lms.teacher.vo.LectureArchive">
-	
+		UPDATE lecture_archive
+  		SET
+  			lecture_archive_title = #{lectureArchiveTitle}, 
+  			lecture_archive_content = #{lectureArchiveContent}, 
+  			lecture_archive_updatedate = NOW()
+  		WHERE lecture_archive_no = #{lectureArchiveNo}
 	</update>
 	<!-- 자료실 삭제 -->
 	<delete id="deleteLectureArchive" parameterType="int">
-	
+		DELETE FROM lecture_archive
+		WHERE lecture_archive_no = #{archiveNo}
 	</delete>
+	<!-- 자료실 조회수 카운트 -->
+	<update id="" parameterType="int">
+  		UPDATE lecture_archive
+  		SET
+  		 lecture_archive_count = lecture_archive_count + 1
+  		WHERE lecture_archive_no = #{lectureArchiveNo}
+  	</update>
 </mapper>

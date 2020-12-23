@@ -27,6 +27,7 @@
 						<td>강좌 개강일</td>
 						<td>강좌 종강일</td>
 						<td>출석확인</td>
+						<td>자료실</td>
 						<td>공지사항</td>
 					</tr>
 				</thead>
@@ -39,6 +40,7 @@
 						<td>${lecture.lectureStartDate}</td>
 						<td>${lecture.lectureEndDate}</td>
 						<td><a href="${pageContext.request.contextPath}/#">출석확인</a></td>
+						<td><a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lecture.lectureNo}&&currentPage=1">자료실</a></td>
 						<td><a href="${pageContext.request.contextPath}/teacher/lectureNotice?lectureNo=${lecture.lectureNo}&&currentPage=1">공지사항</a></td>
 					</tr>
 				</tbody>

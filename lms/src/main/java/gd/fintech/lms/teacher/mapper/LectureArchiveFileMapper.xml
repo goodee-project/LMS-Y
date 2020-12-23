@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.LectureArchiveFileMapper">
+	<!-- 자료실 첨부파일 목록 -->
+	<select id="selectLectureArchiveFileList" parameterType="int" resultType="String">
+		SELECT
+			lecture_archive_file_uuid
+		FROM lecture_archive_file
+		WHERE lecture_archive_no = #{archiveNo}
+	</select>
 	<!-- 자료실 첨부파일 입력 -->
 	<insert id="insertLectureArchiveFile" parameterType="gd.fintech.lms.teacher.vo.LectureArchiveFile">
-		
+		INSERT INTO lecture_archive_file (
+			lecture_archive_file_uuid, 
+			lecture_archive_file_original, 
+			lecture_archive_no, 
+			lecture_archive_file_size, 
+			lecture_archive_file_type, 
+			lecture_archive_file_createdate,
+			lecture_archive_file_count
+		) VALUES (
+			#{lectureArchiveFileUuid}, 
+			#{lectureArchiveFileOriginal},
+			#{lectureArchiveNo}, 
+			#{lectureArchiveFileSize}, 
+			#{lectureArchiveFileType}, 
+			NOW(),
+			0
+		)
 	</insert>
 	<!-- 자료실 첨부파일 삭제 -->
 	<delete id="deleteLectureArchiveFile" parameterType="String">
-		
+		DELETE FROM lecture_archive_file
+		WHERE lecture_archive_no = #{archiveNo}
 	</delete>
 	<!-- 파일 첨부된 자료실 삭제 -->
 	<delete id="deleteLectureArchiveFileOne" parameterType="Integer">
 		
 	</delete>
-	<!-- 자료실 첨부파일 목록 -->
-	<select id="selectLectureArchiveFileList" parameterType="int" resultType="String">
-		
-	</select>
 </mapper>

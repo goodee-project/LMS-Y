@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -18,28 +17,28 @@
 		</div>
 		<div class="container">
 			<div align="right">
-			<a href="${pageContext.request.contextPath}/teacher/modifyLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">수정</a>&nbsp;&nbsp;
-			<a href="${pageContext.request.contextPath}/teacher/removeLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">삭제</a>
+				<a href="${pageContext.request.contextPath}/teacher/modifyLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">수정</a>&nbsp;&nbsp;
+				<a href="${pageContext.request.contextPath}/teacher/removeLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">삭제</a>
 			</div>
 			<table class="table">
 				<tr>
-					<td>공지 번호</td>
+					<td>공지번호</td>
 					<td>${lectureNotice.lectureNoticeNo}</td>
 				</tr>
 				<tr>
-					<td>공지 제목</td>
+					<td>공지제목</td>
 					<td>${lectureNotice.lectureNoticeTitle}</td>
 				</tr>
 				<tr>
-					<td>공지 내용</td>
+					<td>공지내용</td>
 					<td>${lectureNotice.lectureNoticeContent}</td>
 				</tr>
 				<tr>
-					<td>작성 일</td>
+					<td>작성일</td>
 					<td>${lectureNotice.lectureNoticeCreateDate}</td>
 				</tr>
 				<tr>
-					<td>조회 수</td>
+					<td>조회수</td>
 					<td>${lectureNotice.lectureNoticeCount}</td>
 				</tr>
 			</table>

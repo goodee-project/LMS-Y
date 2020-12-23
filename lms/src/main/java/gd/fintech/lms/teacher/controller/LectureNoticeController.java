@@ -1,13 +1,10 @@
 package gd.fintech.lms.teacher.controller;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,14 +14,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.teacher.service.LectureNoticeService;
 import gd.fintech.lms.teacher.vo.LectureNotice;
+
+//강좌별 공지사항 컨트롤러
 
 @Controller
 public class LectureNoticeController {
@@ -60,9 +59,9 @@ public class LectureNoticeController {
 
 	// 강좌별 공지사항 상세보기 페이지 메서드
 	// 매개변수:깅좌별 공지사항 고유번호
-	// 리턴값:강좌별 공지사항 고유번호를 참조하여 공지사항 정보를 띄우는 뷰페이지 //ServletRequest request,
+	// 리턴값:강좌별 공지사항 고유번호를 참조하여 공지사항 정보를 띄우는 뷰페이지
 	@GetMapping("/teacher/lectureNoticeOne")
-	public String LectureNoticeOne(Model model, 
+	public String lectureNoticeOne(Model model, 
 			HttpServletResponse response, 
 			HttpServletRequest request,
 			@RequestParam(value = "lectureNoticeNo") int lectureNoticeNo) {

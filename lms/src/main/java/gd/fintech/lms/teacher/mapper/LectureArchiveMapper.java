@@ -19,10 +19,11 @@ public interface LectureArchiveMapper {
 	//자료실 상세보기
 	//매개변수:강좌 자료실 고유번호
 	//리턴값:강좌 자료실 고유번호에 해당하는 자료실 정보
-	LectureArchive selectLectureArchive(int lectureArchiveNo);
+	LectureArchive selectLectureArchiveOne(int lectureArchiveNo);
 	
 	//자료실 페이지 카운트
-	int selectLectureArchiveCount();
+	//매개변수:강좌 고유번호
+	int selectLectureArchiveCount(int lectureNo);
 	
 	//자료실 입력
 	//매개변수:자료실 입력폼에서 제목,내용 입력

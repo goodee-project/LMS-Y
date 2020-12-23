@@ -29,13 +29,13 @@ public class AdminService {
 	// 계정 정보 Mapper
 	@Autowired private AccountMapper accountMapper;
 	
-	// 회원가입 승인대기 중인 운영자의 정보 리스트를 페이징하여 출력하는 메소드
+	// 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력하는 메소드
 	// 매개변수:
 	// #1. currentPage(현재 페이지)
 	// #2. rowPerPage(페이지 당 표시할 항목수)
-	// 리턴값: 회원가입 승인대기 중인 운영자의 정보 리스트
+	// 리턴값: 회원가입 승인대기 중인 운영자의 목록
 	public List<ManagerQueue> getManagerQueueList(int currentPage, int rowPerPage) {
-		// beginRow는 해당 페이지이다.
+		// 해당 페이지에 표시한 항목
 		int beginRow = (currentPage - 1) * rowPerPage;
 		
 		// Map의 객체 생성 후 값(beginRow, rowPerPage) 저장
@@ -47,7 +47,7 @@ public class AdminService {
 		return managerQueueList;
 	}
 	
-	// 회원가입 승인대기 중인 운영자의 정보 리스트 페이징을 위해 총 항목수를 출력하는 메소드
+	// 회원가입 승인대기 중인 운영자 목록을 페이징 하기 위해 총 항목수를 출력하는 메소드
 	// 매개변수: 없음
 	// 리턴값: 회원가입 승인대기 중인 운영자 총 항목수
 	public int getManagerQueueCount() {

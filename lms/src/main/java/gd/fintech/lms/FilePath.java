@@ -15,11 +15,12 @@ public class FilePath {
 		
 		// 현재 프로젝트를 구동시키는 JVM과 연결된 OS를 받아옴
 		String os = System.getProperty("os.name").toLowerCase();
-		if (os.matches("linux")) {			// 리눅스 운영체제일 경우 (LMS-Y AWS 인스턴스 배포 환경)
-			// Tomcat 경로를 붙여주고, ROOT 경로에 lms-upload 경로를 만들어 사용
-			// war파일과 연관된 경로로 설정 시 war 파일을 배포할 때마다 첨부파일이 계속 초기화되기에, 부득이하게 편법을 사용함
-			filePath = LINUX_TOMCAT_PATH+"/webapps/ROOT/lms-upload";
-		} else if (os.matches("windows")) {	// 윈도우즈 운영체제일 경우 (Windows + STS 개발 환경)
+		if (os.indexOf("linux") >= 0) {				// 리눅스 운영체제일 경우 (LMS-Y AWS 인스턴스 배포 환경)
+			// Tomcat 경로를 붙여주고, upload/lms 폴더에 저장
+			// 컨트롤러의 매핑을 이용하여 파일을 받게끔 유도할것이므로, 실제 URL로 접속하지 않아도 됨
+			// 따라서 임의의 폴더를 만들어 배정함
+			filePath = LINUX_TOMCAT_PATH+"/upload/lms";
+		} else if (os.indexOf("windows") >= 0) {	// 윈도우즈 운영체제일 경우 (Windows + STS 개발 환경)
 			// 현재 프로젝트 경로를 받아옴, 또한 \\(역슬래시)를 /(슬래시)로 바꿔줌 (정규표현식에선 \\\\가 \\역할을 함)
 			String projectPath = System.getProperty("user.dir").replaceAll("\\\\", "/");
 			
@@ -27,8 +28,9 @@ public class FilePath {
 			// #1: https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
 			// #2: https://stackoverflow.com/questions/16239130/java-user-dir-property-what-exactly-does-it-mean
 			
+			// 테스트용으로 첨부파일 자체에 접근할 수 있도록 static 리소스 폴더 내에 집어넣음
 			filePath = projectPath+"/src/main/resources/static/upload";
-		} else {							// 리눅스도 윈도우즈도 아닐 경우
+		} else {									// 리눅스도 윈도우즈도 아닐 경우
 			// 지원되지 않는 운영체제라는 예외를 던짐
 			throw new RuntimeException("FilePath.getFilePath() 예외: 지원되지 않는 운영체제입니다! (리눅스 혹은 윈도우즈만 지원)");
 		}

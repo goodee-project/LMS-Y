@@ -76,8 +76,7 @@ public class QuestionCommentController {
 	}
 	
 	// 질문게시판 댓글 작성
-	// 매개변수:
-	// QuestionCommentForm(커맨드 객체), HttpSession(작성자 인증용 세션 객체)
+	// 매개변수: QuestionCommentForm(커맨드 객체), HttpSession(작성자 인증용 세션 객체)
 	// 리턴값: /teacher/questionList 리다이렉트
 	@PostMapping("/teacher/createQuestionComment")
 	public String createQuestionComment(
@@ -103,6 +102,9 @@ public class QuestionCommentController {
 		return "teacher/modifyQuestionComment";
 	}
 	
+	// 질문게시판 댓글 수정
+	// 매개변수: QuestionCommentForm(커맨드 객체), HttpSession(작성자 인증용 세션 객체)
+	// 리턴값: /teacher/questionDetail 리다이렉트
 	@PostMapping("/teacher/modifyQuestionComment")
 	public String modifyQuestionComment(
 			QuestionCommentForm questionCommentForm,

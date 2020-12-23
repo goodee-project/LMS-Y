@@ -87,14 +87,23 @@ public class QuestionCommentService {
 			fis = new FileInputStream(file);
 			bis = new BufferedInputStream(fis);
 			
-			// 원본 파일명을 받아오고, 브라우저별로 파일 이름이 제대로 인식되도록 처리함
-			String originalFileName = questionCommentFileMapper.selectQuestionCommentFileOriginal(questionCommentFileUUID);;
+			// 파일타입 및 원본 파일명을 받아오고, 브라우저별로 파일 이름이 제대로 인식되도록 처리함
+			QuestionCommentFile questionCommentFile = questionCommentFileMapper.selectQuestionCommentFileDetail(questionCommentFileUUID);
+			String fileContentType = questionCommentFile.getQuestionCommentFileType();
+			String originalFileName = questionCommentFile.getQuestionCommentFileOriginal();
 			if (request.getHeader("user-agent").indexOf("MSIE") != -1 || request.getHeader("user-agent").indexOf("Trident") != -1) {
 				originalFileName = URLEncoder.encode(originalFileName, "UTF-8").replaceAll("\\+", "%20");
 			} else {
 				originalFileName = new String(originalFileName.getBytes("UTF-8"), "ISO-8859-1");
 			}
 			
+			// MIME 타입을 설정하고 첨부파일 형태로, 파일명은 originalFileName으로 설정함
+			response.setContentType(fileContentType);
+			response.setContentLength((int)file.length());
+			response.setHeader("Content-Disposition", "attachment;filename=\""+originalFileName+"\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			
+			// 파일 컨텐츠를 작성하기 위해 스트림을 불러옴
 			sos = response.getOutputStream();
 			
 			// 서버에 업로드된 파일의 내용을 읽어, 다운로드할 파일의 컨텐츠를 채워넣음

@@ -2,11 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.QuestionCommentFileMapper">
 	<!-- UUID를 이용해 원본 파일명 출력 쿼리 -->
-	<select id="selectQuestionCommentFileOriginal" parameterType="String" resultType="String">
+	<select id="selectQuestionCommentFileDetail" parameterType="String" resultType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
 		SELECT
-			question_comment_file_original
+			question_comment_file_uuid questionCommentFileUUID,
+			question_comment_file_original questionCommentFileOriginal,
+			question_comment_no questionCommentNo,
+			question_comment_file_size questionCommentFileSize,
+			question_comment_file_type questionCommentFileType,
+			question_comment_file_createdate questionCommentFileCreateDate
 		FROM question_comment_file
-		WHERE quest_comment_file_uuid = #{questionCommentFileUUID}
+		WHERE question_comment_file_uuid = #{questionCommentFileUUID}
 	</select>
 	
 	<!-- UUID에 해당되는 파일의 다운로드 횟수 1 증가 쿼리 -->
@@ -25,8 +30,7 @@
 			question_comment_no,
 			question_comment_file_size,
 			question_comment_file_type,
-			question_comment_file_createdate,
-			question_comment_file_updatedate
+			question_comment_file_createdate
 		) VALUES (
 			#{questionCommentFileUUID},
 			#{questionCommentFileOriginal},

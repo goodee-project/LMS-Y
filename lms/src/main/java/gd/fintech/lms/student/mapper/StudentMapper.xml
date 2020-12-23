@@ -4,7 +4,7 @@
 
 	<!-- 학생이 볼 과제 -->
 	<resultMap type="gd.fintech.lms.student.vo.Student" id="resultStudentReport">
-		<result property="accountId" column="account_id"/>
+		<result property="accountId" column="student_id"/>
 		<result property="studentEmail" column="student_email"/>
 		<result property="studentName" column="student_name"/>
 		<result property="studentPhone" column="student_phone"/>
@@ -18,7 +18,7 @@
 		
 		<collection property="lectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
 			<result property="lectureNo" column="lecture_no"/>
-			<result property="accountId" column="account_id"/>
+			<result property="accountId" column="teacher_id"/>
 			<result property="subjectNo" column="subject_no"/>
 			<result property="teacherName" column="teacher_name"/>
 			<result property="lectureName" column="lecture_name"/>
@@ -43,6 +43,51 @@
 				</collection>
 		</collection>
 	</resultMap>
+	<!-- 학생이 해당 볼 강좌의 과제 -->
+	<select id="selectReportOne" parameterType="int" resultMap="resultStudentReport">
+	SELECT
+			s.account_id student_id,
+			s.student_email,
+			s.student_name,
+			s.student_phone,
+			s.student_gender,
+			s.student_birth,
+			s.student_address_main,
+			s.student_address_sub,
+			s.student_image,
+			s.student_accessdate,
+			s.student_updatedate,
+			s.manager_id_access,
+			l.lecture_no,
+			l.account_id teacher_id,
+			l.subject_no,
+			l.teacher_name,
+			l.lecture_name,
+			l.textbook_isbn,
+			l.lecture_startdate,
+			l.lecture_enddate,
+			l.lecture_total,
+			l.syllabus_no,
+			l.classroom_no,
+			l.lecture_createdate,
+			l.lecture_updatedate,
+			r.report_no,
+			r.lecture_no,
+			r.report_title,
+			r.report_content,
+			r.report_createdate,
+			r.report_updatedate,
+			r.report_startdate,
+			r.report_enddate
+		FROM student s
+			LEFT JOIN lecture l
+				ON s.account_id = l.account_id
+			LEFT JOIN report r
+				ON l.lecture_no = r.lecture_no
+		WHERE s.account_id=#{accountId}
+	</select> 
+	
+	
 	
 	<!-- 학생 회원가입시 필요한 기본정보 -->
 	<insert id="insertStudentFromQueue" parameterType="String">
@@ -90,27 +135,10 @@
 			manager_id_access mangerIdAccess
 		FROM 
 			student
-		WHERE account_id
-		ORDER BY account_id  DESC
+		WHERE account_id=#{accountId}
+		
 	</select>
 	
-	<!-- 학생 정보 수정 폼 -->
-	<select id="updateStudentForm" parameterType="String" resultType="gd.fintech.lms.student.vo.Student">
-		SELECT
-			account_id accountId,
-			student_email studentEmail,
-			student_name studentName,
-			student_phone studentPhone,
-			student_address_main studentAddressMain,
-			student_address_sub studentAddressSub,
-			student_gender studentGender,
-			student_Image studentImage,
-			student_accessdate studentAccessDate,
-			student_updatedate studentUpdateDate
-		FROM 
-			student
-		WHERE account_id=#{accountId}
-	</select>
 	
 	<!-- 학생 정보 수정 액션-->
 	<update id="updateStudent" parameterType="gd.fintech.lms.student.vo.Student" >

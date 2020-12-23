@@ -24,9 +24,17 @@ public class QuestionController {
 	public String questionList(Model model,
 			@RequestParam(value="currentPage")int currentPage) {
 		int rowPerPage=10;
-		List<Question>selectQuestionCount = questionService.getQuestionListByPage(currentPage, rowPerPage);
-		model.addAttribute("selectQuestionCount",selectQuestionCount);
+		int questionCount=questionService.selectQuestionCount();
+		int lastPage =0;
+		if(questionCount%rowPerPage ==0) {
+			lastPage=questionCount/rowPerPage;
+		} else if(questionCount%rowPerPage !=0) {
+			lastPage=questionCount/rowPerPage+1;
+		}
+		List<Question>questionList = questionService.getQuestionListByPage(currentPage, rowPerPage);
+		model.addAttribute("questionList",questionList);
 		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("lastPage",lastPage);
 		return  "student/studentQuestionList";
 	}
 	

@@ -20,8 +20,9 @@ public class QuestionService {
 	//매개변수:currentPage , rowPerPage 10행
 	//리턴값:질문게시판의 페이징 값
 	public List<Question> getQuestionListByPage(int currentPage,int rowPerPage){
+		int beginRow=(currentPage-1)*rowPerPage;
 		Map<String,Integer>map = new HashMap<>();
-		map.put("beginRow", (currentPage-1)*rowPerPage);
+		map.put("beginRow",beginRow);
 		map.put("rowPerPage",rowPerPage);
 		return questionMapper.selectQuestionListByPage(map);
 	}
@@ -61,16 +62,13 @@ public class QuestionService {
 		return questionMapper.insertQuestion(question);
 	}
 	
-	
-	//정리 요망
-	
-	//학생의 질문 조회수
+	//학생의 모든 질문
 	//매개변수:
 	//리턴값:
 	public int selectQuestionCount() {
 		return questionMapper.selectQuestionCount();
 	}
 	
-	
+	//학생의 질문 조회수
 	
 }

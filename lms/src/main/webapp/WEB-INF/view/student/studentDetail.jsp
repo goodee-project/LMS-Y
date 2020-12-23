@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class=container>
-			<a href="${pageContext.request.contextPath}/student/studentModify?accountId=${accountId}&currentPage=${currentPage}">[수정]</a>
+			<a href="${pageContext.request.contextPath}/student/studentModify?accountId=${accountId}">[수정]</a>
 				<table class="table">
 				
 					<tr>
@@ -46,8 +46,7 @@
 					
 					<tr>
 						<td>주소/상세주소</td>
-						<td>${student.teacherAddressMain}</td>
-						<td>${student.teacherAddressSub}</td> 
+						<td>${student.teacherAddressMain} ${student.teacherAddressSub}</td>
 					</tr>
 					
 					<tr>

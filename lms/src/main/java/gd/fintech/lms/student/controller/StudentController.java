@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import gd.fintech.lms.account.service.AccountService;
 import gd.fintech.lms.student.service.StudentService;
 import gd.fintech.lms.student.vo.Student;
 
@@ -20,29 +18,28 @@ import gd.fintech.lms.student.vo.Student;
 public class StudentController {
 	Logger logger = LoggerFactory.getLogger(StudentController.class);
 	@Autowired StudentService studentService;
-	@Autowired AccountService accountService;
 	 
 	//학생 자신의 정보 상세보기
-	@GetMapping("student/studentDetail")
+	@GetMapping("/student/studentDetail")
 	public String getStudentDetail(Model model,
 			@RequestParam(value="accountId",required=false)String accountId) {
 		Student studentDetail= studentService.getStudentDetail(accountId);
 		model.addAttribute("studentDetail",studentDetail);
-		return "student/studentDetail";
+		return "/student/studentDetail";
 	}	
 	//학생정보 수정 폼
 	@GetMapping("student/studentModify")
 	public String getStudentModifyForm(Model model,
-			@RequestParam(value="accountId",required=false)String accountId) {
-		Student studentModify = accountService.getStudentModifyForm(accountId); 
+			@RequestParam(value="accountId")String accountId) {
+		Student studentModify = studentService.getStudentDetail(accountId); 
 		model.addAttribute("studentModify",studentModify);
-		return "student/studentModify";
+		return "/student/studentModify";
 	}
 	
 	//학생정보 수정 액션
 	@PostMapping("student/studentModify")
 	public String modifyStudentAction(Student student) {
-		accountService.modifyStudentAction(student);
-		return "student/studnetModify";
+		studentService.modifyStudent(student);
+		return "/student/studentModify";
 	}
 }

@@ -16,11 +16,6 @@ public interface StudentMapper {
 	//리턴값: 학생의 모든 정보(id,email,name,phone,gender,birth,address,image,accessdate)
 	Student selectStudentOne(String accountId);
 	
-	//학생 정보 수정 폼
-	//매개변수: 학생계정의id
-	//리턴값:해당 행을 수정
-	Student updateStudentForm(String accountId);
-	
 	//학생 정보 수정액션
 	//매개변수: 학생Vo
 	//리턴값:해당 행 수정한 값

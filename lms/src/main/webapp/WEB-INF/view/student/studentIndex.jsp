@@ -17,7 +17,7 @@
 		</div>
 		
 		<div class=container>
-			<a href="${pageContext.request.contextPath}/student/studentDetail?currentPage=1">내정보</a>
+			<a href="${pageContext.request.contextPath}/student/studentDetail?accountId=${accountId}">내정보</a>
 			<a href="${pageContext.request.contextPath}/student/studentQuestionList?currentPage=1">질문게시판</a>
 		</div>
 	</body>

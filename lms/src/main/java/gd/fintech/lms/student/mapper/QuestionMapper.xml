@@ -22,14 +22,15 @@
 	</select>
 	
 	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
-	<select id="selectQuestionCount" parameterType="int" resultType="gd.fintech.lms.student.vo.Question">
-		SELECT COUNT(*) FROM question
+	<select id="selectQuestionCount" parameterType="int" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM question
 	</select>
-	
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>
-		<result property="accountId" column="account_id"/>
+		<result property="accountId" column="teacher_id"/>
 		<result property="questionWriter" column="question_writer"/>
 		<result property="questionTitle" column="question_title"/>
 		<result property="questionContent" column="question_content"/>
@@ -37,14 +38,16 @@
 		<result property="questionUpdateDate" column="question_updatedate"/>
 		<result property="questionCount" column="question_count"/>
 		<result property="questionPassword" column="question_password"/>
+		
 		<collection property="questionComment" ofType="gd.fintech.lms.teacher.vo.QuestionComment">
 			<result property="questionCommentNo" column="question_comment_no"/>
 			<result property="questionNo" column="question_no"/>
-			<result property="accountId" column="account_id"/>
+			<result property="accountId" column="teacher_id"/>
 			<result property="questionCommentWriter" column="question_comment_writer"></result>
 			<result property="questionCommentContent" column="question_comment_context"/>
 			<result property="questionCommentCreateDate" column="question_comment_createdate"/>
 			<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>
+			
 			<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
 				<result property="questionCommentFileUUID" column="question_comment_file_uuid"/>
 				<result property="questionCommentFileOriginal" column="question_comment_file_original"/>
@@ -150,6 +153,4 @@
 	<delete id="deleteQuestion" parameterType="String">
 		DELETE FROM question WHERE account_id=#{accountId}
 	</delete>
-	
-	
 </mapper>

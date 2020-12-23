@@ -13,7 +13,41 @@
             $(document).ready(function() {
                 // 폼 유효성 검사
                 // code here...
-            });
+                
+                //이름 3글자 이상 숫자 제외 검사
+                $('').focus(); //name 포커스
+				$('').blur(function(){
+					//공백 사용 불가능
+					if($('').val().length>50){
+						$('').focus();
+						$('').text('이름을 50글자까지 적을수만 있습니다);
+						return;
+						}else if($.isNumeric($('').val())){
+							$('').text('숫자는 입력이 불가능 합니다');
+							$('').focus();
+							}else{
+								$('').text('');
+							}
+					});
+				//전화 번호 검사
+				$('').focus(); //name 포커스
+				$('').blur(function(){
+					if($('').val.length=11){
+						$('').text('전화번호 11자리를 적으세요');
+						$('')focus();
+						return;
+						}else if(!$.isNumeric($('').val())){
+							$('').text('숫자만 입력이 가능 합니다');
+							$('').focus();
+							}else{
+								$('').text('');
+								}
+					});
+				//성별 선택 검사
+				$('').focus();
+				$('').blur(function(){
+					}
+              	}
         </script>
 	</head>
 	<body>
@@ -26,8 +60,13 @@
 			</div>
 		</div>
 		<div class=container>
-			<form method="post" action="${pageContext.request.contextPath}/student/studentIndex">
+			<form id="" method="post" action="${pageContext.request.contextPath}/student/studentModify">
 				<table class="table">
+					<tr>
+						<td>학생 아이디</td>
+						<td><input type="text" name="accountId" value="${accountId}"></td>
+					</tr>
+					
 					<tr>
 						<td>학생 이름</td>
 						<td><input type="text" name="studentName" id="studentName" value="${studentName}"></td>
@@ -47,7 +86,7 @@
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td><input type="date" name="studentBirth" id="studentBirth" value="${student.studentBirth}"></td>
+						<td><input type="date" name="studentBirth" id="studentBirth" value="${student.studentBirth}"></td>	
 					</tr>
 					
 					<tr> 

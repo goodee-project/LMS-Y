@@ -34,7 +34,7 @@
 					<th>수정 날짜</th>
 					<th>조회수</th>
 				<tbody>
-					<c:forEach var="q" items="${studentQuestionList}">
+					<c:forEach var="q" items="${questionList}">
 						<tr>
 							<td>${q.accountId}</td>
 							<td>${q.lectureNo}</td>

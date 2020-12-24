@@ -17,23 +17,26 @@
 			</div>
 		</div>
 		<div class=container>
-			<form method="post" action="${pageContext.request.contextPath}/teacher/createLectureArchive">
+			<form method="post" action="${pageContext.request.contextPath}/teacher/createLectureArchive" enctype="multipart/form-data">
 				<div>
 						<!-- 강좌번호 -->
-						<input type="hidden" name="lectureNo" value="${lectureArchive.lectureNo}" readonly="readonly">
+						<div>강좌번호</div>
+						<input type="text" name="lectureNo" value="${lectureNotice.lectureNo}" readonly="readonly">
 						<!-- 강사 아이디 -->
-						<input type="hidden" name="lectureArchiveWriter" value="${teacher.accountId}">				
+						<div>강사 아이디</div>
+						<input type="text" name="accountId" value="${teacher.accountId}">				
 						<!-- 강사 이름 -->
-						<input type="hidden" name="lectureArchiveWriter" value="${teacher.teacherName}">
+						<div>강사이름</div>
+						<input type="text" name="lectureArchiveWriter" value="${teacher.teacherName}">
 				</div>
 			<table class="table">
 						<tr>
 							<td>제목</td>
-							<td><input type="text" name="lectureArchiveTitle" placeholder="제목을 입력하세요!"></td>
+							<td><input type="text" name="lectureArchiveTitle"></td>
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td><input type="text" name="lectureArchiveWriter" placeholder="내용을 입력하세요!"></td>
+							<td><textarea cols="70" rows="10" name="lectureArchiveContent"></textarea></td>
 						</tr>
 						<tr>
 							<td>파일첨부</td>

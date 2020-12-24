@@ -25,7 +25,6 @@ import gd.fintech.lms.teacher.mapper.LectureArchiveMapper;
 import gd.fintech.lms.teacher.mapper.TeacherMapper;
 import gd.fintech.lms.teacher.vo.LectureArchive;
 import gd.fintech.lms.teacher.vo.LectureArchiveFile;
-import gd.fintech.lms.teacher.vo.QuestionCommentFile;
 
 //강좌별 자료실 서비스
 
@@ -92,15 +91,13 @@ public class LectureArchiveService {
 	//리턴값:
 	public LectureArchive createLectureArchive(LectureArchiveForm lectureArchiveForm,HttpSession session) {
 		
-		
 		// lectureArchiveForm의 강좌 고유번호, 아이디, 작성자, 제목, 내용을 lectureArchive 객체에 넣어둠
-		// 자바스크립트가 데이터베이스에 입력되는 것을 방지
 		LectureArchive lectureArchive = new LectureArchive();
 		lectureArchive.setLectureNo(lectureArchiveForm.getLectureNo());
 		lectureArchive.setAccountId(lectureArchiveForm.getAccountId());
 		lectureArchive.setLectureArchiveWriter(lectureArchiveForm.getLectureArchiveWriter());
-		lectureArchive.setLectureArchiveTitle(lectureArchiveForm.getLectureArchiveTitle().replaceAll("(?i)<script", "&lt;script"));
-		lectureArchive.setLectureArchiveContent(lectureArchiveForm.getLectureArchiveContent().replaceAll("(?i)<script", "&lt;script"));
+		lectureArchive.setLectureArchiveTitle(lectureArchiveForm.getLectureArchiveTitle());
+		lectureArchive.setLectureArchiveContent(lectureArchiveForm.getLectureArchiveContent());
 		// Mapper를 통해 lectureArchive의 내용을 입력
 		lectureArchiveMapper.insertLectureArchive(lectureArchive);
 		

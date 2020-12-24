@@ -31,8 +31,7 @@ public class LectureNoticeController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// LectureNoticeService 객체 주입
-	@Autowired
-	private LectureNoticeService lectureNoticeService;
+	@Autowired private LectureNoticeService lectureNoticeService;
 
 	// 강좌별 공지사항 목록 페이지 메서드
 	// 매개변수:강좌별 번호
@@ -99,7 +98,7 @@ public class LectureNoticeController {
 	@GetMapping("/teacher/createLectureNotice")
 	public String createLectureNotice(Model model, @RequestParam(value = "lectureNo") int lectureNo) {
 
-		// LectureNotice vo에서 강좌 고유번호를 가져옴.
+		// LectureNotice vo에서 강좌 고유번호를 가져옴
 		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNo);
 		lectureNotice.getLectureNo();
 		// 모델로 강좌 고유번호 뷰에 전달
@@ -111,7 +110,7 @@ public class LectureNoticeController {
 	// 매개변수:강좌 고유번호
 	// 리턴값:강좌별 공지사항 고유번호를 참조하여 공지사항 상세보기 뷰페이지
 	@PostMapping("/teacher/createLectureNotice")
-	public String createLectureNotice(LectureNotice lectureNotice) {
+	public String createLectureNotice( ) {
 		lectureNoticeService.createLectureNotice(lectureNotice);
 		return "redirect:/teacher/lectureNotice?lectureNo=" + lectureNotice.getLectureNo() + "&&currentPage=1";
 	}

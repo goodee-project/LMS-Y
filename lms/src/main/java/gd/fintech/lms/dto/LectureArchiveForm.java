@@ -28,15 +28,6 @@ public class LectureArchiveForm {
 	//강좌 자료실 내용
 	private String lectureArchiveContent;
 	
-	//강좌 자료실 정보 생성 일시
-	private String lectureArchiveCreateDate;
-	
-	//강좌 자료실 정보 업데이트 일시
-	private String lectureArchiveUpdateDate;
-	
-	//강좌 자료실 조회수
-	private int lectureArchiveCount;
-	
 	//MultipartList 처리를 위한 프로퍼티 추가
 	private List<MultipartFile> lectureArchiveFileList;
 }

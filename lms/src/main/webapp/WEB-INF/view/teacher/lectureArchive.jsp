@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="container">
-			<a href="">추가</a>
+				<a href="${pageContext.request.contextPath}/teacher/createLectureArchive?lectureNo=${lectureNo}">추가</a>
 			<table class="table">
 				<thead>
 					<tr>

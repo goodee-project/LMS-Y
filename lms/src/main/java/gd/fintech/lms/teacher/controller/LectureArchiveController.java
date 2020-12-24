@@ -33,9 +33,10 @@ public class LectureArchiveController {
 	//Logger
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	//LectureArchiveService 객체 주입
+	//LectureArchiveService,TeacherService, LectureNoticeService 객체 주입
 	@Autowired private LectureArchiveService lectureArchiveService;
 	@Autowired private TeacherService teacherService;
+	@Autowired private LectureNoticeService lectureNoticeService;
 	
 	//강좌별 자료실 목록 및 페이지 메서드
 	//매개변수:강좌별 번호
@@ -73,33 +74,34 @@ public class LectureArchiveController {
 		return "/teacher/lectureArchiveOne";
 	}
 	
-	//강좌별 자료실 입력 폼
+	//강좌별 자료실 입력 폼 메서드
 	//매개변수: 강좌 자료실 고유번호
 	//리턴값:강좌별 자료실 입력 뷰페이지
 	@GetMapping("/teacher/createLectureArchive")
-	public String createLectureArchive(Model model,HttpSession session,
-			@RequestParam(value="lectureNo")int lectureNo) {
-		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureNo);
+	public String createLectureArchive(Model model,HttpSession session,@RequestParam(value="lectureNo")int lectureNo) {
+		
+		//LectureNotice vo에서 강좌 고유번호를 가져옴
+		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNo);
+		
 		// 세션에 있는 아이디를 가져옴
-		String accountId = (String)session.getAttribute("accountId");
+		String  accountId = (String)session.getAttribute("accountId");
 		// 세션에 있는 아이디를 참조하여 teacherService의 getTeacherOne의 정보를 가져옴
 		Teacher teacher = teacherService.getTeacherOne(accountId);
 		logger.debug("teacher",teacher);
+		
 		// model을 통해 View에 다음과 같은 정보들을 보내준다
 		model.addAttribute("teacher",teacher);
-		model.addAttribute("lectureArchive",lectureArchive);
+		model.addAttribute("lectureNotice",lectureNotice);
 		return "/teacher/createLectureArchive";
 	}
 	
-	//강좌별 자료실 입력
+	//강좌별 자료실 입력 액션 메서드
 	//매개변수:lectureArchiveForm,HttpSession
 	//리턴값:
 	@PostMapping("/teacher/createLectureArchive")
-	public String createLectureArchive(LectureArchiveForm lectureArchiveForm,
-			HttpSession session) {
-		LectureArchive lectureArchive = new LectureArchive();
+	public String createLectureArchive(LectureArchiveForm lectureArchiveForm,LectureNotice lectureNotice,HttpSession session) {
 		lectureArchiveService.createLectureArchive(lectureArchiveForm, session);
-		return "redirect:/teacher/lectureArchive?lectureNo="+lectureArchive.getLectureNo()+"currentPage=1";
+		return "redirect:/teacher/lectureArchive?lectureNo="+lectureNotice.getLectureNo()+"&&currentPage=1";
 		
 	}
 }

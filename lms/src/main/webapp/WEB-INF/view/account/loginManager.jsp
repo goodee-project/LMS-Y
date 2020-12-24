@@ -71,7 +71,7 @@
 			</div>
 			</form>
 			<div align="center">
-				<a class="btn btn-link" href="#">회원가입</a>
+				<a class="btn btn-link" href="${pageContext.request.contextPath}/signUpManager">회원가입</a>
 			</div>
 		</div>
 	</body>

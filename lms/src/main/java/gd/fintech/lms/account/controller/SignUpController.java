@@ -43,14 +43,14 @@ public class SignUpController {
 		return "account/signUpTeacher";
 	}
 	
-	// 학생 회원가입시 입력정보를 계정,학생승인대기 테이블에 입력하는 메소드
+	// 강사 회원가입시 입력정보를 계정,강사승인대기 테이블에 입력하는 메소드
 	// 매개변수: 회원가입폼에서 입력된 값
-	// 리턴값: 학생로그인페이지	
+	// 리턴값: 강사로그인페이지
 	@PostMapping("/signUpTeacher")
 	public String signUpTeacherAction(SignUpForm signUpForm) {
 		// account(계정) 테이블에 입력되는 메소드
 		signUpService.createSignUpAccount(signUpForm);
-		// student_queue(학생승인대기) 테이블에 입력되는 메소드
+		// teacher_queue(강사승인대기) 테이블에 입력되는 메소드
 		signUpService.createSignUpTeacherQueue(signUpForm);	
 		return "redirect:/teacherLogin";
 	}	
@@ -60,5 +60,17 @@ public class SignUpController {
 	@GetMapping("/signUpManager")
 	public String signUpManager() {
 		return "account/signUpManager";
+	}
+	
+	// 운영자 회원가입시 입력정보를 계정,운영자승인대기 테이블에 입력하는 메소드
+	// 매개변수: 회원가입폼에서 입력된 값
+	// 리턴값: 운영자로그인페이지	
+	@PostMapping("/signUpManager")
+	public String signUpManagerAction(SignUpForm signUpForm) {
+		// account(계정) 테이블에 입력되는 메소드
+		signUpService.createSignUpAccount(signUpForm);
+		// student_queue(학생승인대기) 테이블에 입력되는 메소드
+		signUpService.createSignUpManagerQueue(signUpForm);	
+		return "redirect:/teacherLogin";
 	}
 }

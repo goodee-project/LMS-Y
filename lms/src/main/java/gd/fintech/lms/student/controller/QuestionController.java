@@ -48,7 +48,7 @@ public class QuestionController {
 	@PostMapping("student/addQuestion")
 	public String addQuestion(Question question) {
 		questionService.addQeustion(question);
-		return "redirect:/student/questionList";
+		return "redirect:/student/studentQuestionList";
 	}
 	
 	//학생의 질문 상세보기
@@ -64,8 +64,8 @@ public class QuestionController {
 	@GetMapping("student/questionModify")
 	public String questionModify(Model model,
 			@RequestParam(value="currentPage")int currentPage,
-			@RequestParam(value="questionNo")int questionNo) {
-		Question questionModify = questionService.modifyQuestionForm(questionNo);
+			@RequestParam(value="accountId")Question accountId) {
+		Question questionModify = questionService.modifyQuestion(accountId);
 		model.addAttribute("currentPage",currentPage);
 		model.addAttribute("questionModify",questionModify);
 		return "student/questionModify";

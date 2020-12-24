@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>[여기에 이 페이지의 특징을 잘 살린 제목을 넣어주세요]</title>
+		<title>studentRegistration</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,11 +22,29 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>[여기에 이 페이지의 특징을 잘 살린 제목을 넣어주세요]</h1>
+			<h1>학생수강신청/취소</h1>
 			
-			<div>
-				[여기에 페이지 컨텐츠를 넣어주세요]
-			</div>
+			<table class="table"></table>
+				<thead>
+					<tr>
+						<th>수강 번호</th>
+						<th>강좌 번호</th>
+						<th>학생 id</th>
+						<th>수강 상태</th>
+						<th>수강 리뷰(점수)</th>
+						<th>리뷰(텍스트)</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="r" items="${registraionList}">
+						<td>${r.classRegistrationNo }</td>
+						<td>${r.lectureNo }</td>
+						<td>${r.accountId }</td>
+						<td>${r.classRegistrationState}</td>
+						<td>${r.classRegistrationPoint}</td>
+						<td>${r.classRegistrationReview}</td>
+					</c:forEach>
+				</tbody>
 		</div>
 	</body>
 </html>

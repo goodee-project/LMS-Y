@@ -44,7 +44,7 @@
 						<td>${studentDetail.studentBirth}</td>
 					</tr>
 					
-					<tr>
+					<tr> 
 						<td>주소/상세주소</td>
 						<td>${studentDetail.studentAddressMain} ${student.studentAddressSub}</td>
 					</tr>

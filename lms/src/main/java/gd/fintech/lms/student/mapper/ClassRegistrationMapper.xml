@@ -5,24 +5,24 @@
 <resultMap type="gd.fintech.lms.student.vo.ClassRegistration" id="ResultClassRegistration">
 	<result property="classRegistrationNo" column="class_registraion_no"/>
 	<result property="lectureNo" column="lecture_no"/>
-	<result property="accountId" column="account_id"/>
+	<result property="accountId" column="student_id"/>
 	<result property="classRegistrationState" column="class_registration_state"/>
 	<result property="classRegistrationPoint" column="class_registration_point"/>
 	<result property="classRegistrationReview" column="class_registration_review"/>
 	<result property="classRegistrationCreateDate" column="class_registration_createdate"/>
 	<collection property="lectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
-		<result property="accountId" column="account_id"/>
+		<result property="accountId" column="teacer_id"/>
 		<result property="subjectNo" column="subject_no"/>
 		<result property="teacherName" column="teacher_name"/>
 		<result property="lectureName" column="lecture_name"/>
-		<result property="textbookISBN" column="textbook"/>
-		<result property="lectureStartDate" column=""/>
-		<result property="lectureEndDate" column=""/>
-		<result property="lectureTotal" column=""/>
-		<result property="syllabusNo" column=""/>
-		<result property="classroomNo" column=""/>
-		<result property="lectureCreateDate" column=""/>
-		<result property="lectureUpdateDate" column=""/>
+		<result property="textbookISBN" column="textbook_isbn"/>
+		<result property="lectureStartDate" column="lecture_startdate"/>
+		<result property="lectureEndDate" column="lecture_enddate"/>
+		<result property="lectureTotal" column="lecture_total"/>
+		<result property="syllabusNo" column="syllabus_no"/>
+		<result property="classroomNo" column="classroom_no"/>
+		<result property="lectureCreateDate" column="lecture_createdate"/>
+		<result property="lectureUpdateDate" column="lecture_updatedate"/>
 		<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
 			<result property="subjectNo" column="subject_no"/>
 			<result property="subjectName" column="subject_name"/>
@@ -85,7 +85,7 @@
 				ON cr.lecture_no = lc.lecture_no
 			LEFT JOIN subject sj
 				ON lc.subject_no = sj.subject_no
-		WHERE cr.class_registration_no 
+		WHERE cr.class_registration_no=#{classRegistration}
 	</select>
 	
 	

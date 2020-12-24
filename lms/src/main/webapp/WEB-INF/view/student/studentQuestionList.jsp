@@ -54,7 +54,7 @@
 		<div>
 		<!-- 처음 페이지 -->
 			<c:choose>
-				<c:when test="${currentPage=1}">
+				<c:when test="${currentPage>1}">
 					<a href="${pageContext.request.contextPath}/student/studentQuestionList?questionNo=${questionNo}&currentPage=1">처음</a>
 				</c:when>
 			<c:otherwise>
@@ -73,11 +73,22 @@
 			</c:choose>
 			
 		<!-- 현재 페이지 -->
-			<c:choose>
-				<c:when test="${currentPage}">
-				<a href="">${currentPage}</a>
-				</c:when>
-			</c:choose>
+			<c:forEach var="i" begin="${navFirstPage}" end="${navLastPage}">
+					<c:if test="${i <= lastPage}">
+						<c:choose>
+							<c:when test="${i == currentPage}">
+								<a href="#">
+									[${i}]
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath}/student/studentQuestionList?currentPage=${i}">
+									[${i}]
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				</c:forEach>
 			
 		<!-- 다음 페이지 -->
 			<c:choose>

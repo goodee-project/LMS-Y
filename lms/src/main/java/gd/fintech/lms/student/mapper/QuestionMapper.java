@@ -15,11 +15,6 @@ public interface QuestionMapper {
 	//리턴값:질문 리스트 행
 	int insertQuestion(Question question);
 	
-	//학생의(자신의) 질문을 수정할 폼
-	//매개변수: 질문게시판 게시물 번호를 가져옴
-	//리턴값: 변경될 질문폼
-	Question updateQuestionForm(int questionNo);
-		
 	//학생의(자신의) 질문 수정액션
 	//매개변수: 질문 게세판 정보를 가지고옴
 	//리턴값: 변경한 질문
@@ -33,7 +28,7 @@ public interface QuestionMapper {
 	//학생의 질문 리스트 출력(페이징)
 	//매개변수: map을 이용해 beginRow,rowPerPage 
 	//리턴값: 페이지의 질문 게시판(리스트)
-	List<Question> selectQuestionListByPage(Map<String,Integer>map);
+	List<Question> selectQuestionListByPage(Map<String,Object>map);
 	
 	
 	//학생의 질문 상세보기(강사의 댓글과 파일보기)

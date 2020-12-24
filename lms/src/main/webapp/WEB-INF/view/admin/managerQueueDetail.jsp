@@ -28,45 +28,45 @@
 				<table border="1">
 					<tr>
 						<td>아이디</td>						
-						<td>${managerQueue.accountId}</td>
+						<td>${managerQueueDetail.accountId}</td>
 					</tr>
 					<tr>
 						<td>Email</td>
-						<td>${managerQueue.managerEmail}</td>
+						<td>${managerQueueDetail.managerEmail}</td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td>${managerQueue.managerName}</td>
+						<td>${managerQueueDetail.managerName}</td>
 					</tr>
 					<tr>
 						<td>핸드폰 번호</td>
-						<td>${managerQueue.managerPhone}</td>
+						<td>${managerQueueDetail.managerPhone}</td>
 					</tr>
 					<tr>
 						<td>성별</td>
-						<td>${managerQueue.managerGender}</td>
+						<td>${managerQueueDetail.managerGender}</td>
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td>${managerQueue.managerBirth}</td>
+						<td>${managerQueueDetail.managerBirth}</td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td>${managerQueue.managerAddressMain}</td>
+						<td>${managerQueueDetail.managerAddressMain}</td>
 					</tr>
 					<tr>
 						<td>상세주소</td>
-						<td>${managerQueue.managerAddressSub}</td>
+						<td>${managerQueueDetail.managerAddressSub}</td>
 					</tr>
 				</table>
 			</div>
 			
 			<div>
-				<a href="${pageContext.request.contextPath}/admin/approveManagerMembership?accountId=${managerQueue.accountId}">
-					승인
+				<a href="${pageContext.request.contextPath}/admin/approveManagerMembership?accountId=${managerQueueDetail.accountId}">
+					[승인]
 				</a>
-				<a href="${pageContext.request.contextPath}/admin/disapproveManagerMembership?accountId=${managerQueue.accountId}">
-					거부
+				<a href="${pageContext.request.contextPath}/admin/disapproveManagerMembership?accountId=${managerQueueDetail.accountId}">
+					[거부]
 				</a>
 			</div>
 		</div>

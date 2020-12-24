@@ -26,52 +26,55 @@
 			
 			<!-- 교재 정보 입력 -->
 			<div>
-				<form method="post" action="${pageContext.request.contextPath}/manager/createTextbook">
+				<form method="post" action="${pageContext.request.contextPath}/manager/createTextbook?textbookISBN=${modifyTextbook.textbookISBN}">
 					<table border="1">
 						<tr>
 							<td>ISBN</td>
 							<td>
-								<input type="text" name="textbookISBN" value="${textbook.textbookISBN}" readonly="readonly">
+								<input type="text" name="textbookISBN" value="${modifyTextbook.textbookISBN}" readonly="readonly">
 							</td>
 						</tr>
 						<tr>
 							<td>교재명</td>
 							<td>
-								<input type="text" name="textbookTitle" value="${textbook.textbookTitle}">
+								<input type="text" name="textbookTitle" value="${modifyTextbook.textbookTitle}">
 							</td>
 						</tr>
 						<tr>
 							<td>가격</td>
 							<td>
-								<input type="text" name="textbookPrice" value="${textbook.textbookPrice}">원
+								<input type="text" name="textbookPrice" value="${modifyTextbook.textbookPrice}">원
 							</td>
 						</tr>
 						<tr>
 							<td>저자</td>
 							<td>
-								<input type="text" name="textbookWriter" value="${textbook.textbookWriter}">
+								<input type="text" name="textbookWriter" value="${modifyTextbook.textbookWriter}">
 							</td>
 						</tr>
 						<tr>
 							<td>출판사</td>
 							<td>
-								<input type="text" name="textbookPublisher" value="${textbook.textbookPublisher}">
+								<input type="text" name="textbookPublisher" value="${modifyTextbook.textbookPublisher}">
 							</td>
 						</tr>
 						<tr>
 							<td>출판일</td>
 							<td>
-								<input type="text" name="textbookPublishDate" value="${textbook.textbookPublishDate}">
+								<input type="date" name="textbookPublishDate" value="${modifyTextbook.textbookPublishDate}">
 							</td>
 						</tr>
 						<tr>
 							<td>정보</td>
 							<td>
-								<input type="text" name="textbookInfo" value="${textbook.textbookInfo}">
+								<input type="text" name="textbookInfo" value="${modifyTextbook.textbookInfo}">
 							</td>
 						</tr>
 					</table>
-					<button></button>
+					
+					<button type="button">
+						수정
+					</button>
 				</form>
 			</div>
 		</div>

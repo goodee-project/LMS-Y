@@ -31,7 +31,7 @@ public class SubjectController {
 	// 과목 목록을 페이징하여 출력
 	// 페이지 표시 네비게이션 바 출력
 	@GetMapping("/manager/subjectList")
-	public String subjectList(Model model, @RequestParam(value = "currentPage") int currentPage) {
+	public String subjectList(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 		// 한 페이지에 보여줄 항목수 15개
 		int rowPerPage = 15;
 		// 총 항목수
@@ -73,7 +73,7 @@ public class SubjectController {
 		model.addAttribute("navFirstPage", navFirstPage);
 		model.addAttribute("navLastPage", navLastPage);
 		
-		return "subjectList";
+		return "/manager/subjectList";
 	}
 	
 	
@@ -88,7 +88,7 @@ public class SubjectController {
 		logger.debug(subjectDetail.toString());
 		model.addAttribute("subjectDetail", subjectDetail);
 		
-		return "subjectDetail";
+		return "/manager/subjectDetail";
 	}
 	
 	// 과목 정보를 입력할 수 있는 페이지를 출력하는 메소드
@@ -97,7 +97,7 @@ public class SubjectController {
 	// 추가할 과목 정보를 입력할 수 있는 페이지 출력
 	@GetMapping("/manager/createSubject")
 	public String createSubject() {
-		return "createSubject";
+		return "/manager/createSubject";
 	}
 	
 	// 과목 정보를 입력된 값으로 추가하는 메소드
@@ -126,7 +126,7 @@ public class SubjectController {
 		logger.debug(modifySubject.toString());
 		model.addAttribute("modifySubject", modifySubject);
 		
-		return "modiftSubject";
+		return "/manager/modiftSubject";
 	}
 	
 	// 과목 정보를 입력된 값으로 수정하는 메소드

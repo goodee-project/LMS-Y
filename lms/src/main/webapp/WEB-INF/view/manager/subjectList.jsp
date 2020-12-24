@@ -36,11 +36,15 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach var="sl" items="${subjectList}">
-							<tr class="clickable-row" data-href="${pageContext.request.contextPath}/manager/subjectDetail?subjectNo=${sl.subjectNo}">
-								<td>${sl.subjectNo}</td>
-								<td>${sl.subjectName}</td>
-								<td>${sl.subjectTotalDay}</td>
+						<c:forEach var="subjectList" items="${subjectList}">
+							<tr>
+								<td>${subjectList.subjectNo}</td>
+								<td>
+									<a href="${pageContext.request.contextPath}/manager/subjectDetail?subjectNo=${subjectList.subjectNo}">
+										${subjectList.subjectName}
+									</a>
+								</td>
+								<td>${subjectList.subjectTotalDay}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

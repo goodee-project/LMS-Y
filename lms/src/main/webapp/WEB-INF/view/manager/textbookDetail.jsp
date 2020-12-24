@@ -29,18 +29,18 @@
 				<table border="1">
 					<tr>
 						<td>입력일자</td>
-						<td>${textbook.textbookCreateDate}</td>
+						<td>${textbookDetail.textbookCreateDate}</td>
 					</tr>
 					<tr>
 						<td>수정일자</td>
-						<td>${textbook.textbookUpdateDate}</td>
+						<td>${textbookDetail.textbookUpdateDate}</td>
 					</tr>
 				</table>
 			</div>
 			
 			<!-- 수정버튼 -->
 			<div>
-				<a href="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${textbook.textbookISBN}">
+				<a href="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${textbookDetail.textbookISBN}">
 					수정
 				</a>
 			</div>
@@ -50,31 +50,31 @@
 				<table border="1">
 					<tr>
 						<td>ISBN</td>
-						<td>${textbook.textbookISBN}</td>
+						<td>${textbookDetail.textbookISBN}</td>
 					</tr>
 					<tr>
 						<td>교재명</td>
-						<td>${textbook.textbookTitle}</td>
+						<td>${textbookDetail.textbookTitle}</td>
 					</tr>
 					<tr>
 						<td>가격</td>
-						<td>${textbook.textbookPrice}원</td>
+						<td>${textbookDetail.textbookPrice}원</td>
 					</tr>
 					<tr>
 						<td>저자</td>
-						<td>${textbook.textbookWriter}</td>
+						<td>${textbookDetail.textbookWriter}</td>
 					</tr>
 					<tr>
 						<td>출판사</td>
-						<td>${textbook.textbookPublisher}</td>
+						<td>${textbookDetail.textbookPublisher}</td>
 					</tr>
 					<tr>
 						<td>출판일</td>
-						<td>${textbook.textbookPublishDate}</td>
+						<td>${textbookDetail.textbookPublishDate}</td>
 					</tr>
 					<tr>
 						<td>정보</td>
-						<td>${textbook.textbookInfo}</td>
+						<td>${textbookDetail.textbookInfo}</td>
 					</tr>
 				</table>
 			</div>

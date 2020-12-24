@@ -36,12 +36,16 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach var="mql" items="${managerQueueList}">
-							<tr class="clickable-row" data-href="${pageContext.request.contextPath}/admin/managerQueueDetail?accountId=${mql.accountId}">
-								<td>${mql.accountId}</td>
-								<td>${mql.managerName}</td>
-								<td>${mql.managerEmail}</td>
-								<td>${mql.managerPhone}</td>
+						<c:forEach var="managerQueueList" items="${managerQueueList}">
+							<tr>
+								<td>${managerQueueList.accountId}</td>
+								<td>
+									<a href="${pageContext.request.contextPath}/admin/managerQueueDetail?accountId=${mql.accountId}">
+										${managerQueueList.managerName}
+									</a>
+								</td>
+								<td>${managerQueueList.managerEmail}</td>
+								<td>${managerQueueList.managerPhone}</td>
 							</tr>							
 						</c:forEach>
 					</tbody>

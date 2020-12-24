@@ -61,7 +61,7 @@
 						<tr>
 							<td>출판일</td>
 							<td>
-								<input type="text" name="textbookPublishDate">
+								<input type="date" name="textbookPublishDate">
 							</td>
 						</tr>
 						<tr>

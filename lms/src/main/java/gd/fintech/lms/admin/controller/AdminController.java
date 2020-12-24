@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.account.service.AccountService;
@@ -39,7 +38,7 @@ public class AdminController {
 		logger.debug(adminDetail.toString());
 		model.addAttribute("adminDetail", adminDetail);
 		
-		return "adminDetail";
+		return "/admin/adminDetail";
 	}
 	
 	// 회원가입 승인대기 중인 운영자 목록 페이지를 출력하는 메소드
@@ -92,7 +91,7 @@ public class AdminController {
 		model.addAttribute("navFirstPage", navFirstPage);
 		model.addAttribute("navLastPage", navLastPage);
 		
-		return "managerQueueList";
+		return "/admin/managerQueueList";
 	}
 	
 	// 회원가입 승인대기 중인 운영자의 개인정보 페이지를 출력하는 메소드
@@ -102,12 +101,11 @@ public class AdminController {
 	// 리턴값: managerQueueDetail(아이디에 해당하는 운영자 개인정보 페이지)
 	@GetMapping("/admin/managerQueueDetail")
 	public String managerQueueDetail(Model model, @RequestParam(value = "accountId") String accountId) {
-		//logger.debug(accountId.toString());
 		ManagerQueue managerQueueDetail = adminService.getManagerQueueDetail(accountId);
-		//logger.debug(managerQueueDetail.toString());
+		logger.debug(managerQueueDetail.toString());
 		model.addAttribute("managerQueueDetail", managerQueueDetail);
 		
-		return "managerQueueDetail";
+		return "/admin/managerQueueDetail";
 	}
 	
 	// 회원가입 승인대기 중인 운영자의 가입을 승인하는 메소드
@@ -116,7 +114,8 @@ public class AdminController {
 	// 운영자의 개인정보를 Manager에 저장
 	// 운영자의 개인정보을 ManagerQueue에서 삭제
 	// 운영자의 계정의 활성화 여부를 활성화로 변경
-	@PostMapping("/admin/approveManagerMembership")
+	// 회원가입 승인대기 중인 운영자 목록 페이지로 이동
+	@GetMapping("/admin/approveManagerMembership")
 	public String approveManagerMembership(@RequestParam(value = "accountId") String accountId) {
 		logger.debug(accountId.toString());
 		adminService.approveManagerMembership(accountId);
@@ -129,7 +128,8 @@ public class AdminController {
 	// 리턴값: managerQueueList 페이지로 이동
 	// 운영자의 개인정보를 ManagerQueue에서 삭제
 	// 운영자의 계정의 활성화 여부를 탈퇴로 변경
-	@PostMapping("/admin/disapproveManagerMembership")
+	// 회원가입 승인대기 중인 운영자 목록 페이지로 이동
+	@GetMapping("/admin/disapproveManagerMembership")
 	public String disapproveManagerMembership(@RequestParam(value = "accountId") String accountId) {
 		logger.debug(accountId.toString());
 		adminService.disapproveManagerMembership(accountId);

@@ -22,7 +22,14 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>교재 정보 목록</h1>
+			<h1>교재 목록</h1>
+			
+			<!-- 추가버튼 -->
+			<div>
+				<a href="${pageContext.request.contextPath}/manager/createTextbook">
+					[추가]
+				</a>
+			</div>
 			
 			<!-- 내용 -->
 			<div>
@@ -37,12 +44,16 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach var="tl" items="${textbookList}">
-							<tr class="clickable-row" data-href="${pageContext.request.contextPath}/manager/textbookDetail?textbookISBN=${tl.textbookISBN}">
-								<td>${tl.textbookISBN}</td>
-								<td>${tl.textbookName}</td>
-								<td>${tl.textbookWriter}</td>
-								<td>${tl.textbookPublisher}</td>
+						<c:forEach var="textbookList" items="${textbookList}">
+							<tr>
+								<td>${textbookList.textbookISBN}</td>
+								<td>
+									<a href="${pageContext.request.contextPath}/manager/textbookDetail?textbookISBN=${textbookList.textbookISBN}">
+										${textbookList.textbookTitle}
+									</a>
+								</td>
+								<td>${textbookList.textbookWriter}</td>
+								<td>${textbookList.textbookPublisher}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

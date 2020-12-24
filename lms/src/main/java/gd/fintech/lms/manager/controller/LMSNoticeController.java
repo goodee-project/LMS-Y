@@ -1,6 +1,9 @@
 package gd.fintech.lms.manager.controller;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.AccountLevel;
+import gd.fintech.lms.account.mapper.AccountMapper;
 import gd.fintech.lms.manager.service.LMSNoticeService;
 import gd.fintech.lms.manager.vo.LMSNotice;
 
@@ -28,15 +33,28 @@ public class LMSNoticeController {
 	// Model
 	// RequestParam : currentPage(현재 페이지)
 	// 리턴값 : 공지사항 리스트
-	@GetMapping("/*/lmsNoticeList")
+	@GetMapping(value={
+			"/student/lmsNoticeList", 
+			"/teacher/lmsNoticeList", 
+			"/manager/lmsNoticeList"
+			})
 	public String lmsNoticeList(Model model,
-			@RequestParam(value="currentPage") int currentPage) {
+			@RequestParam(value="currentPage") int currentPage,
+			HttpSession session) {
 		Map<String, Object> map = lmsNoticeService.getLMSNoticeListByPage(currentPage);
+		Map<String, Object> accountMap = new HashMap<>();
+		accountMap.put("studentLevel", AccountLevel.STUDENT.getValue());
+		accountMap.put("teacherLevel", AccountLevel.TEACHER.getValue());
+		accountMap.put("managerLevel", AccountLevel.MANAGER.getValue());
+		
 		logger.debug(map.toString());
+		logger.debug(session.getAttribute("accountLevel").toString());
 		
 		model.addAttribute("lmsNoticeList", map.get("lmsNoticeList"));
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));
+		model.addAllAttributes(accountMap);
 		return "lmsNoticeList";
 	}
 	
@@ -45,11 +63,15 @@ public class LMSNoticeController {
 	// Model
 	// RequestParam : lmsNoticeNo(공지사항 번호)
 	// 리턴값 : 공지사항 번호에 해당되는 공지 상세 정보
-	@GetMapping("/*/lmsNoticeDetail")
+	@GetMapping("/notice/lmsNoticeDetail")
 	public String lmsNoticeDetail (Model model,
-			@RequestParam(value="lmsNoticeNo") int lmsNoticeNo) {
+			@RequestParam(value="lmsNoticeNo") int lmsNoticeNo,
+			HttpSession session) {
 		LMSNotice lmsNotice = lmsNoticeService.getLMSNoticeDetail(lmsNoticeNo);
 		logger.debug(lmsNotice.toString());
+		if(!session.getAttribute("accountId").equals(AccountLevel.MANAGER.getValue())) {
+			lmsNoticeService.modifyLMSNoticeCountOfViews(lmsNoticeNo);
+		}
 		
 		model.addAttribute("lmsNotice", lmsNotice);
 		return "lmsNoticeDetail";
@@ -73,7 +95,7 @@ public class LMSNoticeController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lmsNoticeSearch", lmsNoticeSearch);
 		model.addAttribute("lastPage", map.get("lastPage"));
-		return "lmsNoticeList";
+		return "lmsNoticeListSearch";
 	}
 	
 	// lms 공지사항 입력 페이지
@@ -87,10 +109,10 @@ public class LMSNoticeController {
 	// 매개변수 : lms 공지사항 정보
 	// 리턴값 : 입력한 공지사항 페이지 출력
 	@PostMapping("/manager/createLMSNotice")
-	public String createLMSNotice(LMSNotice lmsNotice) {
+	public String createLMSNotice(LMSNotice lmsNotice, HttpSession session) {
 		logger.debug(lmsNotice.toString());
-		lmsNoticeService.createLMSNotice(lmsNotice);
-		return "redirect:/*/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
+		lmsNoticeService.createLMSNotice(lmsNotice, session);
+		return "redirect:/manager/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
 	}
 	
 	// lms 공지사항 수정 페이지
@@ -114,7 +136,7 @@ public class LMSNoticeController {
 	public String modifyLMSNotice(LMSNotice lmsNotice) {
 		logger.debug(lmsNotice.toString());
 		lmsNoticeService.modifyLMSNotice(lmsNotice);
-		return "redirect:/*/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
+		return "redirect:/manager/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
 	}
 	
 	// lms 공지사항 삭제 
@@ -124,6 +146,6 @@ public class LMSNoticeController {
 	@GetMapping("/manager/removeLMSNotice")
 	public String removeLMSNotice(@RequestParam(value="lmsNoticeNo") int lmsNoticeNo) {
 		lmsNoticeService.removeLMSNotice(lmsNoticeNo);
-		return "redirect:/*/lmsNoticeList";
+		return "redirect:/manager/lmsNoticeList?currentPage=1";
 	}
 }

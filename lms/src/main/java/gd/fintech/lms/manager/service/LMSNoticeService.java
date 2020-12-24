@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import gd.fintech.lms.AccountLevel;
 import gd.fintech.lms.manager.mapper.LMSNoticeMapper;
 import gd.fintech.lms.manager.vo.LMSNotice;
 
@@ -83,8 +86,12 @@ public class LMSNoticeService {
 	// LMS공지사항의 1개의 공지입력 서비스
 	// 매개변수 : LMS공지사항의 정보
 	// 리턴값 : 추가된 행의 수
-	public int createLMSNotice(LMSNotice lmsNotice) {
+	public int createLMSNotice(LMSNotice lmsNotice, HttpSession session) {
 		logger.debug(lmsNotice.toString());
+		String sessionAccountId = (String)session.getAttribute("accountId");
+		logger.debug(sessionAccountId);
+		lmsNotice.setAccountId(sessionAccountId);
+		lmsNotice.setLmsNoticeWriter(lmsNoticeMapper.selectLMSNoticeWriter(sessionAccountId));
 		return lmsNoticeMapper.insertLMSNotice(lmsNotice);
 	}
 	
@@ -101,5 +108,12 @@ public class LMSNoticeService {
 	// 리턴값 : 삭제된 행의 수
 	public int removeLMSNotice(int lmsNoticeNo) {
 		return lmsNoticeMapper.deleteLMSNotice(lmsNoticeNo);
+	}
+	
+	// LMS공지사항의 조회 수 증가
+	// 매개변수 : LMS공지사항의 번호
+	// 리턴값 : 
+	public int modifyLMSNoticeCountOfViews(int lmsNoticeNo) {
+		return lmsNoticeMapper.updateLMSNoticeCountOfViews(lmsNoticeNo);
 	}
 }

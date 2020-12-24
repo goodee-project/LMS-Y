@@ -29,6 +29,11 @@ public interface LMSNoticeMapper {
 	// 공지사항 게시물 개수 
 	// 리턴값 : 공지사항 게시물 개수
 	int selectLMSNoticeCount();
+
+	// 공지사항 작성 매니저 이름 가져오기
+	// 매개변수 : 매니저의 계정 ID
+	// 리턴값 : 매니저의 이름
+	String selectLMSNoticeWriter(String accountId);
 	
 	// 공지사항 입력
 	// 매개변수 : LMS공지사항 정보(계정 id, 제목, 내용, 입력날짜, 수정날짜)
@@ -44,4 +49,9 @@ public interface LMSNoticeMapper {
 	// 매개변수 : LMS공지사항 번호를 가져옴
 	// 리턴값 : 행 삭제
 	int deleteLMSNotice(int lmsNoticeNo);
+	
+	// 공지사항 조회수 증가
+	// 매개변수 : LMS공지사항 번호를 가져옴
+	// 리턴값 : 해당 공지사항의 조회수 카운트 증가
+	int updateLMSNoticeCountOfViews(int lmsNoticeNo);
 }

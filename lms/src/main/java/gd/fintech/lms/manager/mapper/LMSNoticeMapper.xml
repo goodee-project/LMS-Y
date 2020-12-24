@@ -10,6 +10,7 @@
 			lms_notice_writer lmsNoticeWriter, 
 			lms_notice_updatedate lmsNoticeUpdateDate
 		FROM lms_notice
+		ORDER BY lms_notice_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- lms공지사항 상세보기 -->
@@ -42,8 +43,18 @@
 		FROM lms_notice
 	</select>
 	
-	<!-- lms공지사항 입력 -->
+	<!-- lms공지사항 작성자 -->
+	<select id="selectLMSNoticeWriter" parameterType="String" resultType="String">
+		SELECT manager_name managerName
+		FROM manager
+		WHERE account_Id = #{accountId}
+	</select>
+	
+	<!-- lms공지사항 입력, 자동 증가값인 lmsNoticeNo를 읽어오기위한 selectKey -->
 	<insert id="insertLMSNotice" parameterType="gd.fintech.lms.manager.vo.LMSNotice">
+		<selectKey resultType="int" keyProperty="lmsNoticeNo" order="AFTER">
+	  		SELECT LAST_INSERT_ID()
+	  	</selectKey>
 		INSERT INTO lms_notice(
 			account_id, 
 			lms_notice_writer, 
@@ -74,4 +85,11 @@
 		DELETE FROM lms_notice
 		WHERE lms_notice_no = #{lmsNoticeNo}
 	</delete>
+	<!-- lms 조회수 증가 -->
+	<update id="updateLMSNoticeCountOfViews" parameterType="int">
+		UPDATE lms_notice
+		SET lms_notice_count = lms_notice_count +1
+		WHERE lms_notice_no = #{lmsNoticeNo}
+	</update>
+	
 </mapper>

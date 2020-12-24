@@ -41,13 +41,30 @@
 					</c:forEach>
 				</table>
 			</div>
-			<!-- 4개로 분할 -->
-			<div>
-				<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
-				<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
-			</div>
-			<!-- 조건문으로 manager로 들어왔을 경우만 보이게끔 변경해야함 -->
-			<div><a href="${pageContext.request.contextPath}/manager/createLMSNotice">공지 생성</a></div>
+			<!-- student -->
+			<c:if test="${accountLevel eq studentLevel}">
+				<div>
+					<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
+					<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
+				</div>
+			</c:if>
+			<!-- teacher -->
+			<c:if test="${accountLevel eq teacherLevel}">
+				<div>
+					<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
+					<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
+				</div>
+			</c:if>
+			<!-- manager -->
+			<c:if test="${accountLevel eq managerLevel}">
+				<div>
+					<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
+					<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
+				</div>
+				<div>
+					<a href="${pageContext.request.contextPath}/manager/createLMSNotice">공지 생성</a>
+				</div>
+			</c:if>
 		</div>
 		
 		<!-- 검색 -->

@@ -1,9 +1,11 @@
 package gd.fintech.lms.teacher.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,7 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import gd.fintech.lms.FilePath;
 import gd.fintech.lms.dto.LectureArchiveForm;
 import gd.fintech.lms.manager.mapper.LectureManagerMapper;
 import gd.fintech.lms.manager.vo.Lecture;
@@ -21,6 +25,7 @@ import gd.fintech.lms.teacher.mapper.LectureArchiveMapper;
 import gd.fintech.lms.teacher.mapper.TeacherMapper;
 import gd.fintech.lms.teacher.vo.LectureArchive;
 import gd.fintech.lms.teacher.vo.LectureArchiveFile;
+import gd.fintech.lms.teacher.vo.QuestionCommentFile;
 
 //강좌별 자료실 서비스
 
@@ -83,57 +88,27 @@ public class LectureArchiveService {
 	}
 	
 	//DTO를 받아와 해당 강좌별 자료실의 입력
-	/*public boolean createLectureArchive(LectureArchiveForm lectureArchiveForm,HttpSession session) {
-		//현재 로그인한 사용자의 정보
-		String sessionAccountId = (String)session.getAttribute("accountId");
+	//매개변수:
+	//리턴값:
+	public LectureArchive createLectureArchive(LectureArchiveForm lectureArchiveForm,HttpSession session) {
 		
-		logger.debug("로그인 사용자 ID:"+sessionAccountId);
 		
-		//검증 및 검사를 위한 객체
-		List<Lecture> lectureList = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
-		LectureArchive lectureArchive = lectureArchiveMapper.selectLectureArchiveOne(lectureArchiveForm.getLectureArchiveNo());
-		
-		logger.debug("강사가 관리하는 강좌: "+lectureList);
-		logger.debug("강사가 작성한 자료실: "+lectureArchive);
-		
-		//해당 강사가 관리하는 강좌가 아닐 경우 실행 중단후 false 반환
-		boolean isCorrectTeacher = false;
-		for(Lecture l : lectureList) {
-			if(l.getLectureNo() == lectureArchive.getLectureNo()) {
-				isCorrectTeacher = true;
-			}
-		}
-		
-		logger.debug("강사의 해당 강좌 관리 가능 여부 : "+isCorrectTeacher);
-		if(!isCorrectTeacher) {
-			return false;
-		}
-		
-		//accountId를 이용해 sessionTeacherName을 가져옴
-		String sessionTeacherName = teacherMapper.selectTeacherOne(sessionAccountId).getTeacherName();
-		
-		logger.debug("강사의 이름:"+sessionTeacherName);
-		
-		//DTO를 VO로 변환 후 댓글 추가
-		//<script> 방지코드 추가
+		// lectureArchiveForm의 강좌 고유번호, 아이디, 작성자, 제목, 내용을 lectureArchive 객체에 넣어둠
+		// 자바스크립트가 데이터베이스에 입력되는 것을 방지
+		LectureArchive lectureArchive = new LectureArchive();
 		lectureArchive.setLectureNo(lectureArchiveForm.getLectureNo());
 		lectureArchive.setAccountId(lectureArchiveForm.getAccountId());
-		lectureArchive.setLectureArchiveWriter(sessionTeacherName);
-		lectureArchive.setLectureArchiveContent(lectureArchiveForm.getLectureArchiveContent());
+		lectureArchive.setLectureArchiveWriter(lectureArchiveForm.getLectureArchiveWriter());
 		lectureArchive.setLectureArchiveTitle(lectureArchiveForm.getLectureArchiveTitle().replaceAll("(?i)<script", "&lt;script"));
 		lectureArchive.setLectureArchiveContent(lectureArchiveForm.getLectureArchiveContent().replaceAll("(?i)<script", "&lt;script"));
-		
-		//Logger 디버깅
-		logger.trace(lectureArchive+"<--- lectureArchive");
-		
+		// Mapper를 통해 lectureArchive의 내용을 입력
 		lectureArchiveMapper.insertLectureArchive(lectureArchive);
 		
-		List<LectureArchiveFile> lectureArchvieFileList = null;
 		
-		//첨부파일이 존재하는 경우
-		if(lectureArchiveForm.getLectureArchiveFileList() !=null) {
-			lectureArchvieFileList = new ArrayList<LectureArchiveFile>();
-			
-		}
-	}*/
+		List<LectureArchiveFile> lectureArchiveFileList = null;
+		
+		
+		// lectureArchiveNo를 반환하여 페이지를 이동할 수 있도록 한다
+		return lectureArchive;
+	}
 }

@@ -24,6 +24,7 @@
 	</resultMap>
 	<select id="selectLectureArchiveListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.LectureArchive">
 		SELECT
+			lecture_no lectureNo,
 			lecture_archive_no lectureArchiveNo, 
 			lecture_archive_writer lectureArchiveWriter, 
 			lecture_archive_title lectureArchiveTitle, 

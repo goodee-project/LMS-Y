@@ -21,11 +21,6 @@ public interface LMSNoticeMapper {
 	// 리턴값 : lms공지사항정보로 출력
 	LMSNotice selectLMSNoticeDetail(int lmsNoticeNo);
 	
-	// 공지사항 검색
-	// 매개변수 : 시작row, 가져올 row의 갯수, 검색어를 map으로 가져옴
-	// 리턴값 : lms공지사항정보의 리스트
-	List<LMSNotice> selectLMSNoticeListSearch(Map<String, Object> map);
-	
 	// 공지사항 게시물 개수 
 	// 리턴값 : 공지사항 게시물 개수
 	int selectLMSNoticeCount();

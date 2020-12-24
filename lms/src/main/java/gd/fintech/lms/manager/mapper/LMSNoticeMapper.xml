@@ -10,6 +10,12 @@
 			lms_notice_writer lmsNoticeWriter, 
 			lms_notice_updatedate lmsNoticeUpdateDate
 		FROM lms_notice
+		<where>
+			<if test='lmsNoticeSearch != null'>
+				lms_notice_title LIKE CONCAT('%', #{lmsNoticeSearch}, '%')
+				OR lms_notice_writer LIKE CONCAT('%', #{lmsNoticeSearch}, '%')
+			</if>
+		</where>
 		ORDER BY lms_notice_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -24,18 +30,6 @@
 			lms_notice_count lmsNoticeCount
 		FROM lms_notice
 		WHERE lms_notice_no = #{lmsNoticeNo}
-	</select>
-	<!-- lms공지사항 검색 페이징 -->
-	<select id="selectLMSNoticeListSearch" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.LMSNotice">
-		SELECT 
-			lms_notice_no lmsNoticeNo, 
-			lms_notice_title lmsNoticeTitle, 
-			lms_notice_writer lmsNoticeWriter, 
-			lms_notice_updatedate lmsNoticeUpdateDate
-		FROM lms_notice
-		WHERE lms_notice_title LIKE '%#{lmsNoticeTitle}%' 
-		OR lms_notice_writer LIKE '%#{lmsNoticeWriter}%'
-		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- lms 공지사항 게시물 갯수 카운트 -->
 	<select id="selectLMSNoticeCount" resultType="int">

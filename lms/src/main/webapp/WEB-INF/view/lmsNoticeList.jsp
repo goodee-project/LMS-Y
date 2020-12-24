@@ -69,8 +69,10 @@
 		
 		<!-- 검색 -->
 		<div>
-			<form action="" method="post">
-			
+			<form action="${pageContext.request.contextPath}/manager/lmsNoticeList" method="get">
+				<input type="hidden" name="currentPage" value="${currentPage}">
+				<input type="text" name="lmsNoticeSearch" value="${lmsNoticeSearch}">
+				<button type="submit">버튼</button>
 			</form>
 		</div>
 	</body>

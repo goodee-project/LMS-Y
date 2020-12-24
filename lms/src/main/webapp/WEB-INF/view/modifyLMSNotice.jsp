@@ -9,9 +9,9 @@
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-       	<!-- NAVER SmartEditor2 스크립트 -->
+ 		<!-- NAVER SmartEditor2 스크립트 -->
 		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
-        <script>
+ 		<script>
             $(document).ready(function() {
 				// submit시 유효성 검사
 				$('#submitBtn').click(function() {
@@ -55,18 +55,19 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>lms 공지추가</h1>
+			<h1>lms 공지수정</h1>
 			
 			<div>
-				<form id="formId" action="${pageContext.request.contextPath}/manager/createLMSNotice" method="post">
+				<form id="formId" action="${pageContext.request.contextPath}/manager/modifyLMSNotice" method="post">
+					<input type="hidden" name="lmsNoticeNo" value="${lmsNotice.lmsNoticeNo}">
 					<div>
-						제목:<input id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle">
+						제목:<input id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle" value="${lmsNotice.lmsNoticeTitle}">
 					</div>
 					<div>
-						<textarea id="lmsNoticeContentId" name="lmsNoticeContent"></textarea>
+						<textarea id="lmsNoticeContentId" name="lmsNoticeContent">${lmsNotice.lmsNoticeContent}</textarea>
 					</div>
 					<div>
-						<button id="submitBtn" type="button">추가</button>
+						<button id="submitBtn" type="button">수정</button>
 					</div>
 				</form>
 			</div>

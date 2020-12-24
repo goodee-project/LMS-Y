@@ -40,8 +40,9 @@ public class LMSNoticeController {
 			})
 	public String lmsNoticeList(Model model,
 			@RequestParam(value="currentPage") int currentPage,
+			@RequestParam(value="lmsNoticeSearch", required = false) String lmsNoticeSearch,
 			HttpSession session) {
-		Map<String, Object> map = lmsNoticeService.getLMSNoticeListByPage(currentPage);
+		Map<String, Object> map = lmsNoticeService.getLMSNoticeListByPage(currentPage, lmsNoticeSearch);
 		Map<String, Object> accountMap = new HashMap<>();
 		accountMap.put("studentLevel", AccountLevel.STUDENT.getValue());
 		accountMap.put("teacherLevel", AccountLevel.TEACHER.getValue());
@@ -52,6 +53,7 @@ public class LMSNoticeController {
 		
 		model.addAttribute("lmsNoticeList", map.get("lmsNoticeList"));
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lmsNoticeSearch", lmsNoticeSearch);
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));
 		model.addAllAttributes(accountMap);
@@ -72,30 +74,10 @@ public class LMSNoticeController {
 		if(!session.getAttribute("accountId").equals(AccountLevel.MANAGER.getValue())) {
 			lmsNoticeService.modifyLMSNoticeCountOfViews(lmsNoticeNo);
 		}
-		
 		model.addAttribute("lmsNotice", lmsNotice);
+		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));
+		model.addAttribute("managerLevel", AccountLevel.MANAGER.getValue());
 		return "lmsNoticeDetail";
-	}
-	
-	// lms 공지사항 리스트 검색
-	// 매개변수 :
-	// Model
-	// RequestParam : 
-	// currentPage(현재 페이지)
-	// lmsNoticeSearch(lms공지사항 검색어)
-	// 리턴값 : 검색한 공지사항 페이지 출력
-	@GetMapping("/*/lmsNoticeListSearch")
-	public String lmsNoticeListSearch(Model model,
-			@RequestParam(value="currentPage") int currentPage,
-			@RequestParam(value="lmsNoticeSearch", required = false) String lmsNoticeSearch) {
-		Map<String, Object> map = lmsNoticeService.getLMSNoticeListSearch(currentPage, lmsNoticeSearch);
-		logger.debug(map.toString());
-		
-		model.addAttribute("lmsNoticeList", map.get("lmsNoticeList"));
-		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lmsNoticeSearch", lmsNoticeSearch);
-		model.addAttribute("lastPage", map.get("lastPage"));
-		return "lmsNoticeListSearch";
 	}
 	
 	// lms 공지사항 입력 페이지
@@ -112,7 +94,7 @@ public class LMSNoticeController {
 	public String createLMSNotice(LMSNotice lmsNotice, HttpSession session) {
 		logger.debug(lmsNotice.toString());
 		lmsNoticeService.createLMSNotice(lmsNotice, session);
-		return "redirect:/manager/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
+		return "redirect:/notice/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
 	}
 	
 	// lms 공지사항 수정 페이지
@@ -125,7 +107,7 @@ public class LMSNoticeController {
 			@RequestParam(value="lmsNoticeNo") int lmsNoticeNo) {
 		LMSNotice lmsNotice = lmsNoticeService.getLMSNoticeDetail(lmsNoticeNo);
 		logger.debug(lmsNotice.toString());
-		model.addAttribute("lmsNoticeDetail", lmsNotice);
+		model.addAttribute("lmsNotice", lmsNotice);
 		return "modifyLMSNotice";
 	}
 	
@@ -136,7 +118,7 @@ public class LMSNoticeController {
 	public String modifyLMSNotice(LMSNotice lmsNotice) {
 		logger.debug(lmsNotice.toString());
 		lmsNoticeService.modifyLMSNotice(lmsNotice);
-		return "redirect:/manager/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
+		return "redirect:/notice/lmsNoticeDetail?lmsNoticeNo="+lmsNotice.getLmsNoticeNo();
 	}
 	
 	// lms 공지사항 삭제 

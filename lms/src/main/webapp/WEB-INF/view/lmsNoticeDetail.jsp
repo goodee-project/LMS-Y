@@ -11,8 +11,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
+               // 폼 유효성 검사
+               // code here...
+               //   
             });
         </script>
 	</head>
@@ -23,7 +24,6 @@
 		
 		<div class="container">
 			<h1>공지사항</h1>
-			
 			<div>
 				<table class="table">
 					<tr>
@@ -36,14 +36,16 @@
 					<tr>
 						<td>${lmsNotice.lmsNoticeContent}</td>
 					</tr>
-					<tr>
-						<td>
-							<a href="${pageContext.request.contextPath}/manager/modifyLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">수정</a>
-						</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/manager/removeLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">삭제</a>
-						</td>
-					</tr>
+					<c:if test="${accountLevel eq managerLevel}">
+						<tr>
+							<td>
+								<a href="${pageContext.request.contextPath}/manager/modifyLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">수정</a>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/manager/removeLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">삭제</a>
+							</td>
+						</tr>
+					</c:if>
 				</table>
 			</div>
 		</div>

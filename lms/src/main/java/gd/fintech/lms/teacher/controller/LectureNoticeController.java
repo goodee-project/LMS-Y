@@ -110,7 +110,7 @@ public class LectureNoticeController {
 	// 매개변수:강좌 고유번호
 	// 리턴값:강좌별 공지사항 고유번호를 참조하여 공지사항 상세보기 뷰페이지
 	@PostMapping("/teacher/createLectureNotice")
-	public String createLectureNotice( ) {
+	public String createLectureNotice(LectureNotice lectureNotice) {
 		lectureNoticeService.createLectureNotice(lectureNotice);
 		return "redirect:/teacher/lectureNotice?lectureNo=" + lectureNotice.getLectureNo() + "&&currentPage=1";
 	}

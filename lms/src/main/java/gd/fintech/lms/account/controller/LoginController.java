@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.account.service.AccountService;
+import gd.fintech.lms.account.service.LoginLogService;
 import gd.fintech.lms.AccountLevel;
 
 // 로그인 처리를 위한 컨트롤러 클래스
@@ -22,6 +23,8 @@ import gd.fintech.lms.AccountLevel;
 public class LoginController {
 	// MemberService 객체 주입
 	@Autowired AccountService accountService;
+	// LoginLogService 객체 주입
+	@Autowired LoginLogService loginLogService;
 	
 	// 처음 접속시 로그인을 위한 페이지로 이동하는 메소드
 	// 만약 세션에 계정이 등록되어 있는데 로그인 페이지로 접속시 해당 계정권한의 인덱스로 이동
@@ -98,6 +101,8 @@ public class LoginController {
 			return "redirect:/login";
 		}
 		
+		// 계정이 있는 경우 로그인 로그 기록 남기기
+		loginLogService.createLoginLogByAccountId(account.getAccountId());		
 		// 계정이 있는 경우 세션에 아이디 정보 담기
 		session.setAttribute("accountId", memberCk.getAccountId());
 		// 계정이 있는 경우 세션에 level 담기

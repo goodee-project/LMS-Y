@@ -22,8 +22,9 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
+		<div class="jumbotron">
 			<h1>강의실 수정</h1>
-			
+		</div>	
 			<div>
 				<form method="post" action="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">
 					<table class=table>
@@ -40,12 +41,12 @@
 						   <td><input type="text" name="classroomSize" value="${classroom.classroomSize}"></td>
 						</tr>
 						<tr>
-							<td>강의실 정원수</td>
+							<td>강의실 수용 인원</td>
 							<td><input type="text" name="classroomTotal" value="${classroom.classroomTotal}"></td>
 						</tr>
 					</table>
 			  
-			  		<button type="button">입력</button>
+			  		<button type="submit">입력</button>
 				</form>
 			</div>
 		</div>

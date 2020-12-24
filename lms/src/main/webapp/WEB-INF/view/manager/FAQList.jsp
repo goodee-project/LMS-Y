@@ -22,12 +22,23 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
+		<div class="jumbotron">
 			<h1>자주하는질문(FAQ)</h1>
+			</div>
+			<div> 종류</div>
+				<table class="table">
+					
+			<c:forEach items="${categoryList}" var="cl">
+				
+					<td>${cl.faqCategory}</td>
+				
 			
-	
+				</c:forEach>
+				
+			</table>
 			
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
 						<th>FAQ 번호</th>
 						<th>FAQ 카테고리</th>
@@ -39,7 +50,7 @@
 					</tr>
 				<c:forEach items="${faqList}" var="f">
 					<tr>
-						<td>${f.faqNo}</td>
+						<td><a href="${pageContext.request.contextPath}/manager/FAQDetail?faqNo=${f.faqNo}">${f.faqNo}</a></td>
 						<td>${f.faqCategory}</td>
 						<td>${f.faqTitle}</td>
 						<td>${f.faqWriter}</td>
@@ -54,6 +65,7 @@
 	
 				
 			</table>
+				
 			
 				
 			</div>

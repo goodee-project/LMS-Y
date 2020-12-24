@@ -67,12 +67,12 @@ public class ClassroomController {
 	}
 	
 	// 강의실 정보 수정 액션 
-	// 리턴값: 입력한 강의실 행의 수정을 포함한 강의실 리스트 페이지 출력
+	// 리턴값: 입력한 강의실 행의 수정된 페이지
 	@PostMapping("/manager/modifyClassroom")
 	public String modifyClassroom(Classroom classroom) {
 		classroomService.modifyClassroom(classroom);
 		logger.debug("Classroom"+ classroom );
-		return "redirect:/manager/ClassroomDetail?classroomNo="+classroom.getClassroomNo();
+		return "redirect:/manager/classroomDetail?classroomNo="+classroom.getClassroomNo();
 	}
 	
 	// 강의실 상세정보
@@ -82,11 +82,19 @@ public class ClassroomController {
 			@RequestParam("classroomNo")int classroomNo) {
 		Classroom classroom = classroomService.getClassroomDetail(classroomNo);
 		model.addAttribute("classroom", classroom);
+		logger.debug("Classroom"+ classroom );
 		return "manager/classroomDetail";
 		
 	}
 	
-	
+	// 강의실 삭제 
+	// 리턴값: classroomNo에 해당하는 강의실 삭제
+	@GetMapping("/manager/removeClassroom")
+	public String removeClassroom(
+			@RequestParam(value="classroomNo")int classroomNo) {
+		classroomService.removeClassroom(classroomNo);
+		return  "redirect:/manager/classroomList";
+	}
 	
 	
 }

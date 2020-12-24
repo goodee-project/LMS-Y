@@ -15,9 +15,16 @@
 				<h1>강의실 상세정보</h1>
 			</div>
 		</div>
+		
+			
 		<div class=container>
 				<table class="table">
-				   
+					<tr>
+						<td>
+						 <a href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
+						 <a href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
+				 		</td>
+				   </tr>
 				   <tr>
 						<td>강의실 고유번호</td>
 						<td>${classroom.classroomNo}</td>
@@ -34,11 +41,11 @@
 					</tr>
 					
 					<tr>
-						<td>강의실 정원수</td>
+						<td>강의실 수용 인원</td>
 						<td>${classroom.classroomTotal}</td>
 					</tr>
 					
-			
+
 				</table>
 			</div>
 </body>

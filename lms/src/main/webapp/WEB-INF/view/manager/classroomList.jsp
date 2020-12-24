@@ -20,19 +20,20 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
 		<div class="container">
-			<h1>classroomList</h1>
-			
+		<div class="jumbotron">
+			<h1>강의실 목록</h1>
+			</div>
 			<div>
-				<table class="table">
+				<a href="${pageContext.request.contextPath}/manager/createClassroom">작성</a>
+				<table class=table>
 					<tr>
 						<th>강의실 고유번호</th>
-						<th>강의실 번호</th>
+						<th>강의실 호실</th>
 					</tr>
 				<c:forEach items="${classroomList}" var="c">
 					<tr>
-						<td>${c.classroomNo}</td>
+						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${c.classroomNo}">${c.classroomNo}</a></td>
 						<td>${c.classroomNumber}</td>
 					</tr>
 					

@@ -12,12 +12,15 @@
 	
 		<div class=container>
 			
-				<h1>FAQ 상세보기</h1>
+				<h1>자주하는 질문(FAQ) 상세보기</h1>
 			
 		</div>
+			<a href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
+			<a href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
 		<div class=container>
+			
 				<table class="table">
-				   
+				  
 				   <tr>
 						<td>FAQ 번호</td>
 						<td>${faq.faqNo}</td>

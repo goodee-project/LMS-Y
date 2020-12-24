@@ -30,7 +30,7 @@
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>
-		<result property="accountId" column="teacher_id"/>
+		<result property="accountId" column="student_id"/>
 		<result property="questionWriter" column="question_writer"/>
 		<result property="questionTitle" column="question_title"/>
 		<result property="questionContent" column="question_content"/>
@@ -65,7 +65,7 @@
 		SELECT
 			q.question_no,
 			q.lecture_no,
-			q.account_id,
+			q.account_id student_id,
 			q.question_writer,
 			q.question_title,
 			q.question_content,
@@ -75,7 +75,7 @@
 			q.question_password,
 			qc.question_comment_no,
 			qc.question_no,
-			qc.account_id,
+			qc.account_id teacher_id,
 			qc.question_comment_writer,
 			qc.question_comment_content,
 			qc.question_comment_createdate,

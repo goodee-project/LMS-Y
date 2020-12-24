@@ -40,7 +40,7 @@ public class StudentController {
 	}	
 	//학생정보 수정 폼
 	@GetMapping("student/studentModify")
-	public String getStudentModifyForm(Model model,
+	public String getStudentModify(Model model,
 			@RequestParam(value="accountId")String accountId) {
 		Student studentModify = studentService.getStudentDetail(accountId); 
 		model.addAttribute("studentModify",studentModify);
@@ -49,8 +49,8 @@ public class StudentController {
 	
 	//학생정보 수정 액션
 	@PostMapping("student/studentModify")
-	public String modifyStudentAction(Student student) {
+	public String getStudentModify(Student student) {
 		studentService.modifyStudent(student);
-		return "/student/studentModify";
+		return "/student/studentDetail";
 	}
 }

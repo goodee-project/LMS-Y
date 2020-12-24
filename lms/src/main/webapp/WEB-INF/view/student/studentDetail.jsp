@@ -21,43 +21,40 @@
 				
 					<tr>
 						<td>학생 아이디</td>
-						<td>${student.accountId}</td>
+						<td>${studentDetail.accountId}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 이름</td>
-						<td>${student.teacherName}</td>
+						<td>${studentDetail.studentName}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 전화번호</td>
-						<td>${student.teacherPhone}</td>
+						<td>${studentDetail.studentPhone}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 성별</td>
-						<td>${student.teacherGender}</td>
+						<td>${studentDetail.studentGender}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td>${student.teacherBirth}</td>
+						<td>${studentDetail.studentBirth}</td>
 					</tr>
 					
 					<tr>
 						<td>주소/상세주소</td>
-						<td>${student.teacherAddressMain} ${student.teacherAddressSub}</td>
+						<td>${studentDetail.studentAddressMain} ${student.studentAddressSub}</td>
 					</tr>
 					
 					<tr>
 						<td>프로필 사진</td>
-						<td>${student.teacherImage}</td>
+						<td>${studentDetail.studentImage}</td>
 					</tr>
 					
-					<tr>
-						<td>운영자 승인일</td>
-						<td>${student.managerIdAccess}</td>
-					</tr>
+					
 				</table>
 			</div>
 </body>

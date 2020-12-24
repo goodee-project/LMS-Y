@@ -144,16 +144,13 @@
 	<update id="updateStudent" parameterType="gd.fintech.lms.student.vo.Student" >
 		UPDATE student
 		SET
-			student_email=#{studentEmail},
 			student_name=#{studentName},
 			student_Phone=#{studentPhone},
 			student_address_main=#{studentAddressMain},
 			student_address_sub=#{studentAddressSub},
 			student_gender=#{studentGender},
-			student_birth=#{studentBirth},
-			student_address_main=#{studentAddressMain},
-			student_address_sub=#{studentAddressSub},
-			student_updatedate=#{studentUpdateDate}
+			student_birth=#{studentBirth} 
+
 		WHERE account_id=#{accountId}
 	</update>
 </mapper>

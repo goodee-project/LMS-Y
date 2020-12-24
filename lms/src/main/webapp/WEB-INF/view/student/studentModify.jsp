@@ -14,7 +14,7 @@
                 // 폼 유효성 검사
                 // code here...
                 
-                //이름 3글자 이상 숫자 제외 검사
+                //이름 50글자 제한
                 $('').focus(); //name 포커스
 				$('').blur(function(){
 					//공백 사용 불가능
@@ -43,8 +43,39 @@
 								$('').text('');
 								}
 					});
-				//
-              	});
+				//성별 검사
+				$('').focus();
+				$('').click(function(){
+					if($('').length == 0) {
+						$('').text('성별을 선택해주세요');
+					}else{
+						$('').text('');
+						}
+				});
+				//주소 검사
+				$('').blur(function(){
+					//공백 사용 불가능
+					if($('').val().length==''){
+						$('').text('주소를 입력해 주세요);
+						$('').focus();
+						return;
+					}else{
+						$('').text('');
+						}
+				});
+				//주소 검사
+				$('').blur(function(){
+					//공백 사용 불가능
+					if($('').val().length==''){
+						$('').text('상세주소를 입력해 주세요);
+						$('').focus();
+						return;
+					}else{
+						$('').text('');
+						}
+				});
+				
+		});
         </script>
 	</head>
 	<body>
@@ -61,17 +92,18 @@
 				<table class="table">
 					<tr>
 						<td>학생 아이디</td>
-						<td><input type="text" name="accountId" value="${accountId}"></td>
+						<td><input type="text" name="accountId" id="accountId" value="${accountId}"></td>
+						
 					</tr>
 					
 					<tr>
 						<td>학생 이름</td>
-						<td><input type="text" name="studentName" id="studentName" value="${studentName}"></td>
+						<td><input type="text" name="studentName" id="studentName" value="${studentModify.studentName}" placeholder="이름 입력"></td>
 					</tr>
 					
 					<tr>
 						<td>학생 전화번호</td>
-						<td><input type="text" name="studentPhone" id="studentPhone" value="${studentPhone}"></td>
+						<td><input type="text" name="studentPhone" id="studentPhone" value="${studentModify.studentPhone}" placeholder="전화번호 입력"></td>
 					</tr>
 					
 					<tr>
@@ -83,19 +115,19 @@
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td><input type="date" name="studentBirth" id="studentBirth" value="${student.studentBirth}"></td>	
+						<td><input type="date" name="studentBirth" id="studentBirth" value="${studentModify.studentBirth}"></td>	
 					</tr>
 					
 					<tr> 
 						<td>주소</td>
-							<td><input type="text" name="studentAddressMain" id="studentAddressMain" value="${student.studentAddressMain}"></td>
+							<td><input type="text" name="studentAddressMain" id="studentAddressMain" value="${studentModify.studentAddressMain}" placeholder="주소 입력"></td>
 						<td>상세주소</td>
-							<td><input type="text" name="studentAddressSub" id="studentAddressSub" value="${student.studentAddressMain}"></td>
+							<td><input type="text" name="studentAddressSub" id="studentAddressSub" value="${studentModify.studentAddressSub}" placeholder="상세주소 입력"></td>
 					</tr>
 										
 					<tr>
 						<td>프로필 사진</td>
-						<td><input type="text" name="studentImage" id="studentImage" value="${student.studentImage}"></td>
+						<td><input type="text" name="studentImage" id="studentImage" value="${studentModify.studentImage}"></td>
 					</tr>
 					
 					<tr>

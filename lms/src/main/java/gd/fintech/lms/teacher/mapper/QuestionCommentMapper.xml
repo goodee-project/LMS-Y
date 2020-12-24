@@ -7,7 +7,7 @@
 		<result property="questionNo" column="question_no" />
 		<result property="accountId" column="account_id" />
 		<result property="questionCommentWriter" column="question_comment_writer" />
-		<result property="questionCommentContent" column="question_comment_context" />
+		<result property="questionCommentContent" column="question_comment_content" />
 		<result property="questionCommentCreateDate" column="question_comment_createdate" />
 		<result property="questionCommentUpdateDate" column="question_comment_updatedate" />
 		<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">

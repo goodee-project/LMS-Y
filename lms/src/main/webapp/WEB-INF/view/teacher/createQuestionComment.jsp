@@ -11,6 +11,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- NAVER SmartEditor2 스크립트 -->
 		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
+		
 		<script>
 			$(document).ready(function() {
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함

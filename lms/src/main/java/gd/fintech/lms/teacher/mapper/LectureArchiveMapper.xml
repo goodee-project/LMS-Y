@@ -43,7 +43,7 @@
   		WHERE lecture_no = #{lectureNo};
 	</select>
 	<!-- 자료실 상세보기 -->
-	<select id="selectLectureArchiveOne" parameterType="int" resultMap="ResultLectureArchiveOne">
+	<select id="selectLectureArchiveOne" parameterType="java.util.Map" resultMap="ResultLectureArchiveOne">
 		SELECT
   			la.lecture_archive_no, 
   			la.lecture_no, 
@@ -57,7 +57,8 @@
   			laf.lecture_archive_file_uuid, 
   			laf.lecture_archive_file_original, 
   			laf.lecture_archive_file_size, 
-  			laf.lecture_archive_file_type, 
+  			laf.lecture_archive_file_type,
+  			laf.lecture_archive_file_createdate, 
   			laf.lecture_archive_file_count
   		FROM lecture_archive la
   		LEFT OUTER JOIN lecture_archive_file laf 
@@ -104,7 +105,7 @@
 		WHERE lecture_archive_no = #{archiveNo}
 	</delete>
 	<!-- 자료실 조회수 카운트 -->
-	<update id="" parameterType="int">
+	<update id="updateLectureArchiveCount" parameterType="gd.fintech.lms.teacher.vo.LectureArchive">
   		UPDATE lecture_archive
   		SET
   		 lecture_archive_count = lecture_archive_count + 1

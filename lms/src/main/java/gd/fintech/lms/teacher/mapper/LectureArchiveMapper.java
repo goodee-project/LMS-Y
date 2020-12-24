@@ -40,5 +40,10 @@ public interface LectureArchiveMapper {
 	//리턴값:변경된 행의 갯수
 	int deleteLectureArchive(int lectureArchiveNo);
 	
+	//자료실 조회수 카운트
+	//매개변수:강좌별 자료실 고유번호
+	//리턴값:변경된 행의 갯수
+	int updateLectureArchiveCount(int lectureArchiveNo);
+	
 	
 }

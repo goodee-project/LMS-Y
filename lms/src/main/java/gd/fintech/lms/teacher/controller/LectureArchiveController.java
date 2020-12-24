@@ -3,6 +3,8 @@ package gd.fintech.lms.teacher.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -66,9 +68,31 @@ public class LectureArchiveController {
 	//리턴값:강좌별 자료실 고유번호를 참조하여 자료실 정보를 띄우는 뷰페이지
 	@GetMapping("/teacher/lectureArchiveOne")
 	public String lectureArchiveOne(Model model,
+			HttpServletResponse response, 
+			HttpServletRequest request,
 			@RequestParam(value="lectureArchiveNo")int lectureArchiveNo) {
 		//강좌별 자료실 상세보기
 		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo);
+		
+		//세션정보
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		// 세션에 있는 아이디를 가져옴
+		String accountId = (String) session.getAttribute("accountId");
+		//로깅을 이용한 디버그
+		logger.debug(accountId+"<--- accountId");
+		//조회수 증가
+		long update_time = 0;
+		//세션에 저장된 조회 시간 검색
+		if(session.getAttribute("update_time"+lectureArchiveNo)!=null) {
+			update_time = (long)session.getAttribute("update_time"+lectureArchiveNo);
+		}
+		//시스템 현재시간
+		long current_time = System.currentTimeMillis();
+		if(current_time - update_time>24*60*601000) {
+			//조회수 증가 코드
+			lectureArchiveService.increaseLectureArchiveCount(lectureArchiveNo);
+			session.setAttribute("update_time"+lectureArchiveNo,current_time);
+		}
 		//모델로 뷰에 값 전달
 		model.addAttribute("lectureArchive",lectureArchive);
 		return "/teacher/lectureArchiveOne";
@@ -79,19 +103,14 @@ public class LectureArchiveController {
 	//리턴값:강좌별 자료실 입력 뷰페이지
 	@GetMapping("/teacher/createLectureArchive")
 	public String createLectureArchive(Model model,HttpSession session,@RequestParam(value="lectureNo")int lectureNo) {
-		
-		//LectureNotice vo에서 강좌 고유번호를 가져옴
-		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNo);
-		
 		// 세션에 있는 아이디를 가져옴
 		String  accountId = (String)session.getAttribute("accountId");
 		// 세션에 있는 아이디를 참조하여 teacherService의 getTeacherOne의 정보를 가져옴
 		Teacher teacher = teacherService.getTeacherOne(accountId);
 		logger.debug("teacher",teacher);
-		
 		// model을 통해 View에 다음과 같은 정보들을 보내준다
 		model.addAttribute("teacher",teacher);
-		model.addAttribute("lectureNotice",lectureNotice);
+		model.addAttribute("lectureNo",lectureNo);
 		return "/teacher/createLectureArchive";
 	}
 	
@@ -103,5 +122,15 @@ public class LectureArchiveController {
 		lectureArchiveService.createLectureArchive(lectureArchiveForm, session);
 		return "redirect:/teacher/lectureArchive?lectureNo="+lectureNotice.getLectureNo()+"&&currentPage=1";
 		
+	}
+	
+	//강좌별 자료실 첨부파일 다운로드
+	//매개변수: RequestParam: questionCommentFileUUID(파일 UUID) HttpServletRequest, HttpServletResponse
+	//리턴값: 파일 다운로드
+	@GetMapping("/teacher/downloadLectureArchiveFile")
+	public void downloadLectureArchiveFile(
+			@RequestParam("lectureArchiveFileUUID")String lectureArchiveFileUUID,
+			HttpServletRequest request,HttpServletResponse response) {
+		lectureArchiveService.downloadLectureArchiveFile(lectureArchiveFileUUID, request, response);
 	}
 }

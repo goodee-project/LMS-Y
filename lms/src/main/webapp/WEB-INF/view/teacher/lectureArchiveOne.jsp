@@ -45,14 +45,23 @@
 				<td>조회수</td>
 				<td>${lectureArchive.lectureArchiveCount}</td>
 			</tr>
-			<tr>
-				<td>첨부파일</td>
-				<td>${lectureArchive.lectureArchiveTitle}</td>
-			</tr>
+				<c:forEach var="laf" items="${lectureArchive.lectureArchiveFileList}">
+					<tr>
+						<td>첨부파일</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/teacher/downloadLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}">${laf.lectureArchiveFileUUID}</a>
+							원본이름 : ${laf.lectureArchiveFileOriginal}
+							파일크기 : ${laf.lectureArchiveFileSize}B,
+							파일유형 : ${laf.lectureArchiveFileType},
+							파일생성일: ${laf.lectureArchiveFileCreateDate}
+						</td>
+					</tr>
 			<tr>
 				<td>다운로드 횟수</td>
-				<td>${lectureArchive.lectureArchiveFileList}</td>
+				<td>${laf.lectureArchiveFileCount}</td>
 			</tr>
+				</c:forEach>
+			
 		</table>
 	</div>
 </body>

@@ -1,6 +1,7 @@
 
 package gd.fintech.lms.teacher.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,12 +35,13 @@ public class QuestionCommentController {
 	// 매개변수:
 	// RequestParam: currentPage(현재 페이지)
 	// Model
-	// 리턴값: teacherQuestionList.jsp 뷰 포워딩
+	// 리턴값: teacher/questionList.jsp 뷰 포워딩
 	@GetMapping("/teacher/questionList")
 	public String questionList(
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			Model model) {
-		List<Question> list = questionService.getQuestionListByPage(currentPage, 10);
+		// TODO 협업자가 메서드를 고치는대로 고쳐진 메서드 사용
+		List<Question> list = new ArrayList<>(); // questionService.getQuestionListByPage(currentPage, 10);
 		
 		model.addAttribute("questionList", list);
 		return "teacher/questionList";
@@ -49,7 +51,7 @@ public class QuestionCommentController {
 	// 매개변수:
 	// RequestParam: questionNo(게시글 고유번호)
 	// Model
-	// 리턴값: teacherQuestionDetail.jsp 뷰 포워딩
+	// 리턴값: teacher/questionDetail.jsp 뷰 포워딩
 	@GetMapping("/teacher/questionDetail")
 	public String questionDetail(
 			@RequestParam("questionNo") int questionNo,
@@ -64,7 +66,7 @@ public class QuestionCommentController {
 	// 매개변수:
 	// RequestParam: questionNo(댓글을 달 게시글 고유번호)
 	// Model
-	// 리턴값: teacherCreateQuestionComment.jsp 뷰 포워딩
+	// 리턴값: teacher/createQuestionComment.jsp 뷰 포워딩
 	@GetMapping("/teacher/createQuestionComment")
 	public String createQuestionComment(
 			@RequestParam("questionNo") int questionNo,
@@ -91,7 +93,7 @@ public class QuestionCommentController {
 	// 매개변수:
 	// RequestParam: questionCommentNo(댓글 고유번호)
 	// Model
-	// 리턴값: teacherModifyQuestionComment.jsp 뷰 포워딩
+	// 리턴값: teacher/modifyQuestionComment.jsp 뷰 포워딩
 	@GetMapping("/teacher/modifyQuestionComment")
 	public String modifyQuestionComment(
 			@RequestParam("questionCommentNo") int questionCommentNo,

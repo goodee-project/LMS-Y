@@ -68,10 +68,6 @@
 						bUseModeChanger : true,					// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
 						I18N_LOCALE : "ko_KR"
 					},
-					fOnAppLoad : function() {
-						// NAVER SE2가 로딩되었을 때 컨트롤러에서 받은 모델을 EL을 이용해 집어넣음
-						oEditors.getById["questionCommentContent"].exec("PASTE_HTML", ["${map.questionComment.questionCommentContent}"]);
-					},
 					fCreator: "createSEditor2"
 				});
 			});
@@ -106,7 +102,7 @@
 						
 					<div>
 						댓글 내용:
-						<textarea id="questionCommentContent" name="questionCommentContent" style="width: 100%"></textarea>
+						<textarea id="questionCommentContent" name="questionCommentContent" style="width: 100%">${map.questionComment.questionCommentContent}</textarea>
 					</div>
 					<div>
 						첨부파일:

@@ -78,9 +78,6 @@
 						</div>
 					</c:forEach>
 					<%-- 세션의 accountId와 댓글 작성자 accountId가 같을때만 수정버튼 표시 --%>
-					${accountId}
-					${qc.accountId}
-					${accountId == qc.accountId}
 					<c:if test="${accountId == qc.accountId}">
 						<div>
 							<a href="${pageContext.request.contextPath}/teacher/modifyQuestionComment?questionCommentNo=${qc.questionCommentNo}">수정</a>

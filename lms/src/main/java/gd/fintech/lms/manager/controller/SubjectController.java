@@ -81,11 +81,12 @@ public class SubjectController {
 	// 매개변수:
 	// #1. model
 	// #2. subjectNo(과목 고유번호)
-	// 리턴값: subjectDetail(고유번호에 해당하는 과목의 상세보기 페이지)
+	// 리턴값: subjectDetail(고유번호에 해당하는 과목 정보 페이지)
 	@GetMapping("/manager/subjectDetail")
 	public String subjectDetail(Model model, @RequestParam(value = "subjectNo") int subjectNo) {
 		Subject subjectDetail = subjectService.getSubjectDetail(subjectNo);
 		logger.debug(subjectDetail.toString());
+		model.addAttribute("subjectDetail", subjectDetail);
 		
 		return "subjectDetail";
 	}
@@ -93,7 +94,7 @@ public class SubjectController {
 	// 과목 정보를 입력할 수 있는 페이지를 출력하는 메소드
 	// 매개변수: 없음
 	// 리턴값: createSubject(과목 정보 추가 페이지)
-	// 정보를 입력할 수 있는 페이지 출력
+	// 추가할 과목 정보를 입력할 수 있는 페이지 출력
 	@GetMapping("/manager/createSubject")
 	public String createSubject() {
 		return "createSubject";
@@ -103,7 +104,7 @@ public class SubjectController {
 	// 매개변수: subject(과목 정보)
 	// 리턴값: subjectList 페이지로 이동
 	// 입력된 정보로 과목 정보를 추가
-	// 과목 목록을 출력하는 페이지로 이동
+	// 과목 목록 출력 페이지로 이동
 	@PostMapping("/manager/createSubject")
 	public String createSubject(Subject subject) {
 		subjectService.createSubject(subject);
@@ -116,8 +117,8 @@ public class SubjectController {
 	// 매개변수:
 	// #1. model
 	// #2. subjectNo(과목 고유번호)
-	// 리턴값: modiftSubject(과목 정보 수정 페이지)
-	// 정보를 입력할 수 있는 페이지 출력
+	// 리턴값: modiftSubject(고유번호에 해당하는 과목 정보 수정 페이지)
+	// 수정할 과목 정보를 입력할 수 있는 페이지 출력
 	// 기존의 정보를 출력
 	@GetMapping("/manager/modifySubject")
 	public String modifySubject(Model model, @RequestParam(value = "subjectNo") int subjectNo) {

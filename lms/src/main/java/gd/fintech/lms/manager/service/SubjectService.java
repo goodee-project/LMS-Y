@@ -53,22 +53,23 @@ public class SubjectService {
 	// 리턴값: 고유번호에 해당하는 과목 정보
 	public Subject getSubjectDetail(int subjectNo) {
 		Subject subjectDetail = subjectMapper.selectSubjectDetail(subjectNo);
+		logger.debug(subjectDetail.toString());
 		return subjectDetail;
 	}
 	
 	// 운영자가 과목 정보를 입력하는 메소드
 	// 매개변수: subject(과목 정보)
 	// 리턴값: 과목 정보 입력
-	public int createSubject(Subject subject) {
+	public void createSubject(Subject subject) {
 		logger.debug(subject.toString());
-		return subjectMapper.insertSubject(subject);
+		subjectMapper.insertSubject(subject);
 	}
 	
 	// 운영자가 과목 정보를 수정하는 메소드
 	// 매개변수: subject(과목 정보)
 	// 리턴값: 과목 정보 수정
-	public int modifySubject(Subject subject) {
+	public void modifySubject(Subject subject) {
 		logger.debug(subject.toString());
-		return subjectMapper.updateSubject(subject);
+		subjectMapper.updateSubject(subject);
 	}
 }

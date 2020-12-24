@@ -59,15 +59,16 @@ public class AdminService {
 	// 리턴값: 아이디에 해당하는 회원가입 승인대기 중인 운영자의 개인정보
 	public ManagerQueue getManagerQueueDetail(String accountId) {
 		ManagerQueue managerQueueDetail = managerQueueMapper.selectManagerQueueDetail(accountId);
+		logger.debug(managerQueueDetail.toString());
 		return managerQueueDetail;
 	}
 	
 	// 관리자가 운영자의 회원가입을 승인하는 메소드
 	// 매개변수: accountId(아이디)
-	// 리턴값:
-	// #1. 운영자의 개인정보를 Manager에 저장
-	// #2. 운영자의 개인정보를 ManagerQueue에서 삭제
-	// #3. 운영자의 계정의 활성화 여부를 활성화로 변경
+	// 리턴값: 없음
+	// 운영자의 개인정보를 Manager에 저장
+	// 운영자의 개인정보를 ManagerQueue에서 삭제
+	// 운영자의 계정의 활성화 여부를 활성화로 변경
 	public void approveManagerMembership(String accountId) {
 		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 Manager에 입력
@@ -80,9 +81,9 @@ public class AdminService {
 	
 	// 관리자가 운영자의 회원가입을 거부하는 메소드
 	// 매개변수: accountId(아이디)
-	// 리턴값:
-	// #1. 운영자의 개인정보를 ManagerQueue에서 삭제
-	// #2. 운영자의 계정의 활성화 여부를 탈퇴로 변경
+	// 리턴값: 없음
+	// 운영자의 개인정보를 ManagerQueue에서 삭제
+	// 운영자의 계정의 활성화 여부를 탈퇴로 변경
 	public void disapproveManagerMembership(String accountId) {
 		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 ManagerQueue에서 삭제 

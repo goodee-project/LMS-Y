@@ -47,4 +47,31 @@ public class TextbookService {
 	public int getTextbookCount() {
 		return textbookMapper.selectTextbookCount();
 	}
+	
+	// 교재 정보를 출력하는 메소드
+	// 매개변수: textbookISBN(교재 고유번호)
+	// 리턴값: 고유번호에 해당하는 교재 정보
+	public Textbook getTextbookDetail(String textbookISBN) {
+		Textbook textbookDetail = textbookMapper.selectTextbookDetail(textbookISBN);
+		logger.debug(textbookDetail.toString());
+		return textbookDetail;
+	}
+	
+	// 교재 정보를 입력하는 메소드
+	// 매개변수: textbook(교재 정보)
+	// 리턴값: 없음
+	// 교재 정보 입력
+	public void createTextbook(Textbook textbook) {
+		logger.debug(textbook.toString());
+		textbookMapper.insertTextbook(textbook);
+	}
+	
+	// 교재 정보를 수정하는 메소드
+	// 매개변수: textbook(교재 정보)
+	// 리턴값: 없음 
+	// 교재 정보 수정
+	public void modifyTextbook(Textbook textbook) {
+		logger.debug(textbook.toString());
+		textbookMapper.updateTextbook(textbook);
+	}	
 }

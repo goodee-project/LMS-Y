@@ -95,11 +95,11 @@ public class AdminController {
 		return "managerQueueList";
 	}
 	
-	// 회원가입 승인대기 중인 운영자의 개인정보 상세보기 페이지를 출력하는 메소드
+	// 회원가입 승인대기 중인 운영자의 개인정보 페이지를 출력하는 메소드
 	// 매개변수:
 	// #1. model
 	// #2. accountId(아이디)
-	// 리턴값: managerQueueDetail(아이디에 해당하는 운영자의 개인정보 상세보기 페이지)
+	// 리턴값: managerQueueDetail(아이디에 해당하는 운영자 개인정보 페이지)
 	@GetMapping("/admin/managerQueueDetail")
 	public String managerQueueDetail(Model model, @RequestParam(value = "accountId") String accountId) {
 		//logger.debug(accountId.toString());

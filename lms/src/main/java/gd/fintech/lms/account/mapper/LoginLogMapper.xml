@@ -4,20 +4,22 @@
 	<!-- 로그인 정보를 조회하는 쿼리 -->
 	<select id="selectLoginLogByAccountId" parameterType="String" resultType="gd.fintech.lms.account.vo.LoginLog">
 		SELECT 
-			log_no logNo,
 			account_id accountId,
-			login_datetime loginDateTime, 
+			login_datetime loginDateTime,
 			logout_datetime logoutDateTime
 		FROM login_log
 		WHERE account_id = #{accountId}
+		ORDER BY logout_datetime DESC
 	</select>
 	
 	<!-- 로그인 정보를 입력하는 쿼리 -->
-	<insert id="insertLoginLogByAccountId" parameterType="String">
+	<insert id="insertLoginLogByAccountId" parameterType="gd.fintech.lms.account.vo.LoginLog">
 		INSERT INTO login_log(
+			login_id,
 			account_id,
 			login_datetime
 		)VALUES(
+			#{loginId},
 			#{accountId},
 			NOW()
 		)

@@ -21,10 +21,10 @@ public class LoginLogService {
 	}
 	
 	// 로그인 정보를 입력하는 메소드
-	// 매개변수: 로그인 ID
+	// 매개변수: 로그인 ID, 세션 ID
 	// 결과: 로그인 정보 입력한 결과
-	public int createLoginLogByAccountId(String accountId) {
-		return loginLogMapper.insertLoginLogByAccountId(accountId);
+	public int createLoginLogByAccountId(LoginLog loginLog) {
+		return loginLogMapper.insertLoginLogByAccountId(loginLog);
 	}
 	
 	// 로그아웃 정보를 수정하는 메소드

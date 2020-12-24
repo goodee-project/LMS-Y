@@ -16,9 +16,9 @@ public interface LoginLogMapper {
 	List<LoginLog> selectLoginLogByAccountId(String accountId);
 	
 	// 로그인 정보(계정아이디, 로그인시간)를 입력하는 메소드
-	// 매개변수: 로그인한 계정 ID
+	// 매개변수: 로그인한 계정 ID, 로그인한 세션 ID
 	// 리턴값: 로그인 정보 입력된 행
-	int insertLoginLogByAccountId(String accountId);
+	int insertLoginLogByAccountId(LoginLog loginLog);
 	
 	// 로그아웃 정보(로그아웃시간)를 수정하는 메소드
 	// 매개변수: 로그인한 계정 ID

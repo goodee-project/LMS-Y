@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.LoginLog;
 import gd.fintech.lms.account.service.AccountService;
 import gd.fintech.lms.account.service.LoginLogService;
 import gd.fintech.lms.AccountLevel;
@@ -100,9 +101,11 @@ public class LoginController {
 			out.flush();
 			return "redirect:/login";
 		}
-		
 		// 계정이 있는 경우 로그인 로그 기록 남기기
-		loginLogService.createLoginLogByAccountId(account.getAccountId());		
+		LoginLog loginLog = new LoginLog();
+		loginLog.setLoginId(session.getId());
+		loginLog.setAccountId(memberCk.getAccountId());
+		loginLogService.createLoginLogByAccountId(loginLog);
 		// 계정이 있는 경우 세션에 아이디 정보 담기
 		session.setAttribute("accountId", memberCk.getAccountId());
 		// 계정이 있는 경우 세션에 level 담기

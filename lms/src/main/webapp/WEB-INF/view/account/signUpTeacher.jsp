@@ -100,7 +100,7 @@
 				});
 				// 가입하기 버튼 클릭시 유효성 검사
 				$('#btnSubmit').click(function() {
-					if($('#teacherPw').val() == '' || $('#teacherPwCk').val() == '' || $('#teacherName').val() == '' || $('#teacherPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#teacherBirth').val() == '' || $('#zipCode').val() == '' || $('#subAddress').val() == '' || $('select[name=accountAddressMain]').val() == '') {
+					if($('#teacherPw').val() == '' || $('#teacherPwCk').val() == '' || $('#teacherName').val() == '' || $('#teacherPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#teacherBirth').val() == '' || $('select[name=accountAddressMain]').val() == null || $('#zipCode').val() == '' || $('#subAddress').val() == '') {
 						alert('입력부분을 다시 확인하세요');
 						return;
 					} else {

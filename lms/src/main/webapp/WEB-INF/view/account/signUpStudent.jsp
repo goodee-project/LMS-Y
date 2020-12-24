@@ -100,7 +100,7 @@
 				});
 				// 가입하기 버튼 클릭시 유효성 검사
 				$('#btnSubmit').click(function() {
-					if($('#studentPw').val() == '' || $('#studentPwCk').val() == '' || $('#studentName').val() == '' || $('#studentPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#studentBirth').val() == '' || $('#zipCode').val() == '' || $('#subAddress').val() == '' || $('select[name=accountAddressMain]').val() == '') {
+					if($('#studentPw').val() == '' || $('#studentPwCk').val() == '' || $('#studentName').val() == '' || $('#studentPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#studentBirth').val() == '' || $('select[name=accountAddressMain]').val() == null || $('#zipCode').val() == '' || $('#subAddress').val() == '') {
 						alert('입력부분을 다시 확인하세요');
 						return;
 					} else {

@@ -71,6 +71,6 @@ public class SignUpController {
 		signUpService.createSignUpAccount(signUpForm);
 		// student_queue(학생승인대기) 테이블에 입력되는 메소드
 		signUpService.createSignUpManagerQueue(signUpForm);	
-		return "redirect:/teacherLogin";
+		return "redirect:/managerLogin";
 	}
 }

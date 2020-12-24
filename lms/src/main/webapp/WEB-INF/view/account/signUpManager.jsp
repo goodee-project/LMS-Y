@@ -100,7 +100,7 @@
 				});
 				// 가입하기 버튼 클릭시 유효성 검사
 				$('#btnSubmit').click(function() {
-					if($('#managerPw').val() == '' || $('#managerPwCk').val() == '' || $('#managerName').val() == '' || $('#managerPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#managerBirth').val() == '' || $('#zipCode').val() == '' || $('#subAddress').val() == '' || $('select[name=accountAddressMain]').val() == '') {
+					if($('#managerPw').val() == '' || $('#managerPwCk').val() == '' || $('#managerName').val() == '' || $('#managerPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#managerBirth').val() == '' || $('select[name=accountAddressMain]').val() == null || $('#zipCode').val() == '' || $('#subAddress').val() == '') {
 						alert('입력부분을 다시 확인하세요');
 						return;
 					} else {
@@ -197,7 +197,7 @@
 			</table><br>
 			<div align="center">
 				<button class="btn btn-secondary" type="button" id="btnSubmit">가입하기</button>
-				<a href="${pageContext.request.contextPath}/teacherLogin" class="btn btn-danger" id="cancel">취소하기</a>		
+				<a href="${pageContext.request.contextPath}/managerLogin" class="btn btn-danger" id="cancel">취소하기</a>		
 			</div><br>
 		</form>
 	</div>

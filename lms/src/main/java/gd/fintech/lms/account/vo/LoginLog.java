@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class LoginLog {
-	// 로그인 로그 번호
-	private int logNo;
+	// 로그인한 세션 아이디값
+	private String loginId;
 	
 	// 로그인한 아이디
 	private String accountId;

@@ -46,7 +46,7 @@
 			class_registration_createdate
 		FROM
 			class_registration
-		WHERE class_registration_no=#{classRegistrationNo}
+		WHERE account_id=#{accountId}
 		LIMIT #{beginRow}, #{rowPerPage}
 			
 	</select>
@@ -88,6 +88,11 @@
 		WHERE cr.class_registration_no=#{classRegistration}
 	</select>
 	
-	
+	<!-- 수강신청 갯수 보기 -->
+	<select id = "selectRegistrationCount" parameterType="int" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM class_registration
+	</select>
 	
 </mapper>

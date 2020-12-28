@@ -36,9 +36,11 @@ public interface QuestionMapper {
 	//리턴값: 질문의 모든 정보
 	Question selectQuestionOne(int questionNo);
 	
-	//학생들이 질문한 질문의 조회수
+	//학생들이 질문한 갯수
 	//매개변수: 
-	//리턴값: 학생들의 모든 질문
-	int selectQuestionCount();
+	//리턴값: 학생들의 모든 질문 갯수
+	int selectQuestionCount(String accountId);
+	
+	//질문에 대한 조회수
 	
 }

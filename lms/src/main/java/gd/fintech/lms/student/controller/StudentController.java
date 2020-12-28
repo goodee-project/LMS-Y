@@ -4,6 +4,9 @@ package gd.fintech.lms.student.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ public class StudentController {
 	@Autowired StudentService studentService;
 	 
 	//학생 자신의 과제물을 보기
+	/*
 	@GetMapping("/student/?")
 	public String getReportDetail(Model model,
 			@RequestParam(value="accountId")String accountId) {
@@ -30,14 +34,20 @@ public class StudentController {
 		return "/student/?";
 		
 	}
+	*/
+	
 	//학생 자신의 정보 상세보기
 	@GetMapping("/student/studentDetail")
-	public String getStudentDetail(Model model,
-			@RequestParam(value="accountId",required=false)String accountId) {
+	public String getStudentDetail(Model model,HttpServletRequest request) {
+		//세션 가져오기
+		HttpSession session =((HttpServletRequest)request).getSession();
+		//Id를 가져오기
+		String accountId =(String)session.getAttribute("accountId");
 		Student studentDetail= studentService.getStudentDetail(accountId);
 		model.addAttribute("studentDetail",studentDetail);
 		return "/student/studentDetail";
 	}	
+	
 	//학생정보 수정 폼
 	@GetMapping("student/studentModify")
 	public String getStudentModify(Model model,

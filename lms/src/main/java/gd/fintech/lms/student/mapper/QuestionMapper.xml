@@ -22,10 +22,12 @@
 	</select>
 	
 	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
-	<select id="selectQuestionCount" parameterType="int" resultType="int">
+	<select id="selectQuestionCount" resultType="String">
 		SELECT 
 			COUNT(*) 
 		FROM question
+		WHERE account_id=#{accountId}
+		
 	</select>
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
@@ -121,24 +123,6 @@
 		)	
 	</insert>
 	
-	
-	<!-- 학생의 질문 수정 폼 -->
-	<select id="updateQuestionForm" parameterType="int" resultType="gd.fintech.lms.student.vo.Question">
-		SELECT
-			question_no questionNo,
-			Lecture_no lectureNo,
-			account_id accountId,
-			question_writer questionWriter,
-			question_title questionTitle,
-			question_context questionContent,
-			question_createdate questionCreateDate,
-			question_updatedate questionUpdateDate,
-			question_count questionCount
-		FROM
-			question
-		WHERE question_no=#{questionNo}
-	</select>
-	
 	<!-- 학생의 질문 수정 -->
 	<update id="updateQuestion" parameterType="gd.fintech.lms.student.vo.Question">
 		UPDATE question
@@ -153,4 +137,6 @@
 	<delete id="deleteQuestion" parameterType="String">
 		DELETE FROM question WHERE account_id=#{accountId}
 	</delete>
+	
+	<!-- 질문 조회수 -->
 </mapper>

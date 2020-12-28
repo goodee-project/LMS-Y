@@ -21,37 +21,37 @@
 				
 					<tr>
 						<td>학생 아이디</td>
-						<td>${studentDetail.accountId}</td>
+						<td>${student.accountId}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 이름</td>
-						<td>${studentDetail.studentName}</td>
+						<td>${student.studentName}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 전화번호</td>
-						<td>${studentDetail.studentPhone}</td>
+						<td>${student.studentPhone}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 성별</td>
-						<td>${studentDetail.studentGender}</td>
+						<td>${student.studentGender}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td>${studentDetail.studentBirth}</td>
+						<td>${student.studentBirth}</td>
 					</tr>
 					
 					<tr> 
 						<td>주소/상세주소</td>
-						<td>${studentDetail.studentAddressMain} ${student.studentAddressSub}</td>
+						<td>${student.studentAddressMain} ${student.studentAddressSub}</td>
 					</tr>
 					
 					<tr>
 						<td>프로필 사진</td>
-						<td>${studentDetail.studentImage}</td>
+						<td>${student.studentImage}</td>
 					</tr>
 					
 					

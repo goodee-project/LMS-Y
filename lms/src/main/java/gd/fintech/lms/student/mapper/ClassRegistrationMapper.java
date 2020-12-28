@@ -20,5 +20,8 @@ public interface ClassRegistrationMapper {
 	//리턴값:과목의 정보
 	ClassRegistration selectClassRegistrationOne(int subjectNo);
 	
-	
+	//학생\이 수강신청한 갯수 
+	//매개변수: 
+	//리턴값: 학생의 수강신청 수
+	int selectRegistrationCount();
 }

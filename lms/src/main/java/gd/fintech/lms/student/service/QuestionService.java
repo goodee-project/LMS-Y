@@ -22,12 +22,35 @@ public class QuestionService {
 	
 	//학생의 질문 리스트 페이징 
 	//매개변수:currentPage , rowPerPage 10행
-	//리턴값:질문게시판의 페이징 값
-	public List<Question> getQuestionListByPage(int currentPage,int rowPerPage){
-		Map<String,Object>map=new HashMap<>();
-		map.put("beginRow",(currentPage-1)*rowPerPage);
-		map.put("rowPerPage",rowPerPage);
-		return questionMapper.selectQuestionListByPage(map);
+	//리턴값:질문게시판의 페이징 값 
+	//리턴값:강좌에 대한 학생들의 질문
+	public Map<String,Object> getQuestionListByPage(String accountId,int currentPage){
+		//보여줄 행(데이터)갯수
+		int rowPerPage=10;
+		int beginRow=(currentPage-1)*rowPerPage;
+		//전체 페이지 수
+		int questionCount = questionMapper.selectQuestionCount(accountId);
+		int lastPage = questionCount/rowPerPage;
+		//rowPerPage 미만의 데티어가 있는 페이지 보여줌
+		if(questionCount%rowPerPage!=0) {
+			lastPage +=1;
+		}
+		//마지막 페이지 0이면 현재도 0 페이지
+		if(lastPage ==0) {
+			currentPage=0;
+		}
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("accountId", accountId);
+		
+		List<Question>questionList = questionMapper.selectQuestionListByPage(paramMap);
+		Map<String,Object>map = new HashMap<String,Object>();
+		map.put("lastPage", lastPage);
+		map.put("questionList", questionList);
+		
+		return map;
 	}
 	
 
@@ -43,7 +66,8 @@ public class QuestionService {
 	//매개변수:해당 질문의 번호
 	//리턴값:해당 질문의 상세보기
 	public Question getQuestionOne(int questionNo) {
-		return questionMapper.selectQuestionOne(questionNo);
+		Question questionDetail = questionMapper.selectQuestionOne(questionNo);
+		return questionDetail;
 	}
 	
 	//학생의 질문 삭제
@@ -58,13 +82,6 @@ public class QuestionService {
 	//리턴값:입력할 질문의 양식
 	public int addQeustion(Question question) {
 		return questionMapper.insertQuestion(question);
-	}
-	
-	//학생의 모든 질문
-	//매개변수:
-	//리턴값:
-	public int selectQuestionCount() {
-		return questionMapper.selectQuestionCount();
 	}
 	
 	//학생의 질문 조회수

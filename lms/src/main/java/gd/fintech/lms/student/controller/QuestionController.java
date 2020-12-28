@@ -1,6 +1,7 @@
 package gd.fintech.lms.student.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,20 +21,20 @@ public class QuestionController {
 	@Autowired QuestionService questionService;
 	
 	//질문 리스트 10개씩 보여줌(페이징)
+	//@suppressWarning 검증되지 않은 연산자 관련 경고 억제
+	@SuppressWarnings("unchecked")
 	@GetMapping("student/studentQuestionList")
 	public String questionList(Model model,
+			@RequestParam(value="accountId")String accountId,
 			@RequestParam(value="currentPage")int currentPage) {
-		int rowPerPage=10;
-		int questionCount=questionService.selectQuestionCount();
-		int lastPage =0;
-		if(questionCount%rowPerPage ==0) {
-			lastPage=questionCount/rowPerPage;
-		} else if(questionCount%rowPerPage !=0) {
-			lastPage=questionCount/rowPerPage+1;
-		}
-		List<Question>questionList = questionService.getQuestionListByPage(currentPage, rowPerPage);
+		
+		Map<String,Object>map = questionService.getQuestionListByPage(accountId, currentPage);
+		int lastPage =(int)map.get("lastPage");
+		
+		List<Question>questionList =(List<Question>)map.get("questionList");
 		model.addAttribute("questionList",questionList);
 		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("lectureNo",accountId);
 		model.addAttribute("lastPage",lastPage);
 		return  "student/studentQuestionList";
 	}

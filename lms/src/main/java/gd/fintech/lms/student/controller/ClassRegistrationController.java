@@ -2,6 +2,9 @@ package gd.fintech.lms.student.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,17 +28,27 @@ public class ClassRegistrationController {
 	public String getClassRegistrationListByPage(Model model,
 			@RequestParam(value="currentPage")int currentPage) {
 		int rowPerPage=10;
-		List<ClassRegistration>selectClassRegistrationCount = classRegistrationService.getClassRegistrationListByPage(currentPage, rowPerPage);
-		model.addAttribute("selectClassRegistrationCount",selectClassRegistrationCount);
+		int classRegistrationCount = classRegistrationService.getRegistrationCount();
+		int lastPage =0;
+		if(classRegistrationCount%rowPerPage ==0) {
+			lastPage=classRegistrationCount/rowPerPage;
+		} else if(classRegistrationCount%rowPerPage !=0) {
+			lastPage=classRegistrationCount/rowPerPage+1;
+		}
+		List<ClassRegistration>classRegistrationList = classRegistrationService.getClassRegistrationListByPage(currentPage, rowPerPage);
+		model.addAttribute("classRegistrationList",classRegistrationList);
 		model.addAttribute("currentPage",currentPage);
-		return "student/classRegistrationList";
+		return "student/classRegistration";
 	}
 	//학생이 수강신청한 과목 정보보기(상세보기)
 	@GetMapping("student/classRegistrationDetail")
-	public String getClassRegistrtaionOne(Model model,
-			@RequestParam(value="subjectNo")int subjectNo) {
-		ClassRegistration selectClassRegistrationOne = classRegistrationService.getClassRegistrtaionOne(subjectNo);
-		model.addAttribute("selectClassRegistrationOne",selectClassRegistrationOne);
+	public String getClassRegistrtaionOne(Model model,HttpServletRequest request) {
+		//세션 가져오기
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//No 값 가져오기 
+		int subjectNo =(int)session.getAttribute("subjectNo");
+		ClassRegistration selectClassRegistrationDetail = classRegistrationService.getClassRegistrtaionOne(subjectNo);
+		model.addAttribute("selectClassRegistrationDetail",selectClassRegistrationDetail);
 		return "student/classRegistrationDetail";
 	}
 	

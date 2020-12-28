@@ -1,6 +1,5 @@
 package gd.fintech.lms.manager.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.AccountLevel;
-import gd.fintech.lms.account.mapper.AccountMapper;
 import gd.fintech.lms.manager.service.LMSNoticeService;
 import gd.fintech.lms.manager.vo.LMSNotice;
 
@@ -39,14 +37,10 @@ public class LMSNoticeController {
 			"/manager/lmsNoticeList"
 			})
 	public String lmsNoticeList(Model model,
-			@RequestParam(value="currentPage") int currentPage,
+			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value="lmsNoticeSearch", required = false) String lmsNoticeSearch,
 			HttpSession session) {
 		Map<String, Object> map = lmsNoticeService.getLMSNoticeListByPage(currentPage, lmsNoticeSearch);
-		Map<String, Object> accountMap = new HashMap<>();
-		accountMap.put("studentLevel", AccountLevel.STUDENT.getValue());
-		accountMap.put("teacherLevel", AccountLevel.TEACHER.getValue());
-		accountMap.put("managerLevel", AccountLevel.MANAGER.getValue());
 		
 		logger.debug(map.toString());
 		logger.debug(session.getAttribute("accountLevel").toString());
@@ -59,7 +53,8 @@ public class LMSNoticeController {
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
 		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));
-		model.addAllAttributes(accountMap);
+		model.addAttribute("accountId", session.getAttribute("accountId"));
+		model.addAttribute("managerLevel", AccountLevel.MANAGER.getValue());
 		return "lmsNoticeList";
 	}
 	
@@ -87,7 +82,6 @@ public class LMSNoticeController {
 			lmsNoticeService.increaseLMSNoticeCountOfViews(lmsNoticeNo);
 			session.setAttribute("updateTime"+lmsNoticeNo, currentTime);
 		}
-		
 		
 		model.addAttribute("lmsNotice", lmsNotice);
 		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));

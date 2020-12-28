@@ -23,7 +23,7 @@ public interface LMSNoticeMapper {
 	
 	// 공지사항 게시물 개수 
 	// 리턴값 : 공지사항 게시물 개수
-	int selectLMSNoticeCount();
+	int selectLMSNoticeCount(String lmsNoticeSearch);
 
 	// 공지사항 작성 매니저 이름 가져오기
 	// 매개변수 : 매니저의 계정 ID

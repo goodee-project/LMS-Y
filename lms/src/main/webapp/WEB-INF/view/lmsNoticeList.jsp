@@ -41,44 +41,92 @@
 					</c:forEach>
 				</table>
 			</div>
+			<!-- 그냥 페이징 -->
 			<c:if test="${null eq lmsNoticeSearch}">
-				<!-- student -->
-				<c:if test="${accountLevel eq studentLevel}">
-					<div>
-						<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
-						<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
-					</div>
-				</c:if>
-				<!-- teacher -->
-				<c:if test="${accountLevel eq teacherLevel}">
-					<div>
-						<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
-						<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
-					</div>
-				</c:if>
-				<!-- manager -->
-				<c:if test="${accountLevel eq managerLevel}">
-					<div>
-						<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
-						<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
-					</div>
-					<div>
-						<a href="${pageContext.request.contextPath}/manager/createLMSNotice">공지 생성</a>
-					</div>
-				</c:if>
+				<div>
+					<!-- 처음으로, 이전 -->
+					<c:choose>
+						<c:when test="${currentPage > 1}">
+							<a href="${pageContext.request.pathInfo}?currentPage=1">[처음으로]</a>
+							<a href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}"><</a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+					<!-- 현재페이지 네비바 -->
+					<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
+						<c:if test="${i <= lastPage}">
+							<c:choose>
+								<c:when test="${i == currentPage}">
+									<a href="#">[${i}]</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${pageContext.request.pathInfo}?currentPage=${i}">[${i}]</a>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+					<!-- 다음, 마지막으로 -->
+					<c:choose>
+						<c:when test="${currentPage < lastPage}">
+							<a href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">></a>
+							<a href="${pageContext.request.pathInfo}?currentPage=${lastPage}">[마지막으로]</a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</c:if>
-			<c:if test="${null ne lmsNoticeSearch}">
 			<!-- 검색 페이징 -->
+			<c:if test="${null ne lmsNoticeSearch}">				
+				<div>
+					<!-- 처음으로, 이전 -->
+					<c:choose>
+						<c:when test="${currentPage > 1}">
+							<a href="${pageContext.request.pathInfo}?currentPage=1&lmsNoticeSearch=${lmsNoticeSearch}">[처음으로]</a>
+							<a href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}&lmsNoticeSearch=${lmsNoticeSearch}"><</a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+					<!-- 현재페이지 네비바 -->
+					<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
+						<c:if test="${i <= lastPage}">
+							<c:choose>
+								<c:when test="${i == currentPage}">
+									<a href="#">[${i}]</a>
+								</c:when>
+								<c:otherwise>
+									<a href="${pageContext.request.pathInfo}?currentPage=${i}&lmsNoticeSearch=${lmsNoticeSearch}">[${i}]</a>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+					<!-- 다음, 마지막으로 -->
+					<c:choose>
+						<c:when test="${currentPage < lastPage}">
+							<a href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&lmsNoticeSearch=${lmsNoticeSearch}">></a>
+							<a href="${pageContext.request.pathInfo}?currentPage=${lastPage}&lmsNoticeSearch=${lmsNoticeSearch}">[마지막으로]</a>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</c:if>
-		</div>
-		
-		<!-- 검색 -->
-		<div>
-			<form action="${pageContext.request.contextPath}/manager/lmsNoticeList" method="get">
-				<input type="hidden" name="currentPage" value="${currentPage}">
-				<input type="text" name="lmsNoticeSearch" value="${lmsNoticeSearch}">
-				<button type="submit">버튼</button>
-			</form>
-		</div>
+			<!-- 매니저일 경우 공지 생성버튼 -->
+			<c:if test="${accountLevel eq managerLevel}">
+				<div>
+					<a href="${pageContext.request.contextPath}/manager/createLMSNotice">공지 생성</a>
+				</div>
+			</c:if>
+			<!-- 검색 -->
+			<div>
+				<form action="${pageContext.request.pathInfo}" method="get">
+					<input type="hidden" name="currentPage" value="1">
+					<input type="text" name="lmsNoticeSearch" value="${lmsNoticeSearch}">
+					<button type="submit">버튼</button>
+				</form>
+			</div>
+		</div>	
 	</body>
 </html>

@@ -33,7 +33,7 @@ public class LMSNoticeService {
 		// 페이지 당 보여줄 게시물 수 
 		int rowPerPage = 7;
 		// 전체 게시물 수
-		int noticeCount = lmsNoticeMapper.selectLMSNoticeCount();
+		int noticeCount = lmsNoticeMapper.selectLMSNoticeCount(lmsNoticeSearch);
 		// 시작하는 게시물의 순번
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 마지막 페이지
@@ -47,9 +47,12 @@ public class LMSNoticeService {
 		// 페이지 네비바에 표시할 페이지 수
 		int navPerPage = 10;
 		// 네비바 첫번째 페이지
-		int navBeginPage = currentPage - (currentPage % navPerPage);
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
 		// 네비바 마지막 페이지
 		int navLastPage = (navBeginPage + navPerPage) - 1;
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
 		if(currentPage % navPerPage == 0 && currentPage != 0) {
 			navBeginPage = navBeginPage - navPerPage;
 			navLastPage = navLastPage - navPerPage;

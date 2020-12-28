@@ -36,15 +36,19 @@
 					<tr>
 						<td>${lmsNotice.lmsNoticeContent}</td>
 					</tr>
+					<!-- 세션값이 manager일 경우 -->
 					<c:if test="${accountLevel eq managerLevel}">
-						<tr>
-							<td>
-								<a href="${pageContext.request.contextPath}/manager/modifyLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">수정</a>
-							</td>
-							<td>
-								<a href="${pageContext.request.contextPath}/manager/removeLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">삭제</a>
-							</td>
-						</tr>
+						<!-- 세션 accountID와 등록한 id가 같으면 -->
+						<c:if test="${accountId eq lmsNotice.accountId}">
+							<tr>
+								<td>
+									<a href="${pageContext.request.contextPath}/manager/modifyLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">수정</a>
+								</td>
+								<td>
+									<a href="${pageContext.request.contextPath}/manager/removeLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">삭제</a>
+								</td>
+							</tr>
+						</c:if>
 					</c:if>
 				</table>
 			</div>

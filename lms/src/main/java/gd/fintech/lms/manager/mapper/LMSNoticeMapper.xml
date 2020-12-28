@@ -23,6 +23,7 @@
 	<select id="selectLMSNoticeDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.LMSNotice">
 		SELECT 
 			lms_notice_no lmsNoticeNo, 
+			account_id accountId,
 			lms_notice_title lmsNoticeTitle, 
 			lms_notice_content lmsNoticeContent, 
 			lms_notice_writer lmsNoticeWriter, 
@@ -32,9 +33,15 @@
 		WHERE lms_notice_no = #{lmsNoticeNo}
 	</select>
 	<!-- lms 공지사항 게시물 갯수 카운트 -->
-	<select id="selectLMSNoticeCount" resultType="int">
+	<select id="selectLMSNoticeCount" parameterType="String" resultType="int">
 		SELECT COUNT(*) lmsNoticeCount
 		FROM lms_notice
+		<where>
+			<if test='lmsNoticeSearch != null'>
+				lms_notice_title LIKE CONCAT('%', #{lmsNoticeSearch}, '%')
+				OR lms_notice_writer LIKE CONCAT('%', #{lmsNoticeSearch}, '%')
+			</if>
+		</where>
 	</select>
 	
 	<!-- lms공지사항 작성자 -->

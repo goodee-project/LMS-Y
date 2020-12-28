@@ -1,6 +1,9 @@
 package gd.fintech.lms.manager.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +29,14 @@ public class ManagerController {
 	// 운영자 상세정보
  	// 리턴값: accountId에 해당하는 운영자 상세정보
 	@GetMapping("/manager/managerDetail")
-	public String managerInfo(Model model,
-			@RequestParam (value="accountId")String accountId) {
-	    Manager manager = managerService.getManagerDetail(accountId);
-	    model.addAttribute("manager", manager);
+	public String managerInfo(Model model,HttpServletRequest httpServletRequest) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)httpServletRequest).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		Manager manager = managerService.getManagerDetail(accountId);
+		model.addAttribute("accountId", accountId);
+		model.addAttribute("manager",manager);
 	    logger.debug("manager"+ manager );
 		return "/manager/managerDetail";
 	}

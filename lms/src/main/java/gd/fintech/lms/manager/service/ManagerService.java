@@ -15,22 +15,10 @@ import gd.fintech.lms.teacher.mapper.SyllabusMapper;
 
 @Service
 public class ManagerService {
-	// 과목 정보 mapper
-	@Autowired private SubjectMapper subjectMapper;
-	// 교재 정보 mapper
-	@Autowired private TextbookMapper textbookMapper;
-	// 강의계획서 mapper
-	@Autowired private SyllabusMapper syllabusMapper;
 	// 운영자정보 mapper 
 	@Autowired private ManagerMapper managerMapper;
 	
-	// 운영자가 강의계획서를 서명하는 서비스 메소드
-	// 매개변수: 
-	// 리턴값: 
-	public int signSyllabus(int syllabusNo) {
-		return syllabusMapper.updateSyllabusManagerSign(syllabusNo);
-	}
-	
+
 	// 운영자의 개인 정보를 볼수있는 서비스 메소드 
 	// 매개변수: 운영자의 계정 ID
 	// 리턴값: 운영자의 상세 정보 

@@ -13,7 +13,7 @@ public interface FAQMapper {
 	// FAQ 목록 페이지 
 	// 매개변수: MAP beginRow, rowPerPage
 	// 리턴값: FAQ 리스트
-  	List<FAQ> selectFAQListByPage(Map<String, Integer> map);  
+  	List<FAQ> selectFAQListByPage(Map<String, Object> map);  
   	
   	// FAQ 개수
   	// 리턴값: FAQ의 행의 총 개수

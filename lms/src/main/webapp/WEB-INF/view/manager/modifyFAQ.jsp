@@ -6,14 +6,28 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>FAQ 수정</title>
-		
+		<!-- NAVER SmartEditor2 스크립트 -->
+		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
+        $(document).ready(function() {
+        	let oEditors = [];
+			nhn.husky.EZCreator.createInIFrame({
+				oAppRef: oEditors,
+				elPlaceHolder: "faqContent",	// 적용할 textarea 태그의 id 속성 
+				sSkinURI: "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",	
+				htParams : {
+					bUseToolbar : true,			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseVerticalResizer : true,	// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseModeChanger : true,		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+					I18N_LOCALE : "ko_KR"
+				},
+				fCreator: "createSEditor2"
+			});
+            // 폼 유효성 검사
+            // code here...
+        });
         </script>
 	</head>
 	
@@ -49,10 +63,6 @@
 					</tr>
 					
 					<tr>
-						<td>FAQ 내용</td>
-						<td><input type="text" name="faqContent" value="${faq.faqContent}"></td>
-					</tr>
-					<tr>
 						<td>FAQ 카테고리</td>
 						<td>
 							<select name="faqCategory">
@@ -64,6 +74,9 @@
 					</tr>
 					
 					</table>
+						
+						FAQ 내용
+						<textarea id="faqContent" name="faqContent">${faq.faqTitle}</textarea>
 			  
 			  		<button type="submit">입력</button>
 				</form>

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import gd.fintech.lms.manager.mapper.FAQMapper;
 import gd.fintech.lms.manager.vo.FAQ;
 
+
 // FAQ 를 관리하는 서비스 
 
 @Service
@@ -29,14 +30,30 @@ public class FAQService {
 	// FAQ 리스트를 보여주는 서비스
 	// 매개변수: 현재 페이지, 보여줄 데이터 개수
 	// 리턴값: 현재 페이지의 FAQ 리스트
-	public List<FAQ>getFAQListByPage(int currentPage, int rowPerPage){
-		int beginRow = (currentPage-1)* rowPerPage;
-		Map<String,Integer>map = new HashMap<String, Integer>();
-		map.put("beginRow", beginRow);
-		logger.debug("beginRow "+beginRow );
-		map.put("rowPerPage", rowPerPage);
-		logger.debug("rowPerPage" +rowPerPage );
-		return faqMapper.selectFAQListByPage(map);
+	public Map<String, Object> getFAQListByPage(int currentPage ){
+		// 현재 페이지 표시할 데이터 수
+		int rowPerPage = 10;
+		// 시작 페이지
+		int beginRow = (currentPage - 1) * rowPerPage;
+		// 전체 페이지 개수
+		int countFAQ = faqMapper.selectFAQCount();
+		// 마지막 페이지
+		int lastPage = countFAQ / rowPerPage;
+		if (countFAQ % rowPerPage == 0) {
+			lastPage += 1;
+		} 
+		if (lastPage == 0) {
+			currentPage = 0;
+		}
+		int navPerPage = 10 ;
+		int navFirstPage = currentPage - (currentPage % navPerPage);
+		int navLastPage = (navFirstPage + navPerPage)-1;
+		
+		
+		Map<String, Object> map = new HashMap<String,Object>();
+	
+		
+		return map;
 	}
 	
 	// FAQ의 행의 총 합을 보여주는 서비스

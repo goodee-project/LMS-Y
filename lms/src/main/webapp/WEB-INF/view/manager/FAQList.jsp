@@ -17,6 +17,8 @@
         </script>
 	</head>
 	
+	
+	
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
@@ -27,17 +29,18 @@
 			</div>
 			<div> 종류</div>
 				<table class="table">
-					
-			<c:forEach items="${categoryList}" var="cl">
-				
-					<td>${cl.faqCategory}</td>
-				
-			
+			<!-- 카테고리 -->		
+			<c:forEach items="${categoryList}" var="cl" varStatus="status"> 
+			<td>${cl.faqCategory}</td>
+				<c:if test="${status.count%5 eq 0}"> 
+					<tr>
+				</c:if>
 				</c:forEach>
 				
 			</table>
 			
 			<div>
+			<!-- FAQList -->
 				<table class="table">
 					<tr>
 						<th>FAQ 번호</th>
@@ -56,16 +59,12 @@
 						<td>${f.faqWriter}</td>
 						<td>${f.faqCount}</td>
 						<td>${f.faqUpdateDate}</td>
-					
-						
 					</tr>
-					
 				
 				</c:forEach>	
 	
 				
 			</table>
-				
 			
 				
 			</div>

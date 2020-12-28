@@ -14,8 +14,7 @@ import gd.fintech.lms.manager.mapper.LectureManagerMapper;
 import gd.fintech.lms.manager.mapper.SubjectMapper;
 import gd.fintech.lms.manager.mapper.TextbookMapper;
 import gd.fintech.lms.manager.vo.Lecture;
-import gd.fintech.lms.manager.vo.Subject;
-import gd.fintech.lms.manager.vo.Textbook;
+
 
 // /Lecture 를 관리하는 서비스 
 
@@ -42,10 +41,9 @@ public class LectureManagerService {
 		int beginRow = (currentPage -1)* rowPerPage;
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("beginRow", beginRow);
-		logger.debug("beginRow "+beginRow );
 		map.put("rowPerPage", rowPerPage);
 		logger.debug("rowPerPage" +rowPerPage );
-		
+		logger.debug("beginRow "+beginRow );
 		return lectureManagerMapper.selectLectureListByPage(map);
 	}
 	
@@ -91,12 +89,5 @@ public class LectureManagerService {
 		return lectureManagerMapper.selectLectureDetail(lectureNo);
 	}
 	
-	public List<Subject> getSubjectList(Map<String, Integer> map){
-		return  subjectMapper.selectSubjectList(map);
-		
-	}
-	
-	public List<Textbook> getTextbookList(Map<String, Integer> map) {
-		return textbookMapper.selectTextbookList(map);
-	}
+
 }

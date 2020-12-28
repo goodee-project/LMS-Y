@@ -46,7 +46,10 @@
 						</tr>
 						<tr>
 							<td>운영자 성별</td>
-							<td><input type="text" name="managerGender" value="${manager.managerName}"></td>
+							<td>
+								<input type="radio" name="managerGender" value="남" id="female">남자
+								<input type="radio" name="managerGender" value="여" id="male">여자
+							</td>
 						</tr>
 						<tr>
 							<td>운영자 생년월일</td>

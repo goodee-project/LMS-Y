@@ -41,29 +41,34 @@
 					</c:forEach>
 				</table>
 			</div>
-			<!-- student -->
-			<c:if test="${accountLevel eq studentLevel}">
-				<div>
-					<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
-					<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
-				</div>
+			<c:if test="${null eq lmsNoticeSearch}">
+				<!-- student -->
+				<c:if test="${accountLevel eq studentLevel}">
+					<div>
+						<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
+						<a href="${pageContext.request.contextPath}/student/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
+					</div>
+				</c:if>
+				<!-- teacher -->
+				<c:if test="${accountLevel eq teacherLevel}">
+					<div>
+						<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
+						<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
+					</div>
+				</c:if>
+				<!-- manager -->
+				<c:if test="${accountLevel eq managerLevel}">
+					<div>
+						<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
+						<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
+					</div>
+					<div>
+						<a href="${pageContext.request.contextPath}/manager/createLMSNotice">공지 생성</a>
+					</div>
+				</c:if>
 			</c:if>
-			<!-- teacher -->
-			<c:if test="${accountLevel eq teacherLevel}">
-				<div>
-					<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
-					<a href="${pageContext.request.contextPath}/teacher/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
-				</div>
-			</c:if>
-			<!-- manager -->
-			<c:if test="${accountLevel eq managerLevel}">
-				<div>
-					<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage-1}">이전</a>
-					<a href="${pageContext.request.contextPath}/manager/lmsNoticeList?currentPage=${currentPage+1}">다음</a>
-				</div>
-				<div>
-					<a href="${pageContext.request.contextPath}/manager/createLMSNotice">공지 생성</a>
-				</div>
+			<c:if test="${null ne lmsNoticeSearch}">
+			<!-- 검색 페이징 -->
 			</c:if>
 		</div>
 		

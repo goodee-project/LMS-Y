@@ -30,13 +30,31 @@ public class LMSNoticeService {
 	// 매개변수 : 현재 페이지
 	// 리턴값 : 현재 페이지의 공지사항 리스트
 	public Map<String, Object> getLMSNoticeListByPage(int currentPage, String lmsNoticeSearch) {
-		int rowPerPage = 5;
-		int beginRow = (currentPage-1)*rowPerPage;
+		// 페이지 당 보여줄 게시물 수 
+		int rowPerPage = 7;
+		// 전체 게시물 수
 		int noticeCount = lmsNoticeMapper.selectLMSNoticeCount();
+		// 시작하는 게시물의 순번
+		int beginRow = (currentPage-1)*rowPerPage;
+		// 마지막 페이지
 		int lastPage = noticeCount/rowPerPage;
 		if(noticeCount%rowPerPage!=0) {
 			lastPage += 1;
 		}
+		if (lastPage == 0) {
+			currentPage = 0;
+		}
+		// 페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		// 네비바 첫번째 페이지
+		int navBeginPage = currentPage - (currentPage % navPerPage);
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		if(currentPage % navPerPage == 0 && currentPage != 0) {
+			navBeginPage = navBeginPage - navPerPage;
+			navLastPage = navLastPage - navPerPage;
+		}
+		
 		Map<String, Object> pageMap = new HashMap<>();
 		pageMap.put("rowPerPage", rowPerPage);
 		pageMap.put("beginRow", beginRow);
@@ -47,6 +65,9 @@ public class LMSNoticeService {
 		Map<String, Object> noticeMap = new HashMap<>();
 		noticeMap.put("lmsNoticeList", lmsNoticeList);
 		noticeMap.put("lastPage", lastPage);
+		noticeMap.put("navPerPage", navPerPage);
+		noticeMap.put("navBeginPage", navBeginPage);
+		noticeMap.put("navLastPage", navLastPage);
 		
 		return noticeMap;
 	}
@@ -87,8 +108,8 @@ public class LMSNoticeService {
 	
 	// LMS공지사항의 조회 수 증가
 	// 매개변수 : LMS공지사항의 번호
-	// 리턴값 : 
-	public int modifyLMSNoticeCountOfViews(int lmsNoticeNo) {
+	// 리턴값 : 조회수의 증가
+	public int increaseLMSNoticeCountOfViews(int lmsNoticeNo) {
 		return lmsNoticeMapper.updateLMSNoticeCountOfViews(lmsNoticeNo);
 	}
 }

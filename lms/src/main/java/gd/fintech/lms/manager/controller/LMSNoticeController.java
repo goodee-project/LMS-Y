@@ -53,8 +53,11 @@ public class LMSNoticeController {
 		
 		model.addAttribute("lmsNoticeList", map.get("lmsNoticeList"));
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lmsNoticeSearch", lmsNoticeSearch);
 		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("lmsNoticeSearch", lmsNoticeSearch);
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
 		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));
 		model.addAllAttributes(accountMap);
 		return "lmsNoticeList";
@@ -71,9 +74,21 @@ public class LMSNoticeController {
 			HttpSession session) {
 		LMSNotice lmsNotice = lmsNoticeService.getLMSNoticeDetail(lmsNoticeNo);
 		logger.debug(lmsNotice.toString());
-		if(!session.getAttribute("accountId").equals(AccountLevel.MANAGER.getValue())) {
-			lmsNoticeService.modifyLMSNoticeCountOfViews(lmsNoticeNo);
+		
+		// 조회수 증가
+		long updateTime = 0;
+		// 세션에 저장된 조회 시간을 검색
+		if(session.getAttribute("updateTime"+lmsNoticeNo) != null) {
+			updateTime = (long)session.getAttribute("updateTime"+lmsNoticeNo);
 		}
+		// 시스템 현재시간 
+		long currentTime = System.currentTimeMillis();
+		if(currentTime - updateTime > 24*60*601000) {
+			lmsNoticeService.increaseLMSNoticeCountOfViews(lmsNoticeNo);
+			session.setAttribute("updateTime"+lmsNoticeNo, currentTime);
+		}
+		
+		
 		model.addAttribute("lmsNotice", lmsNotice);
 		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));
 		model.addAttribute("managerLevel", AccountLevel.MANAGER.getValue());
@@ -84,7 +99,7 @@ public class LMSNoticeController {
 	// 리턴값 : 공지사항 입력 액션
 	@GetMapping("/manager/createLMSNotice")
 	public String createLMSNotice() {
-		return "createLMSNotice";
+		return "/manager/createLMSNotice";
 	}
 	
 	// lms 공지사항 입력 액션
@@ -108,7 +123,7 @@ public class LMSNoticeController {
 		LMSNotice lmsNotice = lmsNoticeService.getLMSNoticeDetail(lmsNoticeNo);
 		logger.debug(lmsNotice.toString());
 		model.addAttribute("lmsNotice", lmsNotice);
-		return "modifyLMSNotice";
+		return "/manager/modifyLMSNotice";
 	}
 	
 	// lms 공지사항 수정 액션

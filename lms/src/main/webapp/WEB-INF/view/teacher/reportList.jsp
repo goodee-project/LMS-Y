@@ -32,30 +32,61 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="map" items="${list}">
+						<c:forEach var="info" items="${list}">
 							<tr>
-								<td>${map.report.reportNo}</td>
-								<td>${map.report.lectureNo}</td>
+								<td>${info.report.reportNo}</td>
+								<td>${info.report.lectureNo}</td>
 								<td>
-									<a href="${pageContext.request.contextPath}/teacher/reportDetail?reportNo=${map.report.reportNo}">
-										${map.report.reportTitle}
+									<a href="${pageContext.request.contextPath}/teacher/reportDetail?reportNo=${info.report.reportNo}">
+										${info.report.reportTitle}
 									</a>
 								</td>
-								<td>${map.report.reportStartDate}</td>
-								<td>${map.report.reportEndDate}</td>
-								<td>${map.reportSubmitCount}</td>
+								<td>${info.report.reportStartDate}</td>
+								<td>${info.report.reportEndDate}</td>
+								<td>${info.reportSubmitCount}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
-					<c:if test="${p == param.currentPage}">
-						<a href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+				<ul class="pagination small">
+					<%-- 이전 버튼 --%>
+					<c:if test="${pageNaviBegin != 1}">
+						<li class="page-item">
+							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviBegin-1}">이전</a>
+						</li>
 					</c:if>
-					<c:if test="${p != param.currentPage}">
-						<a href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+					<c:if test="${pageNaviBegin == 1}">
+						<li class="page-item disabled">
+							<a class="page-link">이전</a>
+						</li>
 					</c:if>
-				</c:forEach>
+					
+					<%-- 각 페이지 이동 버튼 --%>
+					<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
+						<c:if test="${p != currentPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+							</li>
+						</c:if>
+						<c:if test="${p == currentPage}">
+							<li class="page-item active">
+								<a class="page-link">${p}</a>
+							</li>
+						</c:if>
+					</c:forEach>
+					
+					<%-- 다음 버튼 --%>
+					<c:if test="${pageNaviEnd != lastPage}">
+						<li class="page-item">
+							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviEnd+1}">다음</a>
+						</li>
+					</c:if>
+					<c:if test="${pageNaviEnd == lastPage}">
+						<li class="page-item disabled">
+							<a class="page-link">다음</a>
+						</li>
+					</c:if>
+				</ul>
 			</div>
 		</div>
 	</body>

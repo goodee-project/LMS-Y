@@ -34,10 +34,15 @@ public class ReportController {
 			HttpSession session, Model model) {
 		Map<String, Object> map = reportService.getReportList(currentPage, session);
 		
+		// 과제 정보를 담은 리스트
 		model.addAttribute("list", map.get("infoList"));
+		
+		// 페이지 관련 값
+		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("pageNaviBegin", map.get("pageNaviBegin"));
 		model.addAttribute("pageNaviEnd", map.get("pageNaviEnd"));
 		model.addAttribute("lastPage", map.get("lastPage"));
+		
 		return "teacher/reportList";
 	}
 	

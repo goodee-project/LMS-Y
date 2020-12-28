@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.account.vo.LoginLog;
 import gd.fintech.lms.account.service.AccountService;
@@ -91,7 +92,7 @@ public class LoginController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('로그인 정보를 다시 확인하세요.'); history.go(-1);</script>");
 			out.flush();
-			return "redirect:/login";
+			return "account/login";
 		}
 		// 로그인 페이지별 상위 레벨의 계정에 접근시 해당 계정에 대한 로그인 제한하기
 		else if(pageLevel != memberCk.getAccountLevel()) {
@@ -99,34 +100,56 @@ public class LoginController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('해당 계정에 접근권한이 없습니다.'); history.go(-1);</script>");
 			out.flush();
-			return "redirect:/login";
+			return "account/login";
 		}
-		// 계정이 있는 경우 로그인 로그 기록 남기기
-		LoginLog loginLog = new LoginLog();
-		loginLog.setLoginId(session.getId());
-		loginLog.setAccountId(memberCk.getAccountId());
-		loginLogService.createLoginLogByAccountId(loginLog);
-		// 계정이 있는 경우 세션에 아이디 정보 담기
-		session.setAttribute("accountId", memberCk.getAccountId());
-		// 계정이 있는 경우 세션에 level 담기
-		session.setAttribute("accountLevel", memberCk.getAccountLevel());
-		
-		// 학생 권한에 따른 인덱스 페이지 이동
-		if(memberCk.getAccountLevel() == AccountLevel.STUDENT.getValue()) {
-			return "redirect:/student/index";
+
+		// 계정 활성화 상태 체크
+		if(memberCk.getAccountState().equals("대기")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('계정 승인 대기중입니다.'); history.go(-1);</script>");
+			out.flush();
+			return "account/login";
+		}else if(memberCk.getAccountState().equals("거절")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('승인 거절 처리되었습니다'); history.go(-1);</script>");
+			out.flush();
+			return "account/login";
+		}else if(memberCk.getAccountState().equals("탈퇴")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('해당 계정은 탈퇴처리되었습니다'); history.go(-1);</script>");
+			out.flush();
+			return "account/login";
+		}else {
+			// 계정이 있는 경우 로그인 로그 기록 남기기
+			LoginLog loginLog = new LoginLog();
+			loginLog.setLoginId(session.getId());
+			loginLog.setAccountId(memberCk.getAccountId());
+			loginLogService.createLoginLogByAccountId(loginLog);
+			// 계정이 있는 경우 세션에 아이디 정보 담기
+			session.setAttribute("accountId", memberCk.getAccountId());
+			// 계정이 있는 경우 세션에 level 담기
+			session.setAttribute("accountLevel", memberCk.getAccountLevel());
+			
+			// 학생 권한에 따른 인덱스 페이지 이동
+			if(memberCk.getAccountLevel() == AccountLevel.STUDENT.getValue()) {
+				return "redirect:/student/index";
+			}
+			// 강사 권한에 따른 인덱스 페이지 이동
+			else if(memberCk.getAccountLevel() == AccountLevel.TEACHER.getValue()) {
+				return "redirect:/teacher/index";
+			}
+			// 운영자 권한에 따른 인덱스 페이지 이동
+			else if(memberCk.getAccountLevel() == AccountLevel.MANAGER.getValue()) {
+				return "redirect:/manager/index";
+			}
+			// 관리자 권한에 따른 페이지 이동
+			else {
+				return "redirect:/admin/index";
+			}
 		}
-		// 강사 권한에 따른 인덱스 페이지 이동
-		else if(memberCk.getAccountLevel() == AccountLevel.TEACHER.getValue()) {
-			return "redirect:/teacher/index";
-		}
-		// 운영자 권한에 따른 인덱스 페이지 이동
-		else if(memberCk.getAccountLevel() == AccountLevel.MANAGER.getValue()) {
-			return "redirect:/manager/index";
-		}
-		// 관리자 권한에 따른 페이지 이동
-		else {
-			return "redirect:/admin/index";
-		}	
 	}
 	
 	// 로그아웃을 위한 기능 메소드

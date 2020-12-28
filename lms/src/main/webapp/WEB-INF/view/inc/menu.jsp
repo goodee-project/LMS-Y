@@ -18,6 +18,9 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
 			</li>
 			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
+			</li>
+			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.message.mapper.MessageMapper">
+	<!-- 받은 쪽지 리스트를 조회하는 쿼리 -->
+	<select id="selectReceiveMessageList" parameterType="String" resultType="gd.fintech.lms.message.vo.Message">
+		SELECT 
+			message_no messageNo, 
+			from_id fromId,
+			from_name fromName,
+			message_datetime messageDateTime,
+			is_confirm isConfirm
+		FROM message
+		WHERE to_id = #{toId}
+	</select>
+	
+	<!-- 보낸 쪽지 리스트를 조회하는 쿼리 -->
+	<select id="selectSendMessageList" parameterType="String" resultType="gd.fintech.lms.message.vo.Message">
+		SELECT
+			message_no messageNo,
+			to_id toId,
+			message_datetime messageDateTime,
+			is_confirm isConfirm
+		FROM message
+		WHERE from_id = #{fromId}
+	</select>
+	
+	<!-- 쪽지 상세보기 쿼리 -->
+	<select id="selectMessageDetail" parameterType="int" resultType="gd.fintech.lms.message.vo.Message">
+		SELECT 
+			message_no messageNo, 
+			from_id fromId,
+			to_id toId,
+			from_name fromName, 
+			message_content messageContent, 
+			message_datetime messageDateTime, 
+			is_confirm isConfirm
+		FROM message
+		WHERE message_no = #{messageNo}		
+	</select>
+	
+	<!-- 쪽지 입력하는 쿼리 -->
+	<insert id="insertSendMessage" parameterType="gd.fintech.lms.message.vo.Message">
+		INSERT INTO message(
+			from_id,
+			to_id,
+			from_name,
+			message_content,
+			message_datetime
+		)VALUES(
+			#{fromId},
+			#{toId},
+			#{fromName},
+			#{messageContent},
+			NOW()
+		)	
+	</insert>
+	
+	<!-- 수신/발신 쪽지 삭제 기능을 하는 쿼리 -->
+	<delete id="deleteMessageByMessageNo" parameterType="int">
+		DELETE FROM message
+		WHERE message_no = #{messageNo}
+	</delete>
+	
+	<!-- 쪽지 확인상태를 읽음으로 수정하는 -->
+	<update id="updateMessageConfirm" parameterType="int">
+		UPDATE message
+		SET is_confirm = "Y"
+		WHERE message_no = #{messageNo}
+	</update>
+</mapper>

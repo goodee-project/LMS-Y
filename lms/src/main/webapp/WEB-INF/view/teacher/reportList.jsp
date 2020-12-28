@@ -19,7 +19,7 @@
 			<h1>과제 목록</h1>
 			
 			<div>
-				<a href="${pageContext.request.contextPath}/teacher/createReport">과제 생성</a>
+				<a href="${pageContext.request.contextPath}/teacher/createReport?lectureNo=${param.lectureNo}">과제 생성</a>
 				<table class="table table-sm">
 					<thead>
 						<tr>
@@ -48,11 +48,11 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<ul class="pagination small">
+				<ul class="pagination pagination-sm">
 					<%-- 이전 버튼 --%>
 					<c:if test="${pageNaviBegin != 1}">
 						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviBegin-1}">이전</a>
+							<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviBegin-1}">이전</a>
 						</li>
 					</c:if>
 					<c:if test="${pageNaviBegin == 1}">
@@ -65,7 +65,7 @@
 					<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
 						<c:if test="${p != currentPage}">
 							<li class="page-item">
-								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${p}">${p}</a>
 							</li>
 						</c:if>
 						<c:if test="${p == currentPage}">
@@ -78,7 +78,7 @@
 					<%-- 다음 버튼 --%>
 					<c:if test="${pageNaviEnd != lastPage}">
 						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviEnd+1}">다음</a>
+							<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviEnd+1}">다음</a>
 						</li>
 					</c:if>
 					<c:if test="${pageNaviEnd == lastPage}">

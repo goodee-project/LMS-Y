@@ -47,35 +47,54 @@ public class ReportService {
 	
 	// 해당 강좌에 등록된 과제 리스트를 출력 (currentPage 페이지의 내용 10개만 보여줌)
 	// 매개변수:
-	// #1: 표시할 페이지 번호
-	// #2: 현재 로그인한 사용자의 정보가 담긴 세션 객체
+	// #1: 어떤 강좌의 과제인지를 식별하기 위한 강좌번호
+	// #2: 표시할 페이지 번호
+	// #3: 현재 로그인한 사용자의 정보가 담긴 세션 객체
 	// 리턴값: 등록된 과제 리스트
-	public Map<String, Object> getReportList(int currentPage, HttpSession session) {
+	public Map<String, Object> getReportList(int lectureNo, int currentPage, HttpSession session) {
 		// 현재 로그인한 사용자의 정보
 		String sessionAccountId = (String)session.getAttribute("accountId");
+
+		// 검증 및 검사를 위한 객체
+		List<Lecture> lectureList = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
+
+		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
+		boolean isCorrectTeacher = false;
+		for (Lecture l : lectureList) {
+			if (l.getLectureNo() == lectureNo) {
+				isCorrectTeacher = true;
+			}
+		}
+		
+		logger.debug("강사의 해당 강좌 관리 가능 여부: "+isCorrectTeacher);
+		if (!isCorrectTeacher) {
+			return null;
+		}
 		
 		// 리턴값으로 보낼 리스트 생성
-		Map<String, Object> returnMap = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 		
 		// rowPerPage 및 beginRow 계산
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 		
 		// 페이지 네비게이션용 값 연산
-		int lastPage = reportMapper.selectReportCount(sessionAccountId)/rowPerPage;
-		if (reportMapper.selectReportCount(sessionAccountId)%rowPerPage != 0) {
+		int pageNaviSize = 10;
+		
+		int lastPage = reportMapper.selectReportCount(lectureNo)/pageNaviSize;
+		if (reportMapper.selectReportCount(lectureNo)%pageNaviSize != 0) {
 			lastPage += 1;
 		}
 		
-		int pageNaviBegin = (currentPage-1)/rowPerPage*rowPerPage+1;	// 페이지의 첫번째 값을 구한 후(rowPerPage가 10일 경우 0~9->0, 10~19->10, 20~29->20)후 1을 더해줌(1, 11, 21, ...)
-		int pageNaviEnd = pageNaviBegin+rowPerPage-1;					// pageNaviBegin도 페이지 네비에 포함되므로 -1을 하여 딱 rowPerPage개의 페이지 네비 리스트가 보이도록 설정함
+		int pageNaviBegin = (currentPage-1)/pageNaviSize*pageNaviSize+1;	// 페이지의 첫번째 값을 구한 후(pageNaviSize가 10일 경우 0~9->0, 10~19->10, 20~29->20)후 1을 더해줌(1, 11, 21, ...)
+		int pageNaviEnd = pageNaviBegin+pageNaviSize-1;						// pageNaviBegin도 페이지 네비에 포함되므로 -1을 하여 딱 pageNaviSize개의 페이지 네비 리스트가 보이도록 설정함
 		if (pageNaviEnd > lastPage) {
 			pageNaviEnd = lastPage;
 		}
 		
-		returnMap.put("pageNaviBegin", pageNaviBegin);
-		returnMap.put("pageNaviEnd", pageNaviEnd);
-		returnMap.put("lastPage", lastPage);
+		map.put("pageNaviBegin", pageNaviBegin);
+		map.put("pageNaviEnd", pageNaviEnd);
+		map.put("lastPage", lastPage);
 		
 		// 테스트용 코드
 		logger.debug("계산된 시작 행: "+beginRow);
@@ -86,7 +105,7 @@ public class ReportService {
 		
 		// ReportList를 가져오기 위한 파라미터 설정
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("accountId", sessionAccountId);
+		paramMap.put("lectureNo", lectureNo);
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		
@@ -99,9 +118,9 @@ public class ReportService {
 			
 			infoList.add(info);
 		}
-		returnMap.put("infoList", infoList);
+		map.put("infoList", infoList);
 		
-		return returnMap;
+		return map;
 	}
 	
 	// 해당 과제에 대한 상세 정보 출력 (제출된 과제 포함)

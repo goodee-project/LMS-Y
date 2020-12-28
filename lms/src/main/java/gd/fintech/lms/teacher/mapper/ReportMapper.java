@@ -13,14 +13,14 @@ import gd.fintech.lms.teacher.vo.Report;
 @Mapper
 public interface ReportMapper {
 	// 특정 강사가 등록한 과제 리스트 출력 (beginRow 및 rowPerPage에 따라 리스트의 일부만 표시)
-	// 매개변수: Map.put()을 사용해 강사 ID인 accountId, 페이징 변수 beginRow, rowPerPage를 넣을 것
+	// 매개변수: Map.put()을 사용해 강좌 고유번호 lectureNo, 페이징 변수 beginRow, rowPerPage를 넣을 것
 	// 리턴값: 해당 페이지의 과제 리스트
 	List<Report> selectReportList(Map<String, Object> map);
 	
 	// 특정 강사가 등록한 과제 갯수 출력
-	// 매개변수: 과제를 등록한 강사의 ID
+	// 매개변수: 강좌 고유번호
 	// 리턴값: 해당 강사가 등록한 과제 갯수
-	int selectReportCount(String accountId);
+	int selectReportCount(int lectureNo);
 	
 	// 단일 과제 정보 및 학생이 제출한 과제제출 리스트 출력
 	// 매개변수: 가져올 과제 고유번호

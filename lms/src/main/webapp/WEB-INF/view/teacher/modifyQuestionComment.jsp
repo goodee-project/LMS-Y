@@ -97,7 +97,7 @@
 				<div>
 					게시글 내용: ${map.question.questionContent}
 				</div>
-				<form id="questionCommentForm" method="POST" action="${pageContext.request.contextPath}/teacher/modifyQuestionComment">
+				<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}">
 					<input type="hidden" name="questionCommentNo" value="${map.questionComment.questionCommentNo}">
 						
 					<div>

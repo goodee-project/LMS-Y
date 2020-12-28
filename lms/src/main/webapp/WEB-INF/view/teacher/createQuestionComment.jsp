@@ -98,7 +98,7 @@
 					게시글 내용: ${question.questionContent}
 				</div>
 				<hr>
-				<form id="questionCommentForm" method="POST" action="${pageContext.request.contextPath}/teacher/createQuestionComment" enctype="multipart/form-data">
+				<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}" enctype="multipart/form-data">
 					<input type="hidden" name="questionNo" value="${question.questionNo}">
 						
 					<div>

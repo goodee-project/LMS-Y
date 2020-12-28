@@ -15,18 +15,18 @@
 		FROM report r
 			INNER JOIN lecture l
 				ON r.lecture_no = l.lecture_no
-		WHERE l.account_id = #{accountId}
+		WHERE l.lecture_no = #{lectureNo}
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 과제 갯수 출력 쿼리 -->
-	<select id="selectReportCount" parameterType="String" resultType="int">
+	<select id="selectReportCount" parameterType="int" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM report r
 			INNER JOIN lecture l
 				ON r.lecture_no = l.lecture_no
-		WHERE l.account_id = #{accountId}
+		WHERE l.lecture_no = #{lectureNo}
 	</select>
 	
 	<!-- 단일 과제 정보 및 과제제출 리스트 출력 쿼리 및 VO에 조인 결과를 한번에 담기 위한 resultMap -->

@@ -30,9 +30,10 @@ public class ReportController {
 	// 리턴값: teacher/reportList.jsp 뷰 포워딩
 	@GetMapping("/teacher/reportList")
 	public String reportList(
+			@RequestParam("lectureNo") int lectureNo,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			HttpSession session, Model model) {
-		Map<String, Object> map = reportService.getReportList(currentPage, session);
+		Map<String, Object> map = reportService.getReportList(lectureNo, currentPage, session);
 		
 		// 과제 정보를 담은 리스트
 		model.addAttribute("list", map.get("infoList"));
@@ -66,7 +67,8 @@ public class ReportController {
 	// RequestParam: 
 	// 리턴값: teacher/createReport.jsp 뷰 포워딩
 	@GetMapping("/teacher/createReport")
-	public String createReport() {
+	public String createReport(
+			@RequestParam("lectureNo") int lectureNo) {
 		return "teacher/createReport";
 	}
 
@@ -77,7 +79,7 @@ public class ReportController {
 	public String createReport(Report report, HttpSession session) {
 		reportService.createReport(report, session);
 		
-		return "redirect:/teacher/reportList";
+		return "redirect:/teacher/reportList?lectureNo="+report.getLectureNo();
 	}
 
 	// 과제 수정 폼 호출

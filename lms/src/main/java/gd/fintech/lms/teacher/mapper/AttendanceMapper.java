@@ -1,6 +1,7 @@
 package gd.fintech.lms.teacher.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,9 +11,13 @@ import gd.fintech.lms.teacher.vo.Attendance;
 
 @Mapper
 public interface AttendanceMapper {
-	//출석에 필요한 학생 목록
+	//출석에 필요한 달력 메서드
+	//리턴값: 출석에 필요한 달력출력
+	List<Attendance> selectCalendarAttendanceList(Map<String, Object> map);
+	
+	//출석 학생목록 상세보기
 	//리턴값: 학생목록 출력
-	List<Attendance> selectStudentList();
+	List<Attendance> selectCalendarAttendanceListOne(Map<String,Object>map);
 	
 	//출석 입력
 	//매개변수:setter를 사용하여 attenaanceState 및 attendanceRemark 넣음

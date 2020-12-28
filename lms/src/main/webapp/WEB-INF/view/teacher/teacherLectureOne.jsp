@@ -29,6 +29,7 @@
 						<td>출석확인</td>
 						<td>자료실</td>
 						<td>공지사항</td>
+						<td>강의계획서</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,9 +40,13 @@
 						<td>${lecture.subject.subjectName}</td>
 						<td>${lecture.lectureStartDate}</td>
 						<td>${lecture.lectureEndDate}</td>
-						<td><a href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${lecture.lectureNo}">출석확인</a></td>
+						<td><a href="${pageContext.request.contextPath}/teacher/calendarAttendanceList?lectureNo=${lecture.lectureNo}&&currentYear=${currentYear}&&currentMonth=${currentMonth}">test</a></td>
+						<td>
+							<a href="${pageContext.request.contextPath}/teacher/calendarAttendanceListOne?lectureNo=${param.lectureNo}&&target=weekDay&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${i-(firstDayOfWeek+1)}">출석확인</a>
+						</td>
 						<td><a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lecture.lectureNo}&&currentPage=1">자료실</a></td>
 						<td><a href="${pageContext.request.contextPath}/teacher/lectureNotice?lectureNo=${lecture.lectureNo}&&currentPage=1">공지사항</a></td>
+						<td><a href="${pageContext.request.contextPath}/teacher/syllabusDetail">강의계획서</a></td>
 					</tr>
 				</tbody>
 			</table>

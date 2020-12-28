@@ -4,10 +4,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>내 정보 상세보기</title>
 	</head>
 	<body>
-			<!-- 부트스트랩(CSS) 인클루드 -->
+		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
 		<div class=container>

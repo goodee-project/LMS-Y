@@ -21,7 +21,7 @@ public interface LoginLogMapper {
 	int insertLoginLogByAccountId(LoginLog loginLog);
 	
 	// 로그아웃 정보(로그아웃시간)를 수정하는 메소드
-	// 매개변수: 로그인한 계정 ID
+	// 매개변수: 로그인한 세션 아이디
 	// 리턴값: 로그아웃시간을 수정한 행
-	int updateLogoutDateTimeByAccountId(String accountId);
+	int updateLogoutDateTimeByLoginId(String loginId);
 }

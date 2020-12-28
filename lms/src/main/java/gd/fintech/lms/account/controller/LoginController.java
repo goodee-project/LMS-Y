@@ -23,9 +23,9 @@ import gd.fintech.lms.AccountLevel;
 @Controller
 public class LoginController {
 	// MemberService 객체 주입
-	@Autowired AccountService accountService;
+	@Autowired private AccountService accountService;
 	// LoginLogService 객체 주입
-	@Autowired LoginLogService loginLogService;
+	@Autowired private LoginLogService loginLogService;
 	
 	// 처음 접속시 로그인을 위한 페이지로 이동하는 메소드
 	// 만약 세션에 계정이 등록되어 있는데 로그인 페이지로 접속시 해당 계정권한의 인덱스로 이동

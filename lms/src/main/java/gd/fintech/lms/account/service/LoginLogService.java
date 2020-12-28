@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import gd.fintech.lms.account.mapper.LoginLogMapper;
 import gd.fintech.lms.account.vo.LoginLog;
 
-@Service
+@Service("loginLogService")
 public class LoginLogService {
 	// LoginLogMapper 객체를 주입
-	@Autowired LoginLogMapper loginLogMapper;
+	@Autowired private LoginLogMapper loginLogMapper;
 	
 	// 로그인 정보를 조회하는 메소드
 	// 매개변수: 로그인 ID
@@ -28,9 +28,9 @@ public class LoginLogService {
 	}
 	
 	// 로그아웃 정보를 수정하는 메소드
-	// 매개변수: 로그인 ID
+	// 매개변수: 로그인한 세션 아이디
 	// 결과: 로그아웃 시간을 수정한 결과
-	public int modifyLogOutDateTimeByAccountId(String accountId) {
-		return loginLogMapper.updateLogoutDateTimeByAccountId(accountId);
+	public int modifyLogOutDateTimeByLoginId(String loginId) {
+		return loginLogMapper.updateLogoutDateTimeByLoginId(loginId);
 	}
 }

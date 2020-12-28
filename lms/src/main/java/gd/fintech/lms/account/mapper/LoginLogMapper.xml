@@ -26,9 +26,9 @@
 	</insert>
 	
 	<!-- 로그아웃 정보를 수정하는 쿼리 -->
-	<update id="updateLogoutDateTimeByAccountId" parameterType="String">
+	<update id="updateLogoutDateTimeByLoginId" parameterType="String">
 		UPDATE login_log
 		SET logout_datetime = NOW()
-		WHERE account_id = #{accountId}
+		WHERE login_id = #{loginId}
 	</update>
 </mapper>

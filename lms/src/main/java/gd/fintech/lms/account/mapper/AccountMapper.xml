@@ -6,7 +6,8 @@
 	<!-- 계정 정보(계정ID, 계정권한)를 조회하는 쿼리 -->
 	<select id="selectMemberById" parameterType="gd.fintech.lms.account.vo.Account" resultType="gd.fintech.lms.account.vo.Account">
 		SELECT 
-			account_id accountId, 
+			account_id accountId,
+			account_state accountState,
 			account_level accountLevel
 		FROM account
 		WHERE 

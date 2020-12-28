@@ -1,11 +1,9 @@
 package gd.fintech.lms;
 
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import gd.fintech.lms.account.service.LoginLogService;
 
@@ -15,8 +13,8 @@ import gd.fintech.lms.account.service.LoginLogService;
 @WebListener
 public class LoginLogListener implements HttpSessionListener{
 	// LoginLogService 객체 주입
-	@Autowired LoginLogService loginLogService;
-		
+	private LoginLogService loginLogService;
+
 	// 세션이 발생되는 시점에 호출되는 메소드
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {}
@@ -24,8 +22,8 @@ public class LoginLogListener implements HttpSessionListener{
 	// 세션이 사라지는 시점에 호출되는 메소드
 	@Override
 	public void sessionDestroyed(HttpSessionEvent se) {
-		System.out.println("세션 죽은 아이디값: " + se.getSession().getId());
-		//loginLogService.modifyLogOutDateTimeByAccountId(session.getId());
+		loginLogService = (LoginLogService)BeanUtils.getBean("loginLogService");
+		String loginId = se.getSession().getId();
+		loginLogService.modifyLogOutDateTimeByLoginId(loginId);
 	}
-
 }

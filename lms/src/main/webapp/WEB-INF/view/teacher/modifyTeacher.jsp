@@ -46,9 +46,10 @@
 				</tr>
 				<tr>
 					<td>강사 성별</td>
-					<td><input type="radio" name="teacherGender"
-						id="teacherGender" value="남">남 <input type="radio"
-						name="teacherGender" id="teacherGender" value="여">여</td>
+					<td>
+					<input type="radio" name="teacherGender" id="teacherGender" value="남" checked="checked">남 
+					<input type="radio" name="teacherGender" id="teacherGender" value="여" >여
+					</td>
 				</tr>
 				<tr>
 					<td>강사 생년월일</td>

@@ -3,6 +3,9 @@ package gd.fintech.lms.teacher.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,18 +28,27 @@ public class TeacherController {
 	private TeacherService teacherService;
 
 	// 강사 정보 상세보기 페이지로 이동하는 메서드
-	// 리턴값: 강사 아이디로 로그인시 세션에 있는 아이디를 참조하여 정보를 띄우는 뷰페이지
+	// 리턴값:강사 아이디로 로그인시 세션에 있는 아이디를 참조하여 정보를 띄우는 뷰페이지
 	@GetMapping("/teacher/teacherOne")
-	public String TeacherOne(Model model, 
-			@RequestParam(value = "accountId", required = false) String accountId) {
+	public String TeacherOne(Model model,HttpServletRequest request) {
+		
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
 		Teacher teacher = teacherService.getTeacherOne(accountId);
-		model.addAttribute("teacher", teacher);
+		model.addAttribute("accountId", accountId);
+		model.addAttribute("teacher",teacher);
 		return "/teacher/teacherOne";
 	}
 
 	// 강사정보 수정 폼으로 이동하는 메서드
 	@GetMapping("/teacher/modifyTeacher")
-	public String modifyTeacher(Model model, @RequestParam(value = "accountId") String accountId) {
+	public String modifyTeacher(Model model, HttpServletRequest request) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
 		Teacher teacher = teacherService.getTeacherOne(accountId);
 		model.addAttribute("teacher", teacher);
 		return "/teacher/modifyTeacher";
@@ -47,24 +59,6 @@ public class TeacherController {
 	public String modifyTeacher(Teacher teacher) {
 		teacherService.getTeacherUpdate(teacher);
 		return "/teacher/teacherOne";
-	}
-
-	// 주소 목록을 띄우는 페이지 메서드
-	@SuppressWarnings("unchecked")
-	@GetMapping("/teacher/addressOne")
-	public String addressOne(Model model,
-		@RequestParam(value="currentPage",required = false)int currentPage) {
-			
-		Map<String, Object> map = teacherService.getAddressListByPage(currentPage);
-		
-		List<Address> addressList = (List<Address>)map.get("addressList"); 
-		int lastPage = (int)map.get("lastPage");
-		
-		
-		model.addAttribute("addressList",addressList);
-		model.addAttribute("currentPage",currentPage);
-		model.addAttribute("lastPage",lastPage);
-		return "/teacher/addressOne";
 	}
 
 }

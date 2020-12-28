@@ -216,4 +216,70 @@ public class LectureArchiveService {
 		}
 		return true;
 	}
+	
+	//DTO를 받아와 해당  해당 자료실의 게시글을 수정
+	//매개변수:자료실 커맨드 객체(MultipartFile 포함 기능)
+	public boolean modifyLectureArchive(LectureArchiveForm lectureArchiveForm,HttpSession session) {
+		// lectureArchiveForm의 강좌 고유번호, 아이디, 작성자, 제목, 내용을 lectureArchive 객체에 넣어둠
+		LectureArchive lectureArchive = new LectureArchive();
+		lectureArchive.setLectureArchiveNo(lectureArchiveForm.getLectureArchiveNo());
+		lectureArchive.setLectureNo(lectureArchiveForm.getLectureNo());
+		lectureArchive.setAccountId(lectureArchiveForm.getAccountId());
+		lectureArchive.setLectureArchiveWriter(lectureArchiveForm.getLectureArchiveWriter());
+		lectureArchive.setLectureArchiveTitle(lectureArchiveForm.getLectureArchiveTitle());
+		lectureArchive.setLectureArchiveContent(lectureArchiveForm.getLectureArchiveContent());
+		// Mapper를 통해 lectureArchive의 내용을 수정
+		lectureArchiveMapper.updateLectureArchive(lectureArchive);
+		
+		//파일이 있을 경우 for문을 돌면서 MultipartFile을 VO로 변환 후 첨부파일 추가
+		if(lectureArchiveForm.getLectureArchiveFileList() !=null){
+			for(MultipartFile mf : lectureArchiveForm.getLectureArchiveFileList()) {
+				String fileNameUUID = UUID.randomUUID().toString().replaceAll("-", "");
+				
+				try {
+					//물리적 파일을 생성(하드디스크)
+					String fileName = FilePath.getFilePath()+fileNameUUID;
+					mf.transferTo(new File(fileName));
+					
+					logger.debug("파일 생성됨:"+fileName);
+				}catch(Exception e) {//해당 파일 생성 실패시
+					//원래 예외 메세지를 출력함.
+					e.printStackTrace();
+					
+					//Transactional 기능을 수행하는 Service 컴포넌트에게 예외 발생을 알려 작업 내역을 롤백하도록 유도함
+					throw new RuntimeException(e);
+				}
+				
+				LectureArchiveFile lectureArchiveFile = new LectureArchiveFile();
+				lectureArchiveFile.setLectureArchiveFileUUID(fileNameUUID);
+				lectureArchiveFile.setLectureArchiveFileOriginal(mf.getOriginalFilename());
+				lectureArchiveFile.setLectureArchiveNo(lectureArchive.getLectureArchiveNo()); // selectKey 이용, 위에 추가한 댓글의 고유번호를 가져와서 등록
+				lectureArchiveFile.setLectureArchiveFileSize(mf.getSize());
+				lectureArchiveFile.setLectureArchiveFileType(mf.getContentType());
+				lectureArchiveFileMapper.insertLectureArchiveFile(lectureArchiveFile);
+			}
+		}
+		return true;
+	}
+	
+	//UUID에 해당되는 첨부파일을 삭제
+	//매개변수:삭제할 첨부파일의 UUID
+	public void removeFile(String lectureArchiveFileUUID) {
+		//물리적 파일(하드디스크에 존재하는 파일)제거
+		String fileName = FilePath.getFilePath()+lectureArchiveFileUUID;
+		
+		//파일 경로, 이름지정
+		File file = new File(fileName);
+		//파일이 있는경우
+		if(file.exists()) {
+			file.delete();
+		}
+		lectureArchiveFileMapper.deleteLectureArchiveFile(lectureArchiveFileUUID);
+	}
+	
+	//파일 목록
+	public LectureArchiveFile getLectureArchiveFile(String lectureArchiveFileUUID){
+		
+		return lectureArchiveFileMapper.selectLectureArchiveFileList(lectureArchiveFileUUID);
+	}
 }

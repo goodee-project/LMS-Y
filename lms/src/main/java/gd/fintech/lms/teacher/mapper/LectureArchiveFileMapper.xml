@@ -4,6 +4,7 @@
 	<!-- 자료실 첨부파일 목록 -->
 	<select id="selectLectureArchiveFileList" parameterType="String" resultType="gd.fintech.lms.teacher.vo.LectureArchiveFile">
 		SELECT
+			lecture_archive_no lectureArchiveNo,
 			lecture_archive_file_uuid lectureArchiveFileUUID,
 			lecture_archive_file_original lectureArchiveFileOriginal,
 			lecture_archive_file_size lectureArchiveFileSize,
@@ -35,7 +36,7 @@
 	<!-- 자료실 첨부파일 삭제 -->
 	<delete id="deleteLectureArchiveFile" parameterType="String">
 		DELETE FROM lecture_archive_file
-		WHERE lecture_archive_no = #{archiveNo}
+		WHERE lecture_archive_file_uuid = #{lectureArchiveFileUUID}
 	</delete>
 	<!-- UUID에 해당되는 파일의 다운로드 횟수 1 증가 쿼리 -->
 	<update id="updateLectureArchiveFileCountIncrease" parameterType="String">

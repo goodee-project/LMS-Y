@@ -33,9 +33,13 @@ public class TeacherLectureController {
 	// 리턴값:강사 아이디 참조하여 정보를 띄우는 뷰페이지
 	@GetMapping("/teacher/teacherLecture")
 	public String teacherLecture(Model model,
-			@RequestParam(value="accountId")String accountId,
+			HttpServletRequest request,
 			@RequestParam(value = "currentPage") int currentPage) {
-
+		
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
 
 		List<Lecture> teacherLectureList = teacherLectureService.getTeacherLectureListByPage(accountId, currentPage);	
 		
@@ -43,7 +47,6 @@ public class TeacherLectureController {
 		model.addAttribute("accountId",accountId);
 		model.addAttribute("teacherLectureList", teacherLectureList);
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("accountId",accountId);
 		return "/teacher/teacherLecture";
 	}
 
@@ -51,14 +54,19 @@ public class TeacherLectureController {
 	// 매개변수:강좌 고유번호
 	// 리턴값:강좌 고유번호 참조하여 정보를 띄우는 뷰페이지
 	@GetMapping("/teacher/teacherLectureOne")
-	public String teacherLectureOne(Model model, 
+	public String teacherLectureOne(Model model,HttpServletRequest request, 
 			@RequestParam(value = "lectureNo",required = false) int lectureNo) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
 		// 강좌 정보 고유번호를 통해 DB정보를 가져옴
 		Lecture lecture = teacherLectureService.getTeacherLectureOne(lectureNo);
 		// Logger로 디버깅
 		logger.debug("lecture -->" + lecture);
-		// model을 이용해 뷰에 lecture 정보를 보냄
+		// model을 이용해 뷰에 정보를 보냄
 		model.addAttribute("lecture", lecture);
+		model.addAttribute("accountId",accountId);
 		return "/teacher/teacherLectureOne";
 	}
 

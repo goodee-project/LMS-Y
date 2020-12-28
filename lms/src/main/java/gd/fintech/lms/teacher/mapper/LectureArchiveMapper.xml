@@ -102,7 +102,7 @@
 	<!-- 자료실 삭제 -->
 	<delete id="deleteLectureArchive" parameterType="int">
 		DELETE FROM lecture_archive
-		WHERE lecture_archive_no = #{archiveNo}
+		WHERE lecture_archive_no = #{lectureArchiveNo}
 	</delete>
 	<!-- 자료실 조회수 카운트 -->
 	<update id="updateLectureArchiveCount" parameterType="gd.fintech.lms.teacher.vo.LectureArchive">

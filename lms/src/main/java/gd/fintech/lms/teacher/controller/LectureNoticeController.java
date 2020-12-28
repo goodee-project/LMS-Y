@@ -75,17 +75,17 @@ public class LectureNoticeController {
 		logger.debug(accountId+"<--- accountId");
 		
 		//조회수 증가
-		long update_time = 0;
+		long updateTime = 0;
 		//세션에 저장된 조회 시간 검색
-		if(session.getAttribute("update_time"+lectureNoticeNo) !=null) {
-			update_time = (long)session.getAttribute("update_time"+lectureNoticeNo);
+		if(session.getAttribute("updateTime"+lectureNoticeNo) !=null) {
+			updateTime = (long)session.getAttribute("updateTime"+lectureNoticeNo);
 		}
 		//시스템 현재시간
-		long current_time = System.currentTimeMillis();
-		if(current_time - update_time>24*60*601000) {
+		long currentTime = System.currentTimeMillis();
+		if(currentTime - updateTime>24*60*601000) {
 			//조회수 증가 코드
 			lectureNoticeService.increaseLectureNoticeCount(lectureNoticeNo);
-			session.setAttribute("update_time"+lectureNoticeNo, current_time);
+			session.setAttribute("updateTime"+lectureNoticeNo, currentTime);
 		}
 		// 모델로 뷰에 값 전달
 		model.addAttribute("lectureNotice", lectureNotice);

@@ -15,7 +15,6 @@ public interface LectureArchiveFileMapper {
 	//리턴값:파일 상세정보
 	LectureArchiveFile selectLectureArchiveFileList(String lectureArchiveFileUUID);
 	
-	
 	//자료실 첨부 입력(추가)
 	//매개변수:set을 이용한 첨부파일 추가
 	//리턴값:변경된 행 갯수
@@ -29,4 +28,6 @@ public interface LectureArchiveFileMapper {
 	//UUID에 해당하는 파일의 다운로드 횟수 1 증가
 	//매개변수:자료실의 등록된 첨부파일UUID
 	int updateLectureArchiveFileCountIncrease(String lectureArchiveFileUUID);
+	
+	
 }

@@ -35,15 +35,16 @@ public interface LectureArchiveMapper {
 	//리턴값:변경된 행의 갯수
 	int updateLectureArchive(LectureArchive lectureArchive);
 	
-	//자료실 삭제
-	//매개변수:삭제할 강좌 자료실 고유번호
-	//리턴값:변경된 행의 갯수
-	int deleteLectureArchive(int lectureArchiveNo);
-	
 	//자료실 조회수 카운트
 	//매개변수:강좌별 자료실 고유번호
 	//리턴값:변경된 행의 갯수
 	int updateLectureArchiveCount(int lectureArchiveNo);
 	
+	//현재 LMS 기능중 자료실 삭제는 필요하지 않다고 생각하여 구현하지 않았음.(수정에서 파일삭제 및 내용 수정만 가능하게 함.)
+	//추후 필요하면 추가 하겠음.
+	//자료실 삭제
+	//매개변수:삭제할 강좌 자료실 고유번호
+	//리턴값:변경된 행의 갯수
+	int deleteLectureArchive(int lectureArchiveNo);
 	
 }

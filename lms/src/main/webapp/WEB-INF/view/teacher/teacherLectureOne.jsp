@@ -39,7 +39,7 @@
 						<td>${lecture.subject.subjectName}</td>
 						<td>${lecture.lectureStartDate}</td>
 						<td>${lecture.lectureEndDate}</td>
-						<td><a href="${pageContext.request.contextPath}/#">출석확인</a></td>
+						<td><a href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${lecture.lectureNo}">출석확인</a></td>
 						<td><a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lecture.lectureNo}&&currentPage=1">자료실</a></td>
 						<td><a href="${pageContext.request.contextPath}/teacher/lectureNotice?lectureNo=${lecture.lectureNo}&&currentPage=1">공지사항</a></td>
 					</tr>

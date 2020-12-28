@@ -17,8 +17,7 @@
 	</div>
 	<div class="container">
 		<div align="right">
-			<a href="">수정</a>&nbsp;&nbsp;
-			<a href="">삭제</a>
+			<a href="${pageContext.request.contextPath}/teacher/modifyLectureArchive?lectureArchiveNo=${param.lectureArchiveNo}">수정</a>
 		</div>
 		<table class="table">
 			<tr>

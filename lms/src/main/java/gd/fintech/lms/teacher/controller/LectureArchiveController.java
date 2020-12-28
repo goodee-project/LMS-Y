@@ -25,6 +25,7 @@ import gd.fintech.lms.teacher.service.LectureNoticeService;
 import gd.fintech.lms.teacher.service.TeacherLectureService;
 import gd.fintech.lms.teacher.service.TeacherService;
 import gd.fintech.lms.teacher.vo.LectureArchive;
+import gd.fintech.lms.teacher.vo.LectureArchiveFile;
 import gd.fintech.lms.teacher.vo.LectureNotice;
 import gd.fintech.lms.teacher.vo.Teacher;
 
@@ -81,17 +82,17 @@ public class LectureArchiveController {
 		//로깅을 이용한 디버그
 		logger.debug(accountId+"<--- accountId");
 		//조회수 증가
-		long update_time = 0;
+		long updateTime = 0;
 		//세션에 저장된 조회 시간 검색
-		if(session.getAttribute("update_time"+lectureArchiveNo)!=null) {
-			update_time = (long)session.getAttribute("update_time"+lectureArchiveNo);
+		if(session.getAttribute("updateTime"+lectureArchiveNo)!=null) {
+			updateTime = (long)session.getAttribute("updateTime"+lectureArchiveNo);
 		}
 		//시스템 현재시간
-		long current_time = System.currentTimeMillis();
-		if(current_time - update_time>24*60*601000) {
+		long currentTime = System.currentTimeMillis();
+		if(currentTime - updateTime>24*60*601000) {
 			//조회수 증가 코드
 			lectureArchiveService.increaseLectureArchiveCount(lectureArchiveNo);
-			session.setAttribute("update_time"+lectureArchiveNo,current_time);
+			session.setAttribute("updateTime"+lectureArchiveNo,currentTime);
 		}
 		//모델로 뷰에 값 전달
 		model.addAttribute("lectureArchive",lectureArchive);
@@ -116,7 +117,7 @@ public class LectureArchiveController {
 	
 	//강좌별 자료실 입력 액션 메서드
 	//매개변수:lectureArchiveForm,HttpSession
-	//리턴값:
+	//리턴값: /teacher/lectureArchive 리다이렉트
 	@PostMapping("/teacher/createLectureArchive")
 	public String createLectureArchive(LectureArchiveForm lectureArchiveForm,LectureNotice lectureNotice,HttpSession session) {
 		lectureArchiveService.createLectureArchive(lectureArchiveForm, session);
@@ -124,7 +125,7 @@ public class LectureArchiveController {
 		
 	}
 	
-	//강좌별 자료실 첨부파일 다운로드
+	//강좌별 자료실 첨부파일 다운로드 메서드
 	//매개변수: RequestParam: questionCommentFileUUID(파일 UUID) HttpServletRequest, HttpServletResponse
 	//리턴값: 파일 다운로드
 	@GetMapping("/teacher/downloadLectureArchiveFile")
@@ -132,5 +133,41 @@ public class LectureArchiveController {
 			@RequestParam("lectureArchiveFileUUID")String lectureArchiveFileUUID,
 			HttpServletRequest request,HttpServletResponse response) {
 		lectureArchiveService.downloadLectureArchiveFile(lectureArchiveFileUUID, request, response);
+	}
+	
+	//강좌별 자료실 수정 폼 메서드
+	//매개변수:RequestParam: 강좌별 자료실 고유번호,Model
+	//리턴값:/teacher/modifyLectureArchive
+	@GetMapping("/teacher/modifyLectureArchive")
+	public String modifyLectureArchive(Model model,HttpSession session,
+			@RequestParam("lectureArchiveNo")int lectureArchiveNo) {
+		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo);
+		// 세션에 있는 아이디를 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		// 세션에 있는 아이디를 참조하여 teacherService의 getTeacherOne의 정보를 가져옴
+		Teacher teacher = teacherService.getTeacherOne(accountId);
+		logger.debug("teacher",teacher);
+		model.addAttribute("teacher",teacher);
+		model.addAttribute("lectureArchive",lectureArchive);
+		return "/teacher/modifyLectureArchive";
+	}
+	
+	//강좌별 자료실 수정 액션 메서드
+	//매개변수:lectureArchiveForm(커맨드객체),HttpSession(작성자 인증용 세션 객체)
+	@PostMapping("/teacher/modifyLectureArchive")
+	public String modifyLectureArchive(LectureArchiveForm lectureArchiveForm,HttpSession session) {
+		lectureArchiveService.modifyLectureArchive(lectureArchiveForm, session);
+		
+		return "redirect:/teacher/lectureArchiveOne?lectureArchiveNo="+lectureArchiveForm.getLectureArchiveNo();
+	}
+	
+	//자료삭제
+	@GetMapping("/teacher/removeLectureArchiveFile")
+	public String removeLectureArchiveFile(Model model,
+			@RequestParam("lectureArchiveFileUUID")String lectureArchiveFileUUID) {
+		LectureArchiveFile lectureArchiveFile = lectureArchiveService.getLectureArchiveFile(lectureArchiveFileUUID);
+		System.out.println("자료삭제 디버그그그그그극->"+lectureArchiveFile);
+		lectureArchiveService.removeFile(lectureArchiveFileUUID);
+		return "redirect:/teacher/modifyLectureArchive?lectureArchiveNo="+lectureArchiveFile.getLectureArchiveNo();
 	}
 }

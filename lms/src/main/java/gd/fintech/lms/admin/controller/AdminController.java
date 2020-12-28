@@ -2,6 +2,9 @@ package gd.fintech.lms.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +35,12 @@ public class AdminController {
 	// #2. accountId(아이디)
 	// 리턴값: adminDetail(관리자 정보를 출력하는 페이지)
 	@GetMapping("/admin/adminDetail")
-	public String adminDetail(Model model, @RequestParam(value = "accountId") String accountId) {
-		logger.debug(accountId.toString());
+	public String adminDetail(Model model, HttpServletRequest request) {
+		// 세션정보를 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		String accountId = (String)session.getAttribute("accountId");
 		Admin adminDetail = accountService.getAdminOne(accountId);
-		logger.debug(adminDetail.toString());
+		model.addAttribute("accountId", accountId);
 		model.addAttribute("adminDetail", adminDetail);
 		
 		return "/admin/adminDetail";

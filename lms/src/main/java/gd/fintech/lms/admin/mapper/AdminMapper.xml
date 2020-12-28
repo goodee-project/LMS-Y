@@ -6,10 +6,10 @@
 	<!-- 관리자의 개인정보를 출력하는 쿼리문 -->
 	<select id="selectAdmin" parameterType="String" resultType="gd.fintech.lms.admin.vo.Admin">
 		SELECT
-			account_id,
-			admin_email,
-			admin_phone,
-			admin_name
+			account_id accountId,
+			admin_email adminEmail,
+			admin_phone adminPhone,
+			admin_name adminName
 		FROM admin
 		WHERE account_id = #{accountId}
 	</select>

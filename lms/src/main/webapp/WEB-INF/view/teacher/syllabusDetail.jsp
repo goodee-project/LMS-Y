@@ -29,13 +29,13 @@
 				<table border="1">
 					<tr>
 						<td>강사 서명</td>
-						<td>${syllabus.syllabusTeacherSign}</td>
-						<td>${syllabus.syllabusTeacherSignDate}</td>
+						<td>${syllabusDetail.syllabusTeacherSign}</td>
+						<td>${syllabusDetail.syllabusTeacherSignDate}</td>
 					</tr>
 					<tr>
 						<td>운영자 서명</td>
-						<td>${syllabus.syllabusManagerSign}</td>
-						<td>${syllabus.syllabusManagerSignDate}</td>
+						<td>${syllabusDetail.syllabusManagerSign}</td>
+						<td>${syllabusDetail.syllabusManagerSignDate}</td>
 					</tr>
 				</table>
 			</div>
@@ -45,11 +45,11 @@
 				<table border="1">
 					<tr>
 						<td>작성일자</td>
-						<td>${syllabus.syllabusCreateDate}</td>
+						<td>${syllabusDetail.syllabusCreateDate}</td>
 					</tr>
 					<tr>
 						<td>수정일자</td>
-						<td>${syllabus.syllabusUpdateDate}</td>
+						<td>${syllabusDetail.syllabusUpdateDate}</td>
 					</tr>
 				</table>
 			</div>
@@ -57,19 +57,19 @@
 			<!-- 수정, 서명 버튼 -->
 			<div>
 				<!-- 강사에게 표시되는 항목 -->
-				<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabus.syllabusNo}">
-					수정
+				<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
+					[수정]
 				</a>
 				<c:if test="${accountLevel == 2}">
-					<a href="${pageContext.request.contextPath}/teacher/singSyllabusByTeacher?syllabusNo=${syllabus.syllabusNo}">
-						서명하기
+					<a href="${pageContext.request.contextPath}/teacher/singSyllabusByTeacher?syllabusNo=${syllabusDetail.syllabusNo}">
+						[서명]
 					</a>
 				</c:if>
 				
 				<!-- 운영자에게 표시되는 항목 -->
 				<c:if test="${accountLevel == 3}">
-					<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabus.syllabusNo}">
-						서명하기
+					<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
+						[서명]
 					</a>
 				</c:if>
 			</div>
@@ -79,7 +79,7 @@
 				<table>
 					<tr>
 						<td>
-							${syllabus.content}
+							${syllabusDetail.syllabusContent}
 						<td>
 					</tr>				
 				</table>

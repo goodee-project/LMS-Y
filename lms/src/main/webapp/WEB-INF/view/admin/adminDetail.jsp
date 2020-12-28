@@ -29,19 +29,19 @@
 				<table border="1">
 					<tr>
 						<td>아이디</td>
-						<td>${admin.accountId}</td>
+						<td>${adminDetail.accountId}</td>
 					</tr>
 					<tr>
 						<td>Email</td>
-						<td>${admin.adminEmail}</td>
+						<td>${adminDetail.adminEmail}</td>
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td>${admin.adminPhone}</td>
+						<td>${adminDetail.adminPhone}</td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td>${admin.adminName}</td>
+						<td>${adminDetail.adminName}</td>
 					</tr>
 				</table>
 			</div>

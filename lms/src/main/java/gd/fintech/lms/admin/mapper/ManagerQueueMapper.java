@@ -14,7 +14,7 @@ public interface ManagerQueueMapper {
 	// 회원가입 승인대기 중인 운영자의 개인정보의 일부를 페이징하여 리스트로 출력
 	// 매개변수: Map.put()을 사용하여 페이징 변수 beginRow(해당 페이지), rowPerPage(페이지에 표시할 항목수)
 	// 리턴값: 회원가입 승인대기 중인 운영자의 개인정보의 일부 리스트
-	List<ManagerQueue> selectManagerQueueList(Map<String, Integer> map);
+	List<ManagerQueue> selectManagerQueueList(Map<String, Object> map);
 	
 	// 회원가입 승인대기 중인 운영자 개인정보 리스트의 페이징을 위해 총 항목수 출력
 	// 매개변수: 없음

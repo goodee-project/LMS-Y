@@ -2,11 +2,7 @@ package gd.fintech.lms.teacher.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import gd.fintech.lms.manager.vo.Manager;
 import gd.fintech.lms.teacher.vo.Syllabus;
-import gd.fintech.lms.teacher.vo.Teacher;
-
-
 
 // 강의계획서를 작성 및 수정, 강의계획서 승인과 출력을 하는 Mapper
 
@@ -30,7 +26,7 @@ public interface SyllabusMapper {
 	// 강사 이름을 출력
 	// 매개변수: accountId(아이디)
 	// 리턴값: 아이디에 해당하는 강사 이름
-	Teacher selectTeacherName(String accountId);
+	String selectTeacherName(String accountId);
 	
 	// 강사가 강의계획서에 서명
 	// 매개변수: 서명할 강의계획서 고유번호
@@ -40,7 +36,7 @@ public interface SyllabusMapper {
 	// 운영자 이름을 출력
 	// 매개변수: accountId(아이디)
 	// 리턴값: 아이디에 해당하는 운영자 이름
-	Manager selectManagerName(String accountId);
+	String selectManagerName(String accountId);
 	
 	// 운영자가 강의계획서에 서명
 	// 매개변수: 서명할 강의계획서 고유번호

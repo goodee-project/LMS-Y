@@ -40,7 +40,7 @@
 							<tr>
 								<td>${managerQueueList.accountId}</td>
 								<td>
-									<a href="${pageContext.request.contextPath}/admin/managerQueueDetail?accountId=${mql.accountId}">
+									<a href="${pageContext.request.contextPath}/admin/managerQueueDetail?accountId=${managerQueueList.accountId}">
 										${managerQueueList.managerName}
 									</a>
 								</td>
@@ -54,79 +54,45 @@
 			
 			<!-- 페이지 네비게이션 바 -->
 			<div>
-				<!-- 처음버튼 -->
-				<c:choose>
-					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=1">
-							[처음]
-						</a>
-					</c:when>
-					<c:otherwise>
-						<a href="#">
-							[처음]
-						</a>
-					</c:otherwise>
-				</c:choose>
-				
-				<!-- 이전버튼 -->
-				<c:choose>
-					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${currnetPage - 1}">
-							[이전]
-						</a>
-					</c:when>
-					<c:otherwise>
-						<a href="#">
-							[이전]
-						</a>
-					</c:otherwise>
-				</c:choose>
-				
-				<!-- 현재 페이지 표시 -->
-				<c:forEach var="i" begin="${navFirstPage}" end="${navLastPage}">
-					<c:if test="${i <= lastPage}">
-						<c:choose>
-							<c:when test="${i == currentPage}">
-								<a href="#">
-									[${i}]
-								</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${i}">
-									[${i}]
-								</a>
-							</c:otherwise>
-						</c:choose>
+				<ul class="pagination small">
+					<%-- 이전 버튼 --%>
+					<c:if test="${pageNaviBegin != 1}">
+						<li class="page-item">
+							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviBegin-1}">이전</a>
+						</li>
 					</c:if>
-				</c:forEach>
-				
-				<!-- 다음버튼 -->
-				<c:choose>
-					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${currnetPage + 1}">
-							[다음]
-						</a>
-					</c:when>
-					<c:otherwise>
-						<a href="#">
-							[다음]
-						</a>
-					</c:otherwise>
-				</c:choose>
-				
-				<!-- 마지막 버튼 -->
-				<c:choose>
-					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/admin/managerQueueList?currentPage=${lastPage}">
-							[마지막]
-						</a>
-					</c:when>
-					<c:otherwise>
-						<a href="#">
-							[마지막]
-						</a>
-					</c:otherwise>
-				</c:choose>
+					<c:if test="${pageNaviBegin == 1}">
+						<li class="page-item disabled">
+							<a class="page-link">이전</a>
+						</li>
+					</c:if>
+					
+					<%-- 각 페이지 이동 버튼 --%>
+					<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
+						<c:if test="${p != currentPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+							</li>
+						</c:if>
+						<c:if test="${p == currentPage}">
+							<li class="page-item active">
+								<a class="page-link">${p}</a>
+							</li>
+						</c:if>
+					</c:forEach>
+					
+					<%-- 다음 버튼 --%>
+					<c:if test="${pageNaviEnd != lastPage}">
+						<li class="page-item">
+							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviEnd+1}">다음</a>
+						</li>
+					</c:if>
+					<c:if test="${pageNaviEnd == lastPage}">
+						<li class="page-item disabled">
+							<a class="page-link">다음</a>
+						</li>
+					</c:if>
+				</ul>
 			</div>
 		</div>
 	</body>

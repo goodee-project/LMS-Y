@@ -14,7 +14,7 @@ public interface TextbookMapper {
 	// 교재 정보의 일부를 페이징하여 리스트로 출력
 	// 매개변수: Map.put()을 사용하여 페이징 변수 beginRow(해당 페이지), rowPerPage(페이지에 표시할 항목수)
 	// 리턴값: 교재 정보 리스트
-	List<Textbook> selectTextbookList(Map<String, Integer> map);
+	List<Textbook> selectTextbookList(Map<String, Object> map);
 	
 	// 교재 정보 리스트의 페이징을 위해 총 항목수 출력
 	// 매개변수: 없음

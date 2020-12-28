@@ -1,6 +1,6 @@
 package gd.fintech.lms.manager.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,46 +32,17 @@ public class TextbookContoller {
 	// 페이지 표시 네비게이션 바 출력
 	@GetMapping("/manager/textbookList")
 	public String textbookList(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
-		// 한 페이지에 보여줄 항목수 15개
-		int rowPerPage = 15;
-		// 총 항목수
-		int totalCount = textbookService.getTextbookCount();
-		// 마지막 페이지
-		int lastPage = totalCount / rowPerPage;
-		// 페이지 네비게이션 바에 표시할 페이지 수
-		int navPerPage = 10;
-		// 페이지 네비게이션 바의 첫번째 페이지
-		int navFirstPage = currentPage - (currentPage % navPerPage) + 1;
-		// 페이지 네비게이션 바의 마지막 페이지
-		int navLastPage = (navFirstPage + navPerPage) - 1;
-				
-		List<Textbook> textbookList = textbookService.getTextbookList(currentPage, rowPerPage);
-		logger.debug(textbookList.toString());
+		Map<String, Object> map = textbookService.getTextbookList(currentPage);
 		
-		// 한 페이지에 보여줄 항목수 미만의 항목이 남을 경우 마지막 페이지를 한 페이지 추가
-		if (totalCount % rowPerPage != 0) {
-			lastPage += 1;
-		}
+		// 교재 목록
+		model.addAttribute("textbookList", map.get("textbookList"));
 		
-		// 만약 마지막 페이지가 0이라면 현재 페이지도 0이 됨
-		if (lastPage == 0) {
-			currentPage = 0;
-		}
-		
-		// 만약 현재 페이지 나누기 네비게이션 바의 페이지의 나머지가 0이거나 현재 페이지가 0이 아니라면
-		// 네비게이션 바의 첫 페이지는 네비게이션 바의 첫 페이지에서 네비게이션 바에 표시할 페이지 수 뺀 값이 됨
-		// 네비게이션 바의 마지막 페이지는 네비게이션 바의 마지막 페이지에서 네비게이션 바에 표시할 페이지 수를 뺸 값이 됨
-		if (currentPage % navPerPage == 0 && currentPage != 0) {
-			navFirstPage = navFirstPage - navPerPage;
-			navLastPage = navLastPage - navPerPage;
-		}
-		
-		model.addAttribute("textbookList", textbookList);
+		// 페이지 관련 값
 		model.addAttribute("currentPage", currentPage);
-		model.addAttribute("lastPage", lastPage);
-		model.addAttribute("navPerPage", navPerPage);
-		model.addAttribute("navFirstPage", navFirstPage);
-		model.addAttribute("navLastPage", navLastPage);
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("pageNaviSize", map.get("pageNaviSize"));
+		model.addAttribute("pageNaviBegin", map.get("pageNaviBegin"));
+		model.addAttribute("pageNaviEnd", map.get("pageNaviEnd"));
 		
 		return "/manager/textbookList";
 	}

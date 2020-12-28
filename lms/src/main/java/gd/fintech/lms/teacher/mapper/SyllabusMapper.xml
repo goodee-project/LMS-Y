@@ -45,7 +45,7 @@
 	</update>
 	
 	<!-- 강사의 이름을 출력하는 쿼리문 -->
-	<select id="selectTeacherName" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Syllabus">
+	<select id="selectTeacherName" parameterType="String" resultType="String">
 		SELECT
 			teacher_name syllabusTeacherSign
 		FROM teacher
@@ -62,7 +62,7 @@
 	</update>
 	
 	<!-- 운영자의 이름을 출력하는 쿼리문 -->
-	<select id="selectManagerName" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Syllabus">
+	<select id="selectManagerName" parameterType="String" resultType="String">
 		SELECT
 			manager_name syllabusManagerSign
 		FROM manager

@@ -30,28 +30,55 @@ public class AdminService {
 	@Autowired private AccountMapper accountMapper;
 	
 	// 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력하는 메소드
-	// 매개변수:
-	// #1. currentPage(현재 페이지)
-	// #2. rowPerPage(페이지 당 표시할 항목수)
+	// 매개변수: currentPage(현재 페이지)
 	// 리턴값: 회원가입 승인대기 중인 운영자의 목록
-	public List<ManagerQueue> getManagerQueueList(int currentPage, int rowPerPage) {
+	public Map<String, Object> getManagerQueueList(int currentPage) {
+		// 한 페이지에 보여줄 항목수 15개
+		int rowPerPage = 15;
 		// 해당 페이지에 표시한 항목
 		int beginRow = (currentPage - 1) * rowPerPage;
+		// 총 항목수
+		int totalCount = managerQueueMapper.selectManagerQueueCount();
+		// 마지막 페이지
+		int lastPage = totalCount / rowPerPage;
+		// 페이지 네비게이션 바에 표시할 페이지 수
+		int pageNaviSize = 10;
+		// 페이지 네비게이션 바의 첫번째 값
+		int pageNaviBegin = (currentPage - 1) / pageNaviSize * pageNaviSize + 1;
+		// 페이지 네비게이션 바의 마지막 값
+		int pageNaviEnd = (pageNaviBegin + pageNaviSize) - 1;
 		
-		// Map의 객체 생성 후 값(beginRow, rowPerPage) 저장
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage", rowPerPage);
+		// 한 페이지에 보여줄 항목수 미만의 항목이 남을 경우 마지막 페이지를 한 페이지 추가
+		if (totalCount % rowPerPage != 0) {
+			lastPage += 1;
+		}
 		
-		List<ManagerQueue> managerQueueList = managerQueueMapper.selectManagerQueueList(map);
-		return managerQueueList;
-	}
-	
-	// 회원가입 승인대기 중인 운영자 목록을 페이징 하기 위해 총 항목수를 출력하는 메소드
-	// 매개변수: 없음
-	// 리턴값: 회원가입 승인대기 중인 운영자 총 항목수
-	public int getManagerQueueCount() {
-		return managerQueueMapper.selectManagerQueueCount();
+		// 만약 마지막 페이지가 0이라면 현재 페이지도 0이 됨
+		if (lastPage == 0) {
+			currentPage = 0;
+		}
+		
+		// 만약 네비게이션 바의 마지막 값이 마지막 페이지보다 크다면 네비게이션 바의 마지막 값은 마지막 페이지가 됨
+		if (pageNaviEnd > lastPage) {
+			pageNaviEnd = lastPage;
+		}
+		
+		// 리턴값 저장
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("lastPage", lastPage);
+		returnMap.put("pageNaviSize", pageNaviSize);
+		returnMap.put("pageNaviBegin", pageNaviBegin);
+		returnMap.put("pageNaviEnd", pageNaviEnd);
+		
+		// 파라미터값 저장
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("rowPerPage", rowPerPage);
+		paramMap.put("beginRow", beginRow);
+		
+		List<ManagerQueue> managerQueueList = managerQueueMapper.selectManagerQueueList(paramMap);
+		returnMap.put("managerQueueList", managerQueueList);
+		
+		return returnMap;
 	}
 	
 	// 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 메소드

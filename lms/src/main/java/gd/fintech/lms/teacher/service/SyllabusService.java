@@ -26,6 +26,8 @@ public class SyllabusService {
 	}
 	
 	// 강사가 강의계획서를 작성하는 메소드
+	// 매개변수:
+	// 리턴값: 
 	public void createSyllabus(Syllabus syllabus) {
 		logger.debug(syllabus.toString());
 		syllabusMapper.insertSyllabus(syllabus);
@@ -37,13 +39,25 @@ public class SyllabusService {
 		syllabusMapper.updateSyllabus(syllabus);
 	}
 	
+	// 강사 이름을 출력하는 메소드
+	public String getTeacherName(String accountId) {
+		String syllabusTeacherSign = syllabusMapper.selectTeacherName(accountId);
+		return syllabusTeacherSign;
+	}
+	
 	// 강사가 강의계획서에 서명하는 메소드
-	public void signSyllabusByTeacher(int syllabusNo) {
-		syllabusMapper.updateSyllabusTeacherSign(syllabusNo);
+	public void signSyllabusByTeacher(int syllabusNo, String syllabusTeacherSign) {
+		syllabusMapper.updateSyllabusTeacherSign(syllabusNo, syllabusTeacherSign);
+	}
+	
+	// 운영자 이름을 출력하는 메소드
+	public String getManagerName(String accountId) {
+		String syllabusManagerSign = syllabusMapper.selectManagerName(accountId);
+		return syllabusManagerSign;
 	}
 	
 	// 운영자가 강의계획서에 서명하는 메소드
-	public void signSyllabusByManager(int syllabusNo) {
-		syllabusMapper.updateSyllabusManagerSign(syllabusNo);
+	public void signSyllabusByManager(int syllabusNo, String syllabusManagerSign) {
+		syllabusMapper.updateSyllabusManagerSign(syllabusNo, syllabusManagerSign);
 	}
 }

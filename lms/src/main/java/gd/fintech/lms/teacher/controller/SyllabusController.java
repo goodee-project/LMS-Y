@@ -1,5 +1,8 @@
 package gd.fintech.lms.teacher.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +29,7 @@ public class SyllabusController {
 	// #1. model
 	// #2. syllabusNo(강의계획서)
 	// 리턴값: syllabusDetail(고유번호에 해당하는 강의계획서 페이지)
-	@GetMapping("/teacher/syllabusDetail")
+	@GetMapping(value = {"/teacher/syllabusDetail", "/manager/syllabusDetail"})
 	public String syllabusDetail(Model model, @RequestParam(value = "syllabusNo") int syllabusNo) {
 		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(syllabusNo);
 		model.addAttribute("syllabusDetail", syllabusDetail);
@@ -87,8 +90,13 @@ public class SyllabusController {
 	// 강사가 강의계획서에 서명
 	// 서명한 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서 페이지로 이동)
 	@GetMapping("/teacher/signSyllabusByTeacher")
-	public String signSyllabusByTeacher(@RequestParam(value = "syllabusNo") int syllabusNo) {
-		syllabusService.signSyllabusByTeacher(syllabusNo);
+	public String signSyllabusByTeacher(Model model,
+			@RequestParam(value = "syllabusNo") int syllabusNo,
+			HttpServletRequest request) {
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		String accountId = (String)session.getAttribute("accountId");
+		String syllabusTeacherSign = syllabusService.getTeacherName(accountId);
+		syllabusService.signSyllabusByTeacher(syllabusNo, syllabusTeacherSign);
 		
 		return "redirect:/teacher/SyllabusDetail?syllabusNo=" + syllabusNo;
 	}
@@ -99,8 +107,13 @@ public class SyllabusController {
 	// 운영자가 강의계획서에 서명
 	// 서명한 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서 페이지로 이동)
 	@GetMapping("/manager/signSyllabusByManager")
-	public String signSyllabusByManager(@RequestParam(value = "syllabusNo") int syllabusNo) {
-		syllabusService.signSyllabusByManager(syllabusNo);
+	public String signSyllabusByManager(Model model,
+			@RequestParam(value = "syllabusNo") int syllabusNo,
+			HttpServletRequest request) {
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		String accountId = (String)session.getAttribute("accountId");
+		String syllabusManagerSign = syllabusService.getManagerName(accountId);
+		syllabusService.signSyllabusByManager(syllabusNo, syllabusManagerSign);
 		
 		return "redirect:/teacher/SyllabusDetail?syllabusNo=" + syllabusNo;
 	}

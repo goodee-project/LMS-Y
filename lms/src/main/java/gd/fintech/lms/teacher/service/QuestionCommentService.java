@@ -137,7 +137,7 @@ public class QuestionCommentService {
 	// DTO를 받아와 해당 질문게시판 게시글의 댓글을 생성
 	// 매개변수: 
 	// #1: 질문게시판 댓글 커맨드 객체 (MultipartFile 포함 가능)
-	// #2: 현재 로그인한 사용자를 검증하기 위한 세션 객체
+	// #2: 로그인한 사용자가 올바른 접근을 했는지 검증하기 위한 세션 객체
 	public boolean createQuestionComment(QuestionCommentForm questionCommentForm, HttpSession session) {
 		// 현재 로그인한 사용자의 정보
 		String sessionAccountId = (String)session.getAttribute("accountId");
@@ -210,7 +210,9 @@ public class QuestionCommentService {
 	}
 	
 	// DTO를 받아와 해당 질문게시판 게시글의 댓글을 수정
-	// 매개변수: 질문게시판 댓글 커맨드 객체 (MultipartFile 포함 가능)
+	// 매개변수: 
+	// #1: 질문게시판 댓글 커맨드 객체 (MultipartFile 포함 가능)
+	// #2: 로그인한 사용자가 올바른 접근을 했는지 검증하기 위한 세션 객체
 	public boolean modifyQuestionComment(QuestionCommentForm questionCommentForm, HttpSession session) {
 		// 현재 로그인한 사용자의 정보
 		String sessionAccountId = (String)session.getAttribute("accountId");

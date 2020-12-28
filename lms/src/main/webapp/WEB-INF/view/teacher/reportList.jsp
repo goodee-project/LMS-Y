@@ -19,6 +19,7 @@
 			<h1>과제 목록</h1>
 			
 			<div>
+				<a href="${pageContext.request.contextPath}/teacher/createReport">과제 생성</a>
 				<table class="table table-sm">
 					<thead>
 						<tr>
@@ -47,6 +48,14 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
+					<c:if test="${p == param.currentPage}">
+						<a href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+					</c:if>
+					<c:if test="${p != param.currentPage}">
+						<a href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</body>

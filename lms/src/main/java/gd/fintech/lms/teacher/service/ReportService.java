@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.FilePath;
+import gd.fintech.lms.manager.mapper.LectureManagerMapper;
+import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.student.vo.ReportSubmit;
 import gd.fintech.lms.student.vo.ReportSubmitFile;
 import gd.fintech.lms.teacher.mapper.ReportMapper;
@@ -37,6 +39,9 @@ public class ReportService {
 	// 과제 출제 및 과제 평가 관리를 위한 매퍼
 	@Autowired private ReportMapper reportMapper;
 	
+	// 검증 및 변수를 가져오는 데 사용하는 매퍼
+	@Autowired private LectureManagerMapper lectureManagerMapper;
+	
 	// 과제제출 첨부파일 다운로드 관련 작업에 사용되는 매퍼
 	//@Autowired private ReportSubmitFileMapper reportSubmitFileMapper;
 	
@@ -45,20 +50,39 @@ public class ReportService {
 	// #1: 표시할 페이지 번호
 	// #2: 현재 로그인한 사용자의 정보가 담긴 세션 객체
 	// 리턴값: 등록된 과제 리스트
-	public List<Map<String, Object>> getReportList(int currentPage, HttpSession session) {
+	public Map<String, Object> getReportList(int currentPage, HttpSession session) {
 		// 현재 로그인한 사용자의 정보
 		String sessionAccountId = (String)session.getAttribute("accountId");
 		
 		// 리턴값으로 보낼 리스트 생성
-		List<Map<String, Object>> returnList = new ArrayList<>();
+		Map<String, Object> returnMap = new HashMap<>();
 		
-		// rowPerPage 및 beginRow 설정
+		// rowPerPage 및 beginRow 계산
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
-
+		
+		// 페이지 네비게이션용 값 연산
+		int lastPage = reportMapper.selectReportCount(sessionAccountId)/rowPerPage;
+		if (reportMapper.selectReportCount(sessionAccountId)%rowPerPage != 0) {
+			lastPage += 1;
+		}
+		
+		int pageNaviBegin = (currentPage-1)/rowPerPage*rowPerPage+1;	// 페이지의 첫번째 값을 구한 후(rowPerPage가 10일 경우 0~9->0, 10~19->10, 20~29->20)후 1을 더해줌(1, 11, 21, ...)
+		int pageNaviEnd = pageNaviBegin+rowPerPage-1;					// pageNaviBegin도 페이지 네비에 포함되므로 -1을 하여 딱 rowPerPage개의 페이지 네비 리스트가 보이도록 설정함
+		if (pageNaviEnd > lastPage) {
+			pageNaviEnd = lastPage;
+		}
+		
+		returnMap.put("pageNaviBegin", pageNaviBegin);
+		returnMap.put("pageNaviEnd", pageNaviEnd);
+		returnMap.put("lastPage", lastPage);
+		
 		// 테스트용 코드
 		logger.debug("계산된 시작 행: "+beginRow);
 		logger.debug("페이지당 보여줄 행 갯수: "+rowPerPage);
+		logger.debug("페이지 네비게이션 시작값: "+pageNaviBegin);
+		logger.debug("페이지 네비게이션 종료값: "+pageNaviEnd);
+		logger.debug("총 페이지 갯수: "+lastPage);
 		
 		// ReportList를 가져오기 위한 파라미터 설정
 		Map<String, Object> paramMap = new HashMap<>();
@@ -66,17 +90,18 @@ public class ReportService {
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
 		
-		// ReportList를 가져오고, Report별로 ReportSubmit 갯수를 첨부해서 Map의 List를 리턴함
-		List<Report> list = reportMapper.selectReportList(paramMap);
-		for (Report report : list) {
-			Map<String, Object> map = new HashMap<>();
-			map.put("report", report);
-			map.put("reportSubmitCount", reportMapper.selectReportSubmitCount(report.getReportNo()));
+		// ReportList를 가져오고, Report별로 ReportSubmit 갯수를 첨부해서 info(정보)의 List를 리턴함
+		List<Map<String, Object>> infoList = new ArrayList<>();
+		for (Report report : reportMapper.selectReportList(paramMap)) {
+			Map<String, Object> info = new HashMap<>();
+			info.put("report", report);
+			info.put("reportSubmitCount", reportMapper.selectReportSubmitCount(report.getReportNo()));
 			
-			returnList.add(map);
+			infoList.add(info);
 		}
+		returnMap.put("infoList", infoList);
 		
-		return returnList;
+		return returnMap;
 	}
 	
 	// 해당 과제에 대한 상세 정보 출력 (제출된 과제 포함)
@@ -87,15 +112,67 @@ public class ReportService {
 	}
 	
 	// 과제 생성
-	// 매개변수: 과제 객체, setter를 사용해 추가할 정보 lectureNo, reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
-	public void createReport(Report report) {
+	// 매개변수:
+	// #1: 과제 객체, setter를 사용해 추가할 정보 lectureNo, reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
+	// #2: 로그인한 사용자가 올바른 접근을 했는지 검증하기 위한 세션 객체
+	public boolean createReport(Report report, HttpSession session) {
+		// 현재 로그인한 사용자의 정보
+		String sessionAccountId = (String)session.getAttribute("accountId");
+		
+		logger.debug("로그인 사용자 ID: "+sessionAccountId);
+		
+		// 검증 및 검사를 위한 객체
+		List<Lecture> lectureList = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
+		
+		logger.debug("강사가 관리하는 강좌: "+lectureList);
+		
+		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
+		boolean isCorrectTeacher = false;
+		for (Lecture l : lectureList) {
+			if (l.getLectureNo() == report.getLectureNo()) {
+				isCorrectTeacher = true;
+			}
+		}
+		
+		logger.debug("강사의 해당 강좌 관리 가능 여부: "+isCorrectTeacher);
+		if (!isCorrectTeacher) {
+			return false;
+		}
+		
 		reportMapper.insertReport(report);
+		return true;
 	}
 	
 	// 과제 수정
-	// 매개변수: 과제 객체, setter를 사용해 변경할 행 고유번호 reportNo, 변경할 정보 reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
-	public void modifyReport(Report report) {
+	// 매개변수: 
+	// #1: 과제 객체, setter를 사용해 변경할 행 고유번호 reportNo, 변경할 정보 reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
+	// #2: 로그인한 사용자가 올바른 접근을 했는지 검증하기 위한 세션 객체
+	public boolean modifyReport(Report report, HttpSession session) {
+		// 현재 로그인한 사용자의 정보
+		String sessionAccountId = (String)session.getAttribute("accountId");
+		
+		logger.debug("로그인 사용자 ID: "+sessionAccountId);
+		
+		// 검증 및 검사를 위한 객체
+		List<Lecture> lectureList = lectureManagerMapper.selectTeacherLectureDetail(sessionAccountId);
+		
+		logger.debug("강사가 관리하는 강좌: "+lectureList);
+		
+		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
+		boolean isCorrectTeacher = false;
+		for (Lecture l : lectureList) {
+			if (l.getLectureNo() == report.getLectureNo()) {
+				isCorrectTeacher = true;
+			}
+		}
+		
+		logger.debug("강사의 해당 강좌 관리 가능 여부: "+isCorrectTeacher);
+		if (!isCorrectTeacher) {
+			return false;
+		}
+		
 		reportMapper.updateReport(report);
+		return true;
 	}
 	
 	// 학생이 제출한 과제 평가

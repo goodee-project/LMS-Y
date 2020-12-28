@@ -1,6 +1,5 @@
 package gd.fintech.lms.teacher.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.teacher.service.ReportService;
@@ -32,9 +32,12 @@ public class ReportController {
 	public String reportList(
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			HttpSession session, Model model) {
-		List<Map<String, Object>> list = reportService.getReportList(currentPage, session);
+		Map<String, Object> map = reportService.getReportList(currentPage, session);
 		
-		model.addAttribute("list", list);
+		model.addAttribute("list", map.get("infoList"));
+		model.addAttribute("pageNaviBegin", map.get("pageNaviBegin"));
+		model.addAttribute("pageNaviEnd", map.get("pageNaviEnd"));
+		model.addAttribute("lastPage", map.get("lastPage"));
 		return "teacher/reportList";
 	}
 	
@@ -51,6 +54,49 @@ public class ReportController {
 		
 		model.addAttribute("report", report);
 		return "teacher/reportDetail";
+	}
+	
+	// 과제 생성 폼 호출
+	// 매개변수:
+	// RequestParam: 
+	// 리턴값: teacher/createReport.jsp 뷰 포워딩
+	@GetMapping("/teacher/createReport")
+	public String createReport() {
+		return "teacher/createReport";
+	}
+
+	// 과제 생성
+	// 매개변수: Report(커맨드 객체), HttpSession(작성자 인증용 세션 객체)
+	// 리턴값: /teacher/reportList 리다이렉트
+	@PostMapping("/teacher/createReport")
+	public String createReport(Report report, HttpSession session) {
+		reportService.createReport(report, session);
+		
+		return "redirect:/teacher/reportList";
+	}
+
+	// 과제 수정 폼 호출
+	// 매개변수:
+	// RequestParam: reportNo(수정할 과제의 고유번호), Model
+	// 리턴값: teacher/modifyReport.jsp 뷰 포워딩
+	@GetMapping("/teacher/modifyReport")
+	public String modifyReport(
+			@RequestParam("reportNo") int reportNo,
+			Model model) {
+		Report report = reportService.getReportDetail(reportNo);
+		
+		model.addAttribute("report", report);
+		return "teacher/modifyReport";
+	}
+
+	// 과제 수정
+	// 매개변수: Report(커맨드 객체), HttpSession(작성자 인증용 세션 객체)
+	// 리턴값: /teacher/reportDetail 리다이렉트
+	@PostMapping("/teacher/modifyReport")
+	public String modifyReport(Report report, HttpSession session) {
+		reportService.modifyReport(report, session);
+		
+		return "redirect:/teacher/reportDetail?reportNo="+report.getReportNo();
 	}
 	
 	// 제출된 과제의 첨부파일 다운로드

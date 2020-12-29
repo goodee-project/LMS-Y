@@ -25,7 +25,7 @@ public interface ReportSubmitMapper {
 	// 과제제출에 관한 내용
 	// 매개변수 : 과제제출 번호
 	// 리턴값 : 과제제출내용만 가져옴
-	ReportSubmit selectReportSubmitDetail(int reportSubmitNo);
+	ReportSubmit selectReportSubmitOne(int reportSubmitNo);
 	
 	// 과제제출 입력
 	// 매개변수 : 과제제출 정보(과제제출번호, 과제번호, 계정 id, 입력날짜, 수정날짜, 제목, 내용)

@@ -83,7 +83,7 @@
 			AND rs.account_id = #{accountId}
 	</select>
 	<!-- 과제제출한 정보만 가져오기 -->
-	<select id="selectReportSubmitDetail" parameterType="int" resultType="gd.fintech.lms.student.vo.ReportSubmit">
+	<select id="selectReportSubmitOne" parameterType="int" resultType="gd.fintech.lms.student.vo.ReportSubmit">
 		SELECT 
 			report_submit_no reportSubmitNo,
 			report_no reportNo,

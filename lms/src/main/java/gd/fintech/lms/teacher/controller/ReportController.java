@@ -91,6 +91,8 @@ public class ReportController {
 			@RequestParam("reportNo") int reportNo,
 			Model model) {
 		Report report = reportService.getReportDetail(reportNo);
+		report.setReportStartDate(report.getReportStartDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
+		report.setReportEndDate(report.getReportEndDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
 		
 		model.addAttribute("report", report);
 		return "teacher/modifyReport";

@@ -113,7 +113,7 @@
 						<div id="questionCommentFileFrame"></div>
 					</div>
 					<div>
-						<button id="submitQuestionCommentForm" type="button">작성</button>
+						<button id="submitQuestionCommentForm" type="button">수정</button>
 					</div>
 				</form>
 			</div>

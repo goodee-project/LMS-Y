@@ -19,6 +19,7 @@
 			<h1>과제 상세정보</h1>
 			
 			<div>
+				<a href="${pageContext.request.contextPath}/teacher/modifyReport?reportNo=${report.reportNo}">과제 수정</a>
 				<div>
 					과제 고유번호: ${report.reportNo}
 				</div>

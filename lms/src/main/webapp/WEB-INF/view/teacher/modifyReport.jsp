@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>과제 생성</title>
+		<title>과제 수정</title>
 		
 		<!-- jQuery 스크립트 -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,6 +14,14 @@
 		
 		<script>
 			$(document).ready(function() {
+				// 현재 과제가 시작된 상태거나 과제가 종료된 상태라면, 날짜를 변경할 수 없도록 막음
+				if (new Date($('#reportStartDate').val()) <= new Date()) {
+					$('#reportStartDate').prop("disabled", true);
+				}
+				if (new Date($('#reportEndDate').val()) <= new Date()) {
+					$('#reportEndDate').prop("disabled", true);
+				}
+				
 				// 작성 버튼 클릭 시 유효성 검사 실시
 				$('#submitReportForm').click(function() {
 					// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
@@ -67,27 +75,27 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>과제 생성</h1>
+			<h1>과제 수정</h1>
 			
 			<div>
 				<form id="reportForm" method="POST" action="${pageContext.request.pathInfo}">
-					<input type="hidden" name="lectureNo" value="${param.lectureNo}">
+					<input type="hidden" name="lectureNo" value="${report.lectureNo}">
 					
 					<div>
-						과제 제목: <input id="reportTitle" type="text" name="reportTitle">
+						과제 제목: <input id="reportTitle" type="text" name="reportTitle" value="${report.reportTitle}">
 					</div>
 					<div>
-						과제 내용: <textarea id="reportContent" name="reportContent" style="width: 100%"></textarea>
+						과제 내용: <textarea id="reportContent" name="reportContent" style="width: 100%">${report.reportContent}</textarea>
 					</div>
 					<div>
-						과제 시작일: <input id="reportStartDate" type="date" name="reportStartDate">
+						과제 시작일: <input id="reportStartDate" type="date" name="reportStartDate" value="${report.reportStartDate}">
 					</div>
 					<div>
-						과제 종료일: <input id="reportEndDate" type="date" name="reportEndDate">
+						과제 종료일: <input id="reportEndDate" type="date" name="reportEndDate" value="${report.reportEndDate}">
 					</div>
 					
 					<div>
-						<button id="submitReportForm" type="button">생성</button>
+						<button id="submitReportForm" type="button">수정</button>
 					</div>
 				</form>
 			</div>

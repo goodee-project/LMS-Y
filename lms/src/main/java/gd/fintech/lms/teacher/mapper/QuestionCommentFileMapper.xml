@@ -42,7 +42,7 @@
 	</insert>
 	
 	<!-- 질문게시판 댓글의 첨부파일 삭제 쿼리 -->
-	<delete id="deleteQuestionCommentFile" parameterType="int">
+	<delete id="deleteQuestionCommentFile" parameterType="String">
 		DELETE FROM question_comment_file
 		WHERE question_comment_file_uuid = #{questionCommentFileUUID}
 	</delete>

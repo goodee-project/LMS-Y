@@ -65,6 +65,8 @@
 					과제제출 내용: ${reportSubmit.reportSubmitContent}
 				</div>
 				<c:forEach var="rsf" items="${reportSubmit.reportSubmitFileList}">
+					<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
+					<c:if test="${rsf.reportSubmitFileSize > 0}">
 					<div>
 						<a href="${pageContext.request.contextPath}/teacher/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
 							${rsf.reportSubmitFileOriginal}
@@ -74,6 +76,7 @@
 						${rsf.reportSubmitFileCount}회 다운로드,
 						${rsf.reportSubmitFileCreateDate}
 					</div>
+					</c:if>
 				</c:forEach>
 				
 				<form id="reportEvaluateForm" method="post" action="${pageContext.request.pathInfo}">

@@ -4,7 +4,10 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,8 +133,33 @@ public class ReportService {
 	// 해당 과제에 대한 상세 정보 출력 (제출된 과제 포함)
 	// 매개변수: 과제 고유번호
 	// 리턴값: 제출된 과제를 포함한 과제 상세정보
-	public Report getReportDetail(int reportNo) {
-		return reportMapper.selectReportDetail(reportNo);
+	public Map<String, Object> getReportDetail(int reportNo) {
+		Report report = reportMapper.selectReportDetail(reportNo);
+		boolean isEvaluatable = true; // 과제 평가 기간인지 확인하는 용도의 변수
+		
+		// 과제 평가 기간 내에 속해있는지 확인하기 위해 Date타입으로 현재 날짜와 report에 기입된 날짜를 변환
+		// 변환 도중 예외 발생 시 스택트레이싱 후 Transactional 애노테이션에게 예외 발생을 알림
+		try {
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			
+			Date currentDate = Calendar.getInstance().getTime();
+			
+			
+			if (fmt.parse(report.getReportStartDate()).getTime() > currentDate.getTime()
+			 || fmt.parse(report.getReportEndDate()).getTime() < currentDate.getTime()) {
+				// 과제 평가 기간이 아닐 경우 false로 플래그를 변경
+				isEvaluatable = false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("report", report);
+		map.put("isEvaluatable", isEvaluatable);
+		
+		return map;
 	}
 	
 	// 평가의 기준으로 참고할 학생의 과제제출 내용 및 파일 출력

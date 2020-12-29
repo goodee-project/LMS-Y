@@ -14,6 +14,19 @@
 		
 		<script>
 			$(document).ready(function() {
+				// 첨부파일 삭제버튼에 대한 이벤트 처리를 등록함
+				$('.removeQuestionCommentFile').click(function(event) {
+					$.ajax({
+						url: $(event.target).prop('href'),
+						method: 'get',
+						success: function() {
+							$(event.target).parent().remove();
+						}
+					});
+					
+					return false;
+				});
+				
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
 				$('#createQuestionCommentFile').click(function() {
 					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
@@ -106,6 +119,21 @@
 					</div>
 					<div>
 						첨부파일:
+						<c:forEach var="qcf" items="${map.questionComment.questionCommentFileList}">
+							<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
+							<c:if test="${qcf.questionCommentFileSize > 0}">
+								<div>
+									<a href="${pageContext.request.contextPath}/teacher/downloadQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
+										${qcf.questionCommentFileOriginal}
+									</a>
+									${qcf.questionCommentFileSize}B, 
+									${qcf.questionCommentFileType},
+									${qcf.questionCommentFileCount}회 다운로드,
+									${qcf.questionCommentFileCreateDate}
+									<a class="removeQuestionCommentFile" href="${pageContext.request.contextPath}/teacher/removeQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">삭제</a>
+								</div>
+							</c:if>
+						</c:forEach>
 						<div>
 							<button id="createQuestionCommentFile" type="button">추가</button>
 						</div>

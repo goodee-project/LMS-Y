@@ -280,7 +280,7 @@ public class QuestionCommentService {
 	
 	// UUID에 해당하는 첨부파일을 삭제
 	// 매개변수: 삭제할 첨부파일의 UUID
-	public void removeQuestionCommentFile(int questionCommentFileUUID) {
+	public void removeQuestionCommentFile(String questionCommentFileUUID) {
 		// 물리적 파일(하드디스크에 존재하는 파일) 제거
 		String fileName = FilePath.getFilePath()+questionCommentFileUUID;
 		File file = new File(fileName);

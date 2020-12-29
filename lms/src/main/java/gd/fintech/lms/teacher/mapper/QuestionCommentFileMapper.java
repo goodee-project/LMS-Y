@@ -27,5 +27,5 @@ public interface QuestionCommentFileMapper {
 	// 질문에 대한 댓글의 첨부파일 삭제
 	// 매개변수: 삭제할 첨부파일의 UUID
 	// 리턴값: 변경된 행 갯수
-	int deleteQuestionCommentFile(int questionCommentFileUUID);
+	int deleteQuestionCommentFile(String questionCommentFileUUID);
 }

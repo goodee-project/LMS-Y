@@ -57,9 +57,10 @@ public class ReportController {
 	public String reportDetail(
 			@RequestParam("reportNo") int reportNo,
 			Model model) {
-		Report report = reportService.getReportDetail(reportNo);
+		Map<String, Object> map = reportService.getReportDetail(reportNo);
 		
-		model.addAttribute("report", report);
+		model.addAttribute("report", map.get("report"));
+		model.addAttribute("isEvaluatable", map.get("isEvaluatable"));
 		return "teacher/reportDetail";
 	}
 	
@@ -91,7 +92,9 @@ public class ReportController {
 	public String modifyReport(
 			@RequestParam("reportNo") int reportNo,
 			Model model) {
-		Report report = reportService.getReportDetail(reportNo);
+		Map<String, Object> map = reportService.getReportDetail(reportNo);
+		
+		Report report = (Report)map.get("report");
 		report.setReportStartDate(report.getReportStartDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
 		report.setReportEndDate(report.getReportEndDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
 		

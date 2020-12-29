@@ -65,15 +65,18 @@
 						과제제출 내용: ${rs.reportSubmitContent}
 					</div>
 					<c:forEach var="rsf" items="${rs.reportSubmitFileList}">
-						<div>
-							<a href="${pageContext.request.contextPath}/teacher/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
-								${rsf.reportSubmitFileOriginal}
-							</a>
-							${rsf.reportSubmitFileSize}B,
-							${rsf.reportSubmitFileType},
-							${rsf.reportSubmitFileCount}회 다운로드,
-							${rsf.reportSubmitFileCreateDate}
-						</div>
+						<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
+						<c:if test="${rsf.reportSubmitFileSize > 0}">
+							<div>
+								<a href="${pageContext.request.contextPath}/teacher/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
+									${rsf.reportSubmitFileOriginal}
+								</a>
+								${rsf.reportSubmitFileSize}B,
+								${rsf.reportSubmitFileType},
+								${rsf.reportSubmitFileCount}회 다운로드,
+								${rsf.reportSubmitFileCreateDate}
+							</div>
+						</c:if>
 					</c:forEach>
 					<div>
 						과제제출 점수: ${rs.reportSubmitScore}
@@ -81,7 +84,9 @@
 					<div>
 						과제제출 피드백: ${rs.reportSubmitFeedback}
 					</div>
-					<a href="${pageContext.request.contextPath}/teacher/evaluateReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 평가</a>
+					<c:if test="${isEvaluatable == true}">
+						<a href="${pageContext.request.contextPath}/teacher/evaluateReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 평가</a>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>

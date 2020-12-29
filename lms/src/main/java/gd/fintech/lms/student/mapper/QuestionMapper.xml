@@ -21,14 +21,43 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
-	<select id="selectQuestionCount" resultType="String">
+	<!-- 해당 학생 질문의 리스트 -->
+	<select id="selectStudentQuestionListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.Question">
+		SELECT
+			question_no questionNo,
+			Lecture_no lectureNo,
+			account_id accountId,
+			question_writer questionWriter,
+			question_title questionTitle,
+			question_content questionContent,
+			question_createdate questionCreateDate,
+			question_updatedate questionUpdateDate,
+			question_count questionCount,
+			question_password questionPassword
+		FROM
+			question
+		WHERE question_no=#{questionNo}
+		ORDER BY account_id DESC
+		LIMIT #{beginRow},#{rowPerPage}
+	</select>
+	
+	
+	<!-- 학생들의 전체 질문 갯수 -->
+	<select id="selectQuestionCount" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM question
+		WHERE question_no=#{questionNo}
+	</select>
+	
+	<!-- 해당 학생의 질문 갯수 -->
+	<select id="studentQuestionCount" resultType="String">
 		SELECT 
 			COUNT(*) 
 		FROM question
 		WHERE account_id=#{accountId}
-		
 	</select>
+	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>

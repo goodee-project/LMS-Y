@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.TeacherQueueMapper">
 	<!-- 강사 승인대기 리스트-->
-	<select id="selectTeacherQueueList" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
+	<select id="selectTeacherQueueListByPage" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
 		SELECT
 			account_id accountId,
 			teacher_name teacherName,
 			teacher_email teacherEmail, 
 			teacher_phone teacherPhone
 		FROM teacher_queue
+		<where>
+			<if test="teacherName != null">
+				student_name LIKE CONCAT('%', #{teacherName}, '%')
+			</if>
+		</where>
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 강사 승인대기 상세보기 -->
 	<select id="selectTeacherQueueDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.TeacherQueue">
@@ -24,7 +30,16 @@
 		FROM teacher_queue
 		WHERE account_id = #{accountId}
 	</select>
-	
+		<!-- 학생 승인대기 인원 수 카운트 -->
+	<select id="selectTeacherQueueCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM teacher_queue
+		<where>
+			<if test="teacherName != null">
+				student_name LIKE CONCAT('%', #{teacherName}, '%')
+			</if>
+		</where>
+	</select>
 	<!-- 강사 승인대기 정보 입력 -->
 	<insert id="insertTeacherQueue" parameterType="gd.fintech.lms.manager.vo.TeacherQueue">
 		INSERT INTO teacher_queue(

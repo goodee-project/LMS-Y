@@ -12,7 +12,7 @@ import gd.fintech.lms.manager.vo.LMSNotice;
 @Mapper
 public interface LMSNoticeMapper {
 	// 공지사항 리스트 페이지
-	// 매개변수 : 시작row와 가져올 row의 갯수를 map으로 가져옴
+	// 매개변수 : 시작row와 가져올 row의 갯수, 검색어를 map으로 가져옴
 	// 리턴값 : lms공지사항정보의 리스트
 	List<LMSNotice> selectLMSNoticeListByPage(Map<String, Object> map);
 	
@@ -21,7 +21,8 @@ public interface LMSNoticeMapper {
 	// 리턴값 : lms공지사항정보로 출력
 	LMSNotice selectLMSNoticeDetail(int lmsNoticeNo);
 	
-	// 공지사항 게시물 개수 
+	// 공지사항 게시물 개수
+	// 매개변수 : 검색어
 	// 리턴값 : 공지사항 게시물 개수
 	int selectLMSNoticeCount(String lmsNoticeSearch);
 

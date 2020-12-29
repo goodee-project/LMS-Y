@@ -1,6 +1,6 @@
 package gd.fintech.lms.manager.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,14 +22,30 @@ public class QueueController {
 	@Autowired private QueueService queueService;
 	
 	// 학생 승인대기 리스트 출력
-	// 매개변수 : Model
+	// 매개변수 : 
+	// Model
+	// RequestParam : 
+	// currentPage(현재 페이지)
+	// studentName(학생 이름)
 	// 리턴값 : 학생 승인대기 리스트 
 	@GetMapping("/manager/studentQueueList")
-	public String studentQueueList(Model model) {
-		List<StudentQueue> studentQueueList = queueService.getStudentQueueList();
-		logger.debug(studentQueueList.toString());
-		model.addAttribute("studentQueueList", studentQueueList);
-		return "studentQueueList";
+	public String studentQueueList(Model model,
+			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="studentName", required = false) String studentName) {
+		Map<String, Object> map = queueService.getStudentQueueListByPage(currentPage, studentName);
+		
+		logger.debug(map.toString());
+		
+		model.addAttribute("studentQueueList", map.get("studentQueueList"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("studentName", studentName);
+		
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		
+		return "/manager/studentQueueList";
 	}
 	
 	// 학생 승인대기 상세내용 출력
@@ -43,7 +59,7 @@ public class QueueController {
 		StudentQueue studentQueueDetail = queueService.getStudentQueueDetail(accountId);
 		logger.debug(studentQueueDetail.toString());
 		model.addAttribute("studentQueueDetail", studentQueueDetail);
-		return "studentQueueDetail";
+		return "/manager/studentQueueDetail";
 	}
 	
 	// 학생 승인
@@ -71,10 +87,8 @@ public class QueueController {
 	// 리턴값 : 강사 승인대기 리스트 
 	@GetMapping("/manager/teacherQueueList")
 	public String teacherQueueList(Model model) {
-		List<TeacherQueue> teacherQueueList = queueService.getTeacherQueueList();
-		logger.debug(teacherQueueList.toString());
-		model.addAttribute("teacherQueueList", teacherQueueList);
-		return "teacherQueueList";
+
+		return "/manager/teacherQueueList";
 	}
 	
 	// 강사 승인대기 상세내용 출력
@@ -88,7 +102,7 @@ public class QueueController {
 		TeacherQueue teacherQueueDetail = queueService.getTeacherQueueDetail(accountId);
 		logger.debug(teacherQueueDetail.toString());
 		model.addAttribute("teacherQueueDetail", teacherQueueDetail);
-		return "teacherQueueDetail";
+		return "/manager/teacherQueueDetail";
 	}
 	
 	// 강사 승인

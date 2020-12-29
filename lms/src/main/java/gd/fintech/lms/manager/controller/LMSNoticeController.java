@@ -29,7 +29,9 @@ public class LMSNoticeController {
 	// lms 공지사항 리스트 출력
 	// 매개변수 :
 	// Model
-	// RequestParam : currentPage(현재 페이지)
+	// RequestParam : 
+	// currentPage(현재 페이지)
+	// lmsNoticeSearch(공지사항 검색어)
 	// 리턴값 : 공지사항 리스트
 	@GetMapping(value={
 			"/student/lmsNoticeList", 
@@ -49,9 +51,11 @@ public class LMSNoticeController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("lmsNoticeSearch", lmsNoticeSearch);
+		
 		model.addAttribute("navPerPage", map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
+		
 		model.addAttribute("accountLevel", session.getAttribute("accountLevel"));
 		model.addAttribute("accountId", session.getAttribute("accountId"));
 		model.addAttribute("managerLevel", AccountLevel.MANAGER.getValue());

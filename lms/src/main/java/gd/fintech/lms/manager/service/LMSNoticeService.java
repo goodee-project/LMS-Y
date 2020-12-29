@@ -27,7 +27,7 @@ public class LMSNoticeService {
 	@Autowired private LMSNoticeMapper lmsNoticeMapper;
 	
 	// LMS공지사항의 리스트를 보여주는 페이징 서비스
-	// 매개변수 : 현재 페이지
+	// 매개변수 : 현재 페이지, 검색어
 	// 리턴값 : 현재 페이지의 공지사항 리스트
 	public Map<String, Object> getLMSNoticeListByPage(int currentPage, String lmsNoticeSearch) {
 		// 페이지 당 보여줄 게시물 수 
@@ -50,12 +50,9 @@ public class LMSNoticeService {
 		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
 		// 네비바 마지막 페이지
 		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
 		if (navLastPage > lastPage) {
 			navLastPage = lastPage;
-		}
-		if(currentPage % navPerPage == 0 && currentPage != 0) {
-			navBeginPage = navBeginPage - navPerPage;
-			navLastPage = navLastPage - navPerPage;
 		}
 		
 		Map<String, Object> pageMap = new HashMap<>();
@@ -65,14 +62,14 @@ public class LMSNoticeService {
 		List<LMSNotice> lmsNoticeList = lmsNoticeMapper.selectLMSNoticeListByPage(pageMap);
 		logger.debug(lmsNoticeList.toString());
 		
-		Map<String, Object> noticeMap = new HashMap<>();
-		noticeMap.put("lmsNoticeList", lmsNoticeList);
-		noticeMap.put("lastPage", lastPage);
-		noticeMap.put("navPerPage", navPerPage);
-		noticeMap.put("navBeginPage", navBeginPage);
-		noticeMap.put("navLastPage", navLastPage);
+		Map<String, Object> map = new HashMap<>();
+		map.put("lmsNoticeList", lmsNoticeList);
+		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
 		
-		return noticeMap;
+		return map;
 	}
 	
 	// LMS공지사항의 상세보기를 보여주는 서비스

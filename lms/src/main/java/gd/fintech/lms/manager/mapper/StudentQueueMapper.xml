@@ -2,13 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.StudentQueueMapper">
 	<!-- 학생 승인대기 리스트-->
-	<select id="selectStudentQueueList" resultType="gd.fintech.lms.manager.vo.StudentQueue">
+	<select id="selectStudentQueueListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.StudentQueue">
 		SELECT
 			account_id accountId,
 			student_name studentName,
 			student_email studentEmail, 
 			student_phone studentPhone
 		FROM student_queue
+		<where>
+			<if test="studentName != null">
+				student_name LIKE CONCAT('%', #{studentName}, '%')
+			</if>
+		</where>
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 학생 승인대기 상세보기 -->
 	<select id="selectStudentQueueDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.StudentQueue">
@@ -24,7 +30,16 @@
 		FROM student_queue
 		WHERE account_id = #{accountId}
 	</select>
-	
+	<!-- 학생 승인대기 인원 수 카운트 -->
+	<select id="selectStudentQueueCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM student_queue
+		<where>
+			<if test="studentName != null">
+				student_name LIKE CONCAT('%', #{studentName}, '%')
+			</if>
+		</where>
+	</select>
 	<!-- 학생 승인대기 정보 입력 -->
 	<insert id="insertStudentQueue" parameterType="gd.fintech.lms.manager.vo.StudentQueue">
 		INSERT INTO student_queue(

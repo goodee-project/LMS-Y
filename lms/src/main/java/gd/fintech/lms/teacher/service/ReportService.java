@@ -23,8 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.manager.mapper.LectureManagerMapper;
 import gd.fintech.lms.manager.vo.Lecture;
+import gd.fintech.lms.student.mapper.ReportSubmitFileMapper;
+import gd.fintech.lms.student.mapper.ReportSubmitMapper;
 import gd.fintech.lms.student.vo.ReportSubmit;
-import gd.fintech.lms.student.vo.ReportSubmitFile;
 import gd.fintech.lms.teacher.mapper.ReportMapper;
 import gd.fintech.lms.teacher.vo.Report;
 
@@ -39,11 +40,14 @@ public class ReportService {
 	// 과제 출제 및 과제 평가 관리를 위한 매퍼
 	@Autowired private ReportMapper reportMapper;
 	
+	// 과제 평가 관리를 위한 매퍼
+	@Autowired private ReportSubmitMapper reportSubmitMapper;
+	
 	// 검증 및 변수를 가져오는 데 사용하는 매퍼
 	@Autowired private LectureManagerMapper lectureManagerMapper;
 	
 	// 과제제출 첨부파일 다운로드 관련 작업에 사용되는 매퍼
-	//@Autowired private ReportSubmitFileMapper reportSubmitFileMapper;
+	@Autowired private ReportSubmitFileMapper reportSubmitFileMapper;
 	
 	// 해당 강좌에 등록된 과제 리스트를 출력 (currentPage 페이지의 내용 10개만 보여줌)
 	// 매개변수:
@@ -128,6 +132,20 @@ public class ReportService {
 	// 리턴값: 제출된 과제를 포함한 과제 상세정보
 	public Report getReportDetail(int reportNo) {
 		return reportMapper.selectReportDetail(reportNo);
+	}
+	
+	// 평가의 기준으로 참고할 학생의 과제제출 내용 및 파일 출력
+	// 매개변수: 과제제출 고유변호
+	// 리턴값: 과제제출 객체
+	public ReportSubmit getReportSubmitDetail(int reportSubmitNo) {
+		return reportSubmitMapper.selectReportSubmitOne(reportSubmitNo);
+	}
+	
+	// 과제제출 고유번호를 이용해 과제 번호 출력
+	// 매개변수: 과제제출 고유변호
+	// 리턴값: 과제제출을 등록한 과제의 고유번호
+	public int getReportNoByReportSubmitNo(int reportSubmitNo) {
+		return reportMapper.selectReportNoByReportSubmitNo(reportSubmitNo);
 	}
 	
 	// 과제 생성
@@ -222,9 +240,7 @@ public class ReportService {
 			bis = new BufferedInputStream(fis);
 			
 			// 파일타입 및 원본 파일명을 받아오고, 브라우저별로 파일 이름이 제대로 인식되도록 처리함
-			ReportSubmitFile reportSubmitFile = new ReportSubmitFile(); //reportSubmitFileMapper.selectReportSubmitFileDetail(reportSubmitFileUUID);
-			String fileContentType = reportSubmitFile.getReportSubmitFileType();
-			String originalFileName = reportSubmitFile.getReportSubmitFileOriginal();
+			String originalFileName = reportSubmitFileMapper.selectReportSubmitFileOriginalName(reportSubmitFileUUID);
 			if (request.getHeader("user-agent").indexOf("MSIE") != -1 || request.getHeader("user-agent").indexOf("Trident") != -1) {
 				originalFileName = URLEncoder.encode(originalFileName, "UTF-8").replaceAll("\\+", "%20");
 			} else {
@@ -232,7 +248,6 @@ public class ReportService {
 			}
 			
 			// MIME 타입을 설정하고 첨부파일 형태로, 파일명은 originalFileName으로 설정함
-			response.setContentType(fileContentType);
 			response.setContentLength((int)file.length());
 			response.setHeader("Content-Disposition", "attachment;filename=\""+originalFileName+"\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
@@ -247,7 +262,7 @@ public class ReportService {
 			}
 			
 			// 파일 다운로드 횟수를 1 증가시킴
-			//reportSubmitFileMapper.updateQuestionCommentFileCountIncrease(reportSubmitFileUUID);
+			reportSubmitFileMapper.updateReportSubmitFileCountOfDownload(reportSubmitFileUUID);
 		} catch (Exception e) { // 파일 다운로드 실패 시
 			// 원래 예외 메세지를 출력함
 			e.printStackTrace();

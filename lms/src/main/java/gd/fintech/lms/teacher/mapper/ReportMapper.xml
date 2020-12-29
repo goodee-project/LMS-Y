@@ -98,6 +98,14 @@
 		WHERE report_no = #{reportNo}
 	</select>
 	
+	<!-- 과제제출 고유번호를 이용해 과제 고유번호 출력 쿼리 -->
+	<select id="selectReportNoByReportSubmitNo" parameterType="int" resultType="int">
+		SELECT
+			report_no reportNo
+		FROM report_submit
+		WHERE report_submit_no = #{reportSubmitNo}
+	</select>
+	
 	<!-- 과제 생성 쿼리 -->
 	<insert id="insertReport" parameterType="gd.fintech.lms.teacher.vo.Report">
 		INSERT INTO report (

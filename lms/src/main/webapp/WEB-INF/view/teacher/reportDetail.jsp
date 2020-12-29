@@ -45,6 +45,7 @@
 					과제 종료일: ${report.reportEndDate}
 				</div>
 				<c:forEach var="rs" items="${report.reportSubmitList}">
+					<hr>
 					<div>
 						과제제출 고유번호: ${rs.reportSubmitNo}
 					</div>
@@ -80,6 +81,7 @@
 					<div>
 						과제제출 피드백: ${rs.reportSubmitFeedback}
 					</div>
+					<a href="${pageContext.request.contextPath}/teacher/evaluateReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 평가</a>
 				</c:forEach>
 			</div>
 		</div>

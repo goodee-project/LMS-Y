@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.student.vo.ReportSubmit;
 import gd.fintech.lms.teacher.service.ReportService;
 import gd.fintech.lms.teacher.vo.Report;
 
@@ -106,6 +107,31 @@ public class ReportController {
 		reportService.modifyReport(report, session);
 		
 		return "redirect:/teacher/reportDetail?reportNo="+report.getReportNo();
+	}
+	
+	// 과제 평가 폼 호출
+	// 매개변수:
+	// RequestParam: reportSubmitNo(과제제출 번호)
+	// Model
+	// 리턴값: teacher/evaluateReportSubmit.jsp 뷰 포워딩
+	@GetMapping("/teacher/evaluateReportSubmit")
+	public String evaluateReportSubmit(
+			@RequestParam("reportSubmitNo") int reportSubmitNo,
+			Model model) {
+		ReportSubmit reportSubmit = reportService.getReportSubmitDetail(reportSubmitNo);
+		
+		model.addAttribute("reportSubmit", reportSubmit);
+		return "teacher/evaluateReportSubmit";
+	}
+
+	// 과제 평가
+	// 매개변수: ReportSubmit(커맨드 객체)
+	// 리턴값: /teacher/reportDetail 리다이렉트
+	@PostMapping("/teacher/evaluateReportSubmit")
+	public String evaluateReportSubmit(ReportSubmit reportSubmit) {
+		reportService.evaluateReportSubmit(reportSubmit);
+		
+		return "redirect:/teacher/reportDetail?reportNo="+reportService.getReportNoByReportSubmitNo(reportSubmit.getReportSubmitNo());
 	}
 	
 	// 제출된 과제의 첨부파일 다운로드

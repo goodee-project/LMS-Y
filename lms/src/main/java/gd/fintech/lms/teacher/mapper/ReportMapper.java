@@ -32,6 +32,11 @@ public interface ReportMapper {
 	// 리턴값: 해당 과제에 제출된 과제제출 갯수
 	int selectReportSubmitCount(int reportNo);
 	
+	// 과제제출 고유번호를 이용해 과제 고유번호 출력
+	// 매개변수: 과제제출 고유번호
+	// 리턴값: 해당 과제제출을 등록한 과제의 고유번호
+	int selectReportNoByReportSubmitNo(int reportSubmitNo);
+	
 	// 과제 생성
 	// 매개변수: 과제 객체, setter를 사용해 추가할 정보 lectureNo, reportTitle, reportContent, reportStartDate, reportEndDate를 넣을 것
 	// 리턴값: 변경된 행 갯수

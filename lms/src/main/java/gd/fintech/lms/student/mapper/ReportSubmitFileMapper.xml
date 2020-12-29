@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.ReportSubmitFileMapper">
+	<!-- 과제제출 첨부파일 오리지널 파일 이름 -->
+	<select id="selectReportSubmitFileOriginalName" parameterType="String" resultType="String">
+		SELECT report_submit_file_original reportSubmitFileOriginal
+		FROM report_submit_file
+		WHERE report_submit_file_uuid = #{reportSubmitFileUUID}
+	</select>
+	
 	<!-- 과제제출 첨부파일 입력 -->
 	<insert id="insertReportSubmitFile" parameterType="gd.fintech.lms.student.vo.ReportSubmitFile">
 		INSERT INTO report_submit_file(
@@ -24,4 +31,10 @@
 		DELETE FROM report_submit_file
 		WHERE report_submit_file_uuid = #{reportSubmitFileUUID}
 	</delete>
+	<!--  과제제출 첨부파일 다운로드 수 증가 -->
+	<update id="updateReportSubmitFileCountOfDownload" parameterType="String">
+		UPDATE report_submit_file
+		SET report_submit_file_count = report_submit_file_count +1
+		WHERE report_submit_file_uuid = #{reportSubmitFileUUID}
+	</update>
 </mapper>

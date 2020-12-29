@@ -4,14 +4,14 @@
 	<!-- 강좌에 관련된 과제의 리스트 출력 -->
 	<select id="selectReportList" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Report">
 		SELECT
-		    r.report_no,
-		    r.lecture_no,
-		    r.report_title,
-		    r.report_content,
-		    r.report_createdate,
-		    r.report_updatedate,
-		    r.report_startdate,
-		    r.report_enddate,
+		    r.report_no reportNo,
+		    r.lecture_no lectureNo,
+		    r.report_title reportTitle,
+		    r.report_content reportContent,
+		    r.report_createdate reportCreateDate,
+		    r.report_updatedate reportUpdateDate,
+		    r.report_startdate reportStartDate,
+		    r.report_enddate reportEndDate,
 		FROM report r
 		    INNER JOIN lecture l
 		        ON r.lecture_no = l.lecture_no
@@ -81,6 +81,20 @@
 				ON rs.report_submit_no = rsf.report_submit_no
 		WHERE r.report_no = #{reportNo}
 			AND rs.account_id = #{accountId}
+	</select>
+	<!-- 과제제출한 정보만 가져오기 -->
+	<select id="selectReportSubmitDetail" parameterType="int" resultType="gd.fintech.lms.student.vo.ReportSubmit">
+		SELECT 
+			report_submit_no reportSubmitNo,
+			report_no reportNo,
+			account_id accountId,
+			report_submit_updatedate reportSubmitUpdateDate,
+			report_submit_title reportSubmitTitle,
+			report_submit_content reportSubmitContent,
+			report_submit_score reportSubmitScore,
+			report_submit_feedback reportSubmitFeedback
+		FROM report_submit
+		WHERE report_submit_no = #{reportSubmitNo}
 	</select>
 	
 	<!-- 과제제출 정보 입력, 자동 증가값인 reportSubmitNo를 읽어오기위한 selectKey -->

@@ -55,7 +55,6 @@ public class TextbookContoller {
 	@GetMapping("/manager/textbookDetail")
 	public String textbookDetail(Model model, @RequestParam(value = "textbookISBN") String textbookISBN) {
 		Textbook textbookDetail = textbookService.getTextbookDetail(textbookISBN);
-		logger.debug(textbookDetail.toString());
 		model.addAttribute("textbookDetail", textbookDetail);
 		
 		return "/manager/textbookDetail";

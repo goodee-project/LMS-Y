@@ -41,7 +41,7 @@
 			<!-- 수정버튼 -->
 			<div>
 				<a href="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${textbookDetail.textbookISBN}">
-					수정
+					[수정]
 				</a>
 			</div>
 			

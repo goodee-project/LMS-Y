@@ -110,12 +110,12 @@ public class AdminService {
 	// 매개변수: accountId(아이디)
 	// 리턴값: 없음
 	// 운영자의 개인정보를 ManagerQueue에서 삭제
-	// 운영자의 계정의 활성화 여부를 탈퇴로 변경
+	// 운영자의 계정의 활성화 여부를 거절로 변경
 	public void disapproveManagerMembership(String accountId) {
 		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 ManagerQueue에서 삭제 
 		managerQueueMapper.deleteManagerQueue(accountId);
-		// 아이디에 해당하는 계정의 활성화 여부를 탈퇴로 변경
-		accountMapper.updateAccountStateInvalidByAccountId(accountId);
+		// 아이디에 해당하는 계정의 활성화 여부를 거절로 변경
+		accountMapper.updateAccountStateRejectByAccountId(accountId);
 	}
 }

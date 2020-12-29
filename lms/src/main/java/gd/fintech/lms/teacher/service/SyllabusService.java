@@ -41,8 +41,8 @@ public class SyllabusService {
 	
 	// 강사 이름을 출력하는 메소드
 	public String getTeacherName(String accountId) {
-		String syllabusTeacherSign = syllabusMapper.selectTeacherName(accountId);
-		return syllabusTeacherSign;
+		String syllabusManagerSign = syllabusMapper.selectTeacherName(accountId);
+		return syllabusManagerSign;
 	}
 	
 	// 강사가 강의계획서에 서명하는 메소드

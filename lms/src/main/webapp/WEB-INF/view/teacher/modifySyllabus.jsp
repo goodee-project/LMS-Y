@@ -46,13 +46,6 @@
 				});
 			});
 		</script>
-        
-        <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
-        </script>
 	</head>
 	
 	<body>
@@ -70,7 +63,7 @@
                 		</textarea>
 					</div>
 					<div>
-						<button id="submitId" type="button">작성</button>
+						<button id="submitId" type="button">수정</button>
 					</div>
 				</form>
 			</div>

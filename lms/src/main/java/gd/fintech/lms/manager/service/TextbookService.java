@@ -82,7 +82,6 @@ public class TextbookService {
 	// 리턴값: 고유번호에 해당하는 교재 정보
 	public Textbook getTextbookDetail(String textbookISBN) {
 		Textbook textbookDetail = textbookMapper.selectTextbookDetail(textbookISBN);
-		logger.debug(textbookDetail.toString());
 		return textbookDetail;
 	}
 	

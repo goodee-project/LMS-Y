@@ -11,8 +11,156 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
+            	// 유효성 검사용 정규 표현식
+                let numCk = /[^0-9]$/;
+				
+				// ISBN 입력칸에 포커싱
+				$('#textbookISBN').focus();
+				
+				// ISBN 유효성 검사
+				$('#textbookISBN').blur(function() {
+					if($('#textbookISBN').val() == '') {
+						$('#textbookISBNMsg').text('ISBN을 입력하세요');
+						$('#textbookISBN').focus();
+						return;
+					} else {
+						$('#textbookISBNMsg').text('');
+					}
+				});
+				
+				// 교재명 유효성 검사
+				$('#textbookTitle').blur(function() {
+					if($('#textbookTitle').val() == '') {
+						$('#textbookTitleMsg').text('교재명을 입력하세요');
+						$('#textbookTitle').focus();
+						return;
+					} else {
+						$('#textbookTitleMsg').text('');
+					}
+				});
+				
+				// 가격 유효성 검사
+				$('#textbookPrice').blur(function() {
+					if($('#textbookPrice').val() == '') {
+						$('#textbookPriceMsg').text('가격을 입력하세요');
+						$('#textbookPrice').focus();
+						return;
+					} else if(numCk.test($('#textbookPrice').val())) {
+						$('#textbookPriceMsg').text('숫자만 입력하세요');
+						$('#textbookPrice').focus();
+						return;
+					} else {
+						$('#textbookPriceMsg').text('');
+					}
+				});
+            	
+				// 저자 유효성 검사
+				$('#textbookWriter').blur(function() {
+					if($('#textbookWriter').val() == '') {
+						$('#textbookWriterMsg').text('저자를 입력하세요');
+						$('#textbookWriter').focus();
+						return;
+					} else {
+						$('#textbookWriterMsg').text('');
+					}
+				});
+
+				// 출판사 유효성 검사
+				$('#textbookPublisher').blur(function() {
+					if($('#textbookPublisher').val() == '') {
+						$('#textbookPublisherMsg').text('출판사를 입력하세요');
+						$('#textbookPublisher').focus();
+						return;
+					} else {
+						$('#textbookPublisherMsg').text('');
+					}
+				});
+
+				// 정보 유효성 검사
+				$('#textbookInfo').blur(function() {
+					if($('#textbookInfo').val() == '') {
+						$('#textbookInfoMsg').text('정보를 입력하세요');
+						$('#textbookInfo').focus();
+						return;
+					} else {
+						$('#textbookInfoMsg').text('');
+					}
+				});
+
+				// 등록버튼 클릭 시 최종 유효성 검사 및 등록
+				$('#submitBtn').click(function() {
+					// ISBN 유효성 검사
+					$('#textbookISBN').blur(function() {
+						if($('#textbookISBN').val() == '') {
+							$('#textbookISBNMsg').text('ISBN을 입력하세요');
+							$('#textbookISBN').focus();
+							return;
+						} else {
+							$('#textbookISBNMsg').text('');
+						}
+					});
+					
+					// 교재명 유효성 검사
+					$('#textbookTitle').blur(function() {
+						if($('#textbookTitle').val() == '') {
+							$('#textbookTitleMsg').text('교재명을 입력하세요');
+							$('#textbookTitle').focus();
+							return;
+						} else {
+							$('#textbookTitleMsg').text('');
+						}
+					});
+					
+					// 가격 유효성 검사
+					$('#textbookPrice').blur(function() {
+						if($('#textbookPrice').val() == '') {
+							$('#textbookPriceMsg').text('가격을 입력하세요');
+							$('#textbookPrice').focus();
+							return;
+						} else if(numCk.test($('#textbookPrice').val())) {
+							$('#textbookPriceMsg').text('숫자만 입력하세요');
+							$('#textbookPrice').focus();
+							return;
+						} else {
+							$('#textbookPriceMsg').text('');
+						}
+					});
+	            	
+					// 저자 유효성 검사
+					$('#textbookWriter').blur(function() {
+						if($('#textbookWriter').val() == '') {
+							$('#textbookWriterMsg').text('저자를 입력하세요');
+							$('#textbookWriter').focus();
+							return;
+						} else {
+							$('#textbookWriterMsg').text('');
+						}
+					});
+
+					// 출판사 유효성 검사
+					$('#textbookPublisher').blur(function() {
+						if($('#textbookPublisher').val() == '') {
+							$('#textbookPublisherMsg').text('출판사를 입력하세요');
+							$('#textbookPublisher').focus();
+							return;
+						} else {
+							$('#textbookPublisherMsg').text('');
+						}
+					});
+
+					// 정보 유효성 검사
+					$('#textbookInfo').blur(function() {
+						if($('#textbookInfo').val() == '') {
+							$('#textbookInfoMsg').text('정보를 입력하세요');
+							$('#textbookInfo').focus();
+							return;
+						} else {
+							$('#textbookInfoMsg').text('');
+						}
+					});
+					
+					$('#textbookForm').submit();
+				});
             });
         </script>
 	</head>
@@ -26,52 +174,59 @@
 			
 			<!-- 교재 정보 입력 -->
 			<div>
-				<form method="post" action="${pageContext.request.contextPath}/manager/createTextbook">
+				<form method="post" id="textbookForm" action="${pageContext.request.contextPath}/manager/createTextbook">
 					<table border="1">
 						<tr>
 							<td>ISBN</td>
 							<td>
-								<input type="text" name="textbookISBN">
+								<input type="text" name="textbookISBN" id="textbookISBN">
+								<div id="textbookISBNMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>교재명</td>
 							<td>
-								<input type="text" name="textbookTitle">
+								<input type="text" name="textbookTitle" id="textbookTitle">
+								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>가격</td>
 							<td>
-								<input type="text" name="textbookPrice">원
+								<input type="text" name="textbookPrice" id="textbookPrice">원
+								<div id="textbookPriceMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>저자</td>
 							<td>
-								<input type="text" name="textbookWriter">
+								<input type="text" name="textbookWriter" id="textbookWriter">
+								<div id="textbookWriterMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>출판사</td>
 							<td>
-								<input type="text" name="textbookPublisher">
+								<input type="text" name="textbookPublisher" id="textbookPublisher">
+								<div id="textbookPublisherMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>출판일</td>
 							<td>
-								<input type="date" name="textbookPublishDate">
+								<input type="date" name="textbookPublishDate" id="textbookPublishDate">
+								<div id="textbookPublishDateMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>정보</td>
 							<td>
-								<input type="text" name="textbookInfo">
+								<input type="text" name="textbookInfo" id="textbookInfo">
+								<div id="textbookInfoMsg"></div>
 							</td>
 						</tr>
 					</table>
-					<button type="button">
+					<button type="button" id="submitBtn">
 						등록
 					</button>
 				</form>

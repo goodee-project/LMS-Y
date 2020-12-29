@@ -24,22 +24,6 @@
 		<div class="container">
 			<h1>강의계획서 정보</h1>
 			
-			<!-- 서명 여부 -->
-			<div>
-				<table border="1">
-					<tr>
-						<td>강사 서명</td>
-						<td>${syllabusDetail.syllabusTeacherSign}</td>
-						<td>${syllabusDetail.syllabusTeacherSignDate}</td>
-					</tr>
-					<tr>
-						<td>운영자 서명</td>
-						<td>${syllabusDetail.syllabusManagerSign}</td>
-						<td>${syllabusDetail.syllabusManagerSignDate}</td>
-					</tr>
-				</table>
-			</div>
-			
 			<!-- 작성일자, 수정일자 -->
 			<div>
 				<table border="1">
@@ -54,33 +38,58 @@
 				</table>
 			</div>
 			
+			<!-- 서명 여부 -->
+			<div>
+				<c:if test="${accountLevel != 1}">
+					<table border="1">
+						<tr>
+							<td></td>
+							<td>서명</td>
+							<td>서명일자</td>
+						</tr>
+						<tr>
+							<td>강사</td>
+							<td>${syllabusDetail.syllabusTeacherSign}</td>
+							<td>${syllabusDetail.syllabusTeacherSignDate}</td>
+						</tr>
+						<tr>
+							<td>운영자</td>
+							<td>${syllabusDetail.syllabusManagerSign}</td>
+							<td>${syllabusDetail.syllabusManagerSignDate}</td>
+						</tr>
+					</table>
+				</c:if>
+			</div>
+			
 			<!-- 수정, 서명 버튼 -->
 			<div>
-				<!-- 강사에게 표시되는 항목 -->
-				<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
-					[수정]
-				</a>
-				<c:if test="${accountLevel == 2}">
-					<a href="${pageContext.request.contextPath}/teacher/singSyllabusByTeacher?syllabusNo=${syllabusDetail.syllabusNo}">
-						[서명]
-					</a>
-				</c:if>
-				
-				<!-- 운영자에게 표시되는 항목 -->
-				<c:if test="${accountLevel == 3}">
-					<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
-						[서명]
-					</a>
+				<c:if test="${syllabusDetail.syllabusManagerSign == NULL}">
+					<!-- 강사에게 표시되는 항목 -->
+					<c:if test="${accountLevel == 2}">
+						<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
+							[수정]
+						</a>
+						<a href="${pageContext.request.contextPath}/teacher/signSyllabusByTeacher?syllabusNo=${syllabusDetail.syllabusNo}">
+							[서명]
+						</a>
+					</c:if>
+					
+					<!-- 운영자에게 표시되는 항목 -->
+					<c:if test="${accountLevel == 3}">
+						<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
+							[서명]
+						</a>
+					</c:if>
 				</c:if>
 			</div>
 			
 			<!-- 내용 -->
 			<div>
-				<table>
+				<table border="1">
 					<tr>
 						<td>
 							${syllabusDetail.syllabusContent}
-						<td>
+						</td>
 					</tr>				
 				</table>
 			</div>

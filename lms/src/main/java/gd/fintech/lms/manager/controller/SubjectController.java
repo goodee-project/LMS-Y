@@ -97,7 +97,7 @@ public class SubjectController {
 		logger.debug(modifySubject.toString());
 		model.addAttribute("modifySubject", modifySubject);
 		
-		return "/manager/modiftSubject";
+		return "/manager/modifySubject";
 	}
 	
 	// 과목 정보를 입력된 값으로 수정하는 메소드

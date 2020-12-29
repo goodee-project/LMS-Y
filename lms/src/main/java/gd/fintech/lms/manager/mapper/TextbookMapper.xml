@@ -40,7 +40,7 @@
 	
 	<!-- 교재 정보를 입력하는 쿼리문 -->
 	<insert id="insertTextbook" parameterType="gd.fintech.lms.manager.vo.Textbook">
-		INSERT (
+		INSERT INTO textbook(
 			textbook_isbn,
 			textbook_title,
 			textbook_writer,
@@ -51,13 +51,13 @@
 			textbook_createdate,
 			textbook_updatedate
 		) VALUES (
-			textbookISBN,
-			textbookTitle,
-			textbookWriter,
-			textbookPublisher,
-			textbookPublishDate,
-			textbookInfo,
-			textbookPrice,
+			#{textbookISBN},
+			#{textbookTitle},
+			#{textbookWriter},
+			#{textbookPublisher},
+			#{textbookPublishDate},
+			#{textbookInfo},
+			#{textbookPrice},
 			NOW(),
 			NOW()
 		)

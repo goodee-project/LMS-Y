@@ -29,7 +29,7 @@ public class SyllabusController {
 	// #1. model
 	// #2. syllabusNo(강의계획서)
 	// 리턴값: syllabusDetail(고유번호에 해당하는 강의계획서 페이지)
-	@GetMapping(value = {"/teacher/syllabusDetail", "/manager/syllabusDetail"})
+	@GetMapping(value = {"/teacher/syllabusDetail", "/manager/syllabusDetail", "/student/syllabusDetail"})
 	public String syllabusDetail(Model model, @RequestParam(value = "syllabusNo") int syllabusNo) {
 		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(syllabusNo);
 		model.addAttribute("syllabusDetail", syllabusDetail);
@@ -96,9 +96,10 @@ public class SyllabusController {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		String accountId = (String)session.getAttribute("accountId");
 		String syllabusTeacherSign = syllabusService.getTeacherName(accountId);
+		logger.debug(syllabusTeacherSign);
 		syllabusService.signSyllabusByTeacher(syllabusNo, syllabusTeacherSign);
 		
-		return "redirect:/teacher/SyllabusDetail?syllabusNo=" + syllabusNo;
+		return "redirect:/teacher/syllabusDetail?syllabusNo=" + syllabusNo;
 	}
 	
 	// 운영자가 강의계획서에 서명하는 메소드
@@ -115,6 +116,7 @@ public class SyllabusController {
 		String syllabusManagerSign = syllabusService.getManagerName(accountId);
 		syllabusService.signSyllabusByManager(syllabusNo, syllabusManagerSign);
 		
-		return "redirect:/teacher/SyllabusDetail?syllabusNo=" + syllabusNo;
+		return "redirect:/manager/syllabusDetail?syllabusNo=" + syllabusNo;
 	}
 }
+	

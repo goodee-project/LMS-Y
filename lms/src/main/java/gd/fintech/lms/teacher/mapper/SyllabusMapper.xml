@@ -73,7 +73,7 @@
 	<update id="updateSyllabusManagerSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		UPDATE syllabus
 		SET
-			syllabus_managersign = #{syllabusManagerSign}
+			syllabus_managersign = #{syllabusManagerSign},
 			syllabus_managersign_date = NOW()
 		WHERE syllabus_no = #{syllabusNo}
 	</update>

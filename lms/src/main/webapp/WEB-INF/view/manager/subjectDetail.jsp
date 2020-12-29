@@ -29,18 +29,18 @@
 				<table border="1">
 					<tr>
 						<td>생성일자</td>
-						<td>${subject.subjectCreateDate}</td>
+						<td>${subjectDetail.subjectCreateDate}</td>
 					</tr>
 					<tr>
 						<td>수정일자</td>
-						<td>${subject.subjectUpdateDate}</td>
+						<td>${subjectDetail.subjectUpdateDate}</td>
 					</tr>
 				</table>
 			</div>
 			
 			<!-- 수정버튼 -->
 			<div>
-				<a href="${pageContext.request.contextPath}/manager/modifySubject?subjectNo=${subject.subjectNo}">
+				<a href="${pageContext.request.contextPath}/manager/modifySubject?subjectNo=${subjectDetail.subjectNo}">
 					수정
 				</a>
 			</div>
@@ -50,19 +50,19 @@
 				<table border="1">
 					<tr>
 						<td>과목 고유번호</td>
-						<td>${subject.subjectNo}</td>
+						<td>${subjectDetail.subjectNo}</td>
 					</tr>
 					<tr>
 						<td>과목명</td>
-						<td>${subject.subjectName}</td>
+						<td>${subjectDetail.subjectName}</td>
 					</tr>
 					<tr>
 						<td>총 이수일수</td>
-						<td>${subject.subjectTotalDay}</td>
+						<td>${subjectDetail.subjectTotalDay}</td>
 					</tr>
 					<tr>
 						<td>정보</td>
-						<td>${subject.subjectInfo}</td>
+						<td>${subjectDetail.subjectInfo}</td>
 					</tr>
 				</table>
 			</div>

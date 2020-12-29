@@ -26,7 +26,7 @@
 			subject_name subjectName,
 			subject_createdate subjectCreateDate,
 			subject_updatedate subjectUpdateDate,
-			subject_totalday sunjectTotalDay,
+			subject_totalday subjectTotalDay,
 			subject_info subjectInfo
 		FROM subject
 		WHERE subject_no = #{subjectNo}
@@ -38,15 +38,15 @@
 			subject_name,
 			subject_createdate,
 			subject_updatedate,
-			sunject_totalday,
-			subject_info,
+			subject_totalday,
+			subject_info
 		) VALUES (
-			${subjectName},
+			#{subjectName},
 			NOW(),
 			NOW(),
-			${sunjectTotalDay},
-			${subjectInfo},
-		)	
+			#{subjectTotalDay},
+			#{subjectInfo}
+		)
 	</insert>
 	
 	<!-- 과목 정보를 수정하는 쿼리문 -->	
@@ -55,7 +55,7 @@
 		SET
 			subject_name = #{subjectName},
 			subject_updatedate = NOW(),
-			sunject_totalday = #{sunjectTotalDay},
+			subject_totalday = #{subjectTotalDay},
 			subject_info = #{subjectInfo}
 		WHERE subject_no = #{subjectNo}
 	</update>

@@ -87,11 +87,29 @@ public class QueueController {
 	}
 	
 	// 강사 승인대기 리스트 출력
-	// 매개변수 : Model
+	// 매개변수 : 
+	// Model 
+	// RequestParam : 
+	// currentPage(현재 페이지)
+	// teacherName(강사 이름)
 	// 리턴값 : 강사 승인대기 리스트 
 	@GetMapping("/manager/teacherQueueList")
-	public String teacherQueueList(Model model) {
-
+	public String teacherQueueList(Model model,
+			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value="teacherName", required = false) String teacherName) {
+		Map<String, Object> map = queueService.getTeacherQueueListByPage(currentPage, teacherName);
+		
+		logger.debug(map.toString());
+		
+		model.addAttribute("teacherQueueList", map.get("teacherQueueList"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("teacherName", teacherName);
+		
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		
 		return "/manager/teacherQueueList";
 	}
 	
@@ -114,8 +132,9 @@ public class QueueController {
 	// RequestParam : accountId(계정 ID)
 	// 리턴값 : 계정에 해당되는 강사 승인
 	@GetMapping("/manager/approveTeacher")
-	public String approveTeacherMembership(@RequestParam(value="accountId") String accountId) {
-		queueService.approveTeacherMembership(accountId);
+	public String approveTeacherMembership(@RequestParam(value="accountId") String accountId,
+			HttpSession session) {
+		queueService.approveTeacherMembership(accountId, session);
 		return "redirect:/manager/teacherQueueList";
 	}
 	

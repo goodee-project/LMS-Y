@@ -10,16 +10,7 @@
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            $(document).ready(function() {
-				$('#approveBtn').click(function() {
-					len cf = confirm('승인하시겠습니까?');
-					if(cf) {
-						$('#approveBtn').function()
-					} else {
-						
-					}
-				});
-            });
+ 
         </script>
 	</head>
 	

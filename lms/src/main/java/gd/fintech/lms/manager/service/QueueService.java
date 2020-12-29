@@ -173,9 +173,14 @@ public class QueueService {
 	// 매개변수:
 	// 강사 테이블에 기입할 모든 정보
 	// 계정 ID
-	public void approveTeacherMembership(String accountId) {
+	public void approveTeacherMembership(String accountId, HttpSession session) {
 		logger.debug(accountId);
-		teacherMapper.insertTeacherFromQueue(accountId);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("accountId", accountId);
+		map.put("managerIdAccess", session.getAttribute("accountId"));
+		
+		teacherMapper.insertTeacherFromQueue(map);
 		teacherQueueMapper.deleteTeacherQueue(accountId);
 		accountMapper.updateAccountStateActiveByAccountId(accountId);
 	}

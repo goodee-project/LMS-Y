@@ -1,5 +1,7 @@
 package gd.fintech.lms.teacher.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.teacher.vo.Teacher;
@@ -22,6 +24,6 @@ public interface TeacherMapper {
 	//강사 승인대기 정보 입력
 	//매개변수:강사승인대기의 모든정보
 	//리턴값:변경된 행 갯수
-	int insertTeacherFromQueue(String accountId);
+	int insertTeacherFromQueue(Map<String, Object> map);
 	
 }

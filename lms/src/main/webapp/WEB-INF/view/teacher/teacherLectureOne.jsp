@@ -40,9 +40,7 @@
 						<td>${lecture.subject.subjectName}</td>
 						<td>${lecture.lectureStartDate}</td>
 						<td>${lecture.lectureEndDate}</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/teacher/calendarAttendanceListOne?lectureNo=${param.lectureNo}&&target=weekDay&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">출석확인</a>
-						</td>
+						<td><a href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=weekDay&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">출석확인</a></td>
 						<td><a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lecture.lectureNo}&&currentPage=1">자료실</a></td>
 						<td><a href="${pageContext.request.contextPath}/teacher/lectureNotice?lectureNo=${lecture.lectureNo}&&currentPage=1">공지사항</a></td>
 						<td><a href="${pageContext.request.contextPath}/teacher/syllabusDetail">강의계획서</a></td>

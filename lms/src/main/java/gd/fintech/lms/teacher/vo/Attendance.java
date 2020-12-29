@@ -1,8 +1,8 @@
 package gd.fintech.lms.teacher.vo;
 
-import java.lang.System.Logger;
 import java.util.List;
 
+import gd.fintech.lms.student.vo.ClassRegistration;
 import gd.fintech.lms.student.vo.Student;
 import lombok.Data;
 
@@ -34,5 +34,8 @@ public class Attendance {
 	private String attendanceRemark;
 	
 	//학생 vo
-	private List<Student> student;
+	private List<Student> studentList;
+	
+	//수강신청 vo
+	private List<ClassRegistration> classRegistrationList;
 }

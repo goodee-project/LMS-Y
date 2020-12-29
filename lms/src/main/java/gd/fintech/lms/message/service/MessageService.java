@@ -1,6 +1,7 @@
 package gd.fintech.lms.message.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,5 +58,12 @@ public class MessageService {
 	// 리턴값: 수정된 행의 수
 	public int modifyMessageConfirm(int messageNo) {
 		return messageMapper.updateMessageConfirm(messageNo);
+	}
+	
+	// 쪽지 보내기 위해 계정 정보를 검색하는 메소드
+	// 매개변수: 수신자 아이디
+	// 리턴값: 아이디로 조회한 계정 정보
+	public Map<String, Object> getAccountInfo(String accountId) {
+		return messageMapper.selectAccountInfoByAccountId(accountId);
 	}
 }

@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>받은 쪽지함</title>
+		<title>보낸 쪽지함</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -17,7 +17,7 @@
 		
 		<div class="container">
 			<div class="jumbotron">
-				<h1>받은 쪽지함</h1>
+				<h1>보낸 쪽지함</h1>
 			</div>
 			<div>
 				<div class="float-left">
@@ -41,7 +41,6 @@
 					</div>
 				</div>
 			</div><hr>
-			<!-- 메세지 목록 출력 -->
 		</div>
 	</body>
 </html>

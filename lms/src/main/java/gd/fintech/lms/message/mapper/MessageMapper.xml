@@ -61,10 +61,28 @@
 		WHERE message_no = #{messageNo}
 	</delete>
 	
-	<!-- 쪽지 확인상태를 읽음으로 수정하는 -->
+	<!-- 쪽지 확인상태를 읽음으로 수정하는 쿼리 -->
 	<update id="updateMessageConfirm" parameterType="int">
 		UPDATE message
 		SET is_confirm = "Y"
 		WHERE message_no = #{messageNo}
 	</update>
+	
+	<!-- 쪽지보내기 위한 아이디를 검색하는 쿼리 -->
+	<select id="selectAccountInfoByAccountId" parameterType="String" resultType="java.util.Map">
+		SELECT 
+			a.account_id toId,
+			CASE 
+				WHEN ad.admin_name IS NOT NULL THEN ad.admin_name
+				WHEN m.manager_name IS NOT NULL THEN m.manager_name
+				WHEN t.teacher_name IS NOT NULL THEN t.teacher_name
+				WHEN s.student_name IS NOT NULL THEN s.student_name 
+			END accountName
+		FROM account a
+		LEFT JOIN admin ad ON a.account_id = ad.account_id
+		LEFT JOIN manager m ON a.account_id = m.account_id
+		LEFT JOIN teacher t ON a.account_id = t.account_id
+		LEFT JOIN student s ON a.account_id = s.account_id
+		WHERE a.account_id = #{accountId} AND a.account_state = "활성화"
+	</select>
 </mapper>

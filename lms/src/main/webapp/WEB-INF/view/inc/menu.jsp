@@ -24,6 +24,7 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
+		<div style="color: white; margin-left: 700px">${accountId} 님 반갑습니다</div>
 	</nav>
 </c:if>
 

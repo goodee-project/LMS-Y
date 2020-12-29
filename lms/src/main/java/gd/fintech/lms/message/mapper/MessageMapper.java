@@ -1,6 +1,7 @@
 package gd.fintech.lms.message.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -39,4 +40,9 @@ public interface MessageMapper {
 	// 매개변수: 쪽지 번호
 	// 리턴값: 쪽지 상태를 읽음으로 변경한 행
 	int updateMessageConfirm(int messageNo);
+	
+	// 쪽지보내기 위한 아이디를 검색하는 메소드
+	// 매개변수: 계정 ID
+	// 리턴값: 아이디로 조회한 정보(아이디,이름)
+	Map<String, Object> selectAccountInfoByAccountId(String accountId);
 }

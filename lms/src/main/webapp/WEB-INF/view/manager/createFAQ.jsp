@@ -13,10 +13,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
+            	$('#submitBtn').click(function() {
+					oEditors.getById["faqContentId"].exec("UPDATE_CONTENTS_FIELD", []);
+
+
+            	});
             	let oEditors = [];
 				nhn.husky.EZCreator.createInIFrame({
 					oAppRef: oEditors,
-					elPlaceHolder: "faqContent",	// 적용할 textarea 태그의 id 속성 
+					elPlaceHolder: "faqContentId",	// 적용할 textarea 태그의 id 속성 
 					sSkinURI: "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",	
 					htParams : {
 						bUseToolbar : true,			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -28,6 +33,7 @@
 				});
                 // 폼 유효성 검사
                 // code here...
+            	
             });
         </script>
 	</head>
@@ -43,25 +49,11 @@
 				<form method="post" action="${pageContext.request.contextPath}/manager/createFAQ">
 					
 				<table class="table">
-					<tr>
-						<td>FAQ 번호</td>
-						<td><input type="text" name="faqNo"> </td>
-					</tr>	
-					<tr>
-					
-						<td>계정 id</td>
-						<td><input type="text" name="accountId"> </td>
-					</tr>
-					<tr>
-						<td>FAQ 작성자</td>
-						<td><input type="text" name="faqWriter"> </td>
-					</tr>
 					
 					<tr>
 						<td>FAQ 제목</td>
 						<td><input type="text" name="faqTitle"> </td>
 					</tr>
-	
 					
 					<tr>
 						<td>FAQ 카테고리</td>
@@ -75,8 +67,9 @@
 					
 				</table>
 				FAQ 내용
-						<textarea id="faqContent" name="faqContent"></textarea>
-						<button type="submit">입력</button>
+						<textarea id="faqContentId" name="faqContent"></textarea>
+						
+						<button id= "submitBtn" type="submit">입력</button>
 				</form>
 			</div>
 		</div>

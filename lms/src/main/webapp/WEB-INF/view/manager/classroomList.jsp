@@ -36,13 +36,54 @@
 						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${c.classroomNo}">${c.classroomNo}</a></td>
 						<td>${c.classroomNumber}</td>
 					</tr>
-					
-				
 				</c:forEach>	
-				
-				
+			
 				</table>
+					<div>
+				<!-- 처음 -->
+				<c:choose>
+					<c:when test="${currentPage > 1}">
+						<a href="${pageContext.request.contextPath}/manager/classroomList?currentPage=1">[처음]</a>
+					</c:when>
+				</c:choose>
 				
+				<!-- 이전 -->
+				<c:choose>
+					<c:when test="${currentPage > 1}">
+						<a href="${pageContext.request.contextPath}/manager/classroomList?currentPage=${currentPage-1}">[이전]</a>
+					</c:when>
+				</c:choose>
+				
+				<!-- 현재 페이지 표시 -->
+				<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
+					<c:if test="${i <= lastPage}">
+						<c:choose>
+							<c:when test="${i == currentPage}">
+								<a href="#">
+									[${i}]
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath}/manager/classroomList?currentPage=${i}">[${i}]</a>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				</c:forEach>
+				
+				<!-- 다음 -->
+				<c:choose>
+					<c:when test="${currentPage < lastPage}">
+						<a href="${pageContext.request.contextPath}/manager/classroomList?currentPage=${currentPage+1}">[다음]</a>
+					</c:when>
+				</c:choose>
+				
+				<!-- 마지막 -->
+				<c:choose>
+					<c:when test="${currentPage < lastPage}">
+						<a href="${pageContext.request.contextPath}/manager/classroomList?currentPage=${lastPage}">[마지막]</a>
+					</c:when>
+				</c:choose>
+			</div>
 			</div>
 		</div>
 	</body>

@@ -10,11 +10,12 @@
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
+        
             $(document).ready(function() {
-				           
-                // 폼 유효성 검사
-                // code here...
+            	
             });
+
+            
         </script>
 	</head>
 	
@@ -26,26 +27,26 @@
 			<h1>강의실 정보 추가</h1>
 			
 			<div>
-				<form method="post" action="${pageContext.request.contextPath}/manager/createClassroom/">
+				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/createClassroom/">
 					
 					<table class="table">
 						<tr>
 								<td>강의실 번호</td>
-								<td><input type="text" name="classroomNumber"></td>
+								<td><input type="text" name="classroomNumber" id="numberId"></td>
 								
 						</tr>
 						<tr>
 								<td>강의실 면적</td>
-								<td><input type="text" name="classroomSize"></td>
+								<td><input type="text" name="classroomSize" id="sizeId"></td>
 								
 						</tr>
 						<tr>
 								<td>강의실 수용 인원</td>
-								<td><input type="text" name="classroomTotal"></td>
+								<td><input type="text" name="classroomTotal" id="totalId" ></td>
 						</tr>
 					
 					</table>
-						<button type="submit">입력</button>
+						<button id="submitId" type="submit">입력</button>
 				</form>
 			</div>
 		</div>

@@ -44,6 +44,4 @@ public interface FAQMapper {
 	// 리턴값: 선택한 FAQ의 번호에 해당하는 FAQ의 조회수 1증가
 	int updateFAQCountUp(int faqNo);  
 	
-	
-	
 }

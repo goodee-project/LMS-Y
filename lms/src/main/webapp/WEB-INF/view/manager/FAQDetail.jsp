@@ -17,6 +17,7 @@
 		</div>
 			<a href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
 			<a href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
+			<a href="${pageContext.request.contextPath}/manager/FAQList">FAQ</a>
 		<div class=container>
 			
 				<table class="table">
@@ -26,11 +27,6 @@
 						<td>${faq.faqNo}</td>
 					</tr>
 				   
-					<tr>
-						<td> 계정 id</td>
-						<td>${faq.accountId}</td>
-					</tr>
-					
 					<tr>
 						<td>FAQ 작성자</td>
 						<td>${faq.faqWriter}</td>

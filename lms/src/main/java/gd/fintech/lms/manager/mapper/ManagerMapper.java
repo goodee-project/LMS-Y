@@ -21,5 +21,10 @@ public interface ManagerMapper {
 	// 회원가입 승인대기에 있는 운영자 개인정보를 가져와 운영자 개인정보 입력
 	// 매개변수: 운영자 아이디
 	// 리턴값: 행의 입력
-	int insertManagerFromQueue(String accountId);	
+	int insertManagerFromQueue(String accountId);
+	
+	// 계정 아이디에 해당하는 운영자의 이름 
+	// 매개변수:운영자 Id
+	// 리턴값: 계정 아이디에 해당하는 운영자의 이름 
+	String selectManagerName(String accountId);
 }

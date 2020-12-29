@@ -61,4 +61,14 @@
 		FROM manager_queue
 		WHERE account_id = #{accountId}
 	</insert>
+	
+			<!-- 계정에 해당하는 운영자 이름 -->
+	<select id="selectManagerName" parameterType="String" resultType="String">
+	 SELECT 
+	 	manager_name managerName
+	 FROM manager 
+	 WHERE account_id = #{accountId}  		
+	
+	</select>
+	
 </mapper>

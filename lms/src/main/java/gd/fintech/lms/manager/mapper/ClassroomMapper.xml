@@ -3,13 +3,23 @@
 <mapper namespace="gd.fintech.lms.manager.mapper.ClassroomMapper">
 	
 	<!-- 강의실 정보 리스트 -->
-	<select id="selectClassroomList" resultType="gd.fintech.lms.manager.vo.Classroom">
+	<select id="selectClassroomListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Classroom">
 	SELECT
 	  classroom_no classroomNo,
 	  classroom_number classroomNumber
 	FROM classroom	
-	
+	LIMIT #{beginRow},#{rowPerPage}
 	</select>	
+	
+	   <!-- 강의실 행의 개수 -->
+	 <select id="selectClassroomCount" resultType="int">
+
+	  SELECT 
+	 	COUNT(*)
+	  FROM classroom	
+	  
+	</select>
+	
 	
 		<!-- 강의실 상세정보 -->
 	<select id="classroomDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.Classroom">
@@ -23,8 +33,6 @@
 	
 	</select>
 
-
-	
 	
 	<!--강의실  추가  -->
 	<insert id="insertClassromm" parameterType="gd.fintech.lms.manager.vo.Classroom">

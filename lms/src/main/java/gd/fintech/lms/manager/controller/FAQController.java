@@ -1,6 +1,9 @@
 package gd.fintech.lms.manager.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,23 +34,17 @@ public class FAQController {
 	// 리턴값: FAQ 리스트 페이지 출력
 	@GetMapping("/manager/FAQList")
 	public String FAQList (Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
-	int rowPerPage= 10;
-	int Count = faqService.getFAQCount();
-	int lastPage = 0;
-	if(Count % rowPerPage ==0) {
-		lastPage = Count / rowPerPage;
-				
-	   } else if (Count % rowPerPage !=0){
-		lastPage = Count / rowPerPage +1;
-				
-	   }
-	  List<FAQ> faqList = faqService.getFAQListByPage(currentPage, rowPerPage);
+	  Map<String, Object> map = faqService.getFAQListByPage(currentPage);
+	  
 	  List<FAQCategory> categoryList = faqCategoryService.getFAQCategoryList();
-	  model.addAttribute("lastPage", lastPage);
-	  model.addAttribute("currentPage", currentPage);
-	  model.addAttribute("faqList",faqList);
 	  model.addAttribute("categoryList", categoryList);
-	  logger.debug("lastPage"+ lastPage );
+	  model.addAttribute("currentPage",currentPage);
+	  model.addAttribute("faqList",map.get("faqList") );
+	  model.addAttribute("lastPage",map.get("lastPage") );
+	  model.addAttribute("navBeginPage",map.get("navBeginPage") );
+	  model.addAttribute("navLastPage",map.get("navLastPage") );
+	  model.addAttribute("navPerPage",map.get("navPerPage") );
+	  logger.debug("categoryList",categoryList);
 	  return "manager/FAQList";
 	}
 	
@@ -62,12 +59,13 @@ public class FAQController {
 	}
 	
 	
+	// 세션을 가져와서 acountId를 세션에서 가져오고 작성자를 accountID에 해당하는 이름으로 
 	// FAQ 작성 액션 
 	// 매개변수: FAQ 정보
 	// 리턴값:  입력한 FAQ정보를 포함한 FAQList 페이지 출력
 	@PostMapping("/manager/createFAQ")
-	public String createFAQ(FAQ faq) {
-		faqService.createFAQ(faq);
+	public String createFAQ(FAQ faq, HttpSession session) {
+		faqService.createFAQ(faq,session);
 		return "redirect:/manager/FAQList";
 	}
 	
@@ -100,10 +98,6 @@ public class FAQController {
 		model.addAttribute("faq", faq);
 		return "manager/FAQDetail";
 		
-	}
+	}	
 	
-	
-	
-	
-
 }

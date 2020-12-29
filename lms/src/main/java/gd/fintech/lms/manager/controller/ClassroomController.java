@@ -1,6 +1,7 @@
 package gd.fintech.lms.manager.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,9 +29,15 @@ public class ClassroomController {
 	// 매개변수:Model 
 	// 리턴값: 강의실 리스트 페이지 출력
 	@GetMapping("/manager/classroomList")
-	public String ClassroomList(Model model) {
-		List<Classroom> classroomList = classroomService.getClassroomList();
-		model.addAttribute("classroomList", classroomList);
+	public String classroomList (Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
+		  Map<String, Object> map = classroomService.getClassroomListByPage(currentPage);
+		  
+		  model.addAttribute("currentPage",currentPage);
+		  model.addAttribute("classroomList",map.get("classroomList") );
+		  model.addAttribute("lastPage",map.get("lastPage") );
+		  model.addAttribute("navBeginPage",map.get("navBeginPage") );
+		  model.addAttribute("navLastPage",map.get("navLastPage") );
+		  model.addAttribute("navPerPage",map.get("navPerPage") );
 		return "manager/classroomList";
 			
 	}

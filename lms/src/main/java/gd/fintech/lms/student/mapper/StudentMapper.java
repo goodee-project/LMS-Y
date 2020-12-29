@@ -1,6 +1,7 @@
 package gd.fintech.lms.student.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,7 +12,7 @@ public interface StudentMapper {
 	//학생 회원가입 정보(기본정보)
 	//매개변수:학생Vo
 	//리턴값:해당하는 행 수정한 값
-	int insertStudentFromQueue(String accountId);
+	int insertStudentFromQueue(Map<String, Object> map);
 	
 	//학생 상세보기(정보보기)
 	//매개변수: 학생계정의id

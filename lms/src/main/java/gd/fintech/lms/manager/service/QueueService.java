@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,9 +93,14 @@ public class QueueService {
 	// 학생 승인대기목록의 데이터를 삭제하고,
 	// 계정의 상태를 활성화로 바꾸는 승인 기능
 	// 매개변수: 계정 ID
-	public void approveStudentMembership(String accountId) {
+	public void approveStudentMembership(String accountId, HttpSession session) {
 		logger.debug(accountId);
-		studentMapper.insertStudentFromQueue(accountId);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("accountId", accountId);
+		map.put("managerIdAccess", session.getAttribute("accountId"));
+		
+		studentMapper.insertStudentFromQueue(map);
 		studentQueueMapper.deleteStudentQueue(accountId);
 		accountMapper.updateAccountStateActiveByAccountId(accountId);
 	}
@@ -104,7 +111,7 @@ public class QueueService {
 	public void disapproveStudentMembership(String accountId) {
 		logger.debug(accountId);
 		studentQueueMapper.deleteStudentQueue(accountId);
-		accountMapper.updateAccountStateInvalidByAccountId(accountId);
+		accountMapper.updateAccountStateRejectByAccountId(accountId);
 	}
 	
 	// 강사 승인대기목록 출력
@@ -179,6 +186,6 @@ public class QueueService {
 	public void disapproveTeacherMembership(String accountId) {
 		logger.debug(accountId);
 		teacherQueueMapper.deleteTeacherQueue(accountId);
-		accountMapper.updateAccountStateInvalidByAccountId(accountId);
+		accountMapper.updateAccountStateRejectByAccountId(accountId);
 	}
 }

@@ -25,7 +25,7 @@
 			teacher_phone teacherPhone,
 			teacher_gender teacherGender,
 			teacher_birth teacherBirth,
-			teacher_address_main teacherAddressMail,
+			teacher_address_main teacherAddressMain,
 			teacher_address_sub teacherAddressSub
 		FROM teacher_queue
 		WHERE account_id = #{accountId}

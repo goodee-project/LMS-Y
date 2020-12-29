@@ -25,7 +25,7 @@
 			student_phone studentPhone,
 			student_gender studentGender,
 			student_birth studentBirth,
-			student_address_main studentAddressMail,
+			student_address_main studentAddressMain,
 			student_address_sub studentAddressSub
 		FROM student_queue
 		WHERE account_id = #{accountId}

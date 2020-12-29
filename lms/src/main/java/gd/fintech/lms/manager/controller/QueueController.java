@@ -2,6 +2,8 @@ package gd.fintech.lms.manager.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +67,12 @@ public class QueueController {
 	// 학생 승인
 	// 매개변수 : 
 	// RequestParam : accountId(계정 ID)
+	// session
 	// 리턴값 : 계정에 해당되는 학생 승인
 	@GetMapping("/manager/approveStudent")
-	public String approveStudentMembership(@RequestParam(value="accountId") String accountId) {
-		queueService.approveStudentMembership(accountId);
+	public String approveStudentMembership(@RequestParam(value="accountId") String accountId,
+			HttpSession session) {
+		queueService.approveStudentMembership(accountId, session);
 		return "redirect:/manager/studentQueueList";
 	}
 	

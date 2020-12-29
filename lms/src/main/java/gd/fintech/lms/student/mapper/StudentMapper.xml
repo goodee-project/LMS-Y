@@ -4,7 +4,7 @@
 
 	
 	<!-- 학생 회원가입시 필요한 기본정보 -->
-	<insert id="insertStudentFromQueue" parameterType="String">
+	<insert id="insertStudentFromQueue" parameterType="java.util.Map">
 		INSERT INTO student(
 			account_id,
 			student_email,
@@ -14,9 +14,9 @@
 			student_birth,
 			student_address_main,
 			student_address_sub,
-			student_accessdate ,
-			student_updatedate ,
-			<!-- manager_access_id -->
+			student_accessdate,
+			student_updatedate,
+			manager_id_access
 		) SELECT
 			account_id,
 			student_email,
@@ -28,10 +28,9 @@
 			student_address_sub,
 			NOW(),
 			NOW(),
-			<!-- manager_access_id -->
-			
+			#{managerIdAccess}
 		FROM student_queue
-		WHERE account_id=#{accountId}
+		WHERE account_id= #{accountId}
 	</insert>
 	<!-- 학생(내정보) 상세보기-->
 	<select id="selectStudentOne" parameterType="String" resultType="gd.fintech.lms.student.vo.Student">

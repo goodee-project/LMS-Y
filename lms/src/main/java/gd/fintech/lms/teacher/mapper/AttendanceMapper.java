@@ -11,7 +11,7 @@ import gd.fintech.lms.teacher.vo.Attendance;
 
 @Mapper
 public interface AttendanceMapper {
-	//출석에 필요한 달력 메서드
+	//출석에 필요한 학생 목록 메서드
 	//리턴값: 출석에 필요한 달력출력
 	List<Attendance> selectCalendarAttendanceList(Map<String, Object> map);
 	
@@ -25,9 +25,9 @@ public interface AttendanceMapper {
 	int insertAttendance(Attendance attendance);
 	
 	//출석 수정
-	//매개변수:강좌아이디에 따라 출석 날짜 정보
+	//매개변수:강좌아이디 및 년/월/일에 따라 출석 날짜 정보
 	//리턴값:변경된 행 갯수
-	int updateAttendance(Attendance attendance);
+	int updateAttendance(Map<String, Object> map);
 	
 	
 }

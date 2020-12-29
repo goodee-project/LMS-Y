@@ -60,9 +60,10 @@ public class TeacherLectureController {
 	public String teacherLectureOne(Model model, HttpServletRequest request,
 			@RequestParam(value = "lectureNo", required = false) int lectureNo) {
 		// 오늘날짜
-		Calendar currentDay = Calendar.getInstance();
-		int currentYear = currentDay.get(currentDay.YEAR);
-		int currentMonth = currentDay.get(currentDay.MONTH)+1;
+		Calendar cal = Calendar.getInstance();
+		int currentYear = cal.get(cal.YEAR);
+		int currentMonth = cal.get(cal.MONTH)+1;
+		int currentDay = cal.get(cal.DATE);
 		// currentYear,currentMonth가 넘어오면
 		// CaldendatAPI 수정됨 -> currentDay.add(Calendar.Month를 -1 or +1)
 		if (currentYear != -1 && currentMonth != -1) {
@@ -74,17 +75,17 @@ public class TeacherLectureController {
 				currentMonth = 1; // 1월로 바뀌고
 				currentYear += 1; // 년도는 1년 올라간다.
 			}
-			currentDay.set(Calendar.YEAR, currentYear);
-			currentDay.set(Calendar.MONTH, currentMonth - 1);
+			cal.set(Calendar.YEAR, currentYear);
+			cal.set(Calendar.MONTH, currentMonth - 1);
 		}
-		currentDay.set(Calendar.YEAR, currentYear);
-		currentDay.set(Calendar.MONTH, currentMonth - 1);
+		cal.set(Calendar.YEAR, currentYear);
+		cal.set(Calendar.MONTH, currentMonth - 1);
 
 		//currentDay.set(Calendar.DATE, 1); // 현재날짜
-		currentYear = currentDay.get(Calendar.YEAR);
-		currentMonth = currentDay.get(Calendar.MONTH) + 1; // 월
-		int lastDay = currentDay.getActualMaximum(Calendar.DATE);
-		int firstDayOfWeek = currentDay.get(Calendar.DAY_OF_WEEK);
+		currentYear = cal.get(Calendar.YEAR);
+		currentMonth = cal.get(Calendar.MONTH) + 1; // 월
+		int lastDay = cal.getActualMaximum(Calendar.DATE);
+		int firstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 		
 		// 세션정보 가져옴
 		HttpSession session = ((HttpServletRequest) request).getSession();
@@ -97,6 +98,7 @@ public class TeacherLectureController {
 		// model을 이용해 뷰에 정보를 보냄
 		model.addAttribute("currentYear",currentYear); //년
 		model.addAttribute("currentMonth", currentMonth);//월
+		model.addAttribute("currentDay",currentDay);//일
 		model.addAttribute("lastDay",lastDay);//마지막 일
 		model.addAttribute("firstDayOfWeek",firstDayOfWeek); //1일의 요일
 		model.addAttribute("lecture", lecture);

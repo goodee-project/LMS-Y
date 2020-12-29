@@ -32,8 +32,6 @@
 		LEFT JOIN attendance a
 			ON s.account_id = a.account_id
 		WHERE a.lecture_no = #{lectureNo}
-		AND YEAR(attendance_day) = #{currentYear}
-		AND MONTH(attendance_day) = #{currentMonth}
 	</select>
 	<!-- 수강신청,학생,출석 테이블을 조인하여 학생들의 출석 상태 목록 상세보기 -->
 	<select id="selectCalendarAttendanceListOne" parameterType="java.util.Map" resultMap="ResultTeacherAttendanceList">
@@ -47,17 +45,36 @@
 			s.student_gender,
 			s.student_phone,
 			s.account_id
-		FROM student s
+		FROM student s 
 		LEFT JOIN attendance a
 			ON s.account_id = a.account_id
+		LEFT JOIN class_registration cr
+		 	ON cr.account_id = a.account_id
 		WHERE a.lecture_no = #{lectureNo}
+		AND cr.class_registration_state = "수강중"
 		AND YEAR(attendance_day) = #{currentYear}
 		AND MONTH(attendance_day) = #{currentMonth}
 		AND DAY(attendance_day) = #{currentDay}
 	</select>
 	<!-- 출석 입력 -->
 	<insert id="insertAttendance" parameterType="gd.fintech.lms.teacher.vo.Attendance">
-		
+		INSERT INTO attendance (
+			lecture_no, 
+			account_id, 
+			attendance_day, 
+			attendance_createdate, 
+			attendance_updatedate, 
+			attendance_state, 
+			attendance_remark
+		) VALUES (
+			#{lectureNo}, 
+			#{accountId}, 
+			#{attendanceDay}, 
+			NOW(), 
+			NOW(), 
+			#{attendanceState}, 
+			#{attendanceRemark}
+		)
 	</insert>
 	<!-- 출석 수정-->
 	<update id="updateAttendance" parameterType="gd.fintech.lms.teacher.vo.Attendance">
@@ -67,7 +84,9 @@
 			attendance_remark = #{attendanceRemark},
 			attendance_updatedate = NOW()
 		WHERE account_id = #{accountId}
-		AND	lecture_no = #{lectureNo} 
-		AND	attendance_day = #{attendanceDay}
+		AND	lecture_no = #{lectureNo}
+		AND YEAR(attendance_day) = #{currentYear} 
+		AND MONTH(attendance_day) = #{currentMonth} 
+		AND	DAY(attendance_day) = #{currentDay} 
 	</update>
 </mapper>

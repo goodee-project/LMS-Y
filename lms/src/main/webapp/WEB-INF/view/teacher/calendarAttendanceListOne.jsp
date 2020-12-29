@@ -27,6 +27,7 @@
 	</div>
 	<div>
 		<a href="">추가</a>
+		<a href="">수정</a>
 	</div>
 	</div>
 	<div class=container>

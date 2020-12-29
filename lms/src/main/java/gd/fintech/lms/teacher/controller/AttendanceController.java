@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.teacher.service.AttendanceService;
@@ -25,49 +26,17 @@ public class AttendanceController {
 	//AttendanceService 객체 주입
 	@Autowired private AttendanceService attendanceService;
 	
-	//출석에 필요한 달력 메서드
-	//매개변수:map.put에 강좌별 번호,년도,월을 넣음
+	//출석에 필요한 학생목록 메서드
+	//매개변수:map.put에 강좌별 번호
 	//리턴값:강좌,년,월에 따라 띄우는 뷰 페이지
 	@GetMapping("/teacher/calendarAttendanceList")
 	public String calendarAttendanceList(Model model,
-			@RequestParam(value="lectureNo")int lectureNo,
-			@RequestParam(value="currentYear")int currentYear,
-			@RequestParam(value="currentMonth")int currentMonth) {
-		
-		//오늘날짜
-		Calendar currentDay = Calendar.getInstance();
-		//currentYear,currentMonth가 넘어오면
-		//CaldendatAPI 수정됨 -> currentDay.add(Calendar.Month를 -1 or +1)
-		if(currentYear != -1 && currentMonth != -1) {
-			if(currentMonth == 0) {
-				currentMonth = 12; //currentMonth가 0이면 12월로 바뀌고
-				currentYear -=1;  //년도가 1년 빠짐.
-			}
-			if(currentMonth == 13) {//month가 13월 되면
-				currentMonth = 1;  // 1월로 바뀌고
-				currentYear +=1;  // 년도는 1년 올라간다.
-			}
-			currentDay.set(Calendar.YEAR, currentYear);
-			currentDay.set(Calendar.MONTH, currentMonth-1);
-		}
-		currentDay.set(Calendar.YEAR, currentYear);
-		currentDay.set(Calendar.MONTH, currentMonth-1);
-		
-		currentDay.set(Calendar.DATE, 1); // 2020년 11월1일
-		currentYear = currentDay.get(Calendar.YEAR);
-		currentMonth= currentDay.get(Calendar.MONTH) + 1; //월
-		int lastDay = currentDay.getActualMaximum(Calendar.DATE);
-		int firstDayOfWeek = currentDay.get(Calendar.DAY_OF_WEEK);
-		
+			@RequestParam(value="lectureNo")int lectureNo) {
 		//서비스 호출
-		List<Attendance> attendanceList = attendanceService.getCalendarAttendanceList(lectureNo, currentMonth, currentMonth);
+		List<Attendance> attendanceList = attendanceService.getCalendarAttendanceList(lectureNo);
 		
 		//모델로 뷰 연결(년,월,마지막 일,1일의 요일,attendanceList) 넘김
 		model.addAttribute("attendanceList",attendanceList);
-		model.addAttribute("currentYear",currentYear); //년
-		model.addAttribute("currentMonth", currentMonth);//월
-		model.addAttribute("lastDay",lastDay);//마지막 일
-		model.addAttribute("firstDayOfWeek",firstDayOfWeek); //1일의 요일
 		return "/teacher/calendarAttendanceList";
 	}
 	
@@ -81,7 +50,7 @@ public class AttendanceController {
 			@RequestParam(name = "currentYear",required = true)int currentYear,
 			@RequestParam(name = "currentMonth",required = true)int currentMonth,
 			@RequestParam(name = "currentDay",required = true)int currentDay) {
-		
+			
 			Calendar targetDay = Calendar.getInstance();
 			targetDay.set(Calendar.YEAR,currentYear);
 			targetDay.set(Calendar.MONTH, currentMonth-1);
@@ -89,7 +58,7 @@ public class AttendanceController {
 			if(target.equals("pre")){
 				targetDay.add(Calendar.DATE, -1);//-
 			}else if(target.equals("next")) {
-				targetDay.add(Calendar.DATE, 1);//+
+				targetDay.add(Calendar.DATE, +1);//+
 			}
 			
 			List<Attendance> attendance = attendanceService.getCalendarAttendanceListOne(lectureNo,targetDay.get(Calendar.YEAR), targetDay.get(Calendar.MONTH)+1, targetDay.get(Calendar.DATE));
@@ -100,6 +69,33 @@ public class AttendanceController {
 			model.addAttribute("currentDay",targetDay.get(Calendar.DATE));
 		return "/teacher/calendarAttendanceListOne";
 		
+	}
+	
+	//학생 출석 상태 입력 폼 메서드
+	//매개변수:강좌별 고유번호,currentYear,currentMonth,currentDay
+	//리턴값:출석상태 입력 폼 페이지
+	@GetMapping("/teacher/createAttendance")
+	public String createAttendance(Model model,
+			@RequestParam(value="lectureNo")int lectureNo,
+			@RequestParam(name = "currentYear",required = true)int currentYear,
+			@RequestParam(name = "currentMonth",required = true)int currentMonth,
+			@RequestParam(name = "currentDay",required = true)int currentDay) {
+		List<Attendance> attendanceList = attendanceService.getCalendarAttendanceList(lectureNo);
+		
+		model.addAttribute("attendanceList",attendanceList);
+		model.addAttribute("currentYear", currentYear);
+		model.addAttribute("currentMonth", currentMonth);
+		model.addAttribute("currentDay", currentDay);
+		return "/teacher/createAttendance";
+	}
+	
+	//학생 출석 상태 입력 액션 메서드
+	@PostMapping("/teacher/createAttendance")
+	public String createAttendance(Attendance attendance) {
+		
+		attendanceService.createAttendance(attendance);
+		
+		return "redirect:/teacher/calendarAttendanceListOne";
 	}
 		
 }

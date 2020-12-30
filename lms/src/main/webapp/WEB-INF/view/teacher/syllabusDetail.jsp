@@ -9,12 +9,6 @@
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
-        </script>
 	</head>
 	
 	<body>
@@ -23,20 +17,6 @@
 		
 		<div class="container">
 			<h1>강의계획서 정보</h1>
-			
-			<!-- 작성일자, 수정일자 -->
-			<div>
-				<table border="1">
-					<tr>
-						<td>작성일자</td>
-						<td>${syllabusDetail.syllabusCreateDate}</td>
-					</tr>
-					<tr>
-						<td>수정일자</td>
-						<td>${syllabusDetail.syllabusUpdateDate}</td>
-					</tr>
-				</table>
-			</div>
 			
 			<!-- 서명 여부 -->
 			<div>
@@ -75,12 +55,26 @@
 					</c:if>
 					
 					<!-- 운영자에게 표시되는 항목 -->
-					<c:if test="${accountLevel == 3}">
+					<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != NULL}">
 						<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
 							[서명]
 						</a>
 					</c:if>
 				</c:if>
+			</div>
+			
+			<!-- 작성일자, 수정일자 -->
+			<div>
+				<table border="1">
+					<tr>
+						<td>작성일자</td>
+						<td>${syllabusDetail.syllabusCreateDate}</td>
+					</tr>
+					<tr>
+						<td>수정일자</td>
+						<td>${syllabusDetail.syllabusUpdateDate}</td>
+					</tr>
+				</table>
 			</div>
 			
 			<!-- 내용 -->

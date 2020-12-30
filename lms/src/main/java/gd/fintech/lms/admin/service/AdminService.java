@@ -32,7 +32,7 @@ public class AdminService {
 	// 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력하는 메소드
 	// 매개변수: currentPage(현재 페이지)
 	// 리턴값: 회원가입 승인대기 중인 운영자의 목록
-	public Map<String, Object> getManagerQueueList(int currentPage) {
+	public Map<String, Object> getManagerQueueList(int currentPage, String searchKeyword, String searchType) {
 		// 한 페이지에 보여줄 항목수 15개
 		int rowPerPage = 15;
 		// 해당 페이지에 표시한 항목
@@ -74,6 +74,8 @@ public class AdminService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("beginRow", beginRow);
+		paramMap.put("searchKeyword", searchKeyword);
+		paramMap.put("searchType", searchType);
 		
 		List<ManagerQueue> managerQueueList = managerQueueMapper.selectManagerQueueList(paramMap);
 		returnMap.put("managerQueueList", managerQueueList);

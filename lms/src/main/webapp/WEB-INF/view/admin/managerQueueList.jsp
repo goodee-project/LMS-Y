@@ -37,16 +37,28 @@
 					
 					<tbody>
 						<c:forEach var="managerQueueList" items="${managerQueueList}">
-							<tr>
-								<td>${managerQueueList.accountId}</td>
-								<td>
-									<a href="${pageContext.request.contextPath}/admin/managerQueueDetail?accountId=${managerQueueList.accountId}">
-										${managerQueueList.managerName}
-									</a>
-								</td>
-								<td>${managerQueueList.managerEmail}</td>
-								<td>${managerQueueList.managerPhone}</td>
-							</tr>							
+							<!-- 검색된 항목이 있을 시 출력 -->
+							<c:if test="${!empty managerQueueList.managerEmail}">
+								<tr>
+									<td>${managerQueueList.accountId}</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/admin/managerQueueDetail?accountId=${managerQueueList.accountId}">
+											${managerQueueList.managerName}
+										</a>
+									</td>
+									<td>${managerQueueList.managerEmail}</td>
+									<td>${managerQueueList.managerPhone}</td>
+								</tr>
+							</c:if>
+							
+							<!-- 검색된 항목이 없을 시 출력 -->
+							<c:if test="${empty managerQueueList.managerEmail}">
+								<tr>
+									<td colspan="4">
+										검색된 항목이 없습니다
+									</td>
+								</tr>
+							</c:if>
 						</c:forEach>
 					</tbody>
 				</table>
@@ -93,6 +105,24 @@
 						</li>
 					</c:if>
 				</ul>
+			</div>
+			
+			<!-- 검색 바 -->
+			<div>
+				<form method="get" action="${pageContext.request.pathInfo}">
+					<select id="searchType" name="searchType">
+						<option value="all">전체</option>
+						<option value="name">이름</option>
+						<option value="email">Email</option>
+						<option value="phone">전화번호</option>
+					</select>
+					
+					<input type="text" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요">
+					
+					<button type="submit">
+						검색
+					</button>
+				</form>
 			</div>
 		</div>
 	</body>

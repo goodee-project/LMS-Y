@@ -15,26 +15,30 @@
 		<script>
 			$(document).ready(function() {
 				// SUBMIT 버튼 클릭 시 유효성 검사 실시
-				$('#submitId').click(function() {
+				$('#submitBtn').click(function() {
 					// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
 					// textarea가 SE2로 바뀐건 맞지만, 실제로는 가상의 에디터를 표시해둔거에 불과하기에
-					// 따로 내용을 업데이트해줘야 아래의 유효성 검사가 가능하고 Form submit시 데이터가 전송됨
-					oEditors.getById["textareaId"].exec("UPDATE_CONTENTS_FIELD", []);
+					// 따로 내용을 업데이트 해줘야 아래의 유효성 검사가 가능하고 Form submit시 데이터가 전송됨
+					oEditors.getById["syllabusContent"].exec("UPDATE_CONTENTS_FIELD", []);
+
+					let syllabusContent = $('#syllabusContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
-					// 댓글 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
-					if ($('#textareaId').val() == '') {
-						alert('댓글 내용을 입력해주세요!');
-						$('#textareaId').focus();
-						return
+					// 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+					if (syllabusContent == '') {
+						alert('내용을 입력해주세요');
+						oEditors.getById["syllabusContent"].exec("FOCUS");
+						return;
 					}
+					
 					// 유효성 검사를 만족했을 경우 submit
-					$('#formId').submit();
+					$('#syllabusForm').submit();
 				});
+				
 				// NAVER SmartEditor2 적용 코드
 				let oEditors = [];
 				nhn.husky.EZCreator.createInIFrame({
 					oAppRef: oEditors,
-					elPlaceHolder: "textareaId",	// 적용할 textarea 태그의 id 속성
+					elPlaceHolder: "syllabusContent",	// 적용할 textarea 태그의 id 속성
 					sSkinURI: "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",	
 					htParams : {
 						bUseToolbar : true,			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
@@ -56,14 +60,14 @@
 			<h1>강의계획서 수정</h1>
 			
 			<div>
-				<form action="${pageContext.request.contextPath}/teacher/createSyllabus?syllabusNo=${syllabus.syllabusNo}">
+				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${modifySyllabus.syllabusNo}">
 					<div>
-                		<textarea id="textareaId" name="syllabusContent" style="width: 100%">
-                			${syllabusDetail.syllabusContent}
-                		</textarea>
+                		<textarea id="syllabusContent" name="syllabusContent" style="width: 100%">${modifySyllabus.syllabusContent}</textarea>
 					</div>
 					<div>
-						<button id="submitId" type="button">수정</button>
+						<button type="button" id="submitBtn">
+							수정
+						</button>
 					</div>
 				</form>
 			</div>

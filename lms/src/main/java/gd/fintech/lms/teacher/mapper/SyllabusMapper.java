@@ -33,11 +33,6 @@ public interface SyllabusMapper {
 	// 리턴값: 변경된 행의 갯수
 	int updateSyllabusTeacherSign(int syllabusNo, String syllabusTeacherSign);
 	
-	// 운영자 이름을 출력
-	// 매개변수: accountId(아이디)
-	// 리턴값: 아이디에 해당하는 운영자 이름
-	String selectManagerName(String accountId);
-	
 	// 운영자가 강의계획서에 서명
 	// 매개변수: 서명할 강의계획서 고유번호
 	// 리턴값: 변경된 행의 갯수

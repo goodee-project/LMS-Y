@@ -41,7 +41,7 @@
 			<!-- 수정버튼 -->
 			<div>
 				<a href="${pageContext.request.contextPath}/manager/modifySubject?subjectNo=${subjectDetail.subjectNo}">
-					수정
+					[수정]
 				</a>
 			</div>
 			

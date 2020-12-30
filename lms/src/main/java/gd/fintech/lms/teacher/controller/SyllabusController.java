@@ -53,7 +53,7 @@ public class SyllabusController {
 	public String createSyllabus(Syllabus syllabus) {
 		syllabusService.createSyllabus(syllabus);
 		
-		return "redirect:/teacher/syllabusDetail?=" + syllabus.getSyllabusNo();
+		return "redirect:/teacher/teacherLecture?currentPage=1";
 	}
 	
 	// 강사가 강의계획서를 수정할 수 있는 페이지를 출력하는 메소드
@@ -81,7 +81,7 @@ public class SyllabusController {
 	public String modifySyllabus(Syllabus syllabus) {
 		syllabusService.modifySyllabus(syllabus);
 		
-		return "redirect:/teacher/SyllabusDetail?syllabusNo=" + syllabus.getSyllabusNo();
+		return "redirect:/teacher/syllabusDetail?syllabusNo=" + syllabus.getSyllabusNo();
 	}
 	
 	// 강사가 강의계획서에 서명하는 메소드

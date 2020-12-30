@@ -38,6 +38,7 @@
 						<tr>
 							<th>고유번호</th>
 							<th>과목명</th>
+							<th>총 이수일수</th>
 						</tr>
 					</thead>
 					
@@ -50,6 +51,7 @@
 										${subjectList.subjectName}
 									</a>
 								</td>
+								<td>${subjectList.subjectTotalDay}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -97,6 +99,16 @@
 						</li>
 					</c:if>
 				</ul>
+			</div>
+			
+			<!-- 검색 바 -->
+			<div>
+				<form action="${pageContext.request.pathInfo}" method="get">
+					<input type="text" name="" value="${subjectSerch}">
+					<button type="submit">
+						검색
+					</button>
+				</form>
 			</div>
 		</div>
 	</body>

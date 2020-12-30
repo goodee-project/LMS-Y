@@ -54,11 +54,20 @@ public class AdminController {
 	// 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력
 	// 페이지 표시 네비게이션 바 출력
 	@GetMapping("/admin/managerQueueList")
-	public String managerQueueList(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
-		Map<String, Object> map = adminService.getManagerQueueList(currentPage);
+	public String managerQueueList(Model model,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword,
+			@RequestParam(value = "searchType", required = false) String searchType) {
+		Map<String, Object> map = adminService.getManagerQueueList(currentPage, searchKeyword, searchType);
 		
 		// 승인대기 중인 운영자 목록
 		model.addAttribute("managerQueueList", map.get("managerQueueList"));
+		
+		// 검색 관련 값
+		model.addAttribute("searchKeyword", searchKeyword);
+		model.addAttribute("searchType", searchType);
+		logger.debug("디버그 searchKeyword" + searchKeyword);
+		logger.debug("디버그 searchType" + searchType);
 		
 		// 페이지 관련 값
 		model.addAttribute("currentPage", currentPage);

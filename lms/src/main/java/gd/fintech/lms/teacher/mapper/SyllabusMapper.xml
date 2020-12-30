@@ -25,7 +25,7 @@
 			syllabus_createdate,
 			syllabus_updatedate
 		) VALUES (
-			syllabusContent,
+			#{syllabusContent},
 			NOW(),
 			NOW()
 		)
@@ -35,7 +35,7 @@
 	<update id="updateSyllabus" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		UPDATE syllabus
 		SET
-			syllabus_content = ${syllabusContent},
+			syllabus_content = #{syllabusContent},
 			syllabus_teachersign = NULL,
 			syllabus_teachersign_date = NULL,
 			syllabus_managersign = NULL,
@@ -47,7 +47,7 @@
 	<!-- 강사의 이름을 출력하는 쿼리문 -->
 	<select id="selectTeacherName" parameterType="String" resultType="String">
 		SELECT
-			teacher_name syllabusTeacherSign
+			teacher_name teacherName
 		FROM teacher
 		WHERE account_id = #{accountId}
 	</select>
@@ -60,14 +60,6 @@
 			syllabus_teachersign_date = NOW()
 		WHERE syllabus_no = #{syllabusNo}
 	</update>
-	
-	<!-- 운영자의 이름을 출력하는 쿼리문 -->
-	<select id="selectManagerName" parameterType="String" resultType="String">
-		SELECT
-			manager_name syllabusManagerSign
-		FROM manager
-		WHERE account_id = #{accountId}
-	</select>
 	
 	<!-- 운영자가 강의계획서에 서명하는 쿼리문 -->
 	<update id="updateSyllabusManagerSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">

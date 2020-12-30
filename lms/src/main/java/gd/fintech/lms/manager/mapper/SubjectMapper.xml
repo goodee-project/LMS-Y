@@ -7,7 +7,8 @@
 	<select id="selectSubjectList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Subject">
 		SELECT
 			subject_no subjectNo,
-			subject_name subjectName
+			subject_name subjectName,
+			subject_totalday subjectTotalDay
 		FROM subject
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

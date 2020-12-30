@@ -11,14 +11,54 @@
 			manager_email managerEmail,
 			manager_phone managerPhone
 		FROM manager_queue
+		<where>
+			<if test="searchKeyword != null">
+				<choose>
+					<when test="searchType == all">
+						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchType == 'name'">
+						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchType == 'email'">
+						manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchType == 'phone'">
+						manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+				</choose>
+			</if>
+		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 회원가입 승인대기 중인 운영자 개인정보 리스트의 페이징을 위해 총 항목수 출력하는 쿼리문 -->
-	<select id="selectManagerQueueCount" resultType="int">
+	<select id="selectManagerQueueCount" parameterType="java.util.Map" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM manager_queue
+		<where>
+			<if test="queueSearch != null">
+				<choose>
+					<when test="searchType == all">
+						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
+						OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchType == 'name'">
+						manager_name LIKE CONCAT('%', #{searchKeyword},'%')
+					</when>
+					<when test="searchType == 'email'">
+						manager_email LIKE CONCAT('%', #{searchKeyword},'%')
+					</when>
+					<when test="searchType == 'phone'">
+						manager_phone LIKE CONCAT('%', #{searchKeyword},'%')
+					</when>
+				</choose>
+			</if>
+		</where>
 	</select>
 	
 	<!-- 회원가입 승인대기 중인 운영자의 개인정보를 출력하는 쿼리문 -->

@@ -66,10 +66,11 @@
 				</c:forEach>
 					<td>${al.attendanceState}</td>
 					<td>${al.attendanceRemark}</td>
-					<td><a href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
-					<td>수정</td>
+				<c:forEach var="als" items="${al.studentList}">
+					<td><a href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
+					<td><a href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>
+				</c:forEach>
 				</tr>
-				
 			</c:forEach>
 		</thead>
 	</table>

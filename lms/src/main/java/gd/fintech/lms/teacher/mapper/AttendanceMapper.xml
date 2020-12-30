@@ -18,15 +18,18 @@
 		</collection>
 		<collection property="classRegistrationList" ofType="gd.fintech.lms.student.vo.ClassRegistration">
 			<result property="accountId" column="account_id" />
+			<result property="lectureNo" column="lecture_no"/>
 		</collection>
 	</resultMap>
 	<!-- 강좌별 학생 목록 메서드 -->
 	<select id="selectAttendanceStudentList" parameterType="java.util.Map" resultMap="ResultTeacherAttendanceList">
 		SELECT
+			a.lecture_no,
 			s.account_id, 
 		 	s.student_name,
 		 	s.student_phone, 
 			s.student_gender, 
+			a.attendance_day,
 			a.attendance_state, 
 			a.attendance_remark
 		FROM class_registration cr
@@ -45,6 +48,23 @@
 	</select>
 	<!-- 출석에 필요한 학생 상세보기 -->
 	<select id="selectAttendanceStudentOne" parameterType="java.util.Map" resultMap="ResultTeacherAttendanceList">
+		SELECT 	
+			a.account_id,
+			a.lecture_no,
+			a.attendance_state,
+			a.attendance_remark,
+			a.attendance_day,
+			s.student_name,
+			s.student_gender,
+			s.student_phone,
+			a.attendance_day
+		FROM student s  LEFT JOIN attendance a
+		ON a.account_id = s.account_id
+		WHERE a.lecture_no = #{lectureNo}
+		AND a.account_id = #{accountId}
+	</select>
+	<!-- 출석 상세보기 -->
+	<select id="selectAttendanceOne" parameterType="java.util.Map" resultMap="ResultTeacherAttendanceList">
 		SELECT 
 			a.attendance_state,
 			a.attendance_remark,
@@ -52,16 +72,16 @@
 			s.student_name,
 			s.student_gender,
 			s.student_phone,
-			s.account_id,
-			a.account_id
+			s.account_id
 		FROM class_registration cr LEFT JOIN attendance a
-		ON cr.account_id = a.account_id
+			ON cr.account_id = a.account_id
 		LEFT JOIN lecture l
-		ON cr.account_id = l.account_id
+			ON cr.account_id = l.account_id
 		LEFT JOIN student s
-		ON cr.account_id = s.account_id
+			ON cr.account_id = s.account_id
 		WHERE cr.lecture_no = #{lectureNo}
-		AND s.account_id = #{account_id}
+		AND s.account_id = #{accountId}
+		AND a.attendance_day = #{attendanceDay}
 	</select>
 	<!-- 출석 입력 -->
 	<insert id="insertAttendance" parameterType="gd.fintech.lms.teacher.vo.Attendance">
@@ -76,7 +96,7 @@
 		) VALUES (
 			#{lectureNo}, 
 			#{accountId}, 
-			NOW(), 
+			#{attendanceDay},
 			NOW(), 
 			NOW(), 
 			#{attendanceState}, 
@@ -92,8 +112,5 @@
 			attendance_updatedate = NOW()
 		WHERE account_id = #{accountId}
 			AND	lecture_no = #{lectureNo}
-			AND YEAR(attendance_day) = #{currentYear} 
-			AND MONTH(attendance_day) = #{currentMonth} 
-			AND	DAY(attendance_day) = #{currentDay} 
 	</update>
 </mapper>

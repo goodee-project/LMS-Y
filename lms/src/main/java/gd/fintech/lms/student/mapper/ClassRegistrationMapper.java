@@ -13,7 +13,7 @@ public interface ClassRegistrationMapper {
 	//학생이 신청한 수강목록 리스트 페이징
 	//매개변수: map에 beginRow,rowPerPage 넣어줌
 	//리턴값: 수강신청한 목록 리스트
-	List<ClassRegistration> selectClassRegistrationListByPage(Map<String,Integer>map);
+	List<ClassRegistration> selectClassRegistrationListByPage(Map<String,Object>map);
 	 
 	//수강 신청한 수강 과목 상세보기(과목 정보보기)
 	//매개변수:과목의 번호
@@ -23,5 +23,5 @@ public interface ClassRegistrationMapper {
 	//학생\이 수강신청한 갯수 
 	//매개변수: 
 	//리턴값: 학생의 수강신청 수
-	int selectRegistrationCount();
+	int selectRegistrationCount(String accountId);
 }

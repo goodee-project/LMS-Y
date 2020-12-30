@@ -23,7 +23,7 @@ public interface QuestionMapper {
 	//학생의 질문 삭제
 	//매개변수: 질문게시판 질문 번호
 	//리턴값: 삭제된 질문
-	int deleteQuestion(String accountId);
+	int deleteQuestion(int questionNo);
 
 	//전체 질문 리스트 출력(페이징)
 	//매개변수: map을 이용해 beginRow,rowPerPage 
@@ -34,6 +34,7 @@ public interface QuestionMapper {
 	//매개변수 :학생의 Id
 	//리턴값: 해당 학생의 질문 리스트
 	List<Question> selectStudentQuestionListByPage(Map<String,Object>map);
+	
 	
 	//해당 학생의 질문 상세보기(강사의 댓글과 파일보기)
 	//매개변수: 질문 번호
@@ -50,6 +51,10 @@ public interface QuestionMapper {
 	//리턴값:해당 학생의 질문 갯수
 	int studentQuestionCount(String accountId);
 	
-	//질문에 대한 조회수
+	//질문의 조회수 증가
+	//매개변수:질문의 번호
+	//리턴값:해당 번호의 질문 조회수 1씩증가
+	int increaseQuestionCount(int questionNo);
+	
 	
 }

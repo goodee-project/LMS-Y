@@ -1,6 +1,7 @@
 package gd.fintech.lms.student.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,19 +26,18 @@ public class ClassRegistrationController {
 	
 	//학생의 수강신청 목록 리스트(페이징)
 	@GetMapping("student/classRegistrationList")
-	public String getClassRegistrationListByPage(Model model,
-			@RequestParam(value="currentPage")int currentPage) {
-		int rowPerPage=10;
-		int classRegistrationCount = classRegistrationService.getRegistrationCount();
-		int lastPage =0;
-		if(classRegistrationCount%rowPerPage ==0) {
-			lastPage=classRegistrationCount/rowPerPage;
-		} else if(classRegistrationCount%rowPerPage !=0) {
-			lastPage=classRegistrationCount/rowPerPage+1;
-		}
-		List<ClassRegistration>classRegistrationList = classRegistrationService.getClassRegistrationListByPage(currentPage, rowPerPage);
-		model.addAttribute("classRegistrationList",classRegistrationList);
+	public String getClassRegistrationListByPage(Model model,HttpServletRequest request,
+			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
+		
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//Id 가지고오기
+		String accountId =(String)session.getAttribute("accountId");
+		
+		List<ClassRegistration>registrationList = classRegistrationService.getClassRegistrationListByPage(accountId, currentPage, session);
+		model.addAttribute("registrationList",registrationList);
+		model.addAttribute("accountId",accountId);
 		model.addAttribute("currentPage",currentPage);
+		
 		return "student/classRegistration";
 	}
 	//학생이 수강신청한 과목 정보보기(상세보기)

@@ -23,18 +23,6 @@ import gd.fintech.lms.student.vo.Student;
 public class StudentController {
 	Logger logger = LoggerFactory.getLogger(StudentController.class);
 	@Autowired StudentService studentService;
-	 
-	//학생 자신의 과제물을 보기
-	/*
-	@GetMapping("/student/?")
-	public String getReportDetail(Model model,
-			@RequestParam(value="accountId")String accountId) {
-		List<Student> studentReportDetail = studentService.getReportDetail(accountId);
-		model.addAttribute("studentReportDetail",studentReportDetail);
-		return "/student/?";
-		
-	}
-	*/
 	
 	//학생 자신의 정보 상세보기
 	@GetMapping("/student/studentDetail")
@@ -43,8 +31,9 @@ public class StudentController {
 		HttpSession session =((HttpServletRequest)request).getSession();
 		//Id를 가져오기
 		String accountId =(String)session.getAttribute("accountId");
-		Student studentDetail= studentService.getStudentDetail(accountId);
-		model.addAttribute("studentDetail",studentDetail);
+		Student student= studentService.getStudentDetail(accountId);
+		model.addAttribute("accountId", accountId);
+		model.addAttribute("student",student);
 		return "/student/studentDetail";
 	}	
 	
@@ -52,8 +41,8 @@ public class StudentController {
 	@GetMapping("student/studentModify")
 	public String getStudentModify(Model model,
 			@RequestParam(value="accountId")String accountId) {
-		Student studentModify = studentService.getStudentDetail(accountId); 
-		model.addAttribute("studentModify",studentModify);
+		Student student = studentService.getStudentDetail(accountId); 
+		model.addAttribute("student",student);
 		return "/student/studentModify";
 	}
 	

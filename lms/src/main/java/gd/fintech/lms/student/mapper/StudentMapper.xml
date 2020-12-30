@@ -67,7 +67,14 @@
 		WHERE account_id=#{accountId}
 	</update>
 	
+	<!-- 계정에 해당하는 운영자 이름 -->
+	<select id="selectStudentName" parameterType="String" resultType="String">
+	 SELECT 
+	 	student_name studentName
+	 FROM student 
+	 WHERE account_id = #{accountId}  		
 	
+	</select>
 	
 </mapper>
 

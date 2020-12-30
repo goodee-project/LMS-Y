@@ -89,10 +89,11 @@
 	</select>
 	
 	<!-- 수강신청 갯수 보기 -->
-	<select id = "selectRegistrationCount" parameterType="int" resultType="int">
+	<select id = "selectRegistrationCount" resultType="String">
 		SELECT 
 			COUNT(*) 
 		FROM class_registration
+		WHERE accountId=#{accountId}
 	</select>
 	
 </mapper>

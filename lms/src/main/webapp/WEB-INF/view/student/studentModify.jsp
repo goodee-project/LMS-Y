@@ -98,12 +98,12 @@
 					
 					<tr>
 						<td>학생 이름</td>
-						<td><input type="text" name="studentName" id="studentName" value="${studentModify.studentName}" placeholder="이름 입력"></td>
+						<td><input type="text" name="studentName" id="studentName" value="${student.studentName}" placeholder="이름 입력"></td>
 					</tr>
 					
 					<tr>
 						<td>학생 전화번호</td>
-						<td><input type="text" name="studentPhone" id="studentPhone" value="${studentModify.studentPhone}" placeholder="전화번호 입력"></td>
+						<td><input type="text" name="studentPhone" id="studentPhone" value="${student.studentPhone}" placeholder="전화번호 입력"></td>
 					</tr>
 					
 					<tr>
@@ -115,19 +115,19 @@
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td><input type="date" name="studentBirth" id="studentBirth" value="${studentModify.studentBirth}"></td>	
+						<td><input type="date" name="studentBirth" id="studentBirth" value="${student.studentBirth}"></td>	
 					</tr>
 					
 					<tr> 
 						<td>주소</td>
-							<td><input type="text" name="studentAddressMain" id="studentAddressMain" value="${studentModify.studentAddressMain}" placeholder="주소 입력"></td>
+							<td><input type="text" name="studentAddressMain" id="studentAddressMain" value="${student.studentAddressMain}" placeholder="주소 입력"></td>
 						<td>상세주소</td>
-							<td><input type="text" name="studentAddressSub" id="studentAddressSub" value="${studentModify.studentAddressSub}" placeholder="상세주소 입력"></td>
+							<td><input type="text" name="studentAddressSub" id="studentAddressSub" value="${student.studentAddressSub}" placeholder="상세주소 입력"></td>
 					</tr>
 										
 					<tr>
 						<td>프로필 사진</td>
-						<td><input type="text" name="studentImage" id="studentImage" value="${studentModify.studentImage}"></td>
+						<td><input type="text" name="studentImage" id="studentImage" value="${student.studentImage}"></td>
 					</tr>
 					
 					<tr>

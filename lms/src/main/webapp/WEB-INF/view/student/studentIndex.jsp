@@ -15,10 +15,9 @@
 				<h1>학생 인덱스</h1>
 			</div>
 		</div>
-		
+		<a href="${pageContext.request.contextPath}/student/studentDetail?accountId=${accountId}">내정보</a>
+		<a href="${pageContext.request.contextPath}/student/studentQuestionList">질문게시판</a>
 		<div class=container>
-			<a href="${pageContext.request.contextPath}/student/studentDetail?accountId=${accountId}">내정보</a>
-			<a href="${pageContext.request.contextPath}/student/studentQuestionList?currentPage=1">질문게시판</a>
 		</div>
 	</body>
 </html>

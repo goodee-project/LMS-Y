@@ -21,94 +21,42 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<h1>질문 게시판</h1>
-			
-			<table class="table">
-				<tr>
-					<th>학생 id</th>
-					<th>강좌 번호</th>
-					<th>작성자 이름</th>
-					<th>제목</th>
-					<th>생성 날짜</th>
-					<th>수정 날짜</th>
-					<th>조회수</th>
+	<div class="container">
+		<h1>질문 게시판</h1>
+		<a href="${pageContext.request.contextPath}/student/studentQuestionAdd?questionNo=${questionNo}">질문 추가</a>
+		<table class="table table-sm">
+			<tr>
+				<th>질문 번호</th>
+				<th>학생 Id</th>
+				<th>강좌 번호</th>
+				<th>작성자 이름</th>
+				<th>제목</th>
+				<th>생성 날짜</th>
+				<th>조회수</th>
+				<th>자세히 보기</th>
 				<tbody>
 					<c:forEach var="q" items="${questionList}">
 						<tr>
+							<td>${q.questionNo}</td>
 							<td>${q.accountId}</td>
 							<td>${q.lectureNo}</td>
 							<td>${q.questionWriter}</td>
 							<td>${q.questionTitle}</td>
 							<td>${q.questionCreateDate}</td>
-							<td>${q.questionUpdateDate}</td>
 							<td>${q.questionCount}</td>
-							<td><a href="${pageContext.request.contextPath}/student/questionOne?accountId=${accountId}&currentPage=${currentPage}">자세히보기</a></td>
+							<td><a href="${pageContext.request.contextPath}/student/questionOne?questionNo=${questionNo}">자세히보기</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-		</div>	
-			<a href="${pageContext.request.contextPath}/student/studentQuestionAdd">입력</a>
-			
-		<div>
-		<!-- 처음 페이지 -->
-			<c:choose>
-				<c:when test="${currentPage>1}">
-					<a href="${pageContext.request.contextPath}/student/studentQuestionList?questionNo=${questionNo}&currentPage=1">처음</a>
-				</c:when>
-			<c:otherwise>
-				<a href="a">처음</a>
-			</c:otherwise>
-			</c:choose>
-			
-		<!-- 이전 페이지 -->
-			<c:choose>
-				<c:when test="${currentPage>1 }">
-					<a href="${pageContext.request.contextPath}/student/studentQuestionList?questionNo=${questionNo}&currentPage=${currentPage-1}">이전</a>
-				</c:when>
-			<c:otherwise>
-				<a href="a">이전</a>
-			</c:otherwise>
-			</c:choose>
-			
-		<!-- 현재 페이지 -->
-			<c:forEach var="i" begin="${navFirstPage}" end="${navLastPage}">
-					<c:if test="${i <= lastPage}">
-						<c:choose>
-							<c:when test="${i == currentPage}">
-								<a href="#">
-									[${i}]
-								</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.request.contextPath}/student/studentQuestionList?currentPage=${i}">
-									[${i}]
-								</a>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
-				</c:forEach>
-			
-		<!-- 다음 페이지 -->
-			<c:choose>
-				<c:when test="${currentPage<lastPage}">
-					<a href="${pageContext.request.contextPath}/student/studentQuestionList?questionNo=${questionNo}&currentPage=${currentPage+1}">다음</a>
-				</c:when>
-				<c:otherwise>
-					<a href="a">다음</a>
-				</c:otherwise>
-			</c:choose>
-			
-		<!-- 마지막 페이지 -->
-			<c:choose>
-				<c:when test="${currentPage<lastPage}">
-					<a href="${pageContext.request.contextPath}/student/studentQuestionList?questionNo=${questionNo}&currentPage=${lastPage}">마지막</a>
-				</c:when>
-				<c:otherwise>
-					<a href="a">마지막</a>
-				</c:otherwise>
-			</c:choose>
+		</div>
+		<div style="margin-left:47%">
+			<!-- 현재 페이지가 1일시 -->
+			<a href="${pageContext.request.contextPath}/student/studentQuestionList?accountId=${accountId}&&currentPage=${currentPage-1}">이전</a>	
+			<!-- 현재 페이지 표시 -->
+			<a href="">${currentPage}</a>
+			<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
+			<a href="${pageContext.request.contextPath}/student/studentQuestionList?accountId=${accountId}&&currentPage=${currentPage+1}">다음</a>
 		</div>
 	</body>
 </html>

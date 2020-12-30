@@ -16,7 +16,6 @@
 			question_password questionPassword
 		FROM
 			question
-		WHERE lecture_no=#{lectureNo}
 		ORDER BY question_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -127,22 +126,21 @@
 	</select> 
 	
 	
-	<!-- 질문 추가 -->
+	<!-- 질문 추가 강좌에 대한 질문 -->
 	<insert id="insertQuestion">
-		<selectKey resultType="int" keyProperty="questionNo" order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
 		INSERT INTO question(
-			lecture_no lectureNo,
-			question_writer questionWriter,
-			question_title questionTitle,
-			question_context questionContent,
-			question_createdate questionCreateDate,
-			question_updatedate questionUpdateDate,
-			question_password questionPassword
+			lecture_no,
+			account_id ,
+			question_writer,
+			question_title,
+			question_content,
+			question_createdate,
+			question_updatedate,
+			question_password
 		
 		) VALUES (
 			#{lectureNo},
+			#{accountId},
 			#{questionWriter},
 			#{questionTitle},
 			#{questionContent},
@@ -163,9 +161,15 @@
 	</update>
 	
 	<!-- 학생의 (자신의) 질문 삭제 -->
-	<delete id="deleteQuestion" parameterType="String">
-		DELETE FROM question WHERE account_id=#{accountId}
+	<delete id="deleteQuestion" parameterType="int">
+		DELETE FROM question WHERE question_no=#{questionNo}
 	</delete>
 	
 	<!-- 질문 조회수 -->
+	<update id="increaseQuestionCount" parameterType="gd.fintech.lms.student.vo.Question">
+	UPDATE question
+		SET question_count = question_count + 1
+		WHERE question_no = #{questionNo}
+	</update>
+	
 </mapper>

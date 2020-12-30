@@ -29,4 +29,8 @@ public interface StudentMapper {
 	//리턴값:해당행 출력
 	List<Student> selectReportOne(String accountId);
 	
+	//학생의 id에 해당하는 학생이름
+	//매개변수: 학생계정id
+	//리턴값: 계정id에 해당하는 학생이름
+	String selectStudentName(String accountId);
 }

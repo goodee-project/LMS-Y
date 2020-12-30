@@ -27,58 +27,45 @@ public class QuestionController {
 	
 	//모든학생의 질문 리스트(페이징)
 	//질문 리스트 10개씩 보여줌(페이징)
-	//@suppressWarning 검증되지 않은 연산자 관련 경고 억제
+	//매개변수:질문의 번호
+	//리턴값:질문의 순번으로 모든학생의 질문 리스트 보여줌
 	@GetMapping("student/studentQuestionList")
 	public String questionList(Model model,
-			@RequestParam(value="questionNo")int questionNo,
-			@RequestParam(value="currentPage",defaultValue="1")int currentPage,
-			HttpSession session) {
-		Map<String,Object>map = questionService.getQuestionListByPage(questionNo, currentPage, session);
+			@RequestParam(value="lectureNo",defaultValue="1")int lectureNo,
+			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
 		
-		//모든 질문이 있는 리스트
-		model.addAttribute("questionAllList",map.get("questionAllList"));
+		List<Question>questionList = questionService.getQuestionListByPage(lectureNo, currentPage);
 		
+		model.addAttribute("questionList",questionList);
+		logger.debug(questionList+"질문리스트");
+		model.addAttribute("lectureNo",lectureNo);
+		logger.debug(lectureNo+"질문번호");
 		model.addAttribute("currentPage",currentPage);
-		model.addAttribute("pageNaviBegin",map.get("pageNaviBegin"));
-		model.addAttribute("pageNaviEnd",map.get("pageNaviEnd"));
-		model.addAttribute("lastPage", map.get("lastPage"));
+		logger.debug(currentPage+"현재페이지");
 		
 		return  "student/studentQuestionList";
 	}
 	
-	
-	//로그인한 해당학생의 질문 리스트
-	public String getStudentQuestionListByPage(Model model,
-			@RequestParam(value="accountId")String accountId,
-			@RequestParam(value="currentPage",defaultValue="1")int currentPage,
-			HttpSession session){
-		Map<String,Object>map=questionService.getStudentQuestionListByPage(accountId, currentPage, session);
-		//해당 학생이 있는 리스트
-		model.addAttribute("studentQuestionList",map.get("studentQuestionList"));
-		
-		model.addAttribute("currentPage",currentPage);
-		model.addAttribute("pageNaviBegin",map.get("pageNaviBegin"));
-		model.addAttribute("pageNaviEnd",map.get("pageNaviEnd"));
-		model.addAttribute("lastPage", map.get("lastPage"));
-		
-		
-		return "student/studentQuestionListDetail";
-	}
-	
 	//질문 입력 폼
-	@GetMapping("/student/addQuestion")
+	//매개변수:
+	//리턴값:
+	@GetMapping("/student/studentQuestionAdd")
 	public String addQuestion() {
-		return "student/studentaddQuestion";
+		return "student/studentQuestionAdd";
 	}
 	
 	//질문 입력 액션
-	@PostMapping("/student/addQuestion")
+	//매개변수:
+	//리턴값:
+	@PostMapping("/student/studentQuestionAdd")
 	public String addQuestion(Question question,HttpSession session) {
 		questionService.addQuestion(question, session);
 		return "redirect:/student/studentQuestionList";
 	}
 	
 	//학생의 질문 상세보기
+	//매개변수:
+	//리턴값:
 	@GetMapping("student/studentQuestionOne")
 	public String questionOne(Model model,HttpServletRequest request,
 			@RequestParam(value="questionNo",required = false)int questionNo) {
@@ -88,23 +75,38 @@ public class QuestionController {
 		Question question = questionService.getQuestionOne(questionNo );
 		model.addAttribute("accountId",accountId);
 		model.addAttribute("question",question);
-		return "student/studentquestionOne";
+		return "student/studentQuestionOne";
 	}
 	
+	
 	//질문 수정 폼
+	//매개변수:질문읩 번호
+	//리턴값:질문의 번호를 참조해 게시판 질문 수정하는 페이지
 	@GetMapping("student/questionModify")
 	public String questionModify(Model model,
 			@RequestParam("questionNo")int questionNo){
 		Question question = questionService.getQuestionOne(questionNo);
 		model.addAttribute("question",question);
-		return "student/studentquestionModify";
+		return "student/studentQuestionModify";
 	}
 	
 	//질문 수정 액션
+	//매개변수:질문 vo
+	//리턴값:질문을 수정하고 해당번호의 번호가있던 페이지로 이동
 	@PostMapping("student/questionModify")
 	public String questioModify(Question question,HttpSession session) {
 		questionService.modifyQuestion(question,session);
-		return "redirect:/student/studentquestionList?currentPage="+question.getQuestionNo();
+		return "redirect:/student/studentQuestionList?currentPage="+question.getQuestionNo();
+	}
+	
+	//질문 제거 액션
+	//매개변수:질문의 번호
+	//리턴값:질문의 번호를 참조해 게시판 질문 삭제
+	@GetMapping("student/removeQuestion")
+	public String removeQuestion(@RequestParam(value="questionNo")int questionNo) {
+		Question question = questionService.getQuestionOne(questionNo);
+		questionService.removeQuestion(questionNo);
+		return "redirect:/student/studentQuestionList?questionNo="+question.getQuestionNo()+"&currentPage=1";
 	}
 	
 }

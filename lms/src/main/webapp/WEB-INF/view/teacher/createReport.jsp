@@ -19,12 +19,13 @@
 					// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
 					oEditors.getById["reportContent"].exec("UPDATE_CONTENTS_FIELD", []);
 
+					let contentText = $('#reportContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					if ($('#reportTitle').val() == '') {								// 과제 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
 						alert('과제 제목을 입력해주세요!');
 						$('#reportTitle').focus();
-					} else if ($('#reportContent').val() == '') {						// 과제 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+					} else if (contentText == '') {										// 과제 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
 						alert('과제 내용을 입력해주세요!');
-						$('#reportContent').focus();
+						oEditors.getById["reportContent"].exec("FOCUS");
 					} else if ($('#reportStartDate').val() == '') {						// 과제 시작일을 입력하지 않았을 경우 입력 요구 및 포커스 이동
 						alert('과제 시작일을 입력해주세요!');
 						$('#reportStartDate').focus();

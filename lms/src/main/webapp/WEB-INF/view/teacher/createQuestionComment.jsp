@@ -37,11 +37,12 @@
 					oEditors.getById["questionCommentContent"].exec("UPDATE_CONTENTS_FIELD", []);
 					
 					// 댓글 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
-					if ($('#questionCommentContent').val() == '') {
+					let contentText = $('#questionCommentContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					if (contentText == '') {
 						alert('댓글 내용을 입력해주세요!');
-						$('#questionCommentContent').focus();
+						oEditors.getById["questionCommentContent"].exec("FOCUS");
 
-						return
+						return;
 					}
 
 					// 빈 첨부파일 칸이 있을 경우 모두 삭제
@@ -53,7 +54,7 @@
 					});
 
 					// 유효성 검사를 만족했을 경우 submit
-					$('#questionCommentForm').submit();
+					//$('#questionCommentForm').submit();
 				});
 
 				// NAVER SmartEditor2 적용 코드

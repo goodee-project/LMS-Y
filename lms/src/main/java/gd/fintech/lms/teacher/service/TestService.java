@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import gd.fintech.lms.dto.MultipleChoiceForm;
 import gd.fintech.lms.teacher.mapper.MultipleChoiceExampleMapper;
 import gd.fintech.lms.teacher.mapper.MultipleChoiceMapper;
 import gd.fintech.lms.teacher.mapper.TestMapper;
@@ -69,15 +70,32 @@ public class TestService {
 
 	// 객관식 문제 생성
 	// 매개변수: 객관식 문제 객체, setter를 사용해 추가할 정보 lectureNo, multipleChoiceId, multipleChoiceQuestion, multipleChoiceAnswer, multipleChoiceScore를 넣을 것
-	public void insertMultipleChoice(MultipleChoice multipleChoice) {
-		logger.debug("multipleChoice = "+multipleChoice.toString());
+	public void createMultipleChoice(MultipleChoiceForm multipleChoiceForm) {
+		logger.debug("multipleChoiceForm = "+multipleChoiceForm.toString());
 		
+		MultipleChoice multipleChoice = new MultipleChoice();
+		multipleChoice.setLectureNo(multipleChoiceForm.getLectureNo());
+		multipleChoice.setMultipleChoiceId(multipleChoiceMapper.selectMultipleChoiceCount(multipleChoiceForm.getLectureNo())+1);
+		multipleChoice.setMultipleChoiceQuestion(multipleChoiceForm.getMultipleChoiceQuestion());
+		multipleChoice.setMultipleChoiceAnswer(multipleChoiceForm.getMultipleChoiceAnswer());
+		multipleChoice.setMultipleChoiceScore(multipleChoiceForm.getMultipleChoiceScore());
 		multipleChoiceMapper.insertMultipleChoice(multipleChoice);
+		
+		int id = 1;
+		for (String content : multipleChoiceForm.getMultipleChoiceExampleList()) {
+			MultipleChoiceExample multipleChoiceExample = new MultipleChoiceExample();
+			multipleChoiceExample.setMultipleChoiceNo(multipleChoice.getMultipleChoiceNo());
+			multipleChoiceExample.setMultipleChoiceExampleId(""+id);
+			multipleChoiceExample.setMultipleChoiceExampleContent(content);
+			multipleChoiceExampleMapper.insertMultipleChoiceExample(multipleChoiceExample);
+			
+			id += 1;
+		}
 	}
 
 	// 객관식 문제 수정
 	// 매개변수: 객관식 문제 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceNo, 변경할 정보 multipleChoiceId, multipleChoiceQuestion, multipleChoiceAnswer, multipleChoiceScore를 넣을 것
-	public void updateMultipleChoice(MultipleChoice multipleChoice) {
+	public void modifyMultipleChoice(MultipleChoice multipleChoice) {
 		logger.debug("multipleChoice = "+multipleChoice.toString());
 		
 		multipleChoiceMapper.updateMultipleChoice(multipleChoice);
@@ -86,12 +104,20 @@ public class TestService {
 	// 객관식 문제 삭제
 	// 매개변수: 삭제할 객관식 문제의 고유번호
 	public void removeMultipleChoice(int multipleChoiceNo) {
+		MultipleChoice multipleChoice = multipleChoiceMapper.selectMultipleChoiceDetail(multipleChoiceNo);
+		logger.debug("multipleChoice = "+multipleChoice);
+		
+		int originId = multipleChoice.getMultipleChoiceId();
+		
+		multipleChoiceExampleMapper.deleteMultipleChoiceExampleByMultipleChoiceNo(multipleChoiceNo);
 		multipleChoiceMapper.deleteMultipleChoice(multipleChoiceNo);
+		
+		multipleChoiceMapper.updateMultipleChoiceIdSubstractBelow(originId);
 	}
 	
 	// 객관식 보기 생성
 	// 매개변수: 객관식 보기 객체, setter를 사용해 추가할 정보 multipleChoiceNo, multipleChoiceExampleId, multipleChoiceExampleContent를 넣을 것
-	public void insertMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
+	public void createMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
 		logger.debug("multipleChoiceExample = "+multipleChoiceExample.toString());
 		
 		multipleChoiceExampleMapper.insertMultipleChoiceExample(multipleChoiceExample);
@@ -99,15 +125,9 @@ public class TestService {
 
 	// 객관식 보기 수정
 	// 매개변수: 객관식 보기 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceExampleNo, 변경할 정보 multipleChoiceExampleId, multipleChoiceExampleContent를 넣을 것
-	public void updateMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
+	public void modifyMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
 		logger.debug("multipleChoiceExample = "+multipleChoiceExample.toString());
 		
 		multipleChoiceExampleMapper.updateMultipleChoiceExample(multipleChoiceExample);
-	}
-
-	// 객관식 보기 삭제
-	// 매개변수: 삭제할 객관식 보기의 고유번호
-	public void removeMultipleChoiceExample(int multipleChoiceExampleNo) {
-		multipleChoiceExampleMapper.deleteMultipleChoiceExample(multipleChoiceExampleNo);
 	}
 }

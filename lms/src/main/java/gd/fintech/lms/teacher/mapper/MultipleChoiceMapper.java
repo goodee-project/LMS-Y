@@ -35,6 +35,11 @@ public interface MultipleChoiceMapper {
 	// 리턴값: 변경된 행 갯수
 	int updateMultipleChoice(MultipleChoice multipleChoice);
 	
+	// 해당 문제번호 이후의 문제번호들을 1 차감 (임의의 번호를 삭제했을 때 해당 번호에 공백이 생기는 현상 제거)
+	// 매개변수: 기준이 되는 문제번호(ID)
+	// 리턴값: 변경된 행 갯수
+	int updateMultipleChoiceIdSubstractBelow(int originId);
+	
 	// 객관식 문제 삭제
 	// 매개변수: 삭제할 객관식 문제의 고유번호
 	// 리턴값: 변경된 행 갯수

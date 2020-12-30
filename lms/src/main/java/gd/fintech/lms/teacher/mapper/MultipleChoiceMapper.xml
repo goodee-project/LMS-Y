@@ -62,6 +62,9 @@
 	
 	<!-- 객관식 문제 생성 쿼리 -->
 	<insert id="insertMultipleChoice" parameterType="gd.fintech.lms.teacher.vo.MultipleChoice">
+		<selectKey resultType="int" keyProperty="multipleChoiceNo" order="AFTER">
+	  		SELECT LAST_INSERT_ID()
+	  	</selectKey>
 		INSERT INTO multiplechoice (
 			lecture_no,
 			multiplechoice_id,
@@ -91,6 +94,14 @@
 			multiplechoice_score = #{multipleChoiceScore},
 			multiplechoice_updatedate = NOW()
 		WHERE multiplechoice_no = #{multipleChoiceNo}
+	</update>
+	
+	<!-- 해당 문제번호 이후의 문제번호 차감 쿼리 -->
+	<update id="updateMultipleChoiceIdSubstractBelow" parameterType="int">
+		UPDATE multiplechoice
+		SET
+			multiplechoice_id = multiplechoice_id - 1
+		WHERE multiplechoice_id > ${originId}
 	</update>
 	
 	<!-- 객관식 문제 삭제 쿼리 -->

@@ -28,12 +28,6 @@
 		WHERE multiplechoice_example_no = #{multipleChoiceExampleNo}
 	</update>
 	
-	<!-- 객관식 보기 삭제 쿼리 -->
-	<delete id="deleteMultipleChoiceExample">
-		DELETE FROM multiplechoice_example
-		WHERE multiplechoice_example_no = #{multipleChoiceExampleNo}
-	</delete>
-	
 	<!-- 객관식 문제에 포함된 객관식 보기 삭제 쿼리 -->
 	<delete id="deleteMultipleChoiceExampleByMultipleChoiceNo">
 		DELETE FROM multiplechoice_example

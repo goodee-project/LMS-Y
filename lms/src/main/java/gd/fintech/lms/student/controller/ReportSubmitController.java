@@ -1,6 +1,8 @@
 package gd.fintech.lms.student.controller;
 
-import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,11 +31,19 @@ public class ReportSubmitController {
 	// 리턴값 : 계정과 연관 있는 과제리스트
 	@GetMapping("/student/reportList")
 	public String reportList(Model model,
-			@RequestParam(value="accountId") String accountId) {
-		List<Report> reportList = reportSubmitService.getReportList(accountId);
-		logger.debug(reportList.toString());
-		model.addAttribute("reportList", reportList);
-		return "reportList";
+			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
+			HttpSession session) {
+		Map<String, Object> map = reportSubmitService.getReportListByPage(currentPage, session);
+		logger.debug(map.toString());
+		
+		model.addAttribute("reportList", map.get("reportList"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", map.get("lastPage"));
+		
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		return "/student/reportList";
 	}
 	
 	// 과제 제출 정보 출력
@@ -46,11 +56,10 @@ public class ReportSubmitController {
 	@GetMapping("/student/reportSubmitDetail")
 	public String reportSubmitDetail(Model model,
 			@RequestParam(value="reportNo") int reportNo,
-			@RequestParam(value="accountId") String accountId) {
-		Report reportSubmitDetail = reportSubmitService.getReportSubmitDetail(reportNo, accountId);
-		logger.debug(reportSubmitDetail.toString());
-		model.addAttribute("reportSubmitDetail", reportSubmitDetail);
-		return "reportSubmitDetail";
+			HttpSession session) {
+		Report report = reportSubmitService.getReportSubmitDetail(reportNo, session);
+		model.addAttribute("report", report);
+		return "/student/reportSubmitDetail";
 	}
 	
 	// 과제 제출 입력 페이지
@@ -83,9 +92,6 @@ public class ReportSubmitController {
 	public String modifyReportSubmit(Model model,
 			@RequestParam(value="reportNo") int reportNo,
 			@RequestParam(value="accountId") String accountId) {
-		Report reportSubmitDetail = reportSubmitService.getReportSubmitDetail(reportNo, accountId);
-		logger.debug(reportSubmitDetail.toString());
-		model.addAttribute("reportSubmitDetail", reportSubmitDetail);
 		return "modifyReportSubmit";
 	}
 	

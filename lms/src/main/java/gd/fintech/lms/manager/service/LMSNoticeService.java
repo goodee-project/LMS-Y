@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.AccountLevel;
 import gd.fintech.lms.manager.mapper.LMSNoticeMapper;
+import gd.fintech.lms.manager.mapper.ManagerMapper;
 import gd.fintech.lms.manager.vo.LMSNotice;
 
 // LMS공지사항 서비스
@@ -25,6 +26,8 @@ public class LMSNoticeService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	// lms 공지사항 mapper
 	@Autowired private LMSNoticeMapper lmsNoticeMapper;
+	// manager mapper
+	@Autowired private ManagerMapper managerMapper;
 	
 	// LMS공지사항의 리스트를 보여주는 페이징 서비스
 	// 매개변수 : 현재 페이지, 검색어
@@ -87,7 +90,7 @@ public class LMSNoticeService {
 		String sessionAccountId = (String)session.getAttribute("accountId");
 		logger.debug(sessionAccountId);
 		lmsNotice.setAccountId(sessionAccountId);
-		lmsNotice.setLmsNoticeWriter(lmsNoticeMapper.selectLMSNoticeWriter(sessionAccountId));
+		lmsNotice.setLmsNoticeWriter(managerMapper.selectManagerName(sessionAccountId));
 		return lmsNoticeMapper.insertLMSNotice(lmsNotice);
 	}
 	

@@ -44,13 +44,6 @@
 		</where>
 	</select>
 	
-	<!-- lms공지사항 작성자 -->
-	<select id="selectLMSNoticeWriter" parameterType="String" resultType="String">
-		SELECT manager_name managerName
-		FROM manager
-		WHERE account_Id = #{accountId}
-	</select>
-	
 	<!-- lms공지사항 입력, 자동 증가값인 lmsNoticeNo를 읽어오기위한 selectKey -->
 	<insert id="insertLMSNotice" parameterType="gd.fintech.lms.manager.vo.LMSNotice">
 		<selectKey resultType="int" keyProperty="lmsNoticeNo" order="AFTER">

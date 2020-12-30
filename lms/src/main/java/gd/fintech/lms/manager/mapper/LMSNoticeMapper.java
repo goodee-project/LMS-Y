@@ -25,11 +25,6 @@ public interface LMSNoticeMapper {
 	// 매개변수 : 검색어
 	// 리턴값 : 공지사항 게시물 개수
 	int selectLMSNoticeCount(String lmsNoticeSearch);
-
-	// 공지사항 작성 매니저 이름 가져오기
-	// 매개변수 : 매니저의 계정 ID
-	// 리턴값 : 매니저의 이름
-	String selectLMSNoticeWriter(String accountId);
 	
 	// 공지사항 입력
 	// 매개변수 : LMS공지사항 정보(계정 id, 제목, 내용, 입력날짜, 수정날짜)

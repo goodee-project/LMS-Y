@@ -122,7 +122,6 @@
 			<!-- 검색 -->
 			<div>
 				<form action="${pageContext.request.pathInfo}" method="get">
-					<input type="hidden" name="currentPage" value="1">
 					<input type="text" name="lmsNoticeSearch" value="${lmsNoticeSearch}">
 					<button type="submit">버튼</button>
 				</form>

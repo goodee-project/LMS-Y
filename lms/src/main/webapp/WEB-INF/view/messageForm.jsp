@@ -15,20 +15,24 @@
 				$('#search').click(function() {
 					$.ajax({
 						url: '${pageContext.request.contextPath}/serchToId',
-						type: 'GET',
+						type: 'POST',
 						data: {accountId:$('#toId').val()},
 						success: function(data) {
-							console.log($('#toId').val());
+							console.log(data);
+							if(data.toId != null) {
+								$('#textInfo').text('수신자');
+								let str = '<button type="button" class="btn btn-info mt-2" id="userId">'+data.toId+' ('+data.accountName+')'+'</button>';
+								$('#userId').remove();
+								$('#accountInfo').append(str);
+							}
 						}
 					});
-				});
-             
+				});            
                 // 쪽지 글자수 카운팅
             	$(document).on('keyup', '#messageContent', function(e){
             	    let messageContent = $(this).val();
             	    $('#cnt').text(getBytes(messageContent));
-            	});
-            	 
+            	});           	 
             	function getBytes(str){
             	    let cnt = 0;
             	    for(let i =0; i<str.length;i++) {
@@ -40,6 +44,22 @@
                 	}
             	    return cnt;
             	}
+            	// 유효성 검사
+            	$('#submitBtn').click(function() {
+            		if($('#toId').val() == '') {
+            			alert('수신자를 입력하세요');
+            			return;
+                	}else if($('#textInfo').text() == '') {
+						alert('수신자를 검색하세요');
+						return;
+                    }else if($('#messageContent').val() == '') {
+                    	alert('쪽지 내용을 입력하세요');
+						return;
+                    }else {
+						$('#messageForm').submit();
+                    }
+            	});
+            	
             });
         </script>
 	</head>
@@ -48,14 +68,15 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">			
+		<div class="container">
 			<div class="jumbotron">
 				<h1>쪽지 보내기</h1>
 			</div>
 			
 			<div align="center">
 				<form action="${pageContext.request.contextPath}/sendMessage" method="post" id="messageForm">
-					<input type="hidden" name="fromId" value="${accountId}">
+					<input type="hidden" name="fromId" value="${fromId}">
+					<input type="hidden" name="fromName" value="${fromName}">
 					<table>
 						<tr>
 							<td>받는 사람</td>
@@ -67,7 +88,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="3">
+							<td><div id="textInfo"></div></td>
+							<td colspan="2">
 								<div id="accountInfo"></div>
 							</td>
 						</tr>
@@ -81,7 +103,7 @@
 						</tr>
 						<tr>
 							<td colspan="3" align="right">
-								<button type="button" class="btn btn-success mt-3" id="submit">보내기</button>
+								<button type="button" class="btn btn-success mt-3" id="submitBtn">보내기</button>
 							</td>
 						</tr>
 					</table>

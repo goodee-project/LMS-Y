@@ -35,7 +35,7 @@ public class MessageService {
 	// 쪽지 상세보기 내용을 가져오는 서비스 메소드
 	// 매개변수: 쪽지 번호
 	// 리턴값: 상세조회한 내용 목록
-	public List<Message> getMessageDetail(int messageNo) {
+	public Message getMessageDetail(int messageNo) {
 		return messageMapper.selectMessageDetail(messageNo);
 	}
 	
@@ -60,10 +60,17 @@ public class MessageService {
 		return messageMapper.updateMessageConfirm(messageNo);
 	}
 	
-	// 쪽지 보내기 위해 계정 정보를 검색하는 메소드
+	// 쪽지 보내기 위해 수신자 계정 정보를 검색하는 메소드
 	// 매개변수: 수신자 아이디
-	// 리턴값: 아이디로 조회한 계정 정보
-	public Map<String, Object> getAccountInfo(String accountId) {
-		return messageMapper.selectAccountInfoByAccountId(accountId);
+	// 리턴값: 아이디로 조회한 계정 정보(아이디,이름)
+	public Map<String, Object> getReceiverInfo(String accountId) {
+		return messageMapper.selectReceiverInfoByAccountId(accountId);
+	}
+	
+	// 발신자의 계정 정보를 조회하는 메소드
+	// 매개변수: 발신자 아이디
+	// 리턴값: 아이디로 조회한 계정 정보(아이디,이름)
+	public Map<String, Object> getCallerInfo(String accountId) {
+		return messageMapper.selectCallerInfoAccountId(accountId);
 	}
 }

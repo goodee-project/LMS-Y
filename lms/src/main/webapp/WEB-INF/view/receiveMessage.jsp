@@ -21,7 +21,10 @@
 			</div>
 			<div>
 				<div class="float-left">
-					<a href="${pageContext.request.contextPath}/messageForm" class="btn btn-outline-primary">쪽지 보내기</a>
+					<form action="${pageContext.request.contextPath}/messageForm" method="post">
+						<input type="hidden" name="accountId" value="${accountId}">
+						<button class="btn btn-outline-primary">쪽지 보내기</button>
+					</form>
 				</div>
 				<div class="float-right mb-5">
 					<a href="${pageContext.request.contextPath}/sendMessage" class="btn btn-outline-success">보낸 쪽지함</a>
@@ -42,6 +45,30 @@
 				</div>
 			</div><hr>
 			<!-- 메세지 목록 출력 -->
+			<table class="table table-hover">
+				<tr>
+					<th>발신자 ID</th>
+					<th>발신자 이름</th>
+					<th>보낸 날짜</th>
+					<th>확인여부</th>
+					<th>상세보기</th>
+					<th>삭제하기</th>
+				</tr>
+				<c:forEach var="list" items="${list}">
+					<tr>
+						<td>${list.fromId}</td>
+						<td>${list.fromName}</td>
+						<td>${list.messageDateTime}</td>
+						<td>${list.isConfirm}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/messageDetail?messageNo=${list.messageNo}" class="btn btn-outline-info">상세보기</a>
+						</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/removeMessage?messageNo=${list.messageNo}" class="btn btn-outline-danger">삭제하기</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</body>
 </html>

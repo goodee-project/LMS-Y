@@ -23,8 +23,8 @@ public interface MessageMapper {
 	
 	// 쪽지 상세보기 메소드
 	// 매개변수: 쪽지 번호
-	// 리턴값: 쪽지 상세보기 내용 리스트
-	List<Message> selectMessageDetail(int messageNo);
+	// 리턴값: 쪽지 상세보기 내용
+	Message selectMessageDetail(int messageNo);
 	
 	// 쪽지 보내기 기능을 하는 메소드
 	// 매개변수: Message 정보(발신자, 수신자, 발신자이름, 메세지내용)
@@ -41,8 +41,13 @@ public interface MessageMapper {
 	// 리턴값: 쪽지 상태를 읽음으로 변경한 행
 	int updateMessageConfirm(int messageNo);
 	
-	// 쪽지보내기 위한 아이디를 검색하는 메소드
+	// 쪽지보내기 위한 수신자 아이디 정보를 검색하는 메소드
 	// 매개변수: 계정 ID
 	// 리턴값: 아이디로 조회한 정보(아이디,이름)
-	Map<String, Object> selectAccountInfoByAccountId(String accountId);
+	Map<String, Object> selectReceiverInfoByAccountId(String accountId);
+	
+	// 발신자의 정보를 조회하는 메소드
+	// 매개변수: 계정 ID
+	// 리턴값: 아이디로 조회한 정보(아이디,이름)
+	Map<String, Object> selectCallerInfoAccountId(String accountId);
 }

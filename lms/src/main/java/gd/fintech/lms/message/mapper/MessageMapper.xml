@@ -4,13 +4,14 @@
 	<!-- 받은 쪽지 리스트를 조회하는 쿼리 -->
 	<select id="selectReceiveMessageList" parameterType="String" resultType="gd.fintech.lms.message.vo.Message">
 		SELECT 
-			message_no messageNo, 
+			message_no messageNo,
 			from_id fromId,
 			from_name fromName,
 			message_datetime messageDateTime,
 			is_confirm isConfirm
 		FROM message
 		WHERE to_id = #{toId}
+		ORDER BY message_datetime DESC
 	</select>
 	
 	<!-- 보낸 쪽지 리스트를 조회하는 쿼리 -->
@@ -22,6 +23,7 @@
 			is_confirm isConfirm
 		FROM message
 		WHERE from_id = #{fromId}
+		ORDER BY message_datetime DESC
 	</select>
 	
 	<!-- 쪽지 상세보기 쿼리 -->
@@ -30,9 +32,9 @@
 			message_no messageNo, 
 			from_id fromId,
 			to_id toId,
-			from_name fromName, 
-			message_content messageContent, 
-			message_datetime messageDateTime, 
+			from_name fromName,
+			message_content messageContent,
+			message_datetime messageDateTime,
 			is_confirm isConfirm
 		FROM message
 		WHERE message_no = #{messageNo}		
@@ -69,7 +71,7 @@
 	</update>
 	
 	<!-- 쪽지보내기 위한 아이디를 검색하는 쿼리 -->
-	<select id="selectAccountInfoByAccountId" parameterType="String" resultType="java.util.Map">
+	<select id="selectReceiverInfoByAccountId" parameterType="String" resultType="java.util.Map">
 		SELECT 
 			a.account_id toId,
 			CASE 
@@ -84,5 +86,23 @@
 		LEFT JOIN teacher t ON a.account_id = t.account_id
 		LEFT JOIN student s ON a.account_id = s.account_id
 		WHERE a.account_id = #{accountId} AND a.account_state = "활성화"
+	</select>
+	
+	<!-- 발신자의 정보를 조회하는 메소드 -->
+	<select id="selectCallerInfoAccountId" parameterType="String" resultType="java.util.Map">
+		SELECT 
+			a.account_id fromId,
+			CASE
+				WHEN ad.admin_name IS NOT NULL THEN ad.admin_name
+				WHEN m.manager_name IS NOT NULL THEN m.manager_name
+				WHEN t.teacher_name IS NOT NULL THEN t.teacher_name
+				WHEN s.student_name IS NOT NULL THEN s.student_name
+			END fromName
+		FROM account a
+		LEFT JOIN admin ad ON a.account_id = ad.account_id
+		LEFT JOIN manager m ON a.account_id = m.account_id
+		LEFT JOIN teacher t ON a.account_id = t.account_id
+		LEFT JOIN student s ON a.account_id = s.account_id
+		WHERE a.account_id = #{accountId};
 	</select>
 </mapper>

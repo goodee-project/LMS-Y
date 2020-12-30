@@ -2,11 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- 학생 메뉴바 -->
 <c:if test="${accountLevel == 1}">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand">LMS</a>
+		<a class="navbar-brand ml-3">LMS</a>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 			    <a class="nav-link" href="${pageContext.request.contextPath}/#">학생수강신청</a>
@@ -15,7 +19,7 @@
 			  	<a class="nav-link" href="${pageContext.request.contextPath}/#">학생수강등록</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
@@ -24,14 +28,14 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
-		<div style="color: white; margin-left: 700px">${accountId} 님 반갑습니다</div>
+		<div style="color: white; position: absolute; right: 30px;">${accountId} 님</div>
 	</nav>
 </c:if>
 
 <!-- 강사 메뉴바 -->
 <c:if test="${accountLevel == 2}">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand">LMS</a>
+		<a class="navbar-brand ml-3">LMS</a>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 			    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=1">강사강좌조회</a>
@@ -40,7 +44,7 @@
 			  	<a class="nav-link" href="${pageContext.request.contextPath}/#">강사과제생성</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/lmsNoticeList">LMS 공지사항</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherOne">내정보 상세보기</a>
@@ -49,34 +53,36 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
+		<div style="color: white; position: absolute; right: 30px;">${accountId} 님</div>
 	</nav>
 </c:if>
 
 <!-- 운영자 메뉴바 -->
 <c:if test="${accountLevel == 3}">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand">LMS</a>
+		<a class="navbar-brand ml-3">LMS</a>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-			    <a class="nav-link" href="${pageContext.request.contextPath}/#">운영자</a>
+			    <a class="nav-link" href="${pageContext.request.contextPath}/manager/lmsNoticeList">LMS 공지사항</a>
 			</li>
 			<li class="nav-item">
-			  	<a class="nav-link" href="${pageContext.request.contextPath}/#">운영자</a>
+			  	<a class="nav-link" href="${pageContext.request.contextPath}/manager/studentQueueList">학생 승인대기리스트</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/teacherQueueList">강사 승인대기리스트</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
+		<div style="color: white; position: absolute; right: 30px;">${accountId} 님</div>
 	</nav>
 </c:if>
 
 <!-- 관리자 메뉴바 -->
 <c:if test="${accountLevel == 4}">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand">LMS</a>
+		<a class="navbar-brand ml-3">LMS</a>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 			    <a class="nav-link" href="${pageContext.request.contextPath}/#">관리자</a>
@@ -91,5 +97,6 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
+		<div style="color: white; position: absolute; right: 30px;">${accountId} 님</div>
 	</nav>
 </c:if>

@@ -3,7 +3,7 @@ package gd.fintech.lms.message.restcontroller;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +19,8 @@ public class MessageRestController {
 	// 수신자의 계정 정보(아이디, 이름) 조회하는 메소드
 	// 매개변수: 수신자 아이디
 	// 리턴값: 계정 정보(아이디, 이름)
-	@GetMapping("/serchToId")
+	@PostMapping("/serchToId")
 	public Map<String, Object> accountInfo(@RequestParam(value = "accountId", required = true) String accountId) {
-		return messageService.getAccountInfo(accountId);
+		return messageService.getReceiverInfo(accountId);
 	}
 }

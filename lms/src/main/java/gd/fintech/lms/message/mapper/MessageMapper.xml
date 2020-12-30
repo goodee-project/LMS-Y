@@ -5,6 +5,7 @@
 	<select id="selectReceiveMessageList" parameterType="String" resultType="gd.fintech.lms.message.vo.Message">
 		SELECT 
 			message_no messageNo,
+			to_id toId,
 			from_id fromId,
 			from_name fromName,
 			message_datetime messageDateTime,
@@ -19,6 +20,7 @@
 		SELECT
 			message_no messageNo,
 			to_id toId,
+			from_id fromId,
 			message_datetime messageDateTime,
 			is_confirm isConfirm
 		FROM message
@@ -64,10 +66,12 @@
 	</delete>
 	
 	<!-- 쪽지 확인상태를 읽음으로 수정하는 쿼리 -->
-	<update id="updateMessageConfirm" parameterType="int">
+	<update id="updateMessageConfirm" parameterType="java.util.Map">	
 		UPDATE message
 		SET is_confirm = "Y"
-		WHERE message_no = #{messageNo}
+		WHERE 
+			message_no = #{messageNo} 
+			AND to_id = #{id}
 	</update>
 	
 	<!-- 쪽지보내기 위한 아이디를 검색하는 쿼리 -->

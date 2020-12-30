@@ -54,10 +54,10 @@ public class MessageService {
 	}
 	
 	// 쪽지 읽음으로 수정하는 서비스 메소드
-	// 매개변수: 쪽지 번호
+	// 매개변수: 쪽지 번호, 수신자 아이디
 	// 리턴값: 수정된 행의 수
-	public int modifyMessageConfirm(int messageNo) {
-		return messageMapper.updateMessageConfirm(messageNo);
+	public int modifyMessageConfirm(Map<String, Object> map) {
+		return messageMapper.updateMessageConfirm(map);
 	}
 	
 	// 쪽지 보내기 위해 수신자 계정 정보를 검색하는 메소드

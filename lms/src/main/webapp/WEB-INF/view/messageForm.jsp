@@ -102,7 +102,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="3" align="right">
+							<td colspan="3" align="center">
 								<button type="button" class="btn btn-success mt-3" id="submitBtn">보내기</button>
 							</td>
 						</tr>

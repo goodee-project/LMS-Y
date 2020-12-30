@@ -2,10 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- 학생 메뉴바 -->
 <c:if test="${accountLevel == 1}">
@@ -50,6 +46,9 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherOne">내정보 상세보기</a>
 			</li>
 			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
+			</li>
+			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
@@ -72,6 +71,9 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/teacherQueueList">강사 승인대기리스트</a>
 			</li>
 			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
+			</li>
+			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 			</li>
 		</ul>
@@ -92,6 +94,9 @@
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
+			</li>
+			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/logout">로그아웃</a>

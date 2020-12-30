@@ -37,9 +37,9 @@ public interface MessageMapper {
 	int deleteMessageByMessageNo(int messageNo);
 	
 	// 쪽지 확인상태를 읽음으로 수정하는 메소드
-	// 매개변수: 쪽지 번호
+	// 매개변수: 쪽지 번호(messageNo), 수신자 아이디(toId)
 	// 리턴값: 쪽지 상태를 읽음으로 변경한 행
-	int updateMessageConfirm(int messageNo);
+	int updateMessageConfirm(Map<String, Object> map);
 	
 	// 쪽지보내기 위한 수신자 아이디 정보를 검색하는 메소드
 	// 매개변수: 계정 ID

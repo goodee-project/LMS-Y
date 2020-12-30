@@ -1,5 +1,6 @@
 package gd.fintech.lms.message.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,14 +46,19 @@ public class MessageController {
 	}
 	
 	// 쪽지 상세보기를 위한 메소드
-	// 매개변수: 쪽지 번호
+	// 매개변수: 쪽지 번호, 수신자 아이디
 	// 리턴값: 쪽지 상세 내용 리스트
-	@GetMapping("/messageDetail")
-	public String messageDetail(@RequestParam(value = "messageNo", required = true) int messageNo, Model model) {
+	@PostMapping("/messageDetail")
+	public String messageDetail(Model model, @RequestParam(value = "messageNo", required = true) int messageNo, 
+			@RequestParam(value = "id", required = true) String id) {
 		// 메세지 상세정보 가져오기
 		model.addAttribute("message", messageService.getMessageDetail(messageNo));
 		// 메세지 읽음 상태로 변경
-		messageService.modifyMessageConfirm(messageNo);
+		System.out.println(messageNo + ":쪽지번호, " + id + ":수신자번호");
+		Map<String, Object> map = new HashMap<>();
+		map.put("messageNo", messageNo);
+		map.put("id", id);
+		messageService.modifyMessageConfirm(map);
 		return "messageDetail";
 	}
 	
@@ -75,12 +81,21 @@ public class MessageController {
 		return "redirect:/sendMessage";
 	}
 	
-	// 쪽지 삭제를 위한 메소드
+	// 받은 쪽지 삭제를 위한 메소드
 	// 매개변수: 쪽지 번호
 	// 리턴값: 삭제가 된 행
-	@GetMapping("/removeMessage")
-	public String removeMessage(@RequestParam(value = "messageNo", required = true) int messageNo) {
+	@GetMapping("/removeReceiveMessage")
+	public String removeReceiveMessage(@RequestParam(value = "messageNo", required = true) int messageNo) {
 		messageService.removeMessageByMessageNo(messageNo);
 		return "redirect:/receiveMessage";
+	}
+	
+	// 보낸 쪽지 삭제를 위한 메소드
+	// 매개변수: 쪽지 번호
+	// 리턴값: 삭제가 된 행
+	@GetMapping("/removeSendMessage")
+	public String removeSendMessage(@RequestParam(value = "messageNo", required = true) int messageNo) {
+		messageService.removeMessageByMessageNo(messageNo);
+		return "redirect:/sendMessage";
 	}
 }

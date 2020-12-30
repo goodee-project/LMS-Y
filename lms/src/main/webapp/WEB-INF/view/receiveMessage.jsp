@@ -61,10 +61,14 @@
 						<td>${list.messageDateTime}</td>
 						<td>${list.isConfirm}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/messageDetail?messageNo=${list.messageNo}" class="btn btn-outline-info">상세보기</a>
+							<form action="${pageContext.request.contextPath}/messageDetail" method="post">
+								<input type="hidden" value="${list.toId}" name="id">
+								<input type="hidden" value="${list.messageNo}" name="messageNo">
+								<button class="btn btn-outline-info">상세보기</button>
+							</form>
 						</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/removeMessage?messageNo=${list.messageNo}" class="btn btn-outline-danger">삭제하기</a>
+							<a href="${pageContext.request.contextPath}/removeReceiveMessage?messageNo=${list.messageNo}" class="btn btn-outline-danger">삭제하기</a>
 						</td>
 					</tr>
 				</c:forEach>

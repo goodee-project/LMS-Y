@@ -31,16 +31,32 @@
 			lecture_archive_createdate lectureArchiveCreateDate, 
 			lecture_archive_count lectureArchiveCount
 		FROM lecture_archive
-		WHERE lecture_no = #{lectureNo}
+		<where>
+			lecture_no = #{lectureNo}
+			<if test='lectureArchiveSearch !=null'>	
+			AND (
+					lecture_archive_title LIKE CONCAT('%',#{lectureArchiveSearch},'%')
+					OR lecture_archive_writer LIKE CONCAT('%',#{lectureArchiveSearch},'%')
+				)
+			</if>
+		</where>
 		ORDER BY lecture_archive_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 자료실 페이지 카운트 -->
-	<select id="selectLectureArchiveCount" resultType="int">
+	<select id="selectLectureArchiveCount" resultType="int" parameterType="String">
 		SELECT
   			COUNT(*) lectureAchiveCount
   		FROM lecture_archive
-  		WHERE lecture_no = #{lectureNo};
+  		<where>
+  			lecture_no = #{lectureNo}
+  			<if test='lectureArchiveSearch !=null'>
+  				AND (
+					lecture_archive_title LIKE CONCAT('%',#{lectureArchiveSearch},'%')
+					OR lecture_archive_writer LIKE CONCAT('%',#{lectureArchiveSearch},'%')
+				)
+  			</if>
+  		</where>
 	</select>
 	<!-- 자료실 상세보기 -->
 	<select id="selectLectureArchiveOne" parameterType="java.util.Map" resultMap="ResultLectureArchiveOne">

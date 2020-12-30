@@ -39,15 +39,21 @@ public class LectureNoticeController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/teacher/lectureNotice")
 	public String lectureNotice(Model model, @RequestParam(value = "lectureNo", defaultValue = "1") int lectureNo,
+			@RequestParam(value = "lectureNoticeSearch",required = false)String lectureNoticeSearch,
 			@RequestParam(value = "currentPage", defaultValue = "10") int currentPage) {
 
-		Map<String, Object> map = lectureNoticeService.getLectureNoticeListByPage(lectureNo, currentPage);
+		Map<String, Object> map = lectureNoticeService.getLectureNoticeListByPage(lectureNo, currentPage,lectureNoticeSearch);
 
 		List<LectureNotice> lectureNoticeList = (List<LectureNotice>) map.get("lectureNoticeList");
 		logger.trace(lectureNoticeList + "<--- lectureNoticeList");
 		int lastPage = (int) map.get("lastPage");
 
 		// 모델로 뷰에 값 전달
+		model.addAttribute("lectureNoticeSearch",lectureNoticeSearch);
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		
 		model.addAttribute("lectureNoticeList", lectureNoticeList);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);

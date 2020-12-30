@@ -22,9 +22,8 @@ public interface LectureArchiveMapper {
 	LectureArchive selectLectureArchiveOne(int lectureArchiveNo);
 	
 	//자료실 페이지 카운트
-	//매개변수:강좌 고유번호
-	int selectLectureArchiveCount(int lectureNo);
-	
+	//매개변수:강좌 고유번호,검색
+	int selectLectureArchiveCount(int lectureNo,String lectureArchiveSearch);
 	//자료실 입력
 	//매개변수:자료실 입력폼에서 제목,내용 입력
 	//리턴값:변경된 행의 갯수

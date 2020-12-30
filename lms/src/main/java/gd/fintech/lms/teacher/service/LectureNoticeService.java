@@ -30,13 +30,13 @@ public class LectureNoticeService {
 	// 강좌별 공지사항 목록 출력 메서드
 	// 매개변수:강좌 고유번호
 	// 리턴값:강좌 고유번호를 조회하여 공지사항 목록을 반환
-	public Map<String,Object> getLectureNoticeListByPage(int lectureNo, int currentPage) {
+	public Map<String,Object> getLectureNoticeListByPage(int lectureNo, int currentPage,String lectureNoticeSearch) {
 		// 현재 페이지 표시할 데이터 수
 		int rowPerPage = 10;
 		// 시작 페이지
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 전체 페이지 개수
-		int lectureNoticeCount = lectureNoticeMapper.selectLectureNoticeCount(lectureNo);
+		int lectureNoticeCount = lectureNoticeMapper.selectLectureNoticeCount(lectureNo,lectureNoticeSearch);
 		// 마지막 페이지
 		int lastPage = lectureNoticeCount / rowPerPage;
 		// 10 미만의 개수의 데이터가 있는 페이지 표시
@@ -47,20 +47,32 @@ public class LectureNoticeService {
 		if (lastPage == 0) {
 			currentPage = 0;
 		}
+		//페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		//네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
 		Map<String,Object> paramMap = new HashMap<String,Object>();
 		
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("beginRow", beginRow);
 		paramMap.put("lectureNo", lectureNo);
-
+		paramMap.put("lectureNoticeSearch", lectureNoticeSearch);
+		
 		List<LectureNotice> lectureNoticeList = lectureNoticeMapper.selectLectrueNoticeListByPage(paramMap);
 		logger.trace(lectureNoticeList + "<---lectureNoticeList");
 	
 		Map<String,Object>map = new HashMap<String,Object>();
 		map.put("lastPage", lastPage);
 		map.put("lectureNoticeList", lectureNoticeList);
-		
-		
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
 
 		return map;
 	}

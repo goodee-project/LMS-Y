@@ -35,12 +35,37 @@
 					<td>출석여부</td>
 					<td>
 						<select name="attendanceState">
-							<option value="${attendanceList.attendanceState}">${attendanceList.attendanceState}</option>
-							<option value="출석">출석</option>
-							<option value="결석">결석</option>
-							<option value="외출">외출</option>
-							<option value="조퇴">조퇴</option>
-							<option value="지각">지각</option>
+							<option value="${attendanceList.attendanceState}" selected="selected">${attendanceList.attendanceState}</option>
+							<c:if test="${attendanceList.attendanceState == '출석'}">
+										<option value="결석">결석</option>
+										<option value="외출">외출</option>
+										<option value="조퇴">조퇴</option>
+										<option value="지각">지각</option>
+								</c:if>
+								<c:if test="${attendanceList.attendanceState == '결석'}">
+										<option value="출석">출석</option>
+										<option value="외출">외출</option>
+										<option value="조퇴">조퇴</option>
+										<option value="지각">지각</option>
+								</c:if>
+								<c:if test="${attendanceList.attendanceState == '외출'}">
+										<option value="출석">출석</option>
+										<option value="결석">결석</option>
+										<option value="조퇴">조퇴</option>
+										<option value="지각">지각</option>
+								</c:if>
+								<c:if test="${attendanceList.attendanceState == '조퇴'}">
+										<option value="출석">출석</option>
+										<option value="결석">결석</option>
+										<option value="외출">외출</option>
+										<option value="지각">지각</option>
+								</c:if>
+								<c:if test="${attendanceList.attendanceState == '지각'}">
+										<option value="출석">출석</option>
+										<option value="결석">결석</option>
+										<option value="외출">외출</option>
+										<option value="조퇴">조퇴</option>
+								</c:if>
 						</select>
 					</td>
 				</tr>

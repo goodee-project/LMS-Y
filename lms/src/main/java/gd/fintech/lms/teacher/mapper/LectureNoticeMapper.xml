@@ -12,7 +12,14 @@
 			lecture_notice_updatedate lectureNoticeUpdateDate,
 			lecture_notice_count lectureNoticeCount
 		FROM lecture_notice
-		WHERE lecture_no = #{lectureNo}
+		<where>
+			lecture_no = #{lectureNo}
+			<if test='lectureNoticeSearch !=null'>
+				AND (
+					lecture_notice_title LIKE CONCAT('%',#{lectureNoticeSearch},'%')
+				)
+			</if>
+		</where>
 		ORDER BY lecture_notice_no DESC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
@@ -34,7 +41,14 @@
 		SELECT
 			COUNT(*) lectureNoticeCount
 		FROM lecture_notice
-		WHERE lecture_no = #{lectureNo}
+		<where>
+			lecture_no = #{lectureNo}
+			<if test='lectureNoticeSearch !=null'>
+				AND (
+					lecture_notice_title LIKE CONCAT('%',#{lectureNoticeSearch},'%')
+				)
+			</if>
+		</where>
 	</select>
 	<!-- 강좌별 공지사항 입력(추가) -->
 	<insert id="insertLetureNotice" parameterType="gd.fintech.lms.teacher.vo.LectureNotice">

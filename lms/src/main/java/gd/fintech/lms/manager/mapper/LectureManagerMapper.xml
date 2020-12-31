@@ -1,98 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.LectureManagerMapper">
-	
-	
+
+
 	<!-- 운영자가 개설한 강좌의 리스트 -->
 	<select id="selectLectureListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Lecture">
-	 SELECT 
-       lecture_no lectureNo,
-       teacher_name teacherName,
-       lecture_name lectureName,
-       lecture_startdate lectureStartDate,
-       lecture_enddate lectureEndDate,
-       lecture_total lectureTotal,
-       lecture_updatedate lectureUpdateDate
-	 FROM lecture 
-	 LIMIT #{beginRow},#{rowPerPage} 
-	  
+		SELECT
+			lecture_no lectureNo,
+			teacher_name teacherName,
+			lecture_name lectureName,
+			lecture_startdate lectureStartDate,
+			lecture_enddate lectureEndDate,
+			lecture_total lectureTotal,
+			lecture_updatedate lectureUpdateDate
+		FROM lecture
+		LIMIT #{beginRow},#{rowPerPage}
+
 	</select>
-	 <!-- 총 강좌 수 -->
-	 <select id="selectLectureCount" resultType="int">
-	  SELECT 
-	 	COUNT(*)
-	  FROM lecture	
-		
+	<!-- 총 강좌 수 -->
+	<select id="selectLectureCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM lecture
+
 	</select>
-	
-	<!--  강좌 개설 -->
+
+	<!-- 강좌에서의 강의실 정보 -->
+	<select id="selectLectureClassroomList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Classroom">
+		SELECT
+			classroom_no classroomNo,
+			classroom_number classroomNumber
+		FROM classroom
+
+	</select>
+
+
+	<!-- 강좌에서의 강의계획서 정보 -->
+	<select id="selectLectureSyllabusList" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.Syllabus">
+		SELECT
+			syllabus_no syllabusNo,
+			syllabus_content syllabusContent
+		FROM syllabus
+
+	</select>
+
+	<!-- 강좌에서의 교재 정보 -->
+	<select id="selectLectureTextbookList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Textbook">
+		SELECT
+			textbook_isbn textbookISBN,
+			textbook_title textbookTitle
+		FROM textbook
+
+	</select>
+
+	<!-- 강좌에서의 과목 정보 -->
+	<select id="selectLectureSubjectList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Subject">
+		SELECT
+			subject_no subjectNo,
+			subject_name subjectName
+		FROM subject
+
+	</select>
+
+	<!-- 강좌 개설 -->
 	<insert id="insertLecture" parameterType="gd.fintech.lms.manager.vo.Lecture">
-  	INSERT INTO lecture(
-	  account_id,
-	  subject_no,
-	  teacher_name,
- 	  lecture_name,
-	  textbook_isbn,
-	  lecture_startdate,
-	  lecture_enddate,
-	  lecture_total,
-	  syllabus_no,
-	  classroom_no,
-	  lecture_createdate,
-	  lecture_updatedate
-	 
-    )VALUES (
-	  #{accountId},
-	  #{subjectNo},
-	  #{teacherName},
-	  #{lectureName},
-	  #{textbookISBN},
-	  #{lectureStartDate},
-	  #{lectureEndDate},
-	  #{lectureTotal},
-	  #{syllabusNo},
-	  #{classroomNo},
-	  NOW(),
-	  NOW()
-	
-	)
-	
+		INSERT INTO lecture(
+			account_id,
+			subject_no,
+			teacher_name,
+			lecture_name,
+			textbook_isbn,
+			lecture_startdate,
+			lecture_enddate,
+			lecture_total,
+			syllabus_no,
+			classroom_no,
+			lecture_createdate,
+			lecture_updatedate
+		)VALUES (
+			#{accountId},
+			#{subjectNo},
+			#{teacherName},
+			#{lectureName},
+			#{textbookISBN},
+			#{lectureStartDate},
+			#{lectureEndDate},
+			#{lectureTotal},
+			#{syllabusNo},
+			#{classroomNo},
+			NOW(),
+			NOW()
+
+		)
+
 	</insert>
-	
+
 	<!-- 강좌 수정 -->
-	<update id="updateLecture" parameterType="gd.fintech.lms.manager.vo.Lecture" >
-	 UPDATE lecture
-     SET
-        account_id = #{accountId},
-        subject_no = #{subjectNo},
-        teacher_name =#{teacherName},
-        lecture_name =#{lectureName},
-        textbook_isbn =#{textbookISBN},
-        lecture_startdate =#{lectureStartDate},
-        lecture_endDate =#{lectureEndDate},
-        lecture_total =#{lectureTotal},
-        classroom_no =#{ClassroomNo},
-        lecture_updatedate = NOW()
-     WHERE lecture_no =#{lectureNo}
-	
+	<update id="updateLecture" parameterType="gd.fintech.lms.manager.vo.Lecture">
+		UPDATE lecture
+		SET
+			account_id = #{accountId},
+			subject_no = #{subjectNo},
+			teacher_name =#{teacherName},
+			lecture_name =#{lectureName},
+			textbook_isbn =#{textbookISBN},
+			lecture_startdate =#{lectureStartDate},
+			lecture_endDate =#{lectureEndDate},
+			lecture_total =#{lectureTotal},
+			classroom_no =#{classroomNo},
+			lecture_updatedate = NOW()
+		WHERE lecture_no =#{lectureNo}
+
 	</update>
-	
+
 	<!-- accountId로 불러오는 강좌 정보 -->
 	<select id="selectTeacherLectureDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.Lecture">
-	  SELECT 
-        lecture_no lectureNo,
-        teacher_name teacherName,
-        lecture_name lectureName,
-        lecture_startdate lectureStartDate,
-        lecture_enddate lectureEndDate,
-        lecture_total lectureTotal,
-        lecture_updatedate lectureUpdateDate
-	 FROM lecture 
-	 WHERE account_id =#{accountId}
-	
+		SELECT
+			lecture_no lectureNo,
+			teacher_name teacherName,
+			lecture_name lectureName,
+			lecture_startdate lectureStartDate,
+			lecture_enddate lectureEndDate,
+			lecture_total lectureTotal,
+			lecture_updatedate lectureUpdateDate
+		FROM lecture
+		WHERE account_id =#{accountId}
+
 	</select>
-	
-	<!-- 강좌정보 및 강의실정보 및 과목정보 및 교재정보를  출력하는 쿼리를 위한  resultMap  -->
+
+	<!-- 강좌정보 및 강의실정보 및 과목정보 및 교재정보를 출력하는 쿼리를 위한 resultMap -->
 	<resultMap type="gd.fintech.lms.manager.vo.Lecture" id="resultLectureDetail">
 		<result property="lectureNo" column="lecture_no" />
 		<result property="accountId" column="account_id" />
@@ -100,55 +136,55 @@
 		<result property="teacherName" column="teacher_Name" />
 		<result property="lectureName" column="lecture_Name" />
 		<result property="textbookISBN" column="textbook_isbn" />
-		<result property="lectureStartDate" column="lecture_startdate"/>
+		<result property="lectureStartDate" column="lecture_startdate" />
 		<result property="lectureEndDate" column="lecture_enddate" />
 		<result property="lectureTotal" column="lecture_total" />
-		<result property="syllabusNo" column="syllabus_no"/>
-    	<result property="classroomNo" column="classroom_no"/>
-    	<result property="lectureCreateDate" column="lecture_createdate"/>
-    	<result property="lectureUpdateDate" column="lecture_updatedate"/>
-    	<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
-       		<result property="subjectNo" column="subject_no"/>
-       		<result property="subjectName" column="subject_name"/>
-    		</collection>
-    		<collection property="classroomInfoList" ofType="gd.fintech.lms.manager.vo.Classroom">
-       			 <result property="classroomNo" column="classroom_no"/>
-       			 <result property="classroomNumber" column="classroom_number"/>
-    			</collection>	
-     			<collection property="textbookInfoList" ofType="gd.fintech.lms.manager.vo.Textbook">
-         			<result property="textbookISBN" column="textbook_isbn"/>
-         			<result property="textbookTitle" column="textbook_title"/>
-    	 	    	<result property="textbookWriter" column="textbook_writer"/>
-    	 	    	<result property="textbookPrice" column="textbook_price"/>      
-                	</collection>	
-	 		</resultMap>
+		<result property="syllabusNo" column="syllabus_no" />
+		<result property="classroomNo" column="classroom_no" />
+		<result property="lectureCreateDate" column="lecture_createdate" />
+		<result property="lectureUpdateDate" column="lecture_updatedate" />
+			<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
+				<result property="subjectNo" column="subject_no" />
+				<result property="subjectName" column="subject_name" />
+			</collection>
+				<collection property="classroomInfoList" ofType="gd.fintech.lms.manager.vo.Classroom">
+					<result property="classroomNo" column="classroom_no" />
+					<result property="classroomNumber" column="classroom_number" />
+				</collection>
+					<collection property="textbookInfoList" ofType="gd.fintech.lms.manager.vo.Textbook">
+						<result property="textbookISBN" column="textbook_isbn" />
+						<result property="textbookTitle" column="textbook_title" />
+						<result property="textbookWriter" column="textbook_writer" />
+						<result property="textbookPrice" column="textbook_price" />
+					</collection>
+	</resultMap>
 	<select id="selectLectureDetail" parameterType="int" resultMap="resultLectureDetail">
-	 SELECT 
-     	l.lecture_no,
-		l.account_id,
-		l.subject_no,
-		s.subject_name,
-	    l.teacher_name,
-	    l.lecture_name,
-		l.textbook_isbn,
-		t.textbook_title,
-		t.textbook_writer,
-		t.textbook_price,
-		l.lecture_startdate,
-		l.lecture_enddate,
-		l.lecture_total,
-		l.syllabus_no,
-		l.classroom_no,
-		c.classroom_number
-	 FROM lecture l
-		LEFT JOIN subject s
-			ON l.subject_no = s.subject_no
-		LEFT JOIN textbook t 
-			ON l.textbook_isbn = t.textbook_isbn
-		LEFT JOIN classroom c
-			ON l.classroom_no = c.classroom_no	
-	 WHERE l.lecture_no = #{lectureNo}
+		SELECT
+			l.lecture_no,
+			l.account_id,
+			l.subject_no,
+			s.subject_name,
+			l.teacher_name,
+			l.lecture_name,
+			l.textbook_isbn,
+			t.textbook_title,
+			t.textbook_writer,
+			t.textbook_price,
+			l.lecture_startdate,
+			l.lecture_enddate,
+			l.lecture_total,
+			l.syllabus_no,
+			l.classroom_no,
+			c.classroom_number
+		FROM lecture l
+			LEFT JOIN subject s
+				ON l.subject_no = s.subject_no
+			LEFT JOIN textbook t
+				ON l.textbook_isbn = t.textbook_isbn
+			LEFT JOIN classroom c
+				ON l.classroom_no = c.classroom_no
+		WHERE l.lecture_no = #{lectureNo}
 	</select>
 
-	
+
 </mapper>

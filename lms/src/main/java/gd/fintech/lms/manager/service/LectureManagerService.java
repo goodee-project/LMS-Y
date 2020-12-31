@@ -11,9 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.manager.mapper.LectureManagerMapper;
-import gd.fintech.lms.manager.mapper.SubjectMapper;
-import gd.fintech.lms.manager.mapper.TextbookMapper;
+import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
+import gd.fintech.lms.manager.vo.Subject;
+import gd.fintech.lms.manager.vo.Textbook;
+import gd.fintech.lms.teacher.vo.Syllabus;
+
 
 
 // /Lecture 를 관리하는 서비스 
@@ -25,13 +28,9 @@ public class LectureManagerService {
     private final Logger logger = LoggerFactory.getLogger(LectureManagerService.class);
 	
     // LectureManager에 대한 메퍼
-	@Autowired LectureManagerMapper lectureManagerMapper;
+	@Autowired private LectureManagerMapper lectureManagerMapper;
 	
-	// 과목 정보 
-	@Autowired SubjectMapper subjectMapper;
-	
-	// 교재 정보
-	@Autowired TextbookMapper textbookMapper;
+
 	
 	
 	// 강좌의 정보를 출력하는 서비스
@@ -47,8 +46,25 @@ public class LectureManagerService {
 		return lectureManagerMapper.selectLectureListByPage(map);
 	}
 	
+	// 강좌에서의 강의실 리스트
+	public List<Classroom> getLectureClassroomList(){
+		return lectureManagerMapper.selectLectureClassroomList();
+	}
 	
+	// 강좌에서의 교재 리스트
+	public List<Textbook> getLectureTextBookList(){
+		return lectureManagerMapper.selectLectureTextbookList();
+	}
 	
+	// 강좌에서의 강의계획서 리스트
+	public List<Syllabus> getLectureSyllabusList(){
+		return lectureManagerMapper.selectLectureSyllabusList();
+	}
+	
+	// 강좌에서의 과목 리스트
+	public List<Subject> getLectureSubjectList(){
+		return lectureManagerMapper.selectLectureSubjectList();
+	}
 	
 	// 강좌의 총 합을 보여주는 서비스
 	// 리턴값: 강좌 개수의 총 합
@@ -56,7 +72,6 @@ public class LectureManagerService {
 		return lectureManagerMapper.selectLectureCount();
 		
 	}
-	
 	
 	// 강좌를 개설 하는 서비스
 	// 매개변수: 강좌의 정보 

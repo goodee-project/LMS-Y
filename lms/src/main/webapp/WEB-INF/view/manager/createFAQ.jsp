@@ -69,7 +69,7 @@
 				FAQ 내용
 						<textarea id="faqContentId" name="faqContent"></textarea>
 						
-						<button id= "submitBtn" type="submit">입력</button>
+						<button id= "submitBtn" type="submit">classroomNumber</button>
 				</form>
 			</div>
 		</div>

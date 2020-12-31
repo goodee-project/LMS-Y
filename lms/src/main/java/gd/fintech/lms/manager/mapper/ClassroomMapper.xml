@@ -1,76 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.ClassroomMapper">
-	
+
 	<!-- 강의실 정보 리스트 -->
 	<select id="selectClassroomListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Classroom">
-	SELECT
-	  classroom_no classroomNo,
-	  classroom_number classroomNumber
-	FROM classroom	
-	LIMIT #{beginRow},#{rowPerPage}
-	</select>	
-	
-	   <!-- 강의실 행의 개수 -->
-	 <select id="selectClassroomCount" resultType="int">
-
-	  SELECT 
-	 	COUNT(*)
-	  FROM classroom	
-	  
+		SELECT
+			classroom_no classroomNo,
+			classroom_number classroomNumber
+		FROM classroom
+		LIMIT #{beginRow},#{rowPerPage}
 	</select>
-	
-	
-		<!-- 강의실 상세정보 -->
+
+	<!-- 강의실 행의 개수 -->
+	<select id="selectClassroomCount" resultType="int">
+
+		SELECT
+			COUNT(*)
+		FROM classroom
+
+	</select>
+
+
+	<!-- 강의실 상세정보 -->
 	<select id="classroomDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.Classroom">
-	SELECT
-	  classroom_no classroomNo,
-	  classroom_number classroomNumber,
-	  classroom_size classroomSize,
-	  classroom_total classroomTotal
-	FROM classroom
-	WHERE classroom_no = #{classroomNo}	
-	
+		SELECT
+			classroom_no classroomNo,
+			classroom_number classroomNumber,
+			classroom_size classroomSize,
+			classroom_total classroomTotal
+		FROM classroom
+		WHERE classroom_no = #{classroomNo}
+
 	</select>
 
-	
-	<!--강의실  추가  -->
+
+	<!--강의실 추가 -->
 	<insert id="insertClassromm" parameterType="gd.fintech.lms.manager.vo.Classroom">
-	INSERT INTO classroom(
-	  classroom_number,
-	  classroom_size,
-	  classroom_total
- 	)VALUES (
-        #{classroomNumber},
-        #{classroomSize},
-        #{classroomTotal}
-    )
-	
+		INSERT INTO classroom(
+			classroom_number,
+			classroom_size,
+			classroom_total
+		)VALUES (
+			#{classroomNumber},
+			#{classroomSize},
+			#{classroomTotal}
+		)
+
 	</insert>
-	
-	
+
+
 	<!-- classroomNo 에 해당하는 강의실 정보 수정 -->
 	<update id="updateClassroom" parameterType="gd.fintech.lms.manager.vo.Classroom">
-	 UPDATE classroom 
-	 SET
-   	   classroom_number = #{classroomNumber},
-   	   classroom_size = #{classroomSize},
-   	   classroom_total = #{classroomTotal}
-   	 WHERE classroom_no =#{classroomNo}
-	
-	
-	
+		UPDATE classroom
+		SET
+			classroom_number = #{classroomNumber},
+			classroom_size = #{classroomSize},
+			classroom_total = #{classroomTotal}
+		WHERE classroom_no =#{classroomNo}
+
+
+
 	</update>
-	
-	<!-- classroomNo 에 해당하는 강의실  삭제 -->
+
+	<!-- classroomNo 에 해당하는 강의실 삭제 -->
 	<delete id="deleteClassroom" parameterType="int">
-	Delete FROM classroom
-	WHERE classroom_no = #{classroomNo}
-	
+		Delete FROM classroom
+		WHERE classroom_no = #{classroomNo}
+
 	</delete>
-	
-	
-	
+
+
+
 
 
 

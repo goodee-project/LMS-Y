@@ -12,7 +12,30 @@
         <script>
         
             $(document).ready(function() {
-            	
+
+            	$('#submitId').click(function() {
+				 
+    			if($('#numberId').val()==''){
+				 	alert('강의실 번호를 입력해주세요.');
+				   $('#numberId').focus();
+        		}else if(!isNaN($('#numberId').val())==false){
+					alert('숫자만 가능합니다.');
+					$('#numberId').focus();
+                }else if($('#sizId').val()==''){
+                	alert('강의실 면적을 입력해주세요')
+                	$('#sizeId').focus();
+            	}else if(!isNaN($('#sizeId').val())==false){
+                      alert('숫자만 가능합니다.');
+                      $('#sizeId').focus();	
+                  }else if($('#totalId').val()==''){
+                    alert('강의실 수용인원을 입력해주세요')
+                    $('#totalId').focus();
+                }else if(!isNaN($('#totalId').val())==false){
+					alert('숫자만 가능합니다.');
+                      $('#totalId').focus();
+                  }   	
+    			
+            	 });
             });
 
             
@@ -41,7 +64,7 @@
 								
 						</tr>
 						<tr>
-								<td>강의실 수용 인원</td>
+								<td>강의실 수용인원</td>
 								<td><input type="text" name="classroomTotal" id="totalId" ></td>
 						</tr>
 					

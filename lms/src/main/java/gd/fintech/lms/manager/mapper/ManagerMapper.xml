@@ -4,7 +4,7 @@
 	<!-- 운영자의 정보 상세보기 -->
 	<select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
 		SELECT
-			account_id    accountId,
+			account_id accountId,
 			manager_email managerEmail,
 			manager_phone managerPhone,
 			manager_name managerName,
@@ -17,26 +17,27 @@
 		FROM manager
 		WHERE account_id =#{accountId}
 	</select>
-	
-	<!-- 운영자의 정보 수정하기  -->
-	<update id= "updateManager" parameterType="gd.fintech.lms.manager.vo.Manager">
-		UPDATE manager 
+
+	<!-- 운영자의 정보 수정하기 -->
+	<update id="updateManager" parameterType="gd.fintech.lms.manager.vo.Manager">
+		UPDATE manager
 		SET
-			manager_email =#{managerEmail},	 	 
+			manager_email =#{managerEmail},
 			manager_phone =#{managerPhone},
-			manager_name  =#{managerName},
+			manager_name =#{managerName},
 			manager_gender =#{managerGender},
-			manager_birth  	=#{managerBirth},
-			manager_position =#{managerPosition},
+			manager_birth =#{managerBirth},
+			manager_position=#{managerPosition},
 			manager_address_main =#{managerAddressMain},
-			manager_address_sub  =#{managerAddressSub},
+			manager_address_sub =#{managerAddressSub},
 			manager_image =#{managerImage}
-		WHERE account_id = #{accountId}
+		WHERE account_id =#{accountId}
 	</update>
-	
+
 	<!-- 운영자 정보 입력 -->
 	<insert id="insertManagerFromQueue" parameterType="String">
-		INSERT INTO manager(
+		INSERT INTO
+		manager(
 			account_id,
 			manager_email,
 			manager_name,
@@ -61,14 +62,14 @@
 		FROM manager_queue
 		WHERE account_id = #{accountId}
 	</insert>
-	
-			<!-- 계정에 해당하는 운영자 이름 -->
+
+	<!-- 계정에 해당하는 운영자 이름 -->
 	<select id="selectManagerName" parameterType="String" resultType="String">
-	 SELECT 
-	 	manager_name managerName
-	 FROM manager 
-	 WHERE account_id = #{accountId}  		
-	
+		SELECT
+			manager_name managerName
+		FROM manager
+		WHERE account_id = #{accountId}
+
 	</select>
-	
+
 </mapper>

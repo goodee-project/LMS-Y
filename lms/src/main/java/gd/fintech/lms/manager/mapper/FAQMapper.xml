@@ -2,95 +2,94 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.FAQMapper">
 
-	<!-- FAQ  목록  -->
-	<select id="selectFAQListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.FAQ" >
-	 SELECT 
-	    faq_no faqNo,
-		faq_title faqTitle,
-	    faq_writer faqWriter,
-		faq_updatedate faqUpdateDate,
-		faq_count faqCount,
-		faq_category faqCategory
-	 FROM faq 
-	 LIMIT #{beginRow},#{rowPerPage}
-	
-	
-	</select>
-  
-    <!-- FAQ 행의 개수 -->
-	 <select id="selectFAQCount" resultType="int">
+	<!-- FAQ 목록 -->
+	<select id="selectFAQListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.FAQ">
+		SELECT
+			faq_no faqNo,
+			faq_title faqTitle,
+			faq_writer faqWriter,
+			faq_updatedate faqUpdateDate,
+			faq_count faqCount,
+			faq_category faqCategory
+		FROM faq
+		LIMIT #{beginRow},#{rowPerPage}
 
-	  SELECT 
-	 	COUNT(*)
-	  FROM faq	
-		
+
 	</select>
-	 
-	 <!-- FAQ의 상세정보 -->
+
+	<!-- FAQ 행의 개수 -->
+	<select id="selectFAQCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM faq
+
+	</select>
+
+	<!-- FAQ의 상세정보 -->
 	<select id="selectFAQDetail" parameterType="int" resultType="gd.fintech.lms.manager.vo.FAQ">
-	 SELECT 
-		faq_no faqNo,
-		account_id accountId,
-		faq_title faqTitle,
-	    faq_writer faqWriter,
-		faq_content faqContent,
-		faq_createDate faqCreateDate,
-		faq_updatedate faqUpdateDate,
-		faq_count faqCount,
-		faq_category faqCategory
-	FROM  faq
-	WHERE faq_no = #{faqNo}
+		SELECT
+			faq_no faqNo,
+			account_id accountId,
+			faq_title faqTitle,
+			faq_writer faqWriter,
+			faq_content faqContent,
+			faq_createDate faqCreateDate,
+			faq_updatedate faqUpdateDate,
+			faq_count faqCount,
+			faq_category faqCategory
+		FROM faq
+		WHERE faq_no = #{faqNo}
 		
 	</select>
+	
 	<!-- FAQ 입력 -->
 	<insert id="insertFAQ" parameterType="gd.fintech.lms.manager.vo.FAQ">
-	 	
-	 INSERT INTO faq(   
-     	account_id,
-		faq_writer,
-	    faq_title,
-	    faq_content,
-	    faq_category ,
-		faq_createdate,
-		faq_updatedate
-	)VALUE(
-		#{accountId},
-		#{faqWriter},
-		#{faqTitle},
-		#{faqContent},
-		#{faqCategory},
-	    NOW(),
+		INSERT INTO faq(
+			account_id,
+			faq_writer,
+			faq_title,
+			faq_content,
+			faq_category ,
+			faq_createdate,
+			faq_updatedate
+		)VALUE(
+			#{accountId},
+			#{faqWriter},
+			#{faqTitle},
+			#{faqContent},
+			#{faqCategory},
+		NOW(),
 		NOW()
-    )
-	
+		)
+
 	</insert>
-	
-	<!-- FAQ 수정  -->
-	<update id="updateFAQ" parameterType="gd.fintech.lms.manager.vo.FAQ" >
-	UPDATE faq 
-	SET 
-		faq_title = #{faqTitle} , 
-		faq_content= #{faqContent},
-		faq_updatedate = NOW(),
-		faq_category = #{faqCategory}
-	WHERE faq_no = #{faqNo}
-	
+
+	<!-- FAQ 수정 -->
+	<update id="updateFAQ" parameterType="gd.fintech.lms.manager.vo.FAQ">
+		UPDATE faq
+		SET
+			faq_title = #{faqTitle} ,
+			faq_content= #{faqContent},
+			faq_updatedate = NOW(),
+			faq_category = #{faqCategory}
+		WHERE faq_no = #{faqNo}
+
 	</update>
-	
+
 	<!-- FAQ 조회수 +1 증가 -->
 	<update id="updateFAQCountUp" parameterType="int">
-	UPDATE faq
-	SET 
-		faq_count = faq_count+1
-	WHERE faq_no =#{faqNo}
-	
+		UPDATE faq
+		SET
+			faq_count = faq_count+1
+		WHERE faq_no =#{faqNo}
+
 	</update>
-	
-    <!-- 선택한 FAQ 삭제 -->
-    <delete id="deleteFAQ" parameterType="int">
-     DELETE FROM faq
-     WHERE faq_no = #{faqNo}
-    </delete>
-	
+
+	<!-- 선택한 FAQ 삭제 -->
+	<delete id="deleteFAQ" parameterType="int">
+		DELETE FROM faq
+		WHERE faq_no = #{faqNo}
+	</delete>
+
 
 </mapper>

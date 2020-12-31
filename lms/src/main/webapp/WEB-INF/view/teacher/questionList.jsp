@@ -28,7 +28,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="q" items="${questionList}">
+						<c:forEach var="q" items="${list}">
 							<tr>
 								<td>${q.questionNo}</td>
 								<td>${q.accountId}</td>

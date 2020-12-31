@@ -16,7 +16,7 @@ public interface MultipleChoiceExampleMapper {
 	int insertMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample);
 	
 	// 객관식 보기 수정
-	// 매개변수: 객관식 보기 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceExampleNo, 변경할 정보 multipleChoiceExampleId, multipleChoiceExampleContent를 넣을 것
+	// 매개변수: 객관식 보기 객체, setter를 사용해 변경할 행을 얻기 위한 정보 multipleChoiceNo 및 multipleChoiceExampleId, 변경할 정보 multipleChoiceExampleContent를 넣을 것
 	// 리턴값: 변경된 행 갯수
 	int updateMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample);
 	

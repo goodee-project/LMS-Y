@@ -1,7 +1,8 @@
 
 package gd.fintech.lms.teacher.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,12 +38,13 @@ public class QuestionCommentController {
 	// 리턴값: teacher/questionList.jsp 뷰 포워딩
 	@GetMapping("/teacher/questionList")
 	public String questionList(
+			@RequestParam("lectureNo") int lectureNo,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			HttpSession session, Model model) {
 		// TODO 협업자가 메서드를 고치는대로 고쳐진 메서드 사용
-		Map<String, Object> map = new HashMap<>(); //questionService.getQuestionListByPage((String)session.getAttribute("accountId"), currentPage);
+		List<Question> list = new ArrayList<>();//questionService.getQuestionListByPage(lectureNo, currentPage);
 		
-		model.addAttribute("map", map);
+		model.addAttribute("list", list);
 		return "teacher/questionList";
 	}
 	

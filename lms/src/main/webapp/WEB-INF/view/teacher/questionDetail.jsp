@@ -63,23 +63,23 @@
 					<div>
 						댓글 수정일: ${qc.questionCommentUpdateDate}
 					</div>
-					<div>
-						첨부파일
-					</div>
-					<c:forEach var="qcf" items="${qc.questionCommentFileList}">
-						<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
-						<c:if test="${qcf.questionCommentFileSize > 0}">
-							<div>
-								<a href="${pageContext.request.contextPath}/teacher/downloadQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
-									${qcf.questionCommentFileOriginal}
-								</a>
-								${qcf.questionCommentFileSize}B, 
-								${qcf.questionCommentFileType},
-								${qcf.questionCommentFileCount}회 다운로드,
-								${qcf.questionCommentFileCreateDate}
-							</div>
-						</c:if>
-					</c:forEach>
+					<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
+					<c:if test="${qcf.questionCommentFileSize > 0}">
+						<div>
+							첨부파일
+						</div>
+						<c:forEach var="qcf" items="${qc.questionCommentFileList}">
+								<div>
+									<a href="${pageContext.request.contextPath}/teacher/downloadQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
+										${qcf.questionCommentFileOriginal}
+									</a>
+									${qcf.questionCommentFileSize}B, 
+									${qcf.questionCommentFileType},
+									${qcf.questionCommentFileCount}회 다운로드,
+									${qcf.questionCommentFileCreateDate}
+								</div>
+						</c:forEach>
+					</c:if>
 					<%-- 세션의 accountId와 댓글 작성자 accountId가 같을때만 수정버튼 표시 --%>
 					<c:if test="${accountId == qc.accountId}">
 						<div>

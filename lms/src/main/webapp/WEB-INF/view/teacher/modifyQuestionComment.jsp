@@ -113,7 +113,7 @@
 				<div>
 					게시글 내용: ${map.question.questionContent}
 				</div>
-				<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}">
+				<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}" enctype="multipart/form-data">
 					<input type="hidden" name="questionCommentNo" value="${map.questionComment.questionCommentNo}">
 						
 					<div>
@@ -143,6 +143,7 @@
 						<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
 						<div id="questionCommentFileFrame"></div>
 					</div>
+					<hr>
 					<div>
 						<button id="submitQuestionCommentForm" type="button">수정</button>
 					</div>

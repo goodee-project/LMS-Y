@@ -5,6 +5,7 @@
 	<resultMap type="gd.fintech.lms.teacher.vo.MultipleChoice" id="resultMultipleChoiceList">
 		<result property="multipleChoiceNo" column="multiplechoice_no" />
 		<result property="lectureNo" column="lecture_no" />
+		<result property="multipleChoiceId" column="multiplechoice_id" />
 		<result property="multipleChoiceQuestion" column="multiplechoice_question" />
 		<result property="multipleChoiceScore" column="multiplechoice_score" />
 		<result property="multipleChoiceCreateDate" column="multiplechoice_createdate" />
@@ -37,19 +38,35 @@
 		WHERE m.lecture_no = #{lecture_no}
 	</select>
 	
-	<!-- 단일 객관식 문제 정보 출력 쿼리 -->
-	<select id="selectMultipleChoiceDetail" parameterType="int" resultType="gd.fintech.lms.teacher.vo.MultipleChoice">
+	<!-- 단일 객관식 문제 정보 출력 쿼리 및 VO에 조인 결과를 한번에 담기 위한 resultMap -->
+	<resultMap type="gd.fintech.lms.teacher.vo.MultipleChoice" id="resultMultipleChoiceDetail">
+		<result property="multipleChoiceNo" column="multiplechoice_no" />
+		<result property="lectureNo" column="lecture_no" />
+		<result property="multipleChoiceId" column="multiplechoice_id" />
+		<result property="multipleChoiceQuestion" column="multiplechoice_question" />
+		<result property="multipleChoiceAnswer" column="multiplechoice_answer" />
+		<result property="multipleChoiceScore" column="multiplechoice_score" />
+		<result property="multipleChoiceCreateDate" column="multiplechoice_createdate" />
+		<result property="multipleChoiceUpdateDate" column="multiplechoice_updatedate" />
+		<collection property="multipleChoiceExampleList" ofType="gd.fintech.lms.teacher.vo.MultipleChoiceExample">
+			<result property="multipleChoiceExampleContent" column="multiplechoice_example_content" />
+		</collection>
+	</resultMap>
+	<select id="selectMultipleChoiceDetail" parameterType="int" resultMap="resultMultipleChoiceDetail">
 		SELECT
-			multiplechoice_no multipleChoiceNo,
-			lecture_no lectureNo,
-			multiplechoice_id multipleChoiceId,
-			multiplechoice_question multipleChoiceQuestion,
-			multiplechoice_answer multipleChoiceAnswer,
-			multiplechoice_score multipleChoiceScore,
-			multiplechoice_createdate multipleChoiceCreateDate,
-			multiplechoice_updatedate multipleChoiceUpdateDate
-		FROM multiplechoice
-		WHERE multiplechoice_no = #{multipleChoiceNo}
+			m.multiplechoice_no,
+			m.lecture_no,
+			m.multiplechoice_id,
+			m.multiplechoice_question,
+			m.multiplechoice_answer,
+			m.multiplechoice_score,
+			m.multiplechoice_createdate,
+			m.multiplechoice_updatedate,
+			me.multiplechoice_example_content
+		FROM multiplechoice m
+			LEFT JOIN multiplechoice_example me
+				ON m.multiplechoice_no = me.multiplechoice_no
+		WHERE m.multiplechoice_no = #{multipleChoiceNo}
 	</select>
 	
 	<!-- 객관식 문제 갯수 출력 쿼리 -->
@@ -88,7 +105,6 @@
 	<update id="updateMultipleChoice" parameterType="gd.fintech.lms.teacher.vo.MultipleChoice">
 		UPDATE multiplechoice
 		SET
-			multiplechoice_id = #{multipleChoiceId},
 			multiplechoice_question = #{multipleChoiceQuestion},
 			multiplechoice_answer = #{multipleChoiceAnswer},
 			multiplechoice_score = #{multipleChoiceScore},

@@ -1,6 +1,11 @@
 package gd.fintech.lms.teacher.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,9 +61,36 @@ public class TestService {
 
 	// 해당 시험의 객관식 문제 및 보기 리스트 출력 (정답 제외)
 	// 매개변수: 강좌 고유번호
-	// 리턴값: 시험의 정답을 제외하고, 객관식 보기를 포함한 객관식 문제 리스트
-	public List<MultipleChoice> getMultipleChoiceList(int lectureNo) {
-		return multipleChoiceMapper.selectMultipleChoiceList(lectureNo);
+	// 리턴값: (시험의 정답 제외 및 객관식 보기를 포함한 객관식 문제 리스트+시험이 수정 가능한지 여부)를 출력하는 Map
+	public Map<String, Object> getMultipleChoiceList(int lectureNo) {
+		List<MultipleChoice> list = multipleChoiceMapper.selectMultipleChoiceList(lectureNo);
+		
+		// 시험 출제 기간인지 파악하기 위한 Test 객체
+		Test test = testMapper.selectTestDetail(lectureNo);
+		boolean isEditable = true; // 시험 평가 기간인지 확인하는 용도의 변수
+		
+		// 시험 평가 기간 내에 속해있는지 확인하기 위해 Date타입으로 현재 날짜와 test에 기입된 날짜를 변환
+		// 변환 도중 예외 발생 시 스택트레이싱 후 Transactional 애노테이션에게 예외 발생을 알림
+		try {
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+			
+			Date currentDate = Calendar.getInstance().getTime();
+			
+			
+			if (fmt.parse(test.getTestStartDate()).getTime() < currentDate.getTime()) {
+				// 시험 평가 기간이거나 지났을 경우 시험 문제는 수정할수 없도록 플래그 변경
+				isEditable = false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		map.put("isEditable", isEditable);
+		
+		return map;
 	}
 
 	// 해당 시험의 단일 객관식 문제 상세 정보 출력 (정답 포함)
@@ -95,10 +127,26 @@ public class TestService {
 
 	// 객관식 문제 수정
 	// 매개변수: 객관식 문제 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceNo, 변경할 정보 multipleChoiceId, multipleChoiceQuestion, multipleChoiceAnswer, multipleChoiceScore를 넣을 것
-	public void modifyMultipleChoice(MultipleChoice multipleChoice) {
-		logger.debug("multipleChoice = "+multipleChoice.toString());
+	public void modifyMultipleChoice(MultipleChoiceForm multipleChoiceForm) {
+		logger.debug("multipleChoiceForm = "+multipleChoiceForm.toString());
 		
+		MultipleChoice multipleChoice = new MultipleChoice();
+		multipleChoice.setMultipleChoiceNo(multipleChoiceForm.getMultipleChoiceNo());
+		multipleChoice.setMultipleChoiceQuestion(multipleChoiceForm.getMultipleChoiceQuestion());
+		multipleChoice.setMultipleChoiceAnswer(multipleChoiceForm.getMultipleChoiceAnswer());
+		multipleChoice.setMultipleChoiceScore(multipleChoiceForm.getMultipleChoiceScore());
 		multipleChoiceMapper.updateMultipleChoice(multipleChoice);
+		
+		int id = 1;
+		for (String content : multipleChoiceForm.getMultipleChoiceExampleList()) {
+			MultipleChoiceExample multipleChoiceExample = new MultipleChoiceExample();
+			multipleChoiceExample.setMultipleChoiceNo(multipleChoice.getMultipleChoiceNo());
+			multipleChoiceExample.setMultipleChoiceExampleId(""+id);
+			multipleChoiceExample.setMultipleChoiceExampleContent(content);
+			multipleChoiceExampleMapper.updateMultipleChoiceExample(multipleChoiceExample);
+			
+			id += 1;
+		}
 	}
 
 	// 객관식 문제 삭제

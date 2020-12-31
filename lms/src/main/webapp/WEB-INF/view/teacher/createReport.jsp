@@ -86,7 +86,7 @@
 					<div>
 						과제 종료일: <input id="reportEndDate" type="date" name="reportEndDate">
 					</div>
-					
+					<hr>
 					<div>
 						<button id="submitReportForm" type="button">생성</button>
 					</div>

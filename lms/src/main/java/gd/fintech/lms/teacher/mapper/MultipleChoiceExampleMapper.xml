@@ -19,17 +19,17 @@
 	</insert>
 	
 	<!-- 객관식 보기 수정 쿼리 -->
-	<update id="updateMultipleChoiceExample">
+	<update id="updateMultipleChoiceExample" parameterType="gd.fintech.lms.teacher.vo.MultipleChoiceExample">
 		UPDATE multiplechoice_example
 		SET
-			multiplechoice_example_id = #{multipleChoiceExampleId},
 			multiplechoice_example_content = #{multipleChoiceExampleContent},
 			multiplechoice_example_updatedate = NOW()
-		WHERE multiplechoice_example_no = #{multipleChoiceExampleNo}
+		WHERE multiplechoice_no = #{multipleChoiceNo}
+			AND multiplechoice_example_id = #{multipleChoiceExampleId}
 	</update>
 	
 	<!-- 객관식 문제에 포함된 객관식 보기 삭제 쿼리 -->
-	<delete id="deleteMultipleChoiceExampleByMultipleChoiceNo">
+	<delete id="deleteMultipleChoiceExampleByMultipleChoiceNo" parameterType="int">
 		DELETE FROM multiplechoice_example
 		WHERE multiplechoice_no = #{multipleChoiceNo}
 	</delete>

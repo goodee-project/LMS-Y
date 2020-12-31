@@ -61,7 +61,7 @@
 						<td>${list.messageDateTime}</td>
 						<td>${list.isConfirm}</td>
 						<td>
-							<form action="${pageContext.request.contextPath}/messageDetail" method="post">
+							<form action="${pageContext.request.contextPath}/receiveMessageDetail" method="post">
 								<input type="hidden" value="${list.toId}" name="id">
 								<input type="hidden" value="${list.messageNo}" name="messageNo">
 								<button class="btn btn-outline-info">상세보기</button>

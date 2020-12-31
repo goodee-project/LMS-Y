@@ -32,32 +32,60 @@ public class MessageService {
 		return messageMapper.selectSendMessageList(fromId);
 	}
 	
-	// 쪽지 상세보기 내용을 가져오는 서비스 메소드
+	// 받은 쪽지 상세보기 내용을 가져오는 서비스 메소드
 	// 매개변수: 쪽지 번호
 	// 리턴값: 상세조회한 내용 목록
-	public Message getMessageDetail(int messageNo) {
-		return messageMapper.selectMessageDetail(messageNo);
+	public Message getReceiveMessageDetail(int messageNo) {
+		return messageMapper.selectReceiveMessageDetail(messageNo);
+	}
+
+	// 보낸 쪽지 상세보기 내용을 가져오는 서비스 메소드
+	// 매개변수: 쪽지 번호
+	// 리턴값: 상세조회한 내용 목록
+	public Message getSendMessageDetail(int messageNo) {
+		return messageMapper.selectSendMessageDetail(messageNo);
 	}
 	
-	// 쪽지 보내기 기능 서비스 메소드
+	// 쪽지 보내기 기능 서비스 메소드(받은 쪽지)
+	// 매개변수: 입력폼에서 넘어온 쪽지 내용
+	// 리턴값: 입력된 행의 수
+	public int createReceiveMessage(Message message) {
+		return messageMapper.insertReceiveMessage(message);
+	}
+	
+	// 쪽지 보내기 기능 서비스 메소드(받은 쪽지)
 	// 매개변수: 입력폼에서 넘어온 쪽지 내용
 	// 리턴값: 입력된 행의 수
 	public int createSendMessage(Message message) {
 		return messageMapper.insertSendMessage(message);
 	}
 	
-	// 쪽지 삭제 기능을 위한 서비스 메소드
+	// 받은 쪽지 삭제 기능을 위한 서비스 메소드
 	// 매개변수: 쪽지 번호
 	// 리턴값: 삭제된 행의 수
-	public int removeMessageByMessageNo(int messageNo) {
-		return messageMapper.deleteMessageByMessageNo(messageNo);
+	public int removeReceiveMessageByMessageNo(int messageNo) {
+		return messageMapper.deleteReceiveMessageByMessageNo(messageNo);
 	}
 	
-	// 쪽지 읽음으로 수정하는 서비스 메소드
+	// 보낸 쪽지 삭제 기능을 위한 서비스 메소드
+	// 매개변수: 쪽지 번호
+	// 리턴값: 삭제된 행의 수
+	public int removeSendMessageByMessageNo(int messageNo) {
+		return messageMapper.deleteSendMessageByMessageNo(messageNo);
+	}
+	
+	// 수신 쪽지 읽음으로 수정하는 서비스 메소드
 	// 매개변수: 쪽지 번호, 수신자 아이디
 	// 리턴값: 수정된 행의 수
-	public int modifyMessageConfirm(Map<String, Object> map) {
-		return messageMapper.updateMessageConfirm(map);
+	public int modifyReceiveMessageConfirm(Map<String, Object> map) {
+		return messageMapper.updateReceiveMessageConfirm(map);
+	}
+	
+	// 발신 쪽지 읽음으로 수정하는 서비스 메소드(수신자가 읽었을 떄)
+	// 매개변수: 쪽지 번호, 발신자 아이디
+	// 리턴값: 수정된 행의 수
+	public int modifySendMessageConfirm(Map<String, Object> map) {
+		return messageMapper.updateSendveMessageConfirm(map);
 	}
 	
 	// 쪽지 보내기 위해 수신자 계정 정보를 검색하는 메소드

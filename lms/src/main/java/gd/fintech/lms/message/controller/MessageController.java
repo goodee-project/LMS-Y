@@ -45,20 +45,30 @@ public class MessageController {
 		return "sendMessage";
 	}
 	
-	// 쪽지 상세보기를 위한 메소드
+	// 받은 쪽지 상세보기를 위한 메소드
 	// 매개변수: 쪽지 번호, 수신자 아이디
 	// 리턴값: 쪽지 상세 내용 리스트
-	@PostMapping("/messageDetail")
-	public String messageDetail(Model model, @RequestParam(value = "messageNo", required = true) int messageNo, 
+	@PostMapping("/receiveMessageDetail")
+	public String receiveMessageDetail(Model model, @RequestParam(value = "messageNo", required = true) int messageNo, 
 			@RequestParam(value = "id", required = true) String id) {
 		// 메세지 상세정보 가져오기
-		model.addAttribute("message", messageService.getMessageDetail(messageNo));
+		model.addAttribute("message", messageService.getReceiveMessageDetail(messageNo));
 		// 메세지 읽음 상태로 변경
-		System.out.println(messageNo + ":쪽지번호, " + id + ":수신자번호");
 		Map<String, Object> map = new HashMap<>();
 		map.put("messageNo", messageNo);
 		map.put("id", id);
-		messageService.modifyMessageConfirm(map);
+		messageService.modifyReceiveMessageConfirm(map);
+		messageService.modifySendMessageConfirm(map);
+		return "messageDetail";
+	}
+	
+	// 보낸 쪽지 상세보기를 위한 메소드
+	// 매개변수: 쪽지 번호, 발신자 아이디
+	// 리턴값: 쪽지 상세 내용 리스트
+	@PostMapping("/sendMessageDetail")
+	public String sendMessageDetail(Model model, @RequestParam(value = "messageNo", required = true) int messageNo) {
+		// 메세지 상세정보 가져오기
+		model.addAttribute("message", messageService.getSendMessageDetail(messageNo));
 		return "messageDetail";
 	}
 	
@@ -66,6 +76,7 @@ public class MessageController {
 	// 리턴값: 쪽지 보내기 페이지
 	@PostMapping("/messageForm")
 	public String messageForm(@RequestParam(value = "accountId", required = true) String accountId, Model model) {
+		// 발신자의 정보를 가져오는 메소드
 		Map<String, Object> map = messageService.getCallerInfo(accountId);
 		model.addAttribute("fromId", map.get("fromId"));
 		model.addAttribute("fromName", map.get("fromName"));
@@ -77,6 +88,8 @@ public class MessageController {
 	// 리턴값: 쪽지 보내기 입력 수행한 행
 	@PostMapping("/sendMessage")
 	public String sendMessageAction(Message message) {
+		// 수신,발신 DB에 메세지 정보 입력
+		messageService.createReceiveMessage(message);
 		messageService.createSendMessage(message);
 		return "redirect:/sendMessage";
 	}
@@ -86,7 +99,7 @@ public class MessageController {
 	// 리턴값: 삭제가 된 행
 	@GetMapping("/removeReceiveMessage")
 	public String removeReceiveMessage(@RequestParam(value = "messageNo", required = true) int messageNo) {
-		messageService.removeMessageByMessageNo(messageNo);
+		messageService.removeReceiveMessageByMessageNo(messageNo);
 		return "redirect:/receiveMessage";
 	}
 	
@@ -95,7 +108,7 @@ public class MessageController {
 	// 리턴값: 삭제가 된 행
 	@GetMapping("/removeSendMessage")
 	public String removeSendMessage(@RequestParam(value = "messageNo", required = true) int messageNo) {
-		messageService.removeMessageByMessageNo(messageNo);
+		messageService.removeSendMessageByMessageNo(messageNo);
 		return "redirect:/sendMessage";
 	}
 }

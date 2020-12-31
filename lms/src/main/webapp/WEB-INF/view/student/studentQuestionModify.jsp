@@ -22,7 +22,7 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>[여기에 이 페이지의 특징을 잘 살린 제목을 넣어주세요]</h1>
+			<h1>질무</h1>
 			
 			<div>
 				[여기에 페이지 컨텐츠를 넣어주세요]

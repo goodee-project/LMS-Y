@@ -46,7 +46,6 @@
 		SELECT 
 			COUNT(*) 
 		FROM question
-		WHERE question_no=#{questionNo}
 	</select>
 	
 	<!-- 해당 학생의 질문 갯수 -->

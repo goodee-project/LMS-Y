@@ -30,18 +30,20 @@ public class QuestionController {
 	//매개변수:질문의 번호
 	//리턴값:질문의 순번으로 모든학생의 질문 리스트 보여줌
 	@GetMapping("student/studentQuestionList")
-	public String questionList(Model model,
+	public String studentQuestionList(Model model,
 			@RequestParam(value="lectureNo",defaultValue="1")int lectureNo,
 			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
 		
-		List<Question>questionList = questionService.getQuestionListByPage(lectureNo, currentPage);
+		Map<String,Object> map = questionService.getQuestionListByPage(lectureNo, currentPage);
 		
-		model.addAttribute("questionList",questionList);
-		logger.debug(questionList+"질문리스트");
+		
+		model.addAttribute("questionAllList",map.get("questionAllList"));
+		model.addAttribute("lastPage",map.get("lastPage"));
+		logger.debug(map.get("lastPage")+"라스트");
 		model.addAttribute("lectureNo",lectureNo);
-		logger.debug(lectureNo+"질문번호");
+		model.addAttribute("questionCount",map.get("questionCount"));
 		model.addAttribute("currentPage",currentPage);
-		logger.debug(currentPage+"현재페이지");
+		
 		
 		return  "student/studentQuestionList";
 	}

@@ -34,23 +34,6 @@
 	</collection>
 </resultMap>
 		
-	<!-- 학생이 신청한 수강목록 페이징 -->
-	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultMap="ResultClassRegistration">
-		SELECT
-			class_registration_no classRegistrationNo,
-			lecture_no,
-			account_id,
-			class_registration_state,
-			class_registration_point,
-			class_registration_review,
-			class_registration_createdate
-		FROM
-			class_registration
-		WHERE account_id=#{accountId}
-		LIMIT #{beginRow}, #{rowPerPage}
-			
-	</select>
-	
 	<!-- 학생이 신청한 수강의 강의 정보 -->
 	<select id="selectClassRegistrationOne" parameterType="int" resultMap="ResultClassRegistration">
 		SELECT
@@ -88,12 +71,74 @@
 		WHERE cr.class_registration_no=#{classRegistration}
 	</select>
 	
+	<!-- 학생이 신청한 수강목록 페이징 -->
+	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
+		SELECT
+			lecture_no lectureNo,
+			account_id accountId,
+			class_registration_state classRegistrationState,
+			class_registration_point classRegistrationPoint,
+			class_registration_review classRegistrationReview,
+			class_registration_createdate classRegistrationCreateDate
+		FROM
+			class_registration
+		WHERE account_id=#{accountId}
+		ORDER BY class_registration_no DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+			
+	</select>
+	
 	<!-- 수강신청 갯수 보기 -->
-	<select id = "selectRegistrationCount" resultType="String">
+	<select id = "selectRegistrationCount" parameterType="String" resultType="int" >
 		SELECT 
 			COUNT(*) 
 		FROM class_registration
-		WHERE accountId=#{accountId}
+		WHERE account_id=#{accountId}
 	</select>
 	
+	<!-- 수강가능한 강의 전체목록 -->
+	<select id="selectClassRegistrationAll" parameterType="java.util.Map" resultMap="ResultClassRegistration">
+		SELECT
+		cr.class_registration_no,
+		cr.lecture_no,
+		cr.account_id,
+		cr.class_registration_state,
+		cr.class_registration_point,
+		cr.class_registration_review,
+		cr.class_registration_createdate,
+		lc.lecture_no,
+		lc.account_id,
+		lc.subject_no,
+		lc.teacher_name,
+		lc.lecture_name,
+		lc.textbook_isbn,
+		lc.lecture_startdate,
+		lc.lecture_enddate,
+		lc.lecture_total,
+		lc.syllabus_no,
+		lc.classroom_no,
+		lc.lecture_createdate,
+		lc.lecture_updatedate,
+		sj.subject_no,
+		sj.subject_name,
+		sj.subject_createdate,
+		sj.subject_updatedate,
+		sj.subject_totalday,
+		sj.subject_info
+		FROM class_registration cr
+			LEFT JOIN lecture lc
+				ON cr.lecture_no = lc.lecture_no
+			LEFT JOIN subject sj
+				ON lc.subject_no = sj.subject_no
+		WHERE cr.class_registration_no=#{classRegistrationNo}
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 수강 신청하능한 강의 갯수 -->
+	<select id="selectRegistrationAllCount" parameterType="int" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM class_registration
+		WHERE lecture_no=#{lectureNo}
+	</select>
 </mapper>

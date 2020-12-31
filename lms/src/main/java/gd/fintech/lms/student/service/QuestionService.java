@@ -27,9 +27,9 @@ public class QuestionService {
 	
 	
 	//학생의 질문 리스트 페이징 
-	//매개변수:questionNo , rowPerPage 
+	//매개변수:lectureNo , rowPerPage 
 	//리턴값:질문게시판의 페이징 값 ,강좌에 대한 모든 학생들의 질문
-	public List<Question> getQuestionListByPage(int lectureNo,int currentPage){
+	public Map<String,Object> getQuestionListByPage(int lectureNo,int currentPage){
 		
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
@@ -37,28 +37,33 @@ public class QuestionService {
 		
 		//전체 페이지 갯수
 		int questionCount = questionMapper.selectQuestionCount(lectureNo);
+		logger.debug(questionCount+"질문갯수");
 		// 마지막 페이지
 		int lastPage = questionCount / rowPerPage;
+		
 		// 10 미만의 개수의 데이터가 있는 페이지 표시
 		if (questionCount % rowPerPage != 0) {
 			lastPage += 1;
+			logger.debug("진입");
 		}
+		
 		// 전체 페이지가 0개이면 현재 페이지도 0으로 표시
 		if (lastPage == 0) {
 			currentPage = 0;
 		}
 		
-		Map<String,Object>map = new HashMap<String,Object>();
-		map.put("rowPerPage", rowPerPage);
-		map.put("beginRow", beginRow);
-		map.put("lectureNo", lectureNo);
-		map.put("lastPage", lastPage);
+		Map<String,Object>parmMap = new HashMap<String,Object>();
+		parmMap.put("rowPerPage", rowPerPage);
+		parmMap.put("beginRow", beginRow);
+		parmMap.put("lectureNo", lectureNo);
+		parmMap.put("questionCount", questionCount);
+		//담아주기
+		List<Question>questionAllList = questionMapper.selectQuestionListByPage(parmMap);
 		
-		
-		List<Question>questionAllList = questionMapper.selectQuestionListByPage(map);
+		Map<String,Object>map = new HashMap<>();
 		map.put("questionAllList", questionAllList);
-		
-		return questionAllList;
+		map.put("lastPage", lastPage);
+		return map;
 	}
 	
 

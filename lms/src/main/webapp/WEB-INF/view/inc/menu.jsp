@@ -9,7 +9,7 @@
 		<a class="navbar-brand ml-3">LMS</a>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-			    <a class="nav-link" href="${pageContext.request.contextPath}/classRegistration">학생수강신청</a>
+			    <a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistration">학생 수강신청 목록</a>
 			</li>
 			<li class="nav-item">
 			  	<a class="nav-link" href="${pageContext.request.contextPath}/#">학생수강등록</a>

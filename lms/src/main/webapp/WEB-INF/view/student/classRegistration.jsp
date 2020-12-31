@@ -20,26 +20,27 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		<a href="${pageContext.request.contextPath}/student/classRegistration">수강신청 하러가기</a>
+		 
 		<div class="container">
-			<h1>학생수강목록</h1>
+			<h1>학생수강목록</h1> <a href="${pageContext.request.contextPath}/student/classRegistrationAdd?accountId=${accountId}">수강신청 하기</a>
 			<table class="table table-sm">
 					<tr>
-						<th>수강 번호</th>
 						<th>강좌 번호</th>
-						<th>학생 id</th>
+						<th>강사 이름</th>
 						<th>수강 상태</th>
+						<th>수강신청일</th>
 						<th>수강 리뷰(점수)</th>
 						<th>리뷰(텍스트)</th>
 					</tr>
 				<tbody>
-					<c:forEach var="r" items="${registraionList}">
-						<td>${r.classRegistrationNo }</td>
+					<c:forEach var="r" items="${registrationList}">
+					<tr>
 						<td><a href="${pageContext.request.contextPath}/student/classRegistartionDetail?subjectNo=${subjectNo}">${r.lectureNo}</a></td>
-						<td>${r.accountId }</td>
 						<td>${r.classRegistrationState}</td>
+						<td>${r.classRegistrationCreateDate}</td>
 						<td>${r.classRegistrationPoint}</td>
 						<td>${r.classRegistrationReview}</td>
+					</tr>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -47,11 +48,11 @@
 		
 		<div style="margin-left:47%">
 			<!-- 현재 페이지가 1일시 -->
-			<a href="${pageContext.request.contextPath}/student/studentQuestionList?accountId=${accountId}&&currentPage=${currentPage-1}">이전</a>	
+			<a href="${pageContext.request.contextPath}/student/classRegistration?currentPage=${currentPage-1}">이전</a>	
 			<!-- 현재 페이지 표시 -->
 			<a href="">${currentPage}</a>
 			<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
-			<a href="${pageContext.request.contextPath}/student/studentQuestionList?accountId=${accountId}&&currentPage=${currentPage+1}">다음</a>
+			<a href="${pageContext.request.contextPath}/student/classRegistration?currentPage=${currentPage+1}">다음</a>
 		</div>
 		
 	</body>

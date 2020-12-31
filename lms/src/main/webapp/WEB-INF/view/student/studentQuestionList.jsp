@@ -35,7 +35,7 @@
 				<th>조회수</th>
 				<th>자세히 보기</th>
 				<tbody>
-					<c:forEach var="q" items="${questionList}">
+					<c:forEach var="q" items="${questionAllList}">
 						<tr>
 							<td>${q.questionNo}</td>
 							<td>${q.accountId}</td>
@@ -52,11 +52,13 @@
 		</div>
 		<div style="margin-left:47%">
 			<!-- 현재 페이지가 1일시 -->
-			<a href="${pageContext.request.contextPath}/student/studentQuestionList?accountId=${accountId}&&currentPage=${currentPage-1}">이전</a>	
+			<a href="${pageContext.request.contextPath}/student/studentQuestionList?currentPage=${currentPage-1}">이전</a>	
 			<!-- 현재 페이지 표시 -->
 			<a href="">${currentPage}</a>
 			<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
-			<a href="${pageContext.request.contextPath}/student/studentQuestionList?accountId=${accountId}&&currentPage=${currentPage+1}">다음</a>
+			<a href="${pageContext.request.contextPath}/student/studentQuestionList?currentPage=${currentPage+1}">다음</a>
+			<!-- 마지막 페이지 -->
+			<a href="${pageContext.request.contextPath}/student/studentQuestionList?currentPage=${lastPage}">마지막으로</a>
 		</div>
 	</body>
 </html>

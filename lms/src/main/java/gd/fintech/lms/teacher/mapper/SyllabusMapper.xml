@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.SyllabusMapper">
-	<!-- 강의계획서의 정보를 출력하는 쿼리문 -->
+	<!-- 강의계획서를 출력하는 쿼리문 -->
 	<select id="selectSyllabusDetail" parameterType="int" resultType="gd.fintech.lms.teacher.vo.Syllabus">
 		SELECT
 			syllabus_no syllabusNo,

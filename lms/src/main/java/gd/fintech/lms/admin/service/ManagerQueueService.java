@@ -15,11 +15,11 @@ import gd.fintech.lms.admin.mapper.ManagerQueueMapper;
 import gd.fintech.lms.admin.vo.ManagerQueue;
 import gd.fintech.lms.manager.mapper.ManagerMapper;
 
-// 관리자가 하는 업무 Service
+// 운영자 회원가입 승인 관련 Service
 
 @Service
 @Transactional
-public class AdminService {
+public class ManagerQueueService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	// 회원가입 승인대기 중인 운영자 개인정보 Mapper
@@ -32,13 +32,13 @@ public class AdminService {
 	// 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력하는 메소드
 	// 매개변수: currentPage(현재 페이지)
 	// 리턴값: 회원가입 승인대기 중인 운영자의 목록
-	public Map<String, Object> getManagerQueueList(int currentPage, String searchKeyword, String searchType) {
+	public Map<String, Object> getManagerQueueList(int currentPage, String searchType, String searchKeyword) {
 		// 한 페이지에 보여줄 항목수 15개
 		int rowPerPage = 15;
 		// 해당 페이지에 표시한 항목
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 총 항목수
-		int totalCount = managerQueueMapper.selectManagerQueueCount();
+		int totalCount = managerQueueMapper.selectManagerQueueCount(searchType, searchKeyword);
 		// 마지막 페이지
 		int lastPage = totalCount / rowPerPage;
 		// 페이지 네비게이션 바에 표시할 페이지 수
@@ -74,8 +74,8 @@ public class AdminService {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("rowPerPage", rowPerPage);
 		paramMap.put("beginRow", beginRow);
-		paramMap.put("searchKeyword", searchKeyword);
 		paramMap.put("searchType", searchType);
+		paramMap.put("searchKeyword", searchKeyword);
 		
 		List<ManagerQueue> managerQueueList = managerQueueMapper.selectManagerQueueList(paramMap);
 		returnMap.put("managerQueueList", managerQueueList);

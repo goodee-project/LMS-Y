@@ -31,11 +31,18 @@ public class SubjectController {
 	// 과목 목록을 페이징하여 출력
 	// 페이지 표시 네비게이션 바 출력
 	@GetMapping("/manager/subjectList")
-	public String subjectList(Model model, @RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
-		Map<String, Object> map = subjectService.getSubjectList(currentPage);
+	public String subjectList(Model model,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchType", required = false, defaultValue = "all") String searchType,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
+		Map<String, Object> map = subjectService.getSubjectList(currentPage, searchType, searchKeyword);
 		
 		// 과목 목록
 		model.addAttribute("subjectList", map.get("subjectList"));
+		
+		// 검색 관련 값
+		model.addAttribute("searchType", searchType);
+		model.addAttribute("searchKeyword", searchKeyword);
 		
 		// 페이지 관련 값
 		model.addAttribute("currentPage", currentPage);

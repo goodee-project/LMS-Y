@@ -11,28 +11,32 @@ import gd.fintech.lms.manager.vo.Textbook;
 
 @Mapper
 public interface TextbookMapper {
-	// 교재 정보의 일부를 페이징하여 리스트로 출력
-	// 매개변수: Map.put()을 사용하여 페이징 변수 beginRow(해당 페이지), rowPerPage(페이지에 표시할 항목수)
+	// 교재 리스트를 페이징하여 출력
+	// 매개변수: map에 저장된 페이징 변수 beginRow(해당 페이지), rowPerPage(페이지에 표시할 항목수)와 검색 변수 searchType(검색조건), searchKeyword(검색어)
 	// 리턴값: 교재 정보 리스트
+	// 검색을 했다면 검색 결과에 따른 교재 리스트 출력
 	List<Textbook> selectTextbookList(Map<String, Object> map);
 	
-	// 교재 정보 리스트의 페이징을 위해 총 항목수 출력
-	// 매개변수: 없음
-	// 리턴값: 교재 정보 총 항목수
-	int selectTextbookCount();
+	// 교재 리스트의 페이징을 위해 총 항목수를 출력
+	// 매개변수:
+	// #1. searchType(검색조건)
+	// #2. searchKeyword(검색어)
+	// 리턴값: 교재 정보의 총 항목수
+	// 검색을 했다면 검색 결과에 따른 교재의 총 항목수 출력
+	int selectTextbookCount(String searchType, String searchKeyword);
 	
-	// 교재 정보의 상세정보 출력
-	// 매개변수: 교재 고유번호(국제 표준 도서 번호 ISBN)
+	// 교재 정보를 출력
+	// 매개변수: textbookISBN(교재 고유번호)
 	// 리턴값: 교재 고유번호에 해당하는 교재 정보
 	Textbook selectTextbookDetail(String textbookISBN);
 	
 	// 교재 정보를 입력
-	// 매개변수: 교재 정보
+	// 매개변수: textbook(교재 정보)
 	// 리턴값: 변경된 행의 갯수
 	int insertTextbook(Textbook textbook);
 	
 	// 교재 정보를 수정
-	// 매개변수: 교재 정보
+	// 매개변수: textbook(교재 정보)
 	// 리턴값: 변경된 행의 갯수
 	int updateTextbook(Textbook textbook);
 }

@@ -11,8 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
+            	// 선택된 검색조건 유지
+				$('#searchType').val('${searchType}').prop('selected', ture);
             });
         </script>
 	</head>
@@ -101,6 +101,28 @@
 						</li>
 					</c:if>
 				</ul>
+			</div>
+			
+			<!-- 검색 바 -->
+			<div>
+				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
+					<!-- 검색조건 -->
+					<select id="searchType" name="searchType">
+						<option value="all">전체</option>
+						<option value="ISBN">ISBN</option>
+						<option value="title">교재명</option>
+						<option value="writer">저자</option>
+						<option value="publisher">출판사</option>
+					</select>
+					
+					<!-- 검색어 입력 -->
+					<input type="text" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요">
+					
+					<!-- 검색 버튼 -->
+					<button type="submit">
+						검색
+					</button>
+				</form>
 			</div>
 		</div>
 	</body>

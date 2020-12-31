@@ -8,13 +8,13 @@
 		<title>회원가입 승인대기 중인 운영자 목록</title>
 		
 		<!-- jQuery 스크립트 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
-        </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+			// 선택된 검색조건 유지
+				$('#searchType').val('${searchType}').prop('selected', ture);
+			});
+		</script>
 	</head>
 	
 	<body>
@@ -38,7 +38,7 @@
 					<tbody>
 						<c:forEach var="managerQueueList" items="${managerQueueList}">
 							<!-- 검색된 항목이 있을 시 출력 -->
-							<c:if test="${!empty managerQueueList.managerEmail}">
+							<c:if test="${managerQueueList.managerEmail != null}">
 								<tr>
 									<td>${managerQueueList.accountId}</td>
 									<td>
@@ -52,7 +52,7 @@
 							</c:if>
 							
 							<!-- 검색된 항목이 없을 시 출력 -->
-							<c:if test="${empty managerQueueList.managerEmail}">
+							<c:if test="${managerQueueList.managerEmail == null}">
 								<tr>
 									<td colspan="4">
 										검색된 항목이 없습니다
@@ -109,7 +109,8 @@
 			
 			<!-- 검색 바 -->
 			<div>
-				<form method="get" action="${pageContext.request.pathInfo}">
+				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
+					<!-- 검색조건 -->
 					<select id="searchType" name="searchType">
 						<option value="all">전체</option>
 						<option value="name">이름</option>
@@ -117,8 +118,10 @@
 						<option value="phone">전화번호</option>
 					</select>
 					
+					<!-- 검색어 입력 -->
 					<input type="text" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요">
 					
+					<!-- 검색 버튼 -->
 					<button type="submit">
 						검색
 					</button>

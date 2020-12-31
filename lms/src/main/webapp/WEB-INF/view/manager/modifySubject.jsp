@@ -88,7 +88,7 @@
 					}
 
 					$('#subjectForm').submit();
-				})
+				});
             });
         </script>
 	</head>

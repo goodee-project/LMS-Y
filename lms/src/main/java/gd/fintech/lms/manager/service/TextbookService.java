@@ -26,13 +26,13 @@ public class TextbookService {
 	// 교재 목록을 페이징하여 출력하는 메소드
 	// 매개변수: currentPage(현재 페이지)
 	// 리턴값: 교재 목록
-	public Map<String, Object> getTextbookList(int currentPage) {
+	public Map<String, Object> getTextbookList(int currentPage, String searchType, String searchKeyword) {
 		// 한 페이지에 보여줄 항목수 15개
 		int rowPerPage = 15;
 		// 해당 페이지에 표시한 항목
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 총 항목수
-		int totalCount = textbookMapper.selectTextbookCount();
+		int totalCount = textbookMapper.selectTextbookCount(searchType, searchKeyword);
 		// 마지막 페이지
 		int lastPage = totalCount / rowPerPage;
 		// 페이지 네비게이션 바에 표시할 페이지 수
@@ -66,10 +66,10 @@ public class TextbookService {
 		
 		// 파라미터값 저장
 		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("beginRow", beginRow);
 		paramMap.put("rowPerPage", rowPerPage);
-		
-		// 파라미터값 저장
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("searchType", searchType);
+		paramMap.put("searchKeyword", searchKeyword);
 		
 		List<Textbook> textbookList = textbookMapper.selectTextbookList(paramMap);
 		returnMap.put("textbookList", textbookList);

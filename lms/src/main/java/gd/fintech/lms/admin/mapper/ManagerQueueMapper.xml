@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.admin.mapper.ManagerQueueMapper">
-	<!-- 회원가입 승인대기 중인 운영자의 개인정보의 일부를 페이징하여 리스트로 출력하는 쿼리문 -->
+	<!-- 회원가입 승인 대기 중인 운영자 리스트를 페이징하여 출력하는 쿼리문 -->
 	<select id="selectManagerQueueList" parameterType="java.util.Map" resultType="gd.fintech.lms.admin.vo.ManagerQueue">
 		SELECT
 			account_id accountId,
@@ -14,7 +14,7 @@
 		<where>
 			<if test="searchKeyword != null">
 				<choose>
-					<when test="searchType == all">
+					<when test="searchType == 'all'">
 						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
 						OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
 						OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -34,15 +34,15 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<!-- 회원가입 승인대기 중인 운영자 개인정보 리스트의 페이징을 위해 총 항목수 출력하는 쿼리문 -->
-	<select id="selectManagerQueueCount" parameterType="java.util.Map" resultType="int">
+	<!-- 회원가입 승인 대기 중인 운영자 리스트의 페이징을 위해 총 항목수를 출력하는 쿼리문 -->
+	<select id="selectManagerQueueCount" parameterType="String" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM manager_queue
 		<where>
 			<if test="queueSearch != null">
 				<choose>
-					<when test="searchType == all">
+					<when test="searchType == 'all'">
 						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
 						OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
 						OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -76,7 +76,7 @@
 		WHERE account_id = #{accountId}
 	</select>
 	
-	<!-- 회원가입 시 운영자가 자신의 개인정보를 입력하는 쿼리문 -->
+	<!-- 운영자가 회원가입 시 자신의 정보를 입력하는 쿼리문 -->
 	<insert id="insertManagerQueue" parameterType="gd.fintech.lms.admin.vo.ManagerQueue">
 		INSERT INTO manager_queue (
 			account_id,

@@ -8,13 +8,13 @@
 		<title>과목 목록</title>
 		
 		<!-- jQuery 스크립트 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
-        </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// 선택된 검색조건 유지
+				$('#searchType').val('${searchType}').prop('selected', ture);
+			});
+		</script>
 	</head>
 	
 	<body>
@@ -61,6 +61,8 @@
 			<!-- 페이지 네비게이션 바 -->
 			<div>
 				<ul class="pagination small">
+					<%-- 처음 버튼 --%>
+					
 					<%-- 이전 버튼 --%>
 					<c:if test="${pageNaviBegin != 1}">
 						<li class="page-item">
@@ -98,13 +100,25 @@
 							<a class="page-link">다음</a>
 						</li>
 					</c:if>
+					
+					<%-- 마지막 버튼 --%>
 				</ul>
 			</div>
 			
 			<!-- 검색 바 -->
 			<div>
-				<form action="${pageContext.request.pathInfo}" method="get">
-					<input type="text" name="" value="${subjectSerch}">
+				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
+					<!-- 검색조건 -->
+					<select id="searchType" name="searchType">
+						<option value="all">전체</option>
+						<option value="name">이름</option>
+						<option value="totalDay">총 이수일수</option>
+					</select>
+					
+					<!-- 검색어 입력 -->
+					<input type="text" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요">
+					
+					<!-- 검색 버튼 -->
 					<button type="submit">
 						검색
 					</button>

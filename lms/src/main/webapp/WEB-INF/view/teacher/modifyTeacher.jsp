@@ -116,16 +116,16 @@
 				</tr>
 				<tr>
 					<td>강사 이메일</td>
-					<td><input type="text" name="teacherEmail" id="teacherEmail" value="${teacher.teacherEmail}"></td>
+					<td><input type="text" name="teacherEmail" id="teacherEmail" value="${map.teacherEmail}"></td>
 				</tr>
 				<tr>
 					<td>강사 이름</td>
 					<td><input type="text" name="teacherName" id="teacherName"
-						value="${teacher.teacherName}"></td>
+						value="${map.teacherName}"></td>
 				</tr>
 				<tr>
 					<td>강사 전화번호</td>
-					<td><input type="text" name="teacherPhone" id="teacherPhone" value="${teacher.teacherPhone}"></td>
+					<td><input type="text" name="teacherPhone" id="teacherPhone" value="${map.teacherPhone}"></td>
 				</tr>
 				<tr>
 					<td>강사 성별</td>
@@ -137,13 +137,13 @@
 				<tr>
 					<td>강사 생년월일</td>
 					<td><input type="date" name="teacherBirth" id="teacherBirth"
-						value="${teacher.teacherBirth}"></td>
+						value="${map.teacherBirth}"></td>
 				</tr>
 				<tr>
 					<td>주소</td>
 					<td>
-					메인주소:<input type="text" id="teacherAddressMain" class="teacherAddressMain" value="${teacher.teacherAddressMain}" readonly="readonly">
-					상세주소:<input type="text" name="teacherAddressSub" id="teacherAddressSub" value="${teacher.teacherAddressSub}" placeholder="상세 주소를 입력하세요.">
+					메인주소:<input type="text" id="teacherAddressMain" class="teacherAddressMain" value="${map.teacherAddressMain}" readonly="readonly">
+					상세주소:<input type="text" name="teacherAddressSub" id="teacherAddressSub" value="${map.teacherAddressSub}" placeholder="상세 주소를 입력하세요.">
 					</td>
 				</tr>
 				<!-- 주소 찾기 -->
@@ -160,14 +160,14 @@
 				<tr>
 					<td>강사 한줄소개</td>
 					<td><input type="text" name="teacherInfo" id="teacherInfo"
-						value="${teacher.teacherInfo}"></td>
+						value="${map.teacherInfo}"></td>
 				</tr>
 				 <tr>
 					<td>프로필 사진</td>
 					<td>
-					<img src="" id="preview" style="width:170px; height:200px;"/>
+					<img src="${pageContext.request.contextPath}/upload/${map.teacherImage}" id="preview" style="width:170px; height:200px;"/>
 						<c:if test="${not empty myImage.imageFileUUID}">
-						<a href="${pageContext.request.contextPath}/teacher/removeTeacherFile?accountId=${teacher.accountId}&&">삭제</a>
+						<a href="${pageContext.request.contextPath}/teacher/removeTeacherFile?accountId=${accountId}">삭제</a>
 						</c:if>
 						<input type="file" name="imageFileList" id="imgSel"/>
 						<!-- <input type="hidden" name="accountId" value="${teacher.accountId}">-->

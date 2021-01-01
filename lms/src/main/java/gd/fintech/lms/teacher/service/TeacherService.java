@@ -1,6 +1,8 @@
 package gd.fintech.lms.teacher.service;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,7 @@ public class TeacherService {
 	//리턴값:로그인한 계정 ID에 값이 있는 ID에 관련된 정보를 반환
 	public Teacher getTeacherOne(String accountId){
 		Teacher teacher = teacherMapper.selectTeacherOne(accountId);
+		
 		return teacher;
 
 	}
@@ -73,13 +76,13 @@ public class TeacherService {
 		teacher.setTeacherInfo(teacherForm.getTeacherInfo());
 		logger.debug(teacher.toString());
 		teacherMapper.updateTeacherInfo(teacher);
-		
-
-		//전에 있던 파일이름을 가져옴
-		String pFileName = teacherMapper.selectTeacherImageanddelete(accountId);
+	
 		
 		//파일이 있을 경우 for문을 돌면서 Multipartfile을 vo로 변환 후 첨부파일 추가
 		if(teacherForm.getImageFileList() !=null) {
+			//기존에 올라와 있던 사진에 대한 정보를 불러옴
+			teacherMapper.selectMyImage(accountId);
+			 teacherMapper.selectTeacherImageanddelete(accountId);
 			
 			for(MultipartFile mf : teacherForm.getImageFileList()) {
 				String fileNameUUID = UUID.randomUUID().toString().replace("-","");
@@ -98,14 +101,8 @@ public class TeacherService {
 					//Transactional 기능을 수행하는 Service 컴포넌트에게 예외 발생을 알려 작업 내역을 롤백하도록 유도함
 					throw new RuntimeException(e);
 				}
-				
-				File pF = new File(pFileName+fileNameUUID);
-				//이미지 수정 전에 전에 있던 이미지 삭제
-				if(pF.exists()) {
-					pF.delete();
-				}
+			
 				session.setAttribute("teacherImage", fileNameUUID);
-				
 				AccountImage accountImage = new AccountImage();
 				accountImage.setImageFileOriginal(teacher.getTeacherImage());
 				accountImage.setAccountId(teacher.getAccountId());
@@ -114,6 +111,7 @@ public class TeacherService {
 				accountImage.setImageFileOriginal(mf.getOriginalFilename());
 				accountImage.setImageFileType(mf.getContentType());
 				teacherMapper.insertTeacherImage(accountImage);
+				teacherMapper.updateTeacherImage(accountId, fileNameUUID);
 				
 				}
 			 }
@@ -133,6 +131,7 @@ public class TeacherService {
 			file.delete();
 		}
 		teacherMapper.deleteMyImage(accountId);
+		teacherMapper.updateTeacherImage(accountId, fileName);
 	}
 	
 	//강사 자신의 이미지

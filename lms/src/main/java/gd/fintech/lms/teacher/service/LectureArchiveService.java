@@ -1,6 +1,7 @@
 package gd.fintech.lms.teacher.service;
 
 import java.io.BufferedInputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URLEncoder;
@@ -132,7 +133,7 @@ public class LectureArchiveService {
 		
 		//List<LectureArchiveFile> lectureArchiveFileList = null;
 		
-		//파일이 있을 경우 for문을 돌면서 MultipartFile을 VO로 변환 후 댓글 첨부파일 추가
+		//파일이 있을 경우 for문을 돌면서 MultipartFile을 VO로 변환 후 첨부파일 추가
 		if(lectureArchiveForm.getLectureArchiveFileList() !=null) {
 			for(MultipartFile mf: lectureArchiveForm.getLectureArchiveFileList()) {
 				String fileNameUUID = UUID.randomUUID().toString().replaceAll("-", "");

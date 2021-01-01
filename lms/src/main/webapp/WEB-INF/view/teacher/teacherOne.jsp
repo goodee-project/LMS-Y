@@ -23,6 +23,10 @@
 						<td>${teacher.accountId}</td>
 					</tr>
 					<tr>
+						<td>강사 이메일</td>
+						<td>${teacher.teacherEmail}</td>
+					</tr>
+					<tr>
 						<td>강사 이름</td>
 						<td>${teacher.teacherName}</td>
 					</tr>

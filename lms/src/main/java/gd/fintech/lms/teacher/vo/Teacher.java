@@ -1,5 +1,9 @@
 package gd.fintech.lms.teacher.vo;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 
@@ -45,4 +49,7 @@ public class Teacher {
 	
 	//강사 한줄소개 
 	private String teacherInfo; 
+	
+	//Multipart를 위한 프로퍼티 추가
+	private List<AccountImage> imageFileList;
 }

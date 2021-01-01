@@ -1,19 +1,32 @@
 package gd.fintech.lms.teacher.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.ranges.RangeException;
 
+import gd.fintech.lms.FilePath;
 import gd.fintech.lms.account.mapper.AddressMapper;
 import gd.fintech.lms.account.vo.Address;
+import gd.fintech.lms.dto.TeacherForm;
 import gd.fintech.lms.teacher.mapper.TeacherMapper;
+import gd.fintech.lms.teacher.vo.AccountImage;
 import gd.fintech.lms.teacher.vo.Teacher;
+import jdk.internal.org.jline.utils.Log;
 
 //강사 자신의 정보 수정 및 상세보기 할 수 있는 서비스
 
@@ -37,66 +50,102 @@ public class TeacherService {
 
 	}
 	
+	//강사 이미지를 조회
+	public AccountImage selectMyImage(String accountId) {
+		return teacherMapper.selectMyImage(accountId);
+	}
+	
 	//강사 아이디를 조회아여 정보를 수정하게 해주는 메서드
 	//매개변수:로그인뷰에 넣은 계정 ID
 	//리턴값:수정된 값
-	public int getTeacherUpdate(Teacher teacher) {
-		return teacherMapper.updateTeacherInfo(teacher);
+	public boolean modifyTeacherOne(TeacherForm teacherForm,HttpSession session,String accountId) {
+		
+		//teacherForm의 강사 아이디,이메일,이름,폰번,성별,생일,주소 내용을 객체에 넣어둠
+		Teacher teacher = new Teacher();
+		teacher.setAccountId(teacherForm.getAccountId());
+		teacher.setTeacherEmail(teacherForm.getTeacherEmail());
+		teacher.setTeacherName(teacherForm.getTeacherName());
+		teacher.setTeacherPhone(teacherForm.getTeacherPhone());
+		teacher.setTeacherGender(teacherForm.getTeacherGender());
+		teacher.setTeacherBirth(teacherForm.getTeacherBirth());
+		teacher.setTeacherAddressMain(teacherForm.getTeacherAddressMain());
+		teacher.setTeacherAddressSub(teacherForm.getTeacherAddressSub());
+		teacher.setTeacherInfo(teacherForm.getTeacherInfo());
+		logger.debug(teacher.toString());
+		teacherMapper.updateTeacherInfo(teacher);
+		
+
+		//전에 있던 파일이름을 가져옴
+		String pFileName = teacherMapper.selectTeacherImageanddelete(accountId);
+		
+		//파일이 있을 경우 for문을 돌면서 Multipartfile을 vo로 변환 후 첨부파일 추가
+		if(teacherForm.getImageFileList() !=null) {
+			
+			for(MultipartFile mf : teacherForm.getImageFileList()) {
+				String fileNameUUID = UUID.randomUUID().toString().replace("-","");
+				
+				try {
+					//물리적 파일을 생성(하드디스크)
+					String fileName = FilePath.getFilePath()+fileNameUUID;
+					mf.transferTo(new File(fileName));
+					
+					logger.debug("파일 생성됨:"+fileName);
+				}catch(Exception e) {
+					//해당 파일 생성 실패시
+					//예외 메세지를 출력
+					e.printStackTrace();
+					
+					//Transactional 기능을 수행하는 Service 컴포넌트에게 예외 발생을 알려 작업 내역을 롤백하도록 유도함
+					throw new RuntimeException(e);
+				}
+				
+				File pF = new File(pFileName+fileNameUUID);
+				//이미지 수정 전에 전에 있던 이미지 삭제
+				if(pF.exists()) {
+					pF.delete();
+				}
+				session.setAttribute("teacherImage", fileNameUUID);
+				
+				AccountImage accountImage = new AccountImage();
+				accountImage.setImageFileOriginal(teacher.getTeacherImage());
+				accountImage.setAccountId(teacher.getAccountId());
+				accountImage.setImageFileUUID(fileNameUUID);
+				accountImage.setImageFileSize(mf.getSize());
+				accountImage.setImageFileOriginal(mf.getOriginalFilename());
+				accountImage.setImageFileType(mf.getContentType());
+				teacherMapper.insertTeacherImage(accountImage);
+				
+				}
+			 }
+		return true;
 	}
 	
-	//주소 목록 및 페이징을 보여주는 메서드
-	//매개변수: 현재 페이지
-	//리턴값: 현재 페이지 주소 목록
-	public Map<String,Object> getAddressListByPage(int currentPage){
-		//현재 페이지 표시할 데이터 수
-		int rowPerPage = 10;
-		//시작 페이지
-		int beginRow = (currentPage-1)*rowPerPage;
-		//전체 페이지 개수
-		int addressCount = addressMapper.selectAddressCount();
-		//마지막페이지
-		int lastPage = addressCount/rowPerPage;
-		//10 미만의 개수의 데이터가 있는 페이지 표시
-		if(addressCount%rowPerPage !=0) {
-			lastPage +=1;
+	//강사ID에 해당되는 이미지파일을 삭제
+	//매개변수:삭제할 강사ID
+	public void removeFile(String accountId) {
+		//물리적 파일 제거
+		String fileName = FilePath.getFilePath()+accountId;
+		
+		//파일 경로, 이름지정
+		File file = new File(fileName);
+		//파일이 있는경우
+		if(file.exists()) {
+			file.delete();
 		}
-		//전체 페이지가 0개이면 현재 페이지도 0으로 표시
-		if(lastPage == 0) {
-			currentPage = 0;
-		}
-			
-		Map<String,Object> paramMap = new HashMap<>();
-		
-		paramMap.put("rowPerPage", rowPerPage);
-		paramMap.put("beginRow", beginRow);
-		
-		List<Address> addressList = addressMapper.selectAddressByPage(paramMap);
-		logger.debug(addressList+"<--- addressList");
-		
-		Map<String,Object>map = new HashMap<String,Object>();
-		map.put("lastPage", lastPage);
-		map.put("addressList", addressList);	
-		return map;
+		teacherMapper.deleteMyImage(accountId);
+	}
+	
+	//강사 자신의 이미지
+	public AccountImage getTeacherImageFile(String accountId) {
+		return teacherMapper.selectMyImage(accountId);
 	}
 
-	//주소를 검색하게 해주는 메서드
-	//매개변수:우편번호 및 현재 페이지
-	//리턴값:주소 조회
-	/*public Map<String, Object> getAddressByZipCode(Map<String, Object>map){
-		//현재 페이지에 표시할 데이터 수
-		int rowPerPage = 10;
-		//시작 페이지
-		int beginRow = (currentPage-1)*rowPerPage;
-		//전쳎
-		int addressCount = addressMapper.selectAddressCount();
-		//마지막페이지
-		int lastPage = addressCount/rowPerPage;
-		//10 미만의 개수의 데이터가 있는 페이지 표시
-		if(addressCount%rowPerPage !=0) {
-			lastPage +=1;
-		}
-		//전체 페이지가 0개이면 현재 페이지도 0으로 표시
-		if(lastPage == 0) {
-			currentPage = 0;
-		}*/
+	//우편주소로 주소 리스트를 조회 메서드
+	//매개변수 :우편주소
+	//리턴값:우편주소에 따른 주소 목록
+	public List<String> getAddressListByZipcode1(String zipCode){
+		List<String> list = addressMapper.selectAddressByZipCode(zipCode);
+		return list;
+	}
+	
 }

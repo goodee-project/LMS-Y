@@ -167,7 +167,6 @@ public class LectureArchiveController {
 	public String removeLectureArchiveFile(Model model,
 			@RequestParam("lectureArchiveFileUUID")String lectureArchiveFileUUID) {
 		LectureArchiveFile lectureArchiveFile = lectureArchiveService.getLectureArchiveFile(lectureArchiveFileUUID);
-		System.out.println("자료삭제 디버그그그그그극->"+lectureArchiveFile);
 		lectureArchiveService.removeFile(lectureArchiveFileUUID);
 		return "redirect:/teacher/modifyLectureArchive?lectureArchiveNo="+lectureArchiveFile.getLectureArchiveNo();
 	}

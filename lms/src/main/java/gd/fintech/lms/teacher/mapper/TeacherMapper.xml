@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.TeacherMapper">
+	<resultMap type="gd.fintech.lms.teacher.vo.Teacher" id="ResultTeacherOne">
+		<result property="accountId" column="account_id"/>
+		<result property="teacherEmail" column="teacher_email"/>
+		<result property="teacherPhone" column="teacher_phone"/>
+		<result property="teacherName" column="teacher_name"/>
+		<result property="teacherGender" column="teacher_gender"/>
+		<result property="teacherBirth" column="teacher_birth"/>
+		<result property="teacherAddressMain" column="teacher_address_main"/>
+		<result property="teacherAddressSub" column="teacher_address_sub"/>
+		<result property="teacherAccessDate" column="teacher_accessdate"/>
+		<result property="teacherInfo" column="teacher_info"/>
+		<collection property="imageFileList" ofType="gd.fintech.lms.teacher.vo.AccountImage">
+			<result property="accountId" column="account_id"/>
+			<result property="imageFileUUID" column="image_file_uuid"/>
+			<result property="imageFileOriginal" column="image_file_original"/>
+			<result property="imageFileSize" column="image_file_size"/>
+			<result property="imageFileType" column="image_file_type"/>
+			<result property="imageFileCreateDate" column="image_file_createdate"/>
+		</collection>
+ 	</resultMap>
 	<!-- 강사 정보 입력 -->
 	<insert id="insertTeacherFromQueue" parameterType="java.util.Map">
 		INSERT INTO teacher(
@@ -61,5 +81,57 @@
 			teacher_info teacherInfo 
 		FROM teacher 
 		WHERE account_id = #{accountId}
+	</select>
+	
+	<!-- 강사 이미지 추가 -->
+	<insert id="insertTeacherImage" parameterType="gd.fintech.lms.teacher.vo.AccountImage">
+		INSERT INTO account_image(
+			account_id,
+			image_file_uuid,
+			image_file_original,
+			image_file_size,
+			image_file_type,
+			image_file_createdate
+		) VALUES (
+			#{accountId},
+			#{imageFileUUID},
+			#{imageFileOriginal},
+			#{imageFileSize},
+			#{imageFileType},
+			NOW()
+		)
+	</insert>
+	
+	<!-- 강사 이미지 조회 -->
+	<select id="selectMyImage" parameterType="String" resultType="gd.fintech.lms.teacher.vo.AccountImage">
+		SELECT
+			account_id accountId,
+			image_file_uuid imageFileUUID,
+			image_file_original imageFileOriginal,
+			image_file_size imageFileSize,
+			image_file_type imageFileType,
+			image_file_createdate imageFileCreateDate
+		FROM account_image
+		WHERE account_id = #{accountId}
+	</select>
+	
+	<!-- 강사 이미지 삭제 -->
+	<delete id="deleteMyImage" parameterType="String">
+		DELETE FROM account_image
+		WHERE account_id = #{accountId}
+	</delete>
+	
+	<!-- 사진 수정 테스트 -->
+	<update id="updateTeacherImage" parameterType="java.util.Map">
+		UPDATE teacher
+		SET 
+			teacher_image = #{teacherImage}, teacher_updatedate = NOW()
+		WHERE account_id = #{accountId}
+	</update>
+	<!-- 이미지 수정할때 현재 이미지를 삭제 -->
+	<select id="selectTeacherImageanddelete" parameterType="String" resultType="String">
+		SELECT teacher_image
+		FROM teacher
+		WHERE  account_id = #{accountId}
 	</select>
 </mapper>

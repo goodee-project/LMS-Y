@@ -24,8 +24,9 @@
 					<p><a href="${pageContext.request.contextPath}/teacher/createTest?lectureNo=${param.lectureNo}">시험정보 생성</a></p>
 				</c:if>
 				<c:if test="${test != null}">
-					<p>시험이 만들어졌습니다!</p>
-					<p><a href="${pageContext.request.contextPath}/teacher/modifyTest?lectureNo=${param.lectureNo}">시험정보 수정</a></p>
+					<c:if test="${isEditable}">
+						<p><a href="${pageContext.request.contextPath}/teacher/modifyTest?lectureNo=${param.lectureNo}">시험정보 수정</a></p>
+					</c:if>
 					<div>
 						시험 시작일: ${test.testStartDate}
 					</div>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.dto.ReportSubmitForm;
 import gd.fintech.lms.student.service.ReportSubmitService;
+import gd.fintech.lms.teacher.service.ReportService;
 import gd.fintech.lms.teacher.vo.Report;
 
 @Controller
@@ -23,6 +24,8 @@ public class ReportSubmitController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	// 한 과제에 관한 과제 제출 서비스
 	@Autowired private ReportSubmitService reportSubmitService;
+	// 과제 서비스
+	@Autowired private ReportService reportService;
 	
 	// 과제 리스트 출력
 	// 매개변수 :
@@ -57,25 +60,32 @@ public class ReportSubmitController {
 	public String reportSubmitDetail(Model model,
 			@RequestParam(value="reportNo") int reportNo,
 			HttpSession session) {
-		Report report = reportSubmitService.getReportSubmitDetail(reportNo, session);
-		model.addAttribute("report", report);
+		Report reportAndReportSubmit = reportSubmitService.getReportSubmitDetail(reportNo, session);
+		reportService.getReportDetail(reportNo);
+		model.addAttribute("reportAndReportSubmit", reportAndReportSubmit);
 		return "/student/reportSubmitDetail";
 	}
 	
 	// 과제 제출 입력 페이지
+	// 매개변수 : 
+	// Model
+	// RequestParam : reportNo(과제 번호)
 	// 리턴값 : 과제 제출 입력페이지
 	@GetMapping("/student/createReportSubmit")
-	public String createReportSubmit() {
-		return "createReportSubmit";
+	public String createReportSubmit(Model model, 
+			@RequestParam(value="reportNo") int reportNo) {
+		model.addAttribute("reportNo", reportNo);
+		return "/student/createReportSubmit";
 	}
 	
 	// 과제 제출 입력 액션
 	// 매개변수 : 과제 제출 폼
 	// 리턴값 : 과제 제출 상세보기 페이지 
 	@PostMapping("/student/createReportSubmit")
-	public String createReportSubmit(ReportSubmitForm reportSubmitForm) {
+	public String createReportSubmit(ReportSubmitForm reportSubmitForm,
+			HttpSession session) {
 		logger.debug(reportSubmitForm.toString());
-		reportSubmitService.createReportSubmit(reportSubmitForm);
+		reportSubmitService.createReportSubmit(reportSubmitForm, session);
 		return "redirect:/student/reportSubmitDetail?reportNo="
 		+reportSubmitForm.getReportNo()
 		+"&accountId="+reportSubmitForm.getAccountId();

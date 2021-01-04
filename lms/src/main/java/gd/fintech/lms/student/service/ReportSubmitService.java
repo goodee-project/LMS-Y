@@ -96,10 +96,10 @@ public class ReportSubmitService {
 	
 	// 과제 제출할 정보 입력 
 	// 매개변수 : 과제 제출 정보
-	public void createReportSubmit(ReportSubmitForm reportSubmitForm) {
+	public void createReportSubmit(ReportSubmitForm reportSubmitForm, HttpSession session) {
 		ReportSubmit reportSubmit = new ReportSubmit();
 		reportSubmit.setReportNo(reportSubmitForm.getReportNo());
-		reportSubmit.setAccountId(reportSubmitForm.getAccountId());
+		reportSubmit.setAccountId((String)session.getAttribute("accountId"));
 		reportSubmit.setReportSubmitTitle(reportSubmitForm.getReportSubmitTitle());
 		reportSubmit.setReportSubmitContent(reportSubmitForm.getReportSubmitContent());
 		logger.debug(reportSubmitForm.toString());

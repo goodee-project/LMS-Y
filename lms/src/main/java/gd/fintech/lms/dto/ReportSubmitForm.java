@@ -19,6 +19,12 @@ public class ReportSubmitForm {
 	// 계정 id
 	private String accountId;
 	
+	// 과제제출 입력날짜
+	private String reportSubmitCreateDate;
+	
+	// 과제제출 수정날짜
+	private String reportSubmitUpdateDate;
+	
 	// 과제제출 제목
 	private String reportSubmitTitle;
 	
@@ -26,17 +32,11 @@ public class ReportSubmitForm {
 	private String reportSubmitContent;
 	
 	// 과제 점수 
-	private int reportSubmitPoint;
+	private int reportSubmitScore;
 	
 	// 과제 피드백
 	private String reportSubmitFeedback;
 	
-	// 과제제출 입력날짜
-	private String reportSubmitCreateDate;
-	
-	// 과제제출 수정날짜
-	private String reportSubmitUpdateDate;
-	
 	// 과제제출 첨부파일 리스트
-	private List<MultipartFile> ReportSubmitFileList;
+	private List<MultipartFile> reportSubmitFileList;
 }

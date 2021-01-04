@@ -186,5 +186,4 @@
 		WHERE l.lecture_no = #{lectureNo}
 	</select>
 
-
 </mapper>

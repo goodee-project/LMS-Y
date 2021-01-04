@@ -68,10 +68,5 @@
 		WHERE classroom_no = #{classroomNo}
 
 	</delete>
-
-
-
-
-
-
+	
 </mapper>

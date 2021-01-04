@@ -18,7 +18,7 @@ import gd.fintech.lms.manager.vo.Classroom;
 //Classroom 관련 컨트롤러 
 
 @Controller
-public class ClassroomController {
+public class ClassroomController{
 	//debugLogger
 	private final Logger logger = LoggerFactory.getLogger(ClassroomController.class);
 		
@@ -29,7 +29,7 @@ public class ClassroomController {
 	// 매개변수:Model 
 	// 리턴값: 강의실 리스트 페이지 출력
 	@GetMapping("/manager/classroomList")
-	public String classroomList (Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
+	public String classroomList(Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
 		  Map<String, Object> map = classroomService.getClassroomListByPage(currentPage);
 		  
 		  model.addAttribute("currentPage",currentPage);

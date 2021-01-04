@@ -88,7 +88,7 @@ public class FAQService {
 	// FAQ를 입력하는 서비스
 	// 매개변수: FAQ의 정보 
 	// 리턴값: 입력받은 정보가 들어간 행의 추가
-	public int createFAQ(FAQ faq , HttpSession session){
+	public int createFAQ(FAQ faq, HttpSession session){
 		// 세션을 가져오고 
 		String sessionAcountId = (String)session.getAttribute("accountId");
 		logger.debug("현재 로그인한 사용자 ID:"+sessionAcountId);
@@ -107,7 +107,7 @@ public class FAQService {
 	// FAQ를 상세히 보는 서비스
 	// 매개변수: FAQ의 고유번호
 	// 리턴값: faqNo에  대한 상세한 정보 
-	public FAQ  getFAQDetail (int faqNo) {
+	public FAQ getFAQDetail(int faqNo) {
 		return faqMapper.selectFAQDetail(faqNo);
 	}
 	
@@ -121,7 +121,7 @@ public class FAQService {
 	// FAQ의 조회수가 +1 증가하는 서비스 
 	// 매개변수 : FAQ의 고유번호
 	// 리턴값: faqNo의 해당하는 count +1 
-	public int modifyFAQCountUp(int faqNo) {
+	public int increaseFAQCountUp(int faqNo) {
 		return faqMapper.updateFAQCountUp(faqNo);
 	}
 	

@@ -91,5 +91,4 @@
 		WHERE faq_no = #{faqNo}
 	</delete>
 
-
 </mapper>

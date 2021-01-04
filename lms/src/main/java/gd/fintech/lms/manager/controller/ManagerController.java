@@ -29,7 +29,7 @@ public class ManagerController {
 	// 운영자 상세정보
  	// 리턴값: accountId에 해당하는 운영자 상세정보
 	@GetMapping("/manager/managerDetail")
-	public String managerInfo(Model model,HttpServletRequest sseion) {
+	public String managerInfo(Model model, HttpServletRequest sseion) {
 		HttpSession session = ((HttpServletRequest)sseion).getSession();
 		String accountId = (String)session.getAttribute("accountId");
 		Manager manager = managerService.getManagerDetail(accountId);
@@ -41,9 +41,10 @@ public class ManagerController {
 
 	// 운영자 정보 수정 폼
 	// 리턴값: 운영자 정보 수정 액션
-	@GetMapping("manager/modifyManager")
-	public String managerModify(Model model,
-			@RequestParam(value="accountId")String accountId) {
+	@GetMapping("/manager/modifyManager")
+	public String managerModify(Model model, HttpServletRequest sseion) {
+		HttpSession session = ((HttpServletRequest)sseion).getSession();
+		String accountId = (String)session.getAttribute("accountId");
 		Manager manager = managerService.getManagerDetail(accountId); 
 		model.addAttribute("manager",manager);
 		logger.debug("manager"+ manager );
@@ -52,11 +53,11 @@ public class ManagerController {
 	
 	// 운영자 정보수정 액션
 	// 리턴값: 수정된 운영자 정보
-	@PostMapping("manager/modifyManager")
+	@PostMapping("/manager/modifyManager")
 	public String managerModify(Manager manager) {
 		managerService.modifyManager(manager);
 		logger.debug("manager"+ manager );
-		return "/manager/managerDetail?accountId="+manager.getAccountId();
+		return "/manager/managerDetail";
 	}
 	
 }

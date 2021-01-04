@@ -21,7 +21,7 @@ public class FAQCategoryService {
 		
 		// FAQ의 카테고리의 목록을 출력하는 서비스
 		// 리턴값: FAQ의 카테고리의 리스트 
-		public List<FAQCategory>getFAQCategoryList(){
+		public List<FAQCategory> getFAQCategoryList(){
 			 return faqCategoryMapper.selectFAQCategoryList();
 		}
 		

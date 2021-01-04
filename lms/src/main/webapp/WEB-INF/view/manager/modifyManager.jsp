@@ -11,6 +11,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
+                
                 // 폼 유효성 검사
                 // code here...
             });
@@ -26,18 +27,18 @@
 			<h1>운영자 정보수정</h1>
 		</div>	
 			<div>
-				<form method="post" action="${pageContext.request.contextPath}/manager/managerModify?accountId=${accountId}">
+				<form method="post" action="${pageContext.request.contextPath}/manager/modifyManager">
 					<table class=table>
 						<tr>
 							<td>운영자 아이디</td>
-							<td><input type="text" name="accountId" value="${accountId}" readonly="readonly"></td>
+							<td><input type="text" name="accountId" value="${manager.accountId}" ></td>
 						</tr>
 						<tr>
 							<td>운영자 이메일</td>
 							<td><input type="text" name="managerEmail" value="${manager.managerEmail}"></td>
 						</tr>
 						<tr>
-							<td>운영자 전화번호</td>
+							<td>운영자 전화번호('-'없이 번호만 입력해주세요)</td>
 						   <td><input type="text" name="managerPhone" value="${manager.managerPhone}"></td>
 						</tr>
 						<tr>
@@ -47,13 +48,13 @@
 						<tr>
 							<td>운영자 성별</td>
 							<td>
-								<input type="radio" name="managerGender" value="남" id="female">남자
+								<input type="radio" name="managerGender" value="남" id="female"checked="checked">남자
 								<input type="radio" name="managerGender" value="여" id="male">여자
 							</td>
 						</tr>
 						<tr>
 							<td>운영자 생년월일</td>
-							<td><input type="text" name="managerBirth" value="${manager.managerBirth}"></td>
+							<td><input type="date" name="managerBirth" value="${manager.managerBirth}"></td>
 						</tr>
 						<tr>
 							<td>운영자 직책</td>

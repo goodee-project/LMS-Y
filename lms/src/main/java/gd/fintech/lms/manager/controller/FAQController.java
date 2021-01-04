@@ -33,7 +33,7 @@ public class FAQController {
 	// 매개변수: Model @RequestParam: currentPage (현재페이지)
 	// 리턴값: FAQ 리스트 페이지 출력
 	@GetMapping("/manager/FAQList")
-	public String FAQList (Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
+	public String FAQList(Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
 	  Map<String, Object> map = faqService.getFAQListByPage(currentPage);
 	  
 	  List<FAQCategory> categoryList = faqCategoryService.getFAQCategoryList();
@@ -47,8 +47,7 @@ public class FAQController {
 	  logger.debug("categoryList",categoryList);
 	  return "manager/FAQList";
 	}
-	
-	
+
 	// FAQ 작성 폼
 	// 리턴값: FAQ 입력 액션
 	@GetMapping("/manager/createFAQ")
@@ -70,7 +69,7 @@ public class FAQController {
 	}
 	
 	// FAQ 수정 폼
-	// 리턴값:  
+	// 리턴값: faqNo에 해당하는 FAQ을 수정하는 페이지 
 	@GetMapping("/manager/modifyFAQ")
 	public String modifyFAQ(Model model, @RequestParam(name="faqNo")int faqNo) {
 		FAQ faq = faqService.getFAQDetail(faqNo);
@@ -82,7 +81,7 @@ public class FAQController {
 	}
 	
 	// FAQ 수정 액션
-	// 리턴값: 입력한 FAQ
+	// 리턴값: faqNo에 해당하는 FAQ 상세보기 페이지
 	@PostMapping("/manager/modifyFAQ")
 	public String modifyFAQ(FAQ faq) {
 		faqService.modifyFAQ(faq);
@@ -93,8 +92,22 @@ public class FAQController {
 	// 리턴값: 입력한 faqNo에 해당하는 FAQ 상세정보 
 	@GetMapping("/manager/FAQDetail")
 	public String faqDetail(Model model,
-			@RequestParam("faqNo")int faqNo) {
+			@RequestParam("faqNo")int faqNo,
+			HttpSession session) {
 		FAQ faq = faqService.getFAQDetail(faqNo);
+		
+		// 조회수 증가
+		long updateTime =0;
+		// 세션에 저장된 조회 시간을 검색 
+		if(session.getAttribute("updateTime"+faqNo) !=null) {
+			updateTime = (long)session.getAttribute("updateTime"+faqNo);
+		}
+		// 시스템 현재시간
+		long currentTime = System.currentTimeMillis(); 
+		if(currentTime - updateTime > 24*60*60*1000) {
+			faqService.increaseFAQCountUp(faqNo);
+			session.setAttribute("updateTime"+faqNo, currentTime);			
+		}
 		model.addAttribute("faq", faq);
 		return "manager/FAQDetail";
 		

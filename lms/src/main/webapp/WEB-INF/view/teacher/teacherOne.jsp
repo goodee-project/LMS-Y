@@ -20,39 +20,39 @@
 				<table class="table">
 					<tr>
 						<td>강사 아이디</td>
-						<td>${map.accountId}</td>
+						<td>${map.teacher.accountId}</td>
 					</tr>
 					<tr>
 						<td>강사 이메일</td>
-						<td>${map.teacherEmail}</td>
+						<td>${map.teacher.teacherEmail}</td>
 					</tr>
 					<tr>
 						<td>강사 이름</td>
-						<td>${map.teacherName}</td>
+						<td>${map.teacher.teacherName}</td>
 					</tr>
 					<tr>
 						<td>강사 전화번호</td>
-						<td>${map.teacherPhone}</td>
+						<td>${map.teacher.teacherPhone}</td>
 					</tr>
 					<tr>
 						<td>강사 성별</td>
-						<td>${map.teacherGender}</td>
+						<td>${map.teacher.teacherGender}</td>
 					</tr>
 					<tr>
 						<td>강사 생년월일</td>
-						<td>${map.teacherBirth}</td>
+						<td>${map.teacher.teacherBirth}</td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td>${map.teacherAddressMain} ${map.teacherAddressSub}</td>
+						<td>${map.teacher.teacherAddressMain} ${map.teacher.teacherAddressSub}</td>
 					</tr>
 					<tr>
 						<td>프로필 사진</td>
-						<td><img src="${pageContext.request.contextPath}/upload/${map.teacherImage}" /></td>
+						<td><img src="${map.imageURI}" /></td>
 					</tr>
 					<tr>
 						<td>강사 한줄소개</td>
-						<td>${map.teacherInfo}</td>
+						<td>${map.teacher.teacherInfo}</td>
 					</tr>
 				</table>
 			</div>

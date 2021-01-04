@@ -108,12 +108,12 @@ public class LectureArchiveController {
 		// 세션에 있는 아이디를 가져옴
 		String  accountId = (String)session.getAttribute("accountId");
 		// 세션에 있는 아이디를 참조하여 teacherService의 getTeacherOne의 정보를 가져옴
-		//Map<String, Object> map = teacherService.getTeacherOne(accountId);
-		Teacher teacher = teacherService.getTeacherOne(accountId);
+		Map<String, Object> map = teacherService.getTeacherOne(accountId);
+		//Teacher teacher = teacherService.getTeacherOne(accountId);
 		//logger.debug("teacher",map.get("teacher"));
 		// model을 통해 View에 다음과 같은 정보들을 보내준다
-		//model.addAttribute("teacher",map.get("teacher"));
-		model.addAttribute("teacher",teacher);
+		model.addAttribute("teacher",map.get("teacher"));
+		//model.addAttribute("teacher",teacher);
 		model.addAttribute("accountId",accountId);
 		model.addAttribute("lectureNo",lectureNo);
 		return "/teacher/createLectureArchive";

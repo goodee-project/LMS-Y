@@ -1,6 +1,7 @@
 package gd.fintech.lms.teacher.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
 import java.util.HashMap;
@@ -46,10 +47,43 @@ public class TeacherService {
 	//강사 아이디를 조회하여 정보결과를 가져오는 메서드
 	//매개변수:로그인뷰에 넣은 계정 ID
 	//리턴값:로그인한 계정 ID에 값이 있는 ID에 관련된 정보를 반환
-	public Teacher getTeacherOne(String accountId){
+	public Map<String, Object> getTeacherOne(String accountId){
 		Teacher teacher = teacherMapper.selectTeacherOne(accountId);
+		  
+		StringBuilder uri = null;
+	if (teacherMapper.selectMyImage(accountId) != null) {
+		try {
+		    // 소스 파일 불러오기
+		    File file = new File(FilePath.getFilePath()+teacher.getTeacherImage());
+
+		    // 파일 컨텐츠타입 설정
+		    String contentType = teacherMapper.selectMyImage(accountId).getImageFileType();
+
+		    // 바이트 배열로 파일 불러오기
+		    byte[] data = Files.readAllBytes(file.toPath());
+
+		    // 베이스64 문자열로 변환하기 (자바 8버전)
+		    String base64str = Base64.getEncoder().encodeToString(data);
+
+		    // "data URI" 생성
+		    uri = new StringBuilder();
+		    uri.append("data:");
+		    uri.append(contentType);
+		    uri.append(";base64,");
+		    uri.append(base64str);
+		} catch (IOException e) { // 파일 로드에 실패했을 경우 Transactional 애노테이션에게 알려줌
+		    e.printStackTrace();
+		    throw new RuntimeException(e);
+		}
+		  
+	}
 		
-		return teacher;
+		Map<String,Object> map = new HashMap<>();
+		// uri를 Controller로 리턴시켜주기
+		map.put("imageURI", uri);
+		map.put("teacher",teacher);
+		
+		return map;
 
 	}
 	
@@ -82,7 +116,7 @@ public class TeacherService {
 		if(teacherForm.getImageFileList() !=null) {
 			//기존에 올라와 있던 사진에 대한 정보를 불러옴
 			teacherMapper.selectMyImage(accountId);
-			 teacherMapper.selectTeacherImageanddelete(accountId);
+			teacherMapper.selectTeacherImageanddelete(accountId);
 			
 			for(MultipartFile mf : teacherForm.getImageFileList()) {
 				String fileNameUUID = UUID.randomUUID().toString().replace("-","");
@@ -110,9 +144,13 @@ public class TeacherService {
 				accountImage.setImageFileSize(mf.getSize());
 				accountImage.setImageFileOriginal(mf.getOriginalFilename());
 				accountImage.setImageFileType(mf.getContentType());
-				teacherMapper.insertTeacherImage(accountImage);
-				teacherMapper.updateTeacherImage(accountId, fileNameUUID);
-				
+				//teacherMapper.insertTeacherImage(accountImage);
+				//teacherMapper.updateTeacherImage(accountId, fileNameUUID);
+					//강사 이미지 조회 NULL값 일시
+					if(teacherMapper.selectMyImage(accountId) == null) {
+						teacherMapper.updateTeacherImage(accountId, fileNameUUID); 
+						teacherMapper.insertTeacherImage(accountImage);
+					}
 				}
 			 }
 		return true;
@@ -130,8 +168,9 @@ public class TeacherService {
 		if(file.exists()) {
 			file.delete();
 		}
-		teacherMapper.deleteMyImage(accountId);
+		
 		teacherMapper.updateTeacherImage(accountId, fileName);
+		teacherMapper.deleteMyImage(accountId);
 	}
 	
 	//강사 자신의 이미지

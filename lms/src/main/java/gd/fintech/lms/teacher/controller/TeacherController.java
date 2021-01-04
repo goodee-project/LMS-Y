@@ -42,8 +42,8 @@ public class TeacherController {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		//세션에 있는 아이디 가져옴
 		String accountId = (String)session.getAttribute("accountId");
-		//Map<String, Object> map = teacherService.getTeacherOne(accountId);
-		Teacher map = teacherService.getTeacherOne(accountId);
+		Map<String, Object> map = teacherService.getTeacherOne(accountId);
+		//Teacher map = teacherService.getTeacherOne(accountId);
 		model.addAttribute("accountId", accountId);
 		model.addAttribute("map",map);
 		return "/teacher/teacherOne";
@@ -56,8 +56,8 @@ public class TeacherController {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		//세션에 있는 아이디 가져옴
 		String accountId = (String)session.getAttribute("accountId");
-		//Map<String, Object> map = teacherService.getTeacherOne(accountId);
-		Teacher map = teacherService.getTeacherOne(accountId);
+		Map<String, Object> map = teacherService.getTeacherOne(accountId);
+		//Teacher map = teacherService.getTeacherOne(accountId);
 		AccountImage myImage = teacherService.selectMyImage(accountId);
 		//모델로 뷰에 값을 넘김
 		model.addAttribute("myImage",myImage);

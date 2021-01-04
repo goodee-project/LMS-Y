@@ -11,7 +11,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function() {
-				//////////////////////////////////////
 		// 이미지 변경 값이 있는지 확인하는 변수
 		var imageCheck = '';
 		// 이미지에 대한 제약조건 명시
@@ -19,7 +18,7 @@
             ext = $(this).val().split('.').pop().toLowerCase(); //확장자
             //배열에 추출한 확장자가 존재하는지 체크
             if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'jfif']) == -1) {
-                alert('이미지 파일이 아닙니다! (gif, png, jpg, jpeg, jfif 만 업로드 가능)');
+                alert('ERROR: 이미지 파일이 아닙니다');
                 $(this).val('');
             } else {
             	 setImageFromFile(this, '#preview');
@@ -36,9 +35,6 @@
 			        reader.readAsDataURL(input.files[0]);
 			    }
 			}
-		//////////////////////////////////////
-				
-				
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
 				$('#createLectureArchiveFile').click(function() {
 					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
@@ -112,20 +108,20 @@
 			<table class="table">
 				<tr>
 					<td>강사 아이디</td>
-					<td><input type="text" name="accountId" id="accountId" value="${accountId}"></td>
+					<td><input type="text" name="accountId" id="accountId" value="${map.teacher.accountId}" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<td>강사 이메일</td>
-					<td><input type="text" name="teacherEmail" id="teacherEmail" value="${map.teacherEmail}"></td>
+					<td><input type="text" name="teacherEmail" id="teacherEmail" value="${map.teacher.teacherEmail}"></td>
 				</tr>
 				<tr>
 					<td>강사 이름</td>
 					<td><input type="text" name="teacherName" id="teacherName"
-						value="${map.teacherName}"></td>
+						value="${map.teacher.teacherName}"></td>
 				</tr>
 				<tr>
 					<td>강사 전화번호</td>
-					<td><input type="text" name="teacherPhone" id="teacherPhone" value="${map.teacherPhone}"></td>
+					<td><input type="text" name="teacherPhone" id="teacherPhone" value="${map.teacher.teacherPhone}"></td>
 				</tr>
 				<tr>
 					<td>강사 성별</td>
@@ -137,13 +133,13 @@
 				<tr>
 					<td>강사 생년월일</td>
 					<td><input type="date" name="teacherBirth" id="teacherBirth"
-						value="${map.teacherBirth}"></td>
+						value="${map.teacher.teacherBirth}"></td>
 				</tr>
 				<tr>
 					<td>주소</td>
 					<td>
-					메인주소:<input type="text" id="teacherAddressMain" class="teacherAddressMain" value="${map.teacherAddressMain}" readonly="readonly">
-					상세주소:<input type="text" name="teacherAddressSub" id="teacherAddressSub" value="${map.teacherAddressSub}" placeholder="상세 주소를 입력하세요.">
+					메인주소:<input type="text" id="teacherAddressMain" class="teacherAddressMain" value="${map.teacher.teacherAddressMain}" readonly="readonly">
+					상세주소:<input type="text" name="teacherAddressSub" id="teacherAddressSub" value="${map.teacher.teacherAddressSub}" placeholder="상세 주소를 입력하세요.">
 					</td>
 				</tr>
 				<!-- 주소 찾기 -->
@@ -160,12 +156,12 @@
 				<tr>
 					<td>강사 한줄소개</td>
 					<td><input type="text" name="teacherInfo" id="teacherInfo"
-						value="${map.teacherInfo}"></td>
+						value="${map.teacher.teacherInfo}"></td>
 				</tr>
 				 <tr>
 					<td>프로필 사진</td>
 					<td>
-					<img src="${pageContext.request.contextPath}/upload/${map.teacherImage}" id="preview" style="width:170px; height:200px;"/>
+					<img src="${map.imageURI}" id="preview" style="width:170px; height:200px;"/>
 						<c:if test="${not empty myImage.imageFileUUID}">
 						<a href="${pageContext.request.contextPath}/teacher/removeTeacherFile?accountId=${accountId}">삭제</a>
 						</c:if>

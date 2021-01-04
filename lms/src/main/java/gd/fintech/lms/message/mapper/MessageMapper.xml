@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.message.mapper.MessageMapper">
 	<!-- 받은 쪽지 리스트를 조회하는 쿼리 -->
-	<select id="selectReceiveMessageList" parameterType="String" resultType="gd.fintech.lms.message.vo.Message">
+	<select id="selectReceiveMessageList" parameterType="java.util.Map" resultType="gd.fintech.lms.message.vo.Message">
 		SELECT 
 			message_no messageNo,
 			to_id toId,
@@ -13,10 +13,11 @@
 		FROM message_receive
 		WHERE to_id = #{toId}
 		ORDER BY message_datetime DESC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<!-- 보낸 쪽지 리스트를 조회하는 쿼리 -->
-	<select id="selectSendMessageList" parameterType="String" resultType="gd.fintech.lms.message.vo.Message">
+	<!-- 전체 보낸 쪽지 리스트를 조회하는 쿼리 -->
+	<select id="selectSendMessageList" parameterType="java.util.Map" resultType="gd.fintech.lms.message.vo.Message">
 		SELECT
 			message_no messageNo,
 			to_id toId,
@@ -26,6 +27,37 @@
 		FROM message_send
 		WHERE from_id = #{fromId}
 		ORDER BY message_datetime DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 검색조건(아이디)에 따른 보낸 쪽지 리스트를 조회하는 쿼리 -->
+	<select id="selectSendMessageListByToId" parameterType="java.util.Map" resultType="gd.fintech.lms.message.vo.Message">
+		SELECT
+			message_no messageNo,
+			to_id toId,
+			from_id fromId,
+			message_datetime messageDateTime,
+			is_confirm isConfirm
+		FROM message_send
+		WHERE from_id = #{fromId} AND to_id = #{search}
+		ORDER BY message_datetime DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 검색조건(내용)에 따른 보낸 쪽지 리스트를 조회하는 쿼리 -->
+	<select id="selectSendMessageListByMessageContent" parameterType="java.util.Map" resultType="gd.fintech.lms.message.vo.Message">
+		SELECT
+			message_no messageNo,
+			to_id toId,
+			from_id fromId,
+			message_datetime messageDateTime,
+			is_confirm isConfirm
+		FROM message_send
+		WHERE 
+			from_id = #{fromId} AND 
+			message_content LIKE CONCAT('%', #{search}, '%')
+		ORDER BY message_datetime DESC
+		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 받은 쪽지 상세보기 쿼리 -->
@@ -154,5 +186,19 @@
 		LEFT JOIN teacher t ON a.account_id = t.account_id
 		LEFT JOIN student s ON a.account_id = s.account_id
 		WHERE a.account_id = #{accountId};
+	</select>
+	
+	<!-- 받은쪽지함 전체 수를 카운팅하는 쿼리 -->
+	<select id="selectCountReceiveMassageByAccountId" parameterType="String" resultType="int">
+		SELECT COUNT(message_no) 
+		FROM message_receive
+		WHERE to_id = #{accountId}
+	</select>
+	
+	<!-- 보낸쪽지함 전체 수를 카운팅하는 쿼리 -->
+	<select id="selectCountSendMassageByAccountId" parameterType="String" resultType="int">
+		SELECT COUNT(message_no) 
+		FROM message_send
+		WHERE from_id = #{accountId}
 	</select>
 </mapper>

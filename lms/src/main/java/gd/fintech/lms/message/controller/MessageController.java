@@ -1,7 +1,6 @@
 package gd.fintech.lms.message.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -24,24 +23,46 @@ public class MessageController {
 	@Autowired private MessageService messageService;
 	
 	// 받은 쪽지함 페이지로 이동하는 메소드
-	// 매개변수: 로그인한 계정 아이디
+	// 매개변수: 로그인한 계정 아이디, 현재 페이지
 	// 리턴값: 받은 쪽지함 리스트 페이지
 	@GetMapping("/receiveMessage")
-	public String receiveMessageList(HttpSession session, Model model) {
+	public String receiveMessageList(HttpSession session, Model model,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
 		String toId = session.getAttribute("accountId").toString();
-		List<Message> receiveList = messageService.getReceiveMessageList(toId);
-		model.addAttribute("list", receiveList);
+		Map<String, Object> map = messageService.getReceiveMessageList(toId, currentPage);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navStartPage", map.get("navStartPage"));
+		model.addAttribute("navEndPage", map.get("navEndPage"));
 		return "receiveMessage";
 	}
 	
 	// 보낸 쪽지함 페이지로 이동하는 메소드
-	// 매개변수: 로그인한 계정 아이디
+	// 매개변수: 로그인한 계정 아이디, 현재 페이지, 검색값
 	// 리턴값: 보낸 쪽지함 리스트 페이지
 	@GetMapping("/sendMessage")
-	public String sendMessageList(HttpSession session, Model model) {
-		String fromId = session.getAttribute("accountId").toString();
-		List<Message> sendList = messageService.getSendMessageList(fromId);
-		model.addAttribute("list", sendList);
+	public String sendMessageList(HttpSession session, Model model,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "sel", required = false) String sel,
+			@RequestParam(value = "search", required = false) String search) {
+		// 매개변수로 전달되는 mapParm
+		Map<String, Object> mapParam = new HashMap<>();
+		mapParam.put("fromId", session.getAttribute("accountId").toString());
+		mapParam.put("sel", sel);
+		mapParam.put("search", search);
+		mapParam.put("currentPage", currentPage);
+		// 뷰페이지에 전달되는 map
+		Map<String, Object> map = messageService.getSendMessageList(mapParam);
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navStartPage", map.get("navStartPage"));
+		model.addAttribute("navEndPage", map.get("navEndPage"));
+		model.addAttribute("sel", sel);
+		model.addAttribute("search", search);
 		return "sendMessage";
 	}
 	

@@ -11,16 +11,26 @@ import gd.fintech.lms.message.vo.Message;
 
 @Mapper
 public interface MessageMapper {
-	// 받은 쪽지 리스트를 조회하는 메소드(받은쪽지함)
-	// 매개변수: 로그인된 계정 ID
+	// 전체 받은 쪽지 리스트를 조회하는 메소드(받은쪽지함)
+	// 매개변수: 로그인된 계정 ID(수신자), 페이징정보(시작ROW,ROW개수)
 	// 리턴값: 받은 쪽지의 리스트 결과
-	List<Message> selectReceiveMessageList(String toId);
+	List<Message> selectReceiveMessageList(Map<String, Object> map);
 	
-	// 보낸 쪽지 리스트를 조회하는 메소드(보낸쪽지함)
-	// 매개변수: 로그인된 계정 ID
+	// 전체 보낸 쪽지 리스트를 조회하는 메소드(보낸쪽지함)
+	// 매개변수: 로그인된 계정 ID(발신자), 페이징정보(시작ROW,ROW개수)
 	// 리턴값: 보낸 쪽지의 리스트 결과
-	List<Message> selectSendMessageList(String fromId);
+	List<Message> selectSendMessageList(Map<String, Object> map);
 	
+	// 검색조건(수신자아이디)에 따른 보낸 쪽지 리스트를 조회하는 메소드(보낸쪽지함)
+	// 매개변수: 로그인된 계정 ID(발신자), 수신자ID, 페이징정보(시작ROW,ROW개수)
+	// 리턴값: 검색조건에 따른 보낸 쪽지의 리스트 결과
+	List<Message> selectSendMessageListByToId(Map<String, Object> map);
+	
+	// 검색조건(내용)에 따른 보낸 쪽지 리스트를 조회하는 메소드(보낸쪽지함)
+	// 매개변수: 로그인된 계정 ID(발신자), 쪽지내용, 페이징정보(시작ROW,ROW개수)
+	// 리턴값: 검색조건에 따른 보낸 쪽지의 리스트 결과
+	List<Message> selectSendMessageListByMessageContent(Map<String, Object> map);
+		
 	// 받은 쪽지 상세보기 메소드
 	// 매개변수: 쪽지 번호
 	// 리턴값: 쪽지 상세보기 내용
@@ -70,4 +80,14 @@ public interface MessageMapper {
 	// 매개변수: 계정 ID
 	// 리턴값: 아이디로 조회한 정보(아이디,이름)
 	Map<String, Object> selectCallerInfoAccountId(String accountId);
+	
+	// 받은쪽지함 전체 수(페이징)
+	// 매개변수: 발신자 아이디
+	// 리턴값: 발신함 쪽지 전체 개수
+	int selectCountReceiveMassageByAccountId(String accountId);
+	
+	// 보낸쪽지함 전체 수(페이징)
+	// 매개변수: 수신자 아이디
+	// 리턴값: 수신함 쪽지 전체 개수
+	int selectCountSendMassageByAccountId(String accountId);
 }

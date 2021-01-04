@@ -1,5 +1,6 @@
 package gd.fintech.lms.message.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,17 +20,126 @@ public class MessageService {
 	@Autowired private MessageMapper messageMapper;
 	
 	// 받은 쪽지 리스트를 가져오는 서비스 메소드
-	// 매개변수: 로그인한 아이디
-	// 리턴값: 받은 쪽지 리스트
-	public List<Message> getReceiveMessageList(String toId) {
-		return messageMapper.selectReceiveMessageList(toId);
+	// 매개변수: 로그인한 아이디(수신자), 현재 페이지
+	// 리턴값: 쪽지리스트와 페이징 정보
+	public Map<String, Object> getReceiveMessageList(String toId, int currentPage) {
+		int rowPerPage = 10;	// 한 페이지에 보여지는 리스트 행의 수
+		int beginRow = (currentPage-1)*rowPerPage;	// 시작 페이지
+		// 받은 쪽지 리스트를 가져오기
+		Map<String, Object> listMap = new HashMap<>();
+		listMap.put("toId", toId);
+		listMap.put("beginRow", beginRow);
+		listMap.put("rowPerPage", rowPerPage);
+		List<Message> list = messageMapper.selectReceiveMessageList(listMap);
+		
+		// 페이징을 위한 lastPage, 쪽지 리스트, 네이게이션 페이징 map에 담아서 넘기기
+		Map<String, Object> map = new HashMap<>();
+		// 전체 ROW 개수 가져오기
+		int totalRow = messageMapper.selectCountReceiveMassageByAccountId(toId);
+		// 마지막 페이지 구하기
+		int lastPage = totalRow/rowPerPage;
+		if(totalRow%rowPerPage != 0) {
+			lastPage += 1;
+		}		
+		// 네비게이션 페이징
+		int navPerPage = 10;	// 네비게이션 인덱스 개수
+		int navStartPage = currentPage-(currentPage%navPerPage)+1;	// 시작 인덱스
+		int navEndPage = navStartPage+(navPerPage-1);	// 마지막 인덱스
+		// 현재 페이지 위치가 navPerPage 위치라면 navStartPage 넘어가지 않고 navEndPage 위치에 고정
+		if(currentPage%navEndPage == 0) {
+			navStartPage = navStartPage-navPerPage;
+			navEndPage = navEndPage-navPerPage;
+		}
+		// navEndPage가 마지막 페이지 값을 넘길 경우
+		if(navEndPage > lastPage) {
+			navEndPage = lastPage;
+		}
+		
+		map.put("list", list);
+		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navStartPage", navStartPage);
+		map.put("navEndPage", navEndPage);
+		
+		return map;
 	}
 	
 	// 보낸 쪽지 리스트를 가져오는 서비스 메소드
-	// 매개변수: 로그인한 아이디
-	// 리턴값: 보낸 쪽지 리스트
-	public List<Message> getSendMessageList(String fromId) {
-		return messageMapper.selectSendMessageList(fromId);
+	// 매개변수: 로그인한 아이디, 검색조건, 현재 페이지
+	// 리턴값: 쪽지리스트와 페이징 정보
+	public Map<String, Object> getSendMessageList(Map<String, Object> mapParam) {
+		// map에 담겨진 값 변수에 담기(발신자,현재페이지,검색조건선택값,검색어)
+		String fromId = mapParam.get("fromId").toString();
+		int currentPage = Integer.parseInt(mapParam.get("currentPage").toString());
+		String sel = null;
+		if(mapParam.get("sel") != null) {
+			sel = mapParam.get("sel").toString();
+		}
+		String search = null;
+		if(mapParam.get("search") != null) {
+			search = mapParam.get("search").toString();
+		}
+		
+		int rowPerPage = 10;	// 한 페이지에 보여지는 리스트 행의 수
+		int beginRow = (currentPage-1)*rowPerPage;	// 시작 페이지
+		// 받은 쪽지 리스트를 가져오기
+		Map<String, Object> listMap = new HashMap<>();
+		listMap.put("fromId", fromId);
+		listMap.put("search", search);
+		listMap.put("beginRow", beginRow);
+		listMap.put("rowPerPage", rowPerPage);
+		
+		List<Message> list = null;
+		// 선택된 검색 조건값이 아이디인 경우
+		if(sel != null && sel.equals("id")) {
+			list = messageMapper.selectSendMessageListByToId(listMap);
+		}
+		// 선택된 검색 조건값이 내용인 경우
+		else if(sel != null && sel.equals("content")) {
+			list = messageMapper.selectSendMessageListByMessageContent(listMap);
+		}
+		// 선택된 검색 조건값이 전체인 경우
+		else {
+			list = messageMapper.selectSendMessageList(listMap);
+		}
+		
+		// 페이징을 위한 lastPage, 쪽지 리스트, 네이게이션 페이징 map에 담아서 넘기기
+		Map<String, Object> map = new HashMap<>();
+		// 페이지 ROW 개수를 담는 변수
+		int totalRow;
+		// 검색 조건에 따른 전체 ROW 개수 가져오기
+		if(sel != null) {
+			totalRow = messageMapper.selectCountReceiveMassageByAccountId(search);
+		// 전체 ROW 개수 가져오기
+		}else {
+			totalRow = messageMapper.selectCountSendMassageByAccountId(fromId);
+		}
+		// 마지막 페이지 구하기
+		int lastPage = totalRow/rowPerPage;
+		if(totalRow%rowPerPage != 0) {
+			lastPage += 1;
+		}
+		// 네비게이션 페이징
+		int navPerPage = 10;	// 네비게이션 인덱스 개수
+		int navStartPage = currentPage-(currentPage%navPerPage)+1;	// 시작 인덱스
+		int navEndPage = navStartPage+(navPerPage-1);	// 마지막 인덱스
+		// 현재 페이지 위치가 navPerPage 위치라면 navStartPage 넘어가지 않고 navEndPage 위치에 고정
+		if(currentPage%navPerPage == 0) {
+			navStartPage = navStartPage-navPerPage;
+			navEndPage = navEndPage-navPerPage;
+		}
+		// navEndPage가 마지막 페이지 값을 넘길 경우
+		if(navEndPage > lastPage) {
+			navEndPage = lastPage;
+		}
+		
+		map.put("list", list);
+		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navStartPage", navStartPage);
+		map.put("navEndPage", navEndPage);
+		
+		return map;
 	}
 	
 	// 받은 쪽지 상세보기 내용을 가져오는 서비스 메소드

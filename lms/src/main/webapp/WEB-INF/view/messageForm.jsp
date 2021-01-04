@@ -44,6 +44,15 @@
                 	}
             	    return cnt;
             	}
+            	// 엔터키 클릭시 submit 방지
+            	$('#toId').keydown(function(event) {
+            		if(event.keyCode == '13') {
+                        if(window.event) {
+                            event.preventDefault();
+                            return;
+                        }
+            		}
+            	})
             	// 유효성 검사
             	$('#submitBtn').click(function() {
             		if($('#toId').val() == '') {

@@ -1,5 +1,8 @@
 package gd.fintech.lms.teacher.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +24,22 @@ public class SyllabusService {
 	
 	// 강의계획서를 출력하는 메소드
 	// 매개변수: syllabusNo(강의계획서 고유번호)
-	// 리턴값: 고유번호에 해당하는 강의계획서
-	public Syllabus getSyllabusDetail(int syllabusNo) {
+	// 리턴값
+	// #1. 고유번호에 해당하는 강의계획서
+	// #2. 강의계획서 작성자 이름
+	public Map<String, Object> getSyllabusDetail(int syllabusNo) {
 		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
-		return syllabusDetail;
+		// syllabusDetail에서 syllabusWriter(강의계획서 작성자)를 accountId(아이디)로 출력
+		String accountId = syllabusDetail.getSyllabusWriter();
+		// accountId(아이디)를 이용하여 syllabusWriterName(작성자 이름) 출력
+		String syllabusWriterName = syllabusMapper.selectTeacherName(accountId);
+		
+		// 리턴값 저장
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("syllabusDetail", syllabusDetail);
+		returnMap.put("syllabusWriterName", syllabusWriterName);
+		
+		return returnMap;
 	}
 	
 	// 강사가 강의계획서를 작성하는 메소드

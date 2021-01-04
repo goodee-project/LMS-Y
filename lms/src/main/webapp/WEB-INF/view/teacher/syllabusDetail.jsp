@@ -21,7 +21,7 @@
 			<!-- 서명 여부 -->
 			<div>
 				<c:if test="${accountLevel != 1}">
-					<table border="1">
+					<table class="table">
 						<tr>
 							<td></td>
 							<td>서명</td>
@@ -45,7 +45,7 @@
 			<div>
 				<c:if test="${syllabusDetail.syllabusManagerSign == NULL}">
 					<!-- 강사에게 표시되는 항목 -->
-					<c:if test="${accountLevel == 2}">
+					<c:if test="${accountLevel == 2 && syllabusDetail.syllabusWriter == accountId}">
 						<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
 							[수정]
 						</a>
@@ -65,26 +65,26 @@
 			
 			<!-- 작성일자, 수정일자 -->
 			<div>
-				<table border="1">
+				<table class="table">
+					<c:if test="${accountLevel != 1}">
+						<tr>
+							<td>작성자</td>
+							<td>${syllabusWriterName}</td>
+						</tr>
+						<tr>
+							<td>작성일자</td>
+							<td>${syllabusDetail.syllabusCreateDate}</td>
+						</tr>
+						<tr>
+							<td>수정일자</td>
+							<td>${syllabusDetail.syllabusUpdateDate}</td>
+						</tr>
+					</c:if>
 					<tr>
-						<td>작성일자</td>
-						<td>${syllabusDetail.syllabusCreateDate}</td>
-					</tr>
-					<tr>
-						<td>수정일자</td>
-						<td>${syllabusDetail.syllabusUpdateDate}</td>
-					</tr>
-				</table>
-			</div>
-			
-			<!-- 내용 -->
-			<div>
-				<table border="1">
-					<tr>
-						<td>
+						<td colspan="2">
 							${syllabusDetail.syllabusContent}
 						</td>
-					</tr>				
+					</tr>
 				</table>
 			</div>
 		</div>

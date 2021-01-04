@@ -25,7 +25,7 @@
 			<h1>회원가입 승인대기 중인 운영자 목록</h1>
 			
 			<div>
-				<table border="1">
+				<table class="table">
 					<thead>
 						<tr>
 							<th>아이디</th>
@@ -36,9 +36,9 @@
 					</thead>
 					
 					<tbody>
-						<c:forEach var="managerQueueList" items="${managerQueueList}">
-							<!-- 검색된 항목이 있을 시 출력 -->
-							<c:if test="${managerQueueList.managerEmail != null}">
+						<!-- 검색된 항목이 있을 시 출력 -->
+						<c:if test="${lastPage != 0}">
+							<c:forEach var="managerQueueList" items="${managerQueueList}">
 								<tr>
 									<td>${managerQueueList.accountId}</td>
 									<td>
@@ -49,82 +49,131 @@
 									<td>${managerQueueList.managerEmail}</td>
 									<td>${managerQueueList.managerPhone}</td>
 								</tr>
-							</c:if>
-							
-							<!-- 검색된 항목이 없을 시 출력 -->
-							<c:if test="${managerQueueList.managerEmail == null}">
-								<tr>
-									<td colspan="4">
-										검색된 항목이 없습니다
-									</td>
-								</tr>
-							</c:if>
-						</c:forEach>
+							</c:forEach>
+						</c:if>
+						
+						<!-- 검색된 항목이 없을 시 출력 -->
+						<c:if test="${lastPage == 0}">
+							<tr>
+								<td colspan="4">
+									검색된 항목이 없습니다
+								</td>
+							</tr>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
 			
 			<!-- 페이지 네비게이션 바 -->
-			<div>
-				<ul class="pagination small">
-					<%-- 이전 버튼 --%>
-					<c:if test="${pageNaviBegin != 1}">
-						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviBegin-1}">이전</a>
-						</li>
-					</c:if>
-					<c:if test="${pageNaviBegin == 1}">
-						<li class="page-item disabled">
-							<a class="page-link">이전</a>
-						</li>
-					</c:if>
-					
-					<%-- 각 페이지 이동 버튼 --%>
-					<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
-						<c:if test="${p != currentPage}">
+			<!-- 검색된 항목이 있을 시에만 출력 -->
+			<c:if test="${lastPage != 0}">
+				<div>
+					<ul class="pagination small">
+						<%-- 처음 버튼 --%>
+						<c:if test="${currentPage != 1}">
 							<li class="page-item">
-								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}">${p}</a>
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1&searchType=${searchType}&searchKeyword=${searchKeyword}">
+									처음
+								</a>
 							</li>
 						</c:if>
-						<c:if test="${p == currentPage}">
-							<li class="page-item active">
-								<a class="page-link">${p}</a>
+						<c:if test="${currentPage == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									처음
+								</a>
 							</li>
 						</c:if>
-					</c:forEach>
-					
-					<%-- 다음 버튼 --%>
-					<c:if test="${pageNaviEnd != lastPage}">
-						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviEnd+1}">다음</a>
-						</li>
-					</c:if>
-					<c:if test="${pageNaviEnd == lastPage}">
-						<li class="page-item disabled">
-							<a class="page-link">다음</a>
-						</li>
-					</c:if>
-				</ul>
-			</div>
+						
+						<%-- 이전 버튼 --%>
+						<c:if test="${pageNaviBegin != 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviBegin-1}&searchType=${searchType}&searchKeyword=${searchKeyword}">
+									이전
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${pageNaviBegin == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									이전
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 각 페이지 이동 버튼 --%>
+						<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
+							<c:if test="${p != currentPage}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}&searchType=${searchType}&searchKeyword=${searchKeyword}">
+										${p}
+									</a>
+								</li>
+							</c:if>
+							<c:if test="${p == currentPage}">
+								<li class="page-item active">
+									<a class="page-link">
+										${p}
+									</a>
+								</li>
+							</c:if>
+						</c:forEach>
+						
+						<%-- 다음 버튼 --%>
+						<c:if test="${pageNaviEnd != lastPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviEnd+1}&searchType=${searchType}&searchKeyword=${searchKeyword}">
+									다음
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${pageNaviEnd == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									다음
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 마지막 버튼 --%>
+						<c:if test="${currentPage != lastPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}&searchType=${searchType}&searchKeyword=${searchKeyword}">
+									마지막
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${currentPage == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									마지막
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+			</c:if>
 			
 			<!-- 검색 바 -->
 			<div>
 				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
-					<!-- 검색조건 -->
-					<select id="searchType" name="searchType">
-						<option value="all">전체</option>
-						<option value="name">이름</option>
-						<option value="email">Email</option>
-						<option value="phone">전화번호</option>
-					</select>
-					
-					<!-- 검색어 입력 -->
-					<input type="text" id="searchKeyword" name="searchKeyword" value="${searchKeyword}" placeholder="검색어를 입력하세요">
-					
-					<!-- 검색 버튼 -->
-					<button type="submit">
-						검색
-					</button>
+					<div class="input-group">
+						<!-- 검색조건 -->
+						<select id="searchType" name="searchType" class="form-control">
+							<option value="all">전체</option>
+							<option value="name">이름</option>
+							<option value="email">Email</option>
+							<option value="phone">전화번호</option>
+						</select>
+						
+						<!-- 검색어 입력 -->
+						<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchKeyword}" placeholder="검색어를 입력하세요">
+						
+						<!-- 검색 버튼 -->
+						<button type="submit" class="form-control btn btn-primary">
+							검색
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

@@ -26,21 +26,21 @@
 			
 			<!-- 관리자 정보 -->
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
-						<td>아이디</td>
+						<th>아이디</th>
 						<td>${adminDetail.accountId}</td>
 					</tr>
 					<tr>
-						<td>Email</td>
+						<th>Email</th>
 						<td>${adminDetail.adminEmail}</td>
 					</tr>
 					<tr>
-						<td>전화번호</td>
+						<th>전화번호</th>
 						<td>${adminDetail.adminPhone}</td>
 					</tr>
 					<tr>
-						<td>이름</td>
+						<th>이름</th>
 						<td>${adminDetail.adminName}</td>
 					</tr>
 				</table>

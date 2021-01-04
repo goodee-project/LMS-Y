@@ -61,14 +61,20 @@
 			
 			<div>
 				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/createSyllabus">
-					<div>
-                		<textarea id="syllabusContent" name="syllabusContent" style="width: 100%"></textarea>
-					</div>
-					<div>
-						<button type="button" id="submitBtn">
-							작성
-						</button>
-					</div>
+					<table>
+						<tr>
+							<td>작성자ID:</td>
+							<td>
+								<input class="form-control" type="text" id="syllabusWriter" name="syllabusWriter" value="<c:out value='${accountId}'/>" readonly="readonly">
+							</td>
+						</tr>
+					</table>
+					
+           			<textarea id="syllabusContent" name="syllabusContent" style="width: 100%"></textarea>
+
+					<button type="button" id="submitBtn">
+						작성
+					</button>	
 				</form>
 			</div>
 		</div>

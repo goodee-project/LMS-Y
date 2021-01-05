@@ -5,21 +5,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>월별 출석 상세보기</title>
+		
+		<!-- jQuery 스크립트 -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
-				//출석 입력 코드
-				$('.addAttendance').on('click',function(){
-					let accountId = $(this).val();
-					console.log('accountId:'+accountId);
-
-					let attendanceState = $(this).text();
-					console.log('attendanceState: '+attendanceState);
-
-					$.ajax({
-						//url:'${pageContext.request.contextPath}/teacher/createAttendance?currentYear='+currentYear+'&&currentMonth='+currentMonth+'&&currentDay='+currentDay+'&&accountId='+accountId+''
-					});
-				)};		
-			)};
+				document.querySelector(".disableLink").removeAttribute('href');
+			});
 		</script>
 	</head>
 <body>
@@ -67,8 +59,17 @@
 					<td>${al.attendanceState}</td>
 					<td>${al.attendanceRemark}</td>
 				<c:forEach var="als" items="${al.studentList}">
-					<td><a href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
-					<td><a href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>
+				<c:set var="state" value="${al.attendanceState}"/>
+				<c:choose>
+					<c:when test="${empty al.attendanceState}">
+					<td><a class="btn btn-primary" id="addbtn" href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
+					<td><a class="btn btn-danger" onclick="return false;" id="modifybtn" href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>
+					</c:when>
+					<c:when test="${al.attendanceState != null}">
+					<td><a class="btn btn-danger" onclick="return false;" id="addbtn" href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
+					<td><a class="btn btn-primary" id="modifybtn" href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>
+					</c:when>
+				</c:choose>
 				</c:forEach>
 				</tr>
 			</c:forEach>

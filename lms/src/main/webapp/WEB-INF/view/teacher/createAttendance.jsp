@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<td>출석날짜</td>
-					<td><input name="attendanceDay" type="date" value="${param.attendanceDay}"></td>
+					<td><input name="attendanceDay" type="date" value="${attendanceList.attendanceDay}"></td>
 				</tr>
 				<tr>
 					<td>출석여부</td>

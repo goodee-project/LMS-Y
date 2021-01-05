@@ -61,8 +61,8 @@
 							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage-1}">이전</a>
 						</c:when>
 						<c:otherwise>
-							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=1">처음</a>
-							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage-1}">이전</a>
+							<!-- <a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=1">처음</a>
+							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage-1}">이전</a>-->
 						</c:otherwise>
 						</c:choose>
 							<!-- 현재 페이지 표시 -->
@@ -75,8 +75,8 @@
 							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${lastPage}">끝</a>
 						</c:when>
 						<c:otherwise>
-							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage+1}">다음</a>
-							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${lastPage}">끝</a>
+							<!--<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage+1}">다음</a>
+							<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${lastPage}">끝</a>-->
 						</c:otherwise>
 					</c:choose>
 				</c:if>

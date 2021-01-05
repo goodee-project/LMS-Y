@@ -26,16 +26,31 @@
 							<td></td>
 							<td>서명</td>
 							<td>서명일자</td>
+							<td>서명하기</td>
 						</tr>
 						<tr>
 							<td>강사</td>
 							<td>${syllabusDetail.syllabusTeacherSign}</td>
 							<td>${syllabusDetail.syllabusTeacherSignDate}</td>
+							<td>
+								<c:if test="${accountLevel == 2 && syllabusDetail.syllabusTeacherSign == null}">
+									<a href="${pageContext.request.contextPath}/teacher/signSyllabusByTeacher?syllabusNo=${syllabusDetail.syllabusNo}">
+										[서명]
+									</a>
+								</c:if>
+							</td>
 						</tr>
 						<tr>
 							<td>운영자</td>
 							<td>${syllabusDetail.syllabusManagerSign}</td>
 							<td>${syllabusDetail.syllabusManagerSignDate}</td>
+							<td>
+								<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != null}">
+									<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
+										[서명]
+									</a>
+								</c:if>
+							</td>
 						</tr>
 					</table>
 				</c:if>
@@ -43,23 +58,10 @@
 			
 			<!-- 수정, 서명 버튼 -->
 			<div>
-				<c:if test="${syllabusDetail.syllabusManagerSign == NULL}">
-					<!-- 강사에게 표시되는 항목 -->
-					<c:if test="${accountLevel == 2 && syllabusDetail.syllabusWriter == accountId}">
-						<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
-							[수정]
-						</a>
-						<a href="${pageContext.request.contextPath}/teacher/signSyllabusByTeacher?syllabusNo=${syllabusDetail.syllabusNo}">
-							[서명]
-						</a>
-					</c:if>
-					
-					<!-- 운영자에게 표시되는 항목 -->
-					<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != NULL}">
-						<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
-							[서명]
-						</a>
-					</c:if>
+				<c:if test="${accountLevel == 2 && syllabusDetail.accountId == accountId}">
+					<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
+						[수정]
+					</a>
 				</c:if>
 			</div>
 			
@@ -69,7 +71,7 @@
 					<c:if test="${accountLevel != 1}">
 						<tr>
 							<td>작성자</td>
-							<td>${syllabusWriterName}</td>
+							<td>${syllabusDetail.syllabusWriter}</td>
 						</tr>
 						<tr>
 							<td>작성일자</td>

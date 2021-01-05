@@ -1,8 +1,5 @@
 package gd.fintech.lms.teacher.controller;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -30,15 +27,11 @@ public class SyllabusController {
 	// 매개변수:
 	// #1. model
 	// #2. syllabusNo(강의계획서)
-	// 리턴값:
-	// #1. syllabusDetail(고유번호에 해당하는 강의계획서 페이지)
-	// #2. syllabusWriterName(강의계획서 작성자 이름)
-	// 강의계획서 출력 시에 작성자 아이디를 그대로 출력하는 것이 아닌 해당 아이디의 사용자 이름을 출력
+	// 리턴값: syllabusDetail(고유번호에 해당하는 강의계획서 페이지)
 	@GetMapping(value = {"/teacher/syllabusDetail", "/manager/syllabusDetail", "/student/syllabusDetail"})
 	public String syllabusDetail(Model model, @RequestParam(value = "syllabusNo") int syllabusNo) {
-		Map<String, Object> map = syllabusService.getSyllabusDetail(syllabusNo);
-		model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
-		model.addAttribute("syllabusWriterName", map.get("syllabusWriterName"));
+		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(syllabusNo);
+		model.addAttribute("syllabusDetail", syllabusDetail);
 		
 		return "/teacher/syllabusDetail";
 	}
@@ -48,12 +41,7 @@ public class SyllabusController {
 	// 리턴값: createSyllabus(강의계힉서 작성 페이지)
 	// 작성할 강의계획서를 입력할 수 있는 페이지 출력
 	@GetMapping("/teacher/createSyllabus")
-	public String createSyllabus(Model model, HttpServletRequest request) {
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		String accountId = (String)session.getAttribute("accountId");
-		String syllabusWriter = syllabusService.getTeacherName(accountId);
-		model.addAttribute("syllabusWriter", syllabusWriter);
-		
+	public String createSyllabus() {
 		return "/teacher/createSyllabus";
 	}
 	
@@ -62,8 +50,8 @@ public class SyllabusController {
 	// 리턴값: syllabusDetail 페이지로 이동
 	// 입력된 정보로 강의계획서를 작성
 	@PostMapping("/teacher/createSyllabus")
-	public String createSyllabus(Syllabus syllabus) {
-		syllabusService.createSyllabus(syllabus);
+	public String createSyllabus(HttpSession session, Syllabus syllabus) {
+		syllabusService.createSyllabus(session, syllabus);
 		
 		return "redirect:/teacher/teacherLecture?currentPage=1";
 	}
@@ -77,8 +65,8 @@ public class SyllabusController {
 	// 기존의 강의계획서를 출력
 	@GetMapping("/teacher/modifySyllabus")
 	public String modifySyllabus(Model model, @RequestParam(value = "syllabusNo") int syllabusNo) {
-		Map<String, Object> map = syllabusService.getSyllabusDetail(syllabusNo);
-		model.addAttribute("modifySyllabus", map.get("syllabusDetail"));
+		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(syllabusNo);
+		model.addAttribute("syllabusDetail", syllabusDetail);
 		
 		return "/teacher/modifySyllabus";
 	}
@@ -101,13 +89,9 @@ public class SyllabusController {
 	// 강사가 강의계획서에 서명
 	// 서명한 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서 페이지로 이동)
 	@GetMapping("/teacher/signSyllabusByTeacher")
-	public String signSyllabusByTeacher(@RequestParam(value = "syllabusNo") int syllabusNo,
-			HttpServletRequest request) {
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		String accountId = (String)session.getAttribute("accountId");
-		String syllabusTeacherSign = syllabusService.getTeacherName(accountId);
-		logger.debug(syllabusTeacherSign);
-		syllabusService.signSyllabusByTeacher(syllabusNo, syllabusTeacherSign);
+	public String signSyllabusByTeacher(HttpSession session,
+			@RequestParam(value = "syllabusNo") int syllabusNo) {
+		syllabusService.signSyllabusByTeacher(session, syllabusNo);
 		
 		return "redirect:/teacher/syllabusDetail?syllabusNo=" + syllabusNo;
 	}
@@ -118,12 +102,9 @@ public class SyllabusController {
 	// 운영자가 강의계획서에 서명
 	// 서명한 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서 페이지로 이동)
 	@GetMapping("/manager/signSyllabusByManager")
-	public String signSyllabusByManager(@RequestParam(value = "syllabusNo") int syllabusNo,
-			HttpServletRequest request) {
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		String accountId = (String)session.getAttribute("accountId");
-		String syllabusManagerSign = syllabusService.getManagerName(accountId);
-		syllabusService.signSyllabusByManager(syllabusNo, syllabusManagerSign);
+	public String signSyllabusByManager(HttpSession session,
+			@RequestParam(value = "syllabusNo") int syllabusNo) {
+		syllabusService.signSyllabusByManager(session, syllabusNo);
 		
 		return "redirect:/manager/syllabusDetail?syllabusNo=" + syllabusNo;
 	}

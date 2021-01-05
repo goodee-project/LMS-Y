@@ -7,6 +7,7 @@
 	<select id="selectSyllabusDetail" parameterType="int" resultType="gd.fintech.lms.teacher.vo.Syllabus">
 		SELECT
 			syllabus_no syllabusNo,
+			account_id accountId,
 			syllabus_writer syllabusWriter,
 			syllabus_content syllabusContent,
 			syllabus_teachersign syllabusTeacherSign,
@@ -22,11 +23,13 @@
 	<!-- 강사가 강의계획서를 작성하는 쿼리문 -->
 	<insert id="insertSyllabus" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		INSERT INTO syllabus (
+			account_id,
 			syllabus_writer,
 			syllabus_content,
 			syllabus_createdate,
 			syllabus_updatedate
 		) VALUES (
+			#{accountId},
 			#{syllabusWriter},
 			#{syllabusContent},
 			NOW(),
@@ -54,9 +57,9 @@
 		FROM teacher
 		WHERE account_id = #{accountId}
 	</select>
-	
+
 	<!-- 강사가 강의계획서를 서명하는 쿼리문 -->
-	<update id="updateSyllabusTeacherSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
+	<update id="updateTeacherSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		UPDATE syllabus
 		SET
 			syllabus_teachersign = #{syllabusTeacherSign},
@@ -65,7 +68,7 @@
 	</update>
 	
 	<!-- 운영자가 강의계획서에 서명하는 쿼리문 -->
-	<update id="updateSyllabusManagerSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
+	<update id="updateManagerSign" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		UPDATE syllabus
 		SET
 			syllabus_managersign = #{syllabusManagerSign},

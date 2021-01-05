@@ -1,7 +1,6 @@
 package gd.fintech.lms.teacher.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,27 +26,26 @@ public class SyllabusService {
 	// 리턴값
 	// #1. 고유번호에 해당하는 강의계획서
 	// #2. 강의계획서 작성자 이름
-	public Map<String, Object> getSyllabusDetail(int syllabusNo) {
+	public Syllabus getSyllabusDetail(int syllabusNo) {
 		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
-		// syllabusDetail에서 syllabusWriter(강의계획서 작성자)를 accountId(아이디)로 출력
-		String accountId = syllabusDetail.getSyllabusWriter();
-		// accountId(아이디)를 이용하여 syllabusWriterName(작성자 이름) 출력
-		String syllabusWriterName = syllabusMapper.selectTeacherName(accountId);
 		
-		// 리턴값 저장
-		Map<String, Object> returnMap = new HashMap<>();
-		returnMap.put("syllabusDetail", syllabusDetail);
-		returnMap.put("syllabusWriterName", syllabusWriterName);
-		
-		return returnMap;
+		return syllabusDetail;
 	}
 	
 	// 강사가 강의계획서를 작성하는 메소드
 	// 매개변수: syllabus(강의계획서)
 	// 리턴값: 없음
 	// 강의계획서 작성
-	public void createSyllabus(Syllabus syllabus) {
+	public void createSyllabus(HttpSession session, Syllabus syllabus) {
 		logger.debug(syllabus.toString());
+		// session에서 accountId(아이디)를 출력
+		String accountId = (String)session.getAttribute("accountId");
+		String syllabusWriter = syllabusMapper.selectTeacherName(accountId);
+		
+		// syllabus에 accountId(아이디) 추가
+		syllabus.setAccountId(accountId);
+		// syllabus에 syllabusWriter(작성자) 추가
+		syllabus.setSyllabusWriter(syllabusWriter);
 		syllabusMapper.insertSyllabus(syllabus);
 	}
 	
@@ -60,39 +58,55 @@ public class SyllabusService {
 		syllabusMapper.updateSyllabus(syllabus);
 	}
 	
-	// 강사 이름을 출력하는 메소드
-	// 매개변수: accountId(아이디)
-	// 리턴값: syllabusTeacherSign(아이디에 해당하는 강사 이름)
-	// 아이디에 해당하는 강사 이름으로 서명하기 위해 출력
-	public String getTeacherName(String accountId) {
-		String syllabusTeacherSign = syllabusMapper.selectTeacherName(accountId);
-		return syllabusTeacherSign;
-	}
-	
 	// 강사가 강의계획서에 서명하는 메소드
 	// 매개변수:
 	// #1. syllabusNo(강의계획서 고유번호)
 	// #2. syllabusTeacherSign(강사 서명)
 	// 리턴값: 없음
-	public void signSyllabusByTeacher(int syllabusNo, String syllabusTeacherSign) {
-		syllabusMapper.updateSyllabusTeacherSign(syllabusNo, syllabusTeacherSign);
+	// 서명 여부를 확인하여 서명
+	public void signSyllabusByTeacher(HttpSession session, int syllabusNo) {
+		// session에서 accountId(아이디)을 출력
+		String accountId = (String)session.getAttribute("accountId");
+		// accountId(아이디)로 서명할 이름 syllabusTeacherSign(운영자 서명)으로 출력
+		String syllabusTeacherSign = syllabusMapper.selectTeacherName(accountId);
+		
+		// 서명 여부를 확인하기 위함
+		// syllabusNo(강의계획서 고유번호)에 해당하는 syllabusDetail(강의계획서 정보) 출력 
+		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
+		// syllabusDetail의 syllabusTeacherSign(강사 서명)를 TeacherSign(강사 서명)으로 출력
+		String teacherSign = syllabusDetail.getSyllabusTeacherSign();
+		// syllabusDetail의 syllabusTeacherSignDate(강사 서명일자)를 teacherSignDate(강사 서명일자)으로 출력
+		String teacherSignDate = syllabusDetail.getSyllabusTeacherSignDate();
+		
+		// 강사 서명과 강사 서명 일자가 없다면 서명
+		if(teacherSign == null && teacherSignDate == null) {
+			syllabusMapper.updateTeacherSign(syllabusNo, syllabusTeacherSign);
+		}
 	}
-	
-	// 운영자 이름을 출력하는 메소드
-	// 매개변수: accountId(아이디)
-	// 리턴값: syllabusManagerSign(아이디에 해당하는 운영자 이름)
-	// 아이디에 해당하는 운영자 이름으로 서명하기 위해 출력
-	public String getManagerName(String accountId) {
-		String syllabusManagerSign = managerMapper.selectManagerName(accountId);
-		return syllabusManagerSign;
-	}
-	
+
 	// 운영자가 강의계획서에 서명하는 메소드
 	// 매개변수:
 	// #1. syllabusNo(강의계획서 고유번호)
 	// #2. syllabusManagerSign(운영자 서명)
 	// 리턴값: 없음
-	public void signSyllabusByManager(int syllabusNo, String syllabusManagerSign) {
-		syllabusMapper.updateSyllabusManagerSign(syllabusNo, syllabusManagerSign);
+	// 서명 여부를 확인하여 서명
+	public void signSyllabusByManager(HttpSession session, int syllabusNo) {
+		// session에서 accountId(아이디)을 출력
+		String accountId = (String)session.getAttribute("accountId");
+		// accountId(아이디)로 서명할 이름 syllabusManagerSign(운영자 서명)으로 출력
+		String syllabusManagerSign = managerMapper.selectManagerName(accountId);
+		
+		// 서명 여부를 확인하기 위함
+		// syllabusNo(강의계획서 고유번호)에 해당하는 syllabusDetail(강의계획서 정보) 출력 
+		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
+		// syllabusDetail(강의계획서 정보)에서 syllabusManagerSign(운영자 서명)를 managerSign(운영자 서명)으로 출력
+		String managerSign = syllabusDetail.getSyllabusManagerSign();
+		// syllabusDetail(강의계획서 정보)에서 syllabusManagerSignDate(운영자 서명일자)를 managerSignDate(운영자 서명일자)으로 출력
+		String managerSignDate = syllabusDetail.getSyllabusManagerSignDate();
+		
+		// 운영자 서명과 운영자 서명 일자가 없다면 서명
+		if(managerSign == null && managerSignDate == null) {
+			syllabusMapper.updateManagerSign(syllabusNo, syllabusManagerSign);
+		}
 	}
 }

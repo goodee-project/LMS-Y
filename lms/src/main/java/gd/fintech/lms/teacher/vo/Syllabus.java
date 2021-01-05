@@ -9,7 +9,10 @@ public class Syllabus {
 	// 강의계획서 고유번호
 	private int syllabusNo;
 	
-	// 강의계획서 작성자(작성자 아이디로 저장됨)
+	// 강의계획서 작성자 아이디
+	private String accountId;
+	
+	// 강의계획서 작성자
 	private String syllabusWriter;
 
 	// 강의계획서 내용

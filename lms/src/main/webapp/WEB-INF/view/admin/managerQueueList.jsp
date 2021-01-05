@@ -56,7 +56,9 @@
 						<c:if test="${lastPage == 0}">
 							<tr>
 								<td colspan="4">
-									검색된 항목이 없습니다
+									<div class="d-flex justify-content-center">
+										검색된 항목이 없습니다
+									</div>
 								</td>
 							</tr>
 						</c:if>
@@ -67,7 +69,7 @@
 			<!-- 페이지 네비게이션 바 -->
 			<!-- 검색된 항목이 있을 시에만 출력 -->
 			<c:if test="${lastPage != 0}">
-				<div>
+				<div class="d-flex justify-content-center">
 					<ul class="pagination small">
 						<%-- 처음 버튼 --%>
 						<c:if test="${currentPage != 1}">
@@ -155,7 +157,7 @@
 			</c:if>
 			
 			<!-- 검색 바 -->
-			<div>
+			<div class="d-flex justify-content-center">
 				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
 					<div class="input-group">
 						<!-- 검색조건 -->

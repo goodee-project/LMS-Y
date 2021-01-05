@@ -25,7 +25,7 @@ public class ClassRegistrationService {
 	//학생이 수강신청한 목록(페이징)
 	//매개변수:accountId,currentPage
 	//리턴값:학생이 수강신청한 리스트와 페이징값
-	public List<ClassRegistration> getClassRegistrationListByPage(String accountId,int currentPage){
+	public Map<String,Object> getClassRegistrationListByPage(String accountId,int currentPage){
 		
 		//보여줄 데이터 갯수
 		int rowPerPage=5;
@@ -43,29 +43,46 @@ public class ClassRegistrationService {
 			currentPage =0; 
 		}
 		
-		Map<String, Object>map = new HashMap<String,Object>();
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage",rowPerPage);
-		map.put("accountId", accountId);
-		map.put("lastPage", lastPage);
+		//페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		//네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
 		
-		List<ClassRegistration>classRegistrationList=classRegistrationMapper.selectClassRegistrationListByPage(map);
+		Map<String, Object>paramMap = new HashMap<String,Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage",rowPerPage);
+		paramMap.put("accountId", accountId);
+		paramMap.put("classRegistrationCount", classRegistrationCount);
+		//담아주기
+		List<ClassRegistration>classRegistrationList=classRegistrationMapper.selectClassRegistrationListByPage(paramMap);
+		
+		Map<String,Object>map = new HashMap<>();
 		map.put("classRegistrationList", classRegistrationList);
+		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
 		
-		return classRegistrationList;
+		return map;
 	}
 	
 	//수강신청할 수 있는 목록전체(페이징)
 	//매개변수:lectureNo,currentPage
 	//리턴값:학생이 수강신청할 수 있는 모든 리스트
-	public List<ClassRegistration> getClassRegistrationAllListByPage(int lectureNo,int currentPage){
+	public Map<String,Object> getClassRegistrationAllListByPage(int currentPage){
 	
 		//보여줄 데이터 갯수
-		int rowPerPage=10;
+		int rowPerPage=5;
 		//보여줄 데이터 갯수
 		int beginRow=(currentPage-1)*rowPerPage;
 		//전체 페이지
-		int classRegistrationAllCount = classRegistrationMapper.selectRegistrationAllCount(lectureNo);
+		int classRegistrationAllCount = classRegistrationMapper.selectRegistrationAllCount();
 		//마지막 페이지
 		int lastPage = classRegistrationAllCount/rowPerPage;
 		//10개 미만의 데이터가 있는 페이지 보여주기
@@ -77,16 +94,33 @@ public class ClassRegistrationService {
 			currentPage =0; 
 		}
 	
-		Map<String, Object>map = new HashMap<String,Object>();
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage",rowPerPage);
-		map.put("lectureNo", lectureNo);
-		map.put("lastPage", lastPage);
+		//페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		//네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
 		
-		List<ClassRegistration>classRegistrationList=classRegistrationMapper.selectClassRegistrationAll(map);
+		Map<String, Object>paramMap = new HashMap<String,Object>();
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("rowPerPage",rowPerPage);
+		
+		paramMap.put("classRegistrationAllCount", classRegistrationAllCount);
+		//담아주기
+		List<ClassRegistration>classRegistrationList=classRegistrationMapper.selectClassRegistrationAll(paramMap);
+		
+		Map<String,Object>map = new HashMap<>();
 		map.put("classRegistrationList", classRegistrationList);
-	
-		return classRegistrationList;
+		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
+		
+		return map;
 	}
 	
 	

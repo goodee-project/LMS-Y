@@ -25,7 +25,6 @@ public class QuestionService {
 	@Autowired QuestionMapper questionMapper;
 	@Autowired StudentMapper studentMapper;
 	
-	
 	//학생의 질문 리스트 페이징 
 	//매개변수:lectureNo , rowPerPage 
 	//리턴값:질문게시판의 페이징 값 ,강좌에 대한 모든 학생들의 질문
@@ -52,6 +51,17 @@ public class QuestionService {
 			currentPage = 0;
 		}
 		
+		//페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		//네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
+		
 		Map<String,Object>parmMap = new HashMap<String,Object>();
 		parmMap.put("rowPerPage", rowPerPage);
 		parmMap.put("beginRow", beginRow);
@@ -63,6 +73,9 @@ public class QuestionService {
 		Map<String,Object>map = new HashMap<>();
 		map.put("questionAllList", questionAllList);
 		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
 		return map;
 	}
 	
@@ -71,16 +84,14 @@ public class QuestionService {
 	//매개변수:해당 질문의 번호
 	//리턴값:해당 질문의 상세보기
 	public Question getQuestionOne(int questionNo) {
-		Question questionDetail = questionMapper.selectQuestionOne(questionNo);
-		return questionDetail;
+		return questionMapper.selectQuestionOne(questionNo);
 	}
-	
-	
+
 	
 	//학생의 질문을 수정 액션 
 	//매개변수:질문의 vo
 	//리턴값:수정 실행
-	public Question modifyQuestion(Question question,HttpSession session) {
+	public int modifyQuestion(Question question,HttpSession session) {
 		return questionMapper.updateQuestion(question);
 	}
 	

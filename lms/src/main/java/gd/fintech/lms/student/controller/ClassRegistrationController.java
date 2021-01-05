@@ -35,8 +35,14 @@ public class ClassRegistrationController {
 		//Id 가지고오기
 		String accountId =(String)session.getAttribute("accountId");
 		
-		List<ClassRegistration>registrationList = classRegistrationService.getClassRegistrationListByPage(accountId, currentPage);
-		model.addAttribute("registrationList",registrationList);
+		Map<String,Object> map=classRegistrationService.getClassRegistrationListByPage(accountId, currentPage);
+		model.addAttribute("classRegistrationList",map.get("classRegistrationList"));
+		model.addAttribute("navPerPage",map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		model.addAttribute("lastPage",map.get("lastPage"));
+		
+		model.addAttribute("classRegistrationCount",map.get("classRegistrationCount"));
 		model.addAttribute("accountId",accountId);
 		model.addAttribute("currentPage",currentPage);
 		
@@ -44,17 +50,24 @@ public class ClassRegistrationController {
 	}
 	
 	//수강신청 할 수 있는 모든 수강 리스트
-	@GetMapping("student/classRegistationAdd")
+	@GetMapping("student/classRegistrationAll")
 	public String getClassRegistrationAllList(Model model,
-			@RequestParam(value="lectureNo")int lectureNo,
+			
 			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
-		List<ClassRegistration>registrationList = classRegistrationService.getClassRegistrationAllListByPage(lectureNo, currentPage);
 		
-		model.addAttribute("registrationList",registrationList);
-		model.addAttribute("lectureNo",lectureNo);
+		Map<String, Object> map = classRegistrationService.getClassRegistrationAllListByPage(currentPage);
+		
+		model.addAttribute("classRegistrationList",map.get("classRegistrationList"));
+		model.addAttribute("navPerPage",map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		model.addAttribute("lastPage",map.get("lastPage"));
+		
+		model.addAttribute("classRegistrationAllCount",map.get("classRegistrationAllCount"));
+		
 		model.addAttribute("currentPage",currentPage);
-		return "student/classRegistrationAdd";
-	}
+		return "student/classRegistrationAll";
+	} 
 	
 	//학생이 수강신청한 과목 정보보기(상세보기)
 	@GetMapping("student/classRegistrationDetail")
@@ -63,7 +76,7 @@ public class ClassRegistrationController {
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		//No 값 가져오기 
 		int subjectNo =(int)session.getAttribute("subjectNo");
-		ClassRegistration selectClassRegistrationDetail = classRegistrationService.getClassRegistrtaionOne(subjectNo);
+		ClassRegistration selectClassRegistrationDetail   = classRegistrationService.getClassRegistrtaionOne(subjectNo);
 		model.addAttribute("selectClassRegistrationDetail",selectClassRegistrationDetail);
 		return "student/classRegistrationDetail";
 	}

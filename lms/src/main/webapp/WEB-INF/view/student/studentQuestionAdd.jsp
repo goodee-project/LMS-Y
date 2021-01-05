@@ -44,8 +44,9 @@
 				<h1>학생 질문 추가</h1>
 			</div>
 		</div>
+			<div class="container">
 				<form method="post" action="${pageContext.request.contextPath}/student/studentQuestionAdd">
-					<table border="1">
+					<table class="table">
 						
 						<tr>
 							<td>강좌번호</td>
@@ -74,5 +75,6 @@
 					</table>
 					<button type="submit">[등록]</button>
 				</form>
+			</div>
 	</body>
 </html>

@@ -18,7 +18,7 @@ public interface QuestionMapper {
 	//학생의(자신의) 질문 수정액션
 	//매개변수: 질문 게세판 정보를 가지고옴
 	//리턴값: 변경한 질문
-	Question updateQuestion(Question question);
+	int updateQuestion(Question question);
 		
 	//학생의 질문 삭제
 	//매개변수: 질문게시판 질문 번호

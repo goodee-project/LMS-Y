@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>studentOne</title>
+<title>studentDetail</title>
 </head>
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
@@ -53,9 +53,7 @@
 						<td>프로필 사진</td>
 						<td>${student.studentImage}</td>
 					</tr>
-					
-					
-				</table>
-			</div>
-</body>
+			</table>
+		</div>
+	</body>
 </html>

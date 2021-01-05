@@ -33,5 +33,5 @@ public interface ClassRegistrationMapper {
 	//모든 수강신청 가능한 강좌 갯수
 	//매개변수:강좌 번호
 	//리턴값:수강 신청이 가능한 강좌의 수
-	int selectRegistrationAllCount(int lectureNo);
+	int selectRegistrationAllCount();
 }

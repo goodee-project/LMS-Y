@@ -10,8 +10,10 @@
 	<result property="classRegistrationPoint" column="class_registration_point"/>
 	<result property="classRegistrationReview" column="class_registration_review"/>
 	<result property="classRegistrationCreateDate" column="class_registration_createdate"/>
+	
 	<collection property="lectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
-		<result property="accountId" column="teacer_id"/>
+		<result property="lectureNo" column="lecture_no"/>
+		<result property="accountId" column="teacher_id"/>
 		<result property="subjectNo" column="subject_no"/>
 		<result property="teacherName" column="teacher_name"/>
 		<result property="lectureName" column="lecture_name"/>
@@ -23,6 +25,7 @@
 		<result property="classroomNo" column="classroom_no"/>
 		<result property="lectureCreateDate" column="lecture_createdate"/>
 		<result property="lectureUpdateDate" column="lecture_updatedate"/>
+		
 		<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
 			<result property="subjectNo" column="subject_no"/>
 			<result property="subjectName" column="subject_name"/>
@@ -130,15 +133,15 @@
 				ON cr.lecture_no = lc.lecture_no
 			LEFT JOIN subject sj
 				ON lc.subject_no = sj.subject_no
-		WHERE cr.class_registration_no=#{classRegistrationNo}
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	
+	
 	<!-- 수강 신청하능한 강의 갯수 -->
-	<select id="selectRegistrationAllCount" parameterType="int" resultType="int">
+	<select id="selectRegistrationAllCount" resultType="int">
 		SELECT 
 			COUNT(*) 
 		FROM class_registration
-		WHERE lecture_no=#{lectureNo}
 	</select>
 </mapper>

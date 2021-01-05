@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>[여기에 이 페이지의 특징을 잘 살린 제목을 넣어주세요]</title>
+		<title>내질문 수정</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,11 +22,32 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>질무</h1>
-			
-			<div>
-				[여기에 페이지 컨텐츠를 넣어주세요]
-			</div>
+			<h1>질문 수정</h1>
 		</div>
+			<div class="container">
+				<form id="" method="post" action="${pageContext.request.contextPath}/student/studentQuestionModify">
+					<table class="table">
+						<tr>
+							<td>질문 번호</td>
+							<td><input type="text" name="questionNo" id="questionNo" value="${question.questionNo}" readonly="readonly"></td>
+						</tr>
+					
+						<tr>
+							<td>제목</td>
+							<td><input type="text" name="questionTitle" id="questionTitle" value="${question.questionTitle}"></td>
+						</tr>
+						
+						<tr>
+							<td>내용</td>
+							<td><input type="text" name="questionContent" id="questionContent" value="${question.questionContent}"></td>
+						</tr>
+		
+						<tr>
+							<td><button type="submit">수정</button></td>
+						</tr>
+								
+					</table>
+				</form>
+			</div>
 	</body>
 </html>

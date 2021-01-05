@@ -125,7 +125,7 @@
 	</select> 
 	
 	
-	<!-- 질문 추가 강좌에 대한 질문 -->
+	<!-- 학생의 질문 추가  -->
 	<insert id="insertQuestion">
 		INSERT INTO question(
 			lecture_no,
@@ -156,7 +156,7 @@
 			question_title=#{questionTitle},
 			question_content=#{questionContent},
 			question_updatedate=NOW()
-		WHERE account_id=#{accountId}
+		WHERE question_no=#{questionNo}
 	</update>
 	
 	<!-- 학생의 (자신의) 질문 삭제 -->

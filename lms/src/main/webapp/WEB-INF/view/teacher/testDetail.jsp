@@ -19,10 +19,13 @@
 			<h1>시험 정보</h1>
 			
 			<div>
+				<%-- 시험 정보가 생성되지 않았을 경우 --%>
 				<c:if test="${test == null}">
 					<p>아직 만들어진 시험 정보가 없습니다!</p>
 					<p><a href="${pageContext.request.contextPath}/teacher/createTest?lectureNo=${param.lectureNo}">시험정보 생성</a></p>
 				</c:if>
+				
+				<%-- 시험 정보가 생성되었을 경우 --%>
 				<c:if test="${test != null}">
 					<c:if test="${isEditable}">
 						<p><a href="${pageContext.request.contextPath}/teacher/modifyTest?lectureNo=${param.lectureNo}">시험정보 수정</a></p>

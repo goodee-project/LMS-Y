@@ -95,6 +95,8 @@ public class ReportController {
 		Map<String, Object> map = reportService.getReportDetail(reportNo);
 		
 		Report report = (Report)map.get("report");
+		
+		// HTML이 읽을 수 있는 날짜데이터로 변경하기 위해 hh:MM:ss.SSS(시분초 및 밀리초) 부분을 없앰
 		report.setReportStartDate(report.getReportStartDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
 		report.setReportEndDate(report.getReportEndDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
 		

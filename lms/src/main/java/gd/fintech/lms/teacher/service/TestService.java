@@ -76,7 +76,6 @@ public class TestService {
 			
 			Date currentDate = Calendar.getInstance().getTime();
 			
-			
 			if (fmt.parse(test.getTestStartDate()).getTime() < currentDate.getTime()) {
 				// 시험 평가 기간이거나 지났을 경우 시험 문제는 수정할수 없도록 플래그 변경
 				isEditable = false;
@@ -105,6 +104,7 @@ public class TestService {
 	public void createMultipleChoice(MultipleChoiceForm multipleChoiceForm) {
 		logger.debug("multipleChoiceForm = "+multipleChoiceForm.toString());
 		
+		// DTO를 VO로 변환 후 객관식 문제 추가
 		MultipleChoice multipleChoice = new MultipleChoice();
 		multipleChoice.setLectureNo(multipleChoiceForm.getLectureNo());
 		multipleChoice.setMultipleChoiceId(multipleChoiceMapper.selectMultipleChoiceCount(multipleChoiceForm.getLectureNo())+1);
@@ -113,6 +113,7 @@ public class TestService {
 		multipleChoice.setMultipleChoiceScore(multipleChoiceForm.getMultipleChoiceScore());
 		multipleChoiceMapper.insertMultipleChoice(multipleChoice);
 		
+		// 1번부터 5번까지의 보기를 받아와서 각 객관식 보기 번호를 기입하고, 위에서 생성한 객관식 문제에 보기 등록
 		int id = 1;
 		for (String content : multipleChoiceForm.getMultipleChoiceExampleList()) {
 			MultipleChoiceExample multipleChoiceExample = new MultipleChoiceExample();
@@ -129,14 +130,16 @@ public class TestService {
 	// 매개변수: 객관식 문제 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceNo, 변경할 정보 multipleChoiceId, multipleChoiceQuestion, multipleChoiceAnswer, multipleChoiceScore를 넣을 것
 	public void modifyMultipleChoice(MultipleChoiceForm multipleChoiceForm) {
 		logger.debug("multipleChoiceForm = "+multipleChoiceForm.toString());
-		
+
+		// DTO를 VO로 변환 후 객관식 문제 수정
 		MultipleChoice multipleChoice = new MultipleChoice();
 		multipleChoice.setMultipleChoiceNo(multipleChoiceForm.getMultipleChoiceNo());
 		multipleChoice.setMultipleChoiceQuestion(multipleChoiceForm.getMultipleChoiceQuestion());
 		multipleChoice.setMultipleChoiceAnswer(multipleChoiceForm.getMultipleChoiceAnswer());
 		multipleChoice.setMultipleChoiceScore(multipleChoiceForm.getMultipleChoiceScore());
 		multipleChoiceMapper.updateMultipleChoice(multipleChoice);
-		
+
+		// 1번부터 5번까지의 보기를 받아와서 각 객관식 보기 번호를 기입하고, 해당 보기 번호를 통해 보기 내용 수정
 		int id = 1;
 		for (String content : multipleChoiceForm.getMultipleChoiceExampleList()) {
 			MultipleChoiceExample multipleChoiceExample = new MultipleChoiceExample();
@@ -153,13 +156,17 @@ public class TestService {
 	// 매개변수: 삭제할 객관식 문제의 고유번호
 	public void removeMultipleChoice(int multipleChoiceNo) {
 		MultipleChoice multipleChoice = multipleChoiceMapper.selectMultipleChoiceDetail(multipleChoiceNo);
-		logger.debug("multipleChoice = "+multipleChoice);
+		logger.debug("multipleChoice = "+multipleChoice); // 삭제되는 객관식 문제 정보 출력
 		
+		// 삭제 후 밀려버린 문제번호를 당겨오기 위한 기준점
+		// 예를 들어 3번 문제를 삭제하면 1번, 2번, 4번, 5번, 6번... 처럼 3번이 비기에 이후 번호를 한칸씩 당겨와야함
 		int originId = multipleChoice.getMultipleChoiceId();
 		
+		// 객관식 문제와 외래키로 연결된 객관식 보기부터 삭제 후, 객관식 문제 삭제
 		multipleChoiceExampleMapper.deleteMultipleChoiceExampleByMultipleChoiceNo(multipleChoiceNo);
 		multipleChoiceMapper.deleteMultipleChoice(multipleChoiceNo);
 		
+		// 위에 언급했던 문제번호 밀림 현상을 해결해줌
 		multipleChoiceMapper.updateMultipleChoiceIdSubstractBelow(originId);
 	}
 	

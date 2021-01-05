@@ -48,45 +48,48 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<ul class="pagination pagination-sm">
-					<%-- 이전 버튼 --%>
-					<c:if test="${pageNaviBegin != 1}">
-						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviBegin-1}">이전</a>
-						</li>
-					</c:if>
-					<c:if test="${pageNaviBegin == 1}">
-						<li class="page-item disabled">
-							<a class="page-link">이전</a>
-						</li>
-					</c:if>
-					
-					<%-- 각 페이지 이동 버튼 --%>
-					<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
-						<c:if test="${p != currentPage}">
+				
+				<div class="d-flex justify-content-center">
+					<ul class="pagination pagination-sm">
+						<%-- 이전 버튼 --%>
+						<c:if test="${pageNaviBegin != 1}">
 							<li class="page-item">
-								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${p}">${p}</a>
+								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviBegin-1}">이전</a>
 							</li>
 						</c:if>
-						<c:if test="${p == currentPage}">
-							<li class="page-item active">
-								<a class="page-link">${p}</a>
+						<c:if test="${pageNaviBegin == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">이전</a>
 							</li>
 						</c:if>
-					</c:forEach>
-					
-					<%-- 다음 버튼 --%>
-					<c:if test="${pageNaviEnd != lastPage}">
-						<li class="page-item">
-							<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviEnd+1}">다음</a>
-						</li>
-					</c:if>
-					<c:if test="${pageNaviEnd == lastPage}">
-						<li class="page-item disabled">
-							<a class="page-link">다음</a>
-						</li>
-					</c:if>
-				</ul>
+						
+						<%-- 각 페이지 이동 버튼 --%>
+						<c:forEach var="p" begin="${pageNaviBegin}" end="${pageNaviEnd}" step="1">
+							<c:if test="${p != currentPage}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${p}">${p}</a>
+								</li>
+							</c:if>
+							<c:if test="${p == currentPage}">
+								<li class="page-item active">
+									<a class="page-link">${p}</a>
+								</li>
+							</c:if>
+						</c:forEach>
+						
+						<%-- 다음 버튼 --%>
+						<c:if test="${pageNaviEnd != lastPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviEnd+1}">다음</a>
+							</li>
+						</c:if>
+						<c:if test="${pageNaviEnd == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">다음</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</body>

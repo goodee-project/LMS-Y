@@ -82,12 +82,22 @@ public interface MessageMapper {
 	Map<String, Object> selectCallerInfoAccountId(String accountId);
 	
 	// 받은쪽지함 전체 수(페이징)
-	// 매개변수: 발신자 아이디
+	// 매개변수: 수신자 아이디(accountId)
 	// 리턴값: 발신함 쪽지 전체 개수
 	int selectCountReceiveMassageByAccountId(String accountId);
 	
-	// 보낸쪽지함 전체 수(페이징)
-	// 매개변수: 수신자 아이디
+	// 보낸쪽지 전체 수(페이징)
+	// 매개변수: 발신자 아이디(accountId)
 	// 리턴값: 수신함 쪽지 전체 개수
 	int selectCountSendMassageByAccountId(String accountId);
+	
+	// 검색 조건(아이디)에 따른 보낸쪽지 전체 수(페이징)
+	// 매개변수: 발신자 아이디(accountId), 검색된 수신자 아이디(search)
+	// 리턴값: 수신함 쪽지 전체 개수
+	int selectCountSendMassageBySearchId(String accountId,String search);
+	
+	// 검색 조건(내용)에 따른 보낸쪽지 전체 수(페이징)
+	// 매개변수: 발신자 아이디(accountId), 검색된 내용(search)
+	// 리턴값: 수신함 쪽지 전체 개수
+	int selectCountSendMassageBySearchContent(String accountId,String search);
 }

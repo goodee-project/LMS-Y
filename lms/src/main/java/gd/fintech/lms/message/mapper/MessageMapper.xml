@@ -201,4 +201,22 @@
 		FROM message_send
 		WHERE from_id = #{accountId}
 	</select>
+	
+	<!-- 검색 조건(아이디)에 따른 보낸쪽지함 전체 수를 카운팅하는 쿼리 -->
+	<select id="selectCountSendMassageBySearchId" parameterType="String" resultType="int">
+		SELECT COUNT(message_no) 
+		FROM message_send
+		WHERE 
+			from_id = #{accountId} 
+			AND to_id = #{search}
+	</select>
+	
+	<!-- 검색 조건(내용)에 따른 보낸쪽지함 전체 수를 카운팅하는 쿼리 -->
+	<select id="selectCountSendMassageBySearchContent" parameterType="String" resultType="int">
+		SELECT COUNT(message_no) 
+		FROM message_send
+		WHERE 
+			from_id = #{accountId} 
+			AND message_content LIKE CONCAT('%', #{search}, '%')
+	</select>
 </mapper>

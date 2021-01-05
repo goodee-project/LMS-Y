@@ -51,7 +51,6 @@
 					<div class="input-group mb-3 justify-content-end">
 						<div class="input-group-prepend">
 							<select class="form-control" name="sel">
-								<option id="choice">선택</option>
 								<option value="id" ${sel == 'id' ? 'selected="selected"' : ''}>아이디</option>
 								<option value="content" ${sel == 'content' ? 'selected="selected"' : ''}>내용</option>
 							</select>
@@ -72,30 +71,39 @@
 					<th>상세보기</th>
 					<th>삭제하기</th>
 				</tr>
-				<c:forEach var="list" items="${list}">
-					<tr>
-						<td>${list.toId}</td>
-						<td>${list.messageDateTime}</td>
-						<td>${list.isConfirm}</td>
-						<td>
-							<form action="${pageContext.request.contextPath}/sendMessageDetail" method="post">
-								<input type="hidden" value="${list.fromId}" name="id">
-								<input type="hidden" value="${list.messageNo}" name="messageNo">
-								<button class="btn btn-outline-info">상세보기</button>
-							</form>
-						</td>
-						<td>
-							<a href="${pageContext.request.contextPath}/removeSendMessage?messageNo=${list.messageNo}" class="btn btn-outline-danger">삭제하기</a>
-						</td>
-					</tr>
-				</c:forEach>
+				<c:choose>
+					<c:when test="${list.isEmpty()}">
+						<tr>
+							<td colspan="5">조회된 내용이 없습니다.</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="list" items="${list}">
+							<tr>
+								<td>${list.toId}</td>
+								<td>${list.messageDateTime}</td>
+								<td>${list.isConfirm}</td>
+								<td>
+									<form action="${pageContext.request.contextPath}/sendMessageDetail" method="post">
+										<input type="hidden" value="${list.fromId}" name="id">
+										<input type="hidden" value="${list.messageNo}" name="messageNo">
+										<button class="btn btn-outline-info">상세보기</button>
+									</form>
+								</td>
+								<td>
+									<a href="${pageContext.request.contextPath}/removeSendMessage?messageNo=${list.messageNo}" class="btn btn-outline-danger">삭제하기</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 			</table>
 			<!-- 페이징 네비게이션 -->
 			<ul class="pagination justify-content-center" style="margin:20px">
 				<c:choose>
-					<c:when test="${currentPage == 1}">
-						<li class="page-item disabled"><a class="page-link" href="">처음으로</a></li>
-						<li class="page-item disabled"><a class="page-link" href="">이전</a></li>
+					<c:when test="${lastPage != 1 && navStartPage < 11}">
+						<li class="page-item disabled"><a class="page-link">처음으로</a></li>
+						<li class="page-item disabled"><a class="page-link">이전</a></li>
 						<c:forEach var="i" begin="${navStartPage}" end="${navEndPage}">
 							<c:choose>
 								<c:when test="${currentPage == i}">
@@ -106,12 +114,36 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${currentPage+1}&sel=${sel}&search=${search}">다음</a></li>
+						<c:choose>
+							<c:when test="${lastPage < 11}">
+								<li class="page-item disabled"><a class="page-link">다음</a></li>
+								<li class="page-item disabled"><a class="page-link">마지막으로</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage+navPerPage}&sel=${sel}&search=${search}">다음</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${lastPage}&sel=${sel}&search=${search}">마지막으로</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:when>
+					<c:when test="${navEndPage > navPerPage && navEndPage%navPerPage == 0}">
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=1&sel=${sel}&search=${search}">처음으로</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage-1}&sel=${sel}&search=${search}">이전</a></li>
+						<c:forEach var="i" begin="${navStartPage}" end="${navEndPage}">
+							<c:choose>
+								<c:when test="${currentPage == i}">
+									<li class="page-item active"><a class="page-link">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${i}&sel=${sel}&search=${search}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage+navPerPage}&sel=${sel}&search=${search}">다음</a></li>
 						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${lastPage}&sel=${sel}&search=${search}">마지막으로</a></li>
 					</c:when>
-					<c:when test="${currentPage > 1 && currentPage != lastPage}">
+					<c:when test="${lastPage != 1 && navEndPage%navPerPage != 0}">
 						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=1&sel=${sel}&search=${search}">처음으로</a></li>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${currentPage-1}&sel=${sel}&search=${search}">이전</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage-1}&sel=${sel}&search=${search}">이전</a></li>
 						<c:forEach var="i" begin="${navStartPage}" end="${navEndPage}">
 							<c:choose>
 								<c:when test="${currentPage == i}">
@@ -122,24 +154,8 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${currentPage+1}&sel=${sel}&search=${search}">다음</a></li>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${lastPage}&sel=${sel}&search=${search}">마지막으로</a></li>
-					</c:when>
-					<c:when test="${currentPage == lastPage}">
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=1&sel=${sel}&search=${search}">처음으로</a></li>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${currentPage-1}&sel=${sel}&search=${search}">이전</a></li>
-						<c:forEach var="i" begin="${navStartPage}" end="${navEndPage}">
-							<c:choose>
-								<c:when test="${currentPage == i}">
-									<li class="page-item active"><a class="page-link">${i}</a></li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${i}&sel=${sel}&search=${search}">${i}</a></li>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<li class="page-item disabled"><a class="page-link" href="">다음</a></li>
-						<li class="page-item disabled"><a class="page-link" href="">마지막으로</a></li>
+						<li class="page-item disabled"><a class="page-link">다음</a></li>
+						<li class="page-item disabled"><a class="page-link">마지막으로</a></li>
 					</c:when>
 				</c:choose>
 			</ul>

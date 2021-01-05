@@ -56,6 +56,7 @@ public class MessageController {
 		// 뷰페이지에 전달되는 map
 		Map<String, Object> map = messageService.getSendMessageList(mapParam);
 		model.addAttribute("list", map.get("list"));
+		System.out.println(map.get("list") + ": 리스트 내용");
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("navPerPage", map.get("navPerPage"));

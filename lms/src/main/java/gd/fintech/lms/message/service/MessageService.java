@@ -78,47 +78,46 @@ public class MessageService {
 		String search = null;
 		if(mapParam.get("search") != null) {
 			search = mapParam.get("search").toString();
-		}
-		
+		}		
 		int rowPerPage = 10;	// 한 페이지에 보여지는 리스트 행의 수
 		int beginRow = (currentPage-1)*rowPerPage;	// 시작 페이지
-		// 받은 쪽지 리스트를 가져오기
+		int totalRow = 0;	// 페이지 ROW 개수를 담는 변수
+		
+		// 쪽지 리스트를 가져오기 위한 매개변수 map
 		Map<String, Object> listMap = new HashMap<>();
 		listMap.put("fromId", fromId);
 		listMap.put("search", search);
 		listMap.put("beginRow", beginRow);
-		listMap.put("rowPerPage", rowPerPage);
+		listMap.put("rowPerPage", rowPerPage);		
 		
-		List<Message> list = null;
+		List<Message> list = null;	// 쪽지 리스를 담는 변수
 		// 선택된 검색 조건값이 아이디인 경우
 		if(sel != null && sel.equals("id")) {
+			// 쪽지 리스트 가져오기
 			list = messageMapper.selectSendMessageListByToId(listMap);
+			// 아이디 검색 조건에 따른 전체 ROW 개수 가져오기
+			totalRow = messageMapper.selectCountSendMassageBySearchId(fromId,search);
 		}
 		// 선택된 검색 조건값이 내용인 경우
 		else if(sel != null && sel.equals("content")) {
+			// 쪽지 리스트 가져오기
 			list = messageMapper.selectSendMessageListByMessageContent(listMap);
+			// 내용 검색 조건에 따른 전체 ROW 개수 가져오기
+			totalRow = messageMapper.selectCountSendMassageBySearchContent(fromId, search);
 		}
 		// 선택된 검색 조건값이 전체인 경우
-		else {
+		else if(sel == null || sel.equals("")){
+			// 쪽지 리스트 가져오기
 			list = messageMapper.selectSendMessageList(listMap);
-		}
-		
-		// 페이징을 위한 lastPage, 쪽지 리스트, 네이게이션 페이징 map에 담아서 넘기기
-		Map<String, Object> map = new HashMap<>();
-		// 페이지 ROW 개수를 담는 변수
-		int totalRow;
-		// 검색 조건에 따른 전체 ROW 개수 가져오기
-		if(sel != null) {
-			totalRow = messageMapper.selectCountReceiveMassageByAccountId(search);
-		// 전체 ROW 개수 가져오기
-		}else {
+			// 전체 ROW 개수 가져오기
 			totalRow = messageMapper.selectCountSendMassageByAccountId(fromId);
 		}
+		
 		// 마지막 페이지 구하기
 		int lastPage = totalRow/rowPerPage;
 		if(totalRow%rowPerPage != 0) {
 			lastPage += 1;
-		}
+		}		
 		// 네비게이션 페이징
 		int navPerPage = 10;	// 네비게이션 인덱스 개수
 		int navStartPage = currentPage-(currentPage%navPerPage)+1;	// 시작 인덱스
@@ -132,7 +131,8 @@ public class MessageService {
 		if(navEndPage > lastPage) {
 			navEndPage = lastPage;
 		}
-		
+		// 페이징을 위한 lastPage, 쪽지 리스트, 네이게이션 페이징 map에 담아서 넘기기
+		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
 		map.put("lastPage", lastPage);
 		map.put("navPerPage", navPerPage);

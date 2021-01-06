@@ -32,11 +32,10 @@ public class TestController {
 	public String testDetail(
 			@RequestParam("lectureNo") int lectureNo,
 			Model model) {
-		Test test = testService.getTestDetail(lectureNo);						// 시험 정보를 받아옴
-		Map<String, Object> map = testService.getMultipleChoiceList(lectureNo);	// 객관식 문제 정보를 받아옴
+		Map<String, Object> map = testService.getTestDetailWithMultipleChoice(lectureNo);
 		
 		// view에서 사용하기 쉽게 모델에 들어갈 속성을 넣어줌 (Map을 그대로 넣는 대신 속성을 여러개로 쪼갬)
-		model.addAttribute("test", test);
+		model.addAttribute("test", map.get("test"));
 		model.addAttribute("isEditable", map.get("isEditable"));
 		model.addAttribute("multipleChoiceList", map.get("list"));
 		model.addAttribute("multipleChoiceListSize", ((List)map.get("list")).size());
@@ -71,11 +70,7 @@ public class TestController {
 	public String modifyTest(
 			@RequestParam("lectureNo") int lectureNo,
 			Model model) {
-		Test test = testService.getTestDetail(lectureNo);
-		
-		// HTML이 읽을 수 있는 날짜데이터로 변경하기 위해 hh:MM:ss.SSS(시분초 및 밀리초) 부분을 없앰
-		test.setTestStartDate(test.getTestStartDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
-		test.setTestEndDate(test.getTestEndDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
+		Test test = testService.getTestDetailWithDateFormatting(lectureNo);
 		
 		model.addAttribute("test", test);
 		return "teacher/modifyTest";

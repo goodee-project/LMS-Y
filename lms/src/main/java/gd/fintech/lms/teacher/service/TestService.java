@@ -42,6 +42,29 @@ public class TestService {
 	public Test getTestDetail(int lectureNo) {
 		return testMapper.selectTestDetail(lectureNo);
 	}
+	
+	// 해당 강좌에 등록된 시험의 상세 정보 및 객관식 문제와 보기 및 정답 출력
+	// 매개변수: 강좌의 고유번호
+	// 리턴값: 시험의 상세 정보와 객관식 문제, 보기
+	public Map<String, Object> getTestDetailWithMultipleChoice(int lectureNo) {
+		Map<String, Object> map = this.getMultipleChoiceList(lectureNo);
+		map.put("test", testMapper.selectTestDetail(lectureNo));
+		
+		return map;
+	}
+	
+	// 해당 강좌에 등록된 시험의 상세 정보에서 날짜 포맷을 yyyy-MM-dd(시분초 제외)로 변경 후 출력 
+	// 매개변수: 강좌의 고유번호
+	// 리턴값: 시험의 상세 정보
+	public Test getTestDetailWithDateFormatting(int lectureNo) {
+		Test test = testMapper.selectTestDetail(lectureNo);
+		
+		// HTML이 읽을 수 있는 날짜데이터로 변경하기 위해 hh:MM:ss.SSS(시분초 및 밀리초) 부분을 없앰
+		test.setTestStartDate(test.getTestStartDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
+		test.setTestEndDate(test.getTestEndDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
+		
+		return test;
+	}
 
 	// 시험 정보 생성
 	// 매개변수: 시험 정보 객체, setter를 사용해 추가할 정보 lectureNo, testStartDate, testEndDate, testContent를 넣을 것
@@ -59,7 +82,7 @@ public class TestService {
 		testMapper.updateTest(test);
 	}
 
-	// 해당 시험의 객관식 문제 및 보기 리스트 출력 (정답 제외)
+	// 해당 시험의 객관식 문제 및 보기 리스트 출력 (정답 포함)
 	// 매개변수: 강좌 고유번호
 	// 리턴값: (시험의 정답 제외 및 객관식 보기를 포함한 객관식 문제 리스트+시험이 수정 가능한지 여부)를 출력하는 Map
 	public Map<String, Object> getMultipleChoiceList(int lectureNo) {

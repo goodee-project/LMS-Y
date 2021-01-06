@@ -100,7 +100,8 @@ public class QuestionCommentController {
 			Model model) {
 		Map<String, Object> map = questionCommentService.getQuestionCommentDetailAndQuestionDetail(questionCommentNo);
 		
-		model.addAttribute("map", map);
+		model.addAttribute("question", map.get("question"));
+		model.addAttribute("questionComment", map.get("questionComment"));
 		return "teacher/modifyQuestionComment";
 	}
 	

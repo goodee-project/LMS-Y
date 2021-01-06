@@ -10,7 +10,7 @@ import gd.fintech.lms.teacher.vo.MultipleChoice;
 
 @Mapper
 public interface MultipleChoiceMapper {
-	// 해당 강의에서 출제한 시험의 객관식 문제 및 보기들을 출력 (정답 제외)
+	// 해당 강의에서 출제한 시험의 객관식 문제 및 보기들을 출력 (정답 포함)
 	// 매개변수: 시험이 등록된 강좌의 번호
 	// 리턴값: 객관식 문제들의 리스트
 	List<MultipleChoice> selectMultipleChoiceList(int lectureNo);

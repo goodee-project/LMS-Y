@@ -99,30 +99,30 @@
 			
 			<div>
 				<div>
-					게시글 고유번호: ${map.question.questionNo}
+					게시글 고유번호: ${question.questionNo}
 				</div>
 				<div>
-					강좌 고유번호: ${map.question.lectureNo}
+					강좌 고유번호: ${question.lectureNo}
 				</div>
 				<div>
-					게시글 작성자: ${map.question.questionWriter}
+					게시글 작성자: ${question.questionWriter}
 				</div>
 				<div>
-					게시글 제목: ${map.question.questionTitle}
+					게시글 제목: ${question.questionTitle}
 				</div>
 				<div>
-					게시글 내용: ${map.question.questionContent}
+					게시글 내용: ${question.questionContent}
 				</div>
 				<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}" enctype="multipart/form-data">
-					<input type="hidden" name="questionCommentNo" value="${map.questionComment.questionCommentNo}">
+					<input type="hidden" name="questionCommentNo" value="${questionComment.questionCommentNo}">
 						
 					<div>
 						댓글 내용:
-						<textarea id="questionCommentContent" name="questionCommentContent" style="width: 100%">${map.questionComment.questionCommentContent}</textarea>
+						<textarea id="questionCommentContent" name="questionCommentContent" style="width: 100%">${questionComment.questionCommentContent}</textarea>
 					</div>
 					<div>
 						첨부파일:
-						<c:forEach var="qcf" items="${map.questionComment.questionCommentFileList}">
+						<c:forEach var="qcf" items="${questionComment.questionCommentFileList}">
 							<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
 							<c:if test="${qcf.questionCommentFileSize > 0}">
 								<div>

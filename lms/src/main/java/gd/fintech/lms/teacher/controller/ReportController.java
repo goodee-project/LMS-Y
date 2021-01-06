@@ -40,7 +40,7 @@ public class ReportController {
 		model.addAttribute("list", map.get("infoList"));
 		
 		// 페이지 관련 값
-		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentPage", currentPage); // 애노테이션의 defaultValue에 의해 1이 들어간 경우, View단에서 ${param.currentPage}로 불러와지지 않기 때문 (jstl의 c:if 사용보단 model로 전달이 간편함)
 		model.addAttribute("pageNaviBegin", map.get("pageNaviBegin"));
 		model.addAttribute("pageNaviEnd", map.get("pageNaviEnd"));
 		model.addAttribute("lastPage", map.get("lastPage"));
@@ -92,13 +92,7 @@ public class ReportController {
 	public String modifyReport(
 			@RequestParam("reportNo") int reportNo,
 			Model model) {
-		Map<String, Object> map = reportService.getReportDetail(reportNo);
-		
-		Report report = (Report)map.get("report");
-		
-		// HTML이 읽을 수 있는 날짜데이터로 변경하기 위해 hh:MM:ss.SSS(시분초 및 밀리초) 부분을 없앰
-		report.setReportStartDate(report.getReportStartDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
-		report.setReportEndDate(report.getReportEndDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
+		Report report = reportService.getReportDetailWithDateFormatting(reportNo);
 		
 		model.addAttribute("report", report);
 		return "teacher/modifyReport";

@@ -50,7 +50,7 @@
 					</c:if>
 					<c:forEach var="mc" items="${multipleChoiceList}">
 						<hr>
-						<p>${mc.multipleChoiceId}. ${mc.multipleChoiceQuestion}</p>
+						<p>${mc.multipleChoiceId}. ${mc.multipleChoiceQuestion} (정답: ${mc.multipleChoiceAnswer})</p>
 						
 						<c:forEach var="mce" items="${mc.multipleChoiceExampleList}">
 							<div>${mce.multipleChoiceExampleId}| ${mce.multipleChoiceExampleContent}</div>

@@ -7,6 +7,7 @@
 		<result property="lectureNo" column="lecture_no" />
 		<result property="multipleChoiceId" column="multiplechoice_id" />
 		<result property="multipleChoiceQuestion" column="multiplechoice_question" />
+		<result property="multipleChoiceAnswer" column="multiplechoice_answer" />
 		<result property="multipleChoiceScore" column="multiplechoice_score" />
 		<result property="multipleChoiceCreateDate" column="multiplechoice_createdate" />
 		<result property="multipleChoiceUpdateDate" column="multiplechoice_updatedate" />
@@ -24,6 +25,7 @@
 			m.lecture_no,
 			m.multiplechoice_id,
 			m.multiplechoice_question,
+			m.multiplechoice_answer,
 			m.multiplechoice_score,
 			m.multiplechoice_createdate,
 			m.multiplechoice_updatedate,

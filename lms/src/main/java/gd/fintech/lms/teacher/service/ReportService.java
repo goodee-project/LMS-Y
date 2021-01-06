@@ -162,6 +162,22 @@ public class ReportService {
 		return map;
 	}
 	
+	// 해당 과제에 대한 상세 정보에서 날짜 포맷을 yyyy-MM-dd(시분초 제외)로 변경 후 출력 
+	// 매개변수: 과제 고유번호
+	// 리턴값: 제출된 과제를 포함한 과제 상세정보
+	public Report getReportDetailWithDateFormatting(int reportNo) {
+		Map<String, Object> map = this.getReportDetail(reportNo);
+		
+		// 날짜 포맷을 변경하기 위해 참조값을 가져옴
+		Report report = (Report)map.get("report");
+		
+		// HTML이 읽을 수 있는 날짜데이터로 변경하기 위해 hh:MM:ss.SSS(시분초 및 밀리초) 부분을 없앰
+		report.setReportStartDate(report.getReportStartDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
+		report.setReportEndDate(report.getReportEndDate().replaceAll("\\s*\\d+:\\d+:\\d+\\.\\d+$", ""));
+		
+		return report;
+	}
+	
 	// 평가의 기준으로 참고할 학생의 과제제출 내용 및 파일 출력
 	// 매개변수: 과제제출 고유변호
 	// 리턴값: 과제제출 객체

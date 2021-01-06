@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import gd.fintech.lms.manager.mapper.ManagerMapper;
-import gd.fintech.lms.manager.mapper.SubjectMapper;
-import gd.fintech.lms.manager.mapper.TextbookMapper;
 import gd.fintech.lms.manager.vo.Manager;
-import gd.fintech.lms.manager.vo.Subject;
-import gd.fintech.lms.manager.vo.Textbook;
-import gd.fintech.lms.teacher.mapper.SyllabusMapper;
+
 
 // 운영자가 하는 업무를 위한 서비스
 

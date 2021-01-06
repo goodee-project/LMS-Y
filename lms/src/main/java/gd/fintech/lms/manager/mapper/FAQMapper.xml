@@ -12,6 +12,11 @@
 			faq_count faqCount,
 			faq_category faqCategory
 		FROM faq
+		<where>
+			<if test='categoryFaqSearch != null'>
+				faq_category = #{categoryFaqSearch}
+			</if>
+		</where>
 		LIMIT #{beginRow},#{rowPerPage}
 
 

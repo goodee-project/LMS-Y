@@ -33,8 +33,8 @@
 					</tr>
 				<c:forEach items="${classroomList}" var="c">
 					<tr>
-						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${c.classroomNo}">${c.classroomNo}</a></td>
-						<td>${c.classroomNumber}</td>
+						<td>${c.classroomNo}</td>
+						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${c.classroomNo}">${c.classroomNumber}</a></td>
 					</tr>
 				</c:forEach>	
 			

@@ -15,9 +15,8 @@
                 // code here...
             });
         </script>
+
 	</head>
-	
-	
 	
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
@@ -27,25 +26,27 @@
 		<div class="jumbotron">
 			<h1>자주하는질문(FAQ)</h1>
 			</div>
-			<div> 종류</div>
 				<table class="table">
-			<!-- 카테고리 -->		
+			<!-- 카테고리 -->
+				
 			<c:forEach items="${categoryList}" var="cl" varStatus="status"> 
-			<td>${cl.faqCategory}</td>
-				<c:if test="${status.count%5 eq 0}"> 
-					<tr>
-				</c:if>
+				<td>
+					<a style="height:50px; width:150px;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList?categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
+				</td>
+					<c:if test="${status.count%5 eq 0}"> 
+						<tr>
+					</c:if>
+				
 				</c:forEach>
 				
 			</table>
-			
 			<div>
 			<!-- FAQList -->
 				<table class="table">
 					<tr>
 						<th>FAQ 번호</th>
 						<th>FAQ 카테고리</th>
-						<th>FAQ 제목</th>
+						<th style="width:40%">FAQ 제목</th>
 						<th>FAQ 작성자</th>
 						<th>FAQ 조회수</th>
 						<th>FAQ 수정날짜</th>
@@ -53,17 +54,16 @@
 					</tr>
 				<c:forEach items="${faqList}" var="f">
 					<tr>
-						<td><a href="${pageContext.request.contextPath}/manager/FAQDetail?faqNo=${f.faqNo}">${f.faqNo}</a></td>
+						<td>${f.faqNo}</td>
 						<td>${f.faqCategory}</td>
-						<td>${f.faqTitle}</td>
+						<td><a href="${pageContext.request.contextPath}/manager/FAQDetail?faqNo=${f.faqNo}">${f.faqTitle}</a></td>
 						<td>${f.faqWriter}</td>
 						<td>${f.faqCount}</td>
 						<td>${f.faqUpdateDate}</td>
 					</tr>
 				</c:forEach>	
-	
-				
 			</table>
+			<!-- 페이징 -->
 			<div>
 				<!-- 처음 -->
 				<c:choose>
@@ -108,8 +108,8 @@
 						<a href="${pageContext.request.contextPath}/manager/FAQList?currentPage=${lastPage}">[마지막]</a>
 					</c:when>
 				</c:choose>
-			</div>
-				
+			</div>	
+		
 			</div>
 		</div>
 	</body>

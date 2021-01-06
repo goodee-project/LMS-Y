@@ -35,7 +35,7 @@ public class FAQService {
 	// FAQ 리스트를 보여주는 서비스
 	// 매개변수: 현재 페이지, 보여줄 데이터 개수
 	// 리턴값: 현재 페이지의 FAQ 리스트
-	public Map<String, Object> getFAQListByPage(int currentPage ){
+	public Map<String, Object> getFAQListByPage(int currentPage, String categoryFaqSearch){
 		//  페이지당 표시되는 데이터 수
 		int rowPerPage = 10;
 		// 현재 페이지에서 시작하는 데이터 
@@ -67,6 +67,7 @@ public class FAQService {
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("beginRow", beginRow);
 		map.put("rowPerPage",rowPerPage);
+		map.put("categoryFaqSearch", categoryFaqSearch);
 		
 		Map<String, Object> paramMap = new HashMap<String,Object>();
 		List<FAQ> faqList = faqMapper.selectFAQListByPage(map);

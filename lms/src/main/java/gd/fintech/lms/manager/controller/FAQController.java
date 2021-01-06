@@ -33,10 +33,13 @@ public class FAQController {
 	// 매개변수: Model @RequestParam: currentPage (현재페이지)
 	// 리턴값: FAQ 리스트 페이지 출력
 	@GetMapping("/manager/FAQList")
-	public String FAQList(Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
-	  Map<String, Object> map = faqService.getFAQListByPage(currentPage);
-	  
+	public String FAQList(Model model,
+			@RequestParam(value="currentPage",defaultValue = "1")int currentPage,
+			@RequestParam(value="categoryFaqSearch", required = false) String categoryFaqSearch) {
+	  Map<String, Object> map = faqService.getFAQListByPage(currentPage,categoryFaqSearch);
+	  logger.debug(map.toString());
 	  List<FAQCategory> categoryList = faqCategoryService.getFAQCategoryList();
+	  model.addAttribute("categoryFaqSearch", categoryFaqSearch);
 	  model.addAttribute("categoryList", categoryList);
 	  model.addAttribute("currentPage",currentPage);
 	  model.addAttribute("faqList",map.get("faqList") );
@@ -45,6 +48,7 @@ public class FAQController {
 	  model.addAttribute("navLastPage",map.get("navLastPage") );
 	  model.addAttribute("navPerPage",map.get("navPerPage") );
 	  logger.debug("categoryList",categoryList);
+	  logger.debug("categoryFaqSearch",categoryFaqSearch);
 	  return "manager/FAQList";
 	}
 

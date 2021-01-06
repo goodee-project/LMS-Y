@@ -45,7 +45,7 @@
 							<td>${syllabusDetail.syllabusManagerSign}</td>
 							<td>${syllabusDetail.syllabusManagerSignDate}</td>
 							<td>
-								<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != null}">
+								<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != null && syllabusDetail.syllabusManagerSign == null}">
 									<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
 										[서명]
 									</a>

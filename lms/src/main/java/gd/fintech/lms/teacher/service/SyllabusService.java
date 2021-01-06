@@ -70,17 +70,20 @@ public class SyllabusService {
 		// accountId(아이디)로 서명할 이름 syllabusTeacherSign(운영자 서명)으로 출력
 		String syllabusTeacherSign = syllabusMapper.selectTeacherName(accountId);
 		
-		// 서명 여부를 확인하기 위함
+		// 서명 여부를 확인하기 위한 코드
 		// syllabusNo(강의계획서 고유번호)에 해당하는 syllabusDetail(강의계획서 정보) 출력 
 		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
 		// syllabusDetail의 syllabusTeacherSign(강사 서명)를 TeacherSign(강사 서명)으로 출력
 		String teacherSign = syllabusDetail.getSyllabusTeacherSign();
-		// syllabusDetail의 syllabusTeacherSignDate(강사 서명일자)를 teacherSignDate(강사 서명일자)으로 출력
+		// syllabusDetail의 syllabusTeacherSignDate(강사 서명일자)를 teacherSignDate(강사 서명일자)로 출력
 		String teacherSignDate = syllabusDetail.getSyllabusTeacherSignDate();
 		
-		// 강사 서명과 강사 서명 일자가 없다면 서명
+		// 만약 강사 서명과 강사 서명일자가 없다면 서명
 		if(teacherSign == null && teacherSignDate == null) {
 			syllabusMapper.updateTeacherSign(syllabusNo, syllabusTeacherSign);
+			logger.debug("서명 성공");
+		} else {
+			logger.debug("서명 실패");
 		}
 	}
 
@@ -96,17 +99,24 @@ public class SyllabusService {
 		// accountId(아이디)로 서명할 이름 syllabusManagerSign(운영자 서명)으로 출력
 		String syllabusManagerSign = managerMapper.selectManagerName(accountId);
 		
-		// 서명 여부를 확인하기 위함
-		// syllabusNo(강의계획서 고유번호)에 해당하는 syllabusDetail(강의계획서 정보) 출력 
+		// 서명 여부를 확인하기 위한 코드
+		// syllabusNo(강의계획서 고유번호)에 해당하는 syllabusDetail(강의계획서 정보) 출력
 		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
+		// syllabusDetail의 syllabusTeacherSign(강사 서명)를 TeacherSign(강사 서명)으로 출력
+		String teacherSign = syllabusDetail.getSyllabusTeacherSign();
+		// syllabusDetail의 syllabusTeacherSignDate(강사 서명일자)를 teacherSignDate(강사 서명일자)로 출력
+		String teacherSignDate = syllabusDetail.getSyllabusTeacherSignDate();
 		// syllabusDetail(강의계획서 정보)에서 syllabusManagerSign(운영자 서명)를 managerSign(운영자 서명)으로 출력
 		String managerSign = syllabusDetail.getSyllabusManagerSign();
-		// syllabusDetail(강의계획서 정보)에서 syllabusManagerSignDate(운영자 서명일자)를 managerSignDate(운영자 서명일자)으로 출력
+		// syllabusDetail(강의계획서 정보)에서 syllabusManagerSignDate(운영자 서명일자)를 managerSignDate(운영자 서명일자)로 출력
 		String managerSignDate = syllabusDetail.getSyllabusManagerSignDate();
 		
-		// 운영자 서명과 운영자 서명 일자가 없다면 서명
-		if(managerSign == null && managerSignDate == null) {
+		// 만약 강사 서명과 강사 서명일자, 운영자 서명과 운영자 서명일자가 없다면 서명
+		if((teacherSign != null && teacherSignDate != null) && (managerSign == null && managerSignDate == null)) {
 			syllabusMapper.updateManagerSign(syllabusNo, syllabusManagerSign);
+			logger.debug("서명 성공");
+		} else {
+			logger.debug("서명 실패");
 		}
 	}
 }

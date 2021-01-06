@@ -60,9 +60,9 @@
 			<h1>강의계획서 수정</h1>
 			
 			<div>
-				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${modifySyllabus.syllabusNo}">
+				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
 					<div>
-                		<textarea id="syllabusContent" name="syllabusContent" style="width: 100%">${modifySyllabus.syllabusContent}</textarea>
+                		<textarea id="syllabusContent" name="syllabusContent" style="width: 100%">${syllabusDetail.syllabusContent}</textarea>
 					</div>
 					<div>
 						<button type="button" id="submitBtn">

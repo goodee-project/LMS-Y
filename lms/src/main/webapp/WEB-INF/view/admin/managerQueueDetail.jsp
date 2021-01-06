@@ -12,11 +12,11 @@
         <script>
 			$(document).ready(function() {
 				$('#approveBtn').click(function() {
-					let approve = confirm('정말 승인 하시겠습니까?');
+					let approve = confirm('정말 회원가입을 승인하시겠습니까?');
 					
 					if(approve) {
 						location.replace('${pageContext.request.contextPath}/admin/approveManagerMembership?accountId=${managerQueueDetail.accountId}');
-						alert('승인하였습니다.');
+						alert('회원가입이 승인되었습니다.');
 					} else {
 						alert('취소하였습니다.');
 						return;
@@ -24,11 +24,11 @@
         		});
         		
         		$('#disapproveBtn').click(function() {
-					let disapprove = confirm('정말 거부 하시겠습니까?');
+					let disapprove = confirm('정말 회원가입을 거부하시겠습니까?');
 					
 					if(disapprove) {
 						location.replace('${pageContext.request.contextPath}/admin/disapproveManagerMembership?accountId=${managerQueueDetail.accountId}');
-						alert('승인하였습니다.');
+						alert('회원가입이 거부되었습니다.');
 					} else {
 						alert('취소하였습니다.');
 						return;

@@ -26,8 +26,8 @@ public class SyllabusService {
 	// 리턴값
 	// #1. 고유번호에 해당하는 강의계획서
 	// #2. 강의계획서 작성자 이름
-	public Syllabus getSyllabusDetail(int syllabusNo) {
-		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
+	public Syllabus getSyllabusDetail(int lectureNo) {
+		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(lectureNo);
 		
 		return syllabusDetail;
 	}
@@ -64,7 +64,7 @@ public class SyllabusService {
 	// #2. syllabusTeacherSign(강사 서명)
 	// 리턴값: 없음
 	// 서명 여부를 확인하여 서명
-	public void signSyllabusByTeacher(HttpSession session, int syllabusNo) {
+	public void signSyllabusByTeacher(HttpSession session, int lectureNo) {
 		// session에서 accountId(아이디)을 출력
 		String accountId = (String)session.getAttribute("accountId");
 		// accountId(아이디)로 서명할 이름 syllabusTeacherSign(운영자 서명)으로 출력
@@ -72,7 +72,7 @@ public class SyllabusService {
 		
 		// 서명 여부를 확인하기 위한 코드
 		// syllabusNo(강의계획서 고유번호)에 해당하는 syllabusDetail(강의계획서 정보) 출력 
-		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
+		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(lectureNo);
 		// syllabusDetail의 syllabusTeacherSign(강사 서명)를 TeacherSign(강사 서명)으로 출력
 		String teacherSign = syllabusDetail.getSyllabusTeacherSign();
 		// syllabusDetail의 syllabusTeacherSignDate(강사 서명일자)를 teacherSignDate(강사 서명일자)로 출력
@@ -80,7 +80,7 @@ public class SyllabusService {
 		
 		// 만약 강사 서명과 강사 서명일자가 없다면 서명
 		if(teacherSign == null && teacherSignDate == null) {
-			syllabusMapper.updateTeacherSign(syllabusNo, syllabusTeacherSign);
+			syllabusMapper.updateTeacherSign(lectureNo, syllabusTeacherSign);
 			logger.debug("서명 성공");
 		} else {
 			logger.debug("서명 실패");
@@ -93,7 +93,7 @@ public class SyllabusService {
 	// #2. syllabusManagerSign(운영자 서명)
 	// 리턴값: 없음
 	// 서명 여부를 확인하여 서명
-	public void signSyllabusByManager(HttpSession session, int syllabusNo) {
+	public void signSyllabusByManager(HttpSession session, int lectureNo) {
 		// session에서 accountId(아이디)을 출력
 		String accountId = (String)session.getAttribute("accountId");
 		// accountId(아이디)로 서명할 이름 syllabusManagerSign(운영자 서명)으로 출력
@@ -101,7 +101,7 @@ public class SyllabusService {
 		
 		// 서명 여부를 확인하기 위한 코드
 		// syllabusNo(강의계획서 고유번호)에 해당하는 syllabusDetail(강의계획서 정보) 출력
-		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(syllabusNo);
+		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(lectureNo);
 		// syllabusDetail의 syllabusTeacherSign(강사 서명)를 TeacherSign(강사 서명)으로 출력
 		String teacherSign = syllabusDetail.getSyllabusTeacherSign();
 		// syllabusDetail의 syllabusTeacherSignDate(강사 서명일자)를 teacherSignDate(강사 서명일자)로 출력
@@ -113,7 +113,7 @@ public class SyllabusService {
 		
 		// 만약 강사 서명과 강사 서명일자, 운영자 서명과 운영자 서명일자가 없다면 서명
 		if((teacherSign != null && teacherSignDate != null) && (managerSign == null && managerSignDate == null)) {
-			syllabusMapper.updateManagerSign(syllabusNo, syllabusManagerSign);
+			syllabusMapper.updateManagerSign(lectureNo, syllabusManagerSign);
 			logger.debug("서명 성공");
 		} else {
 			logger.debug("서명 실패");

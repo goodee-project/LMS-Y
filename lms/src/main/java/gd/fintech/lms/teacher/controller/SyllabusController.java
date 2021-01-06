@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.manager.service.LectureManagerService;
+import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.teacher.service.SyllabusService;
 import gd.fintech.lms.teacher.vo.Syllabus;
 
@@ -22,6 +24,8 @@ public class SyllabusController {
 	
 	// 강의계획서 관련 Service
 	@Autowired SyllabusService syllabusService;
+	// 강좌 관련 Service
+	@Autowired LectureManagerService lectureManagerService;
 	
 	// 강의계획서 페이지를 출력하는 메소드
 	// 매개변수:
@@ -29,8 +33,8 @@ public class SyllabusController {
 	// #2. syllabusNo(강의계획서)
 	// 리턴값: syllabusDetail(고유번호에 해당하는 강의계획서 페이지)
 	@GetMapping(value = {"/teacher/syllabusDetail", "/manager/syllabusDetail", "/student/syllabusDetail"})
-	public String syllabusDetail(Model model, @RequestParam(value = "syllabusNo") int syllabusNo) {
-		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(syllabusNo);
+	public String syllabusDetail(Model model, @RequestParam(value = "syllabusNo") int lectureNo) {
+		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(lectureNo);
 		model.addAttribute("syllabusDetail", syllabusDetail);
 		
 		return "/teacher/syllabusDetail";
@@ -41,7 +45,10 @@ public class SyllabusController {
 	// 리턴값: createSyllabus(강의계힉서 작성 페이지)
 	// 작성할 강의계획서를 입력할 수 있는 페이지 출력
 	@GetMapping("/teacher/createSyllabus")
-	public String createSyllabus() {
+	public String createSyllabus(Model model, int lectureNo) {
+		Lecture managerLectureDetail = lectureManagerService.managerLectureDetail(lectureNo);
+		model.addAttribute("managerLectureDetail", managerLectureDetail);
+		
 		return "/teacher/createSyllabus";
 	}
 	
@@ -53,7 +60,7 @@ public class SyllabusController {
 	public String createSyllabus(HttpSession session, Syllabus syllabus) {
 		syllabusService.createSyllabus(session, syllabus);
 		
-		return "redirect:/teacher/teacherLecture?currentPage=1";
+		return "redirect:/teacher/syllabusDetail?lectureNo=" + syllabus.getLectureNo();
 	}
 	
 	// 강사가 강의계획서를 수정할 수 있는 페이지를 출력하는 메소드
@@ -64,9 +71,11 @@ public class SyllabusController {
 	// 수정할 강의계획서를 입력할 수 있는 페이지 출력
 	// 기존의 강의계획서를 출력
 	@GetMapping("/teacher/modifySyllabus")
-	public String modifySyllabus(Model model, @RequestParam(value = "syllabusNo") int syllabusNo) {
-		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(syllabusNo);
+	public String modifySyllabus(Model model, @RequestParam(value = "syllabusNo") int lectureNo) {
+		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(lectureNo);
+		Lecture managerLectureDetail = lectureManagerService.managerLectureDetail(lectureNo);
 		model.addAttribute("syllabusDetail", syllabusDetail);
+		model.addAttribute("managerLectureDetail", managerLectureDetail);
 		
 		return "/teacher/modifySyllabus";
 	}
@@ -80,7 +89,7 @@ public class SyllabusController {
 	public String modifySyllabus(Syllabus syllabus) {
 		syllabusService.modifySyllabus(syllabus);
 		
-		return "redirect:/teacher/syllabusDetail?syllabusNo=" + syllabus.getSyllabusNo();
+		return "redirect:/teacher/syllabusDetail?syllabusNo=" + syllabus.getLectureNo();
 	}
 	
 	// 강사가 강의계획서에 서명하는 메소드
@@ -90,10 +99,10 @@ public class SyllabusController {
 	// 서명한 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서 페이지로 이동)
 	@GetMapping("/teacher/signSyllabusByTeacher")
 	public String signSyllabusByTeacher(HttpSession session,
-			@RequestParam(value = "syllabusNo") int syllabusNo) {
-		syllabusService.signSyllabusByTeacher(session, syllabusNo);
+			@RequestParam(value = "syllabusNo") int lectureNo) {
+		syllabusService.signSyllabusByTeacher(session, lectureNo);
 		
-		return "redirect:/teacher/syllabusDetail?syllabusNo=" + syllabusNo;
+		return "redirect:/teacher/syllabusDetail?lectureNo=" + lectureNo;
 	}
 	
 	// 운영자가 강의계획서에 서명하는 메소드
@@ -103,10 +112,10 @@ public class SyllabusController {
 	// 서명한 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서 페이지로 이동)
 	@GetMapping("/manager/signSyllabusByManager")
 	public String signSyllabusByManager(HttpSession session,
-			@RequestParam(value = "syllabusNo") int syllabusNo) {
-		syllabusService.signSyllabusByManager(session, syllabusNo);
+			@RequestParam(value = "syllabusNo") int lectureNo) {
+		syllabusService.signSyllabusByManager(session, lectureNo);
 		
-		return "redirect:/manager/syllabusDetail?syllabusNo=" + syllabusNo;
+		return "redirect:/manager/syllabusDetail?syllabusNo=" + lectureNo;
 	}
 }
 	

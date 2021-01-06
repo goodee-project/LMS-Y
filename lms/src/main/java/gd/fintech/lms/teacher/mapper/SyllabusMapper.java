@@ -11,7 +11,7 @@ public interface SyllabusMapper {
 	// 강의계획서를 출력
 	// 매개변수: syllabusNo(강의계획서 고유번호)
 	// 리턴값: 강의계획서 고유번호에 해당하는 강의계획서 정보
-	Syllabus selectSyllabusDetail(int syllabusNo);
+	Syllabus selectSyllabusDetail(int lectureNo);
 	
 	// 강사가 강의계획서를 작성
 	// 매개변수: syllabus(강의계획서 정보)

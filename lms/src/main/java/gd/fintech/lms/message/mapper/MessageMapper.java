@@ -15,6 +15,16 @@ public interface MessageMapper {
 	// 매개변수: 로그인된 계정 ID(수신자), 페이징정보(시작ROW,ROW개수)
 	// 리턴값: 받은 쪽지의 리스트 결과
 	List<Message> selectReceiveMessageList(Map<String, Object> map);
+
+	// 검색조건(수신자아이디)에 따른 받은 쪽지 리스트를 조회하는 메소드(받은쪽지함)
+	// 매개변수: 로그인된 계정 ID(수신자), 발신자ID, 페이징정보(시작ROW,ROW개수)
+	// 리턴값: 검색조건에 따른 쪽지의 리스트 결과
+	List<Message> selectReceiveMessageListByFromId(Map<String, Object> map);
+	
+	// 검색조건(내용)에 따른 받은 쪽지 리스트를 조회하는 메소드(받은쪽지함)
+	// 매개변수: 로그인된 계정 ID(수신자), 쪽지내용, 페이징정보(시작ROW,ROW개수)
+	// 리턴값: 검색조건에 따른 쪽지의 리스트 결과
+	List<Message> selectReceiveMessageListByMessageContent(Map<String, Object> map);
 	
 	// 전체 보낸 쪽지 리스트를 조회하는 메소드(보낸쪽지함)
 	// 매개변수: 로그인된 계정 ID(발신자), 페이징정보(시작ROW,ROW개수)
@@ -83,21 +93,31 @@ public interface MessageMapper {
 	
 	// 받은쪽지함 전체 수(페이징)
 	// 매개변수: 수신자 아이디(accountId)
-	// 리턴값: 발신함 쪽지 전체 개수
+	// 리턴값: 수신함 쪽지 전체 개수
 	int selectCountReceiveMassageByAccountId(String accountId);
+	
+	// 검색 조건(아이디)에 따른 받은쪽지 전체 수(페이징)
+	// 매개변수: 수신자 아이디(accountId), 검색된 발신자 아이디(search)
+	// 리턴값: 수신함 쪽지 전체 개수
+	int selectCountReceiveMassageBySearchId(String accountId,String search);
+	
+	// 검색 조건(내용)에 따른 받은쪽지 전체 수(페이징)
+	// 매개변수: 수신자 아이디(accountId), 검색된 내용(search)
+	// 리턴값: 수신함 쪽지 전체 개수
+	int selectCountReceiveMassageBySearchContent(String accountId,String search);
 	
 	// 보낸쪽지 전체 수(페이징)
 	// 매개변수: 발신자 아이디(accountId)
-	// 리턴값: 수신함 쪽지 전체 개수
+	// 리턴값: 발신함 쪽지 전체 개수
 	int selectCountSendMassageByAccountId(String accountId);
 	
 	// 검색 조건(아이디)에 따른 보낸쪽지 전체 수(페이징)
 	// 매개변수: 발신자 아이디(accountId), 검색된 수신자 아이디(search)
-	// 리턴값: 수신함 쪽지 전체 개수
+	// 리턴값: 발신함 쪽지 전체 개수
 	int selectCountSendMassageBySearchId(String accountId,String search);
 	
 	// 검색 조건(내용)에 따른 보낸쪽지 전체 수(페이징)
 	// 매개변수: 발신자 아이디(accountId), 검색된 내용(search)
-	// 리턴값: 수신함 쪽지 전체 개수
+	// 리턴값: 발신함 쪽지 전체 개수
 	int selectCountSendMassageBySearchContent(String accountId,String search);
 }

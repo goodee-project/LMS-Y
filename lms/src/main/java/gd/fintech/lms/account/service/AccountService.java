@@ -45,6 +45,18 @@ public class AccountService {
 		return null;
 	}
 	
+	// 로그인시 사용자의 이름을 조회하는 메소드
+	// 매개변수: 로그인뷰에서 입력하여 넘어온 계정 ID, PW
+	// 리턴값: 조회된 계정 이름을 반환
+	public String getAccountNameById(Account account) {
+		// 이름 조회 값을 변수에 담기
+		String accountName = accountMapper.selectAccountNameById(account);
+		if(accountName != null) {
+			return accountName;
+		}
+		return null;
+	}
+	
 	// 학생 자신에 대한 정보를 상세조회하여 가져오는 메소드
 	// 매개변수: 학생의 계정 ID
 	// 리턴값: 해당 학생 ID의 모든 내용 조회한 리턴값

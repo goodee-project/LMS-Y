@@ -16,6 +16,36 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 검색조건(아이디)에 따른 받은 쪽지 리스트를 조회하는 쿼리 -->
+	<select id="selectReceiveMessageListByFromId" parameterType="java.util.Map" resultType="gd.fintech.lms.message.vo.Message">
+		SELECT
+			message_no messageNo,
+			to_id toId,
+			from_id fromId,
+			message_datetime messageDateTime,
+			is_confirm isConfirm
+		FROM message_receive
+		WHERE to_id = #{toId} AND from_id = #{search}
+		ORDER BY message_datetime DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 검색조건(내용)에 따른 받은 쪽지 리스트를 조회하는 쿼리 -->
+	<select id="selectReceiveMessageListByMessageContent" parameterType="java.util.Map" resultType="gd.fintech.lms.message.vo.Message">
+		SELECT
+			message_no messageNo,
+			to_id toId,
+			from_id fromId,
+			message_datetime messageDateTime,
+			is_confirm isConfirm
+		FROM message_receive
+		WHERE 
+			to_id = #{toId} AND 
+			message_content LIKE CONCAT('%', #{search}, '%')
+		ORDER BY message_datetime DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
 	<!-- 전체 보낸 쪽지 리스트를 조회하는 쿼리 -->
 	<select id="selectSendMessageList" parameterType="java.util.Map" resultType="gd.fintech.lms.message.vo.Message">
 		SELECT
@@ -193,6 +223,24 @@
 		SELECT COUNT(message_no) 
 		FROM message_receive
 		WHERE to_id = #{accountId}
+	</select>
+	
+	<!-- 검색 조건(아이디)에 따른 받은쪽지함 전체 수를 카운팅하는 쿼리 -->
+	<select id="selectCountReceiveMassageBySearchId" parameterType="String" resultType="int">
+		SELECT COUNT(message_no) 
+		FROM message_receive
+		WHERE 
+			to_id = #{accountId}
+			AND from_id = #{search}
+	</select>
+	
+	<!-- 검색 조건(내용)에 따른 받은쪽지함 전체 수를 카운팅하는 쿼리 -->
+	<select id="selectCountReceiveMassageBySearchContent" parameterType="String" resultType="int">
+		SELECT COUNT(message_no) 
+		FROM message_receive
+		WHERE 
+			to_id = #{accountId} 
+			AND message_content LIKE CONCAT('%', #{search}, '%')
 	</select>
 	
 	<!-- 보낸쪽지함 전체 수를 카운팅하는 쿼리 -->

@@ -15,6 +15,25 @@
 			AND account_pw = PASSWORD(#{accountPw})
 	</select>
 	
+	<!-- 로그인된 사용자 이름를 조회하는 쿼리 -->
+	<select id="selectAccountNameById" parameterType="gd.fintech.lms.account.vo.Account" resultType="String">
+		SELECT 
+			CASE 
+				WHEN ad.admin_name IS NOT NULL THEN ad.admin_name
+				WHEN m.manager_name IS NOT NULL THEN m.manager_name
+				WHEN t.teacher_name IS NOT NULL THEN t.teacher_name
+				WHEN s.student_name IS NOT NULL THEN s.student_name 
+			END accountName
+		FROM account a
+		LEFT JOIN admin ad ON a.account_id = ad.account_id
+		LEFT JOIN manager m ON a.account_id = m.account_id
+		LEFT JOIN teacher t ON a.account_id = t.account_id
+		LEFT JOIN student s ON a.account_id = s.account_id
+		WHERE 
+			a.account_id = #{accountId}
+			AND a.account_pw = PASSWORD(#{accountPw})
+	</select>
+	
 	<!-- 모든 계정의 목록을 조회하는 쿼리 -->
 	<select id="selectMemberAll" parameterType="java.util.Map" resultType="gd.fintech.lms.account.vo.Account">
 		SELECT 

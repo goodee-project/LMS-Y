@@ -57,7 +57,7 @@
 						</div>	
 						<input type="text" class="form-control col-sm-2" id= "search" name="search" placeholder="입력하세요">
 						<div class="input-group-append">
-							<button class="btn btn-success" type="button" id="searchBtn">검색</button>						
+							<button class="btn btn-success" type="button" id="searchBtn">검색</button>			
 						</div>				
 					</div>
 				</form>
@@ -68,7 +68,7 @@
 					<th>수신자 ID</th>
 					<th>보낸 날짜</th>
 					<th>확인여부</th>
-					<th>상세보기</th>
+					<th>쪽지보기</th>
 					<th>삭제하기</th>
 				</tr>
 				<c:choose>
@@ -87,7 +87,7 @@
 									<form action="${pageContext.request.contextPath}/sendMessageDetail" method="post">
 										<input type="hidden" value="${list.fromId}" name="id">
 										<input type="hidden" value="${list.messageNo}" name="messageNo">
-										<button class="btn btn-outline-info">상세보기</button>
+										<button class="btn btn-outline-info">쪽지보기</button>
 									</form>
 								</td>
 								<td>

@@ -23,19 +23,29 @@ public class MessageController {
 	@Autowired private MessageService messageService;
 	
 	// 받은 쪽지함 페이지로 이동하는 메소드
-	// 매개변수: 로그인한 계정 아이디, 현재 페이지
+	// 매개변수: 로그인한 계정 아이디, 현재 페이지, 검색값
 	// 리턴값: 받은 쪽지함 리스트 페이지
 	@GetMapping("/receiveMessage")
 	public String receiveMessageList(HttpSession session, Model model,
-			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
-		String toId = session.getAttribute("accountId").toString();
-		Map<String, Object> map = messageService.getReceiveMessageList(toId, currentPage);
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "sel", required = false) String sel,
+			@RequestParam(value = "search", required = false) String search) {
+		// 매개변수로 전달되는 mapParm
+		Map<String, Object> mapParam = new HashMap<>();
+		mapParam.put("toId", session.getAttribute("accountId").toString());
+		mapParam.put("sel", sel);
+		mapParam.put("search", search);
+		mapParam.put("currentPage", currentPage);
+		// 뷰페이지에 전달되는 map
+		Map<String, Object> map = messageService.getReceiveMessageList(mapParam);
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("navPerPage", map.get("navPerPage"));
 		model.addAttribute("navStartPage", map.get("navStartPage"));
 		model.addAttribute("navEndPage", map.get("navEndPage"));
+		model.addAttribute("sel", sel);
+		model.addAttribute("search", search);
 		return "receiveMessage";
 	}
 	
@@ -56,7 +66,6 @@ public class MessageController {
 		// 뷰페이지에 전달되는 map
 		Map<String, Object> map = messageService.getSendMessageList(mapParam);
 		model.addAttribute("list", map.get("list"));
-		System.out.println(map.get("list") + ": 리스트 내용");
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("navPerPage", map.get("navPerPage"));

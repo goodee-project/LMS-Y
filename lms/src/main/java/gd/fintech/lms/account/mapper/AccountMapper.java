@@ -18,6 +18,11 @@ public interface AccountMapper {
 	// 리턴값: 등록된 계정 정보인지 여부를 조회하여 반환
 	Account selectMemberById(Account account);
 	
+	// 로그인시 사용자의 이름을 조회하는 메소드
+	// 매개변수: 로그인폼에서 입력한 ID, PW
+	// 리턴값: 로그인된 사용자 이름
+	String selectAccountNameById(Account account);
+	
 	// Account 테이블에 등록된 모든 계정을 조회하는 메소드
 	// 매개변수: 페이징을 위한 시작페이지, 한페이지에 출력되는 행의 수(Integer 형으로 받음)
 	// 리턴값: 모든 계정을 조회한 결과리스트

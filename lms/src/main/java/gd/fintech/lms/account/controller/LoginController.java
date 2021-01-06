@@ -85,6 +85,8 @@ public class LoginController {
 			HttpServletResponse response) throws IOException {
 		// 서비스에서 계정 조회 결과(accountId, accountLevel) 가져오기
 		Account memberCk = accountService.getMemberById(account);
+		// 서비스에서 계정 이름 결과 가져오기
+		String accountName = accountService.getAccountNameById(account);
 		
 		// 계정이 없는 경우
 		if(memberCk == null) {
@@ -132,6 +134,8 @@ public class LoginController {
 			session.setAttribute("accountId", memberCk.getAccountId());
 			// 계정이 있는 경우 세션에 level 담기
 			session.setAttribute("accountLevel", memberCk.getAccountLevel());
+			// 계정이 있는 경우 세션에 사용자이름 담기
+			session.setAttribute("accountName", accountName);
 			
 			// 학생 권한에 따른 인덱스 페이지 이동
 			if(memberCk.getAccountLevel() == AccountLevel.STUDENT.getValue()) {

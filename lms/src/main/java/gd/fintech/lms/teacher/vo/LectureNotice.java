@@ -4,6 +4,7 @@ import lombok.Data;
 
 
 //강좌 공지사항 VO
+//강좌별 강좌 공지사항
 
 @Data
 public class LectureNotice {

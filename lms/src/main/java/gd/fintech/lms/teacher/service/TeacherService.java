@@ -1,6 +1,7 @@
 package gd.fintech.lms.teacher.service;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Base64;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,19 +17,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.w3c.dom.ranges.RangeException;
 
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.account.mapper.AddressMapper;
-import gd.fintech.lms.account.vo.Address;
 import gd.fintech.lms.dto.TeacherForm;
 import gd.fintech.lms.teacher.mapper.TeacherMapper;
 import gd.fintech.lms.teacher.vo.AccountImage;
 import gd.fintech.lms.teacher.vo.Teacher;
-import jdk.internal.org.jline.utils.Log;
 
 //강사 자신의 정보 수정 및 상세보기 할 수 있는 서비스
 
@@ -48,9 +43,11 @@ public class TeacherService {
 	//매개변수:로그인뷰에 넣은 계정 ID
 	//리턴값:로그인한 계정 ID에 값이 있는 ID에 관련된 정보를 반환
 	public Map<String, Object> getTeacherOne(String accountId){
-		Teacher teacher = teacherMapper.selectTeacherOne(accountId);
-		  
-		StringBuilder uri = null;
+	
+	//메퍼에서 강사ID에 따라 강사의 정보를 가져옴
+	Teacher teacher = teacherMapper.selectTeacherOne(accountId);
+	  
+	StringBuilder uri = null;
 	if (teacherMapper.selectMyImage(accountId) != null) {
 		try {
 		    // 소스 파일 불러오기
@@ -174,6 +171,8 @@ public class TeacherService {
 	}
 	
 	//강사 자신의 이미지
+	//매개변수:강사ID
+	//리턴값:강사 이미지
 	public AccountImage getTeacherImageFile(String accountId) {
 		return teacherMapper.selectMyImage(accountId);
 	}

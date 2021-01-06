@@ -47,4 +47,14 @@ public interface AccountMapper {
 	// 매개변수: 계정의 ID, PW변경폼에서 입력한 비밀번호
 	// 리턴값: 계정의 비밀번호를 변경한 행
 	int updateAccountPasswordByAccountId(Account account);
+	
+	// 사용자의 아이디를 찾는 메소드
+	// 매개변수: 계정의 이메일
+	// 리턴값: 이메일로 찾은 사용자 아이디
+	String selectAccountIdByEmail(String accountEmail);
+	
+	// 임시비밀번호 발급시에 기존 비밀번호를 변경하는 메소드
+	// 매개변수: 이메일, 임시비밀번호
+	// 리턴값: 변경된 계정 행
+	int updateAccountPasswordByEmail(Map<String, Object> map);
 }

@@ -1,6 +1,8 @@
 package gd.fintech.lms.account.service;
 
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,7 @@ import gd.fintech.lms.account.mapper.AccountMapper;
 
 // 회원 등록 여부를 확인하기 위한 서비스 클래스
 
-@Service
+@Service("AccountService")
 @Transactional
 public class AccountService {
 	// AccountMapper 객체 주입
@@ -56,6 +58,35 @@ public class AccountService {
 		}
 		return null;
 	}
+	
+	// 사용자의 아이디를 찾아주는 메소드
+	// 매개변수: 이메일
+	// 리턴값: 이메일로 조회된 아이디
+	public String getAccountIdByEmail(String accountEmail) {
+		return accountMapper.selectAccountIdByEmail(accountEmail);
+	}
+	
+	// 임시 비밀번호를 생성하는 메소드
+	// 리턴값: 임시비밀번호
+	public String getNewPw() {
+		char[] charSet = {'0','1','2','3','4','5','6','7','8','9',
+						'A','B','C','D','E','F','G','H','I','J','K','L','M','N',
+						'O','P','Q','R','S','T','U','V','W','X','Y','Z','!','@','#','$','*'};
+		StringBuffer newKey = new StringBuffer();	// 임시번호를 저장하는 스트링버퍼
+		for(int i=0; i<10; i++) {
+			int idx = (int) (charSet.length * Math.random());	// 랜덤 인덱스
+			newKey.append(charSet[idx]);
+		}
+		return newKey.toString();
+	}
+	
+	// DB에 있는 비밀번호 변경해주는 메소드
+	// 매개변수: 이메일, 비밀번호
+	// 리턴값: 변경되는 행
+	public int modifyAcccountPw(Map<String, Object> map) {
+		return accountMapper.updateAccountPasswordByEmail(map);
+	}
+	
 	
 	// 학생 자신에 대한 정보를 상세조회하여 가져오는 메소드
 	// 매개변수: 학생의 계정 ID

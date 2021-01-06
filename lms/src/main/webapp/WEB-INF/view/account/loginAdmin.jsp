@@ -53,21 +53,25 @@
 			<form action="${pageContext.request.contextPath}/login?pageLevel=4" method="post" id="loginForm">
 				<div align="center">
 					<h5>관리자 로그인</h5>
-					<table>
+					<table style="margin-top: 30px">
 						<tr>
-							<td>아이디</td>
+							<td>ID&nbsp;</td>
 							<td>
-								<input class="form-control col-sm-10" type="text" id="accountId" name="accountId" value="admin" placeholder="아이디 입력">
+								<input class="form-control" type="text" id="accountId" name="accountId" value="admin" placeholder="아이디 입력">
 							</td>
 						</tr>
 						<tr>
-							<td>비밀번호</td>
+							<td>PW&nbsp;</td>
 							<td>
-								<input class="form-control col-sm-10" type="password" id="accountPw" name="accountPw" value="1234" placeholder="비밀번호 입력">
+								<input class="form-control" type="password" id="accountPw" name="accountPw" value="1234" placeholder="비밀번호 입력">
 							</td>
 						</tr>
+						<tr>
+						<td colspan="2" style="padding-top: 20px">
+							<button class="btn btn-primary btn-block" type="button" id="loginBtn">로그인</button>
+						</td>
+					</tr>
 					</table><br>
-					<button class="btn btn-primary col-sm-2" type="button" id="loginBtn">로그인</button>
 				</div>
 			</form>
 		</div>

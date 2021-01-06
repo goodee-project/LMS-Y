@@ -37,9 +37,6 @@
 			    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=1">강사강좌조회</a>
 			</li>
 			<li class="nav-item">
-			  	<a class="nav-link" href="${pageContext.request.contextPath}/#">강사과제생성</a>
-			</li>
-			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/lmsNoticeList">LMS 공지사항</a>
 			</li>
 			<li class="nav-item">

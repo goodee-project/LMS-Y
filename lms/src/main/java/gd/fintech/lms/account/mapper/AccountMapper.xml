@@ -82,4 +82,18 @@
 			account_updatedate = NOW()
 		WHERE account_id = #{accountId}
 	</update>
+	
+	<!-- 사용자의 아이디를 찾는 쿼리 -->
+	<select id="selectAccountIdByEmail" parameterType="String" resultType="String">
+		SELECT account_id
+		FROM account
+		WHERE account_email = #{accountEmail}
+	</select>
+	
+	<!-- 임시번호 발급시에 기존 비밀번호 변경하는 쿼리 -->
+	<update id="updateAccountPasswordByEmail" parameterType="java.util.Map">
+		UPDATE account
+		SET account_pw = PASSWORD(#{accountPw})
+		WHERE account_email = #{accountEmail}
+	</update>
 </mapper>

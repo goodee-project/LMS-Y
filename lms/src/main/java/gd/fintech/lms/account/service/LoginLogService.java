@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.account.mapper.LoginLogMapper;
 import gd.fintech.lms.account.vo.LoginLog;
 
 @Service("loginLogService")
+@Transactional
 public class LoginLogService {
 	// LoginLogMapper 객체를 주입
 	@Autowired private LoginLogMapper loginLogMapper;

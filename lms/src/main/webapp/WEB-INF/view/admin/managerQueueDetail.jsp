@@ -10,10 +10,31 @@
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
+			$(document).ready(function() {
+				$('#approveBtn').click(function() {
+					let approve = confirm('정말 승인 하시겠습니까?');
+					
+					if(approve) {
+						location.replace('${pageContext.request.contextPath}/admin/approveManagerMembership?accountId=${managerQueueDetail.accountId}');
+						alert('승인하였습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+        		});
+        		
+        		$('#disapproveBtn').click(function() {
+					let disapprove = confirm('정말 거부 하시겠습니까?');
+					
+					if(disapprove) {
+						location.replace('${pageContext.request.contextPath}/admin/disapproveManagerMembership?accountId=${managerQueueDetail.accountId}');
+						alert('승인하였습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+        		});
+        	});
         </script>
 	</head>
 	
@@ -25,7 +46,7 @@
 			<h1>회원가입 승인대기 중인 운영자 상세정보</h1>
 			
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
 						<td>아이디</td>						
 						<td>${managerQueueDetail.accountId}</td>
@@ -62,12 +83,12 @@
 			</div>
 			
 			<div>
-				<a href="${pageContext.request.contextPath}/admin/approveManagerMembership?accountId=${managerQueueDetail.accountId}">
-					[승인]
-				</a>
-				<a href="${pageContext.request.contextPath}/admin/disapproveManagerMembership?accountId=${managerQueueDetail.accountId}">
-					[거부]
-				</a>
+				<button type="button" id="approveBtn">
+					승인
+				</button>
+				<button type="button" id="disapproveBtn">
+					거부
+				</button>
 			</div>
 		</div>
 	</body>

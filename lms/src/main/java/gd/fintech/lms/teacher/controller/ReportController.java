@@ -44,7 +44,9 @@ public class ReportController {
 		model.addAttribute("pageNaviBegin", map.get("pageNaviBegin"));
 		model.addAttribute("pageNaviEnd", map.get("pageNaviEnd"));
 		model.addAttribute("lastPage", map.get("lastPage"));
-		
+
+		// 강좌 메뉴에 사용될 lectureNo 등록
+		model.addAttribute("lectureNo", lectureNo);
 		return "teacher/reportList";
 	}
 	
@@ -61,6 +63,7 @@ public class ReportController {
 		
 		model.addAttribute("report", map.get("report"));
 		model.addAttribute("isEvaluatable", map.get("isEvaluatable"));
+		model.addAttribute("lectureNo", ((Report)map.get("report")).getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/reportDetail";
 	}
 	
@@ -70,7 +73,9 @@ public class ReportController {
 	// 리턴값: teacher/createReport.jsp 뷰 포워딩
 	@GetMapping("/teacher/createReport")
 	public String createReport(
-			@RequestParam("lectureNo") int lectureNo) {
+			@RequestParam("lectureNo") int lectureNo,
+			Model model) {
+		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/createReport";
 	}
 
@@ -95,6 +100,7 @@ public class ReportController {
 		Report report = reportService.getReportDetailWithDateFormatting(reportNo);
 		
 		model.addAttribute("report", report);
+		model.addAttribute("lectureNo", report.getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/modifyReport";
 	}
 
@@ -120,6 +126,7 @@ public class ReportController {
 		ReportSubmit reportSubmit = reportService.getReportSubmitDetail(reportSubmitNo);
 		
 		model.addAttribute("reportSubmit", reportSubmit);
+		model.addAttribute("lectureNo", ((Report)reportService.getReportDetail(reportSubmit.getReportNo()).get("report")).getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/evaluateReportSubmit";
 	}
 

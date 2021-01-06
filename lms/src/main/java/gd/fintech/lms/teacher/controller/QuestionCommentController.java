@@ -44,6 +44,7 @@ public class QuestionCommentController {
 		
 		model.addAttribute("list", map.get("questionAllList"));
 		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/questionList";
 	}
 	
@@ -59,6 +60,7 @@ public class QuestionCommentController {
 		Question question = questionService.getQuestionOne(questionNo);
 		
 		model.addAttribute("question", question);
+		model.addAttribute("lectureNo", question.getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/questionDetail";
 	}
 	
@@ -74,6 +76,7 @@ public class QuestionCommentController {
 		Question question = questionService.getQuestionOne(questionNo);
 		
 		model.addAttribute("question", question);
+		model.addAttribute("lectureNo", question.getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/createQuestionComment";
 	}
 	
@@ -102,6 +105,7 @@ public class QuestionCommentController {
 		
 		model.addAttribute("question", map.get("question"));
 		model.addAttribute("questionComment", map.get("questionComment"));
+		model.addAttribute("lectureNo", ((Question)map.get("question")).getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/modifyQuestionComment";
 	}
 	

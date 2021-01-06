@@ -1,5 +1,6 @@
 package gd.fintech.lms.teacher.service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -92,20 +93,23 @@ public class TestService {
 		Test test = testMapper.selectTestDetail(lectureNo);
 		boolean isEditable = true; // 시험 평가 기간인지 확인하는 용도의 변수
 		
-		// 시험 평가 기간 내에 속해있는지 확인하기 위해 Date타입으로 현재 날짜와 test에 기입된 날짜를 변환
-		// 변환 도중 예외 발생 시 스택트레이싱 후 Transactional 애노테이션에게 예외 발생을 알림
-		try {
-			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-			
-			Date currentDate = Calendar.getInstance().getTime();
-			
-			if (fmt.parse(test.getTestStartDate()).getTime() < currentDate.getTime()) {
-				// 시험 평가 기간이거나 지났을 경우 시험 문제는 수정할수 없도록 플래그 변경
-				isEditable = false;
+		// getTestDetailWithDateFormatting() 메서드로 불러올 때 시험이 생성되지 않았다면 건너뛰고 빈 맵을 반환함
+		if (test != null) {
+			// 시험 평가 기간 내에 속해있는지 확인하기 위해 Date타입으로 현재 날짜와 test에 기입된 날짜를 변환
+			// 변환 도중 예외 발생 시 스택트레이싱 후 Transactional 애노테이션에게 예외 발생을 알림
+			try {
+				SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+				
+				Date currentDate = Calendar.getInstance().getTime();
+				
+				if (fmt.parse(test.getTestStartDate()).getTime() < currentDate.getTime()) {
+					// 시험 평가 기간이거나 지났을 경우 시험 문제는 수정할수 없도록 플래그 변경
+					isEditable = false;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
 		}
 		
 		Map<String, Object> map = new HashMap<>();

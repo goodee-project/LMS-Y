@@ -39,6 +39,7 @@ public class TestController {
 		model.addAttribute("isEditable", map.get("isEditable"));
 		model.addAttribute("multipleChoiceList", map.get("list"));
 		model.addAttribute("multipleChoiceListSize", ((List)map.get("list")).size());
+		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/testDetail";
 	}
 
@@ -47,7 +48,9 @@ public class TestController {
 	// 리턴값: teacher/createTest.jsp 뷰 포워딩
 	@GetMapping("/teacher/createTest")
 	public String createTest(
-			@RequestParam("lectureNo") int lectureNo) {
+			@RequestParam("lectureNo") int lectureNo,
+			Model model) {
+		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/createTest";
 	}
 
@@ -73,6 +76,7 @@ public class TestController {
 		Test test = testService.getTestDetailWithDateFormatting(lectureNo);
 		
 		model.addAttribute("test", test);
+		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/modifyTest";
 	}
 
@@ -98,6 +102,7 @@ public class TestController {
 		Test test = testService.getTestDetail(lectureNo);
 		
 		model.addAttribute("test", test);
+		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/createMultipleChoice";
 	}
 
@@ -129,6 +134,7 @@ public class TestController {
 		model.addAttribute("multipleChoiceExample3", multipleChoice.getMultipleChoiceExampleList().get(2).getMultipleChoiceExampleContent());
 		model.addAttribute("multipleChoiceExample4", multipleChoice.getMultipleChoiceExampleList().get(3).getMultipleChoiceExampleContent());
 		model.addAttribute("multipleChoiceExample5", multipleChoice.getMultipleChoiceExampleList().get(4).getMultipleChoiceExampleContent());
+		model.addAttribute("lectureNo", multipleChoice.getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/modifyMultipleChoice";
 	}
 

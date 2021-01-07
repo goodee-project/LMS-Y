@@ -18,7 +18,6 @@ import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
-import gd.fintech.lms.teacher.vo.Syllabus;
 
 
 
@@ -39,13 +38,11 @@ public class LectureManagerController {
 	@GetMapping("/manager/createLectureManager")
 	public String createLecture(Model model) {
 	 List<Textbook> textbookList = lectureManagerService.getLectureTextBookList();
-	 List<Syllabus> syllabusList = lectureManagerService.getLectureSyllabusList();
 	 List<Subject>	subjectList = lectureManagerService.getLectureSubjectList();
 	 List<Classroom> classroomList = lectureManagerService.getLectureClassroomList();
 	 logger.debug("classroomList"+ classroomList );
 	 model.addAttribute("classroomList", classroomList);
 	 model.addAttribute("textbookList", textbookList);
-	 model.addAttribute("syllabusList", syllabusList);
 	 model.addAttribute("subjectList", subjectList);
 	 
 		return "manager/createLectureManager";
@@ -69,14 +66,12 @@ public class LectureManagerController {
 	public String modifyLecture(Model model, 
 			@RequestParam(name="lectureNo")int lectureNo) {
 		List<Textbook> textbookList = lectureManagerService.getLectureTextBookList();
-		List<Syllabus> syllabusList = lectureManagerService.getLectureSyllabusList();
 		List<Subject>	subjectList = lectureManagerService.getLectureSubjectList();
 		List<Classroom> classroomList = lectureManagerService.getLectureClassroomList();
-		Lecture lecture = lectureManagerService.managerLectureDetail(lectureNo);
+		Lecture lecture = lectureManagerService.getManagerLectureDetail(lectureNo);
 		model.addAttribute("lecture", lecture);
 		model.addAttribute("classroomList", classroomList);
 		model.addAttribute("textbookList", textbookList);
-		model.addAttribute("syllabusList", syllabusList);
 		model.addAttribute("subjectList", subjectList);
 		return "manager/modifyLectureManager";
 	}
@@ -95,7 +90,7 @@ public class LectureManagerController {
 	@GetMapping("/manager/managerLectureDetail")
 	public String managerLectureDetail(Model model,
 			@RequestParam("lectureNo")int lectureNo) {
-		Lecture lecture = lectureManagerService.managerLectureDetail(lectureNo);
+		Lecture lecture = lectureManagerService.getManagerLectureDetail(lectureNo);
 		model.addAttribute("lecture", lecture);
 		logger.debug("lecture"+ lecture );
 		return "manager/managerLectureDetail";

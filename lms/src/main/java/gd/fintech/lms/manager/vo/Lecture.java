@@ -36,9 +36,6 @@ public class Lecture {
 	// 강좌 정원수
 	private int lectureTotal;
 	
-	// 강의 계획서 번호
-	private int syllabusNo;
-	
 	// 강의실 번호
 	private int classroomNo; 
 	

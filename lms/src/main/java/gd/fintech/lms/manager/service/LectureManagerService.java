@@ -15,7 +15,6 @@ import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
-import gd.fintech.lms.teacher.vo.Syllabus;
 
 
 
@@ -54,11 +53,6 @@ public class LectureManagerService {
 	// 강좌에서의 교재 리스트
 	public List<Textbook> getLectureTextBookList(){
 		return lectureManagerMapper.selectLectureTextbookList();
-	}
-	
-	// 강좌에서의 강의계획서 리스트
-	public List<Syllabus> getLectureSyllabusList(){
-		return lectureManagerMapper.selectLectureSyllabusList();
 	}
 	
 	// 강좌에서의 과목 리스트
@@ -100,7 +94,7 @@ public class LectureManagerService {
 	// 강좌 상세보기 서비스 
 	// 매개변수: 강좌 고유번호
 	// 리턴값: 강좌 고유번호에 대한 강좌 상세보기
-	public Lecture managerLectureDetail(int lectureNo) {
+	public Lecture getManagerLectureDetail(int lectureNo) {
 		return lectureManagerMapper.selectLectureDetail(lectureNo);
 	}
 	

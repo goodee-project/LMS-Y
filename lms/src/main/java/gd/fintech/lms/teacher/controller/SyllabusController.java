@@ -46,7 +46,7 @@ public class SyllabusController {
 	// 작성할 강의계획서를 입력할 수 있는 페이지 출력
 	@GetMapping("/teacher/createSyllabus")
 	public String createSyllabus(Model model, int lectureNo) {
-		Lecture managerLectureDetail = lectureManagerService.managerLectureDetail(lectureNo);
+		Lecture managerLectureDetail = lectureManagerService.getManagerLectureDetail(lectureNo);
 		model.addAttribute("managerLectureDetail", managerLectureDetail);
 		
 		return "/teacher/createSyllabus";
@@ -73,7 +73,7 @@ public class SyllabusController {
 	@GetMapping("/teacher/modifySyllabus")
 	public String modifySyllabus(Model model, @RequestParam(value = "syllabusNo") int lectureNo) {
 		Syllabus syllabusDetail = syllabusService.getSyllabusDetail(lectureNo);
-		Lecture managerLectureDetail = lectureManagerService.managerLectureDetail(lectureNo);
+		Lecture managerLectureDetail = lectureManagerService.getManagerLectureDetail(lectureNo);
 		model.addAttribute("syllabusDetail", syllabusDetail);
 		model.addAttribute("managerLectureDetail", managerLectureDetail);
 		

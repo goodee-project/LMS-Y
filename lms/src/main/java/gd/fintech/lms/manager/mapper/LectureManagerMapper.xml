@@ -33,17 +33,7 @@
 		FROM classroom
 
 	</select>
-
-
-	<!-- 강좌에서의 강의계획서 정보 -->
-	<select id="selectLectureSyllabusList" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.Syllabus">
-		SELECT
-			syllabus_no syllabusNo,
-			syllabus_content syllabusContent
-		FROM syllabus
-
-	</select>
-
+	
 	<!-- 강좌에서의 교재 정보 -->
 	<select id="selectLectureTextbookList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Textbook">
 		SELECT
@@ -73,7 +63,6 @@
 			lecture_startdate,
 			lecture_enddate,
 			lecture_total,
-			syllabus_no,
 			classroom_no,
 			lecture_createdate,
 			lecture_updatedate
@@ -86,7 +75,6 @@
 			#{lectureStartDate},
 			#{lectureEndDate},
 			#{lectureTotal},
-			#{syllabusNo},
 			#{classroomNo},
 			NOW(),
 			NOW()
@@ -139,7 +127,6 @@
 		<result property="lectureStartDate" column="lecture_startdate" />
 		<result property="lectureEndDate" column="lecture_enddate" />
 		<result property="lectureTotal" column="lecture_total" />
-		<result property="syllabusNo" column="syllabus_no" />
 		<result property="classroomNo" column="classroom_no" />
 		<result property="lectureCreateDate" column="lecture_createdate" />
 		<result property="lectureUpdateDate" column="lecture_updatedate" />
@@ -173,7 +160,6 @@
 			l.lecture_startdate,
 			l.lecture_enddate,
 			l.lecture_total,
-			l.syllabus_no,
 			l.classroom_no,
 			c.classroom_number
 		FROM lecture l

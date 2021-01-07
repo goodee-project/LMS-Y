@@ -9,7 +9,6 @@ import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
-import gd.fintech.lms.teacher.vo.Syllabus;
 
 // 운영자의 강좌에 대한 메퍼 인터페이스
 
@@ -23,10 +22,6 @@ public interface LectureManagerMapper {
 	// 강좌에서의 강의실 리스트
 	// 리턴값: 강의실 목록
 	List<Classroom> selectLectureClassroomList();
-	
-	// 강좌에서의 강의계획서 리스트
-	// 리턴값: 강의계획서 목록
-	List<Syllabus> selectLectureSyllabusList();
 	
 	// 강좌에서의 교재 리스트
 	// 리턴값: 교재목록

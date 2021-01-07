@@ -74,16 +74,6 @@
 						<td><input type="text"  name="lectureTotal" id="lectureTotalId" value="${lecture.lectureTotal}" ></td>
 					</tr>
 					<tr>
-						<td>강의 계획서</td>
-						<td>
-							<select name="syllabusNo">
-								<c:forEach items="${syllabusList}" var="syllabus">	
-									<option value="${syllabus.syllabusNo}">${syllabus.syllabusContent}</option>
-								</c:forEach>
-							</select>
-						</td>
-					</tr>
-					<tr>
 					
 						<td>강의실</td>	
 					<td>						

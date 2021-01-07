@@ -17,7 +17,7 @@ public interface LectureManagerMapper {
 	// 강좌 리스트
 	// 매개변수:  
 	// 리턴값: 강좌의 목록
-	List<Lecture> selectLectureListByPage(Map<String, Integer> map);  
+	List<Lecture> selectLectureListByPage(Map<String, Object> map);  
 	
 	// 강좌에서의 강의실 리스트
 	// 리턴값: 강의실 목록

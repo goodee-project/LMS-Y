@@ -15,6 +15,9 @@
 				<h1>강좌 상세보기 (운영자)</h1>
 		</div>
 		<div class=container>
+			<div>
+				<a href="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">강좌 수정</a>
+			</div>
 				<table class="table">
 				   
 				   <tr>
@@ -57,10 +60,6 @@
 					<tr>
 						<td>강좌 정원수</td>
 						<td>${lecture.lectureTotal}</td>
-					</tr>
-					<tr>
-						<td>강의계획서</td>
-						<td>${lecture.syllabusNo}</td>
 					</tr>
 					<tr>
 						<td>강의실 번호</td>

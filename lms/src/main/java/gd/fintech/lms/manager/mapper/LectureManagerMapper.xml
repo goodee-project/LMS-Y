@@ -11,8 +11,7 @@
 			lecture_name lectureName,
 			lecture_startdate lectureStartDate,
 			lecture_enddate lectureEndDate,
-			lecture_total lectureTotal,
-			lecture_updatedate lectureUpdateDate
+			lecture_total lectureTotal
 		FROM lecture
 		LIMIT #{beginRow},#{rowPerPage}
 

@@ -29,8 +29,8 @@ public class FAQController {
 	@Autowired private FAQService faqService;
 	@Autowired private FAQCategoryService faqCategoryService;	
 		
-	// FAQ 
-	// 매개변수: Model @RequestParam: currentPage (현재페이지)
+	// FAQ 리스트
+	// 매개변수: Model @RequestParam: currentPage (현재페이지) @RequestParam: categoryFaqSearch(FAQ 카테고리 검색)
 	// 리턴값: FAQ 리스트 페이지 출력
 	@GetMapping("/manager/FAQList")
 	public String FAQList(Model model,
@@ -42,11 +42,11 @@ public class FAQController {
 	  model.addAttribute("categoryFaqSearch", categoryFaqSearch);
 	  model.addAttribute("categoryList", categoryList);
 	  model.addAttribute("currentPage",currentPage);
-	  model.addAttribute("faqList",map.get("faqList") );
-	  model.addAttribute("lastPage",map.get("lastPage") );
-	  model.addAttribute("navBeginPage",map.get("navBeginPage") );
-	  model.addAttribute("navLastPage",map.get("navLastPage") );
-	  model.addAttribute("navPerPage",map.get("navPerPage") );
+	  model.addAttribute("faqList",map.get("faqList"));
+	  model.addAttribute("lastPage",map.get("lastPage"));
+	  model.addAttribute("navBeginPage",map.get("navBeginPage"));
+	  model.addAttribute("navLastPage",map.get("navLastPage"));
+	  model.addAttribute("navPerPage",map.get("navPerPage"));
 	  logger.debug("categoryList",categoryList);
 	  logger.debug("categoryFaqSearch",categoryFaqSearch);
 	  return "manager/FAQList";
@@ -116,5 +116,15 @@ public class FAQController {
 		return "manager/FAQDetail";
 		
 	}	
+	
+	// FAQ 삭제
+	// 매개변수: FAQ의 고유번호
+	// 리턴값: faqNo에 해당하는 FAQ 삭제 
+	@GetMapping("/manager/removeFAQ")
+	public String removeFAQ(
+			@RequestParam("faqNo")int faqNo ) {
+		faqService.removeFAQ(faqNo);
+		return "redirect:/manager/FAQList";
+	}
 	
 }

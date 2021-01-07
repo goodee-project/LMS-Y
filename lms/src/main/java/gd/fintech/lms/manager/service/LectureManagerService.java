@@ -32,18 +32,54 @@ public class LectureManagerService {
 
 	
 	
-	// 강좌의 정보를 출력하는 서비스
-	// 매개변수: 보여줄 데이터 개수 
-	// 리턴값: 현재 페이지의 강좌 리스트
-	public List<Lecture> getLectureListByPage(int currentPage, int rowPerPage){
-		int beginRow = (currentPage -1)* rowPerPage;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("beginRow", beginRow);
-		map.put("rowPerPage", rowPerPage);
-		logger.debug("rowPerPage" +rowPerPage );
-		logger.debug("beginRow "+beginRow );
-		return lectureManagerMapper.selectLectureListByPage(map);
-	}
+		// 강좌 리스트를 보여주는 서비스
+		// 매개변수: 현재 페이지
+		// 리턴값: 현재 페이지의 강좌 리스트
+		public Map<String, Object> getManagerLectureListByPage(int currentPage ){
+			//  페이지당 표시되는 데이터 수
+			int rowPerPage = 10;
+			// 현재 페이지에서 시작하는 데이터 
+			int beginRow = (currentPage - 1) * rowPerPage;
+			// 전체 페이지 개수
+			int countLecture = lectureManagerMapper.selectLectureCount();
+			// 마지막 페이지
+			int lastPage = countLecture / rowPerPage;
+			if (countLecture % rowPerPage != 0) {
+				lastPage += 1;
+			} 
+			// 마지막 페이지가 0일때 현재페이지0
+			if (lastPage == 0) {
+				currentPage = 0;
+			}
+			
+			// 페이지 네비에서 표시할 페이지 수 
+			int navPerPage = 10;
+			// 페이지 네비에서의 처음 페이지	                  
+			int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+			// 페이지 네비에서의  마지막 페이지
+			int navLastPage = (navBeginPage + navPerPage) - 1;
+			
+			// navLastPage 가 lastPage 보다 크면 navLastPage의 값은 lastPage
+			if (navLastPage > lastPage) {
+				navLastPage = lastPage;
+			}
+			
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("beginRow", beginRow);
+			map.put("rowPerPage",rowPerPage);
+			logger.debug("beginRow:"+beginRow);
+			logger.debug("rowPerPage:"+rowPerPage);
+			Map<String, Object> paramMap = new HashMap<String,Object>();
+			List<Lecture> ManagerLectureList = lectureManagerMapper.selectLectureListByPage(map);
+			paramMap.put("ManagerLectureList",ManagerLectureList);
+			paramMap.put("lastPage",lastPage);
+			paramMap.put("navBeginPage",navBeginPage);
+			paramMap.put("navLastPage",navLastPage);
+			paramMap.put("navPerPage",navPerPage);
+			logger.debug("ManagerLectureList:"+ManagerLectureList);
+			
+			return paramMap;
+		}
 	
 	// 강좌에서의 강의실 리스트
 	public List<Classroom> getLectureClassroomList(){

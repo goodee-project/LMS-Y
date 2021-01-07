@@ -3,6 +3,7 @@ package gd.fintech.lms.manager.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,24 @@ public class LectureManagerController {
 	// 강좌  
 	@Autowired private LectureManagerService lectureManagerService;
 	
+	// 강좌 리스트 
+	// 매개변수: Model @RequestParam: currentPage (현재페이지)
+	// 리턴값: FAQ 리스트 페이지 출력
+	@GetMapping("/manager/managerLecture")
+	public String FAQList(Model model,
+		@RequestParam(value="currentPage",defaultValue = "1")int currentPage) {
+	 Map<String, Object> map = lectureManagerService.getManagerLectureListByPage(currentPage);
+	 logger.debug(map.toString());
+	 model.addAttribute("currentPage",currentPage);
+	 model.addAttribute("ManagerLectureList",map.get("ManagerLectureList"));
+	 model.addAttribute("lastPage",map.get("lastPage"));
+	 model.addAttribute("navBeginPage",map.get("navBeginPage"));
+	 model.addAttribute("navLastPage",map.get("navLastPage"));
+     model.addAttribute("navPerPage",map.get("navPerPage"));
+     
+     	return "manager/managerLecture";
+	
+	}	
 	// 강좌 개설 폼
 	// 매개변수:
 	// 리턴값:
@@ -95,4 +114,7 @@ public class LectureManagerController {
 		logger.debug("lecture"+ lecture );
 		return "manager/managerLectureDetail";
 		}
+	
+	
+	
 }

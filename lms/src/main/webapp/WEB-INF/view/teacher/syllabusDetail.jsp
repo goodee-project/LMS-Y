@@ -8,7 +8,34 @@
 		<title>강의계획서 정보</title>
 		
 		<!-- jQuery 스크립트 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#teacherSignBtn').click(function() {
+					let signSyllabusByTeacher = confirm('정말 서명하시겠습니까?');
+					
+					if(signSyllabusByTeacher) {
+						location.replace('${pageContext.request.contextPath}/teacher/signSyllabusByTeacher?lectureNo=${syllabusDetail.lectureNo}');
+						alert('서명되었습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+        		});
+        		
+        		$('#managerSignBtn').click(function() {
+					let signSyllabusByManager = confirm('정말 서명하시겠습니까?');
+					
+					if(signSyllabusByManager) {
+						location.replace('${pageContext.request.contextPath}/manager/signSyllabusByManager?lectureNo=${syllabusDetail.lectureNo}');
+						alert('서명되었습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+        		});
+        	});
+		</script>
 	</head>
 	
 	<body>
@@ -16,7 +43,7 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>강의계획서 정보</h1>
+			<h1>${lectureDetail.lectureName} 강의계획서 정보</h1>
 			
 			<!-- 서명 여부 -->
 			<div>
@@ -26,31 +53,34 @@
 							<td></td>
 							<td>서명</td>
 							<td>서명일자</td>
-							<td>서명하기</td>
 						</tr>
 						<tr>
 							<td>강사</td>
-							<td>${syllabusDetail.syllabusTeacherSign}</td>
-							<td>${syllabusDetail.syllabusTeacherSignDate}</td>
 							<td>
-								<c:if test="${accountLevel == 2 && syllabusDetail.syllabusTeacherSign == null}">
-									<a href="${pageContext.request.contextPath}/teacher/signSyllabusByTeacher?syllabusNo=${syllabusDetail.syllabusNo}">
-										[서명]
-									</a>
+								<c:if test="${accountLevel == 2 && syllabusDetail.syllabusTeacherSign == null && syllabusDetail.accountId == accountId}">
+									<button type="button" id="teacherSignBtn">
+										서명하기
+									</button>
+								</c:if>
+								<c:if test="${syllabusDetail.syllabusTeacherSign != null}">
+									${syllabusDetail.syllabusTeacherSign}
 								</c:if>
 							</td>
+							<td>${syllabusDetail.syllabusTeacherSignDate}</td>
 						</tr>
 						<tr>
 							<td>운영자</td>
-							<td>${syllabusDetail.syllabusManagerSign}</td>
-							<td>${syllabusDetail.syllabusManagerSignDate}</td>
 							<td>
 								<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != null && syllabusDetail.syllabusManagerSign == null}">
-									<a href="${pageContext.request.contextPath}/manager/signSyllabusByManager?syllabusNo=${syllabusDetail.syllabusNo}">
-										[서명]
-									</a>
+									<button type="button" id="managerSignBtn">
+										서명하기
+									</button>
+								</c:if>
+								<c:if test="${syllabusDetail.syllabusManagerSign != null}">
+									${syllabusDetail.syllabusManagerSign}
 								</c:if>
 							</td>
+							<td>${syllabusDetail.syllabusManagerSignDate}</td>
 						</tr>
 					</table>
 				</c:if>
@@ -59,7 +89,7 @@
 			<!-- 수정, 서명 버튼 -->
 			<div>
 				<c:if test="${accountLevel == 2 && syllabusDetail.accountId == accountId}">
-					<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?syllabusNo=${syllabusDetail.syllabusNo}">
+					<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?lectureNo=${syllabusDetail.lectureNo}">
 						[수정]
 					</a>
 				</c:if>

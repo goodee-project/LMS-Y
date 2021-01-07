@@ -61,7 +61,7 @@
 			
 			<div>
 				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/createSyllabus">
-           			<input type="text" value="${managerLectureDetail.lectureNo}" hidden="hidden">
+           			<input type="text" id="lectureNo" name="lectureNo" value="${managerLectureDetail.lectureNo}" hidden="hidden">
            			
            			<textarea id="syllabusContent" name="syllabusContent" style="width: 100%"></textarea>
 

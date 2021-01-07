@@ -23,7 +23,7 @@
 	<!-- 강사가 강의계획서를 작성하는 쿼리문 -->
 	<insert id="insertSyllabus" parameterType="gd.fintech.lms.teacher.vo.Syllabus">
 		INSERT INTO syllabus (
-			lecture_no
+			lecture_no,
 			account_id,
 			syllabus_writer,
 			syllabus_content,

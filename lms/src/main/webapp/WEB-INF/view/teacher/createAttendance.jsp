@@ -22,23 +22,26 @@
 			<input readonly="readonly" type="hidden" value="${param.accountId}" name="accountId">
 			<input readonly="readonly" type="hidden" value="${param.lectureNo}" name="lectureNo">
 		</div>
+		<div style="text-align:right;">
+		<button type="submit" class="btn">입력</button>
+		</div>
 		<table class="table">
 				<tr>
 					<td>학생이름</td>
-					<td><input readonly="readonly" type="text" value="${param.studentName}"></td>
+					<td><input class="form-control bg-light" readonly="readonly" type="text" value="${param.studentName}"></td>
 				</tr>
 				<tr>
 					<td>학생성별</td>
-					<td><input readonly="readonly" type="text" value="${param.studentGender}"></td>
+					<td><input class="form-control bg-light" readonly="readonly" type="text" value="${param.studentGender}"></td>
 				</tr>
 				<tr>
 					<td>출석날짜</td>
-					<td><input name="attendanceDay" type="date" value="${attendanceList.attendanceDay}"></td>
+					<td><input class="form-control bg-light" name="attendanceDay" type="text" value="${currentYear}-${currentMonth}-${currentDay}"></td>
 				</tr>
 				<tr>
 					<td>출석여부</td>
 					<td>
-						<select name="attendanceState">
+						<select class="form-control bg-light" name="attendanceState">
 							<option value="">선택</option>
 							<option value="출석">출석</option>
 							<option value="결석">결석</option>
@@ -50,10 +53,9 @@
 				</tr>
 				<tr>
 					<td>비고</td>
-					<td><textarea rows="3" cols="50" name="attendanceRemark"></textarea></td>
+					<td><textarea rows="5" class="form-control bg-light" name="attendanceRemark"></textarea></td>
 				</tr>
 		</table>
-			<button type="submit">입력</button>
 		</form>
 	</div>
 </body>

@@ -37,7 +37,7 @@ public class TeacherLectureController {
 	// 리턴값:강사 아이디 참조하여 정보를 띄우는 뷰페이지
 	@GetMapping("/teacher/teacherLecture")
 	public String teacherLecture(Model model, HttpServletRequest request,
-			@RequestParam(value = "currentPage") int currentPage) {
+			@RequestParam(value = "currentPage",defaultValue = "1") int currentPage) {
 
 		// 세션정보 가져옴
 		HttpSession session = ((HttpServletRequest) request).getSession();

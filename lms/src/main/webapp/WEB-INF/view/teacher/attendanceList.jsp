@@ -13,6 +13,12 @@
 				document.querySelector(".disableLink").removeAttribute('href');
 			});
 		</script>
+		<style type="text/css">
+			.attendanceTableMenu{
+				width: 100%;
+				text-align: center;
+			}
+		</style>
 	</head>
 <body>
 	<!-- 부트스트랩(CSS) 인클루드 -->
@@ -27,13 +33,19 @@
 		</div>
 	</div>
 	<div class="container">
-		<a href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=pre&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">
-		이전
-		</a>
-			<span>${currentYear}년 ${currentMonth}월 ${currentDay}일</span>
-		<a href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=next&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">
-		이후
-		</a>
+		<table class="attendanceTableMenu">
+			<tr>
+			<td width="15%" style="text-align: right;">
+			<a class="btn btn-light" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=pre&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}"> ⇽ </a>
+			</td>
+			<td width="15%">
+			<h3>${currentYear}년 ${currentMonth}월 ${currentDay}일</h3>
+			</td>
+			<td width="15%" style="text-align: left;">
+			<a class="btn btn-light" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=next&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}"> ⇾ </a>
+			</td>
+			</tr>
+		</table>
 	</div>
 	<div class=container>
 	<table class="table">

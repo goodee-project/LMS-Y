@@ -69,7 +69,19 @@
 						</c:otherwise>
 						</c:choose>
 							<!-- 현재 페이지 표시 -->
-							<a href="">${currentPage}</a>
+							<!-- 현재 페이지 표시 -->
+							<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
+								<c:if test="${i <= lastPage}">
+									<c:choose>
+										<c:when test="${i == currentPage}">
+										<a href="#">${i}</a>
+										</c:when>
+										<c:otherwise>
+										<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${i}">${i}</a>
+										</c:otherwise>
+									</c:choose>
+								</c:if>
+							</c:forEach>
 							<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
 							<!-- 현재 페이지가 마지막 페이지 일시 -->
 						<c:choose>

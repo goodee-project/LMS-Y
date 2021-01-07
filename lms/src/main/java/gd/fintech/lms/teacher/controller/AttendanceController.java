@@ -98,7 +98,7 @@ public class AttendanceController {
 			@RequestParam(name = "currentYear",required = false)int currentYear,
 			@RequestParam(name = "currentMonth",required = false)int currentMonth,
 			@RequestParam(name = "currentDay",required = false)int currentDay) {
-
+		
 		List<Attendance> attendanceStateList = attendanceService.getAttendanceStudentOne(lectureNo, accountId, studentName, studentGender, attendanceDay);
 		//Logger 디버깅
 		logger.debug("attendanceStateList 출석 입력 폼-->"+attendanceStateList);

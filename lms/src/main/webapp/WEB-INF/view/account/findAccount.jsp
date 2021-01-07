@@ -11,10 +11,28 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
+				// 이메일 확인
+				$('#findEmail').click(function() {
+					let str = `<button type="button" class="btn btn-primary btn-block mt-3" id="btnKey">이메일 보내기</button>`;
+					$.ajax({
+						url: '${pageContext.request.contextPath}/findEmail',
+						type: 'get',
+						data: {email:$('#email').val()},
+						success: function(data) {
+							if(data == 'noPass') {
+								alert('해당 이메일은 등록되지 않았습니다');
+								 $('#btnKey').remove();
+								return;
+							}else {
+								$('#btnKey').remove();
+								$('#addBtn').append(str);
+							}
+						}
+					});					
+				});               
                 // 유효성 검사
-                $('#btnKey').click(function() {
-                    let str = `<input type="text" name="key">`;
-                    
+                $(document).on('click','#btnKey',function() {
+                	console.log($('#email').val());
                 	if($('#email').val() == '') {
 						alert('이메일을 입력하세요');
 						return;
@@ -43,12 +61,17 @@
 						<tr>
 							<td>Email&nbsp;</td>
 							<td>
-								<input type="email" class="form-control" name="email" id="email" placeholder="이메일 입력">
+								<div class="input-group mb-3">
+									<input type="email" class="form-control" name="email" id="email" placeholder="이메일 입력">
+									<div class="input-group-append">
+										<button type="button" class="btn btn-primary" id="findEmail">확인</button>
+									</div>
+								</div>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<button type="button" class="btn btn-primary btn-block mt-3" id="btnKey">이메일 보내기</button>
+								<div id="addBtn"></div>
 								<a href="${pageContext.request.contextPath}/login" class="btn btn-light btn-block mt-3" id="btnSubmit">로그인으로</a>
 							</td>
 						</tr>

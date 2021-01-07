@@ -18,6 +18,9 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>
 			</li>
 			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">내정보 상세보기</a>
+			</li>
+			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
 			</li>
 			<li class="nav-item">
@@ -68,6 +71,15 @@
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/teacherQueueList">강사 승인대기리스트</a>
 			</li>
 			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/textbookList">교재목록</a>
+			</li>
+			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/subjectList">과목목록</a>
+			</li>
+			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">내정보 상세보기</a>
+			</li>
+			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
 			</li>
 			<li class="nav-item">
@@ -84,13 +96,10 @@
 		<a class="navbar-brand ml-3">LMS</a>
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-			    <a class="nav-link" href="${pageContext.request.contextPath}/#">관리자</a>
+			    <a class="nav-link" href="${pageContext.request.contextPath}/admin/managerQueueList">운영자 승인대기리스트</a>
 			</li>
 			<li class="nav-item">
-			  	<a class="nav-link" href="${pageContext.request.contextPath}/#">관리자</a>
-			</li>
-			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/#">index</a>
+			  	<a class="nav-link" href="${pageContext.request.contextPath}/admin/adminDetail">내정보 상세보기</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>

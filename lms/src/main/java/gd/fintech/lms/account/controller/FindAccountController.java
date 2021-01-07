@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import gd.fintech.lms.MailUtil;
 import gd.fintech.lms.account.service.AccountService;
@@ -17,7 +16,7 @@ import gd.fintech.lms.account.service.AccountService;
 // 계정 찾기와 관련된 컨트롤러
 
 @Controller
-public class FindAccount {	
+public class FindAccountController {	
 	// AccountService 객체 주입
 	@Autowired private AccountService accountService;
 	

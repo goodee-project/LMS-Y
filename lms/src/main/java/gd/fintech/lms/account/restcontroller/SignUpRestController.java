@@ -15,11 +15,11 @@ import gd.fintech.lms.account.service.SignUpService;
 @RestController
 public class SignUpRestController {
 	// SignUpService 객체 주입
-	@Autowired SignUpService signUpService;
+	@Autowired private SignUpService signUpService;
 	
 	// 아이디 중복체크를 위한 메소드
 	// 매개변수: 계정 아이디
-	// 리턴값: 회원가입페이지
+	// 리턴값: 승인 또는 비승인 
 	@PostMapping("/accountIdCheck")
 	public String accountIdCheck(@RequestParam(value = "accountId", required = true) String accountId) {
 		String idCk = signUpService.getAccountId(accountId);
@@ -31,7 +31,7 @@ public class SignUpRestController {
 	
 	// 이메일 중복체를 위한 메소드
 	// 매개변수: 계정 이메일
-	// 리턴값: 회원가입페이지
+	// 리턴값: 승인 또는 비승인 
 	@PostMapping("/accountEmailCheck")
 	public String accountEmailCheck(@RequestParam(value = "accountEmail", required = true) String accountEmail) {
 		String emailCk = signUpService.getAccountEmail(accountEmail);

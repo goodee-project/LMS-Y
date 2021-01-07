@@ -55,20 +55,29 @@ public class LectureNoticeService {
 			navLastPage = lastPage;
 		}
 		Map<String,Object> paramMap = new HashMap<String,Object>();
-		
+		//현재 페이지 표시할 데이터 수
 		paramMap.put("rowPerPage", rowPerPage);
+		//시작페이지
 		paramMap.put("beginRow", beginRow);
+		//강좌 고유번호
 		paramMap.put("lectureNo", lectureNo);
+		//강좌 공지사항 검색
 		paramMap.put("lectureNoticeSearch", lectureNoticeSearch);
 		
 		List<LectureNotice> lectureNoticeList = lectureNoticeMapper.selectLectrueNoticeListByPage(paramMap);
+		//Logger 디버깅
 		logger.trace(lectureNoticeList + "<---lectureNoticeList");
 	
 		Map<String,Object>map = new HashMap<String,Object>();
+		//마지막 페이지
 		map.put("lastPage", lastPage);
+		//강좌 공지사항 목록
 		map.put("lectureNoticeList", lectureNoticeList);
+		//현재 네비바에 표시할 데이터 수
 		map.put("navPerPage", navPerPage);
+		//네비바 시작페이지
 		map.put("navBeginPage", navBeginPage);
+		//네비바 마지막페이지
 		map.put("navLastPage", navLastPage);
 
 		return map;

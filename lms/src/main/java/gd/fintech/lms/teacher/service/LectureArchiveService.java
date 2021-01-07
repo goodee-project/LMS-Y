@@ -81,20 +81,29 @@ public class LectureArchiveService {
 		}
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		
+		//현재 페이지 표시할 데이터 수
 		paramMap.put("rowPerPage", rowPerPage);
+		//시작페이지
 		paramMap.put("beginRow", beginRow);
+		//강좌고유번호
 		paramMap.put("lectureNo", lectureNo);
+		//강좌자료실검색
 		paramMap.put("lectureArchiveSearch", lectureArchiveSearch);
 		
 		List<LectureArchive> lectureArchiveList = lectureArchiveMapper.selectLectureArchiveListByPage(paramMap);
+		//Logger 디버깅
 		logger.trace(lectureArchiveList+"<---- lectureArchiveList");
 		
 		Map<String,Object>map = new HashMap<String,Object>();
+		//마지막 페이지
 		map.put("lastPage", lastPage);
+		//강좌 자료실 목록
 		map.put("lectureArchiveList", lectureArchiveList);
+		//현재 네비바 표시할 데이터 수
 		map.put("navPerPage", navPerPage);
+		//베비바 시작페이지
 		map.put("navBeginPage", navBeginPage);
+		//네비바 마지막페이지
 		map.put("navLastPage", navLastPage);
 		
 		return map;

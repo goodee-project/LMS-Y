@@ -49,6 +49,7 @@ public class LectureArchiveController {
 		Map<String,Object> map = lectureArchiveService.getLectureArchiveListByPage(lectureNo, currentPage, lectureArchiveSearch);
 		
 		List<LectureArchive> lectureArchiveList = (List<LectureArchive>)map.get("lectureArchiveList");
+		//Logger 디버깅
 		logger.trace(lectureArchiveList+"<--- lectureArchiveList");
 		int lastPage = (int)map.get("lastPage");
 		
@@ -58,7 +59,6 @@ public class LectureArchiveController {
 		model.addAttribute("navPerPage", map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
-		
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
 		model.addAttribute("lectureNo", lectureNo);

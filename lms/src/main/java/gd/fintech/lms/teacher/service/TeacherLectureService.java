@@ -24,8 +24,7 @@ public class TeacherLectureService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// TeacherLectureMapper 객체 주입
-	@Autowired
-	private TeacherLectureMapper teacherLectureMapper;
+	@Autowired private TeacherLectureMapper teacherLectureMapper;
 
 	// 강사의 강좌 목록 출력 메서드
 	// 매개변수: 강사 아이디
@@ -48,14 +47,19 @@ public class TeacherLectureService {
 			currentPage = 0;
 		}
 		Map<String, Object> map = new HashMap<String, Object>();
+		//현재 페이지 표시할 데이터 수
 		map.put("rowPerPage", rowPerPage);
+		//시작 페이지
 		map.put("beginRow", beginRow);
+		//강사 아이디
 		map.put("accountId", accountId);
+		//마지막 페이지
 		map.put("lastPage", lastPage);
 		
-		
 		List<Lecture> lectureList = teacherLectureMapper.selectTeacherLectureListByPage(map);
+		//강좌목록
 		map.put("lectureList", lectureList);
+		//Logger 디버깅
 		logger.trace(lectureList + "<---lectureList");
 		
 		return lectureList;

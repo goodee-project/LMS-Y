@@ -7,8 +7,11 @@
 		<title>강좌 공지사항</title>
 	</head>
 	<body>
-			<!-- 부트스트랩(CSS) 인클루드 -->
-			<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+		<!-- 부트스트랩(CSS) 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+		
+		<!-- 강좌 메뉴 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
 			<div class=container>
 				<div class="jumbotron">

@@ -25,8 +25,8 @@ public class AttendanceService {
 	//AttendanceMapper 객체 추입
 	@Autowired private  AttendanceMapper attendanceMapper;
 
-	// 년/월별 출석 상세보기 메서드
-	//매개변수:map.put에 강좌별 번호,년도,월,일을 넣음
+	//년/월별 출석 상세보기 메서드
+	//매개변수:map.put에 강좌 고유번호,년도,월,일을 넣음
 	//리턴값:map값을 리턴
 	public List<Attendance> getCalendarAttendanceList(int lectureNo,int currentYear,int currentMonth,int currentDay){
 		Calendar targetDay = Calendar.getInstance();
@@ -44,6 +44,8 @@ public class AttendanceService {
 		return attendance;
 	}
 	//출석에 필요한 학생 상세보기
+	//매개변수:map.put에 강좌 고유번호,학생 아이디,학새 이름,학생 성별,출석날짜 넣음
+	//리턴값:map값을 리턴
 	public List<Attendance> getAttendanceStudentOne(int lectureNo,String accountId,String studentName,String studentGender, String attendanceDay){
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("lectureNo",lectureNo);
@@ -54,6 +56,8 @@ public class AttendanceService {
 
 	}
 	//출석 상세보기
+	//매개변수:강좌 고유번호,학생 아이디,출석날짜
+	//리턴값:map리턴
 	public Attendance getAttendanceOne(int lectureNo, String accountId, String attendanceDay) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("lectureNo", lectureNo);

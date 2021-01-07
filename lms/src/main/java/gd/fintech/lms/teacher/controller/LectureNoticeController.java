@@ -38,9 +38,9 @@ public class LectureNoticeController {
 	// 리턴값:강좌별 번호를 참조하여 공지사항 정보를 띄우는 뷰페이지
 	@SuppressWarnings("unchecked")
 	@GetMapping("/teacher/lectureNotice")
-	public String lectureNotice(Model model, @RequestParam(value = "lectureNo", defaultValue = "1") int lectureNo,
+	public String lectureNotice(Model model, @RequestParam(value = "lectureNo") int lectureNo,
 			@RequestParam(value = "lectureNoticeSearch",required = false)String lectureNoticeSearch,
-			@RequestParam(value = "currentPage", defaultValue = "10") int currentPage) {
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
 
 		Map<String, Object> map = lectureNoticeService.getLectureNoticeListByPage(lectureNo, currentPage,lectureNoticeSearch);
 

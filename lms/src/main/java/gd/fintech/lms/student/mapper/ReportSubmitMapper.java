@@ -17,12 +17,17 @@ public interface ReportSubmitMapper {
 	// 리턴값 : 강좌 1개에 관련된 과제 리스트 
 	List<Report> selectReportListByPage(Map<String, Object> map);
 	
-	// 과제제출 세부내용
+	// 과제, 과제 제출 세부내용
 	// 매개변수 : 과제 번호, 계정 id
-	// 리턴값 : 과제의 모든 정보를 가져옴
-	Report selectReportSubmitDetail(Map <String, Object> map);
+	// 리턴값 : 과제 정보와 과제 제출 정보를 가져옴
+	Report selectReportDetail(Map <String, Object> map);
 	
-	// 과제제출에 관한 내용
+	// 과제제출 세부내용
+	// 매개변수 : 과제제출 번호
+	// 리턴값 : 과제제출 내용과 과제제출 첨부파일 내용
+	ReportSubmit selectReportSubmitDetail(int reportSubmitNo);
+	
+	// 과제 제출에 관한 내용
 	// 매개변수 : 과제제출 번호
 	// 리턴값 : 과제제출내용만 가져옴
 	ReportSubmit selectReportSubmitOne(int reportSubmitNo);

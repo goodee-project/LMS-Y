@@ -21,7 +21,7 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 과제 정보, 과제제출 정보와 과제제출 첨부파일을 위한 resultMap -->
-	<resultMap type="gd.fintech.lms.teacher.vo.Report" id="resultReportSubmitDetail">
+	<resultMap type="gd.fintech.lms.teacher.vo.Report" id="resultReportDetail">
 		<result property="reportNo" column="report_no" />
 		<result property="lectureNo" column="lecture_no" />
 		<result property="reportTitle" column="report_title" />
@@ -50,7 +50,7 @@
 		</collection>
 	</resultMap>
 	<!-- 과제를 제출한 정보 상세보기 -->
-	<select id="selectReportSubmitDetail" parameterType="java.util.Map" resultMap="resultReportSubmitDetail">
+	<select id="selectReportDetail" parameterType="java.util.Map" resultMap="resultReportDetail">
 		SELECT
 			r.report_no,
 			r.lecture_no,
@@ -80,6 +80,49 @@
 			LEFT JOIN report_submit_file rsf
 				ON rs.report_submit_no = rsf.report_submit_no
 		WHERE r.report_no = #{reportNo}
+	</select>
+	<!-- 과제제출 정보와 과제제출 첨부파일을 위한 resultMap -->
+	<resultMap type="gd.fintech.lms.student.vo.ReportSubmit" id="resultReportSubmitDetail">
+		<result property="reportSubmitNo" column="report_submit_no" />
+		<result property="reportNo" column="report_no" />
+		<result property="accountId" column="account_id" />
+		<result property="reportSubmitTitle" column="report_submit_title" />
+		<result property="reportSubmitContent" column="report_submit_content" />
+		<result property="reportSubmitScore" column="report_submit_score" />
+		<result property="reportSubmitFeedback" column="report_submit_feedback" />
+		<result property="reportSubmitCreateDate" column="report_submit_createdate" />
+		<result property="reportSubmitUpdateDate" column="report_submit_updatedate" />
+		<collection property="reportSubmitFileList" ofType="gd.fintech.lms.student.vo.ReportSubmitFile">
+			<result property="reportSubmitFileUUID" column="report_submit_file_uuid" />
+			<result property="reportSubmitFileOriginal" column="report_submit_file_original" />
+			<result property="reportSubmitFileSize" column="report_submit_file_size" />
+			<result property="reportSubmitFileType" column="report_submit_file_type" />
+			<result property="reportSubmitFileCount" column="report_submit_file_count" />
+			<result property="reportSubmitFileCreateDate" column="report_submit_file_createdate" />
+		</collection>
+	</resultMap>
+	<!-- 과제제출와 과제 제출 첨부파일 -->
+	<select id="selectReportSubmitDetail" parameterType="int" resultMap="resultReportSubmitDetail">
+		SELECT 	
+			rs.report_submit_no,
+			rs.report_no,
+			rs.account_id,
+			rs.report_submit_title,
+			rs.report_submit_content,
+			rs.report_submit_score,
+			rs.report_submit_feedback,
+			rs.report_submit_createdate,
+			rs.report_submit_updatedate,
+			rsf.report_submit_file_uuid,
+			rsf.report_submit_file_original,
+			rsf.report_submit_file_size,
+			rsf.report_submit_file_type,
+			rsf.report_submit_file_count,
+			rsf.report_submit_file_createdate
+		FROM report_submit rs
+			LEFT JOIN report_submit_file rsf
+				ON rs.report_submit_no = rsf.report_submit_no
+		WHERE rs.report_submit_no = #{reportSubmitNo}
 	</select>
 	<!-- 과제제출한 정보만 가져오기 -->
 	<select id="selectReportSubmitOne" parameterType="int" resultType="gd.fintech.lms.student.vo.ReportSubmit">

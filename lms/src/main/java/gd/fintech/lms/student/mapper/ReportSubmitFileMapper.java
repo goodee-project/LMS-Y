@@ -8,6 +8,11 @@ import gd.fintech.lms.student.vo.ReportSubmitFile;
 
 @Mapper
 public interface ReportSubmitFileMapper {
+	// 과제제출 첨부파일의 정보
+	// 매개변수 : 과제제출 첨부파일 UUID
+	// 리턴값 : 과제제출 첨부파일의 전체 정보
+	ReportSubmitFile selectReportSubmitFileDetail(String reportSubmitFileUUID);
+	
 	// 과제제출 첨부파일 원본파일 이름 찾기
 	// 매개변수 : 과제제출 첨부파일 UUID
 	// 리턴값 : 과제제출 첨부파일의 원래 이름

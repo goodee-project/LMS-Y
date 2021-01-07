@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.ReportSubmitFileMapper">
+	<!-- UUID를 이용한 원본 파일명 출력 쿼리 -->
+	<select id="selectReportSubmitFileDetail" parameterType="String" resultType="gd.fintech.lms.student.vo.ReportSubmitFile">
+		SELECT 	
+			report_submit_file_uuid reportSubmitFileUUID,
+			report_submit_file_original reportSubmitFileOriginal,
+			report_submit_file_size reportSubmitFileSize,
+			report_submit_file_type reportSubmitFileType,
+			report_submit_file_count reportSubmitFileCount,
+			report_submit_file_createdate reportSubmitFileCreateDate
+		FROM report_submit_file
+		WHERE report_submit_file_uuid = #{reportSubmitFileUUID}
+	</select>
+	
 	<!-- 과제제출 첨부파일 오리지널 파일 이름 -->
 	<select id="selectReportSubmitFileOriginalName" parameterType="String" resultType="String">
 		SELECT report_submit_file_original reportSubmitFileOriginal

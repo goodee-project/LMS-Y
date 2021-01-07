@@ -2,6 +2,8 @@ package gd.fintech.lms.student.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.dto.ReportSubmitForm;
 import gd.fintech.lms.student.service.ReportSubmitService;
+import gd.fintech.lms.student.vo.ReportSubmit;
 import gd.fintech.lms.teacher.service.ReportService;
 import gd.fintech.lms.teacher.vo.Report;
 
@@ -60,8 +63,7 @@ public class ReportSubmitController {
 	public String reportSubmitDetail(Model model,
 			@RequestParam(value="reportNo") int reportNo,
 			HttpSession session) {
-		Report reportAndReportSubmit = reportSubmitService.getReportSubmitDetail(reportNo, session);
-		reportService.getReportDetail(reportNo);
+		Report reportAndReportSubmit = reportSubmitService.getReportDetail(reportNo, session);
 		model.addAttribute("reportAndReportSubmit", reportAndReportSubmit);
 		return "/student/reportSubmitDetail";
 	}
@@ -100,9 +102,10 @@ public class ReportSubmitController {
 	// 리턴값 : 과제 제출 수정페이지
 	@GetMapping("/student/modifyReportSubmit")
 	public String modifyReportSubmit(Model model,
-			@RequestParam(value="reportNo") int reportNo,
-			@RequestParam(value="accountId") String accountId) {
-		return "modifyReportSubmit";
+			@RequestParam(value="reportSubmitNo") int reportSubmitNo) {
+		ReportSubmit reportSubmit = reportSubmitService.getReportSubmitDetail(reportSubmitNo);
+		model.addAttribute("reportSubmit", reportSubmit);
+		return "/student/modifyReportSubmit";
 	}
 	
 	// 과제 제출 수정 액션
@@ -117,20 +120,14 @@ public class ReportSubmitController {
 		+"&accountId="+reportSubmitForm.getAccountId();
 	}
 	
-	// 과제 제출 파일 삭제
+	// 과제 제출 첨부파일 다운로드
 	// 매개변수 :
-	// RequestParam : 
-	// reportSubmitFileUUID(과제 제출파일 UUID)
-	// reportNo(과제 번호)
-	// accountId(계정 ID)
-	// 리턴값 : 과제 수정 페이지 
-	@GetMapping("/student/removeReportSubmitFile")
-	public String removeReportSubmitFile(@RequestParam(value="reportSubmitFileUUID") String reportSubmitFileUUID,
-			@RequestParam(value="reportNo") int reportNo,
-			@RequestParam(value="accountId") String accountId) {
-		reportSubmitService.removeReportSubmitFile(reportSubmitFileUUID);
-		return "redirect:/student/modifyReportSubmit?reportNo="
-		+reportNo
-		+"&accountId="+accountId;
+	// RequestParam : reportSubmitFileUUID(과제 제출파일 UUID)
+	// // HttpServletRequest, HttpServletResponse
+	// 리턴값 : 파일 다운로드
+	@GetMapping("/student/downloadReportSubmitFile")
+	public void downloadReportSubmitFile(@RequestParam(value="reportSubmitFileUUID") String reportSubmitFileUUID,
+			HttpServletRequest request, HttpServletResponse response) {
+		reportSubmitService.downloadReportSubmitFile(reportSubmitFileUUID, request, response);
 	}
 }

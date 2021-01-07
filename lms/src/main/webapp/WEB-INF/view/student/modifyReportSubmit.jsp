@@ -27,6 +27,7 @@
 					
 					return false;
 				});
+
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
 				$('#addFile').click(function() {
 					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
@@ -98,13 +99,30 @@
 			<h1></h1>
 			
 			<div>
-				<form id="reportSubmitForm" action="${pageContext.request.contextPath}/student/createReportSubmit" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="reportNo" value="${reportNo}">
-					<div> 과제 명 : <input type="text" name="reportSubmitTitle"></div>
-					<div><textarea id="reportSubmitContent" name="reportSubmitContent"></textarea></div>
+				<form id="reportSubmitForm" action="${pageContext.request.contextPath}/student/modifyReportSubmit" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="reportNo" value="${reportSubmit.reportNo}">
+					<input type="hidden" name="reportSubmitNo" value="${reportSubmit.reportSubmitNo}">
+					<div> 과제명 : <input type="text" name="reportSubmitTitle" value="${reportSubmit.reportSubmitTitle}"></div>
+					<div><textarea id="reportSubmitContent" name="reportSubmitContent">${reportSubmit.reportSubmitContent}</textarea></div>
 					<div>
 						<button id="addFile" type="button">파일 추가</button>
 						<button id="removeFile" type="button">파일 삭제</button>
+					</div>
+					<div>
+						<c:forEach var="rsf" items="${reportSubmit.reportSubmitFileList}">
+							<c:if test="${rsf.reportSubmitFileSize > 0}">
+								<div>
+									<a href="${pageContext.request.contextPath}/student/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
+										${rsf.reportSubmitFileOriginal}
+									</a>
+										${rsf.reportSubmitFileSize},
+										${rsf.reportSubmitFileType},
+										${rsf.reportSubmitFileCount}회 다운로드,
+										${rsf.reportSubmitFileCreateDate}
+									<a class="removeReportSubmitFile" href="${pageContext.request.contextPath}/student/removeReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">삭제</a>
+								</div>
+							</c:if>
+						</c:forEach>
 					</div>
 					<div id="reportSubmitFileDiv"></div>
 					<div><button id="submitBtn" type="button">제출</button></div>

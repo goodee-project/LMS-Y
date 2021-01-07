@@ -53,73 +53,82 @@
 				<form id="multipleChoiceForm" method="post" action="${pageContext.request.pathInfo}">
 					<input type="hidden" name="multipleChoiceNo" value="${param.multipleChoiceNo}">
 					
-					<div>
-						문제 내용: <input id="multipleChoiceQuestion" class="form-control" type="text" name="multipleChoiceQuestion" value="${multipleChoice.multipleChoiceQuestion}">
-					</div>
-					<div>
-						정답:
-						<div class="row">
-							<div class="col">
-								<c:if test="${multipleChoice.multipleChoiceAnswer == '1'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="1" checked="checked"> 1번
-								</c:if>
-								<c:if test="${multipleChoice.multipleChoiceAnswer != '1'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="1"> 1번
-								</c:if>
-							</div>
-							<div class="col">
-								<c:if test="${multipleChoice.multipleChoiceAnswer == '2'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="2" checked="checked"> 2번
-								</c:if>
-								<c:if test="${multipleChoice.multipleChoiceAnswer != '2'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="2"> 2번
-								</c:if>
-							</div>
-							<div class="col">
-								<c:if test="${multipleChoice.multipleChoiceAnswer == '3'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="3" checked="checked"> 3번
-								</c:if>
-								<c:if test="${multipleChoice.multipleChoiceAnswer != '3'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="3"> 3번
-								</c:if>
-							</div>
-							<div class="col">
-								<c:if test="${multipleChoice.multipleChoiceAnswer == '4'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="4" checked="checked"> 4번
-								</c:if>
-								<c:if test="${multipleChoice.multipleChoiceAnswer != '4'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="4"> 4번
-								</c:if>
-							</div>
-							<div class="col">
-								<c:if test="${multipleChoice.multipleChoiceAnswer == '5'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="5" checked="checked"> 5번
-								</c:if>
-								<c:if test="${multipleChoice.multipleChoiceAnswer != '5'}">
-									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="5"> 5번
-								</c:if>
-							</div>
-						</div>
-					</div>
-					<div>
-						1번 보기: <input id="multipleChoiceExample1" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample1}">
-					</div>
-					<div>
-						2번 보기: <input id="multipleChoiceExample2" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample2}">
-					</div>
-					<div>
-						3번 보기: <input id="multipleChoiceExample3" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample3}">
-					</div>
-					<div>
-						4번 보기: <input id="multipleChoiceExample4" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample4}">
-					</div>
-					<div>
-						5번 보기: <input id="multipleChoiceExample5" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample5}">
-					</div>
-					<hr>
-					<div>
-						<button id="submitMultipleChoiceForm" type="button">수정</button>
-					</div>
+					<table class="table table-sm">
+						<tr>
+							<td class="w-25 align-middle">문제 내용</td>
+							<td><input id="multipleChoiceQuestion" class="form-control" type="text" name="multipleChoiceQuestion" value="${multipleChoice.multipleChoiceQuestion}"></td>
+						</tr>
+						<tr>
+							<td class="align-middle">정답</td>
+							<td style="padding-top: 0.75rem; padding-bottom: 0.75rem;">
+								<div class="row">
+									<div class="col">
+										<c:if test="${multipleChoice.multipleChoiceAnswer == '1'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="1" checked="checked"> 1번
+										</c:if>
+										<c:if test="${multipleChoice.multipleChoiceAnswer != '1'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="1"> 1번
+										</c:if>
+									</div>
+									<div class="col">
+										<c:if test="${multipleChoice.multipleChoiceAnswer == '2'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="2" checked="checked"> 2번
+										</c:if>
+										<c:if test="${multipleChoice.multipleChoiceAnswer != '2'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="2"> 2번
+										</c:if>
+									</div>
+									<div class="col">
+										<c:if test="${multipleChoice.multipleChoiceAnswer == '3'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="3" checked="checked"> 3번
+										</c:if>
+										<c:if test="${multipleChoice.multipleChoiceAnswer != '3'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="3"> 3번
+										</c:if>
+									</div>
+									<div class="col">
+										<c:if test="${multipleChoice.multipleChoiceAnswer == '4'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="4" checked="checked"> 4번
+										</c:if>
+										<c:if test="${multipleChoice.multipleChoiceAnswer != '4'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="4"> 4번
+										</c:if>
+									</div>
+									<div class="col">
+										<c:if test="${multipleChoice.multipleChoiceAnswer == '5'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="5" checked="checked"> 5번
+										</c:if>
+										<c:if test="${multipleChoice.multipleChoiceAnswer != '5'}">
+											<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="5"> 5번
+										</c:if>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="align-middle">1번 보기</td>
+							<td><input id="multipleChoiceExample1" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample1}"></td>
+						</tr>
+						<tr>
+							<td class="align-middle">2번 보기</td>
+							<td><input id="multipleChoiceExample2" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample2}"></td>
+						</tr>
+						<tr>
+							<td class="align-middle">3번 보기</td>
+							<td><input id="multipleChoiceExample3" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample3}"></td>
+						</tr>
+						<tr>
+							<td class="align-middle">4번 보기</td>
+							<td><input id="multipleChoiceExample4" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample4}"></td>
+						</tr>
+						<tr>
+							<td class="align-middle">5번 보기</td>
+							<td><input id="multipleChoiceExample5" class="form-control" type="text" name="multipleChoiceExampleList" value="${multipleChoiceExample5}"></td>
+						</tr>
+						<tr>
+							<td colspan="2"><button id="submitMultipleChoiceForm" class="btn btn-primary btn-block" type="button">수정</button></td>
+						</tr>
+					</table>
 				</form>
 			</div>
 		</div>

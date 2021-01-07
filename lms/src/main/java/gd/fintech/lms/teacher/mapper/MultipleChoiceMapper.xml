@@ -51,6 +51,7 @@
 		<result property="multipleChoiceCreateDate" column="multiplechoice_createdate" />
 		<result property="multipleChoiceUpdateDate" column="multiplechoice_updatedate" />
 		<collection property="multipleChoiceExampleList" ofType="gd.fintech.lms.teacher.vo.MultipleChoiceExample">
+			<result property="multipleChoiceExampleId" column="multiplechoice_example_id" />
 			<result property="multipleChoiceExampleContent" column="multiplechoice_example_content" />
 		</collection>
 	</resultMap>
@@ -64,6 +65,7 @@
 			m.multiplechoice_score,
 			m.multiplechoice_createdate,
 			m.multiplechoice_updatedate,
+			me.multiplechoice_example_id,
 			me.multiplechoice_example_content
 		FROM multiplechoice m
 			LEFT JOIN multiplechoice_example me

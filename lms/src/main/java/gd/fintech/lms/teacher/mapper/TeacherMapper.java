@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.teacher.vo.AccountImage;
 import gd.fintech.lms.teacher.vo.Teacher;
 
@@ -53,6 +54,14 @@ public interface TeacherMapper {
 	//매개변수:강사의 자신의 전체 정보를 가져옴
 	//리턴값:변경된 행 갯수
 	int updateTeacherInfo(Teacher teacher);
+	
+	//강사 비밀번호 변경
+	//매개변수:계정vo
+	//리턴값:변경된 행 갯수
+	int updateTeacherPw(Account account);
+	
+	//강사 현재 비밀번호 확인
+	String selectTeacherPw(String accountId,String accountPw);
 	 
 	
 	

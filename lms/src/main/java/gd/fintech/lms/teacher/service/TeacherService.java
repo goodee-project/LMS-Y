@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.account.mapper.AddressMapper;
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.dto.TeacherForm;
 import gd.fintech.lms.teacher.mapper.TeacherMapper;
 import gd.fintech.lms.teacher.vo.AccountImage;
@@ -185,4 +186,13 @@ public class TeacherService {
 		return list;
 	}
 	
+	//강사 비밀번호 변경
+	public void modifyTeacherPw(Account account) {
+		teacherMapper.updateTeacherPw(account);
+	}
+	
+	//강사 현재 아이디 비밀번호 정보
+	public String getTeacherPw(String accountId,String accountPw) {
+		return teacherMapper.selectTeacherPw(accountId, accountPw);
+	}
 }

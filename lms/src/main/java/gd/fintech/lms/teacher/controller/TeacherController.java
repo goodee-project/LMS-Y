@@ -1,6 +1,7 @@
 package gd.fintech.lms.teacher.controller;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.dto.TeacherForm;
 import gd.fintech.lms.teacher.service.TeacherService;
 import gd.fintech.lms.teacher.vo.AccountImage;
@@ -78,12 +80,32 @@ public class TeacherController {
 		return "redirect:/teacher/teacherOne";
 	}
 	
-	//자료삭제
+	//이미지삭제
 	@GetMapping("/teacher/removeTeacherFile")
 	public String removeTeacherFile(Model model,
 			@RequestParam(value="accountId")String accountId,HttpServletRequest request) {
 		AccountImage accountImage = teacherService.getTeacherImageFile(accountId);
 		teacherService.removeFile(accountId);
 		return "redirect:/teacher/modifyTeacher";
+	}
+	
+	//강사 비밀번호 수정 폼
+	@GetMapping("/teacher/modifyTeacherPw")
+	public String modifyTeacherPw(HttpServletRequest request,Model model) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		model.addAttribute("accountId",accountId);
+		return "/teacher/modifyTeacherPw";
+	}
+	
+	//강사 비밀번호 액션
+	@PostMapping("/teacher/modifyTeacherPw")
+	public String modifyTeacherPw(Account account) {
+		teacherService.modifyTeacherPw(account);
+		
+		return "redirect:/logout";
+		
 	}
 }

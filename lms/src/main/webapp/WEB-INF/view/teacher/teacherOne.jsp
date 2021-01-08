@@ -23,6 +23,10 @@
 						<td>${map.teacher.accountId}</td>
 					</tr>
 					<tr>
+						<td>비밀번호</td>
+						<td><a href="${pageContext.request.contextPath}/teacher/modifyTeacherPw">비밀번호변경</a></td>
+					</tr>
+					<tr>
 						<td>강사 이메일</td>
 						<td>${map.teacher.teacherEmail}</td>
 					</tr>

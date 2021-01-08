@@ -187,12 +187,23 @@ public class TeacherService {
 	}
 	
 	//강사 비밀번호 변경
+	//매개변수:Account vo
+	//리턴값:변경된 행 갯수
 	public void modifyTeacherPw(Account account) {
 		teacherMapper.updateTeacherPw(account);
 	}
 	
-	//강사 현재 아이디 비밀번호 정보
+	//강사 현재 아이디 비밀번호 정보 조회
+	//매개변수:강사ID,비밀번호
+	//리턴값:조회되는 계정,비밀번호
 	public String getTeacherPw(String accountId,String accountPw) {
 		return teacherMapper.selectTeacherPw(accountId, accountPw);
+	}
+	
+	//강사 현재 아디디 계정이메일 정보 조회
+	//매개변수:강사ID,강사 이메일
+	//리턴값:조회되는 계정,이메일
+	public String getTeacherEmail(String accountId,String teacherEmail) {
+		return teacherMapper.selectTeacherEmail(accountId, teacherEmail);
 	}
 }

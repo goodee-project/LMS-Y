@@ -10,9 +10,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function() {
-				// 초기 아이디 입력칸으로 포커싱
+				// 초기 기존비밀번호 입력칸으로 포커싱
 				$('#accountPw').focus();
-				// 아이디 중복체크
+				// 기존비밀번호 맞는지 체크
 				$('#accountPw').blur(function() {
 					if($('#accountPw').val() == '' || $('#accountPw').val().length > 50) {
 						$('#accountPw').focus();
@@ -31,7 +31,7 @@
 								$('#accountPw').focus();
 								return;
 							}else {
-								$('#teacherPasswordMsg').text('기존 비밀번호 입니다!');
+								$('#teacherPasswordMsg').text('');
 							}
 						}
 					});

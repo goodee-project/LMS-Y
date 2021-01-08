@@ -12,29 +12,36 @@
 		$(document).ready(function() {
 			//이메일 형식검사
 			//이메일 체크값이 있는지 확인하는 변수
-			let emailCheck = false;
-			function validateEmail(sEmail){
-				let filter = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-				if(filter.test(sEmail)){
-					return true;
-				}
-				else{
-					return false;
-				}
-			}
-			$('#btnEmail').click(function(){
-				let sEmail = $('#teacherEmail').val();
-				if($.trim(sEmail).length == 0){
-					alert('Please enter valid email address');
-					e.preventDefault();
-				}
-				if(validateEmail(sEmail)){
-					alert('올바른 이메일입니다!');
-				}else{
-					alert('잘못된 이메일 입니다!');
+			$('#teacherEmail').blur(function(){
+				if($('#teacherEmail').val()=='' || $('#teacherEmail').val().length>200 || $('#teacherEmail').val().replace(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,"")){
+					$('#ckEmail').text('이메일을 확인하세요!');
 					$('#teacherEmail').focus();
-					e.preventDefault();
+					return;
+				}else{
+					$('#ckEmail').text('');
 				}
+			});
+			//이메일 중복검사
+			$('#btnEmail').click(function(){
+				$.ajax({
+					url: '${pageContext.request.contextPath}/teacher/teacherEmailCk',
+					type: 'post',
+					data: {accountId:$('#accountId').val(),teacherEmail:$('#teacherEmail').val()},
+					success: function(data) {
+						if(data == 'noPass') {
+							$('#ckEmail').text('기존 이메일입니다!');
+							$('#teacherEmail').focus();
+							return;
+						}else {
+							$('#ckEmail').text('사용가능한 이메일입니다!');
+						}
+					}
+				});
+			});
+
+			//전화번호 숫자만 입력
+			$("#teacherPhone").on("keyup", function() {
+				 $(this).val($(this).val().replace(/[^0-9]/g,""));
 			});
 			
 			// 이미지 변경 값이 있는지 확인하는 변수
@@ -106,31 +113,14 @@
 
 				// 작성 버튼 클릭 시 유효성 검사 실시
 				$('#submitTeacherOne').click(function() {
-					if($('#teacherEmail').val().length < 1){
-						alert('이메일을 입력해주세요.');
-						return
-					}else if(emailCheck == "false"){
-						$('#teacherEmail').focus();
-						alert('이메일 중복 확인해주세요.');
-						return;
-					}else if($('#teacherName').val().length < 1){
-						$('#teacherName').focus();
-						alert('이름을 입력하세요.');
-					}else if($('#teacherPhone').val().length < 1){
-						$('#teacherPhone').focus();
-						alert('전화번호를 입력하세요.');
-					}else if($('#teacherBirth').val().length <1){
-						alert('생년월일를 입력하세요.');
-					}else if($('#teacherAddressMain').val().length <1){
-						$('#teacherAddressMain').focus();
-						alert('메인주소를 입력하세요.');
-					}else if($('#teacherAddressSub').val().length <1){
-						$('#teacherAddressSub').focus();
-						alert('서브주소를 입력하세요.');
-					}
+					if($('#teacherEmail').val()==''|| $('#teacherEmail').val().replace(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,"")|| $('#teacherName').val()==''|| $('#teacherPhone').val()=='' ||$('#teacherAddressMain')=='' ||$('#teacherAddressSub')==''){
+							alert('입력부분을 다시 확인하세요');
+							return;
+					}else{
 						// 유효성 검사를 만족했을 경우 submit
 						$('#modifyTeacherForm').submit();
-					});
+						}
+				});
 				
 			});
 		</script>
@@ -157,8 +147,8 @@
 				<tr>
 					<td>강사 이메일</td>
 					<td><input type="text" name="teacherEmail" id="teacherEmail" value="${map.teacher.teacherEmail}"> 
-					<!--<button type="button" id="btnEmail">중복검사</button>--> </td> 
-					<td><div id="ckEmail"></div></td>
+					<button type="button" id="btnEmail">중복검사</button>
+					<div id="ckEmail"></div></td>
 				</tr>
 				<tr>
 					<td>강사 이름</td>
@@ -167,8 +157,7 @@
 				</tr>
 				<tr>
 					<td>강사 전화번호</td>
-					<td><input type="text" name="teacherPhone" id="teacherPhone"
-						value="${map.teacher.teacherPhone}"></td>
+					<td><input type="text" name="teacherPhone" id="teacherPhone" placeholder=" -를 제외한 숫자만 입력해주세요" value="${map.teacher.teacherPhone}"></td>
 				</tr>
 				<tr>
 					<td>강사 성별</td>

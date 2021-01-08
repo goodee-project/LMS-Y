@@ -61,8 +61,12 @@ public interface TeacherMapper {
 	int updateTeacherPw(Account account);
 	
 	//강사 현재 비밀번호 확인
+	//매개변수:강사ID,강사 비밀번호
 	String selectTeacherPw(String accountId,String accountPw);
-	 
+	
+	// 계정 이메일 중복체크를 위한 메소드
+	//매개변수:강사ID,강사 이메일
+	String selectTeacherEmail(String accountId,String teacherEmail);
 	
 	
 }

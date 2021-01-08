@@ -156,6 +156,13 @@
 			account_pw accountPw
 		FROM account
 		WHERE account_pw = PASSWORD(#{accountPw}) and account_id = #{accountId}
-		
+	</select>
+	
+	<!-- 강사 이메일 체크 -->
+	<select id="selectTeacherEmail" parameterType="String" resultType="String">
+		SELECT 
+			teacher_email teacherEmail
+		FROM teacher
+		WHERE account_id = #{accountId} and teacher_email = #{teacherEmail}
 	</select>
 </mapper>

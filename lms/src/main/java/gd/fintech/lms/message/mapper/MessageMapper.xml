@@ -22,10 +22,11 @@
 			message_no messageNo,
 			to_id toId,
 			from_id fromId,
+			from_name fromName,
 			message_datetime messageDateTime,
 			is_confirm isConfirm
 		FROM message_receive
-		WHERE to_id = #{toId} AND from_id = #{search}
+		WHERE to_id = #{toId} AND from_id LIKE CONCAT('%', #{search}, '%')
 		ORDER BY message_datetime DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -36,6 +37,7 @@
 			message_no messageNo,
 			to_id toId,
 			from_id fromId,
+			from_name fromName,
 			message_datetime messageDateTime,
 			is_confirm isConfirm
 		FROM message_receive
@@ -69,7 +71,7 @@
 			message_datetime messageDateTime,
 			is_confirm isConfirm
 		FROM message_send
-		WHERE from_id = #{fromId} AND to_id = #{search}
+		WHERE from_id = #{fromId} AND to_id LIKE CONCAT('%', #{search}, '%')
 		ORDER BY message_datetime DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

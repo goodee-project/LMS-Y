@@ -21,7 +21,7 @@
 							console.log(data);
 							if(data.toId != null) {
 								$('#textInfo').text('수신자');
-								let str = '<button type="button" class="btn btn-info mt-2" id="userId">'+data.toId+' ('+data.accountName+')'+'</button>';
+								let str = '<input type="hidden" name="toId" value="'+data.toId+'"><button type="button" class="btn btn-info mt-2" id="userId">'+data.toId+' ('+data.accountName+')'+'</button>';
 								$('#userId').remove();
 								$('#accountInfo').append(str);
 							}
@@ -55,7 +55,7 @@
             	})
             	// 유효성 검사
             	$('#submitBtn').click(function() {
-            		if($('#toId').val() == '') {
+            		if($('#toId').val() == '' && $('#textInfo').text() == '') {
             			alert('수신자를 입력하세요');
             			return;
                 	}else if($('#textInfo').text() == '') {
@@ -90,7 +90,7 @@
 						<tr>
 							<td>받는 사람</td>
 							<td>
-								<input type="text" class="form-control" id="toId" name="toId" placeholder="아이디를 검색하세요">
+								<input type="text" class="form-control" id="toId" placeholder="아이디를 검색하세요">
 							</td>
 							<td>
 								<button type="button" class="btn btn-outline-primary" id="search">검색</button>

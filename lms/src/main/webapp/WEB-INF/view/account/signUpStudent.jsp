@@ -14,7 +14,6 @@
 				// 아이디 중복체크
 				$('#studentId').blur(function() {
 					if($('#studentId').val() == '' || $('#studentId').val().length > 50) {
-						$('#studentId').focus();
 						$('#idMsg').text('아이디를 확인하세요');
 						return;
 					}else {
@@ -39,7 +38,6 @@
 				$('#studentPwCk').blur(function() {
 					if($('#studentPw').val() != $('#studentPwCk').val()) {
 						$('#pwCkMsg').text('비밀번호를 다시 확인하세요');
-						$('#studentPwCk').focus();
 						return;
 					}else {
 						$('#pwCkMsg').text('');
@@ -49,7 +47,6 @@
 				$('#studentEmail').blur(function() {
 					if($('#studentEmail').val() == '' || $('#studentEmail').val().length > 200) {
 						$('#emailCkMsg').text('이메일을 확인하세요');
-						$('#studentEmail').focus();
 						return;
 					}else {
 						$('#emailCkMsg').text('');
@@ -100,7 +97,7 @@
 				});
 				// 가입하기 버튼 클릭시 유효성 검사
 				$('#btnSubmit').click(function() {
-					if($('#studentPw').val() == '' || $('#studentPwCk').val() == '' || $('#studentName').val() == '' || $('#studentPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#studentBirth').val() == '' || $('select[name=accountAddressMain]').val() == null || $('#zipCode').val() == '' || $('#subAddress').val() == '') {
+					if($('#studentPw').val() == '' || $('#studentPwCk').val() == '' || $('#studentEmail').val() == '' || $('#studentName').val() == '' || $('#studentPhone').val() == '' || $("input[name='accountGender']:checked").val() == '' || $('#studentBirth').val() == '' || $('select[name=accountAddressMain]').val() == null || $('#zipCode').val() == '' || $('#subAddress').val() == '') {
 						alert('입력부분을 다시 확인하세요');
 						return;
 					} else {

@@ -132,6 +132,7 @@ public class MessageService {
 			list = messageMapper.selectSendMessageListByToId(listMap);
 			// 아이디 검색 조건에 따른 전체 ROW 개수 가져오기
 			totalRow = messageMapper.selectCountSendMassageBySearchId(fromId,search);
+			System.out.println(totalRow + " 아이디 ROW");
 		}
 		// 선택된 검색 조건값이 내용인 경우
 		else if(sel != null && sel.equals("content")) {
@@ -152,6 +153,7 @@ public class MessageService {
 		int lastPage = totalRow/rowPerPage;
 		if(totalRow%rowPerPage != 0) {
 			lastPage += 1;
+			System.out.println(lastPage + " 마지막 페이지");
 		}		
 		// 네비게이션 페이징
 		int navPerPage = 10;	// 네비게이션 인덱스 개수

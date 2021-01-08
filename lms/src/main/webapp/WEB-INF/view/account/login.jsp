@@ -15,20 +15,20 @@
 				<h1>LMS 로그인</h1>
 				<h4>Learning Management System</h4>
 			</div>
-			<ul class="nav nav-tabs justify-content-center">
+			<ul class="nav nav-tabs nav-justified">
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/studentLogin">학생</a>
+					<a class="nav-link btn btn-outline-primary" href="${pageContext.request.contextPath}/studentLogin">학생</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/teacherLogin">강사</a>
+					<a class="nav-link btn btn-outline-primary" href="${pageContext.request.contextPath}/teacherLogin">강사</a>
 				</li>
 				<li class="nav-item">
-				  	<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/managerLogin">운영자</a>
+					<a class="nav-link btn btn-outline-primary" href="${pageContext.request.contextPath}/managerLogin">운영자</a>
 				</li>
 				<li class="nav-item">
-				  	<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/adminLogin">관리자</a>
+					<a class="nav-link btn btn-outline-primary" href="${pageContext.request.contextPath}/adminLogin">관리자</a>
 				</li>
-			</ul>
+			</ul>		
 		</div>
 	</body>
 </html>

@@ -17,7 +17,9 @@ public class LoginLogListener implements HttpSessionListener{
 
 	// 세션이 발생되는 시점에 호출되는 메소드
 	@Override
-	public void sessionCreated(HttpSessionEvent se) {}
+	public void sessionCreated(HttpSessionEvent se) {
+		se.getSession().setMaxInactiveInterval(1200);	// 타임아웃 20분
+	}
 	
 	// 세션이 사라지는 시점에 호출되는 메소드
 	@Override

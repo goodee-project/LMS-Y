@@ -101,6 +101,13 @@
 			<!-- 페이징 네비게이션 -->
 			<ul class="pagination justify-content-center" style="margin:20px">
 				<c:choose>
+					<c:when test="${lastPage == 1 || lastPage == 0}">
+						<li class="page-item disabled"><a class="page-link">처음으로</a></li>
+						<li class="page-item disabled"><a class="page-link">이전</a></li>
+						<li class="page-item active"><a class="page-link">1</a></li>
+						<li class="page-item disabled"><a class="page-link">다음</a></li>
+						<li class="page-item disabled"><a class="page-link">마지막으로</a></li>
+					</c:when>
 					<c:when test="${lastPage != 1 && navStartPage < 11}">
 						<li class="page-item disabled"><a class="page-link">처음으로</a></li>
 						<li class="page-item disabled"><a class="page-link">이전</a></li>

@@ -6,7 +6,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<div class="container">
 <!-- 학생 메뉴바 -->
 <c:if test="${accountLevel == 1}">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -69,9 +68,6 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 		<a class="navbar-brand ml-3" href="${pageContext.request.contextPath}/student/index">LMS</a>
 		<ul class="navbar-nav">
-			<li class="nav-item">
-			    <a class="nav-link" href="${pageContext.request.contextPath}/manager/lmsNoticeList">LMS 공지사항</a>
-			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
 					승인대기 LIST
@@ -82,10 +78,22 @@
 				</div>
 		    </li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/textbookList">교재목록</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/textbookList">교재</a>
 			</li>
 			<li class="nav-item">
-		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/subjectList">과목목록</a>
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/subjectList">과목</a>
+			</li>
+			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/managerLecture ">강좌</a>
+			</li>
+			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/classroomList ">강의실</a>
+			</li>
+			<li class="nav-item">
+			    <a class="nav-link" href="${pageContext.request.contextPath}/manager/lmsNoticeList">LMS 공지사항</a>
+			</li>
+			<li class="nav-item">
+		 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/FAQList">자주하는질문(FAQ)</a>
 			</li>
 			<li class="nav-item">
 		 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
@@ -126,4 +134,3 @@
 		</ul>
 	</nav>
 </c:if>
-</div>

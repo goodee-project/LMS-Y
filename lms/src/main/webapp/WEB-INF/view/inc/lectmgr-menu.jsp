@@ -3,10 +3,11 @@
 
 <c:if test="${param.lectureNo != null}">
 	<div class="container">
-		<nav class="navbar navbar-expand-sm small mx-n3">
-			<ul class="nav nav-tabs">
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark small mt-n3">
+		    
+			<ul class="navbar-nav m-n1">
 				<li class="nav-item">
-				    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${param.lectureNo}">메인</a>
+					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${param.lectureNo}">${param.lectureNo} 강의실</a>
 				</li>
 				<li class="nav-item">
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&target=weekDay">출석</a>
@@ -36,10 +37,11 @@
 
 <c:if test="${param.lectureNo == null && lectureNo != null}">
 	<div class="container">
-		<nav class="navbar navbar-expand-sm small mx-n3">
-			<ul class="nav nav-tabs">
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark small mt-n3">
+		    
+			<ul class="navbar-nav m-n1">
 				<li class="nav-item">
-				    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${lectureNo}">메인</a>
+					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${lectureNo}">${lectureNo} 강의실</a>
 				</li>
 				<li class="nav-item">
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${lectureNo}&target=weekDay">출석</a>

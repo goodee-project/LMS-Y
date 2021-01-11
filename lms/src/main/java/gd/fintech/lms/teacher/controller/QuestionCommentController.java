@@ -44,6 +44,8 @@ public class QuestionCommentController {
 		
 		model.addAttribute("list", map.get("questionAllList"));
 		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
 		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/questionList";
 	}
@@ -89,7 +91,7 @@ public class QuestionCommentController {
 			HttpSession session) {
 		questionCommentService.createQuestionComment(questionCommentForm, session);
 		
-		return "redirect:/teacher/questionList";
+		return "redirect:/teacher/questionDetail?questionNo="+questionCommentForm.getQuestionNo();
 	}
 	
 	// 질문게시판 댓글 수정 폼 호출

@@ -11,23 +11,41 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<!-- NAVER SmartEditor2 스크립트 -->
 		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
-		
 		<script>
 			$(document).ready(function() {
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
 				$('#createQuestionCommentFile').click(function() {
 					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
 					$('#questionCommentFileFrame').append(`
-						<div>
-							<input class="questionCommentFile" type="file" name="questionCommentFileList">
-							<button class="removeQuestionCommentFile" type="button">삭제</button>
+						<div class="questionCommentFileGroup d-flex mt-2">
+							<div class="flex-grow-1">
+								<div class="custom-file">
+									<input class="questionCommentFile custom-file-input" type="file" name="questionCommentFileList">
+									<label class="custom-file-label">클릭하여 파일을 선택해주세요</label>
+								</div>
+							</div>
+							<div class="align-self-center mx-3">
+								<a class="removeQuestionCommentFile badge badge-danger rounded-circle" type="button">×</a>
+							</div>
 						</div>
 					`);
+
+					// (바로 위의 코드에서 추가한) 첨부파일 태그에 대한 이벤트 처리를 등록함
+					$("#questionCommentFileFrame:last-child .questionCommentFile").on("change", function() {
+						// 파일명을 가져오고 없을 경우 디폴트 값(파일 선택 메세지)을 가져옴
+						let fileName = $(this).val().split("\\").pop();
+						if (fileName == "") {
+							fileName = "클릭하여 파일을 선택해주세요";
+						}
+
+						// 파일 선택 라벨의 내용을 변경함
+						$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+					});
 					
 					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
 					$('#questionCommentFileFrame:last-child .removeQuestionCommentFile').click(function(event) {
 						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
-						$(event.target).parent().remove();
+						$(event.target).parent().parent().remove();
 					});
 				});
 
@@ -54,7 +72,7 @@
 					});
 
 					// 유효성 검사를 만족했을 경우 submit
-					//$('#questionCommentForm').submit();
+					$('#questionCommentForm').submit();
 				});
 
 				// NAVER SmartEditor2 적용 코드
@@ -82,46 +100,52 @@
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>질문게시판 댓글 등록</h1>
-			
-			<div>
-				<div>
-					게시글 고유번호: ${question.questionNo}
-				</div>
-				<div>
-					강좌 고유번호: ${question.lectureNo}
-				</div>
-				<div>
-					게시글 작성자: ${question.questionWriter}
-				</div>
-				<div>
-					게시글 제목: ${question.questionTitle}
-				</div>
-				<div>
-					게시글 내용: ${question.questionContent}
-				</div>
-				<hr>
-				<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}" enctype="multipart/form-data">
-					<input type="hidden" name="questionNo" value="${question.questionNo}">
-						
-					<div>
-						댓글 내용:
-						<textarea id="questionCommentContent" name="questionCommentContent" style="width: 100%"></textarea>
-					</div>
-					<div>
-						첨부파일:
-						<div>
-							<button id="createQuestionCommentFile" type="button">추가</button>
-						</div>
-						<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
-						<div id="questionCommentFileFrame"></div>
-					</div>
-					<hr>
-					<div>
-						<button id="submitQuestionCommentForm" type="button">작성</button>
-					</div>
-				</form>
+			<div class="jumbotron">
+				<h1>질문게시판 댓글 등록</h1>
+				<h5 class="ml-1">No. ${question.questionNo}</h5>
 			</div>
+			
+			<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}" enctype="multipart/form-data">
+				<input type="hidden" name="questionNo" value="${question.questionNo}">
+				
+				<table class="table">
+					<tr>
+						<td style="width: 20%">게시글 작성자</td>
+						<td>${question.questionWriter}</td>
+					</tr>
+					<tr>
+						<td>게시글 제목</td>
+						<td>${question.questionTitle}</td>
+					</tr>
+					<tr>
+						<td>게시글 내용</td>
+						<td>${questcxzion.questionContent}</td>
+					</tr>
+					<tr>
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div>댓글 내용</div>
+							<div class="mt-2"><textarea id="questionCommentContent" name="questionCommentContent" style="width: 100%"></textarea></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="align-middle">
+								<span class="mr-1">첨부파일</span>
+								<a id="createQuestionCommentFile" class="badge badge-pill badge-primary" type="button">추가</a>
+							</div>
+							<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
+							<div id="questionCommentFileFrame"></div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2"><button id="submitQuestionCommentForm" class="btn btn-primary btn-block" type="button">작성</button></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</body>
 </html>

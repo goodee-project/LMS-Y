@@ -2,9 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:if test="${param.lectureNo != null}">
-	<div class="container">
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark small mt-n3">
-		    
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark small mt-n3">
+		<div class="container">
 			<ul class="navbar-nav m-n1">
 				<li class="nav-item">
 					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${param.lectureNo}">${param.lectureNo} 강의실</a>
@@ -31,14 +30,13 @@
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/testDetail?lectureNo=${param.lectureNo}">시험</a>
 				</li>
 			</ul>
-		</nav>
-	</div>
+		</div>
+	</nav>
 </c:if>
 
 <c:if test="${param.lectureNo == null && lectureNo != null}">
-	<div class="container">
-		<nav class="navbar navbar-expand-sm bg-dark navbar-dark small mt-n3">
-		    
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark small mt-n3">
+		<div class="container">
 			<ul class="navbar-nav m-n1">
 				<li class="nav-item">
 					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${lectureNo}">${lectureNo} 강의실</a>
@@ -65,6 +63,6 @@
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/testDetail?lectureNo=${lectureNo}">시험</a>
 				</li>
 			</ul>
-		</nav>
-	</div>
+		</div>
+	</nav>
 </c:if>

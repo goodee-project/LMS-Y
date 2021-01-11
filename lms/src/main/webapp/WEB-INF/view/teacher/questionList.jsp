@@ -14,11 +14,13 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>질문게시판 목록</h1>
 			</div>
-			
+		</div>
+		
+		<div class="container">
 			<div>
 				<table class="table">
 					<thead>

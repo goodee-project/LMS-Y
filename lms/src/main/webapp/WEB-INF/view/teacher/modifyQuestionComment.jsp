@@ -115,12 +115,14 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>질문게시판 댓글 수정</h1>
 				<h5 class="ml-1">No. ${questionComment.questionCommentNo}</h5>
 			</div>
+		</div>
 			
+		<div class="container">
 			<form id="questionCommentForm" method="POST" action="${pageContext.request.pathInfo}" enctype="multipart/form-data">
 				<input type="hidden" name="questionCommentNo" value="${questionComment.questionCommentNo}">
 				

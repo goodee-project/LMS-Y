@@ -128,15 +128,15 @@
 				
 				<table class="table">
 					<tr>
-						<td style="width: 20%">게시글 작성자</td>
+						<th style="width: 20%">게시글 작성자</th>
 						<td>${question.questionWriter}</td>
 					</tr>
 					<tr>
-						<td>게시글 제목</td>
+						<th>게시글 제목</th>
 						<td>${question.questionTitle}</td>
 					</tr>
 					<tr>
-						<td>게시글 내용</td>
+						<th>게시글 내용</th>
 						<td>${question.questionContent}</td>
 					</tr>
 					<tr>
@@ -144,13 +144,13 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div>댓글 내용</div>
+							<div class="font-weight-bolder">댓글 내용</div>
 							<div class="mt-2"><textarea id="questionCommentContent" name="questionCommentContent" style="width: 100%">${questionComment.questionCommentContent}</textarea></div>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-							<div class="align-middle">
+							<div class="font-weight-bolder">
 								<span class="mr-1">첨부파일</span>
 								<a id="createQuestionCommentFile" class="badge badge-pill badge-primary" type="button">추가</a>
 							</div>

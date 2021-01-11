@@ -69,31 +69,40 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<h1>과제 생성</h1>
-			
-			<div>
-				<form id="reportForm" method="POST" action="${pageContext.request.pathInfo}">
-					<input type="hidden" name="lectureNo" value="${param.lectureNo}">
-					
-					<div>
-						과제 제목: <input id="reportTitle" type="text" name="reportTitle">
-					</div>
-					<div>
-						과제 내용: <textarea id="reportContent" name="reportContent" style="width: 100%"></textarea>
-					</div>
-					<div>
-						과제 시작일: <input id="reportStartDate" type="date" name="reportStartDate">
-					</div>
-					<div>
-						과제 종료일: <input id="reportEndDate" type="date" name="reportEndDate">
-					</div>
-					<hr>
-					<div>
-						<button id="submitReportForm" type="button">생성</button>
-					</div>
-				</form>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>과제 생성</h1>
 			</div>
+		</div>
+		
+		<div class="container">
+			<form id="reportForm" method="POST" action="${pageContext.request.pathInfo}">
+				<input type="hidden" name="lectureNo" value="${param.lectureNo}">
+				
+				<table class="table">
+					<tr>
+						<th class="align-middle">과제 제목</th>
+						<td colspan="3"><input id="reportTitle" class="form-control" type="text" name="reportTitle"></td>
+					</tr>
+					<tr>
+						<th class="align-middle">과제 시작일</th>
+						<td><input id="reportStartDate" class="form-control" type="date" name="reportStartDate"></td>
+						<th class="align-middle">과제 종료일</th>
+						<td><input id="reportEndDate" class="form-control" type="date" name="reportEndDate"></td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<div class="font-weight-bolder">과제 내용</div>
+							<div class="mt-2"><textarea id="reportContent" name="reportContent" style="width: 100%"></textarea></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<button id="submitReportForm" class="btn btn-primary btn-block" type="button">생성</button>
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</body>
 </html>

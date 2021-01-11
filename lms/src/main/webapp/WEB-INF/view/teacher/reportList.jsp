@@ -17,17 +17,20 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>과제 목록</h1>
+			</div>
+		</div>
+		
 		<div class="container">
-			<h1>과제 목록</h1>
-			
 			<div>
-				<a href="${pageContext.request.contextPath}/teacher/createReport?lectureNo=${param.lectureNo}">과제 생성</a>
-				<table class="table table-sm">
+				<a class="btn btn-outline-primary mb-5" href="${pageContext.request.contextPath}/teacher/createReport?lectureNo=${param.lectureNo}">과제 생성</a>
+				<table class="table">
 					<thead>
 						<tr>
 							<th>번호</th>
-							<th>강좌</th>
-							<th>제목</th>
+							<th class="w-50">제목</th>
 							<th>시작(예정)일</th>
 							<th>종료일</th>
 							<th>제출갯수</th>
@@ -37,7 +40,6 @@
 						<c:forEach var="info" items="${list}">
 							<tr>
 								<td>${info.report.reportNo}</td>
-								<td>${info.report.lectureNo}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/teacher/reportDetail?reportNo=${info.report.reportNo}">
 										${info.report.reportTitle}
@@ -48,18 +50,27 @@
 								<td>${info.reportSubmitCount}</td>
 							</tr>
 						</c:forEach>
+						<tr>
+							<td colspan="5"></td>
+						</tr>
 					</tbody>
 				</table>
 				
-				<div class="d-flex justify-content-center">
-					<ul class="pagination pagination-sm">
+				<div class="d-flex justify-content-center mt-4">
+					<ul class="pagination">
 						<%-- 이전 버튼 --%>
 						<c:if test="${pageNaviBegin != 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}">처음으로</a>
+							</li>
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviBegin-1}">이전</a>
 							</li>
 						</c:if>
 						<c:if test="${pageNaviBegin == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">처음으로</a>
+							</li>
 							<li class="page-item disabled">
 								<a class="page-link">이전</a>
 							</li>
@@ -84,10 +95,16 @@
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${pageNaviEnd+1}">다음</a>
 							</li>
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${param.lectureNo}&currentPage=${lastPage}">마지막으로</a>
+							</li>
 						</c:if>
 						<c:if test="${pageNaviEnd == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">다음</a>
+							</li>
+							<li class="page-item disabled">
+								<a class="page-link">마지막으로</a>
 							</li>
 						</c:if>
 					</ul>

@@ -53,48 +53,67 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<h1>과제제출 평가</h1>
-			
-			<div>
-				<div>
-					과제제출자 ID: ${reportSubmit.accountId}
-				</div>
-				<div>
-					과제제출 제목: ${reportSubmit.reportSubmitTitle}
-				</div>
-				<div>
-					과제제출 내용: ${reportSubmit.reportSubmitContent}
-				</div>
-				<c:forEach var="rsf" items="${reportSubmit.reportSubmitFileList}">
-					<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
-					<c:if test="${rsf.reportSubmitFileSize > 0}">
-					<div>
-						<a href="${pageContext.request.contextPath}/teacher/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
-							${rsf.reportSubmitFileOriginal}
-						</a>
-						${rsf.reportSubmitFileSize}B,
-						${rsf.reportSubmitFileType},
-						${rsf.reportSubmitFileCount}회 다운로드,
-						${rsf.reportSubmitFileCreateDate}
-					</div>
-					</c:if>
-				</c:forEach>
-				
-				<form id="reportEvaluateForm" method="post" action="${pageContext.request.pathInfo}">
-					<input type="hidden" name="reportSubmitNo" value="${reportSubmit.reportSubmitNo}">
-					
-					<div>
-						점수: <input id="reportSubmitScore" type="number" name="reportSubmitScore" value="${reportSubmit.reportSubmitScore}">
-					</div>
-					<div>
-						피드백: <textarea id="reportSubmitFeedback" name="reportSubmitFeedback">${reportSubmit.reportSubmitFeedback}</textarea>
-					</div>
-					<div>
-						<button id="submitReportEvaluateForm" type="button">평가</button>
-					</div>
-				</form>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>과제제출 평가</h1>
 			</div>
+		</div>
+		
+		<div class="container">
+			<form id="reportEvaluateForm" method="post" action="${pageContext.request.pathInfo}">
+				<input type="hidden" name="reportSubmitNo" value="${reportSubmit.reportSubmitNo}">
+				
+				<table class="table">
+					<tr>
+						<th style="width: 20%">과제제출자 ID</th>
+						<td>${reportSubmit.accountId}</td>
+					</tr>
+					<tr>
+						<th>과제제출 제목</th>
+						<td>${reportSubmit.reportSubmitTitle}</td>
+					</tr>
+					<tr>
+						<th>과제제출 내용</th>
+						<td>
+							<div>${reportSubmit.reportSubmitContent}</div>
+							<div>
+								<c:forEach var="rsf" items="${reportSubmit.reportSubmitFileList}">
+									<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
+									<c:if test="${rsf.reportSubmitFileSize > 0}">
+										<div>
+											<a href="${pageContext.request.contextPath}/teacher/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
+												${rsf.reportSubmitFileOriginal}
+											</a>
+											${rsf.reportSubmitFileSize}B,
+											${rsf.reportSubmitFileType},
+											${rsf.reportSubmitFileCount}회 다운로드,
+											${rsf.reportSubmitFileCreateDate}
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<th class="align-middle">점수</th>
+						<td><input id="reportSubmitScore" class="form-control" type="number" name="reportSubmitScore" value="${reportSubmit.reportSubmitScore}" min="0" max="100"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="font-weight-bolder">피드백</div>
+							<div class="mt-2"><textarea id="reportSubmitFeedback" name="reportSubmitFeedback" style="width: 100%">${reportSubmit.reportSubmitFeedback}</textarea></div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<button id="submitReportEvaluateForm" class="btn btn-primary btn-block" type="button">평가</button>
+						</td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</body>
 </html>

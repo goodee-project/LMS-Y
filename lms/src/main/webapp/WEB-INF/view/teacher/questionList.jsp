@@ -26,7 +26,7 @@
 					<thead>
 						<tr>
 							<th>번호</th>
-							<th>제목</th>
+							<th class="w-50">제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
 							<th>조회수</th>
@@ -49,11 +49,14 @@
 								</tr>
 							</c:if>
 						</c:forEach>
+						<tr>
+							<td colspan="5"></td>
+						</tr>
 					</tbody>
 				</table>
 				
-				<div class="d-flex justify-content-center">
-					<ul class="pagination pagination-sm">
+				<div class="d-flex justify-content-center mt-4">
+					<ul class="pagination">
 						<%-- 이전 버튼 --%>
 						<c:if test="${navBeginPage != 1}">
 							<li class="page-item">

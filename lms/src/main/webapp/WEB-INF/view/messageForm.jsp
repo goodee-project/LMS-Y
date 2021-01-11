@@ -77,11 +77,13 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>쪽지 보내기</h1>
 			</div>
+		</div>
 			
+		<div class="container">
 			<div align="center">
 				<form action="${pageContext.request.contextPath}/sendMessage" method="post" id="messageForm">
 					<input type="hidden" name="fromId" value="${fromId}">

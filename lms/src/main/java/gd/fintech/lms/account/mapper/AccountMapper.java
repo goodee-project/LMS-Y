@@ -43,6 +43,11 @@ public interface AccountMapper {
 	// 리턴값: 계정상태를 거절로 수정한 행
 	int updateAccountStateRejectByAccountId(String accountId);
 	
+	// Account 테이블에서 계정 상태를 휴면으로 수정하는 메소드
+	// 매개변수: 계정 ID
+	// 리턴값: 계정상태를 휴면으로 수정한 행
+	int updateAccountStateDormantByAccountId(String accountList);
+	
 	// 계정 비밀번호를 수정하는 메소드
 	// 매개변수: 계정의 ID, PW변경폼에서 입력한 비밀번호
 	// 리턴값: 계정의 비밀번호를 변경한 행
@@ -57,4 +62,8 @@ public interface AccountMapper {
 	// 매개변수: 이메일, 임시비밀번호
 	// 리턴값: 변경된 계정 행
 	int updateAccountPasswordByEmail(Map<String, Object> map);
+	
+	// 마지막 로그인과 현재 날짜 6개월 전의 아이디리스트를 가져오는 메소드
+	// 리턴값: 현재 기준 6개월 전의 아이디 리스트
+	List<String> selectDormantAccountIdList();
 }

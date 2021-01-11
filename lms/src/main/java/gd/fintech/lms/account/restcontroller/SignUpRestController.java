@@ -29,7 +29,7 @@ public class SignUpRestController {
 		return "noPass";
 	}
 	
-	// 이메일 중복체를 위한 메소드
+	// 이메일 중복체크를 위한 메소드
 	// 매개변수: 계정 이메일
 	// 리턴값: 승인 또는 비승인 
 	@PostMapping("/accountEmailCheck")

@@ -20,12 +20,14 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<div class="jumbotron">
+				
+		<div class="jumbotron">
+			<div class="container">
 				<h1>쪽지 상세보기</h1>
 			</div>
+		</div>
 			
+		<div class="container">	
 			<table class="table table-bordered">
 				<tr>
 					<td>수신자 ID</td>

@@ -10,11 +10,14 @@
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 			
-		<div class=container>
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>LMS 로그인</h1>
 				<h4>Learning Management System</h4>
 			</div>
+		</div>
+
+		<div class=container>
 			<ul class="nav nav-tabs nav-justified">
 				<li class="nav-item">
 					<a class="nav-link btn btn-outline-primary" href="${pageContext.request.contextPath}/studentLogin">학생</a>

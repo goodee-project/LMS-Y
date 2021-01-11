@@ -1,6 +1,7 @@
 package gd.fintech.lms.account.service;
 
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -139,5 +140,15 @@ public class AccountService {
 	// 리턴값: 관리자의 정보를 조회한 리턴값
 	public Admin getAdminOne(String accountId) {
 		return adminMapper.selectAdmin(accountId);
+	}
+	
+	// 마지막 로그인이 6개월 경과면 휴면상태로 처리하는 메소드
+	public void modifyDormantAccountId() {
+		// 마지막 로그인이 6개월 전인 계정 리스트
+		List<String> accountList = accountMapper.selectDormantAccountIdList();
+		// 리스트 크기만큼 반복하여 휴면 상태로 전환
+		for(String list : accountList) {
+			accountMapper.updateAccountStateDormantByAccountId(list);
+		}
 	}
 }

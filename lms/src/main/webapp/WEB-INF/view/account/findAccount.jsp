@@ -48,12 +48,14 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<div class="jumbotron">
+	
+		<div class="jumbotron">
+			<div class="container">
 				<h1>ID/PW 찾기</h1>
 			</div>
+		</div>
 			
+		<div class="container">
 			<div align="center">
 				<p class="text-success mt-5 mb-3">해당 이메일로 ID/PW를 전송합니다</p>
 				<form action="${pageContext.request.contextPath}/findAccount" method="post" id="findForm">

@@ -124,6 +124,12 @@ public class LoginController {
 			out.println("<script>alert('해당 계정은 탈퇴처리되었습니다'); history.go(-1);</script>");
 			out.flush();
 			return "account/login";
+		}else if(memberCk.getAccountState().equals("휴면")) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('해당 계정은 휴면처리되었습니다'); history.go(-1);</script>");
+			out.flush();
+			return "account/login";
 		}else {
 			// 계정이 있는 경우 로그인 로그 기록 남기기
 			LoginLog loginLog = new LoginLog();

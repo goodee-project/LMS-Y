@@ -109,94 +109,97 @@
 		</script>
 	</head>
 	<body>
-	<!-- 부트스트랩(CSS) 인클루드 -->
-	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-	<div class=container>
+		<!-- 부트스트랩(CSS) 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>		
+	
 		<div class="jumbotron">
-			<h1>강사 회원가입 페이지</h1>
+			<div class="container">
+				<h1>강사 회원가입 페이지</h1>
+			</div>
 		</div>
-		<form action="${pageContext.request.contextPath}/signUpTeacher" method="post" id="signUpForm">
-			<input class="form-control col-sm-4" type="hidden" name="accountLevel" value="2">
-			<table class="table table-bordered">
-				<tr>
-					<td>아이디</td>
-					<td>
-						<input class="form-control col-sm-4" type="text" id="teacherId" name="accountId" placeholder="아이디 입력">
-						<div id="idMsg"></div>
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td>
-						<input class="form-control col-sm-4" type="password" id="teacherPw" name="accountPw" placeholder="비밀번호 입력">
-						<div id="pwMsg"></div>
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호 확인</td>
-					<td>
-						<input class="form-control col-sm-4" type="password" id="teacherPwCk" placeholder="비밀번호 확인">
-						<div id="pwCkMsg"></div>
-					</td>
-				</tr>
-				<tr>
-					<td>이메일</td>
-					<td>
-						<input class="form-control col-sm-4" type="text" id="teacherEmail" name="accountEmail" placeholder="이메일 입력">
-						<div id="emailCkMsg"></div>
-					</td>
-				</tr>
-				<tr>
-					<td>이름</td>
-					<td>
-						<input class="form-control col-sm-4" type="text" id="teacherName" name="accountName" placeholder="이름 입력">
-					</td>
-				</tr>
-				<tr>
-					<td>전화번호</td>
-					<td>
-						<input class="form-control col-sm-4" type="tel" id="teacherPhone" name="accountPhone" placeholder="- 빼고 숫자만 입력">
-					</td>
-				</tr>
-				<tr>
-					<td>성별</td>
-					<td>
-						<div class="form-check-inline">
-						    <input type="radio" class="form-check-input" value="남" name="accountGender">남
-						</div>
-						<div class="form-check-inline">
-						    <input type="radio" class="form-check-input" value="여" name="accountGender">여
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>생년월일</td>
-					<td>
-						<input class="form-control col-sm-4" type="date" id="teacherBirth" name="accountBirth">
-					</td>
-				</tr>
-				<tr>
-					<td rowspan="2">주소</td>
-					<td>
-						<div class="input-group">
-							<input class="form-control col-sm-3" type="text" id="zipCode" placeholder="우편번호 입력">
-							<button class="btn btn-outline-primary" type="button" id="zipCodeSearch">우편번호 검색</button>
-						</div>
-						<div id="addAddr"></div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input class="form-control col-sm-7" type="text" id="subAddress" name="accountAddressSub" placeholder="상세주소">
-					</td>
-				</tr>
-			</table><br>
-			<div align="center">
-				<button class="btn btn-secondary" type="button" id="btnSubmit">가입하기</button>
-				<a href="${pageContext.request.contextPath}/teacherLogin" class="btn btn-danger" id="cancel">취소하기</a>		
-			</div><br>
-		</form>
-	</div>
+		
+		<div class=container>
+			<form action="${pageContext.request.contextPath}/signUpTeacher" method="post" id="signUpForm">
+				<input class="form-control col-sm-4" type="hidden" name="accountLevel" value="2">
+				<table class="table table-bordered">
+					<tr>
+						<td>아이디</td>
+						<td>
+							<input class="form-control col-sm-4" type="text" id="teacherId" name="accountId" placeholder="아이디 입력">
+							<div id="idMsg"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>비밀번호</td>
+						<td>
+							<input class="form-control col-sm-4" type="password" id="teacherPw" name="accountPw" placeholder="비밀번호 입력">
+							<div id="pwMsg"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>비밀번호 확인</td>
+						<td>
+							<input class="form-control col-sm-4" type="password" id="teacherPwCk" placeholder="비밀번호 확인">
+							<div id="pwCkMsg"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>이메일</td>
+						<td>
+							<input class="form-control col-sm-4" type="text" id="teacherEmail" name="accountEmail" placeholder="이메일 입력">
+							<div id="emailCkMsg"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>이름</td>
+						<td>
+							<input class="form-control col-sm-4" type="text" id="teacherName" name="accountName" placeholder="이름 입력">
+						</td>
+					</tr>
+					<tr>
+						<td>전화번호</td>
+						<td>
+							<input class="form-control col-sm-4" type="tel" id="teacherPhone" name="accountPhone" placeholder="- 빼고 숫자만 입력">
+						</td>
+					</tr>
+					<tr>
+						<td>성별</td>
+						<td>
+							<div class="form-check-inline">
+							    <input type="radio" class="form-check-input" value="남" name="accountGender">남
+							</div>
+							<div class="form-check-inline">
+							    <input type="radio" class="form-check-input" value="여" name="accountGender">여
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>생년월일</td>
+						<td>
+							<input class="form-control col-sm-4" type="date" id="teacherBirth" name="accountBirth">
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="2">주소</td>
+						<td>
+							<div class="input-group">
+								<input class="form-control col-sm-3" type="text" id="zipCode" placeholder="우편번호 입력">
+								<button class="btn btn-outline-primary" type="button" id="zipCodeSearch">우편번호 검색</button>
+							</div>
+							<div id="addAddr"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input class="form-control col-sm-7" type="text" id="subAddress" name="accountAddressSub" placeholder="상세주소">
+						</td>
+					</tr>
+				</table><br>
+				<div align="center">
+					<button class="btn btn-secondary" type="button" id="btnSubmit">가입하기</button>
+					<a href="${pageContext.request.contextPath}/teacherLogin" class="btn btn-danger" id="cancel">취소하기</a>		
+				</div><br>
+			</form>
+		</div>
 	</body>
 </html>

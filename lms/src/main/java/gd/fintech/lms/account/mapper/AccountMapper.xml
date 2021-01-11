@@ -74,6 +74,15 @@
 		WHERE account_id = #{accountId}
 	</update>
 	
+	<!-- 계정상태를 휴면상태로 변경하는 쿼리  -->
+	<update id="updateAccountStateDormantByAccountId" parameterType="String">
+		UPDATE account
+		SET 
+			account_state = "휴면" ,
+			account_updatedate = NOW()
+		WHERE account_id = #{accountId}
+	</update>
+	
 	<!-- 계정 비밀번호를 수정하는 메소드 -->
 	<update id="updateAccountPasswordByAccountId" parameterType="gd.fintech.lms.account.vo.Account">
 		UPDATE account
@@ -96,4 +105,12 @@
 		SET account_pw = PASSWORD(#{accountPw})
 		WHERE account_email = #{accountEmail}
 	</update>
+	
+	<!-- 마지막 로그인과 현재 시간의 개월차를 구하는 쿼리 -->
+	<select id="selectDormantAccountIdList" resultType="String">
+		SELECT DISTINCT account_id
+		FROM login_log
+		WHERE 
+			<![CDATA[ login_datetime <= ADDDATE(NOW(),INTERVAL -6 month) ]]>
+	</select>
 </mapper>

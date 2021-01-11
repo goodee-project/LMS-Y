@@ -30,12 +30,15 @@
 	
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
-		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>	
 		
-		<div class="container">
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>보낸 쪽지함</h1>
 			</div>
+		</div>
+			
+		<div class="container">
 			<div>
 				<div class="float-left">
 					<form action="${pageContext.request.contextPath}/messageForm" method="post">

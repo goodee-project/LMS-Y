@@ -65,9 +65,13 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>시험정보 생성</h1>
+			</div>
+		</div>
+		
 		<div class="container">
-			<h1>시험정보 생성</h1>
-			
 			<div>
 				<form id="testForm" method="POST" action="${pageContext.request.pathInfo}">
 					<input type="hidden" name="lectureNo" value="${param.lectureNo}">

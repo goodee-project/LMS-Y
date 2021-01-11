@@ -17,9 +17,13 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>시험 정보</h1>
+			</div>
+		</div>
+		
 		<div class="container">
-			<h1>시험 정보</h1>
-			
 			<div>
 				<%-- 시험 정보가 생성되지 않았을 경우 --%>
 				<c:if test="${test == null}">

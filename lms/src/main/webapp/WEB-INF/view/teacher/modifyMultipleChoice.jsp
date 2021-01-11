@@ -46,14 +46,18 @@
 		<!-- 강좌 메뉴 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>객관식 문제 수정</h1>
+			</div>
+		</div>
+		
 		<div class="container">
-			<h1>객관식 문제 수정</h1>
-			
 			<div>
 				<form id="multipleChoiceForm" method="post" action="${pageContext.request.pathInfo}">
 					<input type="hidden" name="multipleChoiceNo" value="${param.multipleChoiceNo}">
 					
-					<table class="table table-sm">
+					<table class="table">
 						<tr>
 							<td class="w-25 align-middle">문제 내용</td>
 							<td><input id="multipleChoiceQuestion" class="form-control" type="text" name="multipleChoiceQuestion" value="${multipleChoice.multipleChoiceQuestion}"></td>

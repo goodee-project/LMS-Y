@@ -77,12 +77,12 @@
 						
 						<%-- 각 페이지 이동 버튼 --%>
 						<c:forEach var="p" begin="${navBeginPage}" end="${navLastPage}" step="1">
-							<c:if test="${p != currentPage}">
+							<c:if test="${(param.currentPage != null && p != param.currentPage) || (param.currentPage == null && p != 1)}">
 								<li class="page-item">
 									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${p}">${p}</a>
 								</li>
 							</c:if>
-							<c:if test="${p == currentPage}">
+							<c:if test="${(param.currentPage != null && p == param.currentPage) || (param.currentPage == null && p == 1)}">
 								<li class="page-item active">
 									<a class="page-link">${p}</a>
 								</li>

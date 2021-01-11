@@ -242,7 +242,7 @@ public class ReportService {
 		// 해당 강사가 관리하는 강좌가 아닐 경우 실행 중단 후 false 반환
 		boolean isCorrectTeacher = false;
 		for (Lecture l : lectureList) {
-			if (l.getLectureNo() == report.getLectureNo()) {
+			if (l.getLectureNo() == reportMapper.selectReportDetail(report.getReportNo()).getLectureNo()) {
 				isCorrectTeacher = true;
 			}
 		}

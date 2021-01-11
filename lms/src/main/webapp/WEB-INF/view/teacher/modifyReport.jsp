@@ -85,7 +85,7 @@
 		
 		<div class="container">
 			<form id="reportForm" method="POST" action="${pageContext.request.pathInfo}">
-				<input type="hidden" name="lectureNo" value="${param.lectureNo}">
+				<input type="hidden" name="reportNo" value="${report.reportNo}">
 				
 				<table class="table">
 					<tr>

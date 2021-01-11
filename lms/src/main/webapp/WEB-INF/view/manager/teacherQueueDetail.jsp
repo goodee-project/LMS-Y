@@ -10,49 +10,77 @@
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
- 
+		$(document).ready(function() {
+			$('#approveBtn').click(function() {
+				let approve = confirm('정말 회원가입을 승인하시겠습니까?');
+				
+				if(approve) {
+					location.replace('${pageContext.request.contextPath}/manager/approveTeacher?accountId=${teacherQueueDetail.accountId}');
+					alert('회원가입이 승인되었습니다.');
+				} else {
+					alert('취소하였습니다.');
+					return;
+				}
+    		});
+    		
+    		$('#disapproveBtn').click(function() {
+				let disapprove = confirm('정말 회원가입을 거부하시겠습니까?');
+				
+				if(disapprove) {
+					location.replace('${pageContext.request.contextPath}/manager/disapproveTeacher?accountId=${teacherQueueDetail.accountId}');
+					alert('회원가입이 거부되었습니다.');
+				} else {
+					alert('취소하였습니다.');
+					return;
+				}
+    		});
+    	});
         </script>
 	</head>
 	
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>강사 정보</h1>
+			</div>
+		</div>
 		<div class="container">
-			<h1>강사 정보</h1>
 			<div>
 				<table class="table">
 					<tr>
-						<td>accountId</td>
+						<td>ID</td>
 						<td>${teacherQueueDetail.accountId}</td>
 					</tr>
 					<tr>
-						<td>teacherEmail</td>
-						<td>${teacherQueueDetail.teacherEmail}</td>
-					</tr>
-					<tr>
-						<td>teacherName</td>
+						<td>이름</td>
 						<td>${teacherQueueDetail.teacherName}</td>
 					</tr>
 					<tr>
-						<td>teacherPhone</td>
+						<td>전화번호</td>
 						<td>${teacherQueueDetail.teacherPhone}</td>
 					</tr>
 					<tr>
-						<td>teacherGender</td>
+						<td>E-mail</td>
+						<td>${teacherQueueDetail.teacherEmail}</td>
+					</tr>
+					<tr>
+						<td>성별</td>
 						<td>${teacherQueueDetail.teacherGender}</td>
 					</tr>
 					<tr>
-						<td>teacherBirth</td>
+						<td>생년월일</td>
 						<td>${teacherQueueDetail.teacherBirth}</td>
 					</tr>
 					<tr>
-						<td>teacherAddress</td>
+						<td>주소</td>
 						<td>${teacherQueueDetail.teacherAddressMain} ${teacherQueueDetail.teacherAddressSub}</td>
 					</tr>
 				</table>
 				<div>
-					<a id="approveBtn" href="${pageContext.request.contextPath}/manager/approveTeacher?accountId=${teacherQueueDetail.accountId}">승인</a>
-					<a id="disapproveBtn" href="${pageContext.request.contextPath}/manager/disapproveTeacher?accountId=${teacherQueueDetail.accountId}">승인 거절</a>
+					<button class="btn btn-success" type="button" id="approveBtn">승인</button>
+					<button class="btn btn-danger" type="button" id="disapproveBtn">승인 거절</button>
 				</div>
 			</div>
 		</div>

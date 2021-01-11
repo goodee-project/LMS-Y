@@ -11,7 +11,7 @@
 		FROM teacher_queue
 		<where>
 			<if test="teacherName != null">
-				student_name LIKE CONCAT('%', #{teacherName}, '%')
+				teacher_name LIKE CONCAT('%', #{teacherName}, '%')
 			</if>
 		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
@@ -36,7 +36,7 @@
 		FROM teacher_queue
 		<where>
 			<if test="teacherName != null">
-				student_name LIKE CONCAT('%', #{teacherName}, '%')
+				teacher_name LIKE CONCAT('%', #{teacherName}, '%')
 			</if>
 		</where>
 	</select>

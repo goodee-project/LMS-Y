@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>lms 공지 입력</title>
+		<title>lms 공지 추가</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -19,12 +19,12 @@
 
 					// 댓글 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
 					if ($('#lmsNoticeTitleId').val() == '') {
-						alert('제목을 입력해주세요!');
+						alert('제목을 입력해주세요.');
 						$('#lmsNoticeTitleId').focus();
 						return
 					}
 					if ($('#lmsNoticeContentId').val() == '') {
-						alert('내용을 입력해주세요!');
+						alert('내용을 입력해주세요.');
 						$('#lmsNoticeContentId').focus();
 						return
 					}
@@ -53,23 +53,30 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<h1>lms 공지추가</h1>
-			
-			<div>
-				<form id="formId" action="${pageContext.request.contextPath}/manager/createLMSNotice" method="post">
-					<div>
-						제목:<input id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle">
-					</div>
-					<div>
-						<textarea id="lmsNoticeContentId" name="lmsNoticeContent"></textarea>
-					</div>
-					<div>
-						<button id="submitBtn" type="button">추가</button>
-					</div>
-				</form>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>lms 공지추가</h1>
 			</div>
+		</div>
+		<div class="container">
+			<form id="formId" action="${pageContext.request.contextPath}/manager/createLMSNotice" method="post">
+				<table class="table">
+					<tr>
+						<td>제목:</td>
+						<td><input class="form-control container-fluid" id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle"></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+						<div class="mt-2">
+							<textarea id="lmsNoticeContentId" name="lmsNoticeContent" style="width: 100%"></textarea>
+						</div>
+						</td>
+					</tr>
+				</table>
+				<div>
+					<button class="btn btn-success" id="submitBtn" type="button">추가</button>
+				</div>
+			</form>
 		</div>
 	</body>
 </html>

@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>lms 공지 입력</title>
+		<title>lms 공지 수정</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -53,21 +53,30 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>lms 공지수정</h1>
+			</div>
+		</div>
 		<div class="container">
-			<h1>lms 공지수정</h1>
-			
 			<div>
 				<form id="formId" action="${pageContext.request.contextPath}/manager/modifyLMSNotice" method="post">
 					<input type="hidden" name="lmsNoticeNo" value="${lmsNotice.lmsNoticeNo}">
+					<table class="table">
+						<tr>
+							<td>제목:</td>
+							<td><input class="form-control container-fluid" id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle" value="${lmsNotice.lmsNoticeTitle}"></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+							<div class="mt-2">
+								<textarea id="lmsNoticeContentId" name="lmsNoticeContent" style="width: 100%">${lmsNotice.lmsNoticeContent}</textarea>
+							</div>
+							</td>
+						</tr>
+					</table>
 					<div>
-						제목:<input id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle" value="${lmsNotice.lmsNoticeTitle}">
-					</div>
-					<div>
-						<textarea id="lmsNoticeContentId" name="lmsNoticeContent">${lmsNotice.lmsNoticeContent}</textarea>
-					</div>
-					<div>
-						<button id="submitBtn" type="button">수정</button>
+						<button class="btn btn-success" id="submitBtn" type="button">수정</button>
 					</div>
 				</form>
 			</div>

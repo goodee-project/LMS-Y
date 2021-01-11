@@ -34,28 +34,29 @@
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-			<div class=container>
-				<div class="jumbotron">
+			
+			<div class="jumbotron">
+				<div class=container>
 					<h1>공지사항 추가</h1>
 				</div>
 			</div>
 			<div class=container>
 				<form method="post" action="${pageContext.request.contextPath}/teacher/createLectureNotice">
+					<div style="text-align:left;">
+						<button class="btn btn-primary" type="submit">입력</button>
+					</div>
+					<p>
+					<input hidden="hidden" type="text" type="text" name="lectureNo" value="${lectureNo}" readonly="readonly">
 					<table class="table">
 						<tr>
-							<td>강좌번호</td>
-							<td><input type="text" type="text" name="lectureNo" value="${lectureNo}" readonly="readonly"></td>
-						</tr>
-						<tr>
 							<td>제목</td>
-							<td><input type="text" name="lectureNoticeTitle"></td>
+							<td><input class="form-control" type="text" name="lectureNoticeTitle"></td>
 						</tr>
 						<tr>
 							<td>내용</td>
 							<td><textarea cols="70" rows="10" id="lectureNoticeContent" name="lectureNoticeContent"></textarea>
 						</tr>
 					</table>
-					<button type="submit">입력</button>
 				</form>
 			</div>
 	</body>

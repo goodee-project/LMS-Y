@@ -77,13 +77,17 @@
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
-		<div class=container>
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class=container>
 				<h1>자료실 추가</h1>
 			</div>
 		</div>
 		<div class=container>
 			<form id="lectureArchiveForm"  method="post" action="${pageContext.request.contextPath}/teacher/createLectureArchive" enctype="multipart/form-data">
+				<div style="text-align:left;">
+					<button class="btn btn-primary" id="submitLectureArchiveForm" type="button">입력</button>
+				</div>
+				<p>
 				<div>
 						<!-- 강좌번호 -->
 						<input type="hidden" name="lectureNo" value="${lectureNo}" readonly="readonly">
@@ -95,29 +99,26 @@
 			<table class="table">
 						<tr>
 							<td>제목</td>
-							<td><input id="lectureArchiveTitle" type="text" name="lectureArchiveTitle"></td>
+							<td><input class="form-control" id="lectureArchiveTitle" type="text" name="lectureArchiveTitle"></td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>내용</td>
 							<td><textarea id="lectureArchiveContent" name="lectureArchiveContent"></textarea></td>
-						</tr>
-						<tr>
-							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>파일첨부</td>
 							<td>
 							<div>
-								<button id="createLectureArchiveFile" type="button">추가</button>
+								<button class="btn btn-danger" id="createLectureArchiveFile" type="button">추가</button>
 								<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
 								<div id="lectureArchiveFileFrame"></div>
 							</div>
 							</td>
-							
+							<td></td>
 						</tr>
 				</table>
-				<button id="submitLectureArchiveForm" type="button">입력</button>
 			</form>
 		</div>
 	</body>

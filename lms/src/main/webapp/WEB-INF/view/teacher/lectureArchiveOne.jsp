@@ -9,16 +9,16 @@
 <body>
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-
-	<div class=container>
 		<div class="jumbotron">
-			<h1>자료실 상세보기</h1>
+			<div class="container">
+				<h1>자료실 상세보기</h1>
+			</div>
 		</div>
-	</div>
 	<div class="container">
-		<div align="right">
-			<a href="${pageContext.request.contextPath}/teacher/modifyLectureArchive?lectureArchiveNo=${param.lectureArchiveNo}">수정</a>
+		<div align="left">
+			<a class="btn btn-primary" href="${pageContext.request.contextPath}/teacher/modifyLectureArchive?lectureArchiveNo=${param.lectureArchiveNo}">수정</a>
 		</div>
+		<br>
 		<table class="table">
 			<tr>
 				<td>자료실 번호</td>
@@ -30,7 +30,7 @@
 			</tr>
 			<tr>
 				<td>제목</td>
-				<td>>${lectureArchive.lectureArchiveTitle}</td>
+				<td>${lectureArchive.lectureArchiveTitle}</td>
 			</tr>
 			<tr>
 				<td>내용</td>
@@ -48,19 +48,18 @@
 					<tr>
 						<td>첨부파일</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/teacher/downloadLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}">${laf.lectureArchiveFileUUID}</a>
-							원본이름 : ${laf.lectureArchiveFileOriginal}
-							파일크기 : ${laf.lectureArchiveFileSize}B,
-							파일유형 : ${laf.lectureArchiveFileType},
-							파일생성일: ${laf.lectureArchiveFileCreateDate}
+							다운로드 : <a href="${pageContext.request.contextPath}/teacher/downloadLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}">${laf.lectureArchiveFileUUID}</a>
+							<div>원본이름 : ${laf.lectureArchiveFileOriginal}</div>
+							<div>파일크기 : ${laf.lectureArchiveFileSize}B,</div>
+							<div>파일유형 : ${laf.lectureArchiveFileType},</div>
+							<div>파일생성일: ${laf.lectureArchiveFileCreateDate}</div>
 						</td>
 					</tr>
-			<tr>
-				<td>다운로드 횟수</td>
-				<td>${laf.lectureArchiveFileCount}</td>
-			</tr>
+					<tr>
+						<td>다운로드 횟수</td>
+						<td>${laf.lectureArchiveFileCount}</td>
+					</tr>
 				</c:forEach>
-			
 		</table>
 	</div>
 </body>

@@ -10,9 +10,10 @@
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 
-	<div class=container>
-		<div class="jumbotron">
-			<h1>출석 입력</h1>
+	
+	<div class="jumbotron">
+		<div class=container>
+				<h1>출석 입력</h1>
 		</div>
 	</div>
 		
@@ -21,9 +22,6 @@
 		<div>
 			<input readonly="readonly" type="hidden" value="${param.accountId}" name="accountId">
 			<input readonly="readonly" type="hidden" value="${param.lectureNo}" name="lectureNo">
-		</div>
-		<div style="text-align:right;">
-		<button type="submit" class="btn">입력</button>
 		</div>
 		<table class="table">
 				<tr>
@@ -36,12 +34,12 @@
 				</tr>
 				<tr>
 					<td>출석날짜</td>
-					<td><input class="form-control bg-light" name="attendanceDay" type="text" value="${currentYear}-${currentMonth}-${currentDay}"></td>
+					<td><input class="form-control bg-light" name="attendanceDay" type="text" readonly="readonly" value="${currentYear}-${currentMonth}-${currentDay}"></td>
 				</tr>
 				<tr>
 					<td>출석여부</td>
 					<td>
-						<select class="form-control bg-light" name="attendanceState">
+						<select class="form-control" name="attendanceState">
 							<option value="">선택</option>
 							<option value="출석">출석</option>
 							<option value="결석">결석</option>
@@ -53,9 +51,12 @@
 				</tr>
 				<tr>
 					<td>비고</td>
-					<td><textarea rows="5" class="form-control bg-light" name="attendanceRemark"></textarea></td>
+					<td><textarea rows="5" class="form-control" name="attendanceRemark"></textarea></td>
 				</tr>
 		</table>
+			<div style="text-align:right;">
+				<button type="submit" class="btn btn-primary">입력</button>
+			</div>
 		</form>
 	</div>
 </body>

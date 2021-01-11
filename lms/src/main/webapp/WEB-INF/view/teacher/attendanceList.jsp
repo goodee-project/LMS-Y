@@ -27,8 +27,9 @@
 	<!-- 강좌 메뉴 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
-	<div class=container>
-		<div class="jumbotron">
+	
+	<div class="jumbotron">
+		<div class=container>
 			<h1>출석 달력</h1>
 		</div>
 	</div>
@@ -48,6 +49,18 @@
 		</table>
 	</div>
 	<div class=container>
+	<table>
+	<tr>
+		<td>
+			<button class="btn btn-danger"></button> --> 입력불가능
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<button class="btn btn-primary"></button> --> 입력가능
+		</td>
+	</tr>
+	</table>
 	<table class="table">
 		<thead>
 			<tr>

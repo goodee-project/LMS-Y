@@ -5,18 +5,49 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>내 정보 상세보기</title>
+		
+		<!-- jQuery 스크립트 -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				function sendError(url) {
+					$.ajax({
+						url : 'error.jsp',
+						data : 'url=' + encodeURIComponent(url)
+					});
+				}
+			});
+		</script>
+		<style type="text/css">
+			.attendanceTableMenu{
+				width: 100%;
+				text-align: center;
+			}
+		</style>
+		
+		<style type="text/css">
+			.imagediv{
+				width: 100%;
+				text-align: center;
+			}
+			 img { display : block;
+                  margin : auto;}
+		</style>
 	</head>
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
-		<div class=container>
 			<div class="jumbotron">
-				<h1>내 정보 상세보기</h1>
+				<div class="container">
+					<h1>내 정보 상세보기</h1>
+				</div>
 			</div>
-		</div>
 		<div class=container>
-			<a href="${pageContext.request.contextPath}/teacher/modifyTeacher">[수정]</a>
+				<div class="imagediv"><img src="${map.imageURI}" class="rounded-circle" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""  width="200px" height="200px" /></div>
+				<div class="imagediv"><a href="${pageContext.request.contextPath}/teacher/modifyTeacher">[프로필 수정]</a></div>
+				<br>
+				
 				<table class="table">
 					<tr>
 						<td>강사 아이디</td>
@@ -49,10 +80,6 @@
 					<tr>
 						<td>주소</td>
 						<td>${map.teacher.teacherAddressMain} ${map.teacher.teacherAddressSub}</td>
-					</tr>
-					<tr>
-						<td>프로필 사진</td>
-						<td><img src="${map.imageURI}" /></td>
 					</tr>
 					<tr>
 						<td>강사 한줄소개</td>

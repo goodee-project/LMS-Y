@@ -10,8 +10,9 @@
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 
-	<div class=container>
-		<div class="jumbotron">
+	
+	<div class="jumbotron">
+		<div class=container>
 			<h1>출석 수정</h1>
 		</div>
 	</div>
@@ -25,16 +26,16 @@
 		<table class="table">
 				<tr>
 					<td>학생이름</td>
-					<td><input readonly="readonly" type="text" value="${param.studentName}"></td>
+					<td><input class="form-control bg-light" readonly="readonly" type="text" value="${param.studentName}"></td>
 				</tr>
 				<tr>
 					<td>학생성별</td>
-					<td><input readonly="readonly" type="text" value="${param.studentGender}"></td>
+					<td><input class="form-control bg-light" readonly="readonly" type="text" value="${param.studentGender}"></td>
 				</tr>
 				<tr>
 					<td>출석여부</td>
 					<td>
-						<select name="attendanceState">
+						<select class="form-control" name="attendanceState">
 							<option value="${attendanceList.attendanceState}" selected="selected">${attendanceList.attendanceState}</option>
 							<c:if test="${attendanceList.attendanceState == '출석'}">
 										<option value="결석">결석</option>
@@ -71,10 +72,12 @@
 				</tr>
 				<tr>
 					<td>비고</td>
-					<td><textarea rows="3" cols="50" name="attendanceRemark">${attendanceList.attendanceRemark}</textarea></td>
+					<td><textarea class="form-control" rows="5" name="attendanceRemark">${attendanceList.attendanceRemark}</textarea></td>
 				</tr>
 		</table>
-			<button type="submit">입력</button>
+			<div style="text-align:right;">
+				<button class="btn btn-primary" type="submit">입력</button>
+			</div>
 		</form>
 	</div>
 </body>

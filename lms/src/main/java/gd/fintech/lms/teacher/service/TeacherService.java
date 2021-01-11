@@ -146,8 +146,10 @@ public class TeacherService {
 				//teacherMapper.updateTeacherImage(accountId, fileNameUUID);
 					//강사 이미지 조회 NULL값 일시
 					if(teacherMapper.selectMyImage(accountId) == null) {
-						teacherMapper.updateTeacherImage(accountId, fileNameUUID); 
 						teacherMapper.insertTeacherImage(accountImage);
+						if(teacherMapper.selectMyImage(accountId) != null) {
+							teacherMapper.updateTeacherImage(accountId, fileNameUUID); 
+						}
 					}
 				}
 			 }
@@ -167,7 +169,7 @@ public class TeacherService {
 			file.delete();
 		}
 		
-		teacherMapper.updateTeacherImage(accountId, fileName);
+		//teacherMapper.updateTeacherImage(accountId, fileName);
 		teacherMapper.deleteMyImage(accountId);
 	}
 	

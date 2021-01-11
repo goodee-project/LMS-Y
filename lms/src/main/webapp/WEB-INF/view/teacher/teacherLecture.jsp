@@ -10,8 +10,8 @@
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 
-	<div class=container>
-		<div class="jumbotron">
+	<div class="jumbotron">
+		<div class=container>
 			<h1>강좌조회 목록</h1>
 		</div>
 	</div>
@@ -47,20 +47,22 @@
 			</tbody>
 		</table>
 		<div style="margin-left:47%">
-			<c:choose>
-				<c:when test="${currentPage > '1'}">
-					<!-- 현재 페이지가 1일시 -->
-					<a href="${pageContext.request.contextPath}/teacher/teacherLecture?accountId=${accountId}&&currentPage=${currentPage-1}">이전</a>	
-				</c:when>
-			</c:choose>
-			<!-- 현재 페이지 표시 -->
-			<a href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=${currentPage}">${currentPage}</a>
-			<c:choose>
-				<c:when test="${currentPage < lastPage}">
-			<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
-			<a href="${pageContext.request.contextPath}/teacher/teacherLecture?accountId=${accountId}&&currentPage=${currentPage+1}">다음</a>
-				</c:when>
-			</c:choose>
+			<ul class="pagination">
+				<c:choose>
+					<c:when test="${currentPage > '1'}">
+						<!-- 현재 페이지가 1일시 -->
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?accountId=${accountId}&&currentPage=${currentPage-1}">이전</a></li>	
+					</c:when>
+				</c:choose>
+				<!-- 현재 페이지 표시 -->
+				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=${currentPage}">${currentPage}</a></li>
+				<c:choose>
+					<c:when test="${currentPage < lastPage}">
+				<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
+				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?accountId=${accountId}&&currentPage=${currentPage+1}">다음</a></li>
+					</c:when>
+				</c:choose>
+			</ul>
 		</div>
 	</div>
 </body>

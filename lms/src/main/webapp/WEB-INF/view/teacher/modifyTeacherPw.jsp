@@ -65,27 +65,27 @@
 <body>
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-	<div class=container>
-		<div class="jumbotron">
+	
+	<div class="jumbotron">
+		<div class=container>
 			<h1>비밀번호 변경</h1>
 		</div>
 	</div>
 	<div class=container>
 	<form id="modifyTeacherPw" method="post" action="${pageContext.request.contextPath}/teacher/modifyTeacherPw">
 			<input hidden="hidden" type="text" id="accountId" name="accountId" value="${accountId}">
-			
 			<!-- 기존비밀번호 -->
 			<input type="password" id="accountPw" class="form-control form-control-alternative" placeholder="현재 비밀번호를 입력하세요.">
-			<div id="teacherPasswordMsg"></div>
-			
+			<div style="color: red;" id="teacherPasswordMsg"></div>
 			<!-- 변경할 비밀번호 -->
 			<input type="password" id="teacherPw" name="accountPw" class="form-control form-control-alternative" placeholder="새로운 비밀번호를 입력하세요." >
 			<div id="pwMsg"></div>
+			<!-- 변경할 비밀번호 -->
 			<input type="password" id="teacherPwCk" class="form-control form-control-alternative" placeholder="새로운 비밀번호를 다시 입력하세요">
-			<div id="pwCkMsg"></div>
-		<div>
-			<button id="btnPw" type="button" class="btn btn-danger">입력</button>
-		</div>
+			<div style="color: red;" id="pwCkMsg"></div>
+			<div>
+				<button id="btnPw" type="button" class="btn btn-danger">입력</button>
+			</div>
 	</form>
 	</div>
 </body>

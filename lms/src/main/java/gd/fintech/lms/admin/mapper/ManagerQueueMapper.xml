@@ -13,22 +13,15 @@
 		FROM manager_queue
 		<where>
 			<if test="searchKeyword != null">
-				<choose>
-					<when test="searchType == 'all'">
-						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'name'">
-						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'email'">
-						manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'phone'">
-						manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-				</choose>
+				<if test="searchType == 'all' or searchType == 'name'">
+					manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'email'">
+					OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'phone'">
+					OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
 			</if>
 		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
@@ -41,22 +34,15 @@
 		FROM manager_queue
 		<where>
 			<if test="searchKeyword != null">
-				<choose>
-					<when test="searchType == 'all'">
-						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'name'">
-						manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'email'">
-						manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'phone'">
-						manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-				</choose>
+				<if test="searchType == 'all' or searchType == 'name'">
+					manager_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'email'">
+					OR manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'phone'">
+					OR manager_phone LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
 			</if>
 		</where>
 	</select>

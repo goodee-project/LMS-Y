@@ -5,16 +5,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>교재 정보 목록</title>
+		<title>교재 목록</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-            	// 선택된 검색조건 유지
-				$('#searchType').val('${searchType}').prop('selected', ture);
-            });
-        </script>
 	</head>
 	
 	<body>
@@ -22,13 +16,50 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>교재 목록</h1>
+			<div class="jumbotron">
+				<h1>교재 목록</h1>
+			</div>
 			
 			<!-- 추가버튼 -->
 			<div>
-				<a class="btn btn-primary" href="${pageContext.request.contextPath}/manager/createTextbook">
-					추가
-				</a>
+				<c:if test="${accountLevel == 3}">
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/manager/createTextbook">
+						추가
+					</a>
+				</c:if>
+			</div>
+			
+			<!-- 검색 바 -->
+			<div>
+				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
+					<div class="justify-content-end mb-3 input-group">
+						<!-- 검색조건 -->
+						<div class="input-group-prepend">
+							<select id="searchType" name="searchType" class="form-control">
+								<option value="all"
+									<c:if test="${searchType == 'all'}">selected</c:if>>전체</option>
+								<option value="ISBN"
+									<c:if test="${searchType == 'ISBN'}">selected</c:if>>ISBN</option>
+								<option value="title"
+									<c:if test="${searchType == 'title'}">selected</c:if>>교재명</option>
+								<option value="writer"
+									<c:if test="${searchType == 'writer'}">selected</c:if>>저자</option>
+								<option value="publisher"
+									<c:if test="${searchType == 'publisher'}">selected</c:if>>출판사</option>
+							</select>
+						</div>
+						
+						<!-- 검색어 입력 -->
+						<input type="text" id="searchKeyword" name="searchKeyword" class="form-control col-sm-2" value="${searchKeyword}" placeholder="검색어를 입력하세요">
+						
+						<!-- 검색 버튼 -->
+						<div class="input-group-append">
+							<button type="submit" class="form-control btn btn-primary">
+								검색
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
 			
 			<!-- 내용 -->
@@ -64,7 +95,9 @@
 						<c:if test="${lastPage == 0}">
 							<tr>
 								<td colspan="4">
-									검색된 항목이 없습니다
+									<div class="d-flex justify-content-center">
+										검색된 항목이 없습니다
+									</div>
 								</td>
 							</tr>
 						</c:if>
@@ -75,7 +108,7 @@
 			<!-- 페이지 네비게이션 바 -->
 			<!-- 검색된 항목이 있을 시에만 출력 -->
 			<c:if test="${lastPage != 0}">
-				<div>
+				<div class="d-flex justify-content-center">
 					<ul class="pagination small">
 						<%-- 처음 버튼 --%>
 						<c:if test="${currentPage != 1}">
@@ -161,30 +194,6 @@
 					</ul>
 				</div>
 			</c:if>
-			
-			<!-- 검색 바 -->
-			<div>
-				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
-					<div class="input-group">
-						<!-- 검색조건 -->
-						<select id="searchType" name="searchType" class="form-control">
-							<option value="all">전체</option>
-							<option value="ISBN">ISBN</option>
-							<option value="title">교재명</option>
-							<option value="writer">저자</option>
-							<option value="publisher">출판사</option>
-						</select>
-						
-						<!-- 검색어 입력 -->
-						<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchKeyword}" placeholder="검색어를 입력하세요">
-						
-						<!-- 검색 버튼 -->
-						<button type="submit" class="form-control btn btn-primary">
-							검색
-						</button>
-					</div>
-				</form>
-			</div>
 		</div>
 	</body>
 </html>

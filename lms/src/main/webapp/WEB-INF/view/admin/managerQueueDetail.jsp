@@ -83,10 +83,10 @@
 			</div>
 			
 			<div>
-				<button type="button" id="approveBtn">
+				<button type="button" id="approveBtn" class="btn btn-success">
 					승인
 				</button>
-				<button type="button" id="disapproveBtn">
+				<button type="button" id="disapproveBtn" class="btn btn-danger">
 					거부
 				</button>
 			</div>

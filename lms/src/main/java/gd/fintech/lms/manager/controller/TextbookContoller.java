@@ -57,8 +57,8 @@ public class TextbookContoller {
 	// 교재 정보 페이지를 출력하는 메소드
 	// 매개변수:
 	// #1. model
-	// #2. textbookISBN(교재 고유번호)
-	// 리턴값: textbookDetail(고유번호에 해당하는 교재 정보 페이지)
+	// #2. textbookISBN(교재 ISBN)
+	// 리턴값: textbookDetail(ISBN에 해당하는 교재 정보 페이지)
 	@GetMapping("/manager/textbookDetail")
 	public String textbookDetail(Model model, @RequestParam(value = "textbookISBN") String textbookISBN) {
 		Textbook textbookDetail = textbookService.getTextbookDetail(textbookISBN);
@@ -92,7 +92,7 @@ public class TextbookContoller {
 	// 교재 정보를 수정할 수 있는 페이지를 출력하는 메소드
 	// 매개변수:
 	// #1. model
-	// #2. textbookISBN(교재 고유번호)
+	// #2. textbookISBN(교재 ISBN)
 	// 리턴값: modifyTextbook(고유번호에 해당하는 교재 정보 수정 페이지)
 	// 수정할 교재 정보를 입력할 수 있는 페이지 출력
 	// 기존의 정보를 출력
@@ -109,7 +109,7 @@ public class TextbookContoller {
 	// 매개변수: textbook(교재 정보)
 	// 리턴값: textbookDetail 페이지로 이동
 	// 입력된 정보로 교재 정보를 수정
-	// 수정된 교재 정보 페이지로 이동(고유번호에 해당하는 교재 정보 페이지로 이동)
+	// 수정된 교재 정보 페이지로 이동(ISBN에 해당하는 교재 정보 페이지로 이동)
 	@PostMapping("/manager/modifyTextbook")
 	public String modifyTextbook(Textbook textbook) {
 		textbookService.modifyTextbook(textbook);

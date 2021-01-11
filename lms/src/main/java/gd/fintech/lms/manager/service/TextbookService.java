@@ -78,11 +78,18 @@ public class TextbookService {
 	}
 	
 	// 교재 정보를 출력하는 메소드
-	// 매개변수: textbookISBN(교재 고유번호)
+	// 매개변수: textbookISBN(교재 ISBN)
 	// 리턴값: 고유번호에 해당하는 교재 정보
 	public Textbook getTextbookDetail(String textbookISBN) {
 		Textbook textbookDetail = textbookMapper.selectTextbookDetail(textbookISBN);
 		return textbookDetail;
+	}
+	
+	// 교재 ISBN의 중복 여부를 확인하기 위해 ISBN를 출력하는 메소드
+	// 매개변수: textbookISBN(교재 ISBN)
+	// 리턴값: 교재 ISBN
+	public String getTextbookISBN(String textbookISBN) {
+		return textbookMapper.selectTextbookISBN(textbookISBN);
 	}
 	
 	// 교재 정보를 입력하는 메소드

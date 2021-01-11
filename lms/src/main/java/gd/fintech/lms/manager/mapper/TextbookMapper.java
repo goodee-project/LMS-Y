@@ -26,9 +26,14 @@ public interface TextbookMapper {
 	int selectTextbookCount(String searchType, String searchKeyword);
 	
 	// 교재 정보를 출력
-	// 매개변수: textbookISBN(교재 고유번호)
-	// 리턴값: 교재 고유번호에 해당하는 교재 정보
+	// 매개변수: textbookISBN(교재 ISBN)
+	// 리턴값: 교재 ISBN에 해당하는 교재 정보
 	Textbook selectTextbookDetail(String textbookISBN);
+	
+	// 교재 ISBN의 중복 여부를 확인하기 위해 교재 ISBN을 출력
+	// 매개변수: textbookISBN(교재 ISBN)
+	// 리턴값: 교재 ISBN에 해당하는 교재 ISBN
+	String selectTextbookISBN(String textbookISBN);
 	
 	// 교재 정보를 입력
 	// 매개변수: textbook(교재 정보)

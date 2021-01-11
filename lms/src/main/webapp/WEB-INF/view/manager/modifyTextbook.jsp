@@ -12,14 +12,79 @@
         <script>
             $(document).ready(function() {
             	// 유효성 검사용 정규 표현식
-                let numCk = /[^0-9]$/;
+				// ISBN 정규 표현식
+				let ISBNCk = /(?:978-89|979-11)-[0-9]+-[0-9]+-[0-9]/g;
+				// 가격 정규 표현식
+				let priceCk = /^[0-9]+$/;
+				// 출판일 정규 표현식
+				let publishDateCk = /^(19|20)[0-9]{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
 				
-				// 교재명 입력칸에 포커싱
-				$('#textbookTitle').focus();
-
+				// ISBN 생성
+				let ISBN = null;
+				// title 생성
+				let title = null;
+				// price 생성
+				let price = null;
+				// writer 생성
+				let writer = null;
+				// publisher 생성
+				let publisher = null;
+				// publishDate 생성
+				let publishDate = null;
+				// info 생성
+				let info = null;
+				
+				// ISBNNum 생성
+				let ISBNNum = null;
+				// publishDateNum 생성
+				let publishDateNum = null;
+				
+				// ISBN 유효성 검사
+				$('#textbookISBN').blur(function() {
+					// ISBN에 입력한 ISBN 저장
+					ISBN = $('#textbookISBN').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// ISBN에서 숫자만 분리
+					ISBNNum = ISBN.replace(/[^0-9]/g, "").split("");
+					
+					if(ISBN == '') {
+						$('#textbookISBNMsg').text('ISBN을 입력하세요');
+						$('#textbookISBN').focus();
+						return;
+					} else if(ISBN.length != 17 || ISBNNum.length != 13) {
+						$('#textbookISBNMsg').text("ISBN은 숫자 13자리 입니다('-' 포함 17자리)");
+						$('#textbookISBN').focus();
+						return;
+					} else if(!ISBNCk.test(ISBN)) {
+						$('#textbookISBNMsg').text('올바른 형식으로 입력하세요');
+						$('#textbookISBN').focus();
+						return;
+					} else {
+						$('#textbookISBNMsg').text('');
+					}
+					
+					// ISBN 중복 여부 확인
+					$.ajax({
+						url: '${pageContext.request.contextPath}/manager/textbookISBNCheck',
+						type: 'post',
+						data: {textbookISBN:ISBN},
+						success: function(data) {
+							if(data == 'noPass') {
+								$('#textbookISBNMsg').text('입력하신 ISBN은 이미 등록된 ISBN 입니다');
+								$('#textbookISBN').focus();
+								return;
+							}else {
+								$('#textbookISBNMsg').text('');
+							}
+						}
+					});
+				});
+				
 				// 교재명 유효성 검사
 				$('#textbookTitle').blur(function() {
-					if($('#textbookTitle').val() == '') {
+					// title에 입력한 교재명 저장
+					title = $('#textbookTitle').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(title == '') {
 						$('#textbookTitleMsg').text('교재명을 입력하세요');
 						$('#textbookTitle').focus();
 						return;
@@ -30,11 +95,14 @@
 				
 				// 가격 유효성 검사
 				$('#textbookPrice').blur(function() {
-					if($('#textbookPrice').val() == '') {
+					// price에 입력한 가격 저장
+					price = $('#textbookPrice').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(price == '') {
 						$('#textbookPriceMsg').text('가격을 입력하세요');
 						$('#textbookPrice').focus();
 						return;
-					} else if(numCk.test($('#textbookPrice').val())) {
+					} else if(!priceCk.test(price)) {
 						$('#textbookPriceMsg').text('숫자만 입력하세요');
 						$('#textbookPrice').focus();
 						return;
@@ -45,7 +113,10 @@
             	
 				// 저자 유효성 검사
 				$('#textbookWriter').blur(function() {
-					if($('#textbookWriter').val() == '') {
+					// writer에 입력한 저자 저장
+					writer = $('#textbookWriter').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(writer == '') {
 						$('#textbookWriterMsg').text('저자를 입력하세요');
 						$('#textbookWriter').focus();
 						return;
@@ -56,7 +127,10 @@
 
 				// 출판사 유효성 검사
 				$('#textbookPublisher').blur(function() {
-					if($('#textbookPublisher').val() == '') {
+					// publisher에 입력한 출판사 저장
+					publisher = $('#textbookPublisher').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(publisher == '') {
 						$('#textbookPublisherMsg').text('출판사를 입력하세요');
 						$('#textbookPublisher').focus();
 						return;
@@ -64,10 +138,37 @@
 						$('#textbookPublisherMsg').text('');
 					}
 				});
+				
+				// 출판일 유효성 검사
+				$('#textbookPublishDate').blur(function() {
+					// publishDate에 입력한 출판일 저장
+					publishDate = $('#textbookPublishDate').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// publishDate에서 숫자만 분리
+					publishDateNum = publishDate.replace(/[^0-9]/g, "").split("");
+					
+					if(publishDate == '') {
+						$('#textbookPublishDateMsg').text('출판일을 입력하세요');
+						$('#textbookPublishDate').focus();
+						return;
+					} else if(publishDate.length != 10 || publishDateNum.length != 8) {
+						$('#textbookPublishDateMsg').text("출판일은 숫자 8자리 입니다('-' 포함 10자리)");
+						$('#textbookPublishDate').focus();
+						return;
+					} else if(!publishDateCk.test(publishDate)) {
+						$('#textbookPublishDateMsg').text('올바른 형식으로 입력하세요');
+						$('#textbookPublishDate').focus();
+						return;
+					} else {
+						$('#textbookPublishDateMsg').text(''); 
+					}
+				});
 
 				// 정보 유효성 검사
 				$('#textbookInfo').blur(function() {
-					if($('#textbookInfo').val() == '') {
+					// info에 입력한 정보 저장
+					info = $('#textbookInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(info == '') {
 						$('#textbookInfoMsg').text('정보를 입력하세요');
 						$('#textbookInfo').focus();
 						return;
@@ -75,69 +176,115 @@
 						$('#textbookInfoMsg').text('');
 					}
 				});
-
+				
 				// 등록버튼 클릭 시 최종 유효성 검사 및 등록
 				$('#submitBtn').click(function() {
+					// ISBN에 입력한 ISBN 저장
+					ISBN = $('#textbookISBN').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// title에 입력한 교재명 저장
+					title = $('#textbookTitle').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// price에 입력한 가격 저장
+					price = $('#textbookPrice').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// writer에 입력한 저자 저장
+					writer = $('#textbookWriter').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// publisher에 입력한 출판사 저장
+					publisher = $('#textbookPublisher').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// publishDate에 입력한 출판일 저장
+					publishDate = $('#textbookPublishDate').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// info에 입력한 정보 저장
+					info = $('#textbookInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					// ISBNNum에 ISBN 숫자만 저장
+					ISBNNum = ISBN.replace(/[^0-9]/g, "").split("");
+					// publishDateNum에 publishDate 숫자만 저장
+					publishDateNum = publishDate.replace(/[^0-9]/g, "").split("");
+					
+					// ISBN 유효성 검사
+					if(ISBN == '') {
+						$('#textbookISBNMsg').text('ISBN을 입력하세요');
+						$('#textbookISBN').focus();
+						return;
+					} else if(ISBN.length != 17 || ISBNNum.length != 13) {
+						$('#textbookISBNMsg').text("ISBN은 숫자 13자리 입니다('-' 포함 17자리)");
+						$('#textbookISBN').focus();
+						return;
+					} else if(!ISBNCk.test(ISBN)) {
+						$('#textbookISBNMsg').text('올바른 형식으로 입력하세요');
+						$('#textbookISBN').focus();
+						console.log(ISBNCk.test(ISBN));
+						return;
+					} else {
+						$('#textbookISBNMsg').text('');
+					}
+					
 					// 교재명 유효성 검사
-					$('#textbookTitle').blur(function() {
-						if($('#textbookTitle').val() == '') {
-							$('#textbookTitleMsg').text('교재명을 입력하세요');
-							$('#textbookTitle').focus();
-							return;
-						} else {
-							$('#textbookTitleMsg').text('');
-						}
-					});
+					if(title == '') {
+						$('#textbookTitleMsg').text('교재명을 입력하세요');
+						$('#textbookTitle').focus();
+						return;
+					} else {
+						$('#textbookTitleMsg').text('');
+					}				
 					
 					// 가격 유효성 검사
-					$('#textbookPrice').blur(function() {
-						if($('#textbookPrice').val() == '') {
-							$('#textbookPriceMsg').text('가격을 입력하세요');
-							$('#textbookPrice').focus();
-							return;
-						} else if(numCk.test($('#textbookPrice').val())) {
-							$('#textbookPriceMsg').text('숫자만 입력하세요');
-							$('#textbookPrice').focus();
-							return;
-						} else {
-							$('#textbookPriceMsg').text('');
-						}
-					});
-	            	
+					if(price == '') {
+						$('#textbookPriceMsg').text('가격을 입력하세요');
+						$('#textbookPrice').focus();
+						return;
+					} else if(!priceCk.test(price)) {
+						$('#textbookPriceMsg').text('숫자만 입력하세요');
+						$('#textbookPrice').focus();
+						return;
+					} else {
+						$('#textbookPriceMsg').text('');
+					}
+						            	
 					// 저자 유효성 검사
-					$('#textbookWriter').blur(function() {
-						if($('#textbookWriter').val() == '') {
-							$('#textbookWriterMsg').text('저자를 입력하세요');
-							$('#textbookWriter').focus();
-							return;
-						} else {
-							$('#textbookWriterMsg').text('');
-						}
-					});
-
+					if(writer == '') {
+						$('#textbookWriterMsg').text('저자를 입력하세요');
+						$('#textbookWriter').focus();
+						return;
+					} else {
+						$('#textbookWriterMsg').text('');
+					}
+					
 					// 출판사 유효성 검사
-					$('#textbookPublisher').blur(function() {
-						if($('#textbookPublisher').val() == '') {
-							$('#textbookPublisherMsg').text('출판사를 입력하세요');
-							$('#textbookPublisher').focus();
-							return;
-						} else {
-							$('#textbookPublisherMsg').text('');
-						}
-					});
-
+					if(publisher == '') {
+						$('#textbookPublisherMsg').text('출판사를 입력하세요');
+						$('#textbookPublisher').focus();
+						return;
+					} else {
+						$('#textbookPublisherMsg').text('');
+					}
+					
+					// 출판일 유효성 검사
+					if(publishDate == '') {
+						$('#textbookPublishDateMsg').text('출판일을 입력하세요');
+						$('#textbookPublishDate').focus();
+						return;
+					} else if(publishDate.length != 10 || publishDateNum.length != 8) {
+						$('#textbookPublishDateMsg').text("출판일은 숫자 8자리 입니다('-' 포함 10자리)");
+						$('#textbookPublishDate').focus();
+						return;
+					} else if(!publishDateCk.test(publishDate)) {
+						$('#textbookPublishDateMsg').text('올바른 형식으로 입력하세요');
+						$('#textbookPublishDate').focus();
+						return;
+					} else {
+						$('#textbookPublishDateMsg').text(''); 
+					}
+					
 					// 정보 유효성 검사
-					$('#textbookInfo').blur(function() {
-						if($('#textbookInfo').val() == '') {
-							$('#textbookInfoMsg').text('정보를 입력하세요');
-							$('#textbookInfo').focus();
-							return;
-						} else {
-							$('#textbookInfoMsg').text('');
-						}
-					});
-
+					if(info = '') {
+						$('#textbookInfoMsg').text('정보를 입력하세요');
+						$('#textbookInfo').focus();
+						return;
+					} else {
+						$('#textbookInfoMsg').text('');
+					}
+					
 					$('#textbookForm').submit();
+					alert('교재 정보가 수정되었습니다');
 				});
             });
         </script>
@@ -153,58 +300,59 @@
 			<!-- 교재 정보 입력 -->
 			<div>
 				<form method="post" id="textbookForm" action="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${modifyTextbook.textbookISBN}">
-					<table border="1">
+					<table class="table">
 						<tr>
 							<td>ISBN</td>
 							<td>
-								<input type="text" id="textbookISBN" value="${modifyTextbook.textbookISBN}" readonly="readonly">
+								<input type="text" id="textbookISBN" name="textbookISBN" value="${modifyTextbook.textbookISBN}">
+								<div id="textbookISBNMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>교재명</td>
 							<td>
-								<input type="text" name="textbookTitle" id="textbookTitle" value="${modifyTextbook.textbookTitle}">
+								<input type="text" id="textbookTitle" name="textbookTitle" value="${modifyTextbook.textbookTitle}">
 								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>가격</td>
 							<td>
-								<input type="text" name="textbookPrice" id="textbookPrice" value="${modifyTextbook.textbookPrice}">원
+								<input type="text" id="textbookPrice" name="textbookPrice" value="${modifyTextbook.textbookPrice}">원
 								<div id="textbookPriceMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>저자</td>
 							<td>
-								<input type="text" name="textbookWriter" id="textbookWriter" value="${modifyTextbook.textbookWriter}">
+								<input type="text" id="textbookWriter" name="textbookWriter" value="${modifyTextbook.textbookWriter}">
 								<div id="textbookWriterMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>출판사</td>
 							<td>
-								<input type="text" name="textbookPublisher" id="textbookPublisher" value="${modifyTextbook.textbookPublisher}">
+								<input type="text" id="textbookPublisher" name="textbookPublisher" value="${modifyTextbook.textbookPublisher}">
 								<div id="textbookPublisherMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>출판일</td>
 							<td>
-								<input type="date" name="textbookPublishDate" id="textbookPublishDate" value="${modifyTextbook.textbookPublishDate}">
+								<input type="text" id="textbookPublishDate" name="textbookPublishDate" value="${modifyTextbook.textbookPublishDate}">
 								<div id="textbookPublishDateMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<td>정보</td>
 							<td>
-								<input type="text" name="textbookInfo" id="textbookInfo" value="${modifyTextbook.textbookInfo}">
+								<input type="text" id="textbookInfo" name="textbookInfo" value="${modifyTextbook.textbookInfo}">
 								<div id="textbookInfoMsg"></div>
 							</td>
 						</tr>
 					</table>
 					
-					<button type="button" id="submitBtn">
+					<button type="button" id="submitBtn" class="btn btn-primary">
 						수정
 					</button>
 				</form>

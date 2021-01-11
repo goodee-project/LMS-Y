@@ -12,18 +12,12 @@
 		FROM subject
 		<where>
 			<if test="searchKeyword != null">
-				<choose>
-					<when test="searchType == 'all'">
-						subject_name LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR subject_totalday LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'name'">
-						subject_name LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'totalDay'">
-						subject_totalday LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-				</choose>
+				<if test="searchType == 'all' or searchType == 'name'">
+					subject_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'totalDay'">
+					OR subject_totalday = #{searchKeyword}
+				</if>
 			</if>
 		</where>
 		LIMIT #{beginRow}, #{rowPerPage}
@@ -36,18 +30,12 @@
 		FROM subject
 		<where>
 			<if test="searchKeyword != null">
-				<choose>
-					<when test="searchType == 'all'">
-						subject_name LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR subject_totalday LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'name'">
-						subject_name LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'totalDay'">
-						subject_totalday LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-				</choose>
+				<if test="searchType == 'all' or searchType == 'name'">
+					subject_name LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'totalDay'">
+					OR subject_totalday = #{searchKeyword}
+				</if>
 			</if>
 		</where>
 	</select>

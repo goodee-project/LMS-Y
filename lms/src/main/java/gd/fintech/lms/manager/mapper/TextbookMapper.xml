@@ -13,26 +13,18 @@
 		FROM textbook
 		<where>
 			<if test="searchKeyword != null">
-				<choose>
-					<when test="searchType == 'all'">
-						textbook_isbn LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR textbook_title LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR textbook_writer LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR textbook_publisher LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'ISBN'">
-						textbook_isbn LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'title'">
-						textbook_title LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'writer'">
-						textbook_writer LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'publisher'">
-						textbook_publisher LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-				</choose>
+				<if test="searchType == 'all' or searchType == 'ISBN'">
+					textbook_isbn LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'title'">
+					OR textbook_title LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'writer'">
+					OR textbook_writer LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'publisher'">
+					OR textbook_publisher LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
 			</if>
 		</where>
 		ORDER BY textbook_createdate DESC
@@ -46,26 +38,18 @@
 		FROM textbook
 		<where>
 			<if test="searchKeyword != null">
-				<choose>
-					<when test="searchType == 'all'">
-						textbook_isbn LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR textbook_title LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR textbook_writer LIKE CONCAT('%', #{searchKeyword}, '%')
-						OR textbook_publisher LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'ISBN'">
-						textbook_isbn LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'title'">
-						textbook_title LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'writer'">
-						textbook_writer LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-					<when test="searchType == 'publisher'">
-						textbook_publisher LIKE CONCAT('%', #{searchKeyword}, '%')
-					</when>
-				</choose>
+				<if test="searchType == 'all' or searchType == 'ISBN'">
+					textbook_isbn LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'title'">
+					OR textbook_title LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'writer'">
+					OR textbook_writer LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+				<if test="searchType == 'all' or searchType == 'publisher'">
+					OR textbook_publisher LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
 			</if>
 		</where>
 	</select>
@@ -82,6 +66,14 @@
 			textbook_price textbookPrice,
 			textbook_createdate textbookCreateDate,
 			textbook_updatedate textbookUpdateDate
+		FROM textbook
+		WHERE textbook_isbn = #{textbookISBN}
+	</select>
+	
+	<!-- 교재 ISBN의 중복 여부를 확인하기 위해 교재 ISBN을 출력하는 쿼리문 -->
+	<select id="selectTextbookISBN" parameterType="String" resultType="String">
+		SELECT
+			textbook_isbn
 		FROM textbook
 		WHERE textbook_isbn = #{textbookISBN}
 	</select>

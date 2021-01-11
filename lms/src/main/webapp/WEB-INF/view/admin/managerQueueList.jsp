@@ -9,12 +9,6 @@
 		
 		<!-- jQuery 스크립트 -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script>
-			$(document).ready(function() {
-			// 선택된 검색조건 유지
-				$('#searchType').val('${searchType}').prop('selected', ture);
-			});
-		</script>
 	</head>
 	
 	<body>
@@ -22,8 +16,41 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>회원가입 승인대기 중인 운영자 목록</h1>
+			<div class="jumbotron">
+				<h1>회원가입 승인대기 중인 운영자 목록</h1>
+			</div>
+			<!-- 검색 바 -->
+			<div>
+				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
+					<div class="justify-content-end mb-3 input-group">
+						<!-- 검색조건 -->
+						<div class="input-group-prepend">
+							<select id="searchType" name="searchType" class="form-control col-sm-15">
+								<option value="all"
+									<c:if test="${searchType == 'all'}">selected</c:if>>전체</option>
+								<option value="name"
+									<c:if test="${searchType == 'name'}">selected</c:if>>이름</option>
+								<option value="email"
+									<c:if test="${searchType == 'email'}">selected</c:if>>Email</option>
+								<option value="phone"
+									<c:if test="${searchType == 'phone'}">selected</c:if>>전화번호</option>
+							</select>
+						</div>
+						
+						<!-- 검색어 입력 -->
+						<input type="text" id="searchKeyword" name="searchKeyword" class="form-control col-sm-2" value="${searchKeyword}" placeholder="검색어를 입력하세요">
+						
+						<!-- 검색 버튼 -->
+						<div class="input-group-append">
+							<button type="submit" class="form-control btn btn-primary">
+								검색
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
 			
+			<!-- 내용 -->
 			<div>
 				<table class="table">
 					<thead>
@@ -155,29 +182,6 @@
 					</ul>
 				</div>
 			</c:if>
-			
-			<!-- 검색 바 -->
-			<div class="d-flex justify-content-center">
-				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
-					<div class="input-group">
-						<!-- 검색조건 -->
-						<select id="searchType" name="searchType" class="form-control">
-							<option value="all">전체</option>
-							<option value="name">이름</option>
-							<option value="email">Email</option>
-							<option value="phone">전화번호</option>
-						</select>
-						
-						<!-- 검색어 입력 -->
-						<input type="text" id="searchKeyword" name="searchKeyword" class="form-control" value="${searchKeyword}" placeholder="검색어를 입력하세요">
-						
-						<!-- 검색 버튼 -->
-						<button type="submit" class="form-control btn btn-primary">
-							검색
-						</button>
-					</div>
-				</form>
-			</div>
 		</div>
 	</body>
 </html>

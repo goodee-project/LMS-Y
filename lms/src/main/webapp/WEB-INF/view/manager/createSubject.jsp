@@ -12,14 +12,16 @@
         <script>
             $(document).ready(function() {
                 // 유효성 검사용 정규 표현식
-                let numCk = /[^0-9]$/;
+                let totalDayCk = /^[0-9]+$/;
                 
 				// 과목명 입력칸에 포커싱
 				$('#subjectName').focus();
 
 				// 과목명 유효성 검사
 				$('#subjectName').blur(function() {
-					if($('#subjectName').val() == '') {
+					let name = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(name == '') {
 						$('#subjectNameMsg').text('과목명을 입력하세요');
 						$('#subjectName').focus();
 						return;
@@ -30,11 +32,13 @@
 				
 				// 총 이수일수 유효성 검사
 				$('#subjectTotalDay').blur(function() {
-					if($('#subjectTotalDay').val() == '') {
+					let totalDay = $('#subjectTotalDay').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(totalDay == '') {
 						$('#subjectTotalDayMsg').text('총 이수일수를 입력하세요');
 						$('#subjectTotalDay').focus();
 						return;
-					} else if(numCk.test($('#subjectTotalDay').val())) {
+					} else if(!totalDayCk.test(totalDay)) {
 						$('#subjectTotalDayMsg').text('숫자만 입력하세요');
 						$('#subjectTotalDay').focus();
 						return;
@@ -45,7 +49,9 @@
             	
 				// 정보 유효성 검사
 				$('#subjectInfo').blur(function() {
-					if($('#subjectInfo').val() == '') {
+					let info = $('#subjectInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
+					if(info == '') {
 						$('#subjectInfoMsg').text('정보를 입력하세요');
 						$('#subjectInfo').focus();
 						return;
@@ -54,10 +60,10 @@
 					}
 				});
 
-				// 등록버튼 클릭 시 최종 유효성 검사 및 등록
+				// 등록 버튼 클릭 시 최종 유효성 검사 및 등록
 				$('#submitBtn').click(function() {
 					// 과목명 유효성 검사
-					if($('#subjectName').val() == '') {
+					if(name == '') {
 						$('#subjectNameMsg').text('과목명을 입력하세요');
 						$('#subjectName').focus();
 						return;
@@ -66,11 +72,11 @@
 					}
 					
 					// 총 이수일수 유효성 검사
-					if($('#subjectTotalDay').val() == '') {
+					if(totalDay == '') {
 						$('#subjectTotalDayMsg').text('총 이수일수를 입력하세요');
 						$('#subjectTotalDay').focus();
 						return;
-					} else if(numCk.test($('#subjectTotalDay').val())) {
+					} else if(!totalDayCk.test(totalDay)) {
 						$('#subjectTotalDayMsg').text('숫자만 입력하세요');
 						$('#subjectTotalDay').focus();
 						return;
@@ -79,7 +85,7 @@
 					}
 					
 					// 정보 유효성 검사
-					if($('#subjectInfo').val() == '') {
+					if(info == '') {
 						$('#subjectInfoMsg').text('정보를 입력하세요');
 						$('#subjectInfo').focus();
 						return;
@@ -88,6 +94,7 @@
 					}
 
 					$('#subjectForm').submit();
+					alert('과목 정보가 입력되었습니다');
 				})
             });
         </script>

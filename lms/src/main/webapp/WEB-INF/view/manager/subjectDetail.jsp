@@ -9,12 +9,6 @@
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
-        </script>
 	</head>
 	
 	<body>
@@ -26,7 +20,7 @@
 			
 			<!-- 생성일자, 수정일자 -->
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
 						<td>생성일자</td>
 						<td>${subjectDetail.subjectCreateDate}</td>
@@ -40,16 +34,16 @@
 			
 			<!-- 수정버튼 -->
 			<div>
-				<a href="${pageContext.request.contextPath}/manager/modifySubject?subjectNo=${subjectDetail.subjectNo}">
-					[수정]
+				<a class="btn btn-primary" href="${pageContext.request.contextPath}/manager/modifySubject?subjectNo=${subjectDetail.subjectNo}">
+					수정
 				</a>
 			</div>
 			
 			<!-- 내용 -->
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
-						<td>과목 고유번호</td>
+						<td>No.</td>
 						<td>${subjectDetail.subjectNo}</td>
 					</tr>
 					<tr>

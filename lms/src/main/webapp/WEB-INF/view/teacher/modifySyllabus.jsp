@@ -57,11 +57,11 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>${managerLectureDetail.lectureName} 강의계획서 수정</h1>
+			<h1>${lectureDetail.lectureName} 강의계획서 수정</h1>
 			
 			<div>
 				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/modifySyllabus?lectureNo=${syllabusDetail.lectureNo}">
-					<input type="text" id="lectureNo" name="lectureNo" value="${managerLectureDetail.lectureNo}" hidden="hidden">
+					<input type="text" id="lectureNo" name="lectureNo" value="${lectureDetail.lectureNo}" hidden="hidden">
                 	
                 	<textarea id="syllabusContent" name="syllabusContent" style="width: 100%">${syllabusDetail.syllabusContent}</textarea>
 					

@@ -9,12 +9,6 @@
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
-        </script>
 	</head>
 	
 	<body>
@@ -26,7 +20,7 @@
 			
 			<!-- 생성일자, 수정일자 -->
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
 						<td>입력일자</td>
 						<td>${textbookDetail.textbookCreateDate}</td>
@@ -40,14 +34,16 @@
 			
 			<!-- 수정버튼 -->
 			<div>
-				<a href="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${textbookDetail.textbookISBN}">
-					[수정]
-				</a>
+				<c:if test="${accountLevel == 3}">
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${textbookDetail.textbookISBN}">
+						수정
+					</a>
+				</c:if>
 			</div>
 			
 			<!-- 내용 -->
 			<div>
-				<table border="1">
+				<table class="table">
 					<tr>
 						<td>ISBN</td>
 						<td>${textbookDetail.textbookISBN}</td>

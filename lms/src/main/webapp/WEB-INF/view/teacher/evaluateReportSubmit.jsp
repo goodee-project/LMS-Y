@@ -56,6 +56,7 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>과제제출 평가</h1>
+				<h5 class="ml-1">No. ${reportSubmit.reportSubmitNo}</h5>
 			</div>
 		</div>
 		

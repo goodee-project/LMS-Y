@@ -80,6 +80,7 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>과제 수정</h1>
+				<h5 class="ml-1">No. ${report.reportNo}</h5>
 			</div>
 		</div>
 		

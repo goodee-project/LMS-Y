@@ -62,6 +62,7 @@ public class ReportController {
 		Map<String, Object> map = reportService.getReportDetail(reportNo);
 		
 		model.addAttribute("report", map.get("report"));
+		model.addAttribute("isEditable", map.get("isEditable"));
 		model.addAttribute("isEvaluatable", map.get("isEvaluatable"));
 		model.addAttribute("lectureNo", ((Report)map.get("report")).getLectureNo()); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/reportDetail";

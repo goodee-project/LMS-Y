@@ -135,7 +135,8 @@ public class ReportService {
 	// 리턴값: 제출된 과제를 포함한 과제 상세정보
 	public Map<String, Object> getReportDetail(int reportNo) {
 		Report report = reportMapper.selectReportDetail(reportNo);
-		boolean isEvaluatable = true; // 과제 평가 기간인지 확인하는 용도의 변수
+		boolean isEditable = true;		// 과제가 수정 가능한지 확인하는 용도의 변수
+		boolean isEvaluatable = true;	// 과제 평가 기간인지 확인하는 용도의 변수
 		
 		// 과제 평가 기간 내에 속해있는지 확인하기 위해 Date타입으로 현재 날짜와 report에 기입된 날짜를 변환
 		// 변환 도중 예외 발생 시 스택트레이싱 후 Transactional 애노테이션에게 예외 발생을 알림
@@ -144,6 +145,10 @@ public class ReportService {
 			
 			Date currentDate = Calendar.getInstance().getTime();
 			
+			if (fmt.parse(report.getReportStartDate()).getTime() < currentDate.getTime()) {
+				// 과제 시작 기간 이후라면 false로 플래그를 변경
+				isEditable = false;
+			}
 			
 			if (fmt.parse(report.getReportStartDate()).getTime() > currentDate.getTime()
 			 || fmt.parse(report.getReportEndDate()).getTime() < currentDate.getTime()) {
@@ -157,6 +162,7 @@ public class ReportService {
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("report", report);
+		map.put("isEditable", isEditable);
 		map.put("isEvaluatable", isEvaluatable);
 		
 		return map;

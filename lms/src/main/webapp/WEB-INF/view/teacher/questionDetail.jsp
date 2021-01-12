@@ -85,7 +85,7 @@
 							</tr>
 							<tr>
 								<td colspan="4">
-									<div>${qc.questionCommentContent}</div>
+									<div class="px-4">${qc.questionCommentContent}</div>
 									<div>
 										<c:forEach var="qcf" items="${qc.questionCommentFileList}">
 											<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>

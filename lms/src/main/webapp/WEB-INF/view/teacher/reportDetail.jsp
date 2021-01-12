@@ -25,7 +25,9 @@
 		</div>
 		
 		<div class="container">
-			<a class="btn btn-outline-primary mb-5" href="${pageContext.request.contextPath}/teacher/modifyReport?reportNo=${report.reportNo}">과제 수정</a>
+			<c:if test="${isEditable}">
+				<a class="btn btn-outline-primary mb-5" href="${pageContext.request.contextPath}/teacher/modifyReport?reportNo=${report.reportNo}">과제 수정</a>
+			</c:if>
 			<table class="table">
 				<tr>
 					<th>과제 제목</th>
@@ -47,7 +49,7 @@
 					<th colspan="4">과제 내용</th>
 				</tr>
 				<tr>
-					<td colspan="4">${report.reportContent}</td>
+					<td class="px-4" colspan="4">${report.reportContent}</td>
 				</tr>
 				<tr>
 					<td colspan="4"></td>
@@ -95,7 +97,7 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<div>${rs.reportSubmitContent}</div>
+								<div class="px-4">${rs.reportSubmitContent}</div>
 								<div>
 									<c:forEach var="rsf" items="${rs.reportSubmitFileList}">
 										<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>

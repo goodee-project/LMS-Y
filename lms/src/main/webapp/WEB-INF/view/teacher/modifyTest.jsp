@@ -72,25 +72,30 @@
 		</div>
 		
 		<div class="container">
-			<div>
-				<form id="testForm" method="POST" action="${pageContext.request.pathInfo}">
-					<input type="hidden" name="lectureNo" value="${param.lectureNo}">
-					
-					<div>
-						시험 내용: <textarea id="testContent" name="testContent" style="width: 100%">${test.testContent}</textarea>
-					</div>
-					<div>
-						시험 시작일: <input id="testStartDate" type="date" name="testStartDate" value="${test.testStartDate}">
-					</div>
-					<div>
-						시험 종료일: <input id="testEndDate" type="date" name="testEndDate" value="${test.testEndDate}">
-					</div>
-					<hr>
-					<div>
-						<button id="submitTestForm" type="button">생성</button>
-					</div>
-				</form>
-			</div>
+			<form id="testForm" method="POST" action="${pageContext.request.pathInfo}">
+				<input type="hidden" name="lectureNo" value="${param.lectureNo}">
+				
+				<table class="table">
+					<tr class="small">
+						<th colspan="4">No. ${param.lectureNo}</th>
+					</tr>
+					<tr>
+						<th style="width: 20%">시험 시작일</th>
+						<td style="width: 30%"><input id="testStartDate" type="date" name="testStartDate" value="${test.testStartDate}"></td>
+						<th style="width: 20%">시험 종료일</th>
+						<td style="width: 30%"><input id="testEndDate" type="date" name="testEndDate" value="${test.testEndDate}"></td>
+					</tr>
+					<tr>
+						<th colspan="4">
+							<div class="font-weight-bolder">시험 내용</div>
+							<div class="mt-2"><textarea id="testContent" name="testContent" style="width: 100%">${test.testContent}</textarea></div>
+						</th>
+					</tr>
+					<tr>
+						<td class="text-right" colspan="4"><button id="submitTestForm" class="btn btn-outline-success" type="button">수정</button></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</body>
 </html>

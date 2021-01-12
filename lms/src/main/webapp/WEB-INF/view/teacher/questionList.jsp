@@ -70,18 +70,18 @@
 							<%-- 이전 버튼 --%>
 							<c:if test="${navBeginPage != 1}">
 								<li class="page-item">
-									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}">처음으로</a>
+									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}">&lt;&lt;</a>
 								</li>
 								<li class="page-item">
-									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${navBeginPage-1}">이전</a>
+									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${navBeginPage-1}">&lt;</a>
 								</li>
 							</c:if>
 							<c:if test="${navBeginPage == 1}">
 								<li class="page-item disabled">
-									<a class="page-link">처음으로</a>
+									<a class="page-link">&lt;&lt;</a>
 								</li>
 								<li class="page-item disabled">
-									<a class="page-link">이전</a>
+									<a class="page-link">&lt;</a>
 								</li>
 							</c:if>
 							
@@ -102,18 +102,18 @@
 							<%-- 다음 버튼 --%>
 							<c:if test="${navLastPage != lastPage}">
 								<li class="page-item">
-									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${navLastPage+1}">다음</a>
+									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${navLastPage+1}">&gt;</a>
 								</li>
 								<li class="page-item">
-									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${lastPage}">마지막으로</a>
+									<a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${lastPage}">&gt;&gt;</a>
 								</li>
 							</c:if>
 							<c:if test="${navLastPage == lastPage}">
 								<li class="page-item disabled">
-									<a class="page-link">다음</a>
+									<a class="page-link">&gt;</a>
 								</li>
 								<li class="page-item disabled">
-									<a class="page-link">마지막으로</a>
+									<a class="page-link">&gt;&gt;</a>
 								</li>
 							</c:if>
 						</ul>

@@ -23,6 +23,9 @@
 					if ($('#reportSubmitScore').val() == '') {
 						alert('점수를 입력해주세요!');
 						$('#reportSubmitScore').focus();
+					} else if (parseInt($('#reportSubmitScore').val()) < 0 || parseInt($('#reportSubmitScore').val()) > 100) {
+						alert('점수는 0점 이상 100점 이하로 입력해주세요!');
+						$('#reportSubmitScore').focus();
 					} else {
 						// 유효성 검사를 만족했을 경우 submit
 						$('#reportEvaluateForm').submit();
@@ -56,7 +59,6 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>과제제출 평가</h1>
-				<h5 class="ml-1">No. ${reportSubmit.reportSubmitNo}</h5>
 			</div>
 		</div>
 		
@@ -65,6 +67,9 @@
 				<input type="hidden" name="reportSubmitNo" value="${reportSubmit.reportSubmitNo}">
 				
 				<table class="table">
+					<tr class="small">
+						<th colspan="2">No. ${reportSubmit.reportSubmitNo}</th>
+					</tr>
 					<tr>
 						<th style="width: 20%">과제제출자 ID</th>
 						<td>${reportSubmit.accountId}</td>
@@ -109,9 +114,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
-							<button id="submitReportEvaluateForm" class="btn btn-primary btn-block" type="button">평가</button>
-						</td>
+						<td class="text-right" colspan="2"><button id="submitReportEvaluateForm" class="btn btn-outline-success" type="button">평가</button></td>
 					</tr>
 				</table>
 			</form>

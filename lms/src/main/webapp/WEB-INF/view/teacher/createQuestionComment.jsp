@@ -33,9 +33,9 @@
 					// (바로 위의 코드에서 추가한) 첨부파일 태그에 대한 이벤트 처리를 등록함
 					$("#questionCommentFileFrame:last-child .questionCommentFile").on("change", function() {
 						// 파일명을 가져오고 없을 경우 디폴트 값(파일 선택 메세지)을 가져옴
-						let fileName = $(this).val().split("\\").pop();
-						if (fileName == "") {
-							fileName = "클릭하여 파일을 선택해주세요";
+						let fileName = $(this).val().split('\\').pop();
+						if (fileName == '') {
+							fileName = '클릭하여 파일을 선택해주세요';
 						}
 
 						// 파일 선택 라벨의 내용을 변경함
@@ -43,7 +43,17 @@
 					});
 					
 					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
-					$('#questionCommentFileFrame:last-child .removeQuestionCommentFile').click(function(event) {
+					$('.removeQuestionCommentFile').last().click(function(event) {
+						// 삭제 경고창을 띄움으로써 의사를 확인
+						if ($(event.target).parent().parent().find('.custom-file-label').text() != '클릭하여 파일을 선택해주세요') {
+							let remove = confirm('정말 등록한 파일 "'+$(event.target).parent().parent().find('.custom-file-label').text()+'" 을(를) 삭제하시겠습니까?');
+							if (remove) {
+								alert('삭제하였습니다');
+							} else {
+								return;
+							}
+						}
+						
 						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
 						$(event.target).parent().parent().remove();
 					});
@@ -102,7 +112,6 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>질문게시판 댓글 등록</h1>
-				<h5 class="ml-1">No. ${question.questionNo}</h5>
 			</div>
 		</div>
 			
@@ -111,6 +120,9 @@
 				<input type="hidden" name="questionNo" value="${question.questionNo}">
 				
 				<table class="table">
+					<tr class="small">
+						<th colspan="2">No. ${question.questionNo}</th>
+					</tr>
 					<tr>
 						<th style="width: 20%">게시글 작성자</th>
 						<td>${question.questionWriter}</td>
@@ -144,7 +156,7 @@
 					</tr>
 					
 					<tr>
-						<td colspan="2"><button id="submitQuestionCommentForm" class="btn btn-primary btn-block" type="button">작성</button></td>
+						<td class="text-right" colspan="2"><button id="submitQuestionCommentForm" class="btn btn-outline-success" type="button">작성</button></td>
 					</tr>
 				</table>
 			</form>

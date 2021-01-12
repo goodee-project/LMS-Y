@@ -27,47 +27,92 @@
 			<div>
 				<%-- 시험 정보가 생성되지 않았을 경우 --%>
 				<c:if test="${test == null}">
-					<p>아직 만들어진 시험 정보가 없습니다!</p>
-					<p><a href="${pageContext.request.contextPath}/teacher/createTest?lectureNo=${param.lectureNo}">시험정보 생성</a></p>
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan="4">
+									<span>시험 정보</span>
+									<a class="badge badge-pill badge-primary" href="${pageContext.request.contextPath}/teacher/createTest?lectureNo=${param.lectureNo}">생성</a>
+								</th>
+							</tr>
+						</thead>
+					</table>
 				</c:if>
 				
 				<%-- 시험 정보가 생성되었을 경우 --%>
 				<c:if test="${test != null}">
-					<c:if test="${isEditable}">
-						<p><a href="${pageContext.request.contextPath}/teacher/modifyTest?lectureNo=${param.lectureNo}">시험정보 수정</a></p>
-					</c:if>
-					<div>
-						시험 시작일: ${test.testStartDate}
-					</div>
-					<div>
-						시험 종료일: ${test.testEndDate}
-					</div>
-					<div>
-						시험 내용: ${test.testContent}
-					</div>
-					
-					<c:if test="${isEditable}">
-						<p><a href="${pageContext.request.contextPath}/teacher/createMultipleChoice?lectureNo=${param.lectureNo}">시험문제 추가</a></p>
-					</c:if>
-					<c:if test="${multipleChoiceListSize == 0}">
-						<span>
-							시험 문제가 없습니다! 위의 시험문제 추가 버튼을 눌러 시험문제를 추가해주세요!
-						</span>
-					</c:if>
-					<c:forEach var="mc" items="${multipleChoiceList}">
-						<hr>
-						<p>${mc.multipleChoiceId}. ${mc.multipleChoiceQuestion} (정답: ${mc.multipleChoiceAnswer})</p>
-						
-						<c:forEach var="mce" items="${mc.multipleChoiceExampleList}">
-							<div>${mce.multipleChoiceExampleId}| ${mce.multipleChoiceExampleContent}</div>
-						</c:forEach>
-						<c:if test="${isEditable}">
-							<p>
-								<a href="${pageContext.request.contextPath}/teacher/modifyMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">시험문제 수정</a>
-								<a href="${pageContext.request.contextPath}/teacher/removeMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">시험문제 삭제</a>
-							</p>
-						</c:if>
-					</c:forEach>
+					<table class="table">
+						<thead>
+							<tr>
+								<th colspan="4">
+									<span>시험 정보</span>
+									<c:if test="${isEditable}">
+										<a class="badge badge-pill badge-primary" href="${pageContext.request.contextPath}/teacher/modifyTest?lectureNo=${param.lectureNo}">수정</a>
+									</c:if>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="small">
+								<th style="width: 20%">시험 시작일</th>
+								<td style="width: 30%">${test.testStartDate}</td>
+								<th style="width: 20%">시험 종료일</th>
+								<td style="width: 30%">${test.testEndDate}</td>
+							</tr>
+							<tr>
+								<th colspan="4">시험 내용</th>
+							</tr>
+							<tr>
+								<td class="px-4" colspan="4">${test.testContent}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table mt-5">
+						<thead>
+							<tr>
+								<th colspan="3">
+									<span>객관식 문제 정보</span>
+									<c:if test="${isEditable}">
+										<a class="badge badge-pill badge-primary" href="${pageContext.request.contextPath}/teacher/createMultipleChoice?lectureNo=${param.lectureNo}">추가</a>
+									</c:if>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:if test="${multipleChoiceListSize == 0}">
+								<tr>
+									<td>시험 문제가 없습니다! 위의 시험문제 추가 버튼을 눌러 시험문제를 추가해주세요!</td>
+								</tr>
+							</c:if>
+							<c:forEach var="mc" items="${multipleChoiceList}">
+								<tr style="border-top: 2px solid #DEE2E6">
+									<th class="align-middle" style="width: 20%">
+										<div class="d-flex flex-column">
+											<div>${mc.multipleChoiceId}번 문제</div>
+											<div class="small">정답 ${mc.multipleChoiceAnswer}번</div>
+										</div>
+									</th>
+									<td class="align-middle">
+										<span>${mc.multipleChoiceQuestion}</span>
+									</td>
+								</tr>
+								<c:forEach var="mce" items="${mc.multipleChoiceExampleList}">
+									<tr class="small">
+										<th>보기 ${mce.multipleChoiceExampleId}</th>
+										<td>${mce.multipleChoiceExampleContent}</td>
+									</tr>
+								</c:forEach>
+								<tr>
+									<td class="text-right pb-5" colspan="2">
+										<c:if test="${isEditable}">
+											<a class="btn btn-outline-primary mx-2" href="${pageContext.request.contextPath}/teacher/modifyMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">수정</a>
+											<a class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/teacher/removeMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">삭제</a>
+										</c:if>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</c:if>
 			</div>
 		</div>

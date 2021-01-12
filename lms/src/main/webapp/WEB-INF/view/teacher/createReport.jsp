@@ -80,15 +80,18 @@
 				<input type="hidden" name="lectureNo" value="${param.lectureNo}">
 				
 				<table class="table">
+					<tr class="small">
+						<th colspan="4">No. ${param.lectureNo}</th>
+					</tr>
 					<tr>
 						<th class="align-middle">과제 제목</th>
 						<td colspan="3"><input id="reportTitle" class="form-control" type="text" name="reportTitle"></td>
 					</tr>
 					<tr>
-						<th class="align-middle">과제 시작일</th>
-						<td><input id="reportStartDate" class="form-control" type="date" name="reportStartDate"></td>
-						<th class="align-middle">과제 종료일</th>
-						<td><input id="reportEndDate" class="form-control" type="date" name="reportEndDate"></td>
+						<th class="align-middle" style="width: 20%">과제 시작일</th>
+						<td style="width: 30%"><input id="reportStartDate" class="form-control" type="date" name="reportStartDate"></td>
+						<th class="align-middle" style="width: 20%">과제 종료일</th>
+						<td style="width: 30%"><input id="reportEndDate" class="form-control" type="date" name="reportEndDate"></td>
 					</tr>
 					<tr>
 						<td colspan="4">
@@ -97,9 +100,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4">
-							<button id="submitReportForm" class="btn btn-primary btn-block" type="button">생성</button>
-						</td>
+						<td class="text-right" colspan="4"><button id="submitReportForm" class="btn btn-outline-success" type="button">생성</button></td>
 					</tr>
 				</table>
 			</form>

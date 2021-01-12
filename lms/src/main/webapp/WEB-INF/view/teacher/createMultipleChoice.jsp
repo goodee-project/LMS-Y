@@ -53,61 +53,64 @@
 		</div>
 		
 		<div class="container">
-			<div>
-				<form id="multipleChoiceForm" method="post" action="${pageContext.request.pathInfo}">
-					<table class="table">
-						<tr>
-							<td class="w-25 align-middle">문제 내용</td>
-							<td><input id="multipleChoiceQuestion" class="form-control" type="text" name="multipleChoiceQuestion"></td>
-						</tr>
-						<tr>
-							<td class="align-middle">정답</td>
-							<td style="padding-top: 0.75rem; padding-bottom: 0.75rem;">
-								<div class="row">
-									<div class="col">
-										<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="1"> 1번
-									</div>
-									<div class="col">
-										<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="2"> 2번
-									</div>
-									<div class="col">
-										<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="3"> 3번
-									</div>
-									<div class="col">
-										<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="4"> 4번
-									</div>
-									<div class="col">
-										<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="5"> 5번
-									</div>
+			<form id="multipleChoiceForm" method="post" action="${pageContext.request.pathInfo}">
+				<input type="hidden" name="lectureNo" value="${lectureNo}">
+				
+				<table class="table">
+					<tr class="small">
+						<th colspan="2">${lectureNo}번 문제</th>
+					</tr>
+					<tr>
+						<th class="align-middle" style="width: 20%">문제 내용</th>
+						<td><input id="multipleChoiceQuestion" class="form-control" type="text" name="multipleChoiceQuestion"></td>
+					</tr>
+					<tr>
+						<th class="align-middle">정답</th>
+						<td style="padding-top: 0.75rem; padding-bottom: 0.75rem;">
+							<div class="row">
+								<div class="col">
+									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="1"> 1번
 								</div>
-							</td>
-						</tr>
-						<tr>
-							<td class="align-middle">1번 보기</td>
-							<td><input id="multipleChoiceExample1" class="form-control" type="text" name="multipleChoiceExampleList"></td>
-						</tr>
-						<tr>
-							<td class="align-middle">2번 보기</td>
-							<td><input id="multipleChoiceExample2" class="form-control" type="text" name="multipleChoiceExampleList"></td>
-						</tr>
-						<tr>
-							<td class="align-middle">3번 보기</td>
-							<td><input id="multipleChoiceExample3" class="form-control" type="text" name="multipleChoiceExampleList"></td>
-						</tr>
-						<tr>
-							<td class="align-middle">4번 보기</td>
-							<td><input id="multipleChoiceExample4" class="form-control" type="text" name="multipleChoiceExampleList"></td>
-						</tr>
-						<tr>
-							<td class="align-middle">5번 보기</td>
-							<td><input id="multipleChoiceExample5" class="form-control" type="text" name="multipleChoiceExampleList"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><button id="submitMultipleChoiceForm" class="btn btn-primary btn-block" type="button">생성</button></td>
-						</tr>
-					</table>
-				</form>
-			</div>
+								<div class="col">
+									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="2"> 2번
+								</div>
+								<div class="col">
+									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="3"> 3번
+								</div>
+								<div class="col">
+									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="4"> 4번
+								</div>
+								<div class="col">
+									<input class="multipleChoiceAnswer" type="radio" name="multipleChoiceAnswer" value="5"> 5번
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th class="align-middle">1번 보기</th>
+						<td><input id="multipleChoiceExample1" class="form-control" type="text" name="multipleChoiceExampleList"></td>
+					</tr>
+					<tr>
+						<th class="align-middle">2번 보기</th>
+						<td><input id="multipleChoiceExample2" class="form-control" type="text" name="multipleChoiceExampleList"></td>
+					</tr>
+					<tr>
+						<th class="align-middle">3번 보기</th>
+						<td><input id="multipleChoiceExample3" class="form-control" type="text" name="multipleChoiceExampleList"></td>
+					</tr>
+					<tr>
+						<th class="align-middle">4번 보기</th>
+						<td><input id="multipleChoiceExample4" class="form-control" type="text" name="multipleChoiceExampleList"></td>
+					</tr>
+					<tr>
+						<th class="align-middle">5번 보기</th>
+						<td><input id="multipleChoiceExample5" class="form-control" type="text" name="multipleChoiceExampleList"></td>
+					</tr>
+					<tr>
+						<td class="text-right" colspan="2"><button id="submitMultipleChoiceForm" class="btn btn-outline-success" type="button">생성</button></td>
+					</tr>
+				</table>
+			</form>
 		</div>
 	</body>
 </html>

@@ -20,15 +20,14 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>과제 상세정보</h1>
-				<h5 class="ml-1">No. ${report.reportNo}</h5>
 			</div>
 		</div>
 		
 		<div class="container">
-			<c:if test="${isEditable}">
-				<a class="btn btn-outline-primary mb-5" href="${pageContext.request.contextPath}/teacher/modifyReport?reportNo=${report.reportNo}">과제 수정</a>
-			</c:if>
 			<table class="table">
+				<tr class="small">
+					<th colspan="4">No. ${report.reportNo}</th>
+				</tr>
 				<tr>
 					<th>과제 제목</th>
 					<td colspan="3">${report.reportTitle}</td>
@@ -52,7 +51,11 @@
 					<td class="px-4" colspan="4">${report.reportContent}</td>
 				</tr>
 				<tr>
-					<td colspan="4"></td>
+					<td class="text-right pb-5" colspan="4">
+						<c:if test="${isEditable}">
+							<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyReport?reportNo=${report.reportNo}">과제 수정</a>
+						</c:if>
+					</td>
 				</tr>
 			</table>
 			<table class="table">
@@ -65,14 +68,9 @@
 				</thead>
 				<tbody>
 					<c:forEach var="rs" items="${report.reportSubmitList}">
-						<tr class="small">
+						<tr class="small" style="border-top: 2px solid #DEE2E6">
 							<th>과제제출 고유번호</th>
-							<td>
-								<span>${rs.reportSubmitNo}</span>
-								<c:if test="${isEvaluatable == true}">
-									<a class="badge badge-pill badge-primary" href="${pageContext.request.contextPath}/teacher/evaluateReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 평가</a>
-								</c:if>
-							</td>
+							<td>${rs.reportSubmitNo}</td>
 							<th>제출자 ID</th>
 							<td>${rs.accountId}</td>
 						</tr>
@@ -114,7 +112,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4"></td>
+							<td class="text-right pb-5" colspan="4">
+								<c:if test="${isEvaluatable == true}">
+									<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/evaluateReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 평가</a>
+								</c:if>	
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

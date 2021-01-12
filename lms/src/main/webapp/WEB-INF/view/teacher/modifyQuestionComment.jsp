@@ -16,6 +16,13 @@
 			$(document).ready(function() {
 				// 첨부파일 삭제버튼에 대한 이벤트 처리를 등록함
 				$('.removeQuestionCommentFile').click(function(event) {
+					let remove = confirm('정말 등록한 파일 "'+$.trim($(event.target).siblings('.questionCommentFileOriginal').text())+'" 을(를) 삭제하시겠습니까?\n\n삭제한 파일은 복구할 수 없습니다!');
+					if (remove) {
+						alert('삭제하였습니다');
+					} else {
+						return false;
+					}
+					
 					$.ajax({
 						url: $(event.target).prop('href'),
 						method: 'post',
@@ -59,7 +66,17 @@
 					});
 					
 					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
-					$('#questionCommentFileFrame:last-child .removeQuestionCommentFile').click(function(event) {
+					$('.removeQuestionCommentFile').last().click(function(event) {
+						// 삭제 경고창을 띄움으로써 의사를 확인
+						if ($(event.target).parent().parent().find('.custom-file-label').text() != '클릭하여 파일을 선택해주세요') {
+							let remove = confirm('정말 등록한 파일 "'+$(event.target).parent().parent().find('.custom-file-label').text()+'" 을(를) 삭제하시겠습니까?');
+							if (remove) {
+								alert('삭제하였습니다');
+							} else {
+								return;
+							}
+						}
+						
 						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
 						$(event.target).parent().parent().remove();
 					});
@@ -118,7 +135,6 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>질문게시판 댓글 수정</h1>
-				<h5 class="ml-1">No. ${questionComment.questionCommentNo}</h5>
 			</div>
 		</div>
 			
@@ -127,6 +143,9 @@
 				<input type="hidden" name="questionCommentNo" value="${questionComment.questionCommentNo}">
 				
 				<table class="table">
+					<tr class="small">
+						<th colspan="2">No. ${questionComment.questionCommentNo}</th>
+					</tr>
 					<tr>
 						<th style="width: 20%">게시글 작성자</th>
 						<td>${question.questionWriter}</td>
@@ -158,7 +177,7 @@
 								<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
 								<c:if test="${qcf.questionCommentFileSize > 0}">
 									<div>
-										<a href="${pageContext.request.contextPath}/teacher/downloadQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
+										<a class="questionCommentFileOriginal" href="${pageContext.request.contextPath}/teacher/downloadQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
 											${qcf.questionCommentFileOriginal}
 										</a>
 										<span class="small">${qcf.questionCommentFileSize} byte / ${qcf.questionCommentFileCount}회 다운로드</span>
@@ -172,7 +191,7 @@
 					</tr>
 					
 					<tr>
-						<td colspan="2"><button id="submitQuestionCommentForm" class="btn btn-primary btn-block" type="button">수정</button></td>
+						<td class="text-right" colspan="2"><button id="submitQuestionCommentForm" class="btn btn-outline-success" type="button">수정</button></td>
 					</tr>
 				</table>
 			</form>

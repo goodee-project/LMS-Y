@@ -17,12 +17,14 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>질문게시판 게시글</h1>
-				<h5 class="ml-1">No. ${question.questionNo}</h5>
 			</div>
 		</div>
 		
 		<div class="container">
 			<table class="table">
+				<tr class="small">
+					<th colspan="4">No. ${question.questionNo}</th>
+				</tr>
 				<tr>
 					<th>게시글 제목</th>
 					<td colspan="3">${question.questionTitle}</td>
@@ -46,7 +48,7 @@
 					<td class="px-4" colspan="4">${question.questionContent}</td>
 				</tr>
 				<tr>
-					<td colspan="4"></td>
+					<td class="pb-5" colspan="4"></td>
 				</tr>
 			</table>
 			<table class="table">
@@ -64,13 +66,7 @@
 						<c:if test="${qc.questionCommentNo != 0}">
 							<tr class="small" style="border-top: 2px solid #DEE2E6">
 								<th>댓글 고유번호</th>
-								<td>
-									<span>${qc.questionCommentNo}</span>
-									<%-- 세션의 accountId와 댓글 작성자 accountId가 같을때만 수정버튼 표시 --%>
-									<c:if test="${accountId == qc.accountId}">
-										<a class="badge badge-pill badge-primary" href="${pageContext.request.contextPath}/teacher/modifyQuestionComment?questionCommentNo=${qc.questionCommentNo}">수정</a>
-									</c:if>
-								</td>
+								<td>${qc.questionCommentNo}</td>
 								<th>댓글 작성자</th>
 								<td>${qc.questionCommentWriter}</td>
 							</tr>
@@ -102,7 +98,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td colspan="4"></td>
+								<td class="text-right pb-5" colspan="4">
+									<%-- 세션의 accountId와 댓글 작성자 accountId가 같을때만 수정버튼 표시 --%>
+									<c:if test="${accountId == qc.accountId}">
+										<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyQuestionComment?questionCommentNo=${qc.questionCommentNo}">수정</a>
+									</c:if>
+								</td>
 							</tr>
 						</c:if>
 					</c:forEach>

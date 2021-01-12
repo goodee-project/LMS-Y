@@ -80,7 +80,6 @@
 		<div class="jumbotron">
 			<div class="container">
 				<h1>과제 수정</h1>
-				<h5 class="ml-1">No. ${report.reportNo}</h5>
 			</div>
 		</div>
 		
@@ -89,6 +88,9 @@
 				<input type="hidden" name="reportNo" value="${report.reportNo}">
 				
 				<table class="table">
+					<tr class="small">
+						<th colspan="4">No. ${report.reportNo}</th>
+					</tr>
 					<tr>
 						<th class="align-middle">과제 제목</th>
 						<td colspan="3"><input id="reportTitle" class="form-control" type="text" name="reportTitle" value="${report.reportTitle}"></td>
@@ -106,9 +108,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="4">
-							<button id="submitReportForm" class="btn btn-primary btn-block" type="button">수정</button>
-						</td>
+						<td class="text-right" colspan="4"><button id="submitReportForm" class="btn btn-outline-success" type="button">수정</button></td>
 					</tr>
 				</table>
 			</form>

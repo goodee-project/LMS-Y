@@ -31,7 +31,7 @@
 		<!-- 매니저일 경우 공지 추가버튼 -->
 		<c:if test="${accountLevel eq managerLevel}">
 			<div class="d-flex justify-content-start mb-3">
-				<a class="btn btn-primary"
+				<a class="btn btn-outline-primary"
 					href="${pageContext.request.contextPath}/manager/createLMSNotice">공지 추가</a>
 			</div>
 		</c:if>
@@ -49,7 +49,7 @@
 		</div>
 		<table class="table">
 			<tr>
-				<th>No</th>
+				<th>No.</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>수정 날짜</th>
@@ -69,23 +69,23 @@
 		<c:if test="${null eq lmsNoticeSearch}">
 			<div class="d-flex justify-content-center">
 				<ul class="pagination">
-					<!-- 처음으로, 이전 -->
+					<!-- 처음으로, &lt; -->
 					<c:choose>
 						<c:when test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=1">First</a></li>
+								href="${pageContext.request.pathInfo}?currentPage=1">&lt;&lt;</a></li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">이전</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">&lt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">First</a>
+								<a class="page-link" href="#">&lt;&lt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">이전</a>
+								<a class="page-link" href="#">&lt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -107,24 +107,24 @@
 							</c:choose>
 						</c:if>
 					</c:forEach>
-					<!-- 다음, 마지막으로 -->
+					<!-- &gt;, 마지막으로 -->
 					<c:choose>
 						<c:when test="${currentPage < lastPage}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">다음</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">&gt;</a>
 							</li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${lastPage}">Last</a>
+								href="${pageContext.request.pathInfo}?currentPage=${lastPage}">&gt;&gt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">다음</a>
+								<a class="page-link" href="#">&gt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">Last</a>
+								<a class="page-link" href="#">&gt;&gt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -135,24 +135,24 @@
 		<c:if test="${null ne lmsNoticeSearch}">
 			<div class="d-flex justify-content-center">
 				<ul class="pagination">
-					<!-- 처음으로, 이전 -->
+					<!-- 처음으로, &lt; -->
 					<c:choose>
 						<c:when test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=1&lmsNoticeSearch=${lmsNoticeSearch}">First</a>
+								href="${pageContext.request.pathInfo}?currentPage=1&lmsNoticeSearch=${lmsNoticeSearch}">&lt;&lt;</a>
 							</li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}&lmsNoticeSearch=${lmsNoticeSearch}">이전</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}&lmsNoticeSearch=${lmsNoticeSearch}">&lt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">First</a>
+								<a class="page-link" href="#">&lt;&lt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">이전</a>
+								<a class="page-link" href="#">&lt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -174,24 +174,24 @@
 							</c:choose>
 						</c:if>
 					</c:forEach>
-					<!-- 다음, 마지막으로 -->
+					<!-- &gt;, 마지막으로 -->
 					<c:choose>
 						<c:when test="${currentPage < lastPage}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&lmsNoticeSearch=${lmsNoticeSearch}">다음</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&lmsNoticeSearch=${lmsNoticeSearch}">&gt;</a>
 							</li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${lastPage}&lmsNoticeSearch=${lmsNoticeSearch}">Last</a>
+								href="${pageContext.request.pathInfo}?currentPage=${lastPage}&lmsNoticeSearch=${lmsNoticeSearch}">&gt;&gt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">다음</a>
+								<a class="page-link" href="#">&gt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">Last</a>
+								<a class="page-link" href="#">&gt;&gt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>

@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>lms 공지 수정</title>
+		<title>LMS 공지 수정</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -55,7 +55,7 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		<div class="jumbotron">
 			<div class="container">
-				<h1>lms 공지수정</h1>
+				<h1>LMS 공지수정</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -79,8 +79,8 @@
 							</td>
 						</tr>
 					</table>
-					<div class="form-group">
-						<button class="btn btn-success" id="submitBtn" type="button">수정</button>
+					<div class="form-group d-flex justify-content-end">
+						<button class="btn btn-outline-success" id="submitBtn" type="button">수정</button>
 					</div>
 				</form>
 			</div>

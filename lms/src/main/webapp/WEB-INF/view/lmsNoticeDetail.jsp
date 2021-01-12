@@ -53,8 +53,10 @@
 						<c:if test="${accountId eq lmsNotice.accountId}">
 							<tr>
 								<td colspan="5">
-									<a class="btn btn-primary" href="${pageContext.request.contextPath}/manager/modifyLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">수정</a>
-									<button type="button" class="btn btn-danger" id="removeBtn">삭제</button>
+									<div class="d-flex justify-content-end">
+										<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyLMSNotice?lmsNoticeNo=${lmsNotice.lmsNoticeNo}">수정</a>
+										<button type="button" class="btn btn-outline-danger mx-2" id="removeBtn">삭제</button>
+									</div>
 								</td>
 							</tr>
 						</c:if>

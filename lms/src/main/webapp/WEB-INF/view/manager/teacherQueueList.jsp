@@ -62,23 +62,23 @@
 		<c:if test="${null eq teacherName}">
 			<div class="d-flex justify-content-center">
 				<ul class="pagination">
-					<!-- 처음으로, 이전 -->
+					<!-- 처음으로, &lt; -->
 					<c:choose>
 						<c:when test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=1">First</a></li>
+								href="${pageContext.request.pathInfo}?currentPage=1">&lt;&lt;</a></li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">이전</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">&lt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">First</a>
+								<a class="page-link" href="#">&lt;&lt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">이전</a>
+								<a class="page-link" href="#">&lt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -100,24 +100,24 @@
 							</c:choose>
 						</c:if>
 					</c:forEach>
-					<!-- 다음, 마지막으로 -->
+					<!-- &gt;, 마지막으로 -->
 					<c:choose>
 						<c:when test="${currentPage < lastPage}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">다음</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">&gt;</a>
 							</li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${lastPage}">Last</a>
+								href="${pageContext.request.pathInfo}?currentPage=${lastPage}">&gt;&gt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">다음</a>
+								<a class="page-link" href="#">&gt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">Last</a>
+								<a class="page-link" href="#">&gt;&gt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -128,24 +128,24 @@
 		<c:if test="${null ne teacherName}">
 			<div class="d-flex justify-content-center">
 				<ul class="pagination">
-					<!-- 처음으로, 이전 -->
+					<!-- 처음으로, &lt; -->
 					<c:choose>
 						<c:when test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=1&teacherName=${teacherName}">First</a>
+								href="${pageContext.request.pathInfo}?currentPage=1&teacherName=${teacherName}">&lt;&lt;</a>
 							</li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}&teacherName=${teacherName}">이전</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}&teacherName=${teacherName}">&lt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">First</a>
+								<a class="page-link" href="#">&lt;&lt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">이전</a>
+								<a class="page-link" href="#">&lt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>
@@ -167,24 +167,24 @@
 							</c:choose>
 						</c:if>
 					</c:forEach>
-					<!-- 다음, 마지막으로 -->
+					<!-- &gt;, 마지막으로 -->
 					<c:choose>
 						<c:when test="${currentPage < lastPage}">
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&teacherName=${teacherName}">다음</a>
+								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&teacherName=${teacherName}">&gt;</a>
 							</li>
 							<li class="page-item">
 								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${lastPage}&teacherName=${teacherName}">Last</a>
+								href="${pageContext.request.pathInfo}?currentPage=${lastPage}&teacherName=${teacherName}">&gt;&gt;</a>
 							</li>
 						</c:when>
 						<c:otherwise>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">다음</a>
+								<a class="page-link" href="#">&gt;</a>
 							</li>
 							<li class="page-item disabled">
-								<a class="page-link" href="#">Last</a>
+								<a class="page-link" href="#">&gt;&gt;</a>
 							</li>
 						</c:otherwise>
 					</c:choose>

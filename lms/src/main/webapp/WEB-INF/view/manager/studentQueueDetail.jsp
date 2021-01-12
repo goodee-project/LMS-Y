@@ -50,37 +50,37 @@
 			<div>
 				<table class="table">
 					<tr>
-						<td>ID</td>
+						<th>ID</th>
 						<td>${studentQueueDetail.accountId}</td>
 					</tr>
 					<tr>
-						<td>이름</td>
+						<th>이름</th>
 						<td>${studentQueueDetail.studentName}</td>
 					</tr>
 					<tr>
-						<td>전화번호</td>
+						<th>전화번호</th>
 						<td>${studentQueueDetail.studentPhone}</td>
 					</tr>
 					<tr>
-						<td>E-mail</td>
+						<th>E-mail</th>
 						<td>${studentQueueDetail.studentEmail}</td>
 					</tr>
 					<tr>
-						<td>성별</td>
+						<th>성별</th>
 						<td>${studentQueueDetail.studentGender}</td>
 					</tr>
 					<tr>
-						<td>생년월일</td>
+						<th>생년월일</th>
 						<td>${studentQueueDetail.studentBirth}</td>
 					</tr>
 					<tr>
-						<td>주소</td>
+						<th>주소</th>
 						<td>${studentQueueDetail.studentAddressMain} ${studentQueueDetail.studentAddressSub}</td>
 					</tr>
 				</table>
-				<div>
-					<button class="btn btn-success" type="button" id="approveBtn">승인</button>
-					<button class="btn btn-danger" type="button" id="disapproveBtn">승인 거절</button>
+				<div class="d-flex justify-content-end">
+					<button class="btn btn-outline-success" type="button" id="approveBtn">승인</button>
+					<button class="btn btn-outline-danger mx-2" type="button" id="disapproveBtn">거절</button>
 				</div>
 			</div>
 		</div>

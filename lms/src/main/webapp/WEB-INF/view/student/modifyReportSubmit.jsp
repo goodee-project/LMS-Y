@@ -121,11 +121,11 @@
 						</tr>
 					</table>
 					<div class="form-group">
-						<button class="btn btn-primary" id="addFile" type="button">파일 추가</button>
+						<button class="btn btn-outline-primary" id="addFile" type="button">파일 추가</button>
 					</div>
 					<div id="reportSubmitFileFrame"></div>
-					<div class="form-group">
-						<button class="btn btn-success" id="submitBtn" type="button">제출</button>
+					<div class="form-group d-flex justify-content-end">
+						<button class="btn btn-outline-success" id="submitBtn" type="button">제출</button>
 					</div>
 				</form>
 			</div>

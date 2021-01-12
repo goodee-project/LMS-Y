@@ -29,7 +29,7 @@
 			<div>
 				<table class="table mb-3">
 					<tr>
-						<th>과제No</th>
+						<th>No.</th>
 						<td>${reportAndReportSubmit.reportNo}</td>
 					</tr>
 					<tr>
@@ -52,7 +52,7 @@
 				<c:forEach var="rs" items="${reportAndReportSubmit.reportSubmitList}">
 					<table class="table">
 						<tr>
-							<th>과제제출No</th>
+							<th>SubmitNo.</th>
 							<td>${rs.reportSubmitNo}</td>
 						</tr>
 						<tr>
@@ -95,13 +95,13 @@
 							</td>
 						</tr>
 					</table>
-				<div>
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/student/modifyReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 수정</a>
+				<div class="d-flex justify-content-end">
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/modifyReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 수정</a>
 				</div>
 				</c:forEach>
 				<c:if test="${empty reportAndReportSubmit.reportSubmitList}">
-					<div>
-						<a class="btn btn-primary" href="${pageContext.request.contextPath}/student/createReportSubmit?reportNo=${reportAndReportSubmit.reportNo}">과제 제출</a>
+					<div class="d-flex justify-content-end">
+						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/createReportSubmit?reportNo=${reportAndReportSubmit.reportNo}">과제 제출</a>
 					</div>
 				</c:if>
 			</div>

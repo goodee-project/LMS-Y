@@ -18,6 +18,7 @@
 		    INNER JOIN class_registration c
 		        ON l.lecture_no = c.lecture_no
 		WHERE c.account_id = #{accountId}
+		ORDER BY r.report_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 과제 정보, 과제제출 정보와 과제제출 첨부파일을 위한 resultMap -->

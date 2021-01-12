@@ -105,8 +105,8 @@
 								<tr>
 									<td class="text-right pb-5" colspan="2">
 										<c:if test="${isEditable}">
-											<a class="btn btn-outline-primary mx-2" href="${pageContext.request.contextPath}/teacher/modifyMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">수정</a>
-											<a class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/teacher/removeMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">삭제</a>
+											<a class="btn btn-outline-primary mr-1" href="${pageContext.request.contextPath}/teacher/modifyMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">수정</a>
+											<a class="btn btn-outline-danger mr-1" href="${pageContext.request.contextPath}/teacher/removeMultipleChoice?multipleChoiceNo=${mc.multipleChoiceNo}">삭제</a>
 										</c:if>
 									</td>
 								</tr>

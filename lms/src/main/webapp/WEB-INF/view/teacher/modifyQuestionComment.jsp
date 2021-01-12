@@ -16,7 +16,8 @@
 			$(document).ready(function() {
 				// 첨부파일 삭제버튼에 대한 이벤트 처리를 등록함
 				$('.removeQuestionCommentFile').click(function(event) {
-					let remove = confirm('정말 등록한 파일 "'+$.trim($(event.target).siblings('.questionCommentFileOriginal').text())+'" 을(를) 삭제하시겠습니까?\n\n삭제한 파일은 복구할 수 없습니다!');
+					let filename = $.trim($(event.target).siblings('.questionCommentFileOriginal').text());
+					let remove = confirm('정말 등록한 파일 "'+filename+'" 을(를) 삭제하시겠습니까?\n\n삭제한 파일은 복구할 수 없습니다!');
 					if (remove) {
 						alert('삭제하였습니다');
 					} else {
@@ -54,7 +55,7 @@
 					`);
 
 					// (바로 위의 코드에서 추가한) 첨부파일 태그에 대한 이벤트 처리를 등록함
-					$("#questionCommentFileFrame:last-child .questionCommentFile").on("change", function() {
+					$('.questionCommentFile').last().on("change", function() {
 						// 파일명을 가져오고 없을 경우 디폴트 값(파일 선택 메세지)을 가져옴
 						let fileName = $(this).val().split("\\").pop();
 						if (fileName == "") {
@@ -66,10 +67,11 @@
 					});
 					
 					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
+					let label = $('.custom-file-label').last();
 					$('.removeQuestionCommentFile').last().click(function(event) {
 						// 삭제 경고창을 띄움으로써 의사를 확인
-						if ($(event.target).parent().parent().find('.custom-file-label').text() != '클릭하여 파일을 선택해주세요') {
-							let remove = confirm('정말 등록한 파일 "'+$(event.target).parent().parent().find('.custom-file-label').text()+'" 을(를) 삭제하시겠습니까?');
+						if (label.text() != '클릭하여 파일을 선택해주세요') {
+							let remove = confirm('정말 등록한 파일 "'+label.text()+'" 을(를) 삭제하시겠습니까?');
 							if (remove) {
 								alert('삭제하였습니다');
 							} else {
@@ -159,7 +161,7 @@
 						<td>${question.questionContent}</td>
 					</tr>
 					<tr>
-						<td colspan="2"></td>
+						<td class="pb-5" colspan="2"></td>
 					</tr>
 					<tr>
 						<td colspan="2">

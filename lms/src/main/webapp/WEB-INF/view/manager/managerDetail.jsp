@@ -13,7 +13,11 @@
 		<div class=container>
 			
 				<h1>내 정보 (운영자)</h1>
-			
+		
+		</div>
+		<div class=container >
+			<a class="btn btn-outline-primary"  href="${pageContext.request.contextPath}/manager/modifyManager">내 정보 수정</a>
+			<a class="btn btn-outline-primary"  href="${pageContext.request.contextPath}/manager/modifyManagerPasswd">비밀번호</a>
 		</div>
 		<div class=container>
 				<table class="table">

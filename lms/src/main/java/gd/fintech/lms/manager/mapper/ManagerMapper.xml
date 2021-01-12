@@ -69,7 +69,26 @@
 			manager_name managerName
 		FROM manager
 		WHERE account_id = #{accountId}
-
 	</select>
+	
+	<!--운영자의 비밀번호를 수정하기전에 확인  -->
+	<select id="selectManagerPassword" parameterType="String" resultType="String">
+	  SELECT
+	  	account_id accountId,
+	  	account_pw accountPW
+ 	  FROM account
+	  WHERE 
+	  	account_pw = PASSWORD(#{accountPw}) 
+	  	AND account_id = #{accountId}
+	</select>
+	
+	<!-- 운영자의 비밀번호 수정 -->
+	<update id="updateManagerPassword" parameterType="gd.fintech.lms.account.vo.Account">
+		UPDATE account
+		SET 
+			account_pw = PASSWORD(#{accountPw}),	
+			account_updatedate = NOW()
+		WHERE account_Id = #{accountId}	
+	</update>
 
 </mapper>

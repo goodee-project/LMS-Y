@@ -111,7 +111,6 @@ public class LectureManagerController {
 			@RequestParam("lectureNo")int lectureNo) {
 		Lecture lecture = lectureManagerService.getManagerLectureDetail(lectureNo);
 		model.addAttribute("lecture", lecture);
-		logger.debug("lecture"+ lecture );
 		return "manager/managerLectureDetail";
 		}
 	

@@ -25,7 +25,7 @@
 			<h1>강좌 수정</h1>
 			
 			<div>
-				<form method="post" action="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">
+				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">
 				
 				<table class="table"> 
 					<tr>
@@ -87,7 +87,7 @@
 						
 					</tr>
 				</table>
-						<button type="submit">입력</button>
+						<button id="submitId" type="button">입력</button>
 				</form>
 			</div>
 		</div>

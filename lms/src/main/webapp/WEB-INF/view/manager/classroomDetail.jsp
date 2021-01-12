@@ -13,18 +13,15 @@
 		<div class=container>
 			<div class="jumbotron">
 				<h1>강의실 상세정보</h1>
+				
+			</div>
+			<div>
+				 <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/classroomList">목록</a>
 			</div>
 		</div>
 		
-			
 		<div class=container>
 				<table class="table">
-					<tr>
-						<td>
-						 <a href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
-						 <a href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
-				 		</td>
-				   </tr>
 				   <tr>
 						<td>강의실 고유번호</td>
 						<td>${classroom.classroomNo}</td>
@@ -44,9 +41,11 @@
 						<td>강의실 수용 인원</td>
 						<td>${classroom.classroomTotal}</td>
 					</tr>
-					
-
 				</table>
+				<div>
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
+				</div>
 			</div>
-</body>
+	</body>
 </html>

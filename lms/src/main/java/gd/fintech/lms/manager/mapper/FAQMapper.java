@@ -17,7 +17,7 @@ public interface FAQMapper {
   	
   	// FAQ 개수
   	// 리턴값: FAQ의 행의 총 개수
-	int selectFAQCount();
+	int selectFAQCount(String categoryFaqSearch);
 	
 	// FAQ 입력
 	// 매개변수: FAQ의 정보  

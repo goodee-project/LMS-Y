@@ -37,11 +37,11 @@ public class FAQService {
 	// 리턴값: 현재 페이지의 FAQ 리스트
 	public Map<String, Object> getFAQListByPage(int currentPage, String categoryFaqSearch){
 		//  페이지당 표시되는 데이터 수
-		int rowPerPage = 10;
+		int rowPerPage = 15;
 		// 현재 페이지에서 시작하는 데이터 
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 전체 페이지 개수
-		int countFAQ = faqMapper.selectFAQCount();
+		int countFAQ = faqMapper.selectFAQCount(categoryFaqSearch);
 		// 마지막 페이지
 		int lastPage = countFAQ / rowPerPage;
 		if (countFAQ % rowPerPage != 0) {
@@ -76,14 +76,7 @@ public class FAQService {
 		paramMap.put("navBeginPage",navBeginPage);
 		paramMap.put("navLastPage",navLastPage);
 		paramMap.put("navPerPage",navPerPage);
-		
 		return paramMap;
-	}
-	
-	// FAQ의 행의 총 합을 보여주는 서비스
-	// 리턴값: FAQ 행의 총합
-	public int getFAQCount() {
-		return faqMapper.selectFAQCount();
 	}
 	
 	// FAQ를 입력하는 서비스

@@ -11,13 +11,11 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
 		<div class=container>
-			
-				<h1>자주하는 질문(FAQ) 상세보기</h1>
-			
-		</div>
-			<a href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
-			<a href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
-			<a href="${pageContext.request.contextPath}/manager/FAQList">FAQ</a>
+		<h1>자주하는 질문(FAQ) 상세보기</h1>
+			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
+			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
+			<a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList">목록</a>
+		</div>	
 		<div class=container>
 			
 				<table class="table">
@@ -26,15 +24,17 @@
 						<td>FAQ 번호</td>
 						<td>${faq.faqNo}</td>
 					</tr>
-				   
-					<tr>
-						<td>FAQ 작성자</td>
-						<td>${faq.faqWriter}</td>
+				   	<tr>
+						<td>FAQ 카테고리</td>
+						<td><a href="${pageContext.request.contextPath}/manager/FAQList?categoryFaqSearch=${faq.faqCategory}">${faq.faqCategory}</a></td>
 					</tr>
-					
 					<tr>
 						<td>FAQ 제목</td>
 						<td>${faq.faqTitle}</td>
+					</tr>
+					<tr>
+						<td>FAQ 작성자</td>
+						<td>${faq.faqWriter}</td>
 					</tr>
 					
 					<tr>
@@ -54,14 +54,8 @@
 						<td>FAQ 조회수</td>
 						<td>${faq.faqCount}</td> 
 					</tr>
-					
-					<tr>
-						<td>FAQ 카테고리</td>
-						<td>${faq.faqCategory}</td>
-					</tr>
-					
-			
 				</table>
 			</div>
+	
 </body>
 </html>

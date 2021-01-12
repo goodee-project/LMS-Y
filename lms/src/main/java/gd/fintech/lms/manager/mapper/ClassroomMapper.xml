@@ -6,7 +6,8 @@
 	<select id="selectClassroomListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Classroom">
 		SELECT
 			classroom_no classroomNo,
-			classroom_number classroomNumber
+			classroom_number classroomNumber,
+			classroom_total classroomTotal
 		FROM classroom
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>

@@ -13,11 +13,47 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-            	$('#submitBtn').click(function() {
-					oEditors.getById["faqContentId"].exec("UPDATE_CONTENTS_FIELD", []);
+			
+               	// FAQ 제목 유효성 검사
+               	$('#faqTitleId').focus();	
+               	$('#faqTitleId').blur(function(){
+                 // FAQ 제목 공백 검사
+				 if($('#faqTitleId').val() ==""){
+					alert("입력요청")
+					 	$('#faqTitleId').focus();		
+					return
+					
+				}
+			});	
+    			
+            	$('#faqContentId').blur(function(){
+                    // FAQ 제목 공백 검사
+   				 if($('#faqContentId').val() ==""){
+   					alert("입력요청")
+   					 oEditors.getById["faqContentId"].exec("FOCUS");	
+   					return
+   					
+   				}
+   			});	
+    			
+            	$('#submitBtn').click(function(){
+            		oEditors.getById["faqContentId"].exec("UPDATE_CONTENTS_FIELD", []);		
+            		if($('#teacherId').val() == ''){
+            			alert('공백이 있는지 확인해주세요');
+            		} else  {
+    					$('#postId').submit();
+    				}
+              
+    				 if($('#faqContentId').val() ==""){
+    					 oEditors.getById["faqContentId"].exec("FOCUS");
+    						alert('FAQ 내용을 입력하여주세요');
+    						return
+    						
+    					} 
+    				
+            });// 이거 지우면 스마트 에디터 사라짐
 
-
-            	});
+    			  
             	let oEditors = [];
 				nhn.husky.EZCreator.createInIFrame({
 					oAppRef: oEditors,
@@ -46,13 +82,15 @@
 			<h1>FAQ 작성</h1>
 			
 			<div>
-				<form method="post" action="${pageContext.request.contextPath}/manager/createFAQ">
+				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/createFAQ">
 					
 				<table class="table">
 					
 					<tr>
 						<td>FAQ 제목</td>
-						<td><input type="text" name="faqTitle"> </td>
+						<td><input type="text" id="faqTitleId" name="faqTitle"> 
+							<span id="faqTitleId"></span>
+						</td>
 					</tr>
 					
 					<tr>
@@ -68,8 +106,7 @@
 				</table>
 				FAQ 내용
 						<textarea id="faqContentId" name="faqContent"></textarea>
-						
-						<button id= "submitBtn" type="submit">classroomNumber</button>
+						<button id= "submitBtn" type="button">입력</button>
 				</form>
 			</div>
 		</div>

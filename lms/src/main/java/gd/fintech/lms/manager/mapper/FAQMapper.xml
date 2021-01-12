@@ -23,11 +23,15 @@
 	</select>
 
 	<!-- FAQ 행의 개수 -->
-	<select id="selectFAQCount" resultType="int">
+	<select id="selectFAQCount" parameterType="String" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM faq
-
+		<where>
+			<if test='categoryFaqSearch != null'>
+				faq_category = #{categoryFaqSearch}
+			</if>
+		</where>
 	</select>
 
 	<!-- FAQ의 상세정보 -->

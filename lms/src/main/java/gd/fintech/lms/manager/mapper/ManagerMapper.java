@@ -2,6 +2,7 @@ package gd.fintech.lms.manager.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.manager.vo.Manager;
 
 // 운영자 정보에 대한 메퍼 인터페이스
@@ -27,4 +28,14 @@ public interface ManagerMapper {
 	// 매개변수:운영자 Id
 	// 리턴값: 계정 아이디에 해당하는 운영자의 이름 
 	String selectManagerName(String accountId);
+	
+	// 운영자의 비밀번호를 수정
+	// 매개변수: 계정 정보 
+	// 리턴값: 행의 수정
+	int updateManagerPassword(Account account);
+	
+	// 운영자의 비밀번호를 수정하기전 확이
+	// 매개변수: 운영자 id와 운영자의 password
+	// 리턴값: 계정아이디에 해당하는 운영자의 id,password
+	String selectManagerPassword (String accountId, String accountPw );
 }

@@ -22,35 +22,35 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
 		<div class="jumbotron">
-			<h1>자주하는질문(FAQ)</h1>
+ 			<div class="container">
+    			<h1>자주하는질문(FAQ)</h1>
+ 			 </div>
 			</div>
-				<table class="table">
-			<!-- 카테고리 -->
-				
+			<!-- 카테고리 -->	
+			<div class="container">
+			<span><a style="height:45px; width:150px;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1">전체</a></span>
 			<c:forEach items="${categoryList}" var="cl" varStatus="status"> 
 				<td>
-					<a style="height:50px; width:150px;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList?categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
+					<a style="height:45px; width:150px;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1&categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
+					
 				</td>
 					<c:if test="${status.count%5 eq 0}"> 
 						<tr>
 					</c:if>
 				
 				</c:forEach>
-				
-			</table>
-			<div>
 			<!-- FAQList -->
+			</div>
+			<div class="container">
 				<table class="table">
 					<tr>
 						<th>FAQ 번호</th>
-						<th>FAQ 카테고리</th>
+						<th>카테고리</th>
 						<th style="width:40%">FAQ 제목</th>
-						<th>FAQ 작성자</th>
-						<th>FAQ 조회수</th>
+						<th>작성자</th>
 						<th>FAQ 수정날짜</th>
-						
+						<th>조회수</th>
 					</tr>
 				<c:forEach items="${faqList}" var="f">
 					<tr>
@@ -58,59 +58,192 @@
 						<td>${f.faqCategory}</td>
 						<td><a href="${pageContext.request.contextPath}/manager/FAQDetail?faqNo=${f.faqNo}">${f.faqTitle}</a></td>
 						<td>${f.faqWriter}</td>
-						<td>${f.faqCount}</td>
 						<td>${f.faqUpdateDate}</td>
+						<td>${f.faqCount}</td>
 					</tr>
 				</c:forEach>	
 			</table>
-			<!-- 페이징 -->
-			<div>
-				<!-- 처음 -->
-				<c:choose>
-					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1">[처음]</a>
-					</c:when>
-				</c:choose>
-				
-				<!-- 이전 -->
-				<c:choose>
-					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/manager/FAQList?currentPage=${currentPage-1}">[이전]</a>
-					</c:when>
-				</c:choose>
-				
-				<!-- 현재 페이지 표시 -->
-				<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
-					<c:if test="${i <= lastPage}">
-						<c:choose>
-							<c:when test="${i == currentPage}">
-								<a href="#">
-									[${i}]
+			<!-- 페이지 네비게이션 바 -->
+			<c:if test="${categoryFaqSearch ne null }">
+			<c:if test="${lastPage != 0}">
+				<div>
+					<ul class="pagination small justify-content-center " >
+						<%-- 처음 버튼 --%>
+						<c:if test="${currentPage != 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1&categoryFaqSearch=${categoryFaqSearch}">
+									처음
 								</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.request.contextPath}/manager/FAQList?currentPage=${i}">[${i}]</a>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
-				</c:forEach>
-				
-				<!-- 다음 -->
-				<c:choose>
-					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/manager/FAQList?currentPage=${currentPage+1}">[다음]</a>
-					</c:when>
-				</c:choose>
-				
-				<!-- 마지막 -->
-				<c:choose>
-					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/manager/FAQList?currentPage=${lastPage}">[마지막]</a>
-					</c:when>
-				</c:choose>
-			</div>	
-		
+							</li>
+						</c:if>
+						<c:if test="${currentPage == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									처음
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 이전 버튼 --%>
+						<c:if test="${currentPage > 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}&categoryFaqSearch=${categoryFaqSearch}">
+									이전
+								</a>
+							</li>
+						</c:if>
+						<!-- 페이지가 1일경우 동작x -->
+						<c:if test="${currentPage == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									이전
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 각 페이지 이동 버튼 --%>
+						<c:forEach var="p" begin="${navBeginPage}" end="${navLastPage}" step="1">
+							<c:if test="${p != currentPage}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}&categoryFaqSearch=${categoryFaqSearch}">
+										${p}
+									</a>
+								</li>
+							</c:if>
+							<c:if test="${p == currentPage}">
+								<li class="page-item active">
+									<a class="page-link">
+										${p}
+									</a>
+								</li>
+							</c:if>
+						</c:forEach>
+						<%-- 다음 버튼 --%>
+						<c:if test="${currentPage != lastPage }">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&categoryFaqSearch=${categoryFaqSearch}">
+									다음
+								</a>
+							</li>
+						</c:if>
+						<!--  -->
+						<c:if test="${currentPage == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									다음
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 마지막 버튼 --%>
+						<c:if test="${currentPage != lastPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}&categoryFaqSearch=${categoryFaqSearch}">
+									마지막
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${currentPage == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									마지막
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+			</c:if>
+			</c:if>
+			<c:if test="${categoryFaqSearch eq null }">
+			<c:if test="${lastPage != 0}">
+				<div>
+					<ul class="pagination small justify-content-center " >
+						<%-- 처음 버튼 --%>
+						<c:if test="${currentPage != 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1">
+									처음
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${currentPage == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									처음
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 이전 버튼 --%>
+						<c:if test="${currentPage > 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">
+									이전
+								</a>
+							</li>
+						</c:if>
+						<!-- 페이지가 1일경우 동작x -->
+						<c:if test="${currentPage == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									이전
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 각 페이지 이동 버튼 --%>
+						<c:forEach var="p" begin="${navBeginPage}" end="${navLastPage}" step="1">
+							<c:if test="${p != currentPage}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}">
+										${p}
+									</a>
+								</li>
+							</c:if>
+							<c:if test="${p == currentPage}">
+								<li class="page-item active">
+									<a class="page-link">
+										${p}
+									</a>
+								</li>
+							</c:if>
+						</c:forEach>
+						<%-- 다음 버튼 --%>
+						<c:if test="${currentPage != lastPage }">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&categoryFaqSearch=${categoryFaqSearch}">
+									다음
+								</a>
+							</li>
+						</c:if>
+						<!--  -->
+						<c:if test="${currentPage == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									다음
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 마지막 버튼 --%>
+						<c:if test="${currentPage != lastPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}">
+									마지막
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${currentPage == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									마지막
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+			</c:if>
+			</c:if>
 			</div>
-		</div>
 	</body>
 </html>

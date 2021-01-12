@@ -44,9 +44,8 @@
 						<td>강좌 이름</td>
 						<td>${lecture.lectureName}</td>
 					</tr>
-					
 					<tr>
-						<td>교재 일련번호</td>
+						<td>교재 제목</td>
 						<td>${lecture.textbookISBN}</td>
 					</tr>
 					<tr>

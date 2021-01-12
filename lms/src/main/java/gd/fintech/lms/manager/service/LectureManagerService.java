@@ -37,7 +37,7 @@ public class LectureManagerService {
 		// 리턴값: 현재 페이지의 강좌 리스트
 		public Map<String, Object> getManagerLectureListByPage(int currentPage ){
 			//  페이지당 표시되는 데이터 수
-			int rowPerPage = 10;
+			int rowPerPage = 15;
 			// 현재 페이지에서 시작하는 데이터 
 			int beginRow = (currentPage - 1) * rowPerPage;
 			// 전체 페이지 개수

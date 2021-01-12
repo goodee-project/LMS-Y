@@ -12,33 +12,66 @@
         <script>
         
             $(document).ready(function() {
+                
+            	// 강의실 번호 유효성 검사 
+    			$('#numberId').focus();	
+    			// 강의실 번호 공백 체크 
+                $('#numberId').blur(function(){
+                   	// 공백 
+					if($('#numberId').val() ==""){
+						$('#numberId').focus();
+						$('#numberMsg').text("강의실 번호를 입력해주세요");
+						return
+						
+					}else{
+						
+						$('#numberMsg').text("");
+						
+						}
+					});
+                		
+				// 강의실 면적 유효성 검사	
+				$('#sizeId').blur(function(){
+					if($('#sizeId').val() ==''){
+						$('#sizeMsg').text("강의실 면적을 입력해주세요");
+						$('#sizeId').focus();
+						return
+						
+					}else{
+						
+						$('#sizeMsg').text("");
+						
+						}
 
-            	$('#submitId').click(function() {
-				 
-    			if($('#numberId').val()==''){
-				 	alert('강의실 번호를 입력해주세요.');
-				   $('#numberId').focus();
-        		}else if(!isNaN($('#numberId').val())==false){
-					alert('숫자만 가능합니다.');
-					$('#numberId').focus();
-                }else if($('#sizId').val()==''){
-                	alert('강의실 면적을 입력해주세요')
-                	$('#sizeId').focus();
-            	}else if(!isNaN($('#sizeId').val())==false){
-                      alert('숫자만 가능합니다.');
-                      $('#sizeId').focus();	
-                  }else if($('#totalId').val()==''){
-                    alert('강의실 수용인원을 입력해주세요')
-                    $('#totalId').focus();
-                }else if(!isNaN($('#totalId').val())==false){
-					alert('숫자만 가능합니다.');
-                      $('#totalId').focus();
-                  }   	
-    			
-            	 });
-            });
+				});		
 
-            
+				// 강의실 수용인원 유효성 검사
+				$('#totalId').blur(function(){
+					if($('#totalId').val() == ''){
+						$('#totalMsg').text("강의실 수용인원을 입력해주세요");
+						$('#totalId').focus();
+						return
+						
+					}else{
+						
+						$('#totalMsg').text("");
+						
+						}
+
+					$('#postId').submit(); 			
+			    });	
+			    // 버튼을 클릭했을때 공백여부 확인
+				$('#btnId').click(function() {
+					if($('#numberId').val() == '' || $('#sizeId').val() == '' || $('#totalId').val() == '') {
+						alert('다시 확인하세요');
+						return;
+					} else {
+						$('#postId').submit();
+					}
+				});
+				console.log();  				 	
+         });
+         
         </script>
 	</head>
 	
@@ -55,21 +88,27 @@
 					<table class="table">
 						<tr>
 								<td>강의실 번호</td>
-								<td><input type="text" name="classroomNumber" id="numberId"></td>
-								
+								<td><input type="number" name="classroomNumber" id="numberId">
+									<span id="numberMsg"></span>
+								</td>
 						</tr>
 						<tr>
 								<td>강의실 면적</td>
-								<td><input type="text" name="classroomSize" id="sizeId"></td>
+								<td><input type="number" name="classroomSize" id="sizeId">
+									<span id="sizeMsg"></span>
+								</td>
 								
 						</tr>
 						<tr>
 								<td>강의실 수용인원</td>
-								<td><input type="text" name="classroomTotal" id="totalId" ></td>
+								<td><input type="number" name="classroomTotal" id="totalId" >
+									<span id="totalMsg"></span>
+								</td>
 						</tr>
 					
 					</table>
-						<button id="submitId" type="submit">입력</button>
+						<button class="btn btn-outline-primary" id="btnId" type="button">입력</button>
+						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/classroomList">취소</a>
 				</form>
 			</div>
 		</div>

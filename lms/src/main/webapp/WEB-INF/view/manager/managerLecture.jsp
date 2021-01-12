@@ -48,56 +48,96 @@
 					</tr>
 				</c:forEach>	
 			</table>
-			<!-- 강좌 작성 -->
-			<div>
-				<a href="${pageContext.request.contextPath}/manager/createLectureManager">강좌 작성</a>
-			</div>
-			<!-- 페이징 -->
-			<div>
-				<!-- 처음 -->
-				<c:choose>
-					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/manager/managerLecture?currentPage=1">[처음]</a>
-					</c:when>
-				</c:choose>
-				
-				<!-- 이전 -->
-				<c:choose>
-					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.contextPath}/manager/managerLecture?currentPage=${currentPage-1}">[이전]</a>
-					</c:when>
-				</c:choose>
-				
-				<!-- 현재 페이지 표시 -->
-				<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
-					<c:if test="${i <= lastPage}">
-						<c:choose>
-							<c:when test="${i == currentPage}">
-								<a href="#">
-									[${i}]
+						<!-- 페이지 네비게이션 바 -->
+			<c:if test="${lastPage != 0}">
+				<div>
+					<!-- 페이징 가운데 정렬 -->
+					<ul class="pagination small justify-content-center " >
+						<%-- 처음 버튼 --%>
+						<c:if test="${currentPage != 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1">
+									처음
 								</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.request.contextPath}/manager/managerLecture?currentPage=${i}">[${i}]</a>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
-				</c:forEach>
-				
-				<!-- 다음 -->
-				<c:choose>
-					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/manager/managerLecture?currentPage=${currentPage+1}">[다음]</a>
-					</c:when>
-				</c:choose>
-				
-				<!-- 마지막 -->
-				<c:choose>
-					<c:when test="${currentPage < lastPage}">
-						<a href="${pageContext.request.contextPath}/manager/managerLecture?currentPage=${lastPage}">[마지막]</a>
-					</c:when>
-				</c:choose>
-			</div>	
-		</div>
+							</li>
+						</c:if>
+						<c:if test="${currentPage == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									처음
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 이전 버튼 --%>
+						<c:if test="${currentPage > 1}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">
+									이전
+								</a>
+							</li>
+						</c:if>
+						<!-- 페이지가 1일경우 동작x -->
+						<c:if test="${currentPage == 1}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									이전
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 각 페이지 이동 버튼 --%>
+						<c:forEach var="p" begin="${navBeginPage}" end="${navLastPage}" step="1">
+							<c:if test="${p != currentPage}">
+								<li class="page-item">
+									<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${p}">
+										${p}
+									</a>
+								</li>
+							</c:if>
+							<c:if test="${p == currentPage}">
+								<li class="page-item active">
+									<a class="page-link">
+										${p}
+									</a>
+								</li>
+							</c:if>
+						</c:forEach>
+						<%-- 다음 버튼 --%>
+						<c:if test="${currentPage != lastPage }">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">
+									다음
+								</a>
+							</li>
+						</c:if>
+						<!--  -->
+						<c:if test="${currentPage == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									다음
+								</a>
+							</li>
+						</c:if>
+						
+						<%-- 마지막 버튼 --%>
+						<c:if test="${currentPage != lastPage}">
+							<li class="page-item">
+								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}">
+									마지막
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${currentPage == lastPage}">
+							<li class="page-item disabled">
+								<a class="page-link">
+									마지막
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+			</c:if>
+			</div>
 	</body>
 </html>

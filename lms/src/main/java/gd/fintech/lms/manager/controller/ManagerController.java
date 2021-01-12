@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.manager.service.ManagerService;
 import gd.fintech.lms.manager.vo.Manager;
 
@@ -37,7 +38,7 @@ public class ManagerController {
 	    logger.debug("manager"+ manager );
 		return "/manager/managerDetail";
 	}
-
+	
 	// 운영자 정보 수정 폼
 	// 리턴값: 운영자 정보 수정 액션
 	@GetMapping("/manager/modifyManager")
@@ -56,7 +57,24 @@ public class ManagerController {
 	public String managerModify(Manager manager) {
 		managerService.modifyManager(manager);
 		logger.debug("manager"+ manager );
-		return "/manager/managerDetail";
+		return "redirect:/manager/managerDetail";
 	}
 	
+	// 운영자의 비밀번호를 변경 폼
+	// 리턴값: 운영자의 pw 수정 액션
+	@GetMapping("/manager/modifyManagerPasswd")
+	public String modifyManagerPasswd(Model model , HttpServletRequest sseion) {
+		// 세션에서 계정 id를 가져옴
+		HttpSession session =((HttpServletRequest)sseion).getSession();
+		String accountId = (String)session.getAttribute("accountId");
+		model.addAttribute("accountId", accountId);
+		return"/manager/modifyManagerPasswd";
+	}
+	// 운영자의 비밀번호를 변경 액션 
+	// 리턴값: 로그아웃
+	@PostMapping("/manager/modifyManagerPasswd")
+	public String modifyManagerPasswd(Account account) {
+		managerService.modifyManagerPasswd(account);
+		return "redirect:/logout";
+	}
 }

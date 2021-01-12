@@ -13,40 +13,24 @@
 		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
         <script>
             $(document).ready(function() {
-				// 첨부파일 삭제버튼에 대한 이벤트 처리를 등록함
-				$('.removeReportSubmitFile').click(function(event) {
-					$.ajax({
-						url: $(event.target).prop('href'),
-						method: 'post',
-						success: function(removed) {
-							if (removed) {
-								$(event.target).parent().remove();
-							}
-						}
-					});
-					
-					return false;
-				});
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
 				$('#addFile').click(function() {
 					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
-					$('#reportSubmitFileDiv').append(`
-						<div>
-							<input  class="reportSubmitFile" name="reportSubmitFileList" type="file">
-							<button class="removeReportSubmitFile" type="button">삭제</button>
+					$('#reportSubmitFileFrame').append(`
+						<div class="form-group d-flex">
+							<div>
+								<input class="reportSubmitFile form-control-file" name="reportSubmitFileList" type="file">
+							</div>
+							<button class="removeReportSubmitFile btn btn-danger" type="button">삭제</button>
 						</div>
 					`);
 					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
-					$('#reportSubmitFileDiv:last-child .removeReportSubmitFile').click(function(event) {
+					$('.removeReportSubmitFile').last().click(function(event) {
 						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
 						$(event.target).parent().remove();
-					});
-				});			
-				// 첨부파일 삭제버튼에 대한 이벤트 처리를 등록함
-				$('#removeFile').click(function() {
-					$('#reportSubmitFileDiv').children().last().remove();
-				});
-
+					});		
+				});	
+				
 				// 작성 버튼 클릭 시 유효성 검사 실시
 				$('#submitBtn').click(function() {
 					// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
@@ -55,7 +39,7 @@
 					// 댓글 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
 					let contentText = $('#reportSubmitContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					if (contentText == '') {
-						alert('내용을 입력해주세요!');
+						alert('내용을 입력해주세요.');
 						oEditors.getById["reportSubmitContent"].exec("FOCUS");
 
 						return;
@@ -93,21 +77,35 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<h1></h1>
-			
+		<div class="jumbotron">
+			<div class="container">
+				<h1>과제 제출</h1>
+			</div>
+		</div>
+		<div class="container">		
 			<div>
 				<form id="reportSubmitForm" action="${pageContext.request.contextPath}/student/createReportSubmit" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="reportNo" value="${reportNo}">
-					<div> 과제 명 : <input type="text" name="reportSubmitTitle"></div>
-					<div><textarea id="reportSubmitContent" name="reportSubmitContent"></textarea></div>
-					<div>
-						<button id="addFile" type="button">파일 추가</button>
-						<button id="removeFile" type="button">파일 삭제</button>
+					<table class="table">
+						<tr>
+							<td>제목</td>
+							<td>
+								<input class="form-control" type="text" name="reportSubmitTitle">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<textarea id="reportSubmitContent" name="reportSubmitContent" style="width: 100%"></textarea>
+							</td>
+						</tr>
+					</table>
+					<div class="form-group">
+						<button class="btn btn-primary" id="addFile" type="button">파일 추가</button>
 					</div>
-					<div id="reportSubmitFileDiv"></div>
-					<div><button id="submitBtn" type="button">제출</button></div>
+					<div id="reportSubmitFileFrame"></div>
+					<div class="form-group">
+						<button class="btn btn-success" id="submitBtn" type="button">제출</button>
+					</div>
 				</form>
 			</div>
 		</div>

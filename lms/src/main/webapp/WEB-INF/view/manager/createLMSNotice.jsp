@@ -62,18 +62,20 @@
 			<form id="formId" action="${pageContext.request.contextPath}/manager/createLMSNotice" method="post">
 				<table class="table">
 					<tr>
-						<td>제목:</td>
-						<td><input class="form-control container-fluid" id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle"></td>
+						<td>제목</td>
+						<td>
+							<input class="form-control" id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle">
+						</td>
 					</tr>
 					<tr>
 						<td colspan="2">
-						<div class="mt-2">
+						<div class="form-group">
 							<textarea id="lmsNoticeContentId" name="lmsNoticeContent" style="width: 100%"></textarea>
 						</div>
 						</td>
 					</tr>
 				</table>
-				<div>
+				<div class="form-group">
 					<button class="btn btn-success" id="submitBtn" type="button">추가</button>
 				</div>
 			</form>

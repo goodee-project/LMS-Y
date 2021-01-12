@@ -20,83 +20,88 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<h1>과제</h1>
-			
+		<div class="jumbotron">
+			<div class="container">
+							<h1>과제</h1>
+			</div>
+		</div>
+		<div class="container">		
 			<div>
-				<table class="table">
+				<table class="table mb-3">
 					<tr>
-						<th>reportNo</th>
+						<th>과제No</th>
 						<td>${reportAndReportSubmit.reportNo}</td>
 					</tr>
 					<tr>
-						<th>reportTitle</th>
+						<th>제목</th>
 						<td>${reportAndReportSubmit.reportTitle}</td>
 					</tr>
 					<tr>
-						<th>reportContent</th>
+						<th>내용</th>
 						<td>${reportAndReportSubmit.reportContent}</td>
 					</tr>
 					<tr>
-						<th>reportUpdateDate</th>
-						<td>${reportAndReportSubmit.reportUpdateDate}</td>
+						<th>기한</th>
+						<td>${reportAndReportSubmit.reportStartDate}~${reportAndReportSubmit.reportEndDate}</td>
 					</tr>
 					<tr>
-						<th>reportDate</th>
-						<td>${reportAndReportSubmit.reportStartDate}~${reportAndReportSubmit.reportEndDate}</td>
+						<th>수정 날짜</th>
+						<td>${reportAndReportSubmit.reportUpdateDate}</td>
 					</tr>
 				</table>
 				<c:forEach var="rs" items="${reportAndReportSubmit.reportSubmitList}">
 					<table class="table">
 						<tr>
-							<th>reportSubmitNo</th>
+							<th>과제제출No</th>
 							<td>${rs.reportSubmitNo}</td>
 						</tr>
 						<tr>
-							<th>reportSubmitTitle</th>
+							<th>제목</th>
 							<td>${rs.reportSubmitTitle}</td>
 						</tr>
 						<tr>
-							<th>reportSubmitContent</th>
+							<th>내용</th>
 							<td>${rs.reportSubmitContent}</td>
 						</tr>
 						<tr>
-							<th>reportSubmitScore</th>
+							<th>점수</th>
 							<td>${rs.reportSubmitScore}</td>
 						</tr>
 						<tr>
-							<th>reportSubmitFeedback</th>
+							<th>피드백</th>
 							<td>${rs.reportSubmitFeedback}</td>
 						</tr>
 						<tr>
-							<th>reportSubmitUpdateDate</th>
+							<th>수정 날짜</th>
 							<td>${rs.reportSubmitUpdateDate}</td>
 						</tr>
+						<tr>
+							<th>첨부파일</th>
+							<td>
+								<c:forEach var="rsf" items="${rs.reportSubmitFileList}">
+									<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
+									<c:if test="${rsf.reportSubmitFileSize > 0}">
+										<div>
+											<a href="${pageContext.request.contextPath}/student/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
+												${rsf.reportSubmitFileOriginal}
+											</a>
+											${rsf.reportSubmitFileSize},
+											${rsf.reportSubmitFileType},
+											${rsf.reportSubmitFileCount}회 다운로드,
+											${rsf.reportSubmitFileCreateDate}
+										</div>
+									</c:if>
+								</c:forEach>
+							</td>
+						</tr>
 					</table>
-					<div>
-						<c:forEach var="rsf" items="${rs.reportSubmitFileList}">
-							<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
-							<c:if test="${rsf.reportSubmitFileSize > 0}">
-								<div>
-									<a href="${pageContext.request.contextPath}/student/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
-										${rsf.reportSubmitFileOriginal}
-									</a>
-									${rsf.reportSubmitFileSize},
-									${rsf.reportSubmitFileType},
-									${rsf.reportSubmitFileCount}회 다운로드,
-									${rsf.reportSubmitFileCreateDate}
-								</div>
-							</c:if>
-						</c:forEach>
-					</div>
 				<div>
-					<a href="${pageContext.request.contextPath}/student/modifyReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 수정</a>
+					<a class="btn btn-primary" href="${pageContext.request.contextPath}/student/modifyReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 수정</a>
 				</div>
 				</c:forEach>
 				<c:if test="${empty reportAndReportSubmit.reportSubmitList}">
 					<div>
-						<a href="${pageContext.request.contextPath}/student/createReportSubmit?reportNo=${reportAndReportSubmit.reportNo}">과제 제출</a>
+						<a class="btn btn-primary" href="${pageContext.request.contextPath}/student/createReportSubmit?reportNo=${reportAndReportSubmit.reportNo}">과제 제출</a>
 					</div>
 				</c:if>
 			</div>

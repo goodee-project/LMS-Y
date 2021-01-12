@@ -64,18 +64,22 @@
 					<input type="hidden" name="lmsNoticeNo" value="${lmsNotice.lmsNoticeNo}">
 					<table class="table">
 						<tr>
-							<td>제목:</td>
-							<td><input class="form-control container-fluid" id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle" value="${lmsNotice.lmsNoticeTitle}"></td>
+							<td>제목</td>
+							<td>
+								<div class="form-group">
+									<input class="form-control container-fluid" id="lmsNoticeTitleId" type="text" name="lmsNoticeTitle" value="${lmsNotice.lmsNoticeTitle}">
+								</div>		
+							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-							<div class="mt-2">
+							<div class="form-group">
 								<textarea id="lmsNoticeContentId" name="lmsNoticeContent" style="width: 100%">${lmsNotice.lmsNoticeContent}</textarea>
 							</div>
 							</td>
 						</tr>
 					</table>
-					<div>
+					<div class="form-group">
 						<button class="btn btn-success" id="submitBtn" type="button">수정</button>
 					</div>
 				</form>

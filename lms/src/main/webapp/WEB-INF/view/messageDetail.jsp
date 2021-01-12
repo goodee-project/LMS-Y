@@ -53,7 +53,7 @@
 				</tr>
 			</table>
 			<div align="center">
-				<button onclick="history.back()" class="btn btn-outline-success mb-5">뒤로가기</button>
+				<button onclick="history.back()" class="btn btn-outline-primary mb-5">뒤로가기</button>
 			</div>
 		</div>
 	</body>

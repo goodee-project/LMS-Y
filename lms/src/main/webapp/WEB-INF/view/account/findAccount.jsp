@@ -13,7 +13,7 @@
             $(document).ready(function() {
 				// 이메일 확인
 				$('#findEmail').click(function() {
-					let str = `<button type="button" class="btn btn-primary btn-block mt-3" id="btnKey">이메일 보내기</button>`;
+					let str = `<button type="button" class="btn btn-outline-success btn-block mt-3" id="btnKey">이메일 보내기</button>`;
 					$.ajax({
 						url: '${pageContext.request.contextPath}/findEmail',
 						type: 'get',
@@ -66,7 +66,7 @@
 								<div class="input-group mb-3">
 									<input type="email" class="form-control" name="email" id="email" placeholder="이메일 입력">
 									<div class="input-group-append">
-										<button type="button" class="btn btn-primary" id="findEmail">확인</button>
+										<button type="button" class="btn btn-success" id="findEmail">확인</button>
 									</div>
 								</div>
 							</td>
@@ -74,7 +74,7 @@
 						<tr>
 							<td colspan="2">
 								<div id="addBtn"></div>
-								<a href="${pageContext.request.contextPath}/login" class="btn btn-light btn-block mt-3" id="btnSubmit">로그인으로</a>
+								<a href="${pageContext.request.contextPath}/login" class="btn btn-outline-primary btn-block mt-3" id="btnSubmit">로그인으로</a>
 							</td>
 						</tr>
 					</table>

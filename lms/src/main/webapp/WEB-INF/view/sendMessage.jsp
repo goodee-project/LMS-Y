@@ -58,7 +58,7 @@
 								<option value="content" ${sel == 'content' ? 'selected="selected"' : ''}>내용</option>
 							</select>
 						</div>	
-						<input type="text" class="form-control col-sm-2" id= "search" name="search" placeholder="입력하세요">
+						<input type="text" class="form-control col-sm-2" id= "search" name="search" placeholder="Search">
 						<div class="input-group-append">
 							<button class="btn btn-success" type="button" id="searchBtn">검색</button>			
 						</div>				
@@ -105,15 +105,15 @@
 			<ul class="pagination justify-content-center" style="margin:20px">
 				<c:choose>
 					<c:when test="${lastPage == 1 || lastPage == 0}">
-						<li class="page-item disabled"><a class="page-link">처음으로</a></li>
-						<li class="page-item disabled"><a class="page-link">이전</a></li>
+						<li class="page-item disabled"><a class="page-link">&lt;&lt;</a></li>
+						<li class="page-item disabled"><a class="page-link">&lt;</a></li>
 						<li class="page-item active"><a class="page-link">1</a></li>
-						<li class="page-item disabled"><a class="page-link">다음</a></li>
-						<li class="page-item disabled"><a class="page-link">마지막으로</a></li>
+						<li class="page-item disabled"><a class="page-link">&gt;</a></li>
+						<li class="page-item disabled"><a class="page-link">&gt;&gt;</a></li>
 					</c:when>
 					<c:when test="${lastPage != 1 && navStartPage < 11}">
-						<li class="page-item disabled"><a class="page-link">처음으로</a></li>
-						<li class="page-item disabled"><a class="page-link">이전</a></li>
+						<li class="page-item disabled"><a class="page-link">&lt;&lt;</a></li>
+						<li class="page-item disabled"><a class="page-link">&lt;</a></li>
 						<c:forEach var="i" begin="${navStartPage}" end="${navEndPage}">
 							<c:choose>
 								<c:when test="${currentPage == i}">
@@ -126,18 +126,18 @@
 						</c:forEach>
 						<c:choose>
 							<c:when test="${lastPage < 11}">
-								<li class="page-item disabled"><a class="page-link">다음</a></li>
-								<li class="page-item disabled"><a class="page-link">마지막으로</a></li>
+								<li class="page-item disabled"><a class="page-link">&gt;</a></li>
+								<li class="page-item disabled"><a class="page-link">&gt;&gt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage+navPerPage}&sel=${sel}&search=${search}">다음</a></li>
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${lastPage}&sel=${sel}&search=${search}">마지막으로</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage+navPerPage}&sel=${sel}&search=${search}">&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${lastPage}&sel=${sel}&search=${search}">&gt;&gt;</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:when>
 					<c:when test="${navEndPage > navPerPage && navEndPage%navPerPage == 0}">
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=1&sel=${sel}&search=${search}">처음으로</a></li>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage-1}&sel=${sel}&search=${search}">이전</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=1&sel=${sel}&search=${search}">&lt;&lt;</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage-1}&sel=${sel}&search=${search}">&lt;</a></li>
 						<c:forEach var="i" begin="${navStartPage}" end="${navEndPage}">
 							<c:choose>
 								<c:when test="${currentPage == i}">
@@ -148,12 +148,12 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage+navPerPage}&sel=${sel}&search=${search}">다음</a></li>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${lastPage}&sel=${sel}&search=${search}">마지막으로</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage+navPerPage}&sel=${sel}&search=${search}">&gt;</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${lastPage}&sel=${sel}&search=${search}">&gt;&gt;</a></li>
 					</c:when>
 					<c:when test="${lastPage != 1 && navEndPage%navPerPage != 0}">
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=1&sel=${sel}&search=${search}">처음으로</a></li>
-						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage-1}&sel=${sel}&search=${search}">이전</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=1&sel=${sel}&search=${search}">&lt;&lt;</a></li>
+						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/sendMessage?currentPage=${navStartPage-1}&sel=${sel}&search=${search}">&lt;</a></li>
 						<c:forEach var="i" begin="${navStartPage}" end="${navEndPage}">
 							<c:choose>
 								<c:when test="${currentPage == i}">
@@ -164,8 +164,8 @@
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
-						<li class="page-item disabled"><a class="page-link">다음</a></li>
-						<li class="page-item disabled"><a class="page-link">마지막으로</a></li>
+						<li class="page-item disabled"><a class="page-link">&gt;</a></li>
+						<li class="page-item disabled"><a class="page-link">&gt;&gt;</a></li>
 					</c:when>
 				</c:choose>
 			</ul>

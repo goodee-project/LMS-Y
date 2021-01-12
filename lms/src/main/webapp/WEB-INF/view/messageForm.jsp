@@ -95,7 +95,7 @@
 								<input type="text" class="form-control" id="toId" placeholder="아이디를 검색하세요">
 							</td>
 							<td>
-								<button type="button" class="btn btn-outline-primary" id="search">검색</button>
+								<button type="button" class="btn btn-success" id="search">검색</button>
 							</td>
 						</tr>
 						<tr>
@@ -114,7 +114,7 @@
 						</tr>
 						<tr>
 							<td colspan="3" align="center">
-								<button type="button" class="btn btn-success mt-3" id="submitBtn">보내기</button>
+								<button type="button" class="btn btn-outline-primary mt-3" id="submitBtn">보내기</button>
 							</td>
 						</tr>
 					</table>

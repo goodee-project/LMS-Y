@@ -45,7 +45,15 @@
 				});
 				// 이메일 입력 유효성 검사
 				$('#teacherEmail').blur(function() {
-					if($('#teacherEmail').val() == '' || $('#teacherEmail').val().length > 200) {
+					// 이메일 정규식
+					let emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+					// 이메일 정규식 체크
+					if(!emailRule.test($('#studentEmail').val())) {
+						$('#emailCkMsg').text('이메일을 확인하세요');
+						return;
+					}
+					// 입력 값이 공백이거나 글자 크기를 넘었을 때
+					else if($('#teacherEmail').val() == '' || $('#teacherEmail').val().length > 200) {
 						$('#emailCkMsg').text('이메일을 확인하세요');
 						return;
 					}else {
@@ -66,9 +74,17 @@
 						}
 					});
 				});
-				// 전화번호 숫자만 입력
+				// 전화번호 유효성 검사
 				$("#teacherPhone").on("keyup", function() {
-				      $(this).val($(this).val().replace(/[^0-9]/g,""));
+					// 숫자만 입력
+					$(this).val($(this).val().replace(/[^0-9]/g,""));
+					// 숫자 크기 체크
+					if($(this).val().length > 11) {
+						$('#phoneCkMsg').text('전화번호를 확인하세요');
+						return;
+					}else {
+						$('#phoneCkMsg').text('');
+					}
 				});
 				// 우편번호 검색시 요소 추가
 				$('#zipCodeSearch').click(function() {
@@ -126,28 +142,28 @@
 						<td>아이디</td>
 						<td>
 							<input class="form-control col-sm-4" type="text" id="teacherId" name="accountId" placeholder="아이디 입력">
-							<div id="idMsg"></div>
+							<div style="color: red;" id="idMsg"></div>
 						</td>
 					</tr>
 					<tr>
 						<td>비밀번호</td>
 						<td>
 							<input class="form-control col-sm-4" type="password" id="teacherPw" name="accountPw" placeholder="비밀번호 입력">
-							<div id="pwMsg"></div>
+							<div style="color: red;" id="pwMsg"></div>
 						</td>
 					</tr>
 					<tr>
 						<td>비밀번호 확인</td>
 						<td>
 							<input class="form-control col-sm-4" type="password" id="teacherPwCk" placeholder="비밀번호 확인">
-							<div id="pwCkMsg"></div>
+							<div style="color: red;" id="pwCkMsg"></div>
 						</td>
 					</tr>
 					<tr>
 						<td>이메일</td>
 						<td>
-							<input class="form-control col-sm-4" type="text" id="teacherEmail" name="accountEmail" placeholder="이메일 입력">
-							<div id="emailCkMsg"></div>
+							<input class="form-control col-sm-4" type="text" id="teacherEmail" name="accountEmail" placeholder="email@gd.com">
+							<div style="color: red;" id="emailCkMsg"></div>
 						</td>
 					</tr>
 					<tr>
@@ -160,6 +176,7 @@
 						<td>전화번호</td>
 						<td>
 							<input class="form-control col-sm-4" type="tel" id="teacherPhone" name="accountPhone" placeholder="- 빼고 숫자만 입력">
+							<div style="color: red;" id="phoneCkMsg"></div>
 						</td>
 					</tr>
 					<tr>
@@ -184,7 +201,7 @@
 						<td>
 							<div class="input-group">
 								<input class="form-control col-sm-3" type="text" id="zipCode" placeholder="우편번호 입력">
-								<button class="btn btn-outline-primary" type="button" id="zipCodeSearch">우편번호 검색</button>
+								<button class="btn btn-success" type="button" id="zipCodeSearch">우편번호 검색</button>
 							</div>
 							<div id="addAddr"></div>
 						</td>
@@ -196,8 +213,8 @@
 					</tr>
 				</table><br>
 				<div align="center">
-					<button class="btn btn-secondary" type="button" id="btnSubmit">가입하기</button>
-					<a href="${pageContext.request.contextPath}/teacherLogin" class="btn btn-danger" id="cancel">취소하기</a>		
+					<button class="btn btn-outline-primary mx-2" type="button" id="btnSubmit">가입하기</button>
+					<a href="${pageContext.request.contextPath}/teacherLogin" class="btn btn-outline-danger" id="cancel">취소하기</a>		
 				</div><br>
 			</form>
 		</div>

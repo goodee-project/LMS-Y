@@ -1,62 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="EUC-KR">
-		<title>¼ö°­½ÅÃ»</title>
+		<meta charset="UTF-8">
+		<title>ìˆ˜ê°•ì‹ ì²­</title>
 		
-		<!-- jQuery ½ºÅ©¸³Æ® -->
+		<!-- jQuery ìŠ¤í¬ë¦½íŠ¸ -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-                // Æû À¯È¿¼º °Ë»ç
+                // í¼ ìœ íš¨ì„± ê²€ì‚¬
                 // code here...
             });
         </script>
 	</head>
 	
 	<body>
-		<!-- ¸Ş´º+CSS ÀÎÅ¬·çµå -->
+		<!-- ë©”ë‰´+CSS ì¸í´ë£¨ë“œ -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		 
 		<div class="container">
-			<h1>¼ö°­ ¸ñ·Ï</h1>
+			<h1>ìˆ˜ê°• ëª©ë¡</h1>
 			<table class="table">
 					<tr>
-						<th>¼ö°­ ¹øÈ£</th>
-						<th>°­ÁÂ ¹øÈ£</th>
-						
-						<th>¼ö°­ ¸®ºä(Á¡¼ö)</th>
-						<th>¸®ºä(ÅØ½ºÆ®)</th>
+						<th>ê°•ì‚¬ ì´ë¦„</th>
+						<th>ê³¼ëª© ì´ë¦„</th>
+						<th>ìˆ˜ê°•ì‹ ì²­ì¼</th>
+						<th>ìˆ˜ê°• ë¦¬ë·°(ì ìˆ˜)</th>
+						<th>ë¦¬ë·°(í…ìŠ¤íŠ¸)</th>
+						<th>ê³¼ëª© ìƒì„¸ë³´ê¸°</th>
+						<th>ê°•ì¢Œ ì‹ ì²­í•˜ê¸°</th>
 					</tr>
 				<tbody>
-					<c:forEach var="r" items="${classRegistrationList}">
+					<c:forEach var="r" items="${classRegistrationAllList}">
 					<tr>
-						<td>${r.classRegistrationNo}</td>
-						<td><a href="${pageContext.request.contextPath}/student/classRegistartionDetail?subjectNo=${subjectNo}">${r.lectureNo}</a></td>
-						
+						<td>${r.lectureInfo.teacherName}</td>
+						<td>${r.lectureInfo.lectureName}</td>
+						<td>${r.classRegistrationCreateDate}</td>
 						<td>${r.classRegistrationPoint}</td>
 						<td>${r.classRegistrationReview}</td>
+						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${r.lectureNo}">ê³¼ëª© ìƒì„¸ë³´ê¸°</a></td>
+						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?subjectNo=${subjectNo}">ì‹ ì²­í•˜ê¸°</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		
 		
-		<c:if test="${null eq classregistrationList}">
+		<c:if test="${null eq classregistrationAllList}">
 				<div>
-					<!-- Ã³À½À¸·Î, ÀÌÀü -->
+					<!-- ì²˜ìŒìœ¼ë¡œ, ì´ì „ -->
 					<c:choose>
 						<c:when test="${currentPage > 1}">
-							<a href="${pageContext.request.pathInfo}?currentPage=1">[Ã³À½À¸·Î]</a>
+							<a href="${pageContext.request.pathInfo}?currentPage=1">[ì²˜ìŒìœ¼ë¡œ]</a>
 							<a href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}"><</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>
 					</c:choose>
-					<!-- ÇöÀçÆäÀÌÁö ³×ºñ¹Ù -->
+					<!-- í˜„ì¬í˜ì´ì§€ ë„¤ë¹„ë°” -->
 					<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
 						<c:if test="${i <= lastPage}">
 							<c:choose>
@@ -69,11 +73,11 @@
 							</c:choose>
 						</c:if>
 					</c:forEach>
-					<!-- ´ÙÀ½, ¸¶Áö¸·À¸·Î -->
+					<!-- ë‹¤ìŒ, ë§ˆì§€ë§‰ìœ¼ë¡œ -->
 					<c:choose>
 						<c:when test="${currentPage < lastPage}">
 							<a href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">></a>
-							<a href="${pageContext.request.pathInfo}?currentPage=${lastPage}">[¸¶Áö¸·À¸·Î]</a>
+							<a href="${pageContext.request.pathInfo}?currentPage=${lastPage}">[ë§ˆì§€ë§‰ìœ¼ë¡œ]</a>
 						</c:when>
 						<c:otherwise>
 						</c:otherwise>

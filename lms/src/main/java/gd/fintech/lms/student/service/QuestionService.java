@@ -25,17 +25,17 @@ public class QuestionService {
 	@Autowired QuestionMapper questionMapper;
 	@Autowired StudentMapper studentMapper;
 	
-	//학생의 질문 리스트 페이징 
+	//학생들의 질문 리스트 페이징 
 	//매개변수:lectureNo , rowPerPage 
 	//리턴값:질문게시판의 페이징 값 ,강좌에 대한 모든 학생들의 질문
-	public Map<String,Object> getQuestionListByPage(int lectureNo,int currentPage){
+	public Map<String,Object> getQuestionListByPage(String questionSearch,int currentPage){
 		
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 		
 		//전체 페이지 갯수
-		int questionCount = questionMapper.selectQuestionCount(lectureNo);
+		int questionCount = questionMapper.selectQuestionCount(questionSearch);
 		logger.debug(questionCount+"질문갯수");
 		// 마지막 페이지
 		int lastPage = questionCount / rowPerPage;
@@ -62,13 +62,14 @@ public class QuestionService {
 			navLastPage = lastPage;
 		}
 		
-		Map<String,Object>parmMap = new HashMap<String,Object>();
+		Map<String,Object>parmMap = new HashMap<>();
 		parmMap.put("rowPerPage", rowPerPage);
 		parmMap.put("beginRow", beginRow);
-		parmMap.put("lectureNo", lectureNo);
-		parmMap.put("questionCount", questionCount);
+		parmMap.put("questionSearch", questionSearch);
+		
 		//담아주기
-		List<Question>questionAllList = questionMapper.selectQuestionListByPage(parmMap);
+		List<Question> questionAllList = questionMapper.selectQuestionListByPage(parmMap);
+		logger.debug(questionAllList.toString());
 		
 		Map<String,Object>map = new HashMap<>();
 		map.put("questionAllList", questionAllList);
@@ -79,6 +80,109 @@ public class QuestionService {
 		return map;
 	}
 	
+	//해당 학생의 질문 리스트
+	//매개변수:해당 학생의 id
+	//리턴값:해당 학생의 질문 리스트
+	public Map<String,Object> getStudentQuestionListByPage(String accountId,int currentPage){
+		// 페이지의 데이터 갯수
+		int rowPerPage = 10;
+		int beginRow = (currentPage-1)*rowPerPage;
+				
+		//전체 페이지 갯수
+		int questionCount = questionMapper.studentQuestionCount(accountId);
+		int lastPage = questionCount / rowPerPage;
+		
+		// 10 미만의 개수의 데이터가 있는 페이지 표시
+		if (questionCount % rowPerPage != 0) {
+			lastPage += 1;
+			logger.debug("진입");
+		}
+		
+		// 전체 페이지가 0개이면 현재 페이지도 0으로 표시
+		if (lastPage == 0) {
+			currentPage = 0;
+		}
+		
+		//페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		//네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
+				
+		Map<String,Object>parmMap = new HashMap<String,Object>();
+		parmMap.put("rowPerPage", rowPerPage);
+		parmMap.put("beginRow", beginRow);
+		parmMap.put("accountId", accountId);
+		parmMap.put("questionCount", questionCount);
+		//담아주기
+		List<Question>questionList = questionMapper.selectStudentQuestionListByPage(parmMap);
+		logger.debug(questionList.toString());
+		Map<String,Object>map = new HashMap<>();
+		map.put("questionList", questionList);
+		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
+		
+		return map;
+	}
+	
+	//해당 강좌의 질문리스트
+	//매개변수:강좌의 번호
+	//리턴값:해당 강좌의 질문 리스트
+	public Map<String,Object> getLectureQuestionListByPage(String questionSearch,int currentPage){
+		// 페이지의 데이터 갯수
+		int rowPerPage = 10;
+		int beginRow = (currentPage-1)*rowPerPage;
+				
+		//전체 페이지 갯수
+		int questionCount = questionMapper.selectQuestionCount(questionSearch);
+		int lastPage = questionCount / rowPerPage;
+			
+		// 10 미만의 개수의 데이터가 있는 페이지 표시
+		if (questionCount % rowPerPage != 0) {
+			lastPage += 1;
+			logger.debug("진입");
+		}
+			
+		// 전체 페이지가 0개이면 현재 페이지도 0으로 표시
+		if (lastPage == 0) {
+			currentPage = 0;
+		}
+			
+		//페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		//네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와-- 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
+					
+		Map<String,Object>parmMap = new HashMap<String,Object>();
+		parmMap.put("rowPerPage", rowPerPage);
+		parmMap.put("beginRow", beginRow);
+		parmMap.put("questionSearch",questionSearch);
+		//담아주기
+		List<Question>questionList = questionMapper.selectLectureQuestionListByPage(parmMap);
+		logger.debug(questionList.toString());
+		Map<String,Object>map = new HashMap<>();
+		map.put("questionList", questionList);
+		map.put("lastPage", lastPage);
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
+		
+		return map;
+	}
+	
 
 	//학생의 질문 상세보기 (강사의 댓글 포함)
 	//매개변수:해당 질문의 번호
@@ -86,7 +190,7 @@ public class QuestionService {
 	public Question getQuestionOne(int questionNo) {
 		return questionMapper.selectQuestionOne(questionNo);
 	}
-
+	
 	
 	//학생의 질문을 수정 액션 
 	//매개변수:질문의 vo

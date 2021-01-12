@@ -35,6 +35,11 @@ public interface QuestionMapper {
 	//리턴값: 해당 학생의 질문 리스트
 	List<Question> selectStudentQuestionListByPage(Map<String,Object>map);
 	
+	//해당 강좌 질문 리스트 출력(페이징)
+	//매개변수:강좌의 번호
+	//리턴값: 해당 강좌의 질문 리스트
+	List<Question> selectLectureQuestionListByPage(Map<String,Object>map);
+	
 	
 	//해당 학생의 질문 상세보기(강사의 댓글과 파일보기)
 	//매개변수: 질문 번호
@@ -44,7 +49,7 @@ public interface QuestionMapper {
 	//학생들이 질문한 갯수
 	//매개변수:질문의 번호 
 	//리턴값: 학생들의 모든 질문 갯수
-	int selectQuestionCount(int question);
+	int selectQuestionCount(String questionSearch);
 	
 	//해당 학생이 질문한 갯수
 	//매개변수:학생의 id

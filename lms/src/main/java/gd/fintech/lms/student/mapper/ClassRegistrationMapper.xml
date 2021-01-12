@@ -3,7 +3,7 @@
 <mapper namespace="gd.fintech.lms.student.mapper.ClassRegistrationMapper">
 <!-- 수강신청 목록의 과목 상세보기 -->
 <resultMap type="gd.fintech.lms.student.vo.ClassRegistration" id="ResultClassRegistration">
-	<result property="classRegistrationNo" column="class_registraion_no"/>
+	<result property="classRegistrationNo" column="class_registration_no"/>
 	<result property="lectureNo" column="lecture_no"/>
 	<result property="accountId" column="student_id"/>
 	<result property="classRegistrationState" column="class_registration_state"/>
@@ -11,7 +11,7 @@
 	<result property="classRegistrationReview" column="class_registration_review"/>
 	<result property="classRegistrationCreateDate" column="class_registration_createdate"/>
 	
-	<collection property="lectureInfo" ofType="gd.fintech.lms.manager.vo.Lecture">
+	<association property="lectureInfo" javaType="gd.fintech.lms.manager.vo.Lecture">
 		<result property="lectureNo" column="lecture_no"/>
 		<result property="accountId" column="teacher_id"/>
 		<result property="subjectNo" column="subject_no"/>
@@ -21,25 +21,25 @@
 		<result property="lectureStartDate" column="lecture_startdate"/>
 		<result property="lectureEndDate" column="lecture_enddate"/>
 		<result property="lectureTotal" column="lecture_total"/>
-		<result property="syllabusNo" column="syllabus_no"/>
 		<result property="classroomNo" column="classroom_no"/>
 		<result property="lectureCreateDate" column="lecture_createdate"/>
 		<result property="lectureUpdateDate" column="lecture_updatedate"/>
-		
-		<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
+	</association>
+			
+		<association property="subject" javaType="gd.fintech.lms.manager.vo.Subject">
 			<result property="subjectNo" column="subject_no"/>
 			<result property="subjectName" column="subject_name"/>
 			<result property="subjectCreateDate" column="subject_createdate"/>
 			<result property="subjectUpdateDate" column="subject_updatedate"/>
 			<result property="subjectTotalDay" column="subject_totalday"/>
 			<result property="subjectInfo" column="subject_info"/>
-		</collection>
-	</collection>
+		</association>
+	
 </resultMap>
 		
-	<!-- 학생이 신청한 수강의 강의 정보 -->
-	<select id="selectClassRegistrationOne" parameterType="int" resultMap="ResultClassRegistration">
-		SELECT
+	<!-- 학생이 신청한 수강의 강좌 정보리스트 페이징 -->
+	<select id="selectClassRegistrationDetailListByPage" parameterType="java.util.Map" resultMap="ResultClassRegistration">
+	SELECT
 		cr.class_registration_no,
 		cr.lecture_no,
 		cr.account_id,
@@ -56,7 +56,6 @@
 		lc.lecture_startdate,
 		lc.lecture_enddate,
 		lc.lecture_total,
-		lc.syllabus_no,
 		lc.classroom_no,
 		lc.lecture_createdate,
 		lc.lecture_updatedate,
@@ -71,22 +70,31 @@
 				ON cr.lecture_no = lc.lecture_no
 			LEFT JOIN subject sj
 				ON lc.subject_no = sj.subject_no
-		WHERE cr.class_registration_no=#{classRegistration}
+		WHERE lc.lecture_no=#{lectureNo}
+		ORDER BY lc.lecture_no
+		LIMIT #{beginRow}, #{rowPerPage}
+		
 	</select>
 	
 	<!-- 학생이 신청한 수강목록 페이징 -->
-	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
+	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultMap="ResultClassRegistration">
 		SELECT
-			lecture_no lectureNo,
-			account_id accountId,
-			class_registration_state classRegistrationState,
-			class_registration_point classRegistrationPoint,
-			class_registration_review classRegistrationReview,
-			class_registration_createdate classRegistrationCreateDate
+			cr.class_registration_no,
+			cr.lecture_no,
+			cr.account_id,
+			cr.class_registration_state,
+			cr.class_registration_point,
+			cr.class_registration_review,
+			cr.class_registration_createdate,
+			lc.teacher_name,
+			lc.lecture_name,
+			lc.lecture_total
 		FROM
-			class_registration
-		WHERE account_id=#{accountId}
-		ORDER BY class_registration_no DESC
+			class_registration cr
+		LEFT JOIN lecture lc
+			ON cr.lecture_no = lc.lecture_no
+		WHERE cr.account_id=#{accountId}
+		ORDER BY class_registration_no
 		LIMIT #{beginRow}, #{rowPerPage}
 			
 	</select>
@@ -118,7 +126,6 @@
 		lc.lecture_startdate,
 		lc.lecture_enddate,
 		lc.lecture_total,
-		lc.syllabus_no,
 		lc.classroom_no,
 		lc.lecture_createdate,
 		lc.lecture_updatedate,
@@ -133,9 +140,25 @@
 				ON cr.lecture_no = lc.lecture_no
 			LEFT JOIN subject sj
 				ON lc.subject_no = sj.subject_no
+		ORDER BY cr.lecture_no
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 학생 강좌 상세보기 -->
+	<select id="selectClassRegistrationLectureDetail" parameterType="java.util.Map" resultMap="ResultClassRegistration">
+		SELECT
+			l.lecture_no, 
+			l.account_id, 
+			s.subject_name, 
+			l.teacher_name, 
+			l.lecture_name, 
+			l.lecture_startdate, 
+			l.lecture_enddate
+		FROM lecture l
+		JOIN subject s 
+		ON l.subject_no = s.subject_no
+		WHERE lecture_no=#{lectureNo}
+	</select>
 	
 	
 	<!-- 수강 신청하능한 강의 갯수 -->
@@ -144,4 +167,6 @@
 			COUNT(*) 
 		FROM class_registration
 	</select>
+	
+	
 </mapper>

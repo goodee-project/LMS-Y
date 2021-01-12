@@ -26,19 +26,27 @@
 			<table class="table">
 					<tr>
 						<th>강좌 번호</th>
+						<th>강사 이름</th>
+						<th>과목 이름</th>
 						<th>수강 상태</th>
 						<th>수강신청일</th>
 						<th>수강 리뷰(점수)</th>
 						<th>리뷰(텍스트)</th>
+						<th>강좌 상세보기</th>
+						<th>수강 취소</th>
 					</tr>
 				<tbody>
 					<c:forEach var="r" items="${classRegistrationList}">
 					<tr>
-						<td><a href="${pageContext.request.contextPath}/student/classRegistartionDetail?subjectNo=${subjectNo}">${r.lectureNo}</a></td>
+						<td>${r.lectureNo}</td>
+						<td>${r.lectureInfo.teacherName}</td>
+						<td>${r.lectureInfo.lectureName}</td>
 						<td>${r.classRegistrationState}</td>
 						<td>${r.classRegistrationCreateDate}</td>
 						<td>${r.classRegistrationPoint}</td>
 						<td>${r.classRegistrationReview}</td>
+						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${r.lectureNo}">상세보기</a></td>
+						<td><a href="${pageContext.request.contextPath}/student/classRegistrationCancel?classRegistrationNo=${r.classRegistrationNo}&&lectureName=${r.lectureInfo.lectureName}&&lectureNo=${r.lectureNo}">수강 취소하기</a>
 					</tr>
 					</c:forEach>
 				</tbody>

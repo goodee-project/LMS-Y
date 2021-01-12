@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.QuestionMapper">
-	<!--학생이 보는 질문게시판 리스트 페이징-->
+	<!--질문게시판 전체 리스트 페이징-->
 	<select id="selectQuestionListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.Question">
 		SELECT
 			question_no questionNo,
@@ -12,10 +12,8 @@
 			question_content questionContent,
 			question_createdate questionCreateDate,
 			question_updatedate questionUpdateDate,
-			question_count questionCount,
-			question_password questionPassword
-		FROM
-			question
+			question_count questionCount
+		FROM question
 		ORDER BY question_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -31,15 +29,28 @@
 			question_content questionContent,
 			question_createdate questionCreateDate,
 			question_updatedate questionUpdateDate,
-			question_count questionCount,
-			question_password questionPassword
-		FROM
-			question
-		WHERE question_no=#{questionNo}
-		ORDER BY account_id DESC
+			question_count questionCount
+		FROM question
+		ORDER BY question_no DESC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
 	
+	<!-- 강좌별 질문게시판 -->
+	<select id="selectLectureQuestionListByPage" parameterType=  "java.util.Map" resultType="gd.fintech.lms.student.vo.Question">
+		SELECT
+			question_no questionNo,
+			lecture_no lectureNo,
+			account_id accountId,
+			question_writer questionWriter,
+			question_title questionTitle,
+			question_content questionContent,
+			question_createdate questionCreateDate,
+			question_updatedate questionUpdateDate,
+			question_count questionCount
+		FROM question
+		WHERE lecture_no=#{lectureNo}
+		ORDER BY question_no DESC
+	</select>
 	
 	<!-- 학생들의 전체 질문 갯수 -->
 	<select id="selectQuestionCount" resultType="int">
@@ -49,11 +60,12 @@
 	</select>
 	
 	<!-- 해당 학생의 질문 갯수 -->
-	<select id="studentQuestionCount" resultType="String">
+	<select id="studentQuestionCount" resultType="int">
 		SELECT 
 			COUNT(*) 
 		FROM question
-		WHERE account_id=#{accountId}
+		ORDER BY account_id=#{accountId}
+		
 	</select>
 	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
 	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
@@ -75,8 +87,8 @@
 			<result property="questionCommentWriter" column="question_comment_writer"></result>
 			<result property="questionCommentContent" column="question_comment_content"/>
 			<result property="questionCommentCreateDate" column="question_comment_createdate"/>
-			<result property="questionCommentUpdateDate" column="question_comment-updatedate"/>
-			
+			<result property="questionCommentUpdateDate" column="question_comment_updatedate"/>
+			 
 			<collection property="questionCommentFileList" ofType="gd.fintech.lms.teacher.vo.QuestionCommentFile">
 				<result property="questionCommentFileUUID" column="question_comment_file_uuid"/>
 				<result property="questionCommentFileOriginal" column="question_comment_file_original"/>
@@ -108,7 +120,7 @@
 			qc.question_comment_writer,
 			qc.question_comment_content,
 			qc.question_comment_createdate,
-			qc.question_comment_updatedate,
+			qc.question_comment_updatedate, 
 			qcf.question_comment_file_uuid,
 			qcf.question_comment_file_original,
 			qcf.question_comment_no,
@@ -122,7 +134,9 @@
 			LEFT JOIN question_comment_file qcf
 				ON qc.question_comment_no = qcf.question_comment_no
 		WHERE q.question_no=#{questionNo}	   
-	</select> 
+	</select>
+	 
+	
 	
 	
 	<!-- 학생의 질문 추가  -->
@@ -135,7 +149,7 @@
 			question_content,
 			question_createdate,
 			question_updatedate,
-			question_password
+		
 		
 		) VALUES (
 			#{lectureNo},
@@ -145,7 +159,7 @@
 			#{questionContent},
 			NOW(),
 			NOW(),
-			#{questionPassword}
+		
 		)	
 	</insert>
 	
@@ -166,7 +180,7 @@
 	
 	<!-- 질문 조회수 -->
 	<update id="increaseQuestionCount" parameterType="gd.fintech.lms.student.vo.Question">
-	UPDATE question
+		UPDATE question
 		SET question_count = question_count + 1
 		WHERE question_no = #{questionNo}
 	</update>

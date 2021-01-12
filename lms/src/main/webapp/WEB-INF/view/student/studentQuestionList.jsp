@@ -22,7 +22,7 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 	<div class="container">
-		<h1>질문 게시판</h1>
+		<h1>전체 질문 게시판</h1>
 		<table class="table ">
 			<tr>
 				<th>질문 번호</th>
@@ -36,7 +36,7 @@
 					<c:forEach var="q" items="${questionAllList}">
 						<tr>
 							<td>${q.questionNo}</td>
-							<td>${q.accountId}</td>
+							<td>${q.accountId}</td> 
 							<td>${q.lectureNo}</td>
 							<td>${q.questionWriter}</td>
 							<td><a href="${pageContext.request.contextPath}/student/studentQuestionOne?questionNo=${q.questionNo}">${q.questionTitle}</a></td>
@@ -44,10 +44,12 @@
 							<td>${q.questionCount}</td>
 						</tr>
 					</c:forEach>
+					<td><a href="${pageContext.request.contextPath}/student/studentMyQuestion?accountId=${accountId}">내질문 보기</a></td>
+					<td><a href="${pageContext.request.contextPath}/student/studentQuestionAdd?questionNo=${questionNo}">질문 추가</a></td>
 				</tbody>
 			</table>
-		<a href="${pageContext.request.contextPath}/student/studentQuestionAdd?questionNo=${questionNo}">질문 추가</a>
-		<c:if test="${null eq question}">
+		
+		<c:if test="${null eq questionSearch}">
 				<div>
 					<!-- 처음으로, 이전 -->
 					<c:choose>

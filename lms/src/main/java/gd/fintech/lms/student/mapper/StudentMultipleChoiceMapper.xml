@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="gd.fintech.lms.student.mapper.StudentMultipleChoiceMapper">
+	<!-- 강좌별 객관식 시험 리스트 -->
+	<select id="selectStudentMultipleListByPage" parameterType="gd.fintech.lms.student.vo.MultipleChoice">
+	SELECT
+		multiplechoice_no,
+		lecture_no,
+		multiplechoice_id,
+		multiplechoice_question,
+		multiplechoice_answer,
+		multiplechoice_score
+			
+	FROM multiplechoice
+	WHERE lecture_no=#{lectureNo}
+	ORDER BY multiplechoice_no DESC
+	LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 객관식 시험 상세보기 -->
+	
+	<!-- 모든 시험 전체 갯수 -->
+	<select id="selectMultipleCount" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM multiplechoice=#{multipleChoice}
+		WHERE lecture_no=#{lectureNo}
+	</select>
+</mapper>

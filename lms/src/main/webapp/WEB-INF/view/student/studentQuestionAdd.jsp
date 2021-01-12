@@ -14,10 +14,30 @@
         
         <script>
             $(document).ready(function() {
-                // 폼 유효성 검사
+                // submit 유효성 검사
+					$('#submitBtn').click(function() {
+						oEditors.getById["questionContent"].exec("UPDATE_CONTENTS_FIELD", []);
+					//강좌 번호에 공백과 숫자만 입력가능
+					
+					$('#lectureNo').focus(); // id 포커스
+					$('#lecutreNo').blur(function(){
+						if($('#lecutreNo').val() == ''){
+							alert('강좌번호를 입력하세요');
+							$('lecutreNo').focus();
+							return
+						}else if(!$.isNumeric($('#lecutreNo').val())){
+							alert('번호만 입력하세요');
+							$('#lecutreNo').focus();
+							return
+						}else{
+							
+							}	
+						});
+				});
+    			
                 // code here...
-            });
-
+            
+			// 스마트 에디터 적용
             let oEditors = [];
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: oEditors,
@@ -45,19 +65,14 @@
 			</div>
 		</div>
 			<div class="container">
-				<form method="post" action="${pageContext.request.contextPath}/student/studentQuestionAdd">
+				<form id="createQuestion" method="post" action="${pageContext.request.contextPath}/student/studentQuestionAdd">
 					<table class="table">
 						
 						<tr>
 							<td>강좌번호</td>
 							<td><input id="lecutreNo" type="text" name="lectureNo"></td>
 						</tr>		
-
-						<tr>	
-							<td>작성자</td>	
-							<td><input id="questionWriter" type="text" name="questionWriter"></td>
-						</tr>
-						
+			
 						<tr>
 							<td>제목</td>
 							<td><input id="questionTitle" type="text" name="questionTitle"></td>
@@ -65,15 +80,10 @@
 						
 						<tr>
 							<td>내용</td>
-							<td><textarea id="questionContent" cols="60" rows="10" name="questionContent"></textarea></td>
-						</tr>
-						
-						<tr>
-							<td>비밀번호</td>
-							<td><input type="password" name="questionPassword"></td>
+							<td><textarea id="questionContent" name="questionContent"></textarea></td>
 						</tr>
 					</table>
-					<button type="submit">[등록]</button>
+					<button type="submit" id="submitBtn">[등록]</button>
 				</form>
 			</div>
 	</body>

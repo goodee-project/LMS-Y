@@ -30,4 +30,9 @@
 		WHERE
 			account_id=#{accountId}
 	</select>
+	
+	<!-- 학생이 풀 문제 확인 -->
+	<select id="selectTestCheck" parameterType="gd.fintech.lms.student.vo.AnswerSheet">
+		
+	</select>
 </mapper>

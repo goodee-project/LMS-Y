@@ -19,4 +19,9 @@ public interface AnswerSheetMapper {
 	//리턴값: 해당 답안지의 상세보기
 	AnswerSheet selectAnswerSheetOne(String accountId);
 	
+	//강좌에 대한 시험문제 확인
+	//매개번수:
+	//리턴값:
+	AnswerSheet selectTestCheck(int lectureNo);
+	
 }

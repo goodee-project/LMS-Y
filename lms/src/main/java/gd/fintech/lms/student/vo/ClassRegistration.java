@@ -30,10 +30,10 @@ public class ClassRegistration {
 	private String classRegistrationCreateDate;
 	
 	//학생이 수강신청한 수강의 과목상세보기
-	private List<Subject>subjectInfoList;
+	private Subject subject;  
 	
 	//강의 정보 리스트
-	private List<Lecture>lectureInfo;
+	private Lecture lectureInfo;
 	
 	
 				

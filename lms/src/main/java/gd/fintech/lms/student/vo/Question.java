@@ -2,6 +2,7 @@ package gd.fintech.lms.student.vo;
 
 import java.util.List;
 
+import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.teacher.vo.QuestionComment;
 import gd.fintech.lms.teacher.vo.QuestionCommentFile;
 import lombok.Data;
@@ -37,6 +38,9 @@ public class Question {
 	
 	//질문 비밀번호 (비밀글 사용시)
 	private String questionPassword;
+	
+	//강좌의 정보
+	private Lecture lecture;
 	
 	//질문게시판 강사의 댓글
 	private List<QuestionComment>questionComment;

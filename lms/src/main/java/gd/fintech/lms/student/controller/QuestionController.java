@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.student.service.QuestionService;
 import gd.fintech.lms.student.vo.Question;
+import gd.fintech.lms.teacher.service.LectureNoticeService;
 
 @Controller
 public class QuestionController {
@@ -31,25 +32,68 @@ public class QuestionController {
 	//리턴값:질문의 순번으로 모든학생의 질문 리스트 보여줌
 	@GetMapping("student/studentQuestionList")
 	public String studentQuestionList(Model model,
-			@RequestParam(value="lectureNo",defaultValue="1")int lectureNo,
+			@RequestParam(value="questionSearch",required = false)String questionSearch,
 			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
 		
-		Map<String,Object> map = questionService.getQuestionListByPage(lectureNo, currentPage);
+		Map<String,Object> map = questionService.getQuestionListByPage(questionSearch, currentPage);
 		
 		
 		model.addAttribute("questionAllList",map.get("questionAllList"));
+		logger.debug(map.get("questionAllList")+"=리스트정보");
 		model.addAttribute("navPerPage",map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
 		
 		model.addAttribute("lastPage",map.get("lastPage"));
-		logger.debug(map.get("lastPage")+"라스트");
-		model.addAttribute("lectureNo",lectureNo);
+		logger.debug(map.get("lastPage")+"=라스트페이지수");
+		model.addAttribute("questionSearch",questionSearch);
 		model.addAttribute("questionCount",map.get("questionCount"));
 		model.addAttribute("currentPage",currentPage);
 		
 		
 		return  "student/studentQuestionList";
+	}
+	//나의 질문 리스트(페이징)
+	//질문 리스트 10개씩 보여줌
+	//매개변수:학생의 id
+	//리턴값:해당 학생의 id로 나오는 리스트
+	@GetMapping("student/studentMyQuestion")
+	public String myStudentQuestionList(Model model,
+			@RequestParam(value="accountId",required = false)String accountId,
+			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
+		Map<String,Object> map = questionService.getStudentQuestionListByPage(accountId, currentPage);
+		
+		model.addAttribute("questionList",map.get("questionList"));
+		model.addAttribute("navPerPage",map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		
+		model.addAttribute("lastPage",map.get("lastPage"));
+		model.addAttribute("accountId",accountId);
+		model.addAttribute("questionCount",map.get("questionCount"));
+		model.addAttribute("currentPage",currentPage);
+		return "student/studentMyQuestion";
+	}
+	//강좌별 질문 리스트(페이징)
+	//질문 리스트 10개씩 보여줌
+	//매개변수:강좌의 번호
+	//리턴값:해당 강좌의 번호로 나오는 리스트
+	@GetMapping("student/studentLectureQuestionList")
+	public String lectureQuestionList(Model model,
+			@RequestParam(value="questionSearch",required = false)String questionSearch,
+			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
+		Map<String,Object> map = questionService.getLectureQuestionListByPage(questionSearch, currentPage);
+		
+		model.addAttribute("questionList",map.get("questionList"));
+		model.addAttribute("navPerPage",map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		
+		model.addAttribute("lastPage",map.get("lastPage"));
+		model.addAttribute("questionSearch",questionSearch);
+		model.addAttribute("questionCount",map.get("questionCount"));
+		model.addAttribute("currentPage",currentPage);
+		return "student/studentLectureQuestionList";
 	}
 	
 	//질문 입력 폼
@@ -73,13 +117,21 @@ public class QuestionController {
 	//매개변수:질문의 번호
 	//리턴값:해당 질문의 상세보기
 	@GetMapping("/student/studentQuestionOne")
-	public String getQuestionOne(Model model,
+	public String getQuestionOne(Model model,HttpServletRequest request,
 			@RequestParam(value="questionNo")int questionNo) {
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//Id 가지고오기
+		String accountId =(String)session.getAttribute("accountId");
+		System.out.println(accountId+"계정Id");
+		
 		Question question = questionService.getQuestionOne(questionNo);
 		logger.debug(question.toString());
 		model.addAttribute("question",question);
-		return "/student/studentQuestionOne";
+		model.addAttribute("accountId",accountId);
+		return "student/studentQuestionOne";
 	}
+	
+	
 	
 	
 	//질문 수정 폼

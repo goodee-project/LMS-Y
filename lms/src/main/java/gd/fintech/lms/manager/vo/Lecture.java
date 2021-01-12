@@ -2,6 +2,7 @@ package gd.fintech.lms.manager.vo;
 
 import java.util.List;
 
+import gd.fintech.lms.student.vo.ClassRegistration;
 import gd.fintech.lms.teacher.vo.Report;
 import lombok.Data;
 
@@ -62,5 +63,7 @@ public class Lecture {
 	
 	//과목 vo 추가
 	private Subject	subject;
+	
+	private ClassRegistration classRegistration; 
 	
 }

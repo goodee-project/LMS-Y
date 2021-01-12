@@ -31,7 +31,8 @@ public class ClassRegistrationService {
 		int rowPerPage=5;
 		int beginRow=(currentPage-1)*rowPerPage;
 		//전체 페이지
-		int classRegistrationCount =classRegistrationMapper.selectRegistrationCount(accountId); 
+		int classRegistrationCount =classRegistrationMapper.selectRegistrationCount(accountId);
+
 		//마지막 페이지
 		int lastPage = classRegistrationCount/rowPerPage;
 		//5 미만의 데이터가 있는 페이지 보여주기
@@ -105,16 +106,17 @@ public class ClassRegistrationService {
 			navLastPage = lastPage;
 		}
 		
-		Map<String, Object>paramMap = new HashMap<String,Object>();
-		paramMap.put("beginRow", beginRow);
+		Map<String,Object>paramMap=new HashMap<>();
 		paramMap.put("rowPerPage",rowPerPage);
+		paramMap.put("beginRow", beginRow);
+		paramMap.put("classRegistrationAllCount",classRegistrationAllCount);
 		
-		paramMap.put("classRegistrationAllCount", classRegistrationAllCount);
-		//담아주기
-		List<ClassRegistration>classRegistrationList=classRegistrationMapper.selectClassRegistrationAll(paramMap);
 		
-		Map<String,Object>map = new HashMap<>();
-		map.put("classRegistrationList", classRegistrationList);
+		List<ClassRegistration> classRegistrationAllList = classRegistrationMapper.selectClassRegistrationAll(paramMap);
+		logger.debug(classRegistrationAllList.toString());
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("classRegistrationAllList",classRegistrationAllList);
 		map.put("lastPage", lastPage);
 		map.put("navPerPage", navPerPage);
 		map.put("navBeginPage", navBeginPage);
@@ -122,13 +124,12 @@ public class ClassRegistrationService {
 		
 		return map;
 	}
-	
-	
-	
-	//수강 신청한 과목 상세보기
-	//매개변수:과목의 번호
-	//리턴값:학생이 수강신청한 리스트에 있는 과목의 정보
-	public ClassRegistration getClassRegistrtaionOne(int subjectNo){
-		return classRegistrationMapper.selectClassRegistrationOne(subjectNo);
+	//학생 강좌 상세보기
+	//매개변수:강좌의 번호
+	//리턴값:강좌의 상세보기
+	public ClassRegistration getClassRegistrationLectureDetail(int lectureNo) {
+		ClassRegistration classRegistration = classRegistrationMapper.selectClassRegistrationLectureDetail(lectureNo);
+		return classRegistration;
 	}
+	
 }

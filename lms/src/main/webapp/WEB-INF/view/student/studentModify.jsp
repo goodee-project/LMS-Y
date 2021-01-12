@@ -92,42 +92,47 @@
 				<table class="table">
 					<tr>
 						<td>학생 아이디</td>
-						<td><input type="text" name="accountId" id="accountId" value="${accountId}"></td>
+						<td><input type="text" name="accountId" id="accountId" value="${map.student.accountId}"></td>
 						
 					</tr>
 					
 					<tr>
 						<td>학생 이름</td>
-						<td><input type="text" name="studentName" id="studentName" value="${student.studentName}" placeholder="이름 입력"></td>
+						<td><input type="text" name="studentName" id="studentName" value="${map.student.studentName}" placeholder="이름 입력"></td>
 					</tr>
 					
 					<tr>
 						<td>학생 전화번호</td>
-						<td><input type="text" name="studentPhone" id="studentPhone" value="${student.studentPhone}" placeholder="전화번호 입력"></td>
+						<td><input type="text" name="studentPhone" id="studentPhone" value="${map.student.studentPhone}" placeholder="전화번호 입력"></td>
 					</tr>
 					
 					<tr>
 						<td>학생 성별</td>
-						<td><input type="radio" name="studentGender" id="studentGender" value="남">남
+						<td><input type="radio" name="studentGender" id="studentGender" value="남" checked="checked">남
 							<input type="radio" name="studentGender" id="studentGender" value="여">여
 						</td>
 					</tr>
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td><input type="date" name="studentBirth" id="studentBirth" value="${student.studentBirth}"></td>	
+						<td><input type="date" name="studentBirth" id="studentBirth" value="${map.student.studentBirth}"></td>	
 					</tr>
 					
 					<tr> 
 						<td>주소</td>
-							<td><input type="text" name="studentAddressMain" id="studentAddressMain" value="${student.studentAddressMain}" placeholder="주소 입력"></td>
+							<td><input type="text" name="studentAddressMain" id="studentAddressMain" value="${map.student.studentAddressMain}" placeholder="주소 입력"></td>
 						<td>상세주소</td>
-							<td><input type="text" name="studentAddressSub" id="studentAddressSub" value="${student.studentAddressSub}" placeholder="상세주소 입력"></td>
+							<td><input type="text" name="studentAddressSub" id="studentAddressSub" value="${map.student.studentAddressSub}" placeholder="상세주소 입력"></td>
 					</tr>
 										
 					<tr>
 						<td>프로필 사진</td>
-						<td><input type="text" name="studentImage" id="studentImage" value="${student.studentImage}"></td>
+						</td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""
+						style="width: 170px; height: 200px;" />
+						<c:if test="${not empty myImage.imageFileUUID}">
+							<a href="${pageContext.request.contextPath}/student/removeStudentFile?accountId=${accountId}">삭제</a>
+						</c:if>
+						<td><input type="text" name="studentImage" id="studentImage" value="${map.student.studentImage}">
 					</tr>
 					
 					<tr>

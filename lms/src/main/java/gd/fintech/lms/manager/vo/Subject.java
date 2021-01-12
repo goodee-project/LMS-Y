@@ -28,4 +28,5 @@ public class Subject {
 	
 	// 과목 정보 리스트
 	private List<Subject>subjectInfoList;
+	
 }

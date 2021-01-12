@@ -25,7 +25,7 @@
 			<h1>질문 수정</h1>
 		</div>
 			<div class="container">
-				<form id="" method="post" action="${pageContext.request.contextPath}/student/studentQuestionModify">
+				<form id="" method="post" action="${pageContext.request.contextPath}/student/classRegistrationCancel">
 					<table class="table">
 						<tr>
 							<td>질문 번호</td>

@@ -41,6 +41,7 @@
 			student_phone studentPhone,
 			student_address_main studentAddressMain,
 			student_address_sub studentAddressSub,
+			student_birth studentBirth,
 			student_gender studentGender,
 			student_Image studentImage,
 			student_accessdate studentAccessDate,
@@ -67,6 +68,60 @@
 		WHERE account_id=#{accountId}
 	</update>
 	
+	<!-- 학생 이미지 파일 조회 -->
+	<select id="selectStudentImage" parameterType="String" resultType="gd.fintech.lms.student.vo.AccountImage">
+	SELECT
+			account_id accountId,
+			image_file_uuid imageFileUUID,
+			image_file_original imageFileOriginal,
+			image_file_size imageFileSize,
+			image_file_type imageFileType,
+			image_file_createdate imageFileCreateDate
+	FROM account_image
+	WHERE account_id =#{accountId}
+	</select>
+	
+	<!-- 학생 이미지 추가 -->
+	<insert id="insertStudentImage" parameterType="gd.fintech.lms.student.vo.AccountImage">
+	INSERT INTO account_image(
+			account_id,
+			image_file_uuid,
+			image_file_original,
+			image_file_size,
+			image_file_type,
+			image_file_createdate
+		) VALUES (
+			#{accountId},
+			#{imageFileUUID},
+			#{imageFileOriginal},
+			#{imageFileSize},
+			#{imageFileType},
+			NOW()
+		)
+	</insert>
+	
+	<!-- 학생 이미지 삭제 -->
+	<delete id="removeStudentImage" parameterType="String">
+		DELETE FROM account_image
+		WHERE account_id = #{accountId}
+	</delete>
+	
+	<!-- 학생 이미지만 수정 -->
+	<update id="updateStudentImage" parameterType="java.util.Map">
+		UPDATE student
+		<set>
+			<if test="studentImage !=null">student_image = #{studentImage},</if>
+			student_updatedate = NOW()
+		</set>
+		WHERE account_id = #{accountId}
+	</update>
+	
+	<!-- 학생 이미지 수정시 이전 이미지 출력  -->
+	<select id="updateStudentImagePrevious" parameterType="String" resultType="String">
+		SELECT student_image
+		FROM student
+		WHERE  account_id = #{accountId}
+	</select>
 	<!-- 계정에 해당하는 운영자 이름 -->
 	<select id="selectStudentName" parameterType="String" resultType="String">
 	 SELECT 

@@ -30,7 +30,7 @@
 					<thead>
 						<tr>
 							<th>번호</th>
-							<th class="w-50">제목</th>
+							<th style="width: 40%">제목</th>
 							<th>시작(예정)일</th>
 							<th>종료일</th>
 							<th>제출갯수</th>

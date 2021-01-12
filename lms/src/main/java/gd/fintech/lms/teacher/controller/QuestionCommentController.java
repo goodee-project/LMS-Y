@@ -1,6 +1,7 @@
 
 package gd.fintech.lms.teacher.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,7 @@ public class QuestionCommentController {
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			HttpSession session, Model model) {
 		// TODO 협업자가 메서드를 고치는대로 고쳐진 메서드 사용
-		Map<String, Object> map = questionService.getQuestionListByPage(lectureNo, currentPage);
+		Map<String, Object> map = new HashMap<>(); // questionService.getQuestionListByPage(lectureNo, currentPage);
 		
 		model.addAttribute("list", map.get("questionAllList"));
 		model.addAttribute("lastPage", map.get("lastPage"));

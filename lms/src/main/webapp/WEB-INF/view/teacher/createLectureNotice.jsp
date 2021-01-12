@@ -54,7 +54,7 @@
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td><textarea cols="70" rows="10" id="lectureNoticeContent" name="lectureNoticeContent"></textarea>
+							<td><textarea rows="10" cols="100" style="width:920px; height:312px; display:none;" id="lectureNoticeContent" name="lectureNoticeContent"></textarea>
 						</tr>
 					</table>
 				</form>

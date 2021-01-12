@@ -41,21 +41,24 @@
 			</div>
 			<div class=container>
 				<form method="post" action="${pageContext.request.contextPath}/teacher/modifyLectureNotice">
+					<div style="text-align:left;">
+						<button class="btn btn-primary" type="submit">입력</button>
+					</div>
+					<p>
 						<table class="table">
 							<tr>
 								<td>공지번호</td>
-								<td><input type="text" name="lectureNoticeNo" value="${lectureNotice.lectureNoticeNo}" readonly="readonly"></td>
+								<td><input class="form-control" type="text" name="lectureNoticeNo" value="${lectureNotice.lectureNoticeNo}" readonly="readonly"></td>
 							</tr>
 							<tr>
 								<td>제목</td>
-								<td><input type="text" name="lectureNoticeTitle" value="${lectureNotice.lectureNoticeTitle}"></td>
+								<td><input class="form-control" type="text" name="lectureNoticeTitle" value="${lectureNotice.lectureNoticeTitle}"></td>
 							</tr>
 							<tr>
 								<td>내용</td>
-								<td><textarea cols="70" rows="10" id="lectureNoticeContent" name="lectureNoticeContent">${lectureNotice.lectureNoticeContent}</textarea>
+								<td><textarea rows="10" cols="100" style="width:843px; height:312px; display:none;" id="lectureNoticeContent" name="lectureNoticeContent">${lectureNotice.lectureNoticeContent}</textarea>
 							</tr>
 						</table>
-						<button type="submit">입력</button>
 				</form>
 			</div>
 	</body>

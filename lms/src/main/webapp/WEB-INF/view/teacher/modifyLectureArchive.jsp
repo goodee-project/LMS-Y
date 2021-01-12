@@ -106,7 +106,7 @@
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td><textarea id="lectureArchiveContent" name="lectureArchiveContent">${lectureArchive.lectureArchiveContent}</textarea></td>
+						<td><textarea rows="10" cols="100" style="width:920px; height:312px; display:none;" id="lectureArchiveContent" name="lectureArchiveContent">${lectureArchive.lectureArchiveContent}</textarea></td>
 					</tr>
 					<tr>
 						<td></td>

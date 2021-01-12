@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.LectureArchiveMapper">
 	<!-- 자료실 목록 및 페이징 -->
-	<resultMap type="gd.fintech.lms.teacher.vo.LectureArchive" id="ResultLectureArchiveOne">
+	<resultMap type="gd.fintech.lms.teacher.vo.LectureArchive" id="resultLectureArchiveOne">
 		<result property="lectureArchiveNo" column="lecture_archive_no"/>
 		<result property="lectureNo" column="lecture_no" />
 		<result property="accountId" column="account_id" />
@@ -59,7 +59,7 @@
   		</where>
 	</select>
 	<!-- 자료실 상세보기 -->
-	<select id="selectLectureArchiveOne" parameterType="java.util.Map" resultMap="ResultLectureArchiveOne">
+	<select id="selectLectureArchiveOne" parameterType="java.util.Map" resultMap="resultLectureArchiveOne">
 		SELECT
   			la.lecture_archive_no, 
   			la.lecture_no, 

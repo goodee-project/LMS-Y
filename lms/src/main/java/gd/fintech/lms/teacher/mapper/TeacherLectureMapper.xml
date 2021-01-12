@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.TeacherLectureMapper">
 	<!-- 강사 강좌 목록 및 페이징 -->
-	<resultMap type="gd.fintech.lms.manager.vo.Lecture" id="ResultTeacherLectureList">
+	<resultMap type="gd.fintech.lms.manager.vo.Lecture" id="resultTeacherLectureList">
 		<result property="lectureNo" column="lecture_no" />
 		<result property="accountId" column="account_id" />
 		<result property="lectureTotal" column="lecture_total"/>
@@ -14,7 +14,7 @@
 			<result property="subjectName" column="subject_name" />
 		</collection>
 	</resultMap>	
-	<select id="selectTeacherLectureListByPage" parameterType="java.util.Map" resultMap="ResultTeacherLectureList">
+	<select id="selectTeacherLectureListByPage" parameterType="java.util.Map" resultMap="resultTeacherLectureList">
 		SELECT  
 			l.lecture_no,
 			l.account_id,
@@ -32,7 +32,7 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	<!-- 강사 강좌 상세보기 페이지 -->
-	<select id="selectTeacherLectureOne" parameterType="java.util.Map" resultMap="ResultTeacherLectureList">
+	<select id="selectTeacherLectureOne" parameterType="java.util.Map" resultMap="resultTeacherLectureList">
 		SELECT
 			l.lecture_no, 
 			l.account_id, 

@@ -53,7 +53,6 @@ public class LectureNoticeController {
 		model.addAttribute("navPerPage", map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
-		
 		model.addAttribute("lectureNoticeList", lectureNoticeList);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);

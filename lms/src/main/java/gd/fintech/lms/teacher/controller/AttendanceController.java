@@ -78,6 +78,7 @@ public class AttendanceController {
 			//Logger 디버깅
 			logger.debug("attendance 상세보기 뷰----->"+attendance);
 			//model을 통해 View에 다음과 같은 정보들을 보내준다
+			model.addAttribute("lectureNo",lectureNo);
 			model.addAttribute("attendance", attendance);
 			model.addAttribute("currentYear",targetDay.get(Calendar.YEAR));
 			model.addAttribute("currentMonth",targetDay.get(Calendar.MONTH)+1);
@@ -106,6 +107,7 @@ public class AttendanceController {
 		//Logger 디버깅
 		logger.debug("attendanceList 출석 수정 폼-->"+attendanceList);
 		//model을 통해 View에 다음과 같은 정보들을 보내준다
+		model.addAttribute("lectureNo",lectureNo);
 		model.addAttribute("attendanceList",attendanceList);
 		model.addAttribute("attendanceStateList",attendanceStateList);;
 		model.addAttribute("currentYear", currentYear);
@@ -152,6 +154,7 @@ public class AttendanceController {
 		//Logger 디버깅
 		logger.debug("attendanceList 출석 수정 폼-->"+attendanceList);
 		//모델을 통해 뷰에 넘거져줌
+		model.addAttribute("lectureNo",lectureNo);
 		model.addAttribute("attendanceList",attendanceList);
 		model.addAttribute("attendanceStateList",attendanceStateList);
 		model.addAttribute("currentYear", currentYear);

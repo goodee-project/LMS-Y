@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.TeacherMapper">
-	<resultMap type="gd.fintech.lms.teacher.vo.Teacher" id="ResultTeacherOne">
+	<resultMap type="gd.fintech.lms.teacher.vo.Teacher" id="resultTeacherOne">
 		<result property="accountId" column="account_id"/>
 		<result property="teacherEmail" column="teacher_email"/>
 		<result property="teacherPhone" column="teacher_phone"/>

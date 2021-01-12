@@ -9,6 +9,9 @@
 <body>
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+	
+	<!-- 강좌 메뉴 인클루드 -->
+	<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 
 	
 	<div class="jumbotron">

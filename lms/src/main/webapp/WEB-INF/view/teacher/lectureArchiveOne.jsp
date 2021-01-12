@@ -2,23 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>강좌별 자료실 상세보기</title>
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>강좌별 자료실 상세보기</title>
+	</head>
 <body>
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+
+	<!-- 강좌 메뉴 인클루드 -->
+	<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
+	
 		<div class="jumbotron">
 			<div class="container">
 				<h1>자료실 상세보기</h1>
 			</div>
 		</div>
 	<div class="container">
-		<div align="left">
-			<a class="btn btn-primary" href="${pageContext.request.contextPath}/teacher/modifyLectureArchive?lectureArchiveNo=${param.lectureArchiveNo}">수정</a>
-		</div>
-		<br>
 		<table class="table">
 			<tr>
 				<td>자료실 번호</td>
@@ -61,6 +61,9 @@
 					</tr>
 				</c:forEach>
 		</table>
+		<div align="right">
+			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyLectureArchive?lectureArchiveNo=${param.lectureArchiveNo}">수정</a>
+		</div>
 	</div>
 </body>
 </html>

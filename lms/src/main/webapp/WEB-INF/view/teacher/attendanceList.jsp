@@ -52,12 +52,12 @@
 	<table>
 	<tr>
 		<td>
-			<button class="btn btn-danger"></button> --> 입력불가능
+			<!-- <button class="btn btn-danger"></button> 입력불가능--> 
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<button class="btn btn-primary"></button> --> 입력가능
+			<!-- <button class="btn btn-primary"></button> 입력가능--> 
 		</td>
 	</tr>
 	</table>
@@ -70,9 +70,7 @@
 				<td>학생 전화번호</td>
 				<td>출석여부</td>
 				<td>비고</td>
-				<td>입력</td>
-				<td>수정</td>
-
+				<td>입력/수정</td>
 			</tr>
 		</thead>
 		<thead>
@@ -90,12 +88,12 @@
 				<c:set var="state" value="${al.attendanceState}"/>
 				<c:choose>
 					<c:when test="${empty al.attendanceState}">
-					<td><a class="btn btn-primary" id="addbtn" href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
-					<td><a class="btn btn-danger" onclick="return false;" id="modifybtn" href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>
+					<td><a class="btn btn-outline-primary" id="addbtn" href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
+					<!-- <td><a class="btn btn-danger" onclick="return false;" id="modifybtn" href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>-->
 					</c:when>
 					<c:when test="${al.attendanceState != null}">
-					<td><a class="btn btn-danger" onclick="return false;" id="addbtn" href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>
-					<td><a class="btn btn-primary" id="modifybtn" href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>
+					<!-- <td><a class="btn btn-danger" onclick="return false;" id="addbtn" href="${pageContext.request.contextPath}/teacher/createAttendance?lectureNo=${param.lectureNo}&&attendanceDay=${al.attendanceDay}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&accountId=${als.accountId}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">입력</a></td>-->
+					<td><a class="btn btn-outline-success" id="modifybtn" href="${pageContext.request.contextPath}/teacher/modifyAttendanceOne?lectureNo=${param.lectureNo}&&accountId=${al.accountId}&&studentName=${als.studentName}&&studentGender=${als.studentGender}&&attendanceDay=${al.attendanceDay}&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}">수정</a></td>
 					</c:when>
 				</c:choose>
 				</c:forEach>

@@ -22,15 +22,15 @@
 		<!-- 검색 -->
 		<div class="container">
 			<div style="text-align:left;">
-				<a class="btn btn-primary" href="${pageContext.request.contextPath}/teacher/createLectureArchive?lectureNo=${lectureNo}">글쓰기</a>
+				<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/createLectureArchive?lectureNo=${lectureNo}">글쓰기</a>
 			</div>
 			<form action="${pageContext.request.pathInfo}" method="get">
 					<input type="hidden" name="lectureNo" value="${lectureNo}">
 					<input type="hidden" name="currentPage" value="1">
 						<div class="justify-content-end mb-3 input-group">
-						<input class="form-control col-sm-2" type="text" name="lectureArchiveSearch" value="${lectureArchiveSearch}">
+						<input class="form-control col-sm-2" type="text" name="lectureArchiveSearch" value="${lectureArchiveSearch}" placeholder="Search">
 						<div class="input-group-append">
-							<button class="btn btn-primary" type="submit">버튼</button>
+							<button class="btn btn-success" type="submit">버튼</button>
 						</div>
 					</div>
 			</form>
@@ -39,11 +39,11 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<td>자료실 번호</td>
-						<td>제목</td>
-						<td>작성자</td>
-						<td>작성일</td>
-						<td>조회수</td>
+						<th>No.</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -66,12 +66,16 @@
 							<c:when test="${currentPage > '1'}">
 								<!-- 현재 페이지가 1보다 클시 -->
 								<!-- 현재 페이지가 1일시 -->
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=1">처음</a></li>
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage-1}">이전</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=1"> &lt;&lt;</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage-1}"> &lt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<!-- <a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=1">처음</a>
-								<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage-1}">이전</a>-->
+								<li class="page-item disabled">
+									<a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=1"> &lt;&lt;</a>
+								</li>
+								<li class="page-item disabled">	
+									<a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage-1}">&lt;</a>
+								</li>
 							</c:otherwise>
 							</c:choose>
 								<!-- 현재 페이지 표시 -->
@@ -92,29 +96,39 @@
 								<!-- 현재 페이지가 마지막 페이지 일시 -->
 							<c:choose>
 							<c:when test="${currentPage < lastPage}">
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage+1}">다음</a></li>
-								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${lastPage}">끝</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage+1}">&gt;</a></li>
+								<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${lastPage}">&gt;&gt;</a></li>
 							</c:when>
 							<c:otherwise>
-								<!--<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage+1}">다음</a>
-								<a href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${lastPage}">끝</a>-->
+							<li class="page-item disabled">
+								<a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${currentPage+1}">&gt;</a>
+							</li>
+							<li class="page-item disabled">
+								<a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${lastPage}">&gt;&gt;</a>
+							</li>
 							</c:otherwise>
 						</c:choose>
 					</c:if>
 				</ul>
 			</div>
 			<!-- 검색 목록 페이징 -->
-			<div style="margin-left:45%">
+			<div style="margin-left:35%">
 				<ul class="pagination">
 					<c:if test="${null != lectureArchiveSearch}">
 								<c:choose>
 									<c:when test="${currentPage > '1'}">
 										<!-- 현재 페이지가 1보다 클시 -->
 										<!-- 현재 페이지가 1일시 -->
-										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=1&&lectureArchiveSearch=${lectureArchiveSearch}">처음</a></li>
-										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage-1}&&lectureArchiveSearch=${lectureArchiveSearch}">이전</a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=1&&lectureArchiveSearch=${lectureArchiveSearch}">&lt;&lt;</a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage-1}&&lectureArchiveSearch=${lectureArchiveSearch}">&lt;</a></li>
 									</c:when>
 									<c:otherwise>
+										<li class="page-item disabled">
+											<a class="page-link" href="#"> &lt;&lt; </a>
+										</li>
+										<li class="page-item disabled">
+											<a class="page-link" href="#">&lt;</a>
+										</li>
 									</c:otherwise>
 								</c:choose>
 								<!-- 현재페이지 네비바 -->
@@ -136,10 +150,16 @@
 								<!-- 현재 페이지가 마지막 페이지 일시 -->
 							<c:choose>
 									<c:when test="${currentPage < lastPage}">
-										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage+1}&&lectureArchiveSearch=${lectureArchiveSearch}">다음</a></li>
-										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${lastPage}&&lectureArchiveSearch=${lectureArchiveSearch}">끝</a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage+1}&&lectureArchiveSearch=${lectureArchiveSearch}">&gt;</a></li>
+										<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${lastPage}&&lectureArchiveSearch=${lectureArchiveSearch}">&gt;&gt;</a></li>
 									</c:when>
 									<c:otherwise>
+										<li class="page-item disabled">
+												<a class="page-link" href="#">&gt;</a>
+											</li>
+											<li class="page-item disabled">
+												<a class="page-link" href="#">&gt;&gt;</a>
+											</li>
 									</c:otherwise>
 							</c:choose>
 					</c:if>

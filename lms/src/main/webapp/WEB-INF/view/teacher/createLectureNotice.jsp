@@ -13,6 +13,19 @@
 				
 		<script>
 			$(document).ready(function() {
+				// 작성 버튼 클릭 시 유효성 검사 실시
+				$('#submitLectureNoticeForm').click(function() {
+					// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
+					oEditors.getById["lectureNoticeContent"].exec("UPDATE_CONTENTS_FIELD", []);
+					
+					if($('#lectureNoticeTitle').val()==''||$('#lectureNoticeContent').val()==''){
+						alert('입력부분을 다시 확인하세요');
+						return;
+					}else{
+					// 유효성 검사를 만족했을 경우 submit
+					$('#lectureNoticeForm').submit();
+					}
+				});
 				// NAVER SmartEditor2 적용 코드
 				let oEditors = [];
 				nhn.husky.EZCreator.createInIFrame({
@@ -34,6 +47,8 @@
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
+		<!-- 강좌 메뉴 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 			
 			<div class="jumbotron">
 				<div class=container>
@@ -41,22 +56,21 @@
 				</div>
 			</div>
 			<div class=container>
-				<form method="post" action="${pageContext.request.contextPath}/teacher/createLectureNotice">
-					<div style="text-align:left;">
-						<button class="btn btn-primary" type="submit">입력</button>
-					</div>
-					<p>
+				<form id="lectureNoticeForm" method="post" action="${pageContext.request.contextPath}/teacher/createLectureNotice">
 					<input hidden="hidden" type="text" type="text" name="lectureNo" value="${lectureNo}" readonly="readonly">
 					<table class="table">
 						<tr>
 							<td>제목</td>
-							<td><input class="form-control" type="text" name="lectureNoticeTitle"></td>
+							<td><input id="lectureNoticeTitle" class="form-control" type="text" name="lectureNoticeTitle"></td>
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td><textarea rows="10" cols="100" style="width:920px; height:312px; display:none;" id="lectureNoticeContent" name="lectureNoticeContent"></textarea>
+							<td><textarea rows="10" cols="100" style="width:920px; height:312px;" id="lectureNoticeContent" name="lectureNoticeContent"></textarea>
 						</tr>
 					</table>
+					<div style="text-align:right;">
+						<button class="btn btn-outline-primary" id="submitLectureNoticeForm" type="button">입력</button>
+					</div>
 				</form>
 			</div>
 	</body>

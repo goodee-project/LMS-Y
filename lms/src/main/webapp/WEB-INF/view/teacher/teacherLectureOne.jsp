@@ -16,7 +16,7 @@
 		
 		<div class="jumbotron">
 			<div class=container>
-				<h1>강좌조회 상세보기</h1>
+				<h1>${lecture.lectureNo}강좌조회</h1>
 			</div>
 		</div>
 		

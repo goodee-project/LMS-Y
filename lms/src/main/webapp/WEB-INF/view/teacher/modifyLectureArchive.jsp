@@ -14,13 +14,29 @@
 		
 		<script>
 			$(document).ready(function() {
+				//기존 파일 삭제에 대한 처리
+				$('#removeBtn').click(function() {
+					let remove = confirm('정말 삭제하시겠습니까?');
+					
+					if(remove) {
+						<c:forEach var="laf" items="${lectureArchive.lectureArchiveFileList}">
+							<c:if test="${not empty laf.lectureArchiveFileUUID}">
+								location.replace('${pageContext.request.contextPath}/teacher/removeLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}');
+							</c:if>
+						</c:forEach>
+						alert('삭제하였습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+        		});
 				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
 				$('#createLectureArchiveFile').click(function() {
 					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
 					$('#lectureArchiveFileFrame').append(`
 						<div>
 							<input class="lectureArchiveFile" type="file" name="lectureArchiveFileList">
-							<button class="removelectureArchiveFile" type="button">삭제</button>
+							<button class="removelectureArchiveFile btn btn-outline-danger" type="button">삭제</button>
 						</div>
 					`);
 					
@@ -76,7 +92,9 @@
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-	
+		
+		<!-- 강좌 메뉴 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 		
 		<div class="jumbotron">
 			<div class=container>
@@ -85,10 +103,6 @@
 		</div>
 		<div class=container>
 			<form id="lectureArchiveForm"  method="post" action="${pageContext.request.contextPath}/teacher/modifyLectureArchive" enctype="multipart/form-data">
-				<div style="text-align:left;">
-					<button class="btn btn-primary" id="submitLectureArchiveForm" type="button">입력</button>
-				</div>
-				<p>
 				<div>
 						<!-- 자료 고유번호 -->
 						<input type="hidden" name="lectureArchiveNo" value="${lectureArchive.lectureArchiveNo}">
@@ -110,26 +124,30 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td></td>
-					</tr>
-			</table>
-					<div class="container">
+						<td>
+							<div class="container">
 						<div>
 							<c:forEach var="laf" items="${lectureArchive.lectureArchiveFileList}">
-									<div>기존파일 : 
+									<div>기존파일 :
 										<a href="${pageContext.request.contextPath}/teacher/downloadLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}">${laf.lectureArchiveFileUUID}</a>
 										<c:if test="${not empty laf.lectureArchiveFileUUID}">
-										<a href="${pageContext.request.contextPath}/teacher/removeLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}">삭제</a>
+											<a id="removeBtn" class="btn btn-outline-danger" href="#">삭제</a>
 										</c:if>
 									</div>
 							</c:forEach>
 						</div>
 						<p>
 						<div>
-							<button class="btn btn-danger" id="createLectureArchiveFile" type="button">추가</button>
+							<button class="btn btn-outline-primary" id="createLectureArchiveFile" type="button">추가</button>
 							<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
 							<div id="lectureArchiveFileFrame"></div>
 						</div>
+					</div>
+						</td>
+					</tr>
+			</table>	
+					<div style="text-align:right;">
+					<button class="btn btn-outline-primary" id="submitLectureArchiveForm" type="button">입력</button>
 					</div>
 			</form>
 		</div>

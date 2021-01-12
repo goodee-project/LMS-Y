@@ -20,7 +20,7 @@
 					$('#lectureArchiveFileFrame').append(`
 						<div class="input-group mb-3">
 							<input class="lectureArchiveFile" type="file" name="lectureArchiveFileList">
-							<button class="removelectureArchiveFile btn btn-danger" type="button">삭제</button>
+							<button class="removelectureArchiveFile btn btn-outline-danger" type="button">삭제</button>
 						</div>
 					`);
 					
@@ -85,10 +85,6 @@
 		</div>
 		<div class=container>
 			<form id="lectureArchiveForm"  method="post" action="${pageContext.request.contextPath}/teacher/createLectureArchive" enctype="multipart/form-data">
-				<div style="text-align:left;">
-					<button class="btn btn-primary" id="submitLectureArchiveForm" type="button">입력</button>
-				</div>
-				<p>
 				<div>
 						<!-- 강좌번호 -->
 						<input type="hidden" name="lectureNo" value="${lectureNo}" readonly="readonly">
@@ -112,7 +108,7 @@
 							<td>파일첨부</td>
 							<td>
 							<div>
-								<button class="btn btn-primary" id="createLectureArchiveFile" type="button">추가</button>
+								<button class="btn btn-outline-primary" id="createLectureArchiveFile" type="button">추가</button>
 								<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
 								<div id="lectureArchiveFileFrame"></div>
 							</div>
@@ -120,6 +116,9 @@
 							<td></td>
 						</tr>
 				</table>
+				<div style="text-align:right;">
+					<button class="btn btn-outline-primary" id="submitLectureArchiveForm" type="button">입력</button>
+				</div>
 			</form>
 		</div>
 	</body>

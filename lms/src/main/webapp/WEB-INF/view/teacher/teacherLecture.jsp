@@ -39,20 +39,28 @@
 					</tr>
 				</c:forEach>
 				</c:if>
-				<!--<c:if test="${empty teacherLectureList}">
+				<c:if test="${empty teacherLectureList}">
 					<tr>			
 						<td colspan="7">현재 강의중인 강좌가 없습니다.</td>
 					</tr>
-				</c:if>-->
+				</c:if>
 			</tbody>
 		</table>
-		<div style="margin-left:47%">
+		<div style="margin-left:35%">
 			<ul class="pagination">
 				<c:choose>
 					<c:when test="${currentPage > '1'}">
 						<!-- 현재 페이지가 1일시 -->
 						<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?accountId=${accountId}&&currentPage=${currentPage-1}">이전</a></li>	
 					</c:when>
+				<c:otherwise>
+					<li class="page-item disabled">
+						<a class="page-link" href="#"> &lt;&lt; </a>
+					</li>
+					<li class="page-item disabled">
+						<a class="page-link" href="#">&lt;</a>
+					</li>
+				</c:otherwise>
 				</c:choose>
 				<!-- 현재 페이지 표시 -->
 				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=${currentPage}">${currentPage}</a></li>
@@ -61,6 +69,14 @@
 				<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
 				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?accountId=${accountId}&&currentPage=${currentPage+1}">다음</a></li>
 					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled">
+								<a class="page-link" href="#">&gt;</a>
+							</li>
+							<li class="page-item disabled">
+								<a class="page-link" href="#">&gt;&gt;</a>
+							</li>
+					</c:otherwise>
 				</c:choose>
 			</ul>
 		</div>

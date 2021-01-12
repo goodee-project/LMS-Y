@@ -71,22 +71,25 @@
 			<h1>비밀번호 변경</h1>
 		</div>
 	</div>
-	<div class=container>
 	<form id="modifyTeacherPw" method="post" action="${pageContext.request.contextPath}/teacher/modifyTeacherPw">
+		<div class="container jumbotron bg-light">
 			<input hidden="hidden" type="text" id="accountId" name="accountId" value="${accountId}">
 			<!-- 기존비밀번호 -->
 			<input type="password" id="accountPw" class="form-control form-control-alternative" placeholder="현재 비밀번호를 입력하세요.">
 			<div style="color: red;" id="teacherPasswordMsg"></div>
+			<p>
+			<p>
 			<!-- 변경할 비밀번호 -->
 			<input type="password" id="teacherPw" name="accountPw" class="form-control form-control-alternative" placeholder="새로운 비밀번호를 입력하세요." >
 			<div id="pwMsg"></div>
+			<p>
 			<!-- 변경할 비밀번호 -->
 			<input type="password" id="teacherPwCk" class="form-control form-control-alternative" placeholder="새로운 비밀번호를 다시 입력하세요">
 			<div style="color: red;" id="pwCkMsg"></div>
 			<div>
 				<button id="btnPw" type="button" class="btn btn-danger">입력</button>
 			</div>
+		</div>
 	</form>
-	</div>
 </body>
 </html>

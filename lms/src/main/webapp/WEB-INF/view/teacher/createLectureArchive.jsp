@@ -18,9 +18,9 @@
 				$('#createLectureArchiveFile').click(function() {
 					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
 					$('#lectureArchiveFileFrame').append(`
-						<div>
+						<div class="input-group mb-3">
 							<input class="lectureArchiveFile" type="file" name="lectureArchiveFileList">
-							<button class="removelectureArchiveFile" type="button">삭제</button>
+							<button class="removelectureArchiveFile btn btn-danger" type="button">삭제</button>
 						</div>
 					`);
 					
@@ -111,7 +111,7 @@
 							<td>파일첨부</td>
 							<td>
 							<div>
-								<button class="btn btn-danger" id="createLectureArchiveFile" type="button">추가</button>
+								<button class="btn btn-primary" id="createLectureArchiveFile" type="button">추가</button>
 								<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
 								<div id="lectureArchiveFileFrame"></div>
 							</div>

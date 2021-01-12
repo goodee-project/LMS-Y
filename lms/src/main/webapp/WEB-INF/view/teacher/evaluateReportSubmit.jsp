@@ -101,7 +101,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2"></td>
+						<td class="pb-5" colspan="2"></td>
 					</tr>
 					<tr>
 						<th class="align-middle">점수</th>

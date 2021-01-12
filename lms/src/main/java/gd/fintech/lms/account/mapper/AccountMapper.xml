@@ -108,9 +108,14 @@
 	
 	<!-- 마지막 로그인과 현재 시간의 개월차를 구하는 쿼리 -->
 	<select id="selectDormantAccountIdList" resultType="String">
-		SELECT DISTINCT account_id
-		FROM login_log
-		WHERE 
-			<![CDATA[ login_datetime <= ADDDATE(NOW(),INTERVAL -6 month) ]]>
+		SELECT DISTINCT l.account_id
+		FROM login_log l
+		JOIN account a ON l.account_id = a.account_id
+		WHERE
+		<![CDATA[ 
+			l.login_datetime <= ADDDATE(NOW(),INTERVAL -6 month) AND
+			a.account_level != 4 AND
+			a.account_state = "활성화"
+		]]>
 	</select>
 </mapper>

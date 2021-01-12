@@ -17,8 +17,8 @@ public class ReportSubmitRestController {
 	// reportSubmitFileUUID(과제 제출파일 UUID)
 	// 리턴값 : 과제 수정 페이지 
 	@PostMapping("/student/removeReportSubmitFile")
-	public String removeReportSubmitFile(@RequestParam(value="reportSubmitFileUUID") String reportSubmitFileUUID) {
+	public boolean removeReportSubmitFile(@RequestParam("reportSubmitFileUUID") String reportSubmitFileUUID) {
 		reportSubmitService.removeReportSubmitFile(reportSubmitFileUUID);
-		return "redirect:/student/modifyReportSubmit";
+		return true;
 	}
 }

@@ -21,15 +21,38 @@
 							<div>
 								<input class="reportSubmitFile form-control-file" name="reportSubmitFileList" type="file">
 							</div>
-							<button class="removeReportSubmitFile btn btn-danger" type="button">삭제</button>
+							<button class="removeFile btn btn-outline-danger" type="button">삭제</button>
 						</div>
 					`);
 					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
-					$('.removeReportSubmitFile').last().click(function(event) {
+					$('.removeFile').last().click(function(event) {
 						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
 						$(event.target).parent().remove();
 					});
-				});			
+				});
+
+				// 첨부파일 삭제버튼에 대한 이벤트 처리를 등록함
+				$('.removeReportSubmitFile').click(function(event) {
+					let filename = $.trim($(event.target).siblings('.reportSubmitFileOriginal').text());
+					let remove = confirm('정말 등록한 파일 "'+filename+'" 을(를) 삭제하시겠습니까?\n\n삭제한 파일은 복구할 수 없습니다.');
+					if (remove) {
+						alert('삭제하였습니다');
+					} else {
+						return false;
+					}
+					
+					$.ajax({
+						url: $(event.target).prop('href'),
+						method: 'post',
+						success: function(removed) {
+							if (removed) {
+								$(event.target).parent().remove();
+							}
+						}
+					});
+					
+					return false;
+				});
 				// 작성 버튼 클릭 시 유효성 검사 실시
 				$('#submitBtn').click(function() {
 					// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
@@ -105,14 +128,14 @@
 								<c:forEach var="rsf" items="${reportSubmit.reportSubmitFileList}">
 									<c:if test="${rsf.reportSubmitFileSize > 0}">
 										<div>
-											<a href="${pageContext.request.contextPath}/student/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
+											<a class="reportSubmitFileOriginal" href="${pageContext.request.contextPath}/student/downloadReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">
 												${rsf.reportSubmitFileOriginal}
 											</a>
 												${rsf.reportSubmitFileSize},
 												${rsf.reportSubmitFileType},
 												${rsf.reportSubmitFileCount}회 다운로드,
 												${rsf.reportSubmitFileCreateDate}
-											<a class="btn btn-danger" class="removeReportSubmitFile" href="${pageContext.request.contextPath}/student/removeReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">삭제</a>
+											<a class="removeReportSubmitFile btn btn-outline-danger" href="${pageContext.request.contextPath}/student/removeReportSubmitFile?reportSubmitFileUUID=${rsf.reportSubmitFileUUID}">삭제</a>
 										</div>
 									</c:if>
 								</c:forEach>
@@ -125,7 +148,7 @@
 					</div>
 					<div id="reportSubmitFileFrame"></div>
 					<div class="form-group d-flex justify-content-end">
-						<button class="btn btn-outline-success" id="submitBtn" type="button">제출</button>
+						<button class="btn btn-outline-success" id="submitBtn" type="button">수정</button>
 					</div>
 				</form>
 			</div>

@@ -21,11 +21,11 @@
 							<div>
 								<input class="reportSubmitFile form-control-file" name="reportSubmitFileList" type="file">
 							</div>
-							<button class="removeReportSubmitFile btn btn-danger" type="button">삭제</button>
+							<button class="removeFile btn btn-outline-danger" type="button">삭제</button>
 						</div>
 					`);
 					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
-					$('.removeReportSubmitFile').last().click(function(event) {
+					$('.removeFile').last().click(function(event) {
 						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
 						$(event.target).parent().remove();
 					});		

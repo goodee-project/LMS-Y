@@ -92,23 +92,22 @@
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/manager/teacherQueueList">강사 승인대기</a>
 					</div>
 			    </li>
-				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/textbookList">교재</a>
-				</li>
-				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/subjectList">과목</a>
-				</li>
-				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/managerLecture ">강좌</a>
-				</li>
-				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/classroomList ">강의실</a>
-				</li>
+			    <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+						교육운영
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/manager/textbookList">교재</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/manager/subjectList">과목</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/manager/managerLecture">강좌</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/manager/classroomList">강의실</a>
+					</div>
+			    </li>
 				<li class="nav-item">
 				    <a class="nav-link" href="${pageContext.request.contextPath}/manager/lmsNoticeList">LMS 공지사항</a>
 				</li>
 				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/FAQList">자주하는질문(FAQ)</a>
+			 		<a class="nav-link" href="${pageContext.request.contextPath}/manager/FAQList">자주하는질문</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>

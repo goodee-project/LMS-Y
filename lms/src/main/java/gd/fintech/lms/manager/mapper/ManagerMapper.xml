@@ -2,149 +2,151 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.ManagerMapper">
 
-	<!-- 운영자의 정보 상세보기 -->
-	<select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
-		SELECT
-			account_id accountId,
-			manager_email managerEmail,
-			manager_phone managerPhone,
-			manager_name managerName,
-			manager_gender managerGender,
-			manager_birth managerBirth,
-			manager_position managerPosition,
-			manager_address_main managerAddressMain,
-			manager_address_sub managerAddressSub,
-			manager_image managerImage
-		FROM manager
-		WHERE account_id =#{accountId}
-	</select>
+   <!-- 운영자의 정보 상세보기 -->
+   <select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
+      SELECT
+         account_id accountId,
+         manager_email managerEmail,
+         manager_phone managerPhone,
+         manager_name managerName,
+         manager_gender managerGender,
+         manager_birth managerBirth,
+         manager_position managerPosition,
+         manager_address_main managerAddressMain,
+         manager_address_sub managerAddressSub,
+         manager_image managerImage
+      FROM manager
+      WHERE account_id =#{accountId}
+   </select>
 
-	<!-- 운영자의 정보 수정하기 -->
-	<update id="updateManager" parameterType="gd.fintech.lms.manager.vo.Manager">
-		UPDATE manager
-		SET
-			manager_email =#{managerEmail},
-			manager_phone =#{managerPhone},
-			manager_name =#{managerName},
-			manager_gender =#{managerGender},
-			manager_birth =#{managerBirth},
-			manager_position=#{managerPosition},
-			manager_address_main =#{managerAddressMain},
-			manager_address_sub =#{managerAddressSub},
-			manager_image =#{managerImage}
-		WHERE account_id =#{accountId}
-	</update>
+   <!-- 운영자의 정보 수정하기 -->
+   <update id="updateManager" parameterType="gd.fintech.lms.manager.vo.Manager">
+      UPDATE manager
+      <set>
+         <if test="managerEmail !=null">manager_email =#{managerEmail},</if>
+         <if test="managerPhone !=null">manager_phone =#{managerPhone},</if>
+         <if test="managerName !=null">manager_name =#{managerName},</if>
+         <if test="managerGender !=null">manager_gender =#{managerGender},</if>
+         <if test="managerBirth !=null">manager_birth =#{managerBirth},</if>
+         <if test="managerPosition !=null">manager_position=#{managerPosition},</if>
+         <if test="managerAddressMain !=null">manager_address_main =#{managerAddressMain},</if>
+         <if test="managerAddressSub !=null">manager_address_sub =#{managerAddressSub},</if>
+         <if test="managerImage !=null">manager_image =#{managerImage},</if>
+         manager_updatedate = NOW()
+      </set>
+      WHERE account_id =#{accountId}
+   </update>
 
-	<!-- 운영자 정보 입력 -->
-	<insert id="insertManagerFromQueue" parameterType="String">
-		INSERT INTO
-		manager(
-			account_id,
-			manager_email,
-			manager_name,
-			manager_phone,
-			manager_gender,
-			manager_birth,
-			manager_address_main,
-			manager_address_sub,
-			manager_accessdate,
-			manager_updatedate
-		) SELECT
-			account_id,
-			manager_email,
-			manager_name,
-			manager_phone,
-			manager_gender,
-			manager_birth,
-			manager_address_main,
-			manager_address_sub,
-			NOW(),
-			NOW()
-		FROM manager_queue
-		WHERE account_id = #{accountId}
-	</insert>
+   <!-- 운영자 정보 입력 -->
+   <insert id="insertManagerFromQueue" parameterType="String">
+      INSERT INTO
+      manager(
+         account_id,
+         manager_email,
+         manager_name,
+         manager_phone,
+         manager_gender,
+         manager_birth,
+         manager_address_main,
+         manager_address_sub,
+         manager_accessdate,
+         manager_updatedate
+      ) SELECT
+         account_id,
+         manager_email,
+         manager_name,
+         manager_phone,
+         manager_gender,
+         manager_birth,
+         manager_address_main,
+         manager_address_sub,
+         NOW(),
+         NOW()
+      FROM manager_queue
+      WHERE account_id = #{accountId}
+   </insert>
 
-	<!-- 계정에 해당하는 운영자 이름 -->
-	<select id="selectManagerName" parameterType="String" resultType="String">
-		SELECT
-			manager_name managerName
-		FROM manager
-		WHERE account_id = #{accountId}
-	</select>
-	
-	<!--운영자의 비밀번호를 수정하기전에 확인  -->
-	<select id="selectManagerPassword" parameterType="String" resultType="String">
-	  SELECT
-	  	account_id accountId,
-	  	account_pw accountPW
- 	  FROM account
-	  WHERE 
-	  	account_pw = PASSWORD(#{accountPw}) 
-	  	AND account_id = #{accountId}
-	</select>
-	
-	<!-- 운영자의 비밀번호 수정 -->
-	<update id="updateManagerPassword" parameterType="gd.fintech.lms.account.vo.Account">
-		UPDATE account
-		SET 
-			account_pw = PASSWORD(#{accountPw}),	
-			account_updatedate = NOW()
-		WHERE account_Id = #{accountId}	
-	</update>
-	
-	<!-- 운영자의 이미지 조회 -->
-	<select id="selectManagerImage" parameterType="String" resultType="gd.fintech.lms.manager.vo.AccountImage">
-		SELECT
-			account_id accountId,
-			image_file_uuid imageFileUUID,
-			image_file_original imageFileOriginal,
-			image_file_size imageFileSize,
-			image_file_type imageFileType,
-			image_file_createdate imageFileCreateDate
-		FROM account_image
-		WHERE account_id = #{accountId}
-	</select>
-	
-	<!-- 이미지 수정할때 현재 이미지 출력 -->
-	<select id="selectManagerImageanddelete" parameterType="String" resultType="String">
-		SELECT manager_image
-		FROM manager
-		WHERE  account_id = #{accountId}
-	</select>
-	
-	<!-- 운영자 이미지 추가 -->
-	<insert id="insertManagerImage" parameterType="gd.fintech.lms.manager.vo.AccountImage">
-		INSERT INTO account_image(
-			account_id,
-			image_file_uuid,
-			image_file_original,
-			image_file_size,
-			image_file_type,
-			image_file_createdate
-		) VALUES (
-			#{accountId},
-			#{imageFileUUID},
-			#{imageFileOriginal},
-			#{imageFileSize},
-			#{imageFileType},
-			NOW()
-		)
-	</insert>
-	
-	<!-- 운영자 이미지 수정 -->
-	<update id="updateManagerImage" parameterType="java.util.Map">
-		UPDATE manager
-		<set>
-			<if test="managerImage !=null">manager_image = #{managerImage},</if>
-			manager_updatedate = NOW()
-		</set>
-		WHERE account_id = #{accountId}
-	</update>
-	
-	<!-- 운영자 이미지 삭제 -->
-	<delete id="deleteManagerImage" parameterType="String">
-		DELETE FROM account_image
-		WHERE account_id = #{accountId}
-	</delete>
-	
+   <!-- 계정에 해당하는 운영자 이름 -->
+   <select id="selectManagerName" parameterType="String" resultType="String">
+      SELECT
+         manager_name managerName
+      FROM manager
+      WHERE account_id = #{accountId}
+   </select>
+   
+   <!--운영자의 비밀번호를 수정하기전에 확인  -->
+   <select id="selectManagerPassword" parameterType="String" resultType="String">
+     SELECT
+        account_id accountId,
+        account_pw accountPW
+      FROM account
+     WHERE 
+        account_pw = PASSWORD(#{accountPw}) 
+        AND account_id = #{accountId}
+   </select>
+   
+   <!-- 운영자의 비밀번호 수정 -->
+   <update id="updateManagerPassword" parameterType="gd.fintech.lms.account.vo.Account">
+      UPDATE account
+      SET 
+         account_pw = PASSWORD(#{accountPw}),   
+         account_updatedate = NOW()
+      WHERE account_Id = #{accountId}   
+   </update>
+   
+   <!-- 운영자의 이미지 조회 -->
+   <select id="selectManagerImage" parameterType="String" resultType="gd.fintech.lms.manager.vo.AccountImage">
+      SELECT
+         account_id accountId,
+         image_file_uuid imageFileUUID,
+         image_file_original imageFileOriginal,
+         image_file_size imageFileSize,
+         image_file_type imageFileType,
+         image_file_createdate imageFileCreateDate
+      FROM account_image
+      WHERE account_id = #{accountId}
+   </select>
+   
+   <!-- 이미지 수정할때 현재 이미지 출력 -->
+   <select id="selectManagerImageanddelete" parameterType="String" resultType="String">
+      SELECT manager_image
+      FROM manager
+      WHERE  account_id = #{accountId}
+   </select>
+   
+   <!-- 운영자 이미지 추가 -->
+   <insert id="insertManagerImage" parameterType="gd.fintech.lms.manager.vo.AccountImage">
+      INSERT INTO account_image(
+         account_id,
+         image_file_uuid,
+         image_file_original,
+         image_file_size,
+         image_file_type,
+         image_file_createdate
+      ) VALUES (
+         #{accountId},
+         #{imageFileUUID},
+         #{imageFileOriginal},
+         #{imageFileSize},
+         #{imageFileType},
+         NOW()
+      )
+   </insert>
+   
+   <!-- 운영자 이미지 수정 -->
+   <update id="updateManagerImage" parameterType="java.util.Map">
+      UPDATE manager
+      <set>
+         <if test="managerImage !=null">manager_image = #{managerImage},</if>
+         manager_updatedate = NOW()
+      </set>
+      WHERE account_id = #{accountId}
+   </update>
+   
+   <!-- 운영자 이미지 삭제 -->
+   <delete id="deleteManagerImage" parameterType="String">
+      DELETE FROM account_image
+      WHERE account_id = #{accountId}
+   </delete>
+   
 </mapper>

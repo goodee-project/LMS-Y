@@ -1,38 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.AnswerSheetMapper">
+	<!-- 시험문제 리스트 출력(정답제외) 쿼리 및 VO에 조인 결과를 한번에 담기 위한 resultMap -->
+	<resultMap type="gd.fintech.lms.teacher.vo.MultipleChoice" id="resultMultipleChoiceList">
+		<result property="multipleChoiceNo" column="multiplechoice_no" />
+		<result property="lectureNo" column="lecture_no" />
+		<result property="multipleChoiceId" column="multiplechoice_id" />
+		<result property="multipleChoiceQuestion" column="multiplechoice_question" />
+		<result property="multipleChoiceScore" column="multiplechoice_score" />
+		<result property="multipleChoiceCreateDate" column="multiplechoice_createdate" />
+		<result property="multipleChoiceUpdateDate" column="multiplechoice_updatedate" />
+		<collection property="multipleChoiceExampleList" ofType="gd.fintech.lms.teacher.vo.MultipleChoiceExample">
+			<result property="multipleChoiceExampleNo" column="multiplechoice_example_no" />
+			<result property="multipleChoiceExampleId" column="multiplechoice_example_id" />
+			<result property="multipleChoiceExampleContent" column="multiplechoice_example_content" />
+			<result property="multipleChoiceExampleCreateDate" column="multiplechoice_example_createdate" />
+			<result property="multipleChoiceExampleUpdateDate" column="multiplechoice_example_updatedate" />
+		</collection>
+	</resultMap>
+	<select id="selectMultipleChoiceList" parameterType="int" resultMap="resultMultipleChoiceList">
+		SELECT
+			m.multiplechoice_no,
+			m.lecture_no,
+			m.multiplechoice_id,
+			m.multiplechoice_question,
+			m.multiplechoice_score,
+			m.multiplechoice_createdate,
+			m.multiplechoice_updatedate,
+			me.multiplechoice_example_no,
+			me.multiplechoice_example_id,
+			me.multiplechoice_example_content,
+			me.multiplechoice_example_createdate,
+			me.multiplechoice_example_updatedate
+		FROM multiplechoice m
+			LEFT JOIN multiplechoice_example me
+				ON m.multiplechoice_no = me.multiplechoice_no
+		WHERE m.lecture_no = #{lecture_no}
+	</select>
+	
+	<!-- 학생이 낸 답안지 상세보기(정답 포함) -->
+	<!-- 
+		HashMap 내에 answerSheet와 multipleChoice를 넣어 List로 반환
+		해당 resultMap을 VO로 전환하면 다음과 같음:
+		
+		@Data
+		class AnswerSheetAndMultipleChoice {
+			AnswerSheet answerSheet;
+			MultipleChoice multipleChoice;
+		}
+	 -->
+	<resultMap type="java.util.HashMap" id="resultAnswerSheetList">
+		<collection property="answerSheet" javaType="gd.fintech.lms.student.vo.AnswerSheet">
+			<result property="multipleChoiceNo" column="multiplechoice_no" />
+			<result property="accountId" column="account_id" />
+			<result property="answerSelect" column="answer_select" />
+			<result property="answerScore" column="answer_score" />
+		</collection>
+		<collection property="multipleChoice" javaType="gd.fintech.lms.student.vo.MultipleChoice">
+			<result property="multipleChoiceNo" column="multiplechoice_no" />
+			<result property="lectureNo" column="lecture_no" />
+			<result property="multipleChoiceId" column="multiplechoice_id" />
+			<result property="multipleChoiceQuestion" column="multiplechoice_question" />
+			<result property="multipleChoiceScore" column="multiplechoice_score" />
+			<result property="multipleChoiceCreateDate" column="multiplechoice_createdate" />
+			<result property="multipleChoiceUpdateDate" column="multiplechoice_updatedate" />
+		</collection>
+	</resultMap>
+	<select id="selectAnswerSheetList" parameterType="java.util.Map" resultMap="resultAnswerSheetList">
+		SELECT
+			a.multiplechoice_no,
+			a.account_id,
+			a.answer_select,
+			a.answer_score,
+			m.lecture_no,
+			m.multiplechoice_id,
+			m.multiplechoice_question,
+			m.multiplechoice_score,
+			m.multiplechoice_createdate,
+			m.multiplechoice_updatedate
+		FROM answersheet a
+			INNER JOIN multiplechoice m
+				ON a.multiplechoice_no = m.multiplechoice_no
+		WHERE
+			m.lecture_no = #{lectureNo}
+			AND a.account_id = #{accountId}
+	</select>
+	
 	<!-- 학생이 낼 답안지 입력 -->
 	<insert id="insertAnswerSheet" parameterType="gd.fintech.lms.student.vo.AnswerSheet">
-		INSERT INTO answerSheet(
-				multipleChoice_no,
-				account_id,
-				answer_select,
-				answer_score
-	
+		INSERT INTO answersheet (
+			multiplechoice_no,
+			account_id,
+			answer_select,
+			answer_score
 		) VALUES (
 			#{multipleChoiceNo},
 			#{accountId},
 			#{answerSelect},
-			0
-	
+			CASE WHEN (SELECT multiplechoice_answer FROM multiplechoice WHERE multiplechoice_no = #{multipleChoiceNo}) = #{answerSelect}
+				 THEN (SELECT multiplechoice_score FROM multiplechoice WHERE multiplechoice_no = #{multipleChoiceNo})
+				 ELSE 0
+			END
 		)
 	</insert>
-	
-	<!-- 학생이 낸 답안지 상세보기(정답 포함) -->
-	<select id="selectAnswerSheetOne" parameterType="String"  resultType="gd.fintech.lms.student.vo.AnswerSheet">
-		SELECT
-			multipleChoice_no multipleChoiceNo,
-			account_id accountId,
-			answer_select answerSelect,
-			answer_score answerScore
-		FROM
-			answersheet
-		WHERE
-			account_id=#{accountId}
-	</select>
-	
-	<!-- 학생이 풀 문제 확인 -->
-	<select id="selectTestCheck" parameterType="gd.fintech.lms.student.vo.AnswerSheet">
-		
-	</select>
 </mapper>

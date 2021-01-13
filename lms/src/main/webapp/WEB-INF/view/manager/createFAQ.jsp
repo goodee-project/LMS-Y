@@ -87,14 +87,14 @@
 				<table class="table">
 					
 					<tr>
-						<td>FAQ 제목</td>
+						<td>제목</td>
 						<td><input type="text" id="faqTitleId" name="faqTitle"> 
 							<span id="faqTitleId"></span>
 						</td>
 					</tr>
 					
 					<tr>
-						<td>FAQ 카테고리</td>
+						<td>카테고리</td>
 						<td>
 							<select name="faqCategory">
 								<c:forEach items="${categoryList}" var="cl">	
@@ -104,9 +104,9 @@
 						</td>
 					
 				</table>
-				FAQ 내용
+					내용
 						<textarea id="faqContentId" name="faqContent"></textarea>
-						<button id= "submitBtn" type="button">입력</button>
+						<button class="btn btn-outline-primary" id= "submitBtn" type="button">입력</button>
 				</form>
 			</div>
 		</div>

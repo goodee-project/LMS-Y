@@ -5,6 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>강의실 상세보기</title>
+<!-- jQuery 스크립트 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {
+    		$('#delBtnId').click(function() {
+				let remove = confirm('정말 삭제하시겠습니까?');
+				if(remove) {
+					location.replace('${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}');
+					alert('삭제하였습니다.');
+				} else {
+					alert('취소하였습니다.');
+					return false;
+				}
+    		});
+    	});
+        </script>  
 </head>
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
@@ -29,23 +45,27 @@
 				   
 					<tr>
 						<td>강의실 호실</td>
-						<td>${classroom.classroomNumber}</td>
+						<td>${classroom.classroomNumber}호실</td>
 					</tr>
 					
 					<tr>
 						<td>강의실 면적</td>
-						<td>${classroom.classroomSize}</td>
+						<td>${classroom.classroomSize}m<sup>2</sup></td>
 					</tr>
 					
 					<tr>
 						<td>강의실 수용 인원</td>
-						<td>${classroom.classroomTotal}</td>
+						<td>${classroom.classroomTotal}명</td>
 					</tr>
+					
+					<tr>
+						<td class="text-right">
+							<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
+							<a id="delBtnId" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
+						</td>
+					</tr>	
 				</table>
-				<div>
-					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
-					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
-				</div>
+				
 			</div>
 	</body>
 </html>

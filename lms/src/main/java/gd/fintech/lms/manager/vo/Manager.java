@@ -1,5 +1,7 @@
 package gd.fintech.lms.manager.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 운영자 vo : 운영자 정보 관련 vo
@@ -42,4 +44,6 @@ public class Manager {
 	// 운영자 개인정보 수정 날짜
 	private String managerUpdateDate; 
 	
+	//Multipart를 위한 프로퍼티 추가
+	private List<AccountImage> imageFileList;
 }

@@ -22,18 +22,20 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<h1>강좌 리스트</h1>
+		<div class="jumbotron">
+ 			<div class="container">
+    			<h1>강좌 목록</h1>
+ 			 </div>
+			</div>
 			
-			
+			<div class="container">
 				<!-- 강좌 테이블 -->
 				<table class="table">
 					<tr>
-						<th>강좌 번호</th>
-						<th>담당 강사</th>
-						<th style="width:40%">강좌 제목</th>
-						<th>강좌 시작날짜</th>
-						<th>강좌 종료날짜</th>
+						<th>No</th>
+						<th>강사</th>
+						<th style="width:40%">제목</th>
+						<th>수강기간</th>
 						<th>강좌 정원</th>
 						
 					</tr>
@@ -42,13 +44,12 @@
 						<td>${ml.lectureNo}</td>
 						<td>${ml.teacherName}</td>
 						<td><a href="${pageContext.request.contextPath}/manager/managerLectureDetail?lectureNo=${ml.lectureNo}">${ml.lectureName}</a></td>
-						<td>${ml.lectureStartDate}</td>
-						<td>${ml.lectureEndDate}</td>
-						<td>${ml.lectureTotal}</td>
+						<td>${ml.lectureStartDate} ~ ${ml.lectureEndDate}</td>
+						<td>${ml.lectureTotal}명</td>
 					</tr>
 				</c:forEach>	
 			</table>
-						<!-- 페이지 네비게이션 바 -->
+			</div>			<!-- 페이지 네비게이션 바 -->
 			<c:if test="${lastPage != 0}">
 				<div>
 					<!-- 페이징 가운데 정렬 -->
@@ -57,14 +58,14 @@
 						<c:if test="${currentPage != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
@@ -73,7 +74,7 @@
 						<c:if test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -81,7 +82,7 @@
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -107,7 +108,7 @@
 						<c:if test="${currentPage != lastPage }">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -115,7 +116,7 @@
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -124,20 +125,19 @@
 						<c:if test="${currentPage != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 					</ul>
 				</div>
 			</c:if>
-			</div>
 	</body>
 </html>

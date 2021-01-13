@@ -16,6 +16,7 @@ public interface FAQMapper {
   	List<FAQ> selectFAQListByPage(Map<String, Object> map);  
   	
   	// FAQ 개수
+  	// 매개변수: 선택한 faqCategory
   	// 리턴값: FAQ의 행의 총 개수
 	int selectFAQCount(String categoryFaqSearch);
 	

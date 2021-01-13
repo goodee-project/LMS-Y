@@ -51,9 +51,9 @@
 							</td>
 						</tr>
 						<tr>
-							<td>강의실 면적</td>
+							<td>강의실 면적 (단위:m<sup>2</sup>)</td>
 						   <td><input type="text" name="classroomSize" id="sizeId" value="${classroom.classroomSize}">
-						   		<span id="sizeMsg"></span>
+						   <span id="sizeMsg"></span>
 						   </td>
 						</tr>
 						<tr>
@@ -62,10 +62,14 @@
 								<span id="totalMsg"></span>
 							</td>	
 						</tr>
+						<tr>
+		
+						</tr>
 					</table>
-			  
-			  		<button class="btn btn-outline-primary" id="btnId" type="button">입력</button>
-			  		<a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${classroom.classroomNo}">취소</a>
+			  			<div class="text-right">
+							<button class="btn btn-outline-primary" id="btnId" type="button">입력</button>
+			  				<a  class="btn btn-outline-danger" href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${classroom.classroomNo}">취소</a>
+						</div>
 				</form>
 			</div>
 		</div>

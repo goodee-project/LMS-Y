@@ -25,17 +25,18 @@
     		<h1>강의실 목록</h1>
   		</div>
 	</div>
-			<div>
+			<div class="container">
 				<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/createClassroom">작성</a>
+				
 				<table class=table>
 					<tr>
-						<th>강의실 고유번호</th>
-						<th>강의실 호실</th>
-						<th>강의실 정원</th>
+						<th>No.</th>
+						<th>호실</th>
+						<th>정원</th>
 					</tr>
 				<c:forEach items="${classroomList}" var="c">
 					<tr>
-						<td>${c.classroomNo}</td>
+						<td style="width:10%">${c.classroomNo}</td>
 						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${c.classroomNo}">${c.classroomNumber}호실</a></td>
 						<td>${c.classroomTotal}명</td>
 					</tr>
@@ -52,14 +53,14 @@
 						<c:if test="${currentPage != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									처음
+								&lt;&lt;
 								</a>
 							</li>
 						</c:if>
@@ -68,7 +69,7 @@
 						<c:if test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -76,7 +77,7 @@
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -102,7 +103,7 @@
 						<c:if test="${currentPage != lastPage }">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -110,7 +111,7 @@
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -119,20 +120,19 @@
 						<c:if test="${currentPage != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}">
-									마지막
+									 &gt;&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 					</ul>
 				</div>
 			</c:if>
-			</div>
 	</body>
 </html>

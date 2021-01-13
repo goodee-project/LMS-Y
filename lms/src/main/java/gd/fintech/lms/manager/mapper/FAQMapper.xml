@@ -17,9 +17,8 @@
 				faq_category = #{categoryFaqSearch}
 			</if>
 		</where>
+		ORDER BY faq_no DESC
 		LIMIT #{beginRow},#{rowPerPage}
-
-
 	</select>
 
 	<!-- FAQ 행의 개수 -->

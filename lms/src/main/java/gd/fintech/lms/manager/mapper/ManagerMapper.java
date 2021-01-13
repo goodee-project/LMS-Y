@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.manager.vo.Manager;
+import gd.fintech.lms.manager.vo.AccountImage;
 
 // 운영자 정보에 대한 메퍼 인터페이스
 
@@ -34,8 +35,33 @@ public interface ManagerMapper {
 	// 리턴값: 행의 수정
 	int updateManagerPassword(Account account);
 	
-	// 운영자의 비밀번호를 수정하기전 확이
+	// 운영자의 비밀번호를 수정하기전 확인
 	// 매개변수: 운영자 id와 운영자의 password
 	// 리턴값: 계정아이디에 해당하는 운영자의 id,password
 	String selectManagerPassword (String accountId, String accountPw );
+	
+	// 운영자 이미지 조회
+	// 매개변수: 운영자id
+	// 리턴값: 운영자 id 조회
+	AccountImage selectManagerImage(String accountId);
+	
+	// 운영자 이미지 추가
+	// 매개변수: 이미지Vo
+	// 리턴값: 행의 추가
+	int insertManagerImage(AccountImage accountImage);
+	
+	// 운영자 이미지 수정
+	// 매개변수: 운영자Id
+	// 리턴값: 행의 수정
+	int updateManagerImage(String accountId,String managerImage);
+	
+	// 운영자 이미지 삭제
+	// 매개변수: 운영자Id
+	// 리턴값: 선택한 행의 삭제
+	int deleteManagerImage(String accountId);
+	
+	// 현재 운영자 프로필 출력
+	// 매개변수: 운영자id
+	// 리턴값: 운영자 이미지
+	String selectManagerImageanddelete(String accountId);
 }

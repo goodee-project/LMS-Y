@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>자주하는질문(FAQ)</title>
+		<title>자주하는질문</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,11 +24,14 @@
 		
 		<div class="jumbotron">
  			<div class="container">
-    			<h1>자주하는질문(FAQ)</h1>
+    			<h1>자주하는질문</h1>
  			 </div>
 			</div>
 			<!-- 카테고리 -->	
 			<div class="container">
+				<div class="row">
+					<div class="col">
+					
 			<span><a style="height:45px; width:150px;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1">전체</a></span>
 			<c:forEach items="${categoryList}" var="cl" varStatus="status"> 
 				<td>
@@ -38,18 +41,22 @@
 					<c:if test="${status.count%5 eq 0}"> 
 						<tr>
 					</c:if>
-				
 				</c:forEach>
 			<!-- FAQList -->
+				</div>
 			</div>
+			</div>
+				<div class="container">
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/createFAQ">작성</a>
+				</div>	
 			<div class="container">
 				<table class="table">
 					<tr>
-						<th>FAQ 번호</th>
+						<th>No.</th>
 						<th>카테고리</th>
-						<th style="width:40%">FAQ 제목</th>
+						<th style="width:40%">제목</th>
 						<th>작성자</th>
-						<th>FAQ 수정날짜</th>
+						<th>수정날짜</th>
 						<th>조회수</th>
 					</tr>
 				<c:forEach items="${faqList}" var="f">
@@ -63,6 +70,17 @@
 					</tr>
 				</c:forEach>	
 			</table>
+			
+			<!-- 검색된 항목이 없을 시 출력 -->
+			<c:if test="${lastPage == 0}">
+				<tr>
+					<td colspan="4">
+						<div class="d-flex justify-content-center">
+							해당하는 게시글이 없습니다.
+						</div>
+					</td>
+				</tr>
+		</c:if>
 			<!-- 페이지 네비게이션 바 -->
 			<c:if test="${categoryFaqSearch ne null }">
 			<c:if test="${lastPage != 0}">
@@ -72,14 +90,14 @@
 						<c:if test="${currentPage != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1&categoryFaqSearch=${categoryFaqSearch}">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
@@ -88,7 +106,7 @@
 						<c:if test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}&categoryFaqSearch=${categoryFaqSearch}">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -96,7 +114,7 @@
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -122,7 +140,7 @@
 						<c:if test="${currentPage != lastPage }">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&categoryFaqSearch=${categoryFaqSearch}">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -130,7 +148,7 @@
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -139,14 +157,14 @@
 						<c:if test="${currentPage != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}&categoryFaqSearch=${categoryFaqSearch}">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
@@ -162,14 +180,14 @@
 						<c:if test="${currentPage != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
@@ -178,7 +196,7 @@
 						<c:if test="${currentPage > 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -186,7 +204,7 @@
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -212,7 +230,7 @@
 						<c:if test="${currentPage != lastPage }">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}&categoryFaqSearch=${categoryFaqSearch}">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -220,7 +238,7 @@
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -229,14 +247,14 @@
 						<c:if test="${currentPage != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>

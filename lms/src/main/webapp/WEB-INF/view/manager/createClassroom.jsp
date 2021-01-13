@@ -57,8 +57,7 @@
 						$('#totalMsg').text("");
 						
 						}
-
-					$('#postId').submit(); 			
+ 			
 			    });	
 			    // 버튼을 클릭했을때 공백여부 확인
 				$('#btnId').click(function() {
@@ -80,7 +79,10 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>강의실 정보 추가</h1>
+			<div class="jumbotron">
+				<h1>강의실</h1>
+				
+			</div>
 			
 			<div>
 				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/createClassroom/">
@@ -93,7 +95,7 @@
 								</td>
 						</tr>
 						<tr>
-								<td>강의실 면적</td>
+								<td>강의실 면적(단위:m<sup>2</sup>)</td>
 								<td><input type="number" name="classroomSize" id="sizeId">
 									<span id="sizeMsg"></span>
 								</td>
@@ -105,10 +107,11 @@
 									<span id="totalMsg"></span>
 								</td>
 						</tr>
-					
 					</table>
-						<button class="btn btn-outline-primary" id="btnId" type="button">입력</button>
-						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/classroomList">취소</a>
+						<div class="d-flex justify-content-end">
+							<button class="btn btn-outline-primary" id="btnId" type="button">입력</button>
+							<a type="button" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/classroomList">취소</a>
+						</div>
 				</form>
 			</div>
 		</div>

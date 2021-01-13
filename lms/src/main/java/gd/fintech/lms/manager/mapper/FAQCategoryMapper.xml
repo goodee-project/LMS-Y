@@ -7,7 +7,7 @@
     SELECT 
 		faq_category faqCategory
  	FROM faq_category
- 
+ 	ORDER BY FIELD(faq_category,'공통','강사','학생','고객지원','기타');
  	</select>
 	
 	  <!-- faq 카테고리를 추가 -->

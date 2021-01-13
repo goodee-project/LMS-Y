@@ -4,23 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강좌 상세보기 (운영자)</title>
+<title>강좌 상세보기</title>
 </head>
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
-		<div class=container>
-			
-				<h1>강좌 상세보기 (운영자)</h1>
-		</div>
-		<div class=container>
-			<div>
-				<a href="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">강좌 수정</a>
+		<div class="jumbotron">
+ 			<div class="container">
+    			<h1>강좌 상세보기</h1>
+ 			 </div>
 			</div>
+		<div class=container>
 				<table class="table">
 				   
-				   <tr>
+				   <tr hidden="hidden" >
 						<td>강좌 번호</td>
 						<td>${lecture.lectureNo}</td>
 					</tr>
@@ -45,27 +43,25 @@
 						<td>${lecture.lectureName}</td>
 					</tr>
 					<tr>
-						<td>교재 제목</td>
+						<td>교재 ISBN</td>
 						<td>${lecture.textbookISBN}</td>
 					</tr>
 					<tr>
-						<td>강좌 시작날짜</td>
-						<td>${lecture.lectureStartDate}</td>
-					</tr>
-					<tr>
-						<td>강좌 종료날짜</td>
-						<td>${lecture.lectureEndDate}</td>
+						<td>수강기간</td>
+						<td>${lecture.lectureStartDate} ~ ${lecture.lectureEndDate}</td>
 					</tr>
 					<tr>
 						<td>강좌 정원수</td>
-						<td>${lecture.lectureTotal}</td>
+						<td>${lecture.lectureTotal}명</td>
 					</tr>
 					<tr>
 						<td>강의실 번호</td>
 						<td>${lecture.classroomNo}</td>
 					</tr>
-			
 				</table>
+				<div>
+					<a style="float: right;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">수정</a>
+				</div>
 			</div>
 </body>
 </html>

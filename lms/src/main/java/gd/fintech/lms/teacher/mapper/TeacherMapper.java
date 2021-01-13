@@ -49,7 +49,7 @@ public interface TeacherMapper {
 	//매개변수:강사ID
 	//리턴값:변경된 행 갯수
 	int updateTeacherImage(String accountId,String teacherImage);
-	
+	int updateImageFile(AccountImage AccountImage);
 	//강사 전체 정보 수정
 	//매개변수:강사의 자신의 전체 정보를 가져옴
 	//리턴값:변경된 행 갯수

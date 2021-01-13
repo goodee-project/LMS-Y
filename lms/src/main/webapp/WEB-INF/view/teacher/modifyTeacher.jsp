@@ -68,22 +68,18 @@
 			        reader.readAsDataURL(input.files[0]);
 			    }
 			}
-			// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
-			$('#createLectureArchiveFile').click(function() {
-					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
-					$('#lectureArchiveFileFrame').append(`
-						<div>
-							<input class="lectureArchiveFile" type="file" name="imageFileList" accept="image/png,image/jpeg">
-							<button class="removelectureArchiveFile" type="button">삭제</button>
-						</div>
-					`);
-					
-					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
-					$('#lectureArchiveFileFrame:last-child .removelectureArchiveFile').click(function(event) {
-						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
-						$(event.target).parent().remove();
-					});
-				});
+			//기존 이미지 삭제에 대한 유효성 검사
+			$('#removeBtn').click(function() {
+				let remove = confirm('정말 이미지를 삭제하시겠습니까?');
+				
+				if(remove) {
+					location.replace('${pageContext.request.contextPath}/teacher/removeTeacherFile?accountId=${accountId}');
+					alert('삭제하였습니다.');
+				} else {
+					alert('취소하였습니다.');
+					return;
+				}
+    		});
 
 				// 우편번호 검색시 요소 추가
 				$('#zipCodeSearch').click(function() {
@@ -110,6 +106,7 @@
 			            }
 			        });
 				});
+				
 
 				// 작성 버튼 클릭 시 유효성 검사 실시
 				$('#submitTeacherOne').click(function() {
@@ -198,9 +195,9 @@
 				<tr>
 					<td>프로필 사진</td>
 					<td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""
-						style="width: 170px; height: 200px;" /> <c:if
+						style="width: 170px; height: 200px;" /><c:if
 							test="${not empty myImage.imageFileUUID}">
-							<a href="${pageContext.request.contextPath}/teacher/removeTeacherFile?accountId=${accountId}">삭제</a>
+							<a class="btn btn-outline-danger" href="#" id="removeBtn">삭제</a>
 						</c:if> <input type="file" name="imageFileList" id="imgSel" />
 					<td></td>
 				</tr>

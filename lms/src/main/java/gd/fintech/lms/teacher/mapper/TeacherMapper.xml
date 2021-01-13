@@ -121,7 +121,7 @@
 		DELETE FROM account_image
 		WHERE account_id = #{accountId}
 	</delete>
-	
+
 	<!-- 사진 수정 -->
 	<update id="updateTeacherImage" parameterType="java.util.Map">
 		UPDATE teacher
@@ -129,6 +129,16 @@
 			<if test="teacherImage !=null">teacher_image = #{teacherImage},</if>
 			teacher_updatedate = NOW()
 		</set>
+		WHERE account_id = #{accountId}
+	</update>
+	<update id="updateImageFile" parameterType="java.util.Map">
+		UPDATE account_image
+		SET
+			image_file_uuid = #{imageFileUUID},
+			image_file_original = #{imageFileOriginal},
+			image_file_size = #{imageFileSize},
+			image_file_type = #{imageFileType},
+			image_file_createdate = NOW()
 		WHERE account_id = #{accountId}
 	</update>
 	

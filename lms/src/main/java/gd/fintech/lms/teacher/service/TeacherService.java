@@ -142,17 +142,18 @@ public class TeacherService {
 				accountImage.setImageFileSize(mf.getSize());
 				accountImage.setImageFileOriginal(mf.getOriginalFilename());
 				accountImage.setImageFileType(mf.getContentType());
-				//teacherMapper.insertTeacherImage(accountImage);
-				//teacherMapper.updateTeacherImage(accountId, fileNameUUID);
-					//강사 이미지 조회 NULL값 일시
-					if(teacherMapper.selectMyImage(accountId) == null) {
-						teacherMapper.insertTeacherImage(accountImage);
-						if(teacherMapper.selectMyImage(accountId) != null) {
-							teacherMapper.updateTeacherImage(accountId, fileNameUUID); 
-						}
-					}
-				}
-			 }
+				//teacherMapper.deleteMyImage(accountId); 파일삭제 코드
+				
+				//강사 이미지 조회 NULL 일시 
+				 if(teacherMapper.selectMyImage(accountId) == null) {
+					 teacherMapper.insertTeacherImage(accountImage);//올린 이미지 입력
+					 teacherMapper.updateTeacherImage(accountId, fileNameUUID);
+				 }else if(teacherMapper.selectMyImage(accountId) !=null){
+					teacherMapper.updateImageFile(accountImage);//올린 이미지 입력
+					teacherMapper.updateTeacherImage(accountId, fileNameUUID); //올린 이미지로 업데이트
+				 }
+			}
+		}
 		return true;
 	}
 	

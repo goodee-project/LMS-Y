@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.ClassRegistrationMapper">
 <!-- 수강신청 목록의 과목 상세보기 -->
-<resultMap type="gd.fintech.lms.student.vo.ClassRegistration" id="ResultClassRegistration">
+<resultMap type="gd.fintech.lms.student.vo.ClassRegistration" id="resultClassRegistration">
 	<result property="classRegistrationNo" column="class_registration_no"/>
 	<result property="lectureNo" column="lecture_no"/>
 	<result property="accountId" column="student_id"/>
@@ -38,7 +38,7 @@
 </resultMap>
 		
 	<!-- 학생이 신청한 수강의 강좌 정보리스트 페이징 -->
-	<select id="selectClassRegistrationDetailListByPage" parameterType="java.util.Map" resultMap="ResultClassRegistration">
+	<select id="selectClassRegistrationDetailListByPage" parameterType="java.util.Map" resultMap="resultClassRegistration">
 	SELECT
 		cr.class_registration_no,
 		cr.lecture_no,
@@ -71,13 +71,13 @@
 			LEFT JOIN subject sj
 				ON lc.subject_no = sj.subject_no
 		WHERE lc.lecture_no=#{lectureNo}
-		ORDER BY lc.lecture_no
+		GROUP BY lc.lecture_no
 		LIMIT #{beginRow}, #{rowPerPage}
 		
 	</select>
 	
 	<!-- 학생이 신청한 수강목록 페이징 -->
-	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultMap="ResultClassRegistration">
+	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultMap="resultClassRegistration">
 		SELECT
 			cr.class_registration_no,
 			cr.lecture_no,
@@ -94,7 +94,7 @@
 		LEFT JOIN lecture lc
 			ON cr.lecture_no = lc.lecture_no
 		WHERE cr.account_id=#{accountId}
-		ORDER BY class_registration_no
+		GROUP BY lc.lecture_no
 		LIMIT #{beginRow}, #{rowPerPage}
 			
 	</select>
@@ -108,7 +108,7 @@
 	</select>
 	
 	<!-- 수강가능한 강의 전체목록 -->
-	<select id="selectClassRegistrationAll" parameterType="java.util.Map" resultMap="ResultClassRegistration">
+	<select id="selectClassRegistrationAll" parameterType="java.util.Map" resultMap="resultClassRegistration">
 		SELECT
 		cr.class_registration_no,
 		cr.lecture_no,
@@ -140,12 +140,12 @@
 				ON cr.lecture_no = lc.lecture_no
 			LEFT JOIN subject sj
 				ON lc.subject_no = sj.subject_no
-		ORDER BY cr.lecture_no
+		GROUP BY lc.lecture_no
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 학생 강좌 상세보기 -->
-	<select id="selectClassRegistrationLectureDetail" parameterType="java.util.Map" resultMap="ResultClassRegistration">
+	<select id="selectClassRegistrationLectureDetail" parameterType="java.util.Map" resultMap="resultClassRegistration">
 		SELECT
 			l.lecture_no, 
 			l.account_id, 
@@ -168,5 +168,30 @@
 		FROM class_registration
 	</select>
 	
+	<!-- 수강신청하기 -->
+	<insert id="insertRegistration" parameterType="java.util.Map" >
+	INSERT INTO class_registration(
+				lecture_no,
+				account_id,
+				class_registration_state,
+				class_registration_createdate
+				
+		) VALUES (
+			#{lectureNo},
+			#{accountId},
+			'대기',
+			NOW()
+		)
+	</insert>
+	
+	<!-- 수강 신청을 한 강좌 빼주기-->
+	<select id="selectRegistrationNoCount" parameterType="java.util.Map" resultType="int" >
+		SELECT 
+			COUNT(*) 
+		FROM class_registration
+		WHERE lecture_no=#{lectureNo} AND account_id=#{accountId}
+	</select>
+	
+
 	
 </mapper>

@@ -124,12 +124,31 @@
 	</select>
 	<!-- 계정에 해당하는 운영자 이름 -->
 	<select id="selectStudentName" parameterType="String" resultType="String">
-	 SELECT 
-	 	student_name studentName
-	 FROM student 
-	 WHERE account_id = #{accountId}  		
+	 	SELECT 
+	 		student_name studentName
+	 	FROM student 
+		WHERE account_id = #{accountId}  		
 	
 	</select>
+	
+	<!-- 현재 비밀번호 확인 -->
+	<select id="selectStudentPw" parameterType="String" resultType="String">
+		SELECT 
+			COUNT(*),
+			account_id accountId,
+			account_pw accountPw
+		FROM account
+		WHERE account_pw = PASSWORD(#{accountPw}) and account_id = #{accountId}
+	</select>
+	
+	<!-- 학생 비밀번호 변경 -->
+	<update id="updateStudentPw" parameterType="gd.fintech.lms.account.vo.Account">
+		UPDATE account
+		SET
+			account_pw =PASSWORD(#{accountPw}),
+			account_updateDate = NOW()
+		WHERE account_id = #{accountId}
+	</update>
 	
 </mapper>
 

@@ -39,13 +39,13 @@
 							<td>${q.accountId}</td> 
 							<td>${q.lectureNo}</td>
 							<td>${q.questionWriter}</td>
-							<td><a href="${pageContext.request.contextPath}/student/studentQuestionOne?questionNo=${q.questionNo}">${q.questionTitle}</a></td>
+							<td><a href="${pageContext.request.contextPath}/student/studentQuestionDetail?questionNo=${q.questionNo}">${q.questionTitle}</a></td>
 							<td>${q.questionCreateDate}</td>
 							<td>${q.questionCount}</td>
 						</tr>
 					</c:forEach>
 					<td><a href="${pageContext.request.contextPath}/student/studentMyQuestion?accountId=${accountId}">내질문 보기</a></td>
-					<td><a href="${pageContext.request.contextPath}/student/studentQuestionAdd?questionNo=${questionNo}">질문 추가</a></td>
+					<td><a href="${pageContext.request.contextPath}/student/createStudentQuestion?questionNo=${questionNo}">질문 추가</a></td>
 				</tbody>
 			</table>
 		

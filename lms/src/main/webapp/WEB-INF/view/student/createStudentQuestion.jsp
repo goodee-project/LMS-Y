@@ -65,7 +65,7 @@
 			</div>
 		</div>
 			<div class="container">
-				<form id="createQuestion" method="post" action="${pageContext.request.contextPath}/student/studentQuestionAdd">
+				<form id="createQuestion" method="post" action="${pageContext.request.contextPath}/student/createStudentQuestion">
 					<table class="table">
 						
 						<tr>

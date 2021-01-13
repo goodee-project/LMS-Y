@@ -80,9 +80,9 @@ public class QuestionController {
 	//리턴값:해당 강좌의 번호로 나오는 리스트
 	@GetMapping("student/studentLectureQuestionList")
 	public String lectureQuestionList(Model model,
-			@RequestParam(value="questionSearch",required = false)String questionSearch,
+			@RequestParam(value="lectureNo",required = false)int lectureNo,
 			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
-		Map<String,Object> map = questionService.getLectureQuestionListByPage(questionSearch, currentPage);
+		Map<String,Object> map = questionService.getLectureQuestionListByPage(lectureNo, currentPage);
 		
 		model.addAttribute("questionList",map.get("questionList"));
 		model.addAttribute("navPerPage",map.get("navPerPage"));
@@ -90,24 +90,24 @@ public class QuestionController {
 		model.addAttribute("navLastPage", map.get("navLastPage"));
 		
 		model.addAttribute("lastPage",map.get("lastPage"));
-		model.addAttribute("questionSearch",questionSearch);
+		model.addAttribute("lectureNo",lectureNo);
 		model.addAttribute("questionCount",map.get("questionCount"));
 		model.addAttribute("currentPage",currentPage);
 		return "student/studentLectureQuestionList";
 	}
 	
 	//질문 입력 폼
-	//매개변수:
+	//매개변수:질문의 번호
 	//리턴값:질문 입력할수 있는 폼
-	@GetMapping("/student/studentQuestionAdd")
+	@GetMapping("/student/createStudentQuestion")
 	public String addQuestion() {
-		return "student/studentQuestionAdd";
+		return "student/createStudentQuestion";
 	}
 	
 	//질문 입력 액션
 	//매개변수:질문의 VO 와 세션
-	//리턴값:
-	@PostMapping("/student/studentQuestionAdd")
+	//리턴값:질문 리스트 질문 추가
+	@PostMapping("/student/createStudentQuestion")
 	public String addQuestion(Question question,HttpSession session) {
 		questionService.addQuestion(question, session);
 		return "redirect:/student/studentQuestionList";
@@ -128,11 +128,8 @@ public class QuestionController {
 		logger.debug(question.toString());
 		model.addAttribute("question",question);
 		model.addAttribute("accountId",accountId);
-		return "student/studentQuestionOne";
+		return "student/studentQuestionDetail";
 	}
-	
-	
-	
 	
 	//질문 수정 폼
 	//매개변수:질문읩 번호
@@ -151,7 +148,7 @@ public class QuestionController {
 	@PostMapping("/student/studentQuestionModify")
 	public String questioModify(Question question,HttpSession session) {
 		questionService.modifyQuestion(question,session);
-		return "redirect:/student/studentQuestionOne?questionNo="+question.getQuestionNo();
+		return "redirect:/student/studentQuestionDetail?questionNo="+question.getQuestionNo();
 	}
 	
 	//질문 제거 액션

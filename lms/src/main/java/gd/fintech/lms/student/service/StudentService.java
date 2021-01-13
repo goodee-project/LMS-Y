@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.account.mapper.AddressMapper;
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.dto.StudentForm;
 import gd.fintech.lms.student.mapper.StudentMapper;
 import gd.fintech.lms.student.vo.AccountImage;
@@ -170,4 +171,16 @@ public class StudentService {
 	}
 	
 	//학생 비밃런호 변경
+	//매개변수:학생의 id,pw
+	//리턴값:변경된 비밀번호
+	public void modifyStudentPw(Account account) {
+		studentMapper.updateStudentPw(account);
+	}
+	
+	//학생 id pw 조회
+	//매개변수:
+	//리턴값:id/pw 조회
+	public String getStudentPw(String accountId,String accountPw) {
+		return studentMapper.selectStudentPw(accountId, accountPw);
+	}
 }

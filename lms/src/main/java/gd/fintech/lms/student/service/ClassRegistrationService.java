@@ -73,6 +73,16 @@ public class ClassRegistrationService {
 		return map;
 	}
 	
+	//학생의 수강신청 체크(유무)
+	//매개변수:학생id,강좌번호
+	//리턴값:ㅁ
+	public int getRegistrationNoCount(int lectureNo,String accountId) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("lectureNo",lectureNo);
+		map.put("accountId",accountId);
+		return classRegistrationMapper.selectRegistrationNoCount(map);
+	}
+	
 	//수강신청할 수 있는 목록전체(페이징)
 	//매개변수:lectureNo,currentPage
 	//리턴값:학생이 수강신청할 수 있는 모든 리스트
@@ -132,4 +142,14 @@ public class ClassRegistrationService {
 		return classRegistration;
 	}
 	
+	//학생 수강신청하기
+	//
+	//
+	public int insertRegistration(int lectureNo,String accountId) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("lectureNo",lectureNo);
+		map.put("accountId",accountId );
+		return classRegistrationMapper.insertRegistration(map);
+	}
 }

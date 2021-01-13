@@ -22,7 +22,7 @@
 	<select id="selectStudentQuestionListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.Question">
 		SELECT
 			question_no questionNo,
-			Lecture_no lectureNo,
+			lecture_no lectureNo,
 			account_id accountId,
 			question_writer questionWriter,
 			question_title questionTitle,
@@ -31,6 +31,7 @@
 			question_updatedate questionUpdateDate,
 			question_count questionCount
 		FROM question
+		WHERE account_id=#{accountId} 
 		ORDER BY question_no DESC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
@@ -50,6 +51,7 @@
 		FROM question
 		WHERE lecture_no=#{lectureNo}
 		ORDER BY question_no DESC
+		LIMIT #{beginRow} ,#{rowPerPage}
 	</select>
 	
 	<!-- 학생들의 전체 질문 갯수 -->
@@ -65,10 +67,18 @@
 			COUNT(*) 
 		FROM question
 		ORDER BY account_id=#{accountId}
-		
 	</select>
+	
+	<!-- 해당 강좌의 학생 질문 갯수 -->
+	<select id="lectureQuestionCount" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM question
+		ORDER BY lecture_no=#{lectureNo}
+	</select>
+	
 	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
-	<resultMap type="gd.fintech.lms.student.vo.Question" id="ResultQustionOne">
+	<resultMap type="gd.fintech.lms.student.vo.Question" id="resultQuestionOne">
 		<result property="questionNo" column="question_no"/>
 		<result property="lectureNo" column="lecture_no"/>
 		<result property="accountId" column="student_id"/>
@@ -102,7 +112,7 @@
 	</resultMap>
 	
 	<!-- 학생의 질문 상세보기 -->
-	<select id="selectQuestionOne" parameterType="int" resultMap="ResultQustionOne">
+	<select id="selectQuestionOne" parameterType="int" resultMap="resultQuestionOne">
 		SELECT
 			q.question_no,
 			q.lecture_no,

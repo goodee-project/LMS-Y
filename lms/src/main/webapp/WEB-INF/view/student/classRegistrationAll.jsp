@@ -25,24 +25,24 @@
 			<h1>수강 목록</h1>
 			<table class="table">
 					<tr>
+						<th>강좌 번호</th>
 						<th>강사 이름</th>
 						<th>과목 이름</th>
 						<th>수강신청일</th>
-						<th>수강 리뷰(점수)</th>
-						<th>리뷰(텍스트)</th>
-						<th>과목 상세보기</th>
-						<th>강좌 신청하기</th>
+						<th>강좌 점수</th>
+						<th>강좌 리뷰</th>
+						<th>강좌 상세보기</th>
 					</tr>
 				<tbody>
 					<c:forEach var="r" items="${classRegistrationAllList}">
 					<tr>
+						<td>${r.lectureInfo.lectureNo}</td>
 						<td>${r.lectureInfo.teacherName}</td>
 						<td>${r.lectureInfo.lectureName}</td>
 						<td>${r.classRegistrationCreateDate}</td>
 						<td>${r.classRegistrationPoint}</td>
 						<td>${r.classRegistrationReview}</td>
 						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${r.lectureNo}">과목 상세보기</a></td>
-						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?subjectNo=${subjectNo}">신청하기</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>

@@ -71,9 +71,28 @@ public class ClassRegistrationController {
 		return "student/classRegistrationAll";
 	} 
 	
-	//학생이 수강신청한 과목 정보보기(상세보기)
+	//학생이 수강신청할 과목 정보보기(상세보기)
 	@GetMapping("student/classRegistrationDetail")
 	public String getClassRegistrtaionOne(Model model,HttpServletRequest request,
+			@RequestParam(value="lectureNo",required = false)int lectureNo) {
+		
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//Id 가지고오기
+		String accountId =(String)session.getAttribute("accountId");
+		System.out.println(accountId+"계정Id");
+		//학생이 수강신청 한 과목인지 아닌지의 여부를 int값으로 나타냄
+		int classRegistrationNoCount= classRegistrationService.getRegistrationNoCount(lectureNo, accountId);
+		
+		ClassRegistration classRegistration = classRegistrationService.getClassRegistrationLectureDetail(lectureNo);
+		model.addAttribute("classRegistration",classRegistration);
+		model.addAttribute("classRegistrationNoCount",classRegistrationNoCount);
+		model.addAttribute("accountId",accountId);
+		return "student/classRegistrationDetail";
+	}
+	
+	//학생이 신청한 수강 과목 정보보기(상세보기)
+	@GetMapping("student/classRegistrationMyDetail")
+	public String getClassRegistrtaionMyOne(Model model,HttpServletRequest request,
 			@RequestParam(value="lectureNo",required = false)int lectureNo) {
 		
 		HttpSession session = ((HttpServletRequest)request).getSession();
@@ -84,9 +103,8 @@ public class ClassRegistrationController {
 		ClassRegistration classRegistration = classRegistrationService.getClassRegistrationLectureDetail(lectureNo);
 		model.addAttribute("classRegistration",classRegistration);
 		model.addAttribute("accountId",accountId);
-		return "student/classRegistrationDetail";
+		return "student/classRegistrationMyDetail";
 	}
-	
 	//학생 수강신청 사유 입력폼
 	@GetMapping("student/classRegistrationCancel")
 	public String addCancel(Model model,HttpServletRequest request,
@@ -114,5 +132,13 @@ public class ClassRegistrationController {
 		return "redirect:/student/classRegistration"; 
 	}
 	
+	//학생 수강신청
+	@GetMapping("student/classRegistrationChoose")
+	public String classRegistartionChoose(
+			@RequestParam(value="accountId")String accountId,
+			@RequestParam(value="lectureNo")int lectureNo) {
+		classRegistrationService.insertRegistration(lectureNo, accountId);
+		return "redirect:/student/classRegistration";
+	}
 	
 }

@@ -135,13 +135,13 @@ public class QuestionService {
 	//해당 강좌의 질문리스트
 	//매개변수:강좌의 번호
 	//리턴값:해당 강좌의 질문 리스트
-	public Map<String,Object> getLectureQuestionListByPage(String questionSearch,int currentPage){
+	public Map<String,Object> getLectureQuestionListByPage(int lectureNo,int currentPage){
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 				
 		//전체 페이지 갯수
-		int questionCount = questionMapper.selectQuestionCount(questionSearch);
+		int questionCount = questionMapper.lectureQuestionCount(lectureNo);
 		int lastPage = questionCount / rowPerPage;
 			
 		// 10 미만의 개수의 데이터가 있는 페이지 표시
@@ -169,7 +169,7 @@ public class QuestionService {
 		Map<String,Object>parmMap = new HashMap<String,Object>();
 		parmMap.put("rowPerPage", rowPerPage);
 		parmMap.put("beginRow", beginRow);
-		parmMap.put("questionSearch",questionSearch);
+		parmMap.put("lectureNo",lectureNo);
 		//담아주기
 		List<Question>questionList = questionMapper.selectLectureQuestionListByPage(parmMap);
 		logger.debug(questionList.toString());
@@ -206,7 +206,7 @@ public class QuestionService {
 		return questionMapper.deleteQuestion(questionNo);
 	}
 	
-	//학생의 질문 입력 
+	//학생의 질문 추가
 	//매개변수:질문 vo
 	//리턴값:입력할 질문의 양식
 	public int addQuestion(Question question,HttpSession session) {
@@ -217,7 +217,7 @@ public class QuestionService {
 		return questionMapper.insertQuestion(question);
 	}
 
-
+ 
 	//학생의 질문 조회수 증가
 	//매개변수:질문의 번호
 	//리턴값:해당 질문의 조회수증가

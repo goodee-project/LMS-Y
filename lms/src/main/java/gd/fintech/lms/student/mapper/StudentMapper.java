@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.student.vo.AccountImage;
 import gd.fintech.lms.student.vo.Student;
 //학생의 정보를 보여주는 게시판
@@ -59,4 +60,12 @@ public interface StudentMapper {
 	//매개변수:학생id
 	//리턴값:이미지VO
 	String updateStudentImagePrevious(String accountId);
+	
+	//학생 현재 비밀번호 확인
+	//매개변수:학생id,pw
+	String selectStudentPw(String accountId,String accountPw);
+	
+	//학생 비밀번호 변경
+	//매개변수:
+	int updateStudentPw(Account account);
 }

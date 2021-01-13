@@ -44,8 +44,10 @@
 							<td>${q.questionCount}</td>
 						</tr>
 					</c:forEach>
-					<td><a href="${pageContext.request.contextPath}/student/studentMyQuestion?accountId=${accountId}">내질문 보기</a></td>
-					<td><a href="${pageContext.request.contextPath}/student/studentQuestionAdd?questionNo=${questionNo}">질문 추가</a></td>
+					<tr>
+						<td><a href="${pageContext.request.contextPath}/student/studentMyQuestion?accountId=${accountId}">내질문 보기</a></td>
+						<td><a href="${pageContext.request.contextPath}/student/createStudentQuestion?questionNo=${questionNo}">질문 추가</a></td>
+					</tr>
 				</tbody>
 			</table>
 		

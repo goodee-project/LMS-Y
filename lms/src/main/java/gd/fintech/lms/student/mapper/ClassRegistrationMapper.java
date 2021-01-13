@@ -39,4 +39,15 @@ public interface ClassRegistrationMapper {
 	//매개변수:
 	//리턴값:수강 신청이 가능한 강좌의 수
 	int selectRegistrationAllCount();
+	
+	//수강 신청하기
+	int insertRegistration(Map<String,Object>map);
+	
+	//수강 리뷰리스트
+	List<ClassRegistration> selectClassRegistrationReviewListByPage(Map<String,Object>map);
+	
+	//학생이 수강 신청한것인지 체크
+	//매개변수:
+	//리턴값:
+	int selectRegistrationNoCount(Map<String,Object>map);
 }

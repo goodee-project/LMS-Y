@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>강사강좌조회상세보기</title>
+		<title>내 강좌 상세보기</title>
 	</head>
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->
@@ -15,7 +15,7 @@
 	
 		<div class=container>
 			<div class="jumbotron">
-				<h1>강좌조회 상세보기</h1>
+				<h1>내강좌 상세보기</h1>
 			</div>
 		</div>
 		
@@ -29,7 +29,8 @@
 						<td>과목 이름</td>
 						<td>강좌 개강일</td>
 						<td>강좌 종강일</td>
-						<td>수강 신청</td>
+						<td>출석확인</td>
+						
 					</tr>
 				</thead>
 				<tbody>
@@ -40,18 +41,7 @@
 							<td>${classRegistration.subject.subjectName}</td>
 							<td>${classRegistration.lectureInfo.lectureStartDate}</td>
 							<td>${classRegistration.lectureInfo.lectureEndDate}</td>
-							<td>
-							<c:choose>
-								<c:when test="${classRegistrationNoCount==1}">
-									이미 신청을 하셨습니다
-								</c:when>
-								
-								<c:otherwise>
-									<a href="${pageContext.request.contextPath}/student/classRegistrationChoose?lectureNo=${classRegistration.lectureInfo.lectureNo}&accountId=${accountId}">신청하기</a>
-								</c:otherwise>
-							</c:choose>
-							</td>
-							
+							<td><a href="${pageContext.request.contextPath}/student/studentAttendanceList?accountId=${accountId}&lectureNo=${classRegistration.lectureInfo.lectureNo}">출석확인</a></td>
 						</tr>
 				</tbody>
 			</table>

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.dto.StudentForm;
 import gd.fintech.lms.student.service.StudentService;
 import gd.fintech.lms.student.vo.AccountImage;
@@ -77,5 +78,23 @@ public class StudentController {
 			HttpServletRequest request) {
 		AccountImage accountImage = studentService.getStudentImage(accountId);
 		return "redirect:/student/modifyStudent";
+	}
+	
+	//학생 비밀번호 수정 폼
+	@GetMapping("student/studentPwModify")
+	public String modifyStudentPw(HttpServletRequest request,Model model) {
+		//세션 가져오기
+		HttpSession session =((HttpServletRequest)request).getSession();
+		//Id를 가져오기
+		String accountId =(String)session.getAttribute("accountId");
+		model.addAttribute("accountId",accountId);
+		return "student/studentPwModify";
+	}
+	
+	//학생 비밀번호 수정 액션
+	@PostMapping("student/studentPwModify")
+	public String modifyStduentPw(Account account) {
+		studentService.modifyStudentPw(account);
+		return "redirect:logout";
 	}
 }

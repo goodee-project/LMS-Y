@@ -12,12 +12,6 @@
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/attendanceList?lectureNo=${param.lectureNo}&target=weekDay">출석</a>
 				</li>
 				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureArchive?lectureNo=${param.lectureNo}">자료실</a>
-				</li>
-				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureNotice?lectureNo=${param.lectureNo}">공지</a>
-				</li>
-				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/syllabusDetail?lectureNo=${param.lectureNo}">강의계획서</a>
 				</li>
 				<li class="nav-item">
@@ -43,12 +37,6 @@
 				</li>
 				<li class="nav-item">
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/attendanceList?lectureNo=${lectureNo}&target=weekDay">출석</a>
-				</li>
-				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureArchive?lectureNo=${lectureNo}">자료실</a>
-				</li>
-				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureNotice?lectureNo=${lectureNo}">공지</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/syllabusDetail?lectureNo=${lectureNo}">강의계획서</a>

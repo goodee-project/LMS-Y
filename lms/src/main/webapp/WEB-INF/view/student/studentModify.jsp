@@ -129,10 +129,10 @@
 						<td>프로필 사진</td>
 						</td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""
 						style="width: 170px; height: 200px;" />
-						<c:if test="${not empty myImage.imageFileUUID}">
+						<c:if test="${not empty studentImage.imageFileUUID}">
 							<a href="${pageContext.request.contextPath}/student/removeStudentFile?accountId=${accountId}">삭제</a>
 						</c:if>
-						<td><input type="text" name="studentImage" id="studentImage" value="${map.student.studentImage}">
+						<td><input type="file" name="studentImage" id="studentImage">
 					</tr>
 					
 					<tr>

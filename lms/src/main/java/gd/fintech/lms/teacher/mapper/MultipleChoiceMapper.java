@@ -35,6 +35,11 @@ public interface MultipleChoiceMapper {
 	// 리턴값: 변경된 행 갯수
 	int updateMultipleChoice(MultipleChoice multipleChoice);
 	
+	// 객관식 문제에 배점 부여 (100/문제갯수)
+	// 매개변수: 시험이 등록된 강좌의 번호
+	// 리턴값: 변경된 행 갯수
+	int updateMultipleChoiceScore(int lectureNo);
+	
 	// 해당 문제번호 이후의 문제번호들을 1 차감 (임의의 번호를 삭제했을 때 해당 번호에 공백이 생기는 현상 제거)
 	// 매개변수: 기준이 되는 문제번호(ID)
 	// 리턴값: 변경된 행 갯수

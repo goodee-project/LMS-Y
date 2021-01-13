@@ -22,34 +22,38 @@
 		
 		<div class="container">
 			<table class="table">
-				<tr class="small">
-					<th colspan="4">No. ${question.questionNo}</th>
-				</tr>
-				<tr>
-					<th>게시글 제목</th>
-					<td colspan="3">${question.questionTitle}</td>
-				</tr>
-				<tr class="small">
-					<th style="width: 20%">게시글 작성자</th>
-					<td style="width: 30%">${question.questionWriter}</td>
-					<th style="width: 20%">게시글 조회수</th>
-					<td style="width: 30%">${question.questionCount}</td>
-				</tr>
-				<tr class="small">
-					<th>게시글 생성일</th>
-					<td>${question.questionCreateDate}</td>
-					<th>게시글 수정일</th>
-					<td>${question.questionUpdateDate}</td>
-				</tr>
-				<tr>
-					<th colspan="4">게시글 내용</th>
-				</tr>
-				<tr>
-					<td class="px-4" colspan="4">${question.questionContent}</td>
-				</tr>
-				<tr>
-					<td class="pb-5" colspan="4"></td>
-				</tr>
+				<thead>
+					<tr class="small">
+						<th colspan="4">No. ${question.questionNo}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>게시글 제목</th>
+						<td colspan="3">${question.questionTitle}</td>
+					</tr>
+					<tr class="small">
+						<th style="width: 20%">게시글 작성자</th>
+						<td style="width: 30%">${question.questionWriter}</td>
+						<th style="width: 20%">게시글 조회수</th>
+						<td style="width: 30%">${question.questionCount}</td>
+					</tr>
+					<tr class="small">
+						<th>게시글 생성일</th>
+						<td>${question.questionCreateDate}</td>
+						<th>게시글 수정일</th>
+						<td>${question.questionUpdateDate}</td>
+					</tr>
+					<tr>
+						<th colspan="4">게시글 내용</th>
+					</tr>
+					<tr>
+						<td class="px-4" colspan="4">${question.questionContent}</td>
+					</tr>
+					<tr>
+						<td class="pb-5" colspan="4"></td>
+					</tr>
+				</tbody>
 			</table>
 			<table class="table">
 				<thead>

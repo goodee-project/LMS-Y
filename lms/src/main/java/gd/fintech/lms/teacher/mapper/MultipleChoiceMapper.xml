@@ -116,6 +116,14 @@
 		WHERE multiplechoice_no = #{multipleChoiceNo}
 	</update>
 	
+	<!-- 객관식 문제에 배점 부여 쿼리 -->
+	<update id="updateMultipleChoiceScore" parameterType="int">
+		UPDATE multiplechoice
+		SET
+			multiplechoice_score = 100/(SELECT COUNT(*) FROM multiplechoice WHERE lecture_no = #{lectureNo})
+		WHERE lecture_no = #{lectureNo}
+	</update>
+	
 	<!-- 해당 문제번호 이후의 문제번호 차감 쿼리 -->
 	<update id="updateMultipleChoiceIdSubstractBelow" parameterType="int">
 		UPDATE multiplechoice

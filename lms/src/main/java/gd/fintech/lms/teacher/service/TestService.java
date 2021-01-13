@@ -151,6 +151,9 @@ public class TestService {
 			
 			id += 1;
 		}
+		
+		// 작성된 문제 갯수를 기반으로 각 문제의 배점 도출
+		multipleChoiceMapper.updateMultipleChoiceScore(multipleChoiceForm.getLectureNo());
 	}
 
 	// 객관식 문제 수정
@@ -195,21 +198,8 @@ public class TestService {
 		
 		// 위에 언급했던 문제번호 밀림 현상을 해결해줌
 		multipleChoiceMapper.updateMultipleChoiceIdSubstractBelow(originId);
-	}
-	
-	// 객관식 보기 생성
-	// 매개변수: 객관식 보기 객체, setter를 사용해 추가할 정보 multipleChoiceNo, multipleChoiceExampleId, multipleChoiceExampleContent를 넣을 것
-	public void createMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
-		logger.debug("multipleChoiceExample = "+multipleChoiceExample.toString());
 		
-		multipleChoiceExampleMapper.insertMultipleChoiceExample(multipleChoiceExample);
-	}
-
-	// 객관식 보기 수정
-	// 매개변수: 객관식 보기 객체, setter를 사용해 변경할 행 고유번호 multipleChoiceExampleNo, 변경할 정보 multipleChoiceExampleId, multipleChoiceExampleContent를 넣을 것
-	public void modifyMultipleChoiceExample(MultipleChoiceExample multipleChoiceExample) {
-		logger.debug("multipleChoiceExample = "+multipleChoiceExample.toString());
-		
-		multipleChoiceExampleMapper.updateMultipleChoiceExample(multipleChoiceExample);
+		// 작성된 문제 갯수를 기반으로 각 문제의 배점 도출
+		multipleChoiceMapper.updateMultipleChoiceScore(multipleChoice.getLectureNo());
 	}
 }

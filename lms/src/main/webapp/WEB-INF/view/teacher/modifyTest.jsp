@@ -77,7 +77,7 @@
 				
 				<table class="table">
 					<tr class="small">
-						<th colspan="4">No. ${param.lectureNo}</th>
+						<th colspan="4">${param.lectureNo} 강의실</th>
 					</tr>
 					<tr>
 						<th style="width: 20%">시험 시작일</th>

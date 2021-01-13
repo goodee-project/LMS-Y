@@ -25,38 +25,42 @@
 		
 		<div class="container">
 			<table class="table">
-				<tr class="small">
-					<th colspan="4">No. ${report.reportNo}</th>
-				</tr>
-				<tr>
-					<th>과제 제목</th>
-					<td colspan="3">${report.reportTitle}</td>
-				</tr>
-				<tr class="small">
-					<th style="width: 20%">과제 시작(예정)일</th>
-					<td style="width: 30%">${report.reportStartDate}</td>
-					<th style="width: 20%">과제 종료일</th>
-					<td style="width: 30%">${report.reportEndDate}</td>
-				</tr>
-				<tr class="small">
-					<th>과제 작성일</th>
-					<td>${report.reportCreateDate}</td>
-					<th>과제 수정일</th>
-					<td>${report.reportUpdateDate}</td>
-				</tr>
-				<tr>
-					<th colspan="4">과제 내용</th>
-				</tr>
-				<tr>
-					<td class="px-4" colspan="4">${report.reportContent}</td>
-				</tr>
-				<tr>
-					<td class="text-right pb-5" colspan="4">
-						<c:if test="${isEditable}">
-							<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyReport?reportNo=${report.reportNo}">과제 수정</a>
-						</c:if>
-					</td>
-				</tr>
+				<thead>
+					<tr class="small">
+						<th colspan="4">No. ${report.reportNo}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>과제 제목</th>
+						<td colspan="3">${report.reportTitle}</td>
+					</tr>
+					<tr class="small">
+						<th style="width: 20%">과제 시작(예정)일</th>
+						<td style="width: 30%">${report.reportStartDate}</td>
+						<th style="width: 20%">과제 종료일</th>
+						<td style="width: 30%">${report.reportEndDate}</td>
+					</tr>
+					<tr class="small">
+						<th>과제 작성일</th>
+						<td>${report.reportCreateDate}</td>
+						<th>과제 수정일</th>
+						<td>${report.reportUpdateDate}</td>
+					</tr>
+					<tr>
+						<th colspan="4">과제 내용</th>
+					</tr>
+					<tr>
+						<td class="px-4" colspan="4">${report.reportContent}</td>
+					</tr>
+					<tr>
+						<td class="text-right pb-5" colspan="4">
+							<c:if test="${isEditable}">
+								<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyReport?reportNo=${report.reportNo}">과제 수정</a>
+							</c:if>
+						</td>
+					</tr>
+				</tbody>
 			</table>
 			<table class="table">
 				<thead>

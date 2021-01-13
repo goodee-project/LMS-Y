@@ -2,9 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- 부트스트랩 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <!-- 학생 메뉴바 -->
 <c:if test="${accountLevel == 1}">
@@ -19,6 +24,9 @@
 				</li>
 				<li class="nav-item">
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistrationAll">수강등록</a>
+				</li>
+				<li class="nav-item">
+				  	<a class="nav-link" href="${pageContext.request.contextPath}/#">성적통계</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>
@@ -52,6 +60,9 @@
 				</li>
 				<li class="nav-item">
 				    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=1">강사강좌조회</a>
+				</li>
+				<li class="nav-item">
+				  	<a class="nav-link" href="${pageContext.request.contextPath}/#">성적통계</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/lmsNoticeList">LMS 공지사항</a>

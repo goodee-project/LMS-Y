@@ -209,7 +209,7 @@
 					<td></td>
 					<td>
 						<div style="text-align:right;">
-							<button class="btn btn-outline-primary" id="submitTeacherOne" type="button">수정</button>
+							<button class="btn btn-outline-success" id="submitTeacherOne" type="button">수정</button>
 						</div>
 					</td>
 				</tr>

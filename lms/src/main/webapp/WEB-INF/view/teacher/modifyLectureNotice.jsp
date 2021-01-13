@@ -69,7 +69,7 @@
 							</tr>
 						</table>
 						<div style="text-align:right;">
-						<button class="btn btn-outline-primary" id="submitLectureNoticeForm" type="button">입력</button>
+						<button class="btn btn-outline-success" id="submitLectureNoticeForm" type="button">입력</button>
 						</div>
 				</form>
 			</div>

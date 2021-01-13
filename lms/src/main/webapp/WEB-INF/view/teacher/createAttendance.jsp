@@ -58,7 +58,7 @@
 				</tr>
 		</table>
 			<div style="text-align:right;">
-				<button type="submit" class="btn btn-primary">입력</button>
+				<button type="submit" class="btn btn-outline-success">입력</button>
 			</div>
 		</form>
 	</div>

@@ -87,7 +87,7 @@
 			<input type="password" id="teacherPwCk" class="form-control form-control-alternative" placeholder="새로운 비밀번호를 다시 입력하세요">
 			<div style="color: red;" id="pwCkMsg"></div>
 			<div>
-				<button id="btnPw" type="button" class="btn btn-outline-danger">입력</button>
+				<button id="btnPw" type="button" class="btn btn-outline-success">입력</button>
 			</div>
 		</div>
 	</form>

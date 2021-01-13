@@ -10,7 +10,7 @@
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 
-	<!-- 강좌 메뉴 인클루드 -->
+	<!-- 강좌 메뉴 인클루드 -->	
 	<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
 	
 		<div class="jumbotron">
@@ -50,8 +50,8 @@
 						<td>
 							다운로드 : <a href="${pageContext.request.contextPath}/teacher/downloadLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}">${laf.lectureArchiveFileUUID}</a>
 							<div>원본이름 : ${laf.lectureArchiveFileOriginal}</div>
-							<div>파일크기 : ${laf.lectureArchiveFileSize}B,</div>
-							<div>파일유형 : ${laf.lectureArchiveFileType},</div>
+							<div>파일크기 : ${laf.lectureArchiveFileSize}B</div>
+							<div>파일유형 : ${laf.lectureArchiveFileType}</div>
 							<div>파일생성일: ${laf.lectureArchiveFileCreateDate}</div>
 						</td>
 					</tr>

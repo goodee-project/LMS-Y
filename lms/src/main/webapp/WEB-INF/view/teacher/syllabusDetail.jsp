@@ -42,13 +42,17 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<h1>${lectureDetail.lectureName} 강의계획서 정보</h1>
-			
+		<div class="jumbotron">
+			<div class="container">
+				<h1>${lectureDetail.lectureName} 강의계획서 정보</h1>
+			</div>
+		</div>
+		
+		<div class="container">			
 			<!-- 서명 여부 -->
 			<div>
 				<c:if test="${accountLevel != 1}">
-					<table class="table">
+					<table class="table d-flex justify-content-end">
 						<tr>
 							<td></td>
 							<td>서명</td>
@@ -58,7 +62,7 @@
 							<td>강사</td>
 							<td>
 								<c:if test="${accountLevel == 2 && syllabusDetail.syllabusTeacherSign == null && syllabusDetail.accountId == accountId}">
-									<button type="button" id="teacherSignBtn">
+									<button type="button" id="teacherSignBtn" class="btn btn-outline-success">
 										서명하기
 									</button>
 								</c:if>
@@ -72,7 +76,7 @@
 							<td>운영자</td>
 							<td>
 								<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != null && syllabusDetail.syllabusManagerSign == null}">
-									<button type="button" id="managerSignBtn">
+									<button type="button" id="managerSignBtn" class="btn btn-outline-success">
 										서명하기
 									</button>
 								</c:if>
@@ -83,15 +87,6 @@
 							<td>${syllabusDetail.syllabusManagerSignDate}</td>
 						</tr>
 					</table>
-				</c:if>
-			</div>
-			
-			<!-- 수정, 서명 버튼 -->
-			<div>
-				<c:if test="${accountLevel == 2 && syllabusDetail.accountId == accountId}">
-					<a href="${pageContext.request.contextPath}/teacher/modifySyllabus?lectureNo=${syllabusDetail.lectureNo}">
-						[수정]
-					</a>
 				</c:if>
 			</div>
 			
@@ -118,6 +113,15 @@
 						</td>
 					</tr>
 				</table>
+			</div>
+			
+			<!-- 수정 버튼 -->
+			<div class="d-flex justify-content-end mb-3">
+				<c:if test="${accountLevel == 2 && syllabusDetail.accountId == accountId}">
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifySyllabus?lectureNo=${syllabusDetail.lectureNo}">
+						수정
+					</a>
+				</c:if>
 			</div>
 		</div>
 	</body>

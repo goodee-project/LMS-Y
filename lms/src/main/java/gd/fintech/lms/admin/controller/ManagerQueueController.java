@@ -26,6 +26,8 @@ public class ManagerQueueController {
 	// 매개변수:
 	// #1. model
 	// #2. currentPage(현재 페이지)
+	// #3. searchType(검색조건)
+	// #4. searchKeyword(검색어)
 	// 리턴값: managerQueueList(회원가입 승인대기 중인 운영자 목록 페이지)
 	// 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력
 	// 페이지 표시 네비게이션 바 출력

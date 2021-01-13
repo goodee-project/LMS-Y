@@ -10,10 +10,14 @@
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>	
 		
-		<div class=container>
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>관리자 인덱스</h1>
 			</div>
+		</div>
+		
+		<div class="container">
+			
 		</div>
 	</body>
 </html>

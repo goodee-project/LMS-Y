@@ -87,7 +87,8 @@ public class SubjectService {
 	
 	// 운영자가 과목 정보를 입력하는 메소드
 	// 매개변수: subject(과목 정보)
-	// 리턴값: 과목 정보 입력
+	// 리턴값: 없음
+	// 과목 정보 입력
 	public void createSubject(Subject subject) {
 		logger.debug(subject.toString());
 		subjectMapper.insertSubject(subject);
@@ -95,7 +96,8 @@ public class SubjectService {
 	
 	// 운영자가 과목 정보를 수정하는 메소드
 	// 매개변수: subject(과목 정보)
-	// 리턴값: 과목 정보 수정
+	// 리턴값: 없음
+	// 과목 정보 수정
 	public void modifySubject(Subject subject) {
 		logger.debug(subject.toString());
 		subjectMapper.updateSubject(subject);

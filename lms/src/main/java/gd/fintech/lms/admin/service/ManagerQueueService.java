@@ -22,9 +22,9 @@ import gd.fintech.lms.manager.mapper.ManagerMapper;
 public class ManagerQueueService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	// 회원가입 승인대기 중인 운영자 개인정보 Mapper
+	// 회원가입 승인대기 중인 운영자 정보 Mapper
 	@Autowired private ManagerQueueMapper managerQueueMapper;
-	// 회원가입 된 운영자의 개인정보 Mapper
+	// 회원가입 된 운영자 정보 Mapper
 	@Autowired private ManagerMapper managerMapper;
 	// 계정 정보 Mapper
 	@Autowired private AccountMapper accountMapper;
@@ -95,9 +95,9 @@ public class ManagerQueueService {
 	// 관리자가 운영자의 회원가입을 승인하는 메소드
 	// 매개변수: accountId(아이디)
 	// 리턴값: 없음
-	// 운영자의 개인정보를 Manager에 저장
-	// 운영자의 개인정보를 ManagerQueue에서 삭제
-	// 운영자의 계정의 활성화 여부를 활성화로 변경
+	// 운영자 정보를 Manager에 저장
+	// 운영자 정보를 ManagerQueue에서 삭제
+	// 운영자 계정의 계정상태를 활성화로 변경
 	public void approveManagerMembership(String accountId) {
 		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 Manager에 입력
@@ -111,8 +111,8 @@ public class ManagerQueueService {
 	// 관리자가 운영자의 회원가입을 거부하는 메소드
 	// 매개변수: accountId(아이디)
 	// 리턴값: 없음
-	// 운영자의 개인정보를 ManagerQueue에서 삭제
-	// 운영자의 계정의 활성화 여부를 거절로 변경
+	// 운영자 정보를 ManagerQueue에서 삭제
+	// 운영자 계정의 계정상태를 거절로 변경
 	public void disapproveManagerMembership(String accountId) {
 		logger.debug(accountId.toString());
 		// 아이디에 해당하는 운영자의 개인정보를 ManagerQueue에서 삭제 

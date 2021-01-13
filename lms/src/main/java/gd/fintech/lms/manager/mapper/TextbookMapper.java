@@ -11,13 +11,13 @@ import gd.fintech.lms.manager.vo.Textbook;
 
 @Mapper
 public interface TextbookMapper {
-	// 교재 리스트를 페이징하여 출력
+	// 교재 목록을 페이징하여 출력
 	// 매개변수: map에 저장된 페이징 변수 beginRow(해당 페이지), rowPerPage(페이지에 표시할 항목수)와 검색 변수 searchType(검색조건), searchKeyword(검색어)
-	// 리턴값: 교재 정보 리스트
-	// 검색을 했다면 검색 결과에 따른 교재 리스트 출력
+	// 리턴값: 교재 목록
+	// 검색을 했다면 검색 결과에 따른 교재 목록 출력
 	List<Textbook> selectTextbookList(Map<String, Object> map);
 	
-	// 교재 리스트의 페이징을 위해 총 항목수를 출력
+	// 교재 목록의 페이징을 위해 총 항목수를 출력
 	// 매개변수:
 	// #1. searchType(검색조건)
 	// #2. searchKeyword(검색어)

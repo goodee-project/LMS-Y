@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>교재 정보 상세보기</title>
+		<title>교재 정보</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -15,14 +15,18 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>교재 정보</h1>
+			</div>
+		</div>
+		
 		<div class="container">
-			<h1>교재 정보 상세보기</h1>
-			
 			<!-- 생성일자, 수정일자 -->
 			<div>
-				<table class="table">
+				<table class="table d-flex justify-content-end">
 					<tr>
-						<td>입력일자</td>
+						<td>등록일자</td>
 						<td>${textbookDetail.textbookCreateDate}</td>
 					</tr>
 					<tr>
@@ -30,15 +34,6 @@
 						<td>${textbookDetail.textbookUpdateDate}</td>
 					</tr>
 				</table>
-			</div>
-			
-			<!-- 수정버튼 -->
-			<div>
-				<c:if test="${accountLevel == 3}">
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${textbookDetail.textbookISBN}">
-						수정
-					</a>
-				</c:if>
 			</div>
 			
 			<!-- 내용 -->
@@ -73,6 +68,15 @@
 						<td>${textbookDetail.textbookInfo}</td>
 					</tr>
 				</table>
+			</div>
+			
+			<!-- 수정버튼 -->
+			<div class="d-flex justify-content-end mb-3">
+				<c:if test="${accountLevel == 3}">
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${textbookDetail.textbookISBN}">
+						수정
+					</a>
+				</c:if>
 			</div>
 		</div>
 	</body>

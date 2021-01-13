@@ -13,7 +13,7 @@
 			$(document).ready(function() {
 				// 유효성 검사용 정규 표현식
 				// ISBN 정규 표현식
-				let ISBNCk = /(?:978-89|979-11)-[0-9]+-[0-9]+-[0-9]/g;
+				let ISBNCk = /^(978-89|979-11)-[0-9]+-[0-9]+-[0-9]$/;
 				// 가격 정규 표현식
 				let priceCk = /^[0-9]+$/;
 				// 출판일 정규 표현식
@@ -45,7 +45,7 @@
 				// ISBN 유효성 검사
 				$('#textbookISBN').blur(function() {
 					// ISBN에 입력한 ISBN 저장
-					ISBN = $('#textbookISBN').val();
+					ISBN = $('#textbookISBN').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					// ISBNNum에 ISBN 숫자만 저장
 					ISBNNum = ISBN.replace(/[^0-9]/g, "").split("");
 					
@@ -286,7 +286,7 @@
 					}
 										
 					$('#textbookForm').submit();
-					alert('교재 정보가 입력되었습니다');
+					alert('교재 정보가 등록되었습니다');
 				});
             });
         </script>
@@ -296,9 +296,13 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>교재 정보 등록</h1>
+			</div>
+		</div>
+		
 		<div class="container">
-			<h1>교재 정보 등록</h1>
-			
 			<!-- 교재 정보 입력 -->
 			<div>
 				<form method="post" id="textbookForm" action="${pageContext.request.contextPath}/manager/createTextbook">
@@ -306,7 +310,9 @@
 						<tr>
 							<td>ISBN</td>
 							<td>
-								<input type="text" id="textbookISBN" name="textbookISBN">
+								<input type="text" id="textbookISBN" name="textbookISBN" placeholder="예)978-89-509-7122-9">
+							</td>
+							<td>
 								<div id="textbookISBNMsg"></div>
 							</td>
 						</tr>
@@ -314,6 +320,8 @@
 							<td>교재명</td>
 							<td>
 								<input type="text" id="textbookTitle" name="textbookTitle">
+							</td>
+							<td>
 								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>
@@ -321,6 +329,8 @@
 							<td>가격</td>
 							<td>
 								<input type="text" id="textbookPrice" name="textbookPrice">원
+							</td>
+							<td>
 								<div id="textbookPriceMsg"></div>
 							</td>
 						</tr>
@@ -328,6 +338,8 @@
 							<td>저자</td>
 							<td>
 								<input type="text" id="textbookWriter" name="textbookWriter">
+							</td>
+							<td>
 								<div id="textbookWriterMsg"></div>
 							</td>
 						</tr>
@@ -335,6 +347,8 @@
 							<td>출판사</td>
 							<td>
 								<input type="text" id="textbookPublisher" name="textbookPublisher">
+							</td>
+							<td>
 								<div id="textbookPublisherMsg"></div>
 							</td>
 						</tr>
@@ -342,6 +356,8 @@
 							<td>출판일</td>
 							<td>
 								<input type="text" id="textbookPublishDate" name="textbookPublishDate">
+							</td>
+							<td>
 								<div id="textbookPublishDateMsg"></div>
 							</td>
 						</tr>
@@ -349,13 +365,19 @@
 							<td>정보</td>
 							<td>
 								<input type="text" id="textbookInfo" name="textbookInfo">
+							</td>
+							<td>
 								<div id="textbookInfoMsg"></div>
 							</td>
 						</tr>
 					</table>
-					<button type="button" id="submitBtn" class="btn btn-primary">
-						등록
-					</button>
+					
+					<!-- 등록 버튼 -->
+					<div class="d-flex justify-content-end">
+						<button type="button" id="submitBtn" class="justify-content-end btn btn-outline-success">
+							등록
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

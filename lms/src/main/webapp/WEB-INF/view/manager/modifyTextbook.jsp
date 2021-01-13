@@ -12,15 +12,11 @@
         <script>
             $(document).ready(function() {
             	// 유효성 검사용 정규 표현식
-				// ISBN 정규 표현식
-				let ISBNCk = /(?:978-89|979-11)-[0-9]+-[0-9]+-[0-9]/g;
 				// 가격 정규 표현식
 				let priceCk = /^[0-9]+$/;
 				// 출판일 정규 표현식
 				let publishDateCk = /^(19|20)[0-9]{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])$/;
 				
-				// ISBN 생성
-				let ISBN = null;
 				// title 생성
 				let title = null;
 				// price 생성
@@ -34,50 +30,8 @@
 				// info 생성
 				let info = null;
 				
-				// ISBNNum 생성
-				let ISBNNum = null;
 				// publishDateNum 생성
 				let publishDateNum = null;
-				
-				// ISBN 유효성 검사
-				$('#textbookISBN').blur(function() {
-					// ISBN에 입력한 ISBN 저장
-					ISBN = $('#textbookISBN').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-					// ISBN에서 숫자만 분리
-					ISBNNum = ISBN.replace(/[^0-9]/g, "").split("");
-					
-					if(ISBN == '') {
-						$('#textbookISBNMsg').text('ISBN을 입력하세요');
-						$('#textbookISBN').focus();
-						return;
-					} else if(ISBN.length != 17 || ISBNNum.length != 13) {
-						$('#textbookISBNMsg').text("ISBN은 숫자 13자리 입니다('-' 포함 17자리)");
-						$('#textbookISBN').focus();
-						return;
-					} else if(!ISBNCk.test(ISBN)) {
-						$('#textbookISBNMsg').text('올바른 형식으로 입력하세요');
-						$('#textbookISBN').focus();
-						return;
-					} else {
-						$('#textbookISBNMsg').text('');
-					}
-					
-					// ISBN 중복 여부 확인
-					$.ajax({
-						url: '${pageContext.request.contextPath}/manager/textbookISBNCheck',
-						type: 'post',
-						data: {textbookISBN:ISBN},
-						success: function(data) {
-							if(data == 'noPass') {
-								$('#textbookISBNMsg').text('입력하신 ISBN은 이미 등록된 ISBN 입니다');
-								$('#textbookISBN').focus();
-								return;
-							}else {
-								$('#textbookISBNMsg').text('');
-							}
-						}
-					});
-				});
 				
 				// 교재명 유효성 검사
 				$('#textbookTitle').blur(function() {
@@ -179,8 +133,6 @@
 				
 				// 등록버튼 클릭 시 최종 유효성 검사 및 등록
 				$('#submitBtn').click(function() {
-					// ISBN에 입력한 ISBN 저장
-					ISBN = $('#textbookISBN').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					// title에 입력한 교재명 저장
 					title = $('#textbookTitle').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					// price에 입력한 가격 저장
@@ -194,28 +146,8 @@
 					// info에 입력한 정보 저장
 					info = $('#textbookInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
-					// ISBNNum에 ISBN 숫자만 저장
-					ISBNNum = ISBN.replace(/[^0-9]/g, "").split("");
 					// publishDateNum에 publishDate 숫자만 저장
 					publishDateNum = publishDate.replace(/[^0-9]/g, "").split("");
-					
-					// ISBN 유효성 검사
-					if(ISBN == '') {
-						$('#textbookISBNMsg').text('ISBN을 입력하세요');
-						$('#textbookISBN').focus();
-						return;
-					} else if(ISBN.length != 17 || ISBNNum.length != 13) {
-						$('#textbookISBNMsg').text("ISBN은 숫자 13자리 입니다('-' 포함 17자리)");
-						$('#textbookISBN').focus();
-						return;
-					} else if(!ISBNCk.test(ISBN)) {
-						$('#textbookISBNMsg').text('올바른 형식으로 입력하세요');
-						$('#textbookISBN').focus();
-						console.log(ISBNCk.test(ISBN));
-						return;
-					} else {
-						$('#textbookISBNMsg').text('');
-					}
 					
 					// 교재명 유효성 검사
 					if(title == '') {
@@ -294,9 +226,14 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>교재 정보 수정</h1>
+			</div>
+		</div>
+		
+		
 		<div class="container">
-			<h1>교재 정보 수정</h1>
-			
 			<!-- 교재 정보 입력 -->
 			<div>
 				<form method="post" id="textbookForm" action="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${modifyTextbook.textbookISBN}">
@@ -304,8 +241,7 @@
 						<tr>
 							<td>ISBN</td>
 							<td>
-								<input type="text" id="textbookISBN" name="textbookISBN" value="${modifyTextbook.textbookISBN}">
-								<div id="textbookISBNMsg"></div>
+								${modifyTextbook.textbookISBN}
 							</td>
 						</tr>
 						<tr>
@@ -352,9 +288,12 @@
 						</tr>
 					</table>
 					
-					<button type="button" id="submitBtn" class="btn btn-primary">
-						수정
-					</button>
+					<!-- 수정 버튼 -->
+					<div class="d-flex justify-content-end">
+						<button type="button" id="submitBtn" class="justify-content-end btn btn-outline-success">
+							수정
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

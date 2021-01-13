@@ -15,27 +15,29 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>교재 목록</h1>
 			</div>
+		</div>
 			
-			<!-- 추가버튼 -->
+		<div class="container">
+			<!-- 추가 버튼 -->
 			<div>
 				<c:if test="${accountLevel == 3}">
-					<a class="btn btn-primary" href="${pageContext.request.contextPath}/manager/createTextbook">
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/createTextbook">
 						추가
 					</a>
 				</c:if>
 			</div>
 			
 			<!-- 검색 바 -->
-			<div>
+			<div class="mb-3">
 				<form method="get" id="searchForm" action="${pageContext.request.pathInfo}">
-					<div class="justify-content-end mb-3 input-group">
+					<div class="d-flex justify-content-end input-group">
 						<!-- 검색조건 -->
 						<div class="input-group-prepend">
-							<select id="searchType" name="searchType" class="form-control">
+							<select id="searchType" name="searchType" class="form-control" style="width:110px;">
 								<option value="all"
 									<c:if test="${searchType == 'all'}">selected</c:if>>전체</option>
 								<option value="ISBN"
@@ -50,11 +52,11 @@
 						</div>
 						
 						<!-- 검색어 입력 -->
-						<input type="text" id="searchKeyword" name="searchKeyword" class="form-control col-sm-2" value="${searchKeyword}" placeholder="검색어를 입력하세요">
+						<input type="text" id="searchKeyword" name="searchKeyword" class="form-control col-sm-2" value="${searchKeyword}" placeholder="Search">
 						
 						<!-- 검색 버튼 -->
 						<div class="input-group-append">
-							<button type="submit" class="form-control btn btn-primary">
+							<button type="submit" class="form-control btn btn-success">
 								검색
 							</button>
 						</div>
@@ -114,14 +116,14 @@
 						<c:if test="${currentPage != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
@@ -130,14 +132,14 @@
 						<c:if test="${pageNaviBegin != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviBegin-1}&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${pageNaviBegin == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -164,14 +166,14 @@
 						<c:if test="${pageNaviEnd != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviEnd+1}&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${pageNaviEnd == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -180,14 +182,14 @@
 						<c:if test="${currentPage != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>

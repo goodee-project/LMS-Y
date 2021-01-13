@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.admin.mapper.DormantAccountMapper">
+	<!-- 휴면 상태인 운영자 목록을 페이징하여 출력하는 쿼리문 -->
+	<select id="selectDormantAccountListByManager" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Manager">
+		SELECT
+			m.account_id accountId,
+			m.manager_name managerName,
+			m.manager_email managerEmail
+		FROM manager m
+		LEFT JOIN account a
+		ON m.account_id = a.account_id
+		WHERE a.account_state = "휴면"
+		<if test="searchKeyword != null">
+			<if test="searchType == 'all' or searchType == 'name'">
+				AND m.manager_name LIKE CONCAT('%', #{searchKeyword}, '%')				
+			</if>
+			<if test="searchType == 'all' or searchType == 'email'">
+				AND m.manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+		</if>
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 휴면 상태인 강사 목록을 페이징하여 출력하는 쿼리문 -->
+	<select id="selectDormantAccountListByTeacher" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.Teacher">
+		SELECT
+			t.account_id accountId,
+			t.teacher_name teacherName,
+			t.teacher_email teacherEmail
+		FROM teacher t
+		LEFT JOIN account a
+		ON t.account_id = a.account_id
+		WHERE a.account_state = "휴면"
+		<if test="searchKeyword != null">
+			<if test="searchType == 'all' or searchType == 'name'">
+				AND t.teacher_name LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'all' or searchType == 'email'">
+				AND t.teacher_email LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+		</if>
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 휴면 상태인 학생 목록을 페이징하여 출력하는 쿼리문 -->
+	<select id="selectDormantAccountListByStudent" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.Student">
+		SELECT
+			s.account_id accountId,
+			s.student_name studentName,
+			s.student_email studentEmail
+		FROM student s
+		LEFT JOIN account a
+		ON s.account_id = a.account_id
+		WHERE a.account_state = "휴면"
+		<if test="searchKeyword != null">
+			<if test="searchType == 'all' or searchType == 'name'">
+				AND s.student_name LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'all' or searchType == 'email'">
+				AND s.student_email LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+		</if>
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 휴면계정 목록의 페이징을 위해 총 항목수를 출력하는 쿼리문 -->
+	<select id="selectDormantAccountCountByManager" parameterType="java.util.Map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM manager m
+		LEFT JOIN account a
+		ON m.account_id = a.account_id
+		WHERE a.account_state = "휴면"
+		<if test="searchKeyword != null">
+			<if test="searchType == 'all' or searchType == 'name'">
+				AND m.manager_name LIKE CONCAT('%', #{searchKeyword}, '%')	
+			</if>
+			<if test="searchType == 'all' or searchType == 'email'">
+				AND m.manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+		</if>
+	</select>
+	
+	<!-- 휴면계정 목록의 페이징을 위해 총 항목수를 출력하는 쿼리문 -->
+	<select id="selectDormantAccountCountByTeacher" parameterType="java.util.Map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM teacher t
+		LEFT JOIN account a
+		ON t.account_id = a.account_id 
+		WHERE a.account_state = "휴면"
+		<if test="searchKeyword != null">
+			<if test="searchType == 'all' or searchType == 'name'">
+				AND t.teacher_name LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'all' or searchType == 'email'">
+				AND t.teacher_email LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+		</if>
+	</select>
+	
+	<!-- 휴면계정 목록의 페이징을 위해 총 항목수를 출력하는 쿼리문 -->
+	<select id="selectDormantAccountCountByStudent" parameterType="java.util.Map" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM student s
+		LEFT JOIN account a
+		ON s.account_id = a.account_id
+		WHERE a.account_state = "휴면"
+		<if test="searchKeyword != null">
+			<if test="searchType == 'all' or searchType == 'name'">
+				AND s.student_name LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			<if test="searchType == 'all' or searchType == 'email'">
+				AND s.student_email LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+		</if>
+	</select>
+	
+	<!-- 계정 상태를 출력하는 쿼리문 -->
+	<select id="selectAccountState" parameterType="String" resultType="String">
+		SELECT
+			account_state
+		FROM account
+		WHERE account_id = #{accountId}
+	</select>
+</mapper>

@@ -108,5 +108,5 @@ public class TextbookService {
 	public void modifyTextbook(Textbook textbook) {
 		logger.debug(textbook.toString());
 		textbookMapper.updateTextbook(textbook);
-	}	
+	}
 }

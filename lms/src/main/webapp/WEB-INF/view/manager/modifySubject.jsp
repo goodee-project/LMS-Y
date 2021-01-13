@@ -108,23 +108,30 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
+		<div class="jumbotron">
+			<div class="container">
+				<h1>과목 정보 수정</h1>
+			</div>
+		</div>
+		
 		<div class="container">
-			<h1>과목 정보 수정</h1>
-			
 			<!-- 과목 정보 입력 -->
 			<div>
 				<form method="post" id="subjectForm" action="${pageContext.request.contextPath}/manager/modifySubject?subjectNo=${modifySubject.subjectNo}">
-					<table border="1">
+					<table class="table">
 						<tr>
 							<td>No.</td>
 							<td>
 								<input type="text" name="subjectNo" value="${modifySubject.subjectNo}" readonly="readonly">
 							</td>
+							<td></td>
 						</tr>
 						<tr>
 							<td>과목명</td>
 							<td>
 								<input type="text" name="subjectName" id="subjectName" value="${modifySubject.subjectName}">
+							</td>
+							<td>
 								<div id="subjectNameMsg"></div>
 							</td>
 						</tr>
@@ -132,6 +139,8 @@
 							<td>총 이수일수</td>
 							<td>
 								<input type="text" name="subjectTotalDay" id="subjectTotalDay" value="${modifySubject.subjectTotalDay}">
+							</td>
+							<td>
 								<div id="subjectTotalDayMsg"></div>
 							</td>
 						</tr>
@@ -139,15 +148,19 @@
 							<td>정보</td>
 							<td>
 								<input type="text" name="subjectInfo" id="subjectInfo" value="${modifySubject.subjectInfo}">
+							</td>
+							<td>
 								<div id="subjectInfoMsg"></div>
 							</td>
 						</tr>
 					</table>
 					
 					<!-- 수정 버튼 -->
-					<button type="button" id="submitBtn">
-						수정
-					</button>
+					<div class="d-flex justify-content-end">
+						<button type="button" id="submitBtn" class="justify-content-end btn btn-outline-success">
+							수정
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

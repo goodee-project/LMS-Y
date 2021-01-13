@@ -104,13 +104,17 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<h1>과목 정보 등록</h1>
-			
+		<div class="jumbotron">
+			<div class="container">	
+				<h1>과목 정보 등록</h1>
+			</div>
+		</div>
+		
+		<div class="container deflex">			
 			<!-- 과목 정보 입력 -->
 			<div>
 				<form method="post" id="subjectForm" action="${pageContext.request.contextPath}/manager/createSubject">
-					<table border="1">
+					<table class="table">
 						<tr>
 							<td>과목명</td>
 							<td>
@@ -134,10 +138,12 @@
 						</tr>
 					</table>
 					
-					<!-- 등록버튼 -->
-					<button type="button" id="submitBtn">
-						등록
-					</button>
+					<!-- 등록 버튼 -->
+					<div class="d-flex justify-content-end">
+						<button type="button" id="submitBtn" class="justify-content-end btn btn-outline-success">
+							등록
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>

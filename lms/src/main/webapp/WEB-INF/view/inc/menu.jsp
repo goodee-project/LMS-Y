@@ -26,9 +26,6 @@
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistrationAll">수강등록</a>
 				</li>
 				<li class="nav-item">
-				  	<a class="nav-link" href="${pageContext.request.contextPath}/#">성적통계</a>
-				</li>
-				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>
 				</li>
 				<li class="nav-item">
@@ -60,9 +57,6 @@
 				</li>
 				<li class="nav-item">
 				    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=1">강사강좌조회</a>
-				</li>
-				<li class="nav-item">
-				  	<a class="nav-link" href="${pageContext.request.contextPath}/#">성적통계</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/lmsNoticeList">LMS 공지사항</a>

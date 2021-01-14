@@ -26,11 +26,11 @@
 			<div>
 				<table class="table d-flex justify-content-end">
 					<tr>
-						<td>등록일자</td>
+						<th>등록일자</th>
 						<td>${textbookDetail.textbookCreateDate}</td>
 					</tr>
 					<tr>
-						<td>수정일자</td>
+						<th>수정일자</th>
 						<td>${textbookDetail.textbookUpdateDate}</td>
 					</tr>
 				</table>
@@ -40,31 +40,31 @@
 			<div>
 				<table class="table">
 					<tr>
-						<td>ISBN</td>
+						<th>ISBN</th>
 						<td>${textbookDetail.textbookISBN}</td>
 					</tr>
 					<tr>
-						<td>교재명</td>
+						<th>교재명</th>
 						<td>${textbookDetail.textbookTitle}</td>
 					</tr>
 					<tr>
-						<td>가격</td>
+						<th>가격</th>
 						<td>${textbookDetail.textbookPrice}원</td>
 					</tr>
 					<tr>
-						<td>저자</td>
+						<th>저자</th>
 						<td>${textbookDetail.textbookWriter}</td>
 					</tr>
 					<tr>
-						<td>출판사</td>
+						<th>출판사</th>
 						<td>${textbookDetail.textbookPublisher}</td>
 					</tr>
 					<tr>
-						<td>출판일</td>
+						<th>출판일</th>
 						<td>${textbookDetail.textbookPublishDate}</td>
 					</tr>
 					<tr>
-						<td>정보</td>
+						<th>정보</th>
 						<td>${textbookDetail.textbookInfo}</td>
 					</tr>
 				</table>

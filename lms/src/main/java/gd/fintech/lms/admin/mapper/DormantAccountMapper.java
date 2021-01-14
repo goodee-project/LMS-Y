@@ -9,6 +9,8 @@ import gd.fintech.lms.manager.vo.Manager;
 import gd.fintech.lms.student.vo.Student;
 import gd.fintech.lms.teacher.vo.Teacher;
 
+// 휴면계정 관리 관련 Mapper
+
 @Mapper
 public interface DormantAccountMapper {
 	// 운영자 휴면계정 목록을 페이징하여 출력

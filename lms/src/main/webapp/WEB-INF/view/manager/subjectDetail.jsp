@@ -26,11 +26,11 @@
 			<div>
 				<table class="table d-flex justify-content-end">
 					<tr>
-						<td>등록일자</td>
+						<th>등록일자</th>
 						<td>${subjectDetail.subjectCreateDate}</td>
 					</tr>
 					<tr>
-						<td>수정일자</td>
+						<th>수정일자</th>
 						<td>${subjectDetail.subjectUpdateDate}</td>
 					</tr>
 				</table>
@@ -40,19 +40,19 @@
 			<div>
 				<table class="table">
 					<tr>
-						<td>No.</td>
+						<th>No.</th>
 						<td>${subjectDetail.subjectNo}</td>
 					</tr>
 					<tr>
-						<td>과목명</td>
+						<th>과목명</th>
 						<td>${subjectDetail.subjectName}</td>
 					</tr>
 					<tr>
-						<td>총 이수일수</td>
+						<th>총 이수일수</th>
 						<td>${subjectDetail.subjectTotalDay}</td>
 					</tr>
 					<tr>
-						<td>정보</td>
+						<th>정보</th>
 						<td>${subjectDetail.subjectInfo}</td>
 					</tr>
 				</table>

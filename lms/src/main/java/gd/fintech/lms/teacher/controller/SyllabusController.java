@@ -3,6 +3,7 @@ package gd.fintech.lms.teacher.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.dto.SyllabusForm;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.teacher.service.SyllabusService;
 import gd.fintech.lms.teacher.vo.Syllabus;
@@ -72,7 +74,7 @@ public class SyllabusController {
 				model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
 				model.addAttribute("lectureDetail", map.get("lectureDetail"));
 				
-				returnValue = "redirect:/manager/managerLectureOne?lectureNo=" + lectureNo;
+				returnValue = "redirect:/manager/managerLectureDetail?lectureNo=" + lectureNo;
 			}
 			// 학생일 경우
 			else if(request.getServletPath().matches("/student/syllabusDetail")) {
@@ -146,10 +148,11 @@ public class SyllabusController {
 	// 입력된 정보로 강의계획서를 작성
 	// 작성된 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서로 이동)
 	@PostMapping("/teacher/createSyllabus")
-	public String createSyllabus(HttpSession session, Syllabus syllabus, int lectureNo) {
-		syllabusService.createSyllabus(session, syllabus, lectureNo);
+	public String createSyllabus(HttpSession session, int lectureNo, SyllabusForm syllabusForm) {
+		logger.debug("서비스 디버그 강의계획서 정보 " + syllabusForm);
+		syllabusService.createSyllabus(session, lectureNo, syllabusForm);
 		
-		return "redirect:/teacher/syllabusDetail?lectureNo=" + syllabus.getLectureNo();
+		return "redirect:/teacher/syllabusDetail?lectureNo=" + syllabusForm.getLectureNo();
 	}
 	
 	// 강사가 강의계획서를 수정할 수 있는 페이지를 출력하는 메소드
@@ -193,10 +196,23 @@ public class SyllabusController {
 	// 입력된 정보로 강의계획서를 수정
 	// 수정된 강의계획서 페이지로 이동(고유번호에 해당하는 강의계획서로 이동)
 	@PostMapping("/teacher/modifySyllabus")
-	public String modifySyllabus(HttpSession session, Syllabus syllabus, int lectureNo) {
-		syllabusService.modifySyllabus(session, syllabus, lectureNo);
+	public String modifySyllabus(HttpSession session, int lectureNo, SyllabusForm syllabusForm) {
+		syllabusService.modifySyllabus(session, lectureNo, syllabusForm);
 		
-		return "redirect:/teacher/syllabusDetail?lectureNo=" + syllabus.getLectureNo();
+		return "redirect:/teacher/syllabusDetail?lectureNo=" + syllabusForm.getLectureNo();
+	}
+	
+	// 강의계획서에 첨부된 파일을 다운로드하는 메소드
+	// 매개변수:
+	// #1. request
+	// #2. response
+	// #3. syllabusFileUUID(강의계획서 첨부파일 UUID)
+	// 리턴값: 없음
+	// 강의계획서에 첨부된 파일을 다운로드받고 다운로드 횟수를 1회 증가
+	@GetMapping(value = {"/teacher/downloadSyllabusFile", "/manager/downloadSyllabusFile", "/student/downloadSyllabusFile"})
+	public void downloadSyllabusFile(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("syllabusFileUUID") String syllabusFileUUID) {
+		syllabusService.downloadQuestionCommentFile(request, response, syllabusFileUUID);
 	}
 	
 	// 강사가 강의계획서에 서명하는 메소드
@@ -229,4 +245,3 @@ public class SyllabusController {
 		return "redirect:/manager/syllabusDetail?lectureNo=" + lectureNo;
 	}
 }
-	

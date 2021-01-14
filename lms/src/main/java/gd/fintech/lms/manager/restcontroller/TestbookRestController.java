@@ -19,9 +19,9 @@ public class TestbookRestController {
 	// 리턴값: 중복(noPass) 또는 중복되지 않음(pass)
 	@PostMapping("/manager/textbookISBNCheck")
 	public String textbookISBNCheck(@RequestParam(value = "textbookISBN", required = true) String textbookISBN) {
-		String ISBNCk = textbookService.getTextbookISBN(textbookISBN);
+		String textbookISBNCk = textbookService.getTextbookISBN(textbookISBN);
 		// 만약 조회된 ISBN이 없다면 pass를 return
-		if(ISBNCk == null) {
+		if(textbookISBNCk == null) {
 			return "Pass";
 		}
 		// 조회된 ISBN이 있다면 noPass를 return

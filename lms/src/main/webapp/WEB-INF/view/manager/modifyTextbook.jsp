@@ -8,10 +8,10 @@
 		<title>교재 정보 수정</title>
 		
 		<!-- jQuery 스크립트 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-            	// 유효성 검사용 정규 표현식
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				// 유효성 검사용 정규 표현식
 				// 가격 정규 표현식
 				let priceCk = /^[0-9]+$/;
 				// 출판일 정규 표현식
@@ -239,48 +239,48 @@
 				<form method="post" id="textbookForm" action="${pageContext.request.contextPath}/manager/modifyTextbook?textbookISBN=${modifyTextbook.textbookISBN}">
 					<table class="table">
 						<tr>
-							<td>ISBN</td>
+							<th>ISBN</th>
 							<td>
 								${modifyTextbook.textbookISBN}
 							</td>
 						</tr>
 						<tr>
-							<td>교재명</td>
+							<th>교재명</th>
 							<td>
 								<input type="text" id="textbookTitle" name="textbookTitle" value="${modifyTextbook.textbookTitle}">
 								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>가격</td>
+							<th>가격</th>
 							<td>
 								<input type="text" id="textbookPrice" name="textbookPrice" value="${modifyTextbook.textbookPrice}">원
 								<div id="textbookPriceMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>저자</td>
+							<th>저자</th>
 							<td>
 								<input type="text" id="textbookWriter" name="textbookWriter" value="${modifyTextbook.textbookWriter}">
 								<div id="textbookWriterMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>출판사</td>
+							<th>출판사</th>
 							<td>
 								<input type="text" id="textbookPublisher" name="textbookPublisher" value="${modifyTextbook.textbookPublisher}">
 								<div id="textbookPublisherMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>출판일</td>
+							<th>출판일</th>
 							<td>
 								<input type="text" id="textbookPublishDate" name="textbookPublishDate" value="${modifyTextbook.textbookPublishDate}">
 								<div id="textbookPublishDateMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>정보</td>
+							<th>정보</th>
 							<td>
 								<input type="text" id="textbookInfo" name="textbookInfo" value="${modifyTextbook.textbookInfo}">
 								<div id="textbookInfoMsg"></div>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.SubjectMapper">
 	<!-- 과목 목록을 페이징하여 출력하는 쿼리문 -->
 	<select id="selectSubjectList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Subject">
@@ -53,6 +51,14 @@
 		WHERE subject_no = #{subjectNo}
 	</select>
 	
+	<!-- 과목명의 중복 여부를 확인하기 위해 과목명을 출력하는 쿼리문 -->
+	<select id="selectSubjectName" parameterType="String" resultType="String">
+		SELECT
+			subject_name
+		FROM subject
+		WHERE subject_name = #{subjectName}
+	</select>
+	
 	<!-- 과목 정보를 입력하는 쿼리문 -->
 	<insert id="insertSubject" parameterType="gd.fintech.lms.manager.vo.Subject">
 		INSERT INTO subject (
@@ -74,7 +80,6 @@
 	<update id="updateSubject" parameterType="gd.fintech.lms.manager.vo.Subject">
 		UPDATE subject
 		SET
-			subject_name = #{subjectName},
 			subject_updatedate = NOW(),
 			subject_totalday = #{subjectTotalDay},
 			subject_info = #{subjectInfo}

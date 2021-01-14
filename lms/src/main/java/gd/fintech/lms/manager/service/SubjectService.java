@@ -85,6 +85,13 @@ public class SubjectService {
 		return subjectDetail;
 	}
 	
+	// 과목명의 중복 여부를 확인하기 위해 과목명을 출력하는 메소드
+	// 매개변수: subjectName(과목명)
+	// 리턴값: 과목명
+	public String getSubjectName(String subjectName) {
+		return subjectMapper.selectSubjectName(subjectName);
+	}
+	
 	// 운영자가 과목 정보를 입력하는 메소드
 	// 매개변수: subject(과목 정보)
 	// 리턴값: 없음

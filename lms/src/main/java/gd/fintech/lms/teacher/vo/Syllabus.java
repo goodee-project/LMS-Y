@@ -1,5 +1,7 @@
 package gd.fintech.lms.teacher.vo;
 
+import java.util.List;
+
 import lombok.Data;
 
 // 강의계획서 vo
@@ -35,4 +37,7 @@ public class Syllabus {
 	
 	// 강의계획서 수정일자
 	private String syllabusUpdateDate;
+	
+	// 강의계획서 첨부파일 목록
+	private List<SyllabusFile> syllabusFileList;
 }

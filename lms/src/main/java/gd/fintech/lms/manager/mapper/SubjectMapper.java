@@ -30,6 +30,11 @@ public interface SubjectMapper {
 	// 리턴값: 과목 고유번호에 해당하는 과목 정보
 	Subject selectSubjectDetail(int SubjectNo);
 	
+	// 과목명의 중복 여부를 확인하기 위해 과목명을 출력
+	// 매개변수: subjectName(과목명)
+	// 리턴값: 과목명에 해당하는 과목명
+	String selectSubjectName(String subjectName);
+	
 	// 과목 정보를 입력
 	// 매개변수: subject(과목 정보)
 	// 리턴값: 변경된 행의 갯수

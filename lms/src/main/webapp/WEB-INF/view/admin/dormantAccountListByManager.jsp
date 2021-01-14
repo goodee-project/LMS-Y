@@ -11,12 +11,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
 			$(document).ready(function() {
-				$('#approveBtn').click(function() {
-					let accountStateActive = confirm('정말 계정을 활성화하시겠습니까?');
+				$('button[name=ActiveBtn]').click(function() {
+					let accountStateActive = confirm('정말 해당계정을 활성화하시겠습니까?');
 					
-					if(accountActivation) {
-						let activeAccountId = $("#ActiveBtn").val();
-						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveManager?accountId=' + activeAccountId);
+					if(accountStateActive) {
+						let activeAccountId = $('button[name=ActiveBtn]').val();
+						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveStudent?accountId=' + activeAccountId);
 						alert('계정 상태가 활성화로 전환되었습니다.');
 					} else {
 						alert('취소하였습니다.');
@@ -74,7 +74,7 @@
 						<tr>
 							<th>아이디</th>
 							<th>이름</th>
-							<th>Email</th>
+							<th>E-mail</th>
 							<th>계정 활성화</th>
 						</tr>
 					</thead>

@@ -57,7 +57,7 @@
 						<td>${managerQueueDetail.accountId}</td>
 					</tr>
 					<tr>
-						<td>Email</td>
+						<td>E-mail</td>
 						<td>${managerQueueDetail.managerEmail}</td>
 					</tr>
 					<tr>

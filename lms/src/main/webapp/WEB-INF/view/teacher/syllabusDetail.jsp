@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>강의계획서 정보</title>
+		<title>${lectureDetail.lectureName} 강의계획서</title>
 		
 		<!-- jQuery 스크립트 -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -44,7 +44,7 @@
 		
 		<div class="jumbotron">
 			<div class="container">
-				<h1>${lectureDetail.lectureName} 강의계획서 정보</h1>
+				<h1>${lectureDetail.lectureName} 강의계획서</h1>
 			</div>
 		</div>
 		
@@ -55,14 +55,14 @@
 					<table class="table d-flex justify-content-end">
 						<tr>
 							<td></td>
-							<td>서명</td>
-							<td>서명일자</td>
+							<th>서명</th>
+							<th>서명일자</th>
 						</tr>
 						<tr>
-							<td>강사</td>
-							<td>
+							<th>강사</th>
+							<td width="150">
 								<c:if test="${accountLevel == 2 && syllabusDetail.syllabusTeacherSign == null && syllabusDetail.accountId == accountId}">
-									<button type="button" id="teacherSignBtn" class="btn btn-outline-success">
+									<button type="button" id="teacherSignBtn" class="btn btn-outline-success btn-sm">
 										서명하기
 									</button>
 								</c:if>
@@ -70,13 +70,13 @@
 									${syllabusDetail.syllabusTeacherSign}
 								</c:if>
 							</td>
-							<td>${syllabusDetail.syllabusTeacherSignDate}</td>
+							<td width="150">${syllabusDetail.syllabusTeacherSignDate}</td>
 						</tr>
 						<tr>
-							<td>운영자</td>
-							<td>
+							<th>운영자</th>
+							<td width="150">
 								<c:if test="${accountLevel == 3 && syllabusDetail.syllabusTeacherSign != null && syllabusDetail.syllabusManagerSign == null}">
-									<button type="button" id="managerSignBtn" class="btn btn-outline-success">
+									<button type="button" id="managerSignBtn" class="btn btn-outline-success btn-sm">
 										서명하기
 									</button>
 								</c:if>
@@ -84,7 +84,7 @@
 									${syllabusDetail.syllabusManagerSign}
 								</c:if>
 							</td>
-							<td>${syllabusDetail.syllabusManagerSignDate}</td>
+							<td width="200">${syllabusDetail.syllabusManagerSignDate}</td>
 						</tr>
 					</table>
 				</c:if>
@@ -93,22 +93,39 @@
 			<!-- 작성일자, 수정일자 -->
 			<div>
 				<table class="table">
-					<c:if test="${accountLevel != 1}">
-						<tr>
-							<td>작성자</td>
-							<td>${syllabusDetail.syllabusWriter}</td>
-						</tr>
-						<tr>
-							<td>작성일자</td>
-							<td>${syllabusDetail.syllabusCreateDate}</td>
-						</tr>
-						<tr>
-							<td>수정일자</td>
-							<td>${syllabusDetail.syllabusUpdateDate}</td>
-						</tr>
-					</c:if>
 					<tr>
-						<td colspan="2">
+						<th>작성자</th>
+						<td>${syllabusDetail.syllabusWriter}</td>
+					</tr>
+					<tr>
+						<th>작성일자</th>
+						<td>${syllabusDetail.syllabusCreateDate}</td>
+					</tr>
+					<tr>
+						<th>수정일자</th>
+						<td>${syllabusDetail.syllabusUpdateDate}</td>
+					</tr>
+					<tr>
+						<th>첨부파일</th>
+						<td>
+							<c:forEach var="syllabusFile" items="${syllabusDetail.syllabusFileList}">
+								<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
+								<c:if test="${syllabusFile.syllabusFileSize > 0}">
+									<a href="${pageContext.request.contextPath}/teacher/downloadSyllabusFile?syllabusFileUUID=${syllabusFile.syllabusFileUUID}">
+										${syllabusFile.syllabusFileOriginal}
+									</a>
+									<span class="small">${syllabusFile.syllabusFileSize} byte / ${syllabusFile.syllabusFileCount}회 다운로드</span>
+									<br>
+								</c:if>
+								<c:if test="${syllabusFile.syllabusFileUUID == null}">
+									첨부된 파일이 없습니다
+								</c:if>
+							</c:forEach>
+						</td>
+					</tr>
+					<tr>
+						<th>내용</th>
+						<td>
 							${syllabusDetail.syllabusContent}
 						</td>
 					</tr>

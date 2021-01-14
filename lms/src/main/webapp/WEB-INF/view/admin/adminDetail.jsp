@@ -30,7 +30,7 @@
 						<td>${adminDetail.accountId}</td>
 					</tr>
 					<tr>
-						<th>Email</th>
+						<th>E-mail</th>
 						<td>${adminDetail.adminEmail}</td>
 					</tr>
 					<tr>

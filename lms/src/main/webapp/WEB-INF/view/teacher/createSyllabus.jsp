@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>강의계획서 작성</title>
+		<title>${lectureDetail.lectureName} 강의계획서 작성</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,7 +14,54 @@
 		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
 		<script>
 			$(document).ready(function() {
-				// SUBMIT 버튼 클릭 시 유효성 검사 실시
+				// 첨부파일 추가버튼에 대한 이벤트 처리를 등록함
+				$('#createSyllabusFile').click(function() {
+					// 첨부파일 프레임의 마지막 부분에 첨부파일 input 태그 및 삭제 버튼을 추가함
+					$('#syllabusFileFrame').append(`
+						<div class="syllabusFileGroup d-flex mt-2 mb-3">
+							<div class="flex-grow-1">
+								<div class="custom-file">
+									<input class="syllabusFile custom-file-input" type="file" name="syllabusFileList">
+									<label class="custom-file-label">클릭하여 파일을 선택해주세요</label>
+								</div>
+							</div>
+							<div class="align-self-center mx-3">
+								<button class="removeSyllabusFile btn btn-outline-danger" type="button">×</button>
+							</div>
+						</div>
+					`);
+
+					// (바로 위의 코드에서 추가한) 첨부파일 태그에 대한 이벤트 처리를 등록함
+					$(".syllabusFile").last().on("change", function() {
+						// 파일명을 가져오고 없을 경우 디폴트 값(파일 선택 메세지)을 가져옴
+						let fileName = $(this).val().split('\\').pop();
+						if (fileName == '') {
+							fileName = '클릭하여 파일을 선택해주세요';
+						}
+
+						// 파일 선택 라벨의 내용을 변경함
+						$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+					});
+					
+					// (바로 위의 코드에서 추가한) 삭제버튼에 대한 이벤트 처리를 등록함
+					let label = $('.custom-file-label').last();
+					$('.removeSyllabusFile').last().click(function(event) {
+						// 삭제 경고창을 띄움으로써 의사를 확인
+						if (label.text() != '클릭하여 파일을 선택해주세요') {
+							let remove = confirm('정말 등록한 파일 "'+label.text()+'" 을(를) 삭제하시겠습니까?');
+							if (remove) {
+								alert('삭제하였습니다');
+							} else {
+								return;
+							}
+						}
+						
+						// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
+						$(event.target).parent().parent().remove();
+					});
+				});
+				
+				// 작성 버튼 클릭 시 유효성 검사 실시
 				$('#submitBtn').click(function() {
 					// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
 					// textarea가 SE2로 바뀐건 맞지만, 실제로는 가상의 에디터를 표시해둔거에 불과하기에
@@ -29,6 +76,14 @@
 						oEditors.getById["syllabusContent"].exec("FOCUS");
 						return;
 					}
+					
+					// 빈 첨부파일 칸이 있을 경우 모두 삭제
+					$('.syllabusFile').each(function(index, element) {
+						if ($(element).val() == '') {
+							// 삭제버튼의 부모(위 코드의 div 태그)를 HTML상에서 완전히 지워버림
+							$(element).parent().remove();
+						}
+					});
 					
 					// 유효성 검사를 만족했을 경우 submit
 					$('#syllabusForm').submit();
@@ -65,14 +120,33 @@
 		<div class="container">
 			<!-- 강의계획서 입력 -->
 			<div>
-				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/createSyllabus">
+				<form method="post" id="syllabusForm" action="${pageContext.request.contextPath}/teacher/createSyllabus" enctype="multipart/form-data">
            			<input type="text" id="lectureNo" name="lectureNo" value="${lectureDetail.lectureNo}" hidden="hidden">
            			
-           			<textarea id="syllabusContent" name="syllabusContent" style="width: 100%"></textarea>
+           			<table class="table">
+           				<tr>
+           					<th>내용</th>
+	           				<td>
+	           					<textarea id="syllabusContent" name="syllabusContent" rows="10" cols="100" style="width:798px; height:312px; display:none;">${syllabusDetail.syllabusContent}</textarea>
+	           				</td>
+						</tr>
+						<tr>
+							<th>첨부파일</th>
+							<td>
+								<div class="mb-3">
+									<button type="button" id="createSyllabusFile" class="justify-content-end btn btn-outline-primary">
+										추가
+									</button>
+								</div>
+								<!-- jQuery로 추가되는 첨부파일 리스트의 틀(Frame) -->
+								<div id="syllabusFileFrame"></div>
+							</td>
+						</tr>
+					</table>
 					
 					<!-- 작성 버튼 -->
 					<div class="d-flex justify-content-end">
-						<button type="button" id="submitBtn" class="justify-content-end btn btn-outline-success">
+						<button type="button" id="submitBtn" class="btn btn-outline-success">
 							작성
 						</button>
 					</div>

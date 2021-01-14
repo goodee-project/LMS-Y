@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.teacher.mapper.SyllabusFileMapper">
+	<!-- 강의계획서 첨부파일 정보를 출력 -->
+	<select id="selectSyllabusFileList" parameterType="String" resultType="gd.fintech.lms.teacher.vo.SyllabusFile">
+		SELECT
+			lecture_no lectureNo,
+			syllabus_file_uuid syllabusFileUUID,
+			syllabus_file_original syllabusFileOriginal,
+			syllabus_file_size syllabusFileSize,
+			syllabus_file_count syllabusFileCount,
+			syllabus_file_createdate syllabusFileCreateDate
+		FROM syllabus_file
+		WHERE syllabus_file_uuid = #{syllabusFileUUID}
+	</select>
+	
+	<!-- 강의계획서 첨부파일을 등록하는 쿼리문 -->
+	<insert id="insertSyllabusFile" parameterType="gd.fintech.lms.teacher.vo.SyllabusFile">
+		INSERT INTO syllabus_file (
+			syllabus_file_uuid,
+			syllabus_file_original,
+			lecture_no,
+			syllabus_file_size,
+			syllabus_file_type,
+			syllabus_file_count,
+			syllabus_file_createdate 
+		) VALUES (
+			#{syllabusFileUUID},
+			#{syllabusFileOriginal},
+			#{lectureNo},
+			#{syllabusFileSize},
+			#{syllabusFileType},
+			0,
+			NOW()
+		)
+	</insert>
+	
+	<!-- 강의계획서 첨부파일을 삭제하는 쿼리문 -->
+	<delete id="deleteSyllabusFile" parameterType="String">
+		DELETE FROM syllabus_file
+		WHERE syllabus_file_uuid = #{syllabusFileUUID}
+	</delete>
+	
+	<!-- 강의계획서 첨부파일 다운로드 시 다운로드 횟수를 1 증가시키는 쿼리문 -->
+	<update id="updateSyllabusFileCountIncrease" parameterType="String">
+		UPDATE syllabus_file
+		SET
+			syllabus_file_count = syllabus_file_count + 1
+		WHERE syllabus_file_uuid = #{syllabusFileUUID}
+	</update>
+</mapper>

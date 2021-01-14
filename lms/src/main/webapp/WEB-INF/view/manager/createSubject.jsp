@@ -11,15 +11,23 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
-                // 유효성 검사용 정규 표현식
-                let totalDayCk = /^[0-9]+$/;
+				// 유효성 검사용 정규 표현식
+				let totalDayCk = /^[0-9]+$/;
+				
+				// name 생성
+				let name = null;
+				// totalDay 생성
+				let totalDay = null;
+				// info 생성
+				let info = null;
                 
 				// 과목명 입력칸에 포커싱
 				$('#subjectName').focus();
-
+				
 				// 과목명 유효성 검사
 				$('#subjectName').blur(function() {
-					let name = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// name에 입력한 과목명 저장
+					name = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
 					if(name == '') {
 						$('#subjectNameMsg').text('과목명을 입력하세요');
@@ -28,11 +36,28 @@
 					} else {
 						$('#subjectNameMsg').text('');
 					}
+					
+					// 과목명 중복 여부 확인
+					$.ajax({
+						url: '${pageContext.request.contextPath}/manager/subjectNameCheck',
+						type: 'post',
+						data: {subjectName:name},
+						success: function(data) {
+							if(data == 'noPass') {
+								$('#subjectNameMsg').text('입력하신 과목명은 이미 등록된 과목명 입니다');
+								$('#subjectName').focus();
+								return;
+							}else {
+								$('#subjectNameMsg').text('');
+							}
+						}
+					});
 				});
 				
 				// 총 이수일수 유효성 검사
 				$('#subjectTotalDay').blur(function() {
-					let totalDay = $('#subjectTotalDay').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// totalDay에 입력한 총 이수일수 저장
+					totalDay = $('#subjectDay').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
 					if(totalDay == '') {
 						$('#subjectTotalDayMsg').text('총 이수일수를 입력하세요');
@@ -49,7 +74,8 @@
             	
 				// 정보 유효성 검사
 				$('#subjectInfo').blur(function() {
-					let info = $('#subjectInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// info에 입력한 정보 저장
+					info = $('#subjectInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
 					if(info == '') {
 						$('#subjectInfoMsg').text('정보를 입력하세요');
@@ -62,6 +88,13 @@
 
 				// 등록 버튼 클릭 시 최종 유효성 검사 및 등록
 				$('#submitBtn').click(function() {
+					// name에 입력한 과목명 저장
+					name = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// totalDay에 입력한 총 이수일수 저장
+					totalDay = $('#subjectTotalDay').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// info에 입력한 정보 저장
+					info = $('#subjectInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					
 					// 과목명 유효성 검사
 					if(name == '') {
 						$('#subjectNameMsg').text('과목명을 입력하세요');
@@ -116,23 +149,23 @@
 				<form method="post" id="subjectForm" action="${pageContext.request.contextPath}/manager/createSubject">
 					<table class="table">
 						<tr>
-							<td>과목명</td>
+							<th>과목명</th>
 							<td>
-								<input type="text" name="subjectName" id="subjectName">
+								<input type="text" id="subjectName" name="subjectName">
 								<div id="subjectNameMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>총 이수일수</td>
+							<th>총 이수일수</th>
 							<td>
-								<input type="text" name="subjectTotalDay" id="subjectTotalDay">
+								<input type="text" id="subjectTotalDay" name="subjectTotalDay">
 								<div id="subjectTotalDayMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>정보</td>
+							<th>정보</th>
 							<td>
-								<input type="text" name="subjectInfo" id="subjectInfo">
+								<input type="text" id="subjectInfo" name="subjectInfo">
 								<div id="subjectInfoMsg"></div>
 							</td>
 						</tr>

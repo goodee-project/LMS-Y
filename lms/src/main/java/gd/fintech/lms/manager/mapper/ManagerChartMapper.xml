@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.manager.mapper.ManagerChartMapper">
+	<!-- 강사와 학생의 수를 각각 출력하는 쿼리문 -->
+	<select id="selectTeacherAndStudentCount" resultType="java.util.Map">
+		SELECT
+			COUNT(*)
+		FROM teacher t
+		left join account a
+		ON t.account_id = a.account_id
+		where a.account_state = '활성화'
+		UNION
+		SELECT
+			COUNT(*)
+		FROM student s
+		left join account a
+		ON s.account_id = a.account_id
+		where a.account_state = '활성화'
+	</select>
+</mapper>

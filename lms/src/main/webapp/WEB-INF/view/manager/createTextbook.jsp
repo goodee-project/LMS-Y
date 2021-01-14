@@ -308,7 +308,7 @@
 				<form method="post" id="textbookForm" action="${pageContext.request.contextPath}/manager/createTextbook">
 					<table class="table">
 						<tr>
-							<td>ISBN</td>
+							<th>ISBN</th>
 							<td>
 								<input type="text" id="textbookISBN" name="textbookISBN" placeholder="예)978-89-509-7122-9">
 							</td>
@@ -317,7 +317,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>교재명</td>
+							<th>교재명</th>
 							<td>
 								<input type="text" id="textbookTitle" name="textbookTitle">
 							</td>
@@ -326,7 +326,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>가격</td>
+							<th>가격</th>
 							<td>
 								<input type="text" id="textbookPrice" name="textbookPrice">원
 							</td>
@@ -335,7 +335,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>저자</td>
+							<th>저자</th>
 							<td>
 								<input type="text" id="textbookWriter" name="textbookWriter">
 							</td>
@@ -344,7 +344,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>출판사</td>
+							<th>출판사</th>
 							<td>
 								<input type="text" id="textbookPublisher" name="textbookPublisher">
 							</td>
@@ -353,7 +353,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>출판일</td>
+							<th>출판일</th>
 							<td>
 								<input type="text" id="textbookPublishDate" name="textbookPublishDate">
 							</td>
@@ -362,7 +362,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>정보</td>
+							<th>정보</th>
 							<td>
 								<input type="text" id="textbookInfo" name="textbookInfo">
 							</td>

@@ -60,7 +60,7 @@
 						<tr>
 							<th>아이디</th>
 							<th>이름</th>
-							<th>Email</th>
+							<th>E-mail</th>
 							<th>핸드폰 번호</th>
 						</tr>
 					</thead>

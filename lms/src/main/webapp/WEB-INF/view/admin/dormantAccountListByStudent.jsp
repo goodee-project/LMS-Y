@@ -12,7 +12,7 @@
         <script>
 			$(document).ready(function() {
 				$('button[name=ActiveBtn]').click(function() {
-					let accountStateActive = confirm('정말 계정을 활성화하시겠습니까?');
+					let accountStateActive = confirm('정말 해당계정을 활성화하시겠습니까?');
 					
 					if(accountStateActive) {
 						let activeAccountId = $('button[name=ActiveBtn]').val();
@@ -74,7 +74,7 @@
 						<tr>
 							<th>아이디</th>
 							<th>이름</th>
-							<th>Email</th>
+							<th>E-mail</th>
 							<th>계정 활성화</th>
 						</tr>
 					</thead>

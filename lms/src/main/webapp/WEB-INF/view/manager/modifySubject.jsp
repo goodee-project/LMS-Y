@@ -9,33 +9,19 @@
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-            	// 유효성 검사용 정규 표현식
-                let totalDayCk = /^[0-9]+$/;
-                
-                // name에 기존에 입력되어 있던 과목명 저장
-                let name = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-                // totalDay에 기존에 입력되어 있던 총 이수일수 저장
-				let totalDay = $('#subjectTotalDay').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-				// info에 기존에 입력되어 있던 정보 저장
-				let info = $('#subjectInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+		<script>
+			$(document).ready(function() {
+				// 유효성 검사용 정규 표현식
+				let totalDayCk = /^[0-9]+$/;
 				
-				// 과목명 유효성 검사
-				$('#subjectName').blur(function() {
-					name = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-					
-					if(name == '') {
-						$('#subjectNameMsg').text('과목명을 입력하세요');
-						$('#subjectName').focus();
-						return;
-					} else {
-						$('#subjectNameMsg').text('');
-					}
-				});
+				// totalDay 생성
+				let totalDay = null;
+				// info 생성
+				let info = null;
 				
 				// 총 이수일수 유효성 검사
 				$('#subjectTotalDay').blur(function() {
+					// totalDay에 입력한 총 이수일수 저장
 					totalDay = $('#subjectTotalDay').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
 					if(totalDay == '') {
@@ -53,6 +39,7 @@
             	
 				// 정보 유효성 검사
 				$('#subjectInfo').blur(function() {
+					// info에 입력한 정보 저장
 					info = $('#subjectInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
 					if(info == '') {
@@ -66,14 +53,10 @@
 
 				// 수정 버튼 클릭 시 최종 유효성 검사 및 등록
 				$('#submitBtn').click(function() {
-					// 과목명 유효성 검사
-					if(name == '') {
-						$('#subjectNameMsg').text('과목명을 입력하세요');
-						$('#subjectName').focus();
-						return;
-					} else {
-						$('#subjectNameMsg').text('');
-					}
+					// totalDay에 입력한 총 이수일수 저장
+					totalDay = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					// info에 입력한 정보 저장
+					info = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
 					// 총 이수일수 유효성 검사
 					if(totalDay == '') {
@@ -120,34 +103,28 @@
 				<form method="post" id="subjectForm" action="${pageContext.request.contextPath}/manager/modifySubject?subjectNo=${modifySubject.subjectNo}">
 					<table class="table">
 						<tr>
-							<td>No.</td>
-							<td>
-								<input type="text" name="subjectNo" value="${modifySubject.subjectNo}" readonly="readonly">
-							</td>
+							<th>No.</th>
+							<td>${modifySubject.subjectNo}</td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>과목명</td>
-							<td>
-								<input type="text" name="subjectName" id="subjectName" value="${modifySubject.subjectName}">
-							</td>
-							<td>
-								<div id="subjectNameMsg"></div>
-							</td>
+							<th>과목명</th>
+							<td>${modifySubject.subjectName}</td>
+							<td></td>
 						</tr>
 						<tr>
-							<td>총 이수일수</td>
+							<th>총 이수일수</th>
 							<td>
-								<input type="text" name="subjectTotalDay" id="subjectTotalDay" value="${modifySubject.subjectTotalDay}">
+								<input type="text" id="subjectTotalDay" name="subjectTotalDay" value="${modifySubject.subjectTotalDay}">
 							</td>
 							<td>
 								<div id="subjectTotalDayMsg"></div>
 							</td>
 						</tr>
 						<tr>
-							<td>정보</td>
+							<th>정보</th>
 							<td>
-								<input type="text" name="subjectInfo" id="subjectInfo" value="${modifySubject.subjectInfo}">
+								<input type="text" id="subjectInfo" name="subjectInfo" value="${modifySubject.subjectInfo}">
 							</td>
 							<td>
 								<div id="subjectInfoMsg"></div>

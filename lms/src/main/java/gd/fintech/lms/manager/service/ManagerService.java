@@ -53,6 +53,7 @@ public class ManagerService {
          try {
             // 파일의 경로 소스
             File file = new File(FilePath.getFilePath()+manager.getManagerImage());
+            
             // 파일 타입 설정
             String contentType = managerMapper.selectManagerImage(accountId).getImageFileType();
 
@@ -81,7 +82,7 @@ public class ManagerService {
          return map;
    }
    // 운영자 정보 수정하기
-   // 매개변수:운영자의 정보
+   // 매개변수:운영자의 정보, 세션, 계정Id
    // 리턴값: 수정된 값
    public boolean modifyManager(ManagerForm managerForm,HttpSession session,String accountId) {
       Manager manager = new Manager();
@@ -145,8 +146,8 @@ public class ManagerService {
          return managerMapper.selectManagerImage(accountId);
       }
       
-      // 학생 이미지 제거
-      // 매개변수:학생의 id
+      // 운영자 이미지 제거
+      // 매개변수: 운영자의 계정 id
       public void removeManagerImage(String accountId) {
          // 파일 제거
          String fileName = FilePath.getFilePath()+accountId;

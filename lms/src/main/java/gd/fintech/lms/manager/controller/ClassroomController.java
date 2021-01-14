@@ -26,7 +26,7 @@ public class ClassroomController{
 	
 	
 	// 강의실 정보를 출력하는 컨트롤러
-	// 매개변수:Model 
+	// 매개변수:Model,현재페이지 
 	// 리턴값: 강의실 리스트 페이지 출력
 	@GetMapping("/manager/classroomList")
 	public String classroomList(Model model, @RequestParam(name="currentPage",defaultValue = "1")int currentPage) {
@@ -63,6 +63,7 @@ public class ClassroomController{
 	
 	
 	// 강의실 정보 수정 폼 
+	// 매개변수: model, 강의실 고유번호
 	// 리턴값: 강의실 정보 입력 액션 
 	@GetMapping("/manager/modifyClassroom")
 	public String modifyClassroom(Model model, 
@@ -74,6 +75,7 @@ public class ClassroomController{
 	}
 	
 	// 강의실 정보 수정 액션 
+	// 매개변수: 강의설 정보 
 	// 리턴값: 입력한 강의실 행의 수정된 페이지
 	@PostMapping("/manager/modifyClassroom")
 	public String modifyClassroom(Classroom classroom) {
@@ -83,6 +85,7 @@ public class ClassroomController{
 	}
 	
 	// 강의실 상세정보
+	// 매개변수: model, 강의실 고유번호
 	// 리턴값: 입력한 classroomNo에 해당하는 강의실 상세정보 
 	@GetMapping("/manager/classroomDetail")
 	public String classroomDetail(Model model,
@@ -95,6 +98,7 @@ public class ClassroomController{
 	}
 	
 	// 강의실 삭제 
+	// 매개변수: 강의실 고유번호
 	// 리턴값: classroomNo에 해당하는 강의실 삭제
 	@GetMapping("/manager/removeClassroom")
 	public String removeClassroom(

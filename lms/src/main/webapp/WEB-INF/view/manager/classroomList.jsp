@@ -26,8 +26,7 @@
   		</div>
 	</div>
 			<div class="container">
-				<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/createClassroom">작성</a>
-				
+				<a class="btn btn-outline-primary mb-5" href="${pageContext.request.contextPath}/manager/createClassroom">추가</a>
 				<table class=table>
 					<tr>
 						<th>No.</th>

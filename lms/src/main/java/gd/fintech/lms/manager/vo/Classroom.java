@@ -20,6 +20,6 @@ public class Classroom {
 	// 강의실 수용 인원
 	private int classroomTotal;
 	
-	//강의실정보
+	// 강의실 정보 리스트
 	private List<Classroom>classroomInfoList;
 }

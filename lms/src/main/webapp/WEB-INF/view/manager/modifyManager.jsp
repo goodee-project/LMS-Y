@@ -56,7 +56,10 @@
                if($('#zipCode').val() == '') {
                   alert('우편번호를 입력하시오');
                      return;
-               }
+               }if ($('#zipCode').val().length != 5) {
+                   alert('5자리를 입력해 주세요');
+                   return;
+               }    
                $.ajax({                      
                      url : '${pageContext.request.contextPath}/address',
                      type : 'get',
@@ -76,10 +79,12 @@
                      }
                  });
             });
-
-            // 작성 버튼 클릭 시 유효성 검사 실시
+       
+            // 작성 버튼 클릭 시 유효성 검사 실시  이메일 폰 이름 직책
             $('#btnId').click(function() {
-               if($('#emailId').val()==''){
+
+               if($('#emailId').val()=='' ||  $('#managerPhone').val()=='' ||  $('#managerName').val()=='' || $('#managerPosition').val()==''
+            	   || $('#managerPosition').val()=='' ||$('#managerBirth').val()=='' ){a
                      alert('입력부분을 다시 확인하세요');
                      return;
                }else{
@@ -105,21 +110,21 @@
                <table class=table>
                   <tr>
                      <td>운영자 아이디</td>
-                     <td><input type="text" name="accountId" value="${map.manager.accountId}" readonly="readonly"></td>
+                     <td><input  class ="form-control col-sm-3" type="text" name="accountId" value="${map.manager.accountId}" readonly="readonly"></td>
                   </tr>
                   <tr>
                      <td>운영자 이메일</td>
-                     <td><input id="emailId" type="text" name="managerEmail" value="${map.manager.managerEmail}">
+                     <td><input class ="form-control col-sm-7"  id="emailId" type="text" name="managerEmail" value="${map.manager.managerEmail}">
                         <div  id="ckEmail"></div>
                      </td>
                   </tr>
                   <tr>
                      <td>운영자 연락처('-'없이 번호만 입력해주세요)</td>
-                     <td><input id="managerPhone" type="text" name="managerPhone" value="${map.manager.managerPhone}"></td>
+                     <td><input class ="form-control col-sm-7"  id="managerPhone" type="text" name="managerPhone" value="${map.manager.managerPhone}"></td>
                   </tr>
                   <tr>
                      <td>운영자 이름</td>
-                     <td><input id="managerName" type="text" name="managerName" value="${map.manager.managerName}"></td>
+                     <td><input class ="form-control col-sm-3" id="managerName" type="text" name="managerName" value="${map.manager.managerName}"></td>
                   </tr>
                   <tr>
                      <td>운영자 성별</td>
@@ -130,11 +135,11 @@
                   </tr>
                   <tr>
                      <td>운영자 생년월일</td>
-                     <td><input id="managerBirth" type="date" name="managerBirth" value="${map.manager.managerBirth}"></td>
+                     <td><input id="managerBirth" type="date" id="managerBirth" name="managerBirth" value="${map.manager.managerBirth}"></td>
                   </tr>
                   <tr>
                      <td>운영자 직책</td>
-                     <td><input id="managerPosition" type="text" name="managerPosition" value="${map.manager.managerPosition}"></td>
+                     <td><input class ="form-control col-sm-3 " id="managerPosition" type="text" name="managerPosition" value="${map.manager.managerPosition}"></td>
                   </tr>
                   <tr>
                <td>메인주소</td>
@@ -146,19 +151,13 @@
                   </div>
                   <div id="addAddr"></div>
                </td>
-               <td></td>
+               
             </tr>
+            
             <tr>
                <td>상세주소</td>
                <td><input class="form-control" type="text" name="managerAddressSub" id="managerAddressSub" value="${map.manager.managerAddressSub}" placeholder="상세 주소를 입력하세요."></td>
-               <td></td>
             </tr>
-                  <tr>
-                     <td>운영자 상세주소</td>
-                     <td><input id="addressSubId"type="text" name="managerAddressSub" value="${map.manager.managerAddressSub}">
-                        <span id="numberMsg"></span>
-                     </td>
-                  </tr>
                   <tr>
                      <td>프로필 사진</td>
                      <td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""
@@ -171,7 +170,7 @@
                   </tr>
                </table>
                  <div class="d-flex justify-content-end">
-                    <button id="btnId" type="button" class="btn btn-outline-primary">수정</button>
+                    <button id="btnId" type="button" class="btn btn-outline-success">수정</button>
                     <a  class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/managerDetail">취소</a>
                  </div>   
             </form>

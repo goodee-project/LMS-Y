@@ -14,11 +14,9 @@
 
 	<!-- 강의실 행의 개수 -->
 	<select id="selectClassroomCount" resultType="int">
-
 		SELECT
 			COUNT(*)
 		FROM classroom
-
 	</select>
 
 
@@ -31,7 +29,6 @@
 			classroom_total classroomTotal
 		FROM classroom
 		WHERE classroom_no = #{classroomNo}
-
 	</select>
 
 
@@ -46,7 +43,6 @@
 			#{classroomSize},
 			#{classroomTotal}
 		)
-
 	</insert>
 
 
@@ -58,16 +54,12 @@
 			classroom_size = #{classroomSize},
 			classroom_total = #{classroomTotal}
 		WHERE classroom_no =#{classroomNo}
-
-
-
 	</update>
 
 	<!-- classroomNo 에 해당하는 강의실 삭제 -->
 	<delete id="deleteClassroom" parameterType="int">
 		Delete FROM classroom
 		WHERE classroom_no = #{classroomNo}
-
 	</delete>
 	
 </mapper>

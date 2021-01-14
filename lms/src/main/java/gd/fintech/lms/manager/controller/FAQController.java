@@ -53,6 +53,7 @@ public class FAQController {
 	}
 
 	// FAQ 작성 폼
+	// 매개변수 model
 	// 리턴값: FAQ 입력 액션
 	@GetMapping("/manager/createFAQ")
 	public String createFAQ(Model model) {
@@ -61,11 +62,9 @@ public class FAQController {
 	return "manager/createFAQ";
 	}
 	
-	
-	// 세션을 가져와서 acountId를 세션에서 가져오고 작성자를 accountID에 해당하는 이름으로 
 	// FAQ 작성 액션 
-	// 매개변수: FAQ 정보
-	// 리턴값:  입력한 FAQ정보를 포함한 FAQList 페이지 출력
+	// 매개변수: FAQ 정보, session
+	// 리턴값: 입력한 FAQ정보를 포함한 FAQList 페이지 출력
 	@PostMapping("/manager/createFAQ")
 	public String createFAQ(FAQ faq, HttpSession session) {
 		faqService.createFAQ(faq,session);
@@ -73,6 +72,7 @@ public class FAQController {
 	}
 	
 	// FAQ 수정 폼
+	// 매개변수: model,  @RequestParam: faqNo(FAQ고유번호)
 	// 리턴값: faqNo에 해당하는 FAQ을 수정하는 페이지 
 	@GetMapping("/manager/modifyFAQ")
 	public String modifyFAQ(Model model, @RequestParam(name="faqNo")int faqNo) {
@@ -85,6 +85,7 @@ public class FAQController {
 	}
 	
 	// FAQ 수정 액션
+	// 매개변수: FAQ 정보
 	// 리턴값: faqNo에 해당하는 FAQ 상세보기 페이지
 	@PostMapping("/manager/modifyFAQ")
 	public String modifyFAQ(FAQ faq) {
@@ -93,6 +94,7 @@ public class FAQController {
 	}
 	
 	// FAQ 상세정보
+	// 매개변수: model, @RequestParam: faqNo(FAQ고유번호)
 	// 리턴값: 입력한 faqNo에 해당하는 FAQ 상세정보 
 	@GetMapping("/manager/FAQDetail")
 	public String faqDetail(Model model,
@@ -118,7 +120,7 @@ public class FAQController {
 	}	
 	
 	// FAQ 삭제
-	// 매개변수: FAQ의 고유번호
+	// 매개변수: @RequestParam: faqNo(FAQ고유번호)
 	// 리턴값: faqNo에 해당하는 FAQ 삭제 
 	@GetMapping("/manager/removeFAQ")
 	public String removeFAQ(

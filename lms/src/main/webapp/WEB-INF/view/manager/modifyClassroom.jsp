@@ -17,7 +17,7 @@
 		    // 버튼을 클릭했을때 공백여부 확인
 			$('#btnId').click(function() {
 				if($('#numberId').val() == '' || $('#sizeId').val() == '' || $('#totalId').val() == '') {
-					alert('다시 확인하세요');
+					alert('누락된 부분이 있는지 확인하세요');
 					return;
 				} else {
 					$('#postId').submit();
@@ -42,33 +42,30 @@
 					<table class=table>
 						<tr>
 							<td>강의실 고유번호</td>
-							<td><input type="text" name="classroomNo"  value="${classroom.classroomNo}" readonly="readonly"></td>
+							<td><input class ="form-control col-sm-4 " type="text" name="classroomNo"  value="${classroom.classroomNo}" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td>강의실 호실</td>
-							<td><input type="text" name="classroomNumber" id="numberId" value="${classroom.classroomNumber}">
+							<td><input class ="form-control col-sm-4 " type="text" name="classroomNumber" id="numberId" value="${classroom.classroomNumber}">
 								<span id="numberMsg"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>강의실 면적 (단위:m<sup>2</sup>)</td>
-						   <td><input type="text" name="classroomSize" id="sizeId" value="${classroom.classroomSize}">
+						   <td><input class ="form-control col-sm-4 " type="text" name="classroomSize" id="sizeId" value="${classroom.classroomSize}">
 						   <span id="sizeMsg"></span>
 						   </td>
 						</tr>
 						<tr>
 							<td>강의실 수용 인원</td>
-							<td><input type="text" name="classroomTotal" id="totalId" value="${classroom.classroomTotal}">
+							<td><input class ="form-control col-sm-4 " type="text" name="classroomTotal" id="totalId" value="${classroom.classroomTotal}">
 								<span id="totalMsg"></span>
 							</td>	
 						</tr>
-						<tr>
-		
-						</tr>
+						
 					</table>
 			  			<div class="text-right">
-							<button class="btn btn-outline-primary" id="btnId" type="button">입력</button>
-			  				<a  class="btn btn-outline-danger" href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${classroom.classroomNo}">취소</a>
+							<button class="btn btn-outline-success" id="btnId" type="button">수정</button>
 						</div>
 				</form>
 			</div>

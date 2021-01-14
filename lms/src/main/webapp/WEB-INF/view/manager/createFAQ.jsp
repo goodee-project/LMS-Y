@@ -79,34 +79,39 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
 		<div class="container">
-			<h1>FAQ 작성</h1>
+			<div class="jumbotron">
+				<h1>자주하는 질문 작성</h1>
+			</div>
 			
 			<div>
 				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/createFAQ">
 					
 				<table class="table">
-					
 					<tr>
-						<td>제목</td>
-						<td><input type="text" id="faqTitleId" name="faqTitle"> 
-							<span id="faqTitleId"></span>
+						<td>
+							<!-- FAQCategory -->
+							<select name="faqCategory" style="width: 100%" class="btn btn-default dropdown-toggle">
+								<c:forEach items="${categoryList}" var="cl">	
+									<option  value="${cl.faqCategory}">${cl.faqCategory}</option>
+								</c:forEach>
+							</select>
+							
 						</td>
 					</tr>
 					
 					<tr>
-						<td>카테고리</td>
-						<td>
-							<select name="faqCategory">
-								<c:forEach items="${categoryList}" var="cl">	
-									<option value="${cl.faqCategory}">${cl.faqCategory}</option>
-								</c:forEach>
-							</select>
+						<td><input class="form-control" placeholder="제목을 입력하여 주세요"  type="text" id="faqTitleId" name="faqTitle"> 
+							<span id="faqTitleId"></span>
 						</td>
+					</tr>
 					
 				</table>
-					내용
-						<textarea id="faqContentId" name="faqContent"></textarea>
-						<button class="btn btn-outline-primary" id= "submitBtn" type="button">입력</button>
+				
+						<textarea id="faqContentId" name="faqContent" style="width: 100%" ></textarea>
+			
+					<div class="form-group d-flex justify-content-end">
+						<button class="btn btn-outline-success" id= "submitBtn" type="button">입력</button>
+					</div>
 				</form>
 			</div>
 		</div>

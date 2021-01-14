@@ -15,6 +15,7 @@ import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
+import gd.fintech.lms.teacher.vo.Teacher;
 
 
 
@@ -30,8 +31,6 @@ public class LectureManagerService {
 	@Autowired private LectureManagerMapper lectureManagerMapper;
 	
 
-	
-	
 		// 강좌 리스트를 보여주는 서비스
 		// 매개변수: 현재 페이지
 		// 리턴값: 현재 페이지의 강좌 리스트
@@ -96,6 +95,10 @@ public class LectureManagerService {
 		return lectureManagerMapper.selectLectureSubjectList();
 	}
 	
+	// 강좌에서 강사 리스트
+	public List<Teacher> getLectureTeacherList(){
+		return lectureManagerMapper.selectLectureTeacherList();
+	}
 	// 강좌의 총 합을 보여주는 서비스
 	// 리턴값: 강좌 개수의 총 합
 	public int getLectureCount(){
@@ -111,14 +114,12 @@ public class LectureManagerService {
 		
 	}
 	
-	
 	// 강좌를 수정하는 서비스
 	// 매개변수: 강좌의 정보 
 	// 리턴값: 입력 받은 정보가 들어간 행 수정 
 	public int modifyLecture(Lecture lecture) {
 		return lectureManagerMapper.updateLecture(lecture);
 	}
-	
 	
 	// 강좌를 삭제하는 서비스
 	// 매개변수: 강좌의 정보 
@@ -133,6 +134,4 @@ public class LectureManagerService {
 	public Lecture getManagerLectureDetail(int lectureNo) {
 		return lectureManagerMapper.selectLectureDetail(lectureNo);
 	}
-	
-
 }

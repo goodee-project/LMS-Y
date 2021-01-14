@@ -29,34 +29,35 @@
 					</tr>
 					
 					<tr>
-						<td>강좌 과목번호</td>
-						<td>${lecture.subjectNo}</td>
+						<td>과목명</td>
+						<td><a href="${pageContext.request.contextPath}/manager/subjectDetail?subjectNo=${lecture.subjectNo}">${lecture.subject.subjectName}</a> </td>
 					</tr>
 					
 					<tr>
-						<td>강사 이름</td>
+						<td>강사명</td>
 						<td>${lecture.teacherName}</td>
 					</tr>
 					
 					<tr>
-						<td>강좌 이름</td>
+						<td>강좌명</td>
 						<td>${lecture.lectureName}</td>
 					</tr>
 					<tr>
-						<td>교재 ISBN</td>
-						<td>${lecture.textbookISBN}</td>
+						<td>교재명</td>
+						<td><a href="${pageContext.request.contextPath}/manager/textbookDetail?textbookISBN=${lecture.textbook.textbookISBN}">${lecture.textbook.textbookTitle}</a></td>
 					</tr>
 					<tr>
 						<td>수강기간</td>
 						<td>${lecture.lectureStartDate} ~ ${lecture.lectureEndDate}</td>
 					</tr>
 					<tr>
+					
 						<td>강좌 정원수</td>
 						<td>${lecture.lectureTotal}명</td>
 					</tr>
 					<tr>
-						<td>강의실 번호</td>
-						<td>${lecture.classroomNo}</td>
+						<td>강의실</td>
+						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${lecture.classroom.classroomNo}">${lecture.classroom.classroomNumber}호실</a></td>
 					</tr>
 				</table>
 				<div>

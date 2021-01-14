@@ -15,7 +15,6 @@
                 // code here...
             });
         </script>
-
 	</head>
 	
 	<body>
@@ -32,11 +31,10 @@
 				<div class="row">
 					<div class="col">
 					
-			<span><a style="height:45px; width:150px;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1">전체</a></span>
+			<span><a style="height:45px; width:150px;" class="btn btn-outline-success mb-3" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1">전체</a></span>
 			<c:forEach items="${categoryList}" var="cl" varStatus="status"> 
 				<td>
-					<a style="height:45px; width:150px;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1&categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
-					
+					<a style="height:45px; width:150px;" class="btn btn-outline-success mb-3" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1&categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
 				</td>
 					<c:if test="${status.count%5 eq 0}"> 
 						<tr>
@@ -47,7 +45,8 @@
 			</div>
 			</div>
 				<div class="container">
-					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/createFAQ">작성</a>
+				<p></p>
+					<a class="btn btn-outline-primary mb-3 " href="${pageContext.request.contextPath}/manager/createFAQ">추가</a>
 				</div>	
 			<div class="container">
 				<table class="table">
@@ -76,7 +75,7 @@
 				<tr>
 					<td colspan="4">
 						<div class="d-flex justify-content-center">
-							해당하는 게시글이 없습니다.
+							등록된 글이 없습니다.
 						</div>
 					</td>
 				</tr>

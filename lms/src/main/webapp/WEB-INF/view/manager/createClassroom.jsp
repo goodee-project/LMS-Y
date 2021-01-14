@@ -20,7 +20,7 @@
                    	// 공백 
 					if($('#numberId').val() ==""){
 						$('#numberId').focus();
-						$('#numberMsg').text("강의실 번호를 입력해주세요");
+						$('#numberMsg').text("강의실 호실을 입력해주세요");
 						return
 						
 					}else{
@@ -62,7 +62,7 @@
 			    // 버튼을 클릭했을때 공백여부 확인
 				$('#btnId').click(function() {
 					if($('#numberId').val() == '' || $('#sizeId').val() == '' || $('#totalId').val() == '') {
-						alert('다시 확인하세요');
+						alert('누락된 부분이 없는지 확인하세요]');
 						return;
 					} else {
 						$('#postId').submit();
@@ -89,21 +89,21 @@
 					
 					<table class="table">
 						<tr>
-								<td>강의실 번호</td>
-								<td><input type="number" name="classroomNumber" id="numberId">
+								<td>강의실 호실</td>
+								<td><input class ="form-control col-sm-4 "  type="number" name="classroomNumber" id="numberId">
 									<span id="numberMsg"></span>
 								</td>
 						</tr>
 						<tr>
 								<td>강의실 면적(단위:m<sup>2</sup>)</td>
-								<td><input type="number" name="classroomSize" id="sizeId">
+								<td><input class ="form-control col-sm-4 "  type="number" name="classroomSize" id="sizeId">
 									<span id="sizeMsg"></span>
 								</td>
 								
 						</tr>
 						<tr>
 								<td>강의실 수용인원</td>
-								<td><input type="number" name="classroomTotal" id="totalId" >
+								<td><input class ="form-control col-sm-4 " type="number" name="classroomTotal" id="totalId" >
 									<span id="totalMsg"></span>
 								</td>
 						</tr>

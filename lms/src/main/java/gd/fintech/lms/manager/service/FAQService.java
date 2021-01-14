@@ -17,7 +17,6 @@ import gd.fintech.lms.manager.mapper.FAQMapper;
 import gd.fintech.lms.manager.mapper.ManagerMapper;
 import gd.fintech.lms.manager.vo.FAQ;
 
-
 // FAQ 를 관리하는 서비스 
 
 @Service
@@ -33,7 +32,7 @@ public class FAQService {
 	@Autowired private ManagerMapper managerMapper;
 	
 	// FAQ 리스트를 보여주는 서비스
-	// 매개변수: 현재 페이지, 보여줄 데이터 개수
+	// 매개변수: 현재 페이지, 카테고리에 해당하는 FAQ 리스트
 	// 리턴값: 현재 페이지의 FAQ 리스트
 	public Map<String, Object> getFAQListByPage(int currentPage, String categoryFaqSearch){
 		//  페이지당 표시되는 데이터 수

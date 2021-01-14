@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>강의실 상세보기</title>
+<title>강의실 정보</title>
 <!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
@@ -28,7 +28,7 @@
 	
 		<div class=container>
 			<div class="jumbotron">
-				<h1>강의실 상세정보</h1>
+				<h1>강의실 정보</h1>
 				
 			</div>
 			<div>
@@ -58,14 +58,11 @@
 						<td>${classroom.classroomTotal}명</td>
 					</tr>
 					
-					<tr>
-						<td class="text-right">
-							<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
-							<a id="delBtnId" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
-						</td>
-					</tr>	
 				</table>
-				
+					<div class="d-flex justify-content-end" >
+						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
+						<a id="delBtnId" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
+					</div>	
 			</div>
 	</body>
 </html>

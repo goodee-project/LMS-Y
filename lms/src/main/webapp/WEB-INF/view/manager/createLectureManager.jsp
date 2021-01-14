@@ -13,36 +13,7 @@
         $(document).ready(function() {
             
         	// 강사 Id 유효성검사
-			$('#teacherId').focus();	
-            $('#teacherId').blur(function(){
-                // 강사id 공백 검사 
-				if($('#teacherId').val() ==""){
-					$('#teacherId').focus();
-					$('#teacherIdMsg').text("강사 id를 입력하여주세요");
-					return
-					
-				}else{
-					
-					$('#teacherIdMsg').text("");
-					
-					}
-				// id가 등록되어있는지 여부 호가인
-				$.ajax({
-					url: '${pageContext.request.contextPath}/accountIdCheck',
-					type: 'post',
-					data: {accountId:$('#teacherId').val()},
-					success: function(data) {
-						if(data != 'noPass') {
-							$('#teacherIdMsg').text('등록되어 있는 id가 아닙니다.');
-							$('#teacherId').focus();
-							return;
-						}else {
-							$('#teacherIdMsg').text('');
-						}
-					}
-				});
-			});
-            		
+			$('#nameId').focus();	
 			// 강사 이름 유효성 검사 
 			$('#nameId').blur(function(){
 				// 강사 이름 공백 검사
@@ -136,23 +107,29 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
-		<div class="container">
-			<h1>강좌 개설</h1>
-			
-			<div>
+		<div class="jumbotron">
+  			<div class="container">
+    			<h1>강좌 개설</h1>
+  			</div>
+		</div>
+			<div class="container">
 				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/createLectureManager">
 				
 				<table class="table"> 
 					<tr>
 						<td>강사 Id</td>							
-						<td><input type="text" name="accountId" id="teacherId">
-							<span id="teacherIdMsg"></span>
+						<td>
+							<select class ="form-control col-sm-4"  name="accountId">
+								<c:forEach items="${teacherList}" var="teacher">	
+									<option value="${teacher.accountId}">${teacher.accountId}</option>
+								</c:forEach>
+							</select>
 						</td>
 					</tr>
 					<tr>
-						<td>과목 이름</td>
+						<td>과목명</td>
 						<td>
-							<select name="subjectNo">
+							<select class ="form-control col-sm-4"  name="subjectNo">
 								<c:forEach items="${subjectList}" var="subject">	
 									<option value="${subject.subjectNo}">${subject.subjectName}</option>
 								</c:forEach>
@@ -161,45 +138,45 @@
 					</tr>
 					<tr>
 						<td>강사 이름</td>							
-						<td><input type="text" name="teacherName" id="nameId">
+						<td><input class ="form-control col-sm-4" type="text" name="teacherName" id="nameId">
 							<span id="nameIdMsg"></span>
 						</td>
 					</tr>
 					<tr>
-						<td>교재 이름</td>							
+						<td>교재명</td>							
 						<td>
-							<select name="textbookISBN">
+							<select class ="form-control col-sm-4" name="textbookISBN">
 								<c:forEach items="${textbookList}" var="textbook">	
-									<option value="${textbook.textbookISBN}">교재이름:${textbook.textbookTitle}</option>
+									<option value="${textbook.textbookISBN}">${textbook.textbookTitle}</option>
 								</c:forEach>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<!-- 교재 리스트  -->
-						<td>강좌 이름</td>							
-						<td><input type="text" name="lectureName" id="lectureNameId" >
+						<td>강좌명</td>							
+						<td><input class ="form-control col-sm-4" type="text" name="lectureName" id="lectureNameId" >
 							<span id="lectureNameIdMsg"></span>
 						</td>
 					</tr>
 					<tr>	
 						<!--  시간설정  -->
 						<td>강좌 시작날짜</td>							
-						<td><input type="date"  name="lectureStartDate" id="startDateId" >
+						<td><input class ="form-control col-sm-4"  type="date"  name="lectureStartDate" id="startDateId" >
 							<span id="startDateIdMsg"></span>
 						</td>
 					</tr>
 					<tr>	
 						<!--  시간설정  -->
 						<td>강좌 종료날짜</td>							
-						<td><input type="date" name="lectureEndDate" id="endDateId" >
+						<td><input class ="form-control col-sm-4"  type="date" name="lectureEndDate" id="endDateId" >
 							<span id="endDateIdMsg"></span>
 						</td>
 					</tr>
 					<tr>	
 						<!-- 숫자만입력 -->
 						<td>강좌 정원</td>							
-						<td><input type="text" name="lectureTotal" id="totalId" >
+						<td><input class ="form-control col-sm-4" type="text" name="lectureTotal" id="totalId" >
 							<span id="totalIdMsg"></span>
 						</td>
 					</tr>
@@ -207,7 +184,7 @@
 					
 						<td>강의실</td>	
 						<td>						
-							<select name="classroomNo">
+							<select class ="form-control col-sm-4"  name="classroomNo">
 								<c:forEach items="${classroomList}" var="c">	
 									<option value="${c.classroomNo}">${c.classroomNumber}</option>
 								</c:forEach>
@@ -215,9 +192,10 @@
 						</td>
 					</tr>
 				</table>
-						<button id="btnId" type="button">입력</button>
+					<div class="d-flex justify-content-end">
+						<button class="btn btn-outline-success" id="btnId" type="button">추가</button>
+					</div>
 				</form>
 			</div>
-		</div>
 	</body>
 </html>

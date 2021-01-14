@@ -17,7 +17,7 @@ public class Manager {
 	// 운영자 이름
 	private String managerName;
 	
-	// 운영자 핸드폰 번호
+	// 운영자 전화번호
 	private String managerPhone;
 	
 	// 운영자 성별 

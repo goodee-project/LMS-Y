@@ -44,7 +44,7 @@
 		
 		<div class="container">
 		<div class="jumbotron">
-			<h1>자주하는 질문 (FAQ)수정</h1>
+			<h1>자주하는 질문 수정</h1>
 		</div>	
 			<div>
 				<form method="post" action="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">
@@ -52,32 +52,29 @@
 				
 					<table class=table  >
 					<tr>
-						<td>FAQ 번호</td>
-						<td><input type="text" name="faqNo" value="${faq.faqNo}" readonly="readonly"></td>
-					</tr>
-					
-					<tr>
-						<td>FAQ 제목</td>
-						<td><input type="text" name="faqTitle" value="${faq.faqTitle}"></td>
-					</tr>
-					
-					<tr>
-						<td>FAQ 카테고리</td>
 						<td>
-							<select name="faqCategory">
+							<!-- FAQCategory -->
+							<select name="faqCategory" style="width: 100%" class="btn btn-default dropdown-toggle">
 								<c:forEach items="${categoryList}" var="cl">	
-									<option value="${cl.faqCategory}">${cl.faqCategory}</option>
+									<option  value="${cl.faqCategory}">${cl.faqCategory}</option>
 								</c:forEach>
 							</select>
+							
 						</td>
 					</tr>
 					
+					<tr>
+						<!-- FAQ no -->
+						<td><input style="width: 10%" class= "form-group btn btn-default dropdown-toggle"  type="text" name="faqNo" value="No.${faq.faqNo}" readonly="readonly">
+						<!-- FAQ제목 -->
+						<input placeholder="제목을 입력하여 주세요"  class= " btn btn-default  form-group" style="width: 70%" type="text" name="faqTitle" value="${faq.faqTitle}"></td>
+					</tr>
+					
 					</table>
-						
-						FAQ 내용
-						<textarea id="faqContentId" name="faqContent">${faq.faqContent}</textarea>
-			  
-			  		<button id= "submitBtn" type="submit">입력</button>
+						<textarea  id="faqContentId" name="faqContent"style="width: 100%" >${faq.faqContent}</textarea>
+	  				<div class="text-right">
+			  			<button class="btn btn-outline-success" id= "submitBtn" type="submit">입력</button>
+			  		</div>
 				</form>
 			</div>
 		</div>

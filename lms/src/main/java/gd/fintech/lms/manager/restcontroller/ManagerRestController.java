@@ -24,5 +24,4 @@ public class ManagerRestController {
 		String managerPwck = managerService.getManagerPassword(accountId, accountPw);
 		return managerPwck;
 	}
-
 }

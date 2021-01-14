@@ -30,6 +30,7 @@
 			
 			<div class="container">
 				<!-- 강좌 테이블 -->
+					<a class="btn btn-outline-primary mb-5" href="${pageContext.request.contextPath}/manager/createLectureManager">추가</a>	
 				<table class="table">
 					<tr>
 						<th>No</th>

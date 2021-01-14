@@ -27,7 +27,7 @@ public class ClassroomService {
 	
 	
 	// 강의실 리스트를 보여주는 서비스
-	// 매개변수: 현재 페이지, 보여줄 데이터 개수
+	// 매개변수: 현재 페이지 
 	// 리턴값: 현재 페이지의 강의실 리스트
 	public Map<String, Object> getClassroomListByPage(int currentPage){
 		//  페이지당 표시되는 데이터 수

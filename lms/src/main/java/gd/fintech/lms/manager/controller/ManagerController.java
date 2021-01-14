@@ -26,15 +26,15 @@ import gd.fintech.lms.manager.vo.AccountImage;
 public class ManagerController {
    //Logger
    private final Logger logger = LoggerFactory.getLogger(ManagerController.class);
-   
+   // 운영자 정보 관련 서비스
    @Autowired private  ManagerService managerService;
    
    
    // 운영자 상세정보
-    // 리턴값: accountId에 해당하는 운영자 상세정보
+   // 리턴값: accountId에 해당하는 운영자 상세정보
    @GetMapping("/manager/managerDetail")
-   public String managerDetail(Model model, HttpServletRequest sseion) {
-      HttpSession session = ((HttpServletRequest)sseion).getSession();
+   public String managerDetail(Model model, HttpServletRequest request) {
+      HttpSession session = ((HttpServletRequest)request).getSession();
       // 세션에 있는 id를 가져온다
       String accountId = (String)session.getAttribute("accountId");
       Map<String,Object> map = managerService.getManagerDetail(accountId);
@@ -45,10 +45,11 @@ public class ManagerController {
    }
    
    // 운영자 정보 수정 폼
+   // 매개변수: model
    // 리턴값: 운영자 정보 수정 액션
    @GetMapping("/manager/modifyManager")
-   public String modifyManager(Model model, HttpServletRequest sseion) {
-      HttpSession session = ((HttpServletRequest)sseion).getSession();
+   public String modifyManager(Model model, HttpServletRequest request) {
+      HttpSession session = ((HttpServletRequest)request).getSession();
       // 세션에 있는 id를 가져온다
       String accountId = (String)session.getAttribute("accountId");
       Map<String, Object> map = managerService.getManagerDetail(accountId);
@@ -76,6 +77,7 @@ public class ManagerController {
    }
    
    // 운영자 이미지 삭제
+   // 리턴값: 이미지가 삭제된 운영자 수정 폼
    @GetMapping("manager/removeManagerFile")
    public String removeStudentFile(Model model,
       @RequestParam(value="accountId")String accountId,HttpServletRequest request) {
@@ -84,7 +86,7 @@ public class ManagerController {
       return "redirect:/manager/modifyManager";
       }
    
-   // 운영자의 비밀번호를 변경 폼
+   // 운영자의 비밀번호 변경 폼
    // 리턴값: 운영자의 pw 수정 액션
    @GetMapping("/manager/modifyManagerPasswd")
    public String modifyManagerPasswd(Model model , HttpServletRequest sseion) {
@@ -96,6 +98,7 @@ public class ManagerController {
    }
    
    // 운영자의 비밀번호를 변경 액션 
+   // 매개변수: 계정 정보
    // 리턴값: 로그아웃
    @PostMapping("/manager/modifyManagerPasswd")
    public String modifyManagerPasswd(Account account) {

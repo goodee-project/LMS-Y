@@ -4,9 +4,10 @@ import java.util.List;
 
 import gd.fintech.lms.student.vo.ClassRegistration;
 import gd.fintech.lms.teacher.vo.Report;
+import gd.fintech.lms.teacher.vo.Teacher;
 import lombok.Data;
 
-//  강좌 vo :  운영자가 개설할 강좌 관련 vo
+//  강좌 vo :  강좌 관련 vo
 
 @Data
 public class Lecture {
@@ -57,6 +58,15 @@ public class Lecture {
 	
 	// 강좌의 강의실 정보 리스트
 	private List<Classroom>classroomInfoList;
+	
+	// 강좌의 강사 리스트
+	private List<Teacher>teacherList;
+	
+	// 강의실 vo 추가
+	private Classroom classroom;
+	
+	// 교재 vo 추가
+	private Textbook textbook;
 	
 	// 강좌의 교재 정보 리스트 
 	private List<Textbook>textbookInfoList;

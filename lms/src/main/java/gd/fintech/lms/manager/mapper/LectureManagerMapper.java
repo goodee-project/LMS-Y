@@ -9,13 +9,14 @@ import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
+import gd.fintech.lms.teacher.vo.Teacher;
 
 // 운영자의 강좌에 대한 메퍼 인터페이스
 
 @Mapper
 public interface LectureManagerMapper {
 	// 강좌 리스트
-	// 매개변수:  
+	// 매개변수: Map 
 	// 리턴값: 강좌의 목록
 	List<Lecture> selectLectureListByPage(Map<String, Object> map);  
 	
@@ -30,6 +31,10 @@ public interface LectureManagerMapper {
 	// 강좌에서의 과목 리스트
 	// 리턴값: 과목 목록
 	List<Subject> selectLectureSubjectList();
+	
+	// 강좌에서의 강사 리스트
+	// 리턴값: 강사 목록
+	List<Teacher> selectLectureTeacherList();
 	
 	// 강좌 개수
 	// 리턴값: 행의 총 개수
@@ -59,5 +64,4 @@ public interface LectureManagerMapper {
 	// 매개변수: accountId
 	// 리턴값: accountId에 해당하는 강좌 리스트
 	List<Lecture> selectTeacherLectureDetail(String accountId);
-
 }

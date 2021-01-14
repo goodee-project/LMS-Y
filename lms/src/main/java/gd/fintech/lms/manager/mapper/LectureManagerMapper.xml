@@ -14,14 +14,13 @@
 			lecture_total lectureTotal
 		FROM lecture
 		LIMIT #{beginRow},#{rowPerPage}
-
 	</select>
+	
 	<!-- 총 강좌 수 -->
 	<select id="selectLectureCount" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM lecture
-
 	</select>
 
 	<!-- 강좌에서의 강의실 정보 -->
@@ -30,7 +29,6 @@
 			classroom_no classroomNo,
 			classroom_number classroomNumber
 		FROM classroom
-
 	</select>
 	
 	<!-- 강좌에서의 교재 정보 -->
@@ -39,7 +37,12 @@
 			textbook_isbn textbookISBN,
 			textbook_title textbookTitle
 		FROM textbook
-
+	</select>
+	
+	<!-- 강좌에서의 강사 정보 -->
+	<select id="selectLectureTeacherList" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.Teacher">
+		SELECT account_id accountId
+		FROM teacher
 	</select>
 
 	<!-- 강좌에서의 과목 정보 -->
@@ -48,7 +51,6 @@
 			subject_no subjectNo,
 			subject_name subjectName
 		FROM subject
-
 	</select>
 
 	<!-- 강좌 개설 -->
@@ -79,7 +81,6 @@
 			NOW()
 
 		)
-
 	</insert>
 
 	<!-- 강좌 수정 -->
@@ -97,7 +98,6 @@
 			classroom_no =#{classroomNo},
 			lecture_updatedate = NOW()
 		WHERE lecture_no =#{lectureNo}
-
 	</update>
 
 	<!-- accountId로 불러오는 강좌 정보 -->
@@ -112,7 +112,6 @@
 			lecture_updatedate lectureUpdateDate
 		FROM lecture
 		WHERE account_id =#{accountId}
-
 	</select>
 
 	<!-- 강좌정보 및 강의실정보 및 과목정보 및 교재정보를 출력하는 쿼리를 위한 resultMap -->
@@ -128,21 +127,22 @@
 		<result property="lectureTotal" column="lecture_total" />
 		<result property="classroomNo" column="classroom_no" />
 		<result property="lectureCreateDate" column="lecture_createdate" />
-		<result property="lectureUpdateDate" column="lecture_updatedate" />
-			<collection property="subjectInfoList" ofType="gd.fintech.lms.manager.vo.Subject">
+		<result property="lectureUpdateDate" column="lecture_updatedate" />		
+			<collection property="subject" ofType="gd.fintech.lms.manager.vo.Subject">
 				<result property="subjectNo" column="subject_no" />
 				<result property="subjectName" column="subject_name" />
 			</collection>
-				<collection property="classroomInfoList" ofType="gd.fintech.lms.manager.vo.Classroom">
+				<collection property="classroom" ofType="gd.fintech.lms.manager.vo.Classroom">
 					<result property="classroomNo" column="classroom_no" />
 					<result property="classroomNumber" column="classroom_number" />
 				</collection>
-					<collection property="textbookInfoList" ofType="gd.fintech.lms.manager.vo.Textbook">
+					<collection property="textbook" ofType="gd.fintech.lms.manager.vo.Textbook">
 						<result property="textbookISBN" column="textbook_isbn" />
 						<result property="textbookTitle" column="textbook_title" />
 						<result property="textbookWriter" column="textbook_writer" />
 						<result property="textbookPrice" column="textbook_price" />
 					</collection>
+						
 	</resultMap>
 	<select id="selectLectureDetail" parameterType="int" resultMap="resultLectureDetail">
 		SELECT
@@ -170,5 +170,4 @@
 				ON l.classroom_no = c.classroom_no
 		WHERE l.lecture_no = #{lectureNo}
 	</select>
-
 </mapper>

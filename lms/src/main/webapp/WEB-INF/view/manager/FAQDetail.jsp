@@ -28,51 +28,34 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
 		<div class=container>
-		<h1>자주하는 질문 상세보기</h1>
+			<div class="jumbotron">
+				<h1>자주하는 질문 상세보기</h1>
+			</div>	
 			<a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList">목록</a>
 		</div>	
 		<div class=container>
 			
-				<table class="table">
+				<table class="table table-striped ">
 				  
 				   <tr>
-						<td>FAQ 번호</td>
-						<td>${faq.faqNo}</td>
-					</tr>
-				   	<tr>
-						<td>FAQ 카테고리</td>
-						<td><a href="${pageContext.request.contextPath}/manager/FAQList?categoryFaqSearch=${faq.faqCategory}">${faq.faqCategory}</a></td>
+						<!--FAQ카테고리,FAQ 제목>-->
+						<th style="font-size:20px; width: 100%">[${faq.faqCategory}]${faq.faqTitle}</th>
 					</tr>
 					<tr>
-						<td>FAQ 제목</td>
-						<td>${faq.faqTitle}</td>
+						<!-- FAQ 작성자, 조회 ,수정 날짜-->
+						<th><pre>${faq.faqWriter}    <span class="col-md-8" >조회:${faq.faqCount}  ${faq.faqUpdateDate}</span></pre></th>
+					</tr>
+					<tr >
+						<!--  FAQ 내용  -->
+						<td  height="150" class="viewcon" >${faq.faqContent}</td>
 					</tr>
 					<tr>
-						<td>FAQ 작성자</td>
-						<td>${faq.faqWriter}</td>
-					</tr>
-					<tr>
-						<td>FAQ 내용</td>
-						<td>${faq.faqContent}</td>
-					</tr>
-					
-					<tr>
-						<td>FAQ 작성날짜</td>
-						<td>${faq.faqCreateDate}</td>
-					</tr>
-					<tr>
-						<td>FAQ 수정날짜</td>
-						<td>${faq.faqUpdateDate}</td>
-					</tr>
-					<tr>
-						<td>FAQ 조회수</td>
-						<td>${faq.faqCount}</td> 
 					</tr>
 				</table>
+						<div class="d-flex justify-content-end" >
+							<a id="testBtnId" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
+							<a id="delBtnId" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
+						</div>
 			</div>
-		<div class="d-flex justify-content-end">
-			<a id="testBtnId" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
-			<a id="delBtnId" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
-		</div>	
 </body>
 </html>

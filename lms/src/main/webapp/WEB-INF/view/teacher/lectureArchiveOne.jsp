@@ -9,10 +9,8 @@
 <body>
 	<!-- 부트스트랩(CSS) 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-
-	<!-- 강좌 메뉴 인클루드 -->	
+	<!-- 강좌 메뉴 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
-	
 		<div class="jumbotron">
 			<div class="container">
 				<h1>자료실 상세보기</h1>
@@ -62,7 +60,7 @@
 				</c:forEach>
 		</table>
 		<div align="right">
-			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyLectureArchive?lectureArchiveNo=${param.lectureArchiveNo}">수정</a>
+			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyLectureArchive?lectureNo=${param.lectureNo}&&lectureArchiveNo=${param.lectureArchiveNo}">수정</a>
 		</div>
 	</div>
 </body>

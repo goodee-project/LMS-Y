@@ -50,7 +50,7 @@
 						<c:forEach var="ln" items="${lectureNoticeList}">
 							<tr>
 								<td>${ln.lectureNoticeNo}</td>
-								<td><a href="${pageContext.request.contextPath}/teacher/lectureNoticeOne?lectureNoticeNo=${ln.lectureNoticeNo}">${ln.lectureNoticeTitle}</a></td>
+								<td><a href="${pageContext.request.contextPath}/teacher/lectureNoticeOne?lectureNo=${lectureNo}&&lectureNoticeNo=${ln.lectureNoticeNo}">${ln.lectureNoticeTitle}</a></td>
 								<td>${ln.lectureNoticeCreateDate}</td>
 								<td colspan="1">${ln.lectureNoticeCount}</td>
 							</tr>
@@ -82,7 +82,7 @@
 									<c:if test="${i <= lastPage}">
 										<c:choose>
 											<c:when test="${i == currentPage}">
-											<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+											<li class="page-item active"><a class="page-link" href="#">${i}</a></li>
 											</c:when>
 											<c:otherwise>
 											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureNotice?lectureNo=${lectureNo}&currentPage=${i}">${i}</a></li>
@@ -135,7 +135,7 @@
 									<c:if test="${i <= lastPage}">
 										<c:choose>
 											<c:when test="${i == currentPage}">
-												<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+												<li class="page-item active"><a class="page-link" href="#">${i}</a></li>
 											</c:when>
 											<c:otherwise>
 												<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${i}&&lectureNoticeSearch=${lectureNoticeSearch}">${i}</a></li>

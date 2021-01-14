@@ -8,26 +8,27 @@
 <meta charset="UTF-8">
 <title>내 질문리스트</title>
 
-<!-- jQuery 스크립트 -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-	$(document).ready(function() {
-		// 폼 유효성 검사
-		// code here...
-	});
-</script>
-</head>
 
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-
+	
 	<div class="container">
 		<h1>${accountId}님의보기</h1>
+		<!-- studentMyQuestionSearch -->
+		<form action="${pageContext.request.pathInfo}" method="get">
+			<input type="hidden" name="accountId" value="${accountId}">
+			<input type="hidden" name="currentPage" value="1">
+			<div class="justify-content-end mb-3 input-group">
+				<input class="form-control col-sm-2" type="text" name="studentMyQuestionSearch" value="${studentMyQuestionSearch}" placeholder="Search">
+				<div class="input-group-append">
+						<button class="btn btn-success" type="submit">버튼</button>
+				</div>
+			</div>
+		</form>
 		<table class="table">
 			<tr>
-				<th>질문 번호</th>
+				<th>질문 No.</th>
 				<th>제목</th>
 				<th>생성날짜</th>
 				<th>수정날짜</th>
@@ -36,12 +37,16 @@
 				<c:forEach var="myq" items="${questionList}">
 					<tr>
 						<td>${myq.questionNo}</td>
-						<td><a href="${pageContext.request.contextPath}/student/studentQuestionOne?questionNo=${myq.questionNo}&&accountId=${accountId}">${myq.questionTitle}</a></td>
+						<td><a href="${pageContext.request.contextPath}/student/studentQuestionDetail?questionNo=${myq.questionNo}&&accountId=${accountId}">${myq.questionTitle}</a></td>
 						<td>${myq.questionCreateDate}</td>
 						<td>${myq.questionUpdateDate}</td>
 						<td>${myq.questionCount}</td>
 					</tr>
 				</c:forEach>
+				<tr>
+					<td><a href="${pageContext.request.contextPath}/student/studentQuestionList">전체 질문보기</a></td>
+					<td><a href="${pageContext.request.contextPath}/student/createStudentQuestion?questionNo=${questionNo}">질문 추가</a></td>
+				</tr>
 			</tbody>
 		</table>
 		<c:if test="${null eq question}">

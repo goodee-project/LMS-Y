@@ -23,9 +23,19 @@
 		
 	<div class="container">
 		<h1>전체 질문 게시판</h1>
+		<!-- studentQuestionSearch -->
+		<form action="${pageContext.request.pathInfo}" method="get">
+			<input type="hidden" name="currentPage" value="1">
+			<div class="justify-content-end mb-3 input-group">
+				<input class="form-control col-sm-2" type="text" name="studentQuestionSearch" value="${studentQuestionSearch}" placeholder="Search">
+				<div class="input-group-append">
+						<button class="btn btn-success" type="submit">버튼</button>
+				</div>
+			</div>
+		</form>
 		<table class="table ">
 			<tr>
-				<th>질문 번호</th>
+				<th>질문 No.</th>
 				<th>학생 Id</th>
 				<th>강좌 번호</th>
 				<th>작성자 이름</th>

@@ -42,7 +42,7 @@ public class StudentController {
 	}	
 	
 	//학생정보 수정 폼
-	@GetMapping("student/studentModify")
+	@GetMapping("student/modifyStudent")
 	public String getStudentModify(Model model,HttpServletRequest request) {
 		
 		//세션 가져오기
@@ -57,11 +57,11 @@ public class StudentController {
 		model.addAttribute("session",session);
 		model.addAttribute("accountId",accountId);
 		model.addAttribute("map",map);
-		return "/student/studentModify";
+		return "/student/modifyStudent";
 	}
 	
 	//학생정보 수정 액션
-	@PostMapping("student/studentModify")
+	@PostMapping("student/modifyStudent")
 	public String getStudentModify(StudentForm studentForm,HttpServletRequest request) {
 		//세션 가져오기
 		HttpSession session =((HttpServletRequest)request).getSession();
@@ -81,20 +81,20 @@ public class StudentController {
 	}
 	
 	//학생 비밀번호 수정 폼
-	@GetMapping("student/studentPwModify")
+	@GetMapping("student/modifyStudentPw")
 	public String modifyStudentPw(HttpServletRequest request,Model model) {
 		//세션 가져오기
 		HttpSession session =((HttpServletRequest)request).getSession();
 		//Id를 가져오기
 		String accountId =(String)session.getAttribute("accountId");
 		model.addAttribute("accountId",accountId);
-		return "student/studentPwModify";
+		return "student/modifyStudentPw";
 	}
 	
 	//학생 비밀번호 수정 액션
-	@PostMapping("student/studentPwModify")
+	@PostMapping("student/modifyStudentPw")
 	public String modifyStduentPw(Account account) {
 		studentService.modifyStudentPw(account);
-		return "redirect:logout";
+		return "redirect:/logout";
 	}
 }

@@ -49,22 +49,22 @@ public interface QuestionMapper {
 	//학생들이 질문한 갯수
 	//매개변수:질문의 번호 
 	//리턴값: 학생들의 모든 질문 갯수
-	int selectQuestionCount(String questionSearch);
+	int selectQuestionCount(String studentQuestionSearch);
 	
 	//해당 학생이 질문한 갯수
 	//매개변수:학생의 id
 	//리턴값:해당 학생의 질문 갯수
-	int studentQuestionCount(String accountId);
+	int studentQuestionCount(String accountId,String studentMyQuestionSearch);
 	
 	//강좌 질문 갯수
 	//매개변수:
 	//리턴값:
-	int lectureQuestionCount(int lectureNo);
+	int lectureQuestionCount(int lectureNo,String studentLectureSearch);
 	
 	//질문의 조회수 증가
 	//매개변수:질문의 번호
 	//리턴값:해당 번호의 질문 조회수 1씩증가
-	int increaseQuestionCount(int questionNo);
+	int increaseQuestionCount(int questionNo); 
 	
 	
 }

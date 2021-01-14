@@ -23,7 +23,7 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<td>강좌 번호</td>
+						<td>강좌 No.</td>
 						<td>강사 이름</td>
 						<td>강좌 이름</td>
 						<td>과목 이름</td>

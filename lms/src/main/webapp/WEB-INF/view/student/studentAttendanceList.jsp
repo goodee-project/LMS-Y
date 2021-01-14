@@ -33,7 +33,7 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<td>날짜</td>
+					<td>출석 날짜</td>
 					<td>강좌 번호</td>
 					<td>계정 id</td>
 					<td>출석 상태</td>

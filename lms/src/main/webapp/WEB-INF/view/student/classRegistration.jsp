@@ -27,7 +27,7 @@
 		<h1>학생수강목록</h1>
 		<table class="table">
 			<tr>
-				<th>강좌 번호</th>
+				<th>강좌 No.</th>
 				<th>강사 이름</th>
 				<th>과목 이름</th>
 				<th>수강 상태</th>

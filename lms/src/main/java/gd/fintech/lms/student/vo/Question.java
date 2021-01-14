@@ -46,6 +46,6 @@ public class Question {
 	private List<QuestionComment>questionComment;
 	
 	//질문게시판 강사의 파일
-	private List<QuestionCommentFile>questionCommnetFile;
+	private List<QuestionCommentFile>questionCommentFile;
 	
 }

@@ -17,7 +17,7 @@
 		</div>
 		<div class=container>
 			<div class="imagediv"><img src="${map.imageURI}" class="rounded-circle" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""  width="200px" height="200px" /></div>
-			<a href="${pageContext.request.contextPath}/student/studentModify?accountId=${accountId}">[수정]</a>
+			<a href="${pageContext.request.contextPath}/student/modifyStudent?accountId=${accountId}">[수정]</a>
 				<table class="table">
 				
 					<tr>
@@ -27,7 +27,7 @@
 					
 					<tr>
 						<td>비밀번호</td>
-						<td><a href="${pageContext.request.contextPath}/student/studentPwModify">비밀번호변경</a></td>
+						<td><a href="${pageContext.request.contextPath}/student/modifyStudentPw">비밀번호변경</a></td>
 					</tr>
 			
 					<tr>

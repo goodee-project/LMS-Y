@@ -104,7 +104,7 @@ public class StudentService {
 					//물리적 파일을 생성(하드 디스크)
 					String fileName = FilePath.getFilePath()+fileNameUUID;
 					sf.transferTo(new File(fileName));
-					
+					logger.debug("fileName"+fileName);
 					
 				}catch(Exception e) {
 					//해당 파일 생성 실패시
@@ -122,11 +122,13 @@ public class StudentService {
 				accountImage.setImageFileSize(sf.getSize());
 				accountImage.setImageFileOriginal(sf.getOriginalFilename());
 				accountImage.setImageFileType(sf.getContentType());
+				studentMapper.insertStudentImage(accountImage);
+				studentMapper.updateStudentImage(accountId, fileNameUUID);
 				//학생 이미지 조회 null 일시
 				if(studentMapper.selectStudentImage(accountId)==null) {
-					studentMapper.insertStudentImage(accountImage);
+					
 					if(studentMapper.selectStudentImage(accountId)!=null) {
-						studentMapper.updateStudentImage(accountId, fileNameUUID);
+						
 					}
 				}
 			}

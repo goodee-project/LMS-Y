@@ -24,18 +24,19 @@ public class QuestionService {
 	
 	@Autowired QuestionMapper questionMapper;
 	@Autowired StudentMapper studentMapper;
+	 
 	
 	//학생들의 질문 리스트 페이징 
 	//매개변수:lectureNo , rowPerPage 
 	//리턴값:질문게시판의 페이징 값 ,강좌에 대한 모든 학생들의 질문
-	public Map<String,Object> getQuestionListByPage(String questionSearch,int currentPage){
+	public Map<String,Object> getQuestionListByPage(String studentQuestionSearch,int currentPage){
 		
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 		
 		//전체 페이지 갯수
-		int questionCount = questionMapper.selectQuestionCount(questionSearch);
+		int questionCount = questionMapper.selectQuestionCount(studentQuestionSearch);
 		logger.debug(questionCount+"질문갯수");
 		// 마지막 페이지
 		int lastPage = questionCount / rowPerPage;
@@ -65,7 +66,7 @@ public class QuestionService {
 		Map<String,Object>parmMap = new HashMap<>();
 		parmMap.put("rowPerPage", rowPerPage);
 		parmMap.put("beginRow", beginRow);
-		parmMap.put("questionSearch", questionSearch);
+		parmMap.put("studentQuestionSearch", studentQuestionSearch);
 		
 		//담아주기
 		List<Question> questionAllList = questionMapper.selectQuestionListByPage(parmMap);
@@ -83,13 +84,13 @@ public class QuestionService {
 	//해당 학생의 질문 리스트
 	//매개변수:해당 학생의 id
 	//리턴값:해당 학생의 질문 리스트
-	public Map<String,Object> getStudentQuestionListByPage(String accountId,int currentPage){
+	public Map<String,Object> getStudentQuestionListByPage(String accountId,int currentPage,String studentMyQuestionSearch){
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 				
 		//전체 페이지 갯수
-		int questionCount = questionMapper.studentQuestionCount(accountId);
+		int questionCount = questionMapper.studentQuestionCount(accountId,studentMyQuestionSearch);
 		int lastPage = questionCount / rowPerPage;
 		
 		// 10 미만의 개수의 데이터가 있는 페이지 표시
@@ -118,7 +119,7 @@ public class QuestionService {
 		parmMap.put("rowPerPage", rowPerPage);
 		parmMap.put("beginRow", beginRow);
 		parmMap.put("accountId", accountId);
-		parmMap.put("questionCount", questionCount);
+		parmMap.put("studentMyQuestionSearch", studentMyQuestionSearch);
 		//담아주기
 		List<Question>questionList = questionMapper.selectStudentQuestionListByPage(parmMap);
 		logger.debug(questionList.toString());
@@ -135,13 +136,13 @@ public class QuestionService {
 	//해당 강좌의 질문리스트
 	//매개변수:강좌의 번호
 	//리턴값:해당 강좌의 질문 리스트
-	public Map<String,Object> getLectureQuestionListByPage(int lectureNo,int currentPage){
+	public Map<String,Object> getLectureQuestionListByPage(int lectureNo,int currentPage,String studentLectureSearch){
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage-1)*rowPerPage;
 				
 		//전체 페이지 갯수
-		int questionCount = questionMapper.lectureQuestionCount(lectureNo);
+		int questionCount = questionMapper.lectureQuestionCount(lectureNo,studentLectureSearch);
 		int lastPage = questionCount / rowPerPage;
 			
 		// 10 미만의 개수의 데이터가 있는 페이지 표시
@@ -170,6 +171,7 @@ public class QuestionService {
 		parmMap.put("rowPerPage", rowPerPage);
 		parmMap.put("beginRow", beginRow);
 		parmMap.put("lectureNo",lectureNo);
+		parmMap.put("studentLectureSearch",studentLectureSearch);
 		//담아주기
 		List<Question>questionList = questionMapper.selectLectureQuestionListByPage(parmMap);
 		logger.debug(questionList.toString());
@@ -217,7 +219,6 @@ public class QuestionService {
 		return questionMapper.insertQuestion(question);
 	}
 
- 
 	//학생의 질문 조회수 증가
 	//매개변수:질문의 번호
 	//리턴값:해당 질문의 조회수증가

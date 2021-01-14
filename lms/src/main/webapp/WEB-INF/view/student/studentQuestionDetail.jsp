@@ -17,7 +17,7 @@
 	</div>
 	<div class="container">
 		<a
-			href="${pageContext.request.contextPath}/student/studentQuestionModify?questionNo=${question.questionNo}">[수정]</a>
+			href="${pageContext.request.contextPath}/student/modifyStudentQuestion?questionNo=${question.questionNo}">[수정]</a>
 		<a
 			href="${pageContext.request.contextPath}/student/removeQuestion?questionNo=${question.questionNo}">[삭제]</a>
 		<table class="table">
@@ -55,16 +55,21 @@
 				<td>생성 날짜 :</td>
 				<td>${question.questionCreateDate}</td>
 			</tr>
-			
-			<tr>
-				<td>댓글 내용 :</td>
-				<td>${question.questionComment}
-			</tr>
-			
-			<tr>
-				<td>첨부파일 :</td>
-				<td>${question.questionCommnetFile}</td>
-			</tr>
+				
+				<tr>
+					<td>댓글 내용 :</td>
+					
+					<td>${question.questionComment}</td>
+					
+				</tr>
+				
+				<tr>
+					<td>첨부파일 :</td>
+				
+					<td>${question.questionCommentFile}</td>
+					
+				</tr>
+				
 		</table>
 	</div>
   

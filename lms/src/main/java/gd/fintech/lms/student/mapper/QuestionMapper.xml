@@ -14,6 +14,9 @@
 			question_updatedate questionUpdateDate,
 			question_count questionCount
 		FROM question
+		<if test='studentLectureSearch !=null'>
+				question_title LIKE CONCAT('%',#{studentQuestionSearch},'%')
+		</if>
 		ORDER BY question_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -31,7 +34,14 @@
 			question_updatedate questionUpdateDate,
 			question_count questionCount
 		FROM question
-		WHERE account_id=#{accountId} 
+		<where>
+			account_id=#{accountId}
+			<if test='studentQuestionSearch !=null'>
+				AND(
+					question_title LIKE CONCAT('%',#{studentQuestionSearch},'%')
+				)
+			</if>
+		</where>  
 		ORDER BY question_no DESC
 		LIMIT #{beginRow},#{rowPerPage}
 	</select>
@@ -49,7 +59,14 @@
 			question_updatedate questionUpdateDate,
 			question_count questionCount
 		FROM question
-		WHERE lecture_no=#{lectureNo}
+		<where>
+			lecture_no=#{lectureNo}
+			<if test='studentLectureSearch !=null'>
+				AND(
+					question_title LIKE CONCAT('%',#{studentLectureSearch},'%')
+				)
+			</if>
+		</where> 
 		ORDER BY question_no DESC
 		LIMIT #{beginRow} ,#{rowPerPage}
 	</select>
@@ -59,6 +76,11 @@
 		SELECT 
 			COUNT(*) 
 		FROM question
+		<if test='studentLectureSearch !=null'>
+			AND(
+				question_title LIKE CONCAT('%',#{studentQuestionSearch},'%')
+			)
+		</if>
 	</select>
 	
 	<!-- 해당 학생의 질문 갯수 -->
@@ -66,15 +88,29 @@
 		SELECT 
 			COUNT(*) 
 		FROM question
-		ORDER BY account_id=#{accountId}
+		<where>
+			account_id = #{accountId}
+		<if test='studentMyQuestionSearch !=null'>
+			AND(
+				question_title LIKE CONCAT('%',#{studentMyQuestionSearch},'%')
+			)
+		</if>
+		</where>	
 	</select>
 	
 	<!-- 해당 강좌의 학생 질문 갯수 -->
 	<select id="lectureQuestionCount" resultType="int">
 		SELECT 
-			COUNT(*) 
+			COUNT(*) questionCount
 		FROM question
-		ORDER BY lecture_no=#{lectureNo}
+		<where>
+			lecture_no=#{lectureNo}
+		<if test='studentLectureSearch !=null'>
+			AND(
+				question_title LIKE CONCAT('%',#{studentLectureSearch},'%')
+			)
+		</if>
+		</where>
 	</select>
 	
 	<!--  학생 질문 목록 강사의 댓글과 파일 리스트 -->
@@ -158,7 +194,7 @@
 			question_title,
 			question_content,
 			question_createdate,
-			question_updatedate,
+			question_updatedate
 		
 		
 		) VALUES (
@@ -168,7 +204,7 @@
 			#{questionTitle},
 			#{questionContent},
 			NOW(),
-			NOW(),
+			NOW()
 		
 		)	
 	</insert>
@@ -194,5 +230,7 @@
 		SET question_count = question_count + 1
 		WHERE question_no = #{questionNo}
 	</update>
+	
+	
 	
 </mapper>

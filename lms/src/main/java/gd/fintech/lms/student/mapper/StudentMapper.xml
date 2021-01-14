@@ -57,14 +57,17 @@
 	<!-- 학생 정보 수정 액션-->
 	<update id="updateStudent" parameterType="gd.fintech.lms.student.vo.Student" >
 		UPDATE student
-		SET
-			student_name=#{studentName},
-			student_Phone=#{studentPhone},
-			student_address_main=#{studentAddressMain},
-			student_address_sub=#{studentAddressSub},
-			student_gender=#{studentGender},
-			student_birth=#{studentBirth} 
-
+		<set>
+			<if test="studentName !=null">student_name=#{studentName},</if>
+			<if test="studentEmail !=null">student_email=#{studentEmail},</if>
+			<if test="studentPhone !=null">student_Phone=#{studentPhone},</if>
+			<if test="studentAddressMain !=null">student_address_main=#{studentAddressMain},</if>
+			<if test="studentAddressSub !=null">student_address_sub=#{studentAddressSub},</if>
+			<if test="studentGender !=null">student_gender=#{studentGender},</if>
+			<if test="studentBirth !=null">student_birth=#{studentBirth},</if>
+			<if test="studentImage !=null">student_Image=#{studentImage},</if>
+			student_updatedate=NOW()
+		</set>
 		WHERE account_id=#{accountId}
 	</update>
 	

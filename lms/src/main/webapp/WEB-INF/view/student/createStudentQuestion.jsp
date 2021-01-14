@@ -14,26 +14,31 @@
         
         <script>
             $(document).ready(function() {
-                // submit 유효성 검사
-					$('#submitBtn').click(function() {
-						oEditors.getById["questionContent"].exec("UPDATE_CONTENTS_FIELD", []);
-					//강좌 번호에 공백과 숫자만 입력가능
+            	// NAVER SmartEditor2에 적은 내용을 실제 form 태그에 적용
+            	$('#submitBtn').click(function(){
+              
+				oEditors.getById["questionContent"].exec("UPDATE_CONTENTS_FIELD", []);
+
+				let contentText = $('#questionContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+				if ($('#lecutreNo').val() == '') {								// 과제 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+					alert('강좌번호를 입력해주세요!');
+					$('#lecutreNo').focus();
 					
-					$('#lectureNo').focus(); // id 포커스
-					$('#lecutreNo').blur(function(){
-						if($('#lecutreNo').val() == ''){
-							alert('강좌번호를 입력하세요');
-							$('lecutreNo').focus();
-							return
-						}else if(!$.isNumeric($('#lecutreNo').val())){
-							alert('번호만 입력하세요');
-							$('#lecutreNo').focus();
-							return
-						}else{
-							
-							}	
-						});
-				});
+				} else if ($('#questionTitle').val() == '') {						// 과제 시작일을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+					alert('질문 제목을 입력하세요!');
+					$('#questionTitle').focus();
+					
+				} else if (contentText == '') {										// 과제 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+					alert('질문 내용을 입력해주세요!');
+					oEditors.getById["questionContent"].exec("FOCUS");
+					
+				} else {
+					// 유효성 검사를 만족했을 경우 submit
+					$('#createQuestion').submit();
+				}
+			});
+               
+   		
     			
                 // code here...
             
@@ -83,7 +88,7 @@
 							<td><textarea id="questionContent" name="questionContent"></textarea></td>
 						</tr>
 					</table>
-					<button type="submit" id="submitBtn">[등록]</button>
+					<button type="button" id="submitBtn">[등록]</button>
 				</form>
 			</div>
 	</body>

@@ -14,12 +14,12 @@ public interface ClassRegistrationMapper {
 	//학생이 신청한 수강목록 리스트 페이징
 	//매개변수: map에 accountId,currentPage 넣어줌
 	//리턴값: 수강신청한 목록 리스트
-	List<ClassRegistration> selectClassRegistrationListByPage(Map<String,Object>map);
+	List<Map<String, Object>> selectClassRegistrationListByPage(Map<String,Object> map);
 	 
 	//수강 신청한 수강 강좌 리스트 상세보기 리스트 페이징
 	//매개변수:lectureNo
 	//리턴값:수강가능한 리스트 전체
-	ClassRegistration selectClassRegistrationDetailListByPage(Map<String,Object>map);
+	ClassRegistration selectClassRegistrationDetail(Map<String,Object> map);
 	
 	//학생이 수강신청한 갯수 
 	//매개변수:학생의Id 
@@ -41,10 +41,10 @@ public interface ClassRegistrationMapper {
 	int selectAvailableLectureCount();
 	
 	//수강 신청하기
-	int insertRegistration(Map<String,Object>map);
+	int insertRegistration(Map<String,Object> map);
 	
 	//수강 리뷰리스트
-	List<ClassRegistration> selectClassRegistrationReviewListByPage(Map<String,Object>map);
+	List<ClassRegistration> selectClassRegistrationReviewListByPage(Map<String,Object> map);
 	
 	//학생이 수강 신청한것인지 체크
 	//매개변수:

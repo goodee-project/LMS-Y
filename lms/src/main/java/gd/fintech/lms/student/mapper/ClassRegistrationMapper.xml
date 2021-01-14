@@ -26,19 +26,19 @@
 		<result property="lectureUpdateDate" column="lecture_updatedate"/>
 	</association>
 			
-		<association property="subject" javaType="gd.fintech.lms.manager.vo.Subject">
-			<result property="subjectNo" column="subject_no"/>
-			<result property="subjectName" column="subject_name"/>
-			<result property="subjectCreateDate" column="subject_createdate"/>
-			<result property="subjectUpdateDate" column="subject_updatedate"/>
-			<result property="subjectTotalDay" column="subject_totalday"/>
-			<result property="subjectInfo" column="subject_info"/>
-		</association>
+	<association property="subject" javaType="gd.fintech.lms.manager.vo.Subject">
+		<result property="subjectNo" column="subject_no"/>
+		<result property="subjectName" column="subject_name"/>
+		<result property="subjectCreateDate" column="subject_createdate"/>
+		<result property="subjectUpdateDate" column="subject_updatedate"/>
+		<result property="subjectTotalDay" column="subject_totalday"/>
+		<result property="subjectInfo" column="subject_info"/>
+	</association>
 	
 </resultMap>
 		
 	<!-- 학생이 신청한 수강의 강좌 정보리스트 페이징 -->
-	<select id="selectClassRegistrationDetailListByPage" parameterType="java.util.Map" resultMap="resultClassRegistration">
+	<select id="selectClassRegistrationDetail" parameterType="java.util.Map" resultMap="resultClassRegistration">
 	SELECT
 		cr.class_registration_no,
 		cr.lecture_no,
@@ -72,31 +72,27 @@
 				ON lc.subject_no = sj.subject_no
 		WHERE lc.lecture_no=#{lectureNo}
 		GROUP BY lc.lecture_no
-		LIMIT #{beginRow}, #{rowPerPage}
-		
-	</select>
+ 	</select>
 	
 	<!-- 학생이 신청한 수강목록 페이징 -->
-	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultMap="resultClassRegistration">
+	<select id="selectClassRegistrationListByPage"  parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT
-			cr.class_registration_no,
-			cr.lecture_no,
-			cr.account_id,
-			cr.class_registration_state,
-			cr.class_registration_point,
-			cr.class_registration_review,
-			cr.class_registration_createdate,
-			lc.teacher_name,
-			lc.lecture_name,
-			lc.lecture_total
+			cr.class_registration_no classRegistrationNo,
+			cr.lecture_no lectureNo,
+			cr.account_id accountId,
+			cr.class_registration_state classRegistrationState,
+			cr.class_registration_point classRegistrationPoint,
+			cr.class_registration_review classRegistrationReview,
+			cr.class_registration_createdate classRegistrationCreateDate,
+			l.teacher_name teacherName,
+			l.lecture_name lectureName,
+			l.lecture_total lectureTotal
 		FROM
 			class_registration cr
-		LEFT JOIN lecture lc
-			ON cr.lecture_no = lc.lecture_no
-		WHERE cr.account_id=#{accountId}
-		GROUP BY lc.lecture_no
-		LIMIT #{beginRow}, #{rowPerPage}
-			
+		LEFT JOIN lecture l
+			ON cr.lecture_no = l.lecture_no
+		WHERE cr.account_id = #{accountId}
+		LIMIT #{beginRow}, #{rowPerPage}	
 	</select>
 	
 	<!-- 수강신청 갯수 보기 -->

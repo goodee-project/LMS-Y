@@ -31,24 +31,18 @@ public class ClassRegistrationController {
 	//학생의 수강신청 목록 리스트(페이징)
 	@GetMapping("/student/classRegistration")
 	public String getClassRegistrationListByPage(Model model,
-			HttpServletRequest request,
+			HttpSession session,
 			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
-		
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		//Id 가지고오기
-		String accountId =(String)session.getAttribute("accountId");
-		System.out.println(accountId+"계정Id");
-		
-		Map<String,Object> map=classRegistrationService.getClassRegistrationListByPage(accountId, currentPage);
+
+		Map<String,Object> map=classRegistrationService.getClassRegistrationListByPage(currentPage, session);
 		model.addAttribute("classRegistrationList",map.get("classRegistrationList"));
 		model.addAttribute("navPerPage",map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
 		model.addAttribute("lastPage",map.get("lastPage"));
 		
-		model.addAttribute("classRegistrationCount",map.get("classRegistrationCount"));
-		model.addAttribute("accountId",accountId);
-		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("accountId", session.getAttribute("accountId"));
+		model.addAttribute("currentPage", currentPage);
 		
 		return "/student/classRegistration";
 	}

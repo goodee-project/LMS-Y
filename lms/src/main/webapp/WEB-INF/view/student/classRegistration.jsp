@@ -40,21 +40,21 @@
 				<th>수강 취소</th>
 			</tr>
 			<tbody>
-				<c:forEach var="r" items="${classRegistrationList}">
+				<c:forEach var="c" items="${classRegistrationList}">
 					<tr>
-						<td>${r.lectureNo}</td>
-						<td>${r.lectureInfo.teacherName}</td>
-						<td><a href="${pageContext.request.contextPath}/student/classRegistrationMyDetail?lectureNo=${r.lectureNo}&accountId=${accountId}">${r.lectureInfo.lectureName}</a></td>
-						<td>${r.classRegistrationState}</td>
-						<td>${r.classRegistrationCreateDate}</td>
-						<td>${r.classRegistrationPoint}</td>
-						<td>${r.classRegistrationReview}</td>
+						<td>${c.lectureNo}</td>
+						<td>${c.teacherName}</td>
+						<td><a href="${pageContext.request.contextPath}/student/classRegistrationMyDetail?lectureNo=${c.lectureNo}&accountId=${accountId}">${c.lectureName}</a></td>
+						<td>${c.classRegistrationState}</td>
+						<td>${c.classRegistrationCreateDate}</td>
+						<td>${c.classRegistrationPoint}</td>
+						<td>${c.classRegistrationReview}</td>
 						<td>
 							<c:choose> 
-								<c:when test ="${r.classRegistrationState=='취소'}"/>
-								<c:when test="${r.classRegistrationState=='수료'}"/>
+								<c:when test ="${c.classRegistrationState=='취소'}"/>
+								<c:when test="${c.classRegistrationState=='수료'}"/>
 								<c:otherwise>
-								<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/student/classRegistrationCancel?classRegistrationNo=${r.classRegistrationNo}&&lectureName=${r.lectureInfo.lectureName}&&lectureNo=${r.lectureNo}">수강 취소</a>
+								<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/student/classRegistrationCancel?classRegistrationNo=${c.classRegistrationNo}&lectureName=${c.lectureName}&lectureNo=${c.lectureNo}">수강 취소</a>
 								</c:otherwise>					
 							</c:choose>
 						</td>

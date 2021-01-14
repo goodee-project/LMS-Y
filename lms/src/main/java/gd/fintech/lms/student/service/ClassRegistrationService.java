@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,13 @@ public class ClassRegistrationService {
 	//학생이 수강신청한 목록(페이징)
 	//매개변수:accountId,currentPage
 	//리턴값:학생이 수강신청한 리스트와 페이징값
-	public Map<String,Object> getClassRegistrationListByPage(String accountId,int currentPage){
+	public Map<String, Object> getClassRegistrationListByPage(int currentPage, HttpSession session){
 		
 		//보여줄 데이터 갯수
-		int rowPerPage=5;
-		int beginRow=(currentPage-1)*rowPerPage;
+		int rowPerPage = 5;
+		int beginRow = (currentPage-1)*rowPerPage;
 		//전체 페이지
-		int classRegistrationCount =classRegistrationMapper.selectRegistrationCount(accountId);
+		int classRegistrationCount = classRegistrationMapper.selectRegistrationCount((String)session.getAttribute("accountId"));
 
 		//마지막 페이지
 		int lastPage = classRegistrationCount/rowPerPage;
@@ -40,7 +42,7 @@ public class ClassRegistrationService {
 		}
 		//전체 페이지 0일시 현재도 0
 		if(lastPage ==0) {
-			currentPage =0; 
+			currentPage = 0; 
 		}
 		
 		//페이지 네비바에 표시할 페이지 수
@@ -54,13 +56,12 @@ public class ClassRegistrationService {
 			navLastPage = lastPage;
 		}
 		
-		Map<String, Object>paramMap = new HashMap<String,Object>();
-		paramMap.put("beginRow", beginRow);
-		paramMap.put("rowPerPage",rowPerPage);
-		paramMap.put("accountId", accountId);
-		paramMap.put("classRegistrationCount", classRegistrationCount);
+		Map<String, Object> pageMap = new HashMap<String,Object>();
+		pageMap.put("beginRow", beginRow);
+		pageMap.put("rowPerPage",rowPerPage);
+		pageMap.put("accountId", session.getAttribute("accountId"));
 		//담아주기
-		List<ClassRegistration>classRegistrationList=classRegistrationMapper.selectClassRegistrationListByPage(paramMap);
+		List<Map<String, Object>> classRegistrationList = classRegistrationMapper.selectClassRegistrationListByPage(pageMap);
 		
 		Map<String,Object>map = new HashMap<>();
 		map.put("classRegistrationList", classRegistrationList);

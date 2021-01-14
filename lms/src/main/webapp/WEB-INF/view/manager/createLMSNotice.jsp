@@ -17,7 +17,6 @@
 				$('#submitBtn').click(function() {
 					oEditors.getById["lmsNoticeContentId"].exec("UPDATE_CONTENTS_FIELD", []);
 
-					// 댓글 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
 					if ($('#lmsNoticeTitleId').val() == '') {
 						alert('제목을 입력해주세요.');
 						$('#lmsNoticeTitleId').focus();

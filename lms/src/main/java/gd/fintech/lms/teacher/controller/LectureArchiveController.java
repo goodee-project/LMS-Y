@@ -72,9 +72,10 @@ public class LectureArchiveController {
 	public String lectureArchiveOne(Model model,
 			HttpServletResponse response, 
 			HttpServletRequest request,
+			@RequestParam(value="lectureNo")int lectureNo,
 			@RequestParam(value="lectureArchiveNo")int lectureArchiveNo) {
 		//강좌별 자료실 상세보기
-		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo);
+		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo,lectureNo);
 		
 		//세션정보
 		HttpSession session = ((HttpServletRequest)request).getSession();
@@ -144,8 +145,9 @@ public class LectureArchiveController {
 	//리턴값:/teacher/modifyLectureArchive
 	@GetMapping("/teacher/modifyLectureArchive")
 	public String modifyLectureArchive(Model model,HttpSession session,
+			@RequestParam(value="lectureNo")int lectureNo,
 			@RequestParam("lectureArchiveNo")int lectureArchiveNo) {
-		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo);
+		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo, lectureNo);
 		// 세션에 있는 아이디를 가져옴
 		String accountId = (String)session.getAttribute("accountId");
 		// 세션에 있는 아이디를 참조하여 teacherService의 getTeacherOne의 정보를 가져옴

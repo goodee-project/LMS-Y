@@ -68,6 +68,7 @@ public class LectureNoticeController {
 	public String lectureNoticeOne(Model model, 
 			HttpServletResponse response, 
 			HttpServletRequest request,
+			@RequestParam(value="lectureNo")int lectureNo,
 			@RequestParam(value = "lectureNoticeNo") int lectureNoticeNo) {
 		// 강좌별 공지사항 상세보기
 		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNoticeNo);
@@ -124,9 +125,12 @@ public class LectureNoticeController {
 	// 매개변수:강좌 공지사항 고유번호
 	// 리턴값:강좌별 공지사항 고유번호를 참조하여 공지사항을 수정하는 뷰페이지
 	@GetMapping("/teacher/modifyLectureNotice")
-	public String modifyLectureNotice(Model model, @RequestParam(value = "lectureNoticeNo") int lectureNoticeNo) {
+	public String modifyLectureNotice(Model model, 
+			@RequestParam(value = "lectureNoticeNo") int lectureNoticeNo,
+			@RequestParam(value="lectureNo")int lectureNo) {
 		LectureNotice lectureNotice = lectureNoticeService.getLectureNoticeOne(lectureNoticeNo);
 
+		model.addAttribute("lectureNo",lectureNo);
 		model.addAttribute("lectureNotice", lectureNotice);
 		return "/teacher/modifyLectureNotice";
 	}

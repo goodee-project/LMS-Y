@@ -50,7 +50,7 @@
 					<c:forEach var="la" items="${lectureArchiveList}">
 						<tr>
 							<td>${la.lectureArchiveNo}</td>
-							<td><a href="${pageContext.request.contextPath}/teacher/lectureArchiveOne?lectureArchiveNo=${la.lectureArchiveNo}">${la.lectureArchiveTitle}</a></td>
+							<td><a href="${pageContext.request.contextPath}/teacher/lectureArchiveOne?lectureNo=${lectureNo}&&lectureArchiveNo=${la.lectureArchiveNo}">${la.lectureArchiveTitle}</a></td>
 							<td>${la.lectureArchiveWriter}</td>
 							<td>${la.lectureArchiveCreateDate}</td>
 							<td>${la.lectureArchiveCount}</td>
@@ -84,10 +84,11 @@
 									<c:if test="${i <= lastPage}">
 										<c:choose>
 											<c:when test="${i == currentPage}">
-											<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+											<li class="page-item active"><a class="page-link" href="#">${i}</a></li>
 											</c:when>
 											<c:otherwise>
-											<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${i}">${i}</a></li>
+											<li class="page-item">
+											<a class="page-link" href="${pageContext.request.contextPath}/teacher/lectureArchive?lectureNo=${lectureNo}&currentPage=${i}">${i}</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:if>
@@ -136,11 +137,11 @@
 								<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
 									<c:if test="${i <= lastPage}">
 										<c:choose>
-											<c:when test="${i == currentPage}">
+											<c:when test="${i != currentPage}">
 												<li class="page-item"><a class="page-link" href="#">${i}</a></li>
 											</c:when>
 											<c:otherwise>
-												<li class="page-item"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${i}&&lectureArchiveSearch=${lectureArchiveSearch}">${i}</a></li>
+												<li class="page-item active"><a class="page-link" href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${i}&&lectureArchiveSearch=${lectureArchiveSearch}">${i}</a></li>
 											</c:otherwise>
 										</c:choose>
 									</c:if>

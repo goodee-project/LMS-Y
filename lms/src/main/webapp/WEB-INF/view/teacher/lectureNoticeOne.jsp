@@ -60,7 +60,7 @@
 				</tr>
 			</table>
 			<div style="text-align:right;">
-				<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyLectureNotice?lectureNoticeNo=${lectureNotice.lectureNoticeNo}">수정</a>&nbsp;&nbsp;
+				<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifyLectureNotice?lectureNo=${lectureNotice.lectureNo}&&lectureNoticeNo=${lectureNotice.lectureNoticeNo}">수정</a>&nbsp;&nbsp;
 				<button class="btn btn-outline-danger" id="removeBtn">삭제</button>
 			</div>
 		</div>

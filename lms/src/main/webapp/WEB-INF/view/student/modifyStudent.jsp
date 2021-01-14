@@ -46,6 +46,43 @@
 				 $(this).val($(this).val().replace(/[^0-9]/g,""));
 			});
 
+			// 이미지 변경 값이 있는지 확인하는 변수
+			var imageCheck = '';
+			// 이미지에 대한 제약조건 명시
+			$('#imgSel').change(function(){
+	            ext = $(this).val().split('.').pop().toLowerCase(); //확장자
+	            //배열에 추출한 확장자가 존재하는지 체크
+	            if($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'jfif']) == -1) {
+	                alert('ERROR: 이미지 파일이 아닙니다');
+	                $(this).val('');
+	            } else {
+	            	 setImageFromFile(this, '#preview');
+	            	 imageCheck = 'check';
+	            }
+			});
+			// 이미지 미리보기
+			function setImageFromFile(input, expression) {
+			    if (input.files && input.files[0]) {
+			        var reader = new FileReader();
+			        reader.onload = function (e) {
+			            $(expression).attr('src', e.target.result);
+			        }
+			        reader.readAsDataURL(input.files[0]);
+			    }
+			}
+			//기존 이미지 삭제에 대한 유효성 검사
+			$('#removeBtn').click(function() {
+				let remove = confirm('정말 이미지를 삭제하시겠습니까?');
+				
+				if(remove) {
+					location.replace('${pageContext.request.contextPath}/student/removeStudentFile?accountId=${accountId}');
+					alert('삭제하였습니다.');
+				} else {
+					alert('취소하였습니다.');
+					return;
+				}
+    		});
+
 			// 우편번호 검색시 요소 추가
 			$('#zipCodeSearch').click(function() {
 				if($('#zipCode').val() == '') {
@@ -136,11 +173,12 @@
 										
 					<tr>
 						<td>프로필 사진</td>
-						<td><img src="${student.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""style="width: 170px; height: 200px;" /></td>
-						<c:if test="${not empty studentImage.imageFileUUID}">
-							<a href="${pageContext.request.contextPath}/student/removeStudentFile?accountId=${accountId}">삭제</a>
+						<td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""style="width: 170px; height: 200px;" /></td>
+						<c:if
+							test="${not empty myImage.imageFileUUID}">
+							<a class="btn btn-outline-danger" href="#" id="removeBtn">삭제</a>
 						</c:if>
-						<td><input type="file" name="studentImage" id="studentImage">
+						<td><input type="file" name="imageFileList" id="imageFileList">
 					</tr>
 					
 					<tr>

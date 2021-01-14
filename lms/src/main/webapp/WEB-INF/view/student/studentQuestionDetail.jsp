@@ -55,21 +55,30 @@
 				<td>생성 날짜 :</td>
 				<td>${question.questionCreateDate}</td>
 			</tr>
-				
-				<tr>
-					<td>댓글 내용 :</td>
+				<c:forEach var="qc" items="${question.questionComment}">
+					<!-- 댓글이 없을때는 보이지 않음 -->
+					<c:if test="${qc.questionCommentNo != 0}">
 					
-					<td>${question.questionComment}</td>
+					<!-- 작성자 작성일자 넣기 -->
+					<tr>
+						<td>댓글 내용 :</td>
+						<td>${qc.questionCommentContent}</td>
+					</tr>
 					
-				</tr>
-				
-				<tr>
-					<td>첨부파일 :</td>
-				
-					<td>${question.questionCommentFile}</td>
+					<c:forEach var="qcf" items="${qc.questionCommentFileList}">
+					<!-- 파일이 크기 0 일때는 보이지 않음 -->
+					<c:if test="${qcf.questionCommentFileSize>0 }">
+					<tr>
+						<td>첨부파일 :</td>
+						<a href="${pageContext.request.contextPath}/student/downloadStudentQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
+						${qcf.questionCommentFileOriginal}</a>
+						<td>${question.questionCommentFile}</td>
+					</tr>
+					</c:if>
+					</c:forEach>
 					
-				</tr>
-				
+					</c:if>
+				</c:forEach>
 		</table>
 	</div>
   

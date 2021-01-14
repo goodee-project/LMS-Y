@@ -122,14 +122,16 @@ public class StudentService {
 				accountImage.setImageFileSize(sf.getSize());
 				accountImage.setImageFileOriginal(sf.getOriginalFilename());
 				accountImage.setImageFileType(sf.getContentType());
-				studentMapper.insertStudentImage(accountImage);
-				studentMapper.updateStudentImage(accountId, fileNameUUID);
+				
 				//학생 이미지 조회 null 일시
 				if(studentMapper.selectStudentImage(accountId)==null) {
-					
-					if(studentMapper.selectStudentImage(accountId)!=null) {
+					studentMapper.insertStudentImage(accountImage);
+					studentMapper.updateStudentImage(accountId, fileNameUUID);
+				}else if(studentMapper.selectStudentImage(accountId)!=null) {
+					studentMapper.updateImageFile(accountImage);
+					studentMapper.updateStudentImage(accountId, fileNameUUID);
 						
-					}
+					
 				}
 			}
 		}

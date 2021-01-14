@@ -5,6 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>studentDetail</title>
+
+<style type="text/css">
+			.attendanceTableMenu{
+				width: 100%;
+				text-align: center;
+			}
+		</style>
+		
+		<style type="text/css">
+			.imagediv{
+				width: 100%;
+				text-align: center;
+			}
+			 img { display : block;
+                  margin : auto;}
+		</style>
 </head>
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
@@ -12,17 +28,17 @@
 	
 		<div class=container>
 			<div class="jumbotron">
-				<h1>내 정보 상세보기</h1>
+				<h1>내 정보</h1>
 			</div>
 		</div>
 		<div class=container>
 			<div class="imagediv"><img src="${map.imageURI}" class="rounded-circle" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""  width="200px" height="200px" /></div>
-			<a href="${pageContext.request.contextPath}/student/modifyStudent?accountId=${accountId}">[수정]</a>
+			<div class="imagediv"></div><a href="${pageContext.request.contextPath}/student/modifyStudent?accountId=${accountId}">[프로필 수정]</a>
 				<table class="table">
 				
 					<tr>
 						<td>학생 아이디</td>
-						<td>${student.student.accountId}</td>
+						<td>${map.student.accountId}</td>
 					</tr>
 					
 					<tr>
@@ -32,31 +48,31 @@
 			
 					<tr>
 						<td>학생 이메일</td>
-						<td>${student.student.studentEmail}</td>
+						<td>${map.student.studentEmail}</td>
 					</tr>
 					<tr>
 						<td>학생 이름</td>
-						<td>${student.student.studentName}</td>
+						<td>${map.student.studentName}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 전화번호</td>
-						<td>${student.student.studentPhone}</td>
+						<td>${map.student.studentPhone}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 성별</td>
-						<td>${student.student.studentGender}</td>
+						<td>${map.student.studentGender}</td>
 					</tr>
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td>${student.student.studentBirth}</td>
+						<td>${map.student.studentBirth}</td>
 					</tr>
 					
 					<tr> 
 						<td>주소/상세주소</td>
-						<td>${student.student.studentAddressMain} ${student.student.studentAddressSub}</td>
+						<td>${map.student.studentAddressMain} ${map.student.studentAddressSub}</td>
 					</tr>
 					
 			</table>

@@ -24,6 +24,7 @@ public class QuestionService {
 	
 	@Autowired QuestionMapper questionMapper;
 	@Autowired StudentMapper studentMapper;
+	
 	 
 	
 	//학생들의 질문 리스트 페이징 

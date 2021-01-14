@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="gd.fintech.lms.student.mapper.StudentQuestionCommentFileMapper">
+	<select id="selectQuestionCommentFileDetail" parameterType="String" resultType="gd.fintech.lms.student.vo.StudentQuestionCommentFile">
+		SELECT
+			question_comment_file_uuid questionCommentFileUUID,
+			question_comment_file_original questionCommentFileOriginal,
+			question_comment_no questionCommentNo,
+			question_comment_file_size questionCommentFileSize,
+			question_comment_file_type questionCommentFileType,
+			question_comment_file_createdate questionCommentFileCreateDate
+		FROM question_comment_file
+		WHERE question_comment_file_uuid = #{questionCommentFileUUID}
+	</select>
+	
+	<!-- UUID에 해당되는 파일의 다운로드 횟수 1 증가 쿼리 -->
+	<update id="updateQuestionCommentFileCountIncrease" parameterType="String">
+		UPDATE question_comment_file
+		SET
+			question_comment_file_count = question_comment_file_count + 1
+		WHERE question_comment_file_uuid = #{questionCommentFileUUID}
+	</update>
+</mapper>

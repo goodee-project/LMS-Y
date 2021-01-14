@@ -44,7 +44,7 @@ public interface StudentMapper {
 	//학생 프로필 이미지 추가
 	//매개변수:이미지Vo
 	//리턴값:해당 행 추가
-	String insertStudentImage(AccountImage accountImage);
+	int insertStudentImage(AccountImage accountImage);
 	
 	//학생 프로필 이미지 삭제
 	//매개변수:학생id
@@ -55,8 +55,9 @@ public interface StudentMapper {
 	//매개변수:학생id
 	//리턴값:수정된 하나의 행
 	int updateStudentImage(String accountId,String studentImage);
+	int updateImageFile(AccountImage accountImage);
 	
-	//학생 이미지 출력 수정시
+	//학생 이미지 출력 수정시 이전이미지 삭제
 	//매개변수:학생id
 	//리턴값:이미지VO
 	String updateStudentImagePrevious(String accountId);

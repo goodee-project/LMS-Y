@@ -47,8 +47,7 @@
 			student_accessdate studentAccessDate,
 			student_updatedate studentUpdateDate,
 			manager_id_access mangerIdAccess
-		FROM 
-			student
+		FROM student
 		WHERE account_id=#{accountId}
 		
 	</select>
@@ -116,6 +115,16 @@
 			<if test="studentImage !=null">student_image = #{studentImage},</if>
 			student_updatedate = NOW()
 		</set>
+		WHERE account_id = #{accountId}
+	</update>
+	<update id="updateImageFile" parameterType="java.util.Map">
+		UPDATE account_image
+		SET
+			image_file_uuid = #{imageFileUUID},
+			image_file_original = #{imageFileOriginal},
+			image_file_size = #{imageFileSize},
+			image_file_type = #{imageFileType},
+			image_file_createdate = NOW()
 		WHERE account_id = #{accountId}
 	</update>
 	

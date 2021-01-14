@@ -35,9 +35,9 @@ public class StudentController {
 		HttpSession session =((HttpServletRequest)request).getSession();
 		//Id를 가져오기
 		String accountId =(String)session.getAttribute("accountId");
-		Map<String,Object> student= studentService.getStudentDetail(accountId);
+		Map<String,Object> map= studentService.getStudentDetail(accountId);
 		model.addAttribute("accountId", accountId);
-		model.addAttribute("student",student);
+		model.addAttribute("map",map);
 		return "/student/studentDetail";
 	}	
 	
@@ -51,9 +51,9 @@ public class StudentController {
 		String accountId =(String)session.getAttribute("accountId");
 		Map<String,Object> map = studentService.getStudentDetail(accountId);
 		//Student student= studentService.getStudentDetail(accountId);
-		AccountImage studentImage = studentService.getStudentImage(accountId);
+		AccountImage myImage = studentService.getStudentImage(accountId);
 		
-		model.addAttribute("studentImage",studentImage);
+		model.addAttribute("myImage",myImage);
 		model.addAttribute("session",session);
 		model.addAttribute("accountId",accountId);
 		model.addAttribute("map",map);
@@ -68,7 +68,7 @@ public class StudentController {
 		//Id를 가져오기
 		String accountId =(String)session.getAttribute("accountId");
 		studentService.modifyStudent(studentForm, session, accountId);
-		return "/student/studentDetail";
+		return "redirect:/student/studentDetail";
 	}
 	
 	//학생 이미지 삭제

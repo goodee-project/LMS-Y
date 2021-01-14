@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.teacher.mapper.TeacherChartMapper">
+	<!-- 강사별 강좌 가져오기 -->
+	<select id="selectLectureListByAccountId" parameterType="String" resultType="gd.fintech.lms.manager.vo.Lecture">
+		SELECT 
+			lecture_no lectureNo,
+			lecture_name lectureName
+		FROM lecture
+		WHERE account_id = #{accountId}
+	</select>
+	<!-- 디폴트 강좌 선택 -->
+	<select id="selectDefaultLecture" parameterType="String" resultType="int">
+		SELECT
+			lecture_no lectureNo
+		FROM lecture
+		WHERE account_id = #{accountId}
+		LIMIT 0,1
+	</select>
+	<!-- 강좌별 과제 제출률 -->
+	<select id="selectReportSubmitRateByLecture" parameterType="int" resultType="java.util.Map"> 
+		SELECT
+			l.lecture_no lectureNo,
+			l.lecture_name lectureName,
+			r.report_no reportNo,
+			r.report_title reportTitle,
+			COUNT(rs.report_submit_no) reportSubmitStudent,
+			COUNT(cr.class_registration_no) totalStudent,
+			ROUND(COUNT(rs.report_submit_no)/COUNT(cr.class_registration_no)*100) submitRate
+		FROM lecture l
+			INNER JOIN report r
+				ON l.lecture_no = r.lecture_no
+			LEFT OUTER JOIN class_registration cr
+				ON l.lecture_no = cr.lecture_no
+			LEFT OUTER JOIN report_submit rs
+				ON r.report_no = rs.report_no 
+				AND cr.account_id = rs.account_id
+		WHERE (cr.class_registration_state = '수강중' 
+			OR cr.class_registration_state = '수료') 
+		AND l.lecture_no = #{lectureNo}
+		GROUP BY r.report_no
+	</select>
+	
+	<!-- 강좌별 평가 문제 정답률 -->
+	<select id="selectTestAnswerRateByLecture" parameterType="int" resultType="java.util.Map">
+		SELECT
+		   m.multiplechoice_id multiplechoiceId,
+		   ROUND(COUNT(CASE WHEN a.answer_score > 0 THEN a.multiplechoice_no END)/COUNT(a.multiplechoice_no)*100) answerRate
+		FROM answersheet a
+		   INNER JOIN multiplechoice m
+		       ON a.multiplechoice_no = m.multiplechoice_no
+		WHERE
+		   m.lecture_no = #{lectureNo}
+		GROUP BY a.multiplechoice_no
+	</select>
+</mapper>

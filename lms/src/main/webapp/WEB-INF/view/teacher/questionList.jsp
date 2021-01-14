@@ -33,13 +33,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<%-- 협업자가 메서드를 수정할 경우 null과의 비교대신 0과의 비교로 고치기 바람 --%>
-						<c:if test="${navBeginPage == null || navLastPage == null}">
+						<c:if test="${navBeginPage == 0 || navLastPage == 0}">
 							<tr>
-								<td class="text-center" colspan="5">협업자의 서비스 메서드 미구현으로 리스트를 띄울 수 없습니다</td>
-							</tr>
-							<tr>
-								<td class="text-center" colspan="5">(임시 링크) <a href="${pageContext.request.contextPath}/teacher/questionDetail?questionNo=1">1번 질문으로 이동</a></td>
+								<td class="text-center" colspan="5">
+									<span>질문게시판에 질문이 없습니다</span>
+								</td>
 							</tr>
 						</c:if>
 						<c:forEach var="q" items="${list}">
@@ -64,7 +62,7 @@
 					</tbody>
 				</table>
 				
-				<c:if test="${navBeginPage == 0 || navLastPage == 0}">
+				<c:if test="${navBeginPage > 0 && navLastPage > 0}">
 					<div class="d-flex justify-content-center mt-4">
 						<ul class="pagination">
 							<%-- 이전 버튼 --%>

@@ -48,69 +48,69 @@
 				</tr>
 			</c:forEach>
 		</table>
-			<div class="d-flex justify-content-center">
-				<ul class="pagination">
-					<!-- 처음으로, &lt; -->
-					<c:choose>
-						<c:when test="${currentPage > 1}">
-							<li class="page-item">
-								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=1">&lt;&lt;</a></li>
-							<li class="page-item">
-								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">&lt;</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled">
-								<a class="page-link" href="#">&lt;&lt;</a>
-							</li>
-							<li class="page-item disabled">
-								<a class="page-link" href="#">&lt;</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-					<!-- 현재페이지 네비바 -->
-					<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
-						<c:if test="${i <= lastPage}">
-							<c:choose>
-								<c:when test="${i == currentPage}">
-									<li class="page-item active">
-										<a class="page-link" href="#">${i}</a>
-									</li>
-								</c:when>
-								<c:otherwise>
-									<li class="page-item">
-										<a class="page-link"
-										href="${pageContext.request.pathInfo}?currentPage=${i}">${i}</a>
-									</li>
-								</c:otherwise>
-							</c:choose>
-						</c:if>
-					</c:forEach>
-					<!-- &gt;, 마지막으로 -->
-					<c:choose>
-						<c:when test="${currentPage < lastPage}">
-							<li class="page-item">
-								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">&gt;</a>
-							</li>
-							<li class="page-item">
-								<a class="page-link"
-								href="${pageContext.request.pathInfo}?currentPage=${lastPage}">&gt;&gt;</a>
-							</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled">
-								<a class="page-link" href="#">&gt;</a>
-							</li>
-							<li class="page-item disabled">
-								<a class="page-link" href="#">&gt;&gt;</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-			</div>
+		<div class="d-flex justify-content-center">
+			<ul class="pagination">
+				<!-- 처음으로, &lt; -->
+				<c:choose>
+					<c:when test="${currentPage > 1}">
+						<li class="page-item">
+							<a class="page-link"
+							href="${pageContext.request.pathInfo}?currentPage=1">&lt;&lt;</a></li>
+						<li class="page-item">
+							<a class="page-link"
+							href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">&lt;</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled">
+							<a class="page-link" href="#">&lt;&lt;</a>
+						</li>
+						<li class="page-item disabled">
+							<a class="page-link" href="#">&lt;</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+				<!-- 현재페이지 네비바 -->
+				<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
+					<c:if test="${i <= lastPage}">
+						<c:choose>
+							<c:when test="${i == currentPage}">
+								<li class="page-item active">
+									<a class="page-link" href="#">${i}</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="page-item">
+									<a class="page-link"
+									href="${pageContext.request.pathInfo}?currentPage=${i}">${i}</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				</c:forEach>
+				<!-- &gt;, 마지막으로 -->
+				<c:choose>
+					<c:when test="${currentPage < lastPage}">
+						<li class="page-item">
+							<a class="page-link"
+							href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">&gt;</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link"
+							href="${pageContext.request.pathInfo}?currentPage=${lastPage}">&gt;&gt;</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled">
+							<a class="page-link" href="#">&gt;</a>
+						</li>
+						<li class="page-item disabled">
+							<a class="page-link" href="#">&gt;&gt;</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+		</div>
 	</div>
 </body>
 </html>

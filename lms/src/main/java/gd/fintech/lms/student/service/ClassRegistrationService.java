@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.student.mapper.ClassRegistrationMapper;
 import gd.fintech.lms.student.vo.ClassRegistration;
 
@@ -86,18 +85,18 @@ public class ClassRegistrationService {
 	//수강신청할 수 있는 목록전체(페이징)
 	//매개변수:lectureNo,currentPage
 	//리턴값:학생이 수강신청할 수 있는 모든 리스트
-	public Map<String,Object> getClassRegistrationAllListByPage(int currentPage){
+	public Map<String,Object> getAvailableLectureList(int currentPage){
 	
 		//보여줄 데이터 갯수
 		int rowPerPage=5;
 		//보여줄 데이터 갯수
 		int beginRow=(currentPage-1)*rowPerPage;
 		//전체 페이지
-		int classRegistrationAllCount = classRegistrationMapper.selectRegistrationAllCount();
+		int availableLectureCount = classRegistrationMapper.selectAvailableLectureCount();
 		//마지막 페이지
-		int lastPage = classRegistrationAllCount/rowPerPage;
+		int lastPage = availableLectureCount/rowPerPage;
 		//10개 미만의 데이터가 있는 페이지 보여주기
-		if(classRegistrationAllCount % rowPerPage !=0) {
+		if(availableLectureCount % rowPerPage !=0) {
 			lastPage +=1;
 		}
 		//전체 페이지 0일시 현재도 0
@@ -116,17 +115,15 @@ public class ClassRegistrationService {
 			navLastPage = lastPage;
 		}
 		
-		Map<String,Object>paramMap=new HashMap<>();
-		paramMap.put("rowPerPage",rowPerPage);
-		paramMap.put("beginRow", beginRow);
-		paramMap.put("classRegistrationAllCount",classRegistrationAllCount);
+		Map<String,Object> pageMap = new HashMap<>();
+		pageMap.put("rowPerPage",rowPerPage);
+		pageMap.put("beginRow", beginRow);
 		
-		
-		List<ClassRegistration> classRegistrationAllList = classRegistrationMapper.selectClassRegistrationAll(paramMap);
-		logger.debug(classRegistrationAllList.toString());
+		List<Lecture> availableLectureList = classRegistrationMapper.selectAvailableLectureList(pageMap);
+		logger.debug(availableLectureList.toString());
 		
 		Map<String,Object> map = new HashMap<>();
-		map.put("classRegistrationAllList",classRegistrationAllList);
+		map.put("availableLectureList",availableLectureList);
 		map.put("lastPage", lastPage);
 		map.put("navPerPage", navPerPage);
 		map.put("navBeginPage", navBeginPage);

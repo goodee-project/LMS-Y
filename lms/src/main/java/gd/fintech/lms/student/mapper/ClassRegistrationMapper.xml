@@ -100,7 +100,7 @@
 	</select>
 	
 	<!-- 수강신청 갯수 보기 -->
-	<select id = "selectRegistrationCount" parameterType="String" resultType="int" >
+	<select id ="selectRegistrationCount" parameterType="String" resultType="int" >
 		SELECT 
 			COUNT(*) 
 		FROM class_registration
@@ -108,39 +108,17 @@
 	</select>
 	
 	<!-- 수강가능한 강의 전체목록 -->
-	<select id="selectClassRegistrationAll" parameterType="java.util.Map" resultMap="resultClassRegistration">
-		SELECT
-		cr.class_registration_no,
-		cr.lecture_no,
-		cr.account_id,
-		cr.class_registration_state,
-		cr.class_registration_point,
-		cr.class_registration_review,
-		cr.class_registration_createdate,
-		lc.lecture_no,
-		lc.account_id,
-		lc.subject_no,
-		lc.teacher_name,
-		lc.lecture_name,
-		lc.textbook_isbn,
-		lc.lecture_startdate,
-		lc.lecture_enddate,
-		lc.lecture_total,
-		lc.classroom_no,
-		lc.lecture_createdate,
-		lc.lecture_updatedate,
-		sj.subject_no,
-		sj.subject_name,
-		sj.subject_createdate,
-		sj.subject_updatedate,
-		sj.subject_totalday,
-		sj.subject_info
-		FROM class_registration cr
-			LEFT JOIN lecture lc
-				ON cr.lecture_no = lc.lecture_no
-			LEFT JOIN subject sj
-				ON lc.subject_no = sj.subject_no
-		GROUP BY lc.lecture_no
+	<select id="selectAvailableLectureList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Lecture">
+		SELECT 
+			lecture_no lectureNo,
+			account_id accountId,
+			subject_no subjectNo,
+			teacher_name teacherName,
+			lecture_name lectureName,
+			lecture_startdate lectureStartDate,
+			lecture_enddate lectureEndDate
+		FROM lecture
+		WHERE lecture_startdate > NOW()
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -160,12 +138,12 @@
 		WHERE lecture_no=#{lectureNo}
 	</select>
 	
-	
 	<!-- 수강 신청하능한 강의 갯수 -->
-	<select id="selectRegistrationAllCount" resultType="int">
+	<select id="selectAvailableLectureCount" resultType="int">
 		SELECT 
 			COUNT(*) 
-		FROM class_registration
+		FROM lecture
+		WHERE lecture_startdate > NOW()
 	</select>
 	
 	<!-- 수강신청하기 -->

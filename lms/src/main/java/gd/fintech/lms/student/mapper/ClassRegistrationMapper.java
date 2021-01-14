@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.student.vo.ClassRegistration;
 // 수강신청
 @Mapper
@@ -33,12 +34,11 @@ public interface ClassRegistrationMapper {
 	//수강신청이 가능한 모든 항목 리스트 페이징
 	//매개변수:map에 수강번호,currentPage 입력
 	//리턴값:수강신청이 가능한 모든 항목
-	List<ClassRegistration> selectClassRegistrationAll(Map<String,Object>map);
+	List<Lecture> selectAvailableLectureList(Map<String,Object> map);
 	
 	//모든 수강신청 가능한 강좌 갯수
-	//매개변수:
-	//리턴값:수강 신청이 가능한 강좌의 수
-	int selectRegistrationAllCount();
+	//리턴값: 수강 신청이 가능한 강좌의 수
+	int selectAvailableLectureCount();
 	
 	//수강 신청하기
 	int insertRegistration(Map<String,Object>map);

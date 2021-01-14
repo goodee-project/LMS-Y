@@ -29,7 +29,7 @@ public class ClassRegistrationController {
 	@Autowired ClassRegistrationCancelService classRegistrationCancelService;
 	
 	//학생의 수강신청 목록 리스트(페이징)
-	@GetMapping("student/classRegistration")
+	@GetMapping("/student/classRegistration")
 	public String getClassRegistrationListByPage(Model model,
 			HttpServletRequest request,
 			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
@@ -50,29 +50,28 @@ public class ClassRegistrationController {
 		model.addAttribute("accountId",accountId);
 		model.addAttribute("currentPage",currentPage);
 		
-		return "student/classRegistration";
+		return "/student/classRegistration";
 	}
 	
 	//수강신청 할 수 있는 모든 수강 리스트
-	@GetMapping("student/classRegistrationAll")
+	@GetMapping("/student/availableLectureList")
 	public String getClassRegistrationAllList(Model model,
-			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
+			@RequestParam(value="currentPage",defaultValue="1") int currentPage) {
 		
-		Map<String, Object> map = classRegistrationService.getClassRegistrationAllListByPage(currentPage);
+		Map<String, Object> map = classRegistrationService.getAvailableLectureList(currentPage);
 		
-		model.addAttribute("classRegistrationAllList",map.get("classRegistrationAllList"));
+		model.addAttribute("availableLectureList",map.get("availableLectureList"));
 		model.addAttribute("navPerPage",map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
 		
 		model.addAttribute("lastPage",map.get("lastPage"));
-		model.addAttribute("classRegistrationAllCount",map.get("classRegistrationAllCount"));
 		model.addAttribute("currentPage",currentPage);
-		return "student/classRegistrationAll";
+		return "/student/availableLectureList";
 	} 
 	
 	//학생이 수강신청할 과목 정보보기(상세보기)
-	@GetMapping("student/classRegistrationDetail")
+	@GetMapping("/student/classRegistrationDetail")
 	public String getClassRegistrtaionOne(Model model,HttpServletRequest request,
 			@RequestParam(value="lectureNo",required = false)int lectureNo) {
 		
@@ -87,11 +86,11 @@ public class ClassRegistrationController {
 		model.addAttribute("classRegistration",classRegistration);
 		model.addAttribute("classRegistrationNoCount",classRegistrationNoCount);
 		model.addAttribute("accountId",accountId);
-		return "student/classRegistrationDetail";
+		return "/student/classRegistrationDetail";
 	}
 	
 	//학생이 신청한 수강 과목 정보보기(상세보기)
-	@GetMapping("student/classRegistrationMyDetail")
+	@GetMapping("/student/classRegistrationMyDetail")
 	public String getClassRegistrtaionMyOne(Model model,HttpServletRequest request,
 			@RequestParam(value="lectureNo",required = false)int lectureNo) {
 		
@@ -103,10 +102,10 @@ public class ClassRegistrationController {
 		ClassRegistration classRegistration = classRegistrationService.getClassRegistrationLectureDetail(lectureNo);
 		model.addAttribute("classRegistration",classRegistration);
 		model.addAttribute("accountId",accountId);
-		return "student/classRegistrationMyDetail";
+		return "/student/classRegistrationMyDetail";
 	}
 	//학생 수강신청 사유 입력폼
-	@GetMapping("student/classRegistrationCancel")
+	@GetMapping("/student/classRegistrationCancel")
 	public String addCancel(Model model,HttpServletRequest request,
 		@RequestParam(value="classRegistrationNo")int classRegistrationNo,
 		@RequestParam(value="lectureName")String lectureName,
@@ -116,12 +115,12 @@ public class ClassRegistrationController {
 		model.addAttribute("lectureName",lectureName);
 		model.addAttribute("lectureNo",lectureNo);
 		
-			return "student/classRegistrationCancel";
+			return "/student/classRegistrationCancel";
 	}
 	
 	
 	//학생 수강신청 취소
-	@PostMapping("student/classRegistrationCancel")
+	@PostMapping("/student/classRegistrationCancel")
 	public String classRegistrationCancel(
 			@RequestParam(value="classRegistrationNo")int classRegistrationNo,
 			@RequestParam(value="cancelContent")String cancelContent) {
@@ -133,7 +132,7 @@ public class ClassRegistrationController {
 	}
 	
 	//학생 수강신청
-	@GetMapping("student/classRegistrationChoose")
+	@GetMapping("/student/classRegistrationChoose")
 	public String classRegistartionChoose(
 			@RequestParam(value="accountId")String accountId,
 			@RequestParam(value="lectureNo")int lectureNo) {

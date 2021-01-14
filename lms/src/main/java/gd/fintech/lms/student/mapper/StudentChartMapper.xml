@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gd.fintech.lms.student.mapper.StudentChartMapper">
+	<!-- 출결 현황에 대한 통계 쿼리 -->
+	<select id="selectAttendanceDataByAccountId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			COUNT(case when a.attendance_state="출석" then a.attendance_state END) 출석,
+			COUNT(case when a.attendance_state="결석" then a.attendance_state END) 결석,
+			COUNT(case when a.attendance_state="외출" then a.attendance_state END) 외출,
+			COUNT(case when a.attendance_state="조퇴" then a.attendance_state END) 조퇴,
+			COUNT(case when a.attendance_state="지각" then a.attendance_state END) 지각,
+			COUNT(case when a.attendance_state!="결석" then a.attendance_state END) 참여일수,
+			s.subject_totalday 총일수
+		FROM attendance a
+		INNER JOIN lecture l ON a.lecture_no = l.lecture_no
+		INNER JOIN subject s ON l.subject_no = s.subject_no
+		WHERE 
+			a.account_id = #{accountId}
+			AND a.lecture_no= #{lectureNo}
+	</select>
+	
+	<!-- 카테고리를 위한 강좌 리스트 조회하는 쿼리 -->
+	<select id="selectLectureCategoryByAccountId" parameterType="String" resultType="java.util.Map">
+		SELECT DISTINCT
+			CONCAT(l.lecture_name,_UTF8MB4' (',l.teacher_name,_UTF8MB4')') lectureName,
+			l.lecture_no lectureNo
+		FROM lecture l
+		INNER JOIN attendance a ON l.lecture_no = a.lecture_no
+		INNER JOIN class_registration cr ON a.lecture_no = cr.lecture_no
+		WHERE 
+			a.account_id=#{accountId} AND
+			(cr.class_registration_state = "수강중" OR
+			cr.class_registration_state = "수료")
+	</select>
+	
+	<!-- 기본으로 보여지는 강좌 번호 -->
+	<select id="selectDefaultLectureNoByAccountId" parameterType="String" resultType="int">
+		SELECT
+			a.lecture_no lectureNo
+		FROM attendance a
+		INNER JOIN lecture l ON a.lecture_no = l.lecture_no
+		WHERE a.account_id = #{accountId}
+		LIMIT 0,1
+	</select>
+	
+	<!-- 학생 과제 성적 통계 쿼리 -->
+	<select id="selectReportScoreByAccountId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			r.report_title reportTitle,
+			rs.report_submit_score reportScore
+		FROM report r
+		INNER JOIN lecture l ON r.lecture_no = l.lecture_no
+		INNER JOIN report_submit rs ON r.report_no = rs.report_no
+		WHERE 
+			rs.account_id = #{accountId}
+			AND l.lecture_no = #{lectureNo}
+		ORDER BY report_submit_score DESC
+	</select>
+	
+	<!-- 학생 과제 개수을 구하는 쿼리 -->
+	<select id="selectCountReportByAccountId" parameterType="String" resultType="int">
+		SELECT count(rs.report_submit_score) totalScore
+		FROM report r
+		INNER JOIN lecture l ON r.lecture_no = l.lecture_no
+		INNER JOIN report_submit rs ON r.report_no = rs.report_no
+		WHERE rs.account_id = #{accountId}
+	</select>
+</mapper>

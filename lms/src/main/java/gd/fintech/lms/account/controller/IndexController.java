@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.student.service.StudentChartService;
 import gd.fintech.lms.teacher.service.TeacherChartService;
 
 // 계층별 권한에 따른 index 페이지로 이동하는 컨트롤러 클래스
@@ -16,11 +17,21 @@ import gd.fintech.lms.teacher.service.TeacherChartService;
 public class IndexController {
 	// 강사 차트 서비스
 	@Autowired TeacherChartService teacherChartService;
+	// 학생 차트 서비스 객체 주입
+	@Autowired StudentChartService studentChartService;
 	
 	// 학생 페이지로 이동하는 메소드
+	// 매개변수: 세션(로그인 아이디), Model(통계를 위한 강좌 정보)
 	// 리턴값: studentIndex(뷰이름)
 	@GetMapping("/student/index")
-	public String studentIndex() {
+	public String studentIndex(HttpSession session, Model model,
+			@RequestParam(value="lectureNo", defaultValue = "-1") int lectureNo) {
+		String accountId = session.getAttribute("accountId").toString();
+		if(lectureNo==-1) {
+			lectureNo = studentChartService.getDefaultLectureNo(accountId);
+		}
+		model.addAttribute("lectureNo", lectureNo);	// 기본 강좌 번호
+		model.addAttribute("lectureList", studentChartService.getLectureCategoryByAccountId(accountId)); // 강좌 카테고리 데이터
 		return "student/studentIndex";
 	}
 	// 강사 페이지로 이동하는 메소드

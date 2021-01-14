@@ -8,8 +8,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<!-- chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
 <!-- 학생 메뉴바 -->
 <c:if test="${accountLevel == 1}">
@@ -23,7 +21,10 @@
 				    <a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistration">수강신청 목록</a>
 				</li>
 				<li class="nav-item">
-				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistrationAll">수강등록</a>
+				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/availableLectureList">수강등록</a>
+				</li>
+				<li class="nav-item">
+				    <a class="nav-link" href="${pageContext.request.contextPath}/student/studentQuestionList">질문게시판</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>
@@ -38,7 +39,7 @@
 						<span style="color: #FFFFFF;">${accountName} 님</span>
 					</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="${pageContext.request.contextPath}/student/studentDetail">내정보</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/student/studentDetail?accountId=${accountId}">내정보</a>
 						<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 					</div>
 			    </li>
@@ -53,7 +54,7 @@
 		<div class="container">				
 			<ul class="navbar-nav">
 				<li class="nav-item">
-				    <a class="navbar-brand" href="${pageContext.request.contextPath}/student/index">LMS</a>
+				    <a class="navbar-brand" href="${pageContext.request.contextPath}/teacher/index">LMS</a>
 				</li>
 				<li class="nav-item">
 				    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=1">강사강좌조회</a>
@@ -86,7 +87,7 @@
 		<div class="container">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-				    <a class="navbar-brand" href="${pageContext.request.contextPath}/student/index">LMS</a>
+				    <a class="navbar-brand" href="${pageContext.request.contextPath}/manager/index">LMS</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
@@ -139,11 +140,21 @@
 		<div class="container">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-				    <a class="navbar-brand" href="${pageContext.request.contextPath}/student/index">LMS</a>
+				    <a class="navbar-brand" href="${pageContext.request.contextPath}/admin/index">LMS</a>
 				</li>
 				<li class="nav-item">
 				    <a class="nav-link" href="${pageContext.request.contextPath}/admin/managerQueueList">운영자 승인대기</a>
 				</li>
+				     <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown">
+						휴면계정관리
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/dormantAccountListByManager">운영자관리</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/dormantAccountListByTeacher">강사관리</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/dormantAccountListByStudent">학생관리</a>
+					</div>
+			    </li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
 				</li>

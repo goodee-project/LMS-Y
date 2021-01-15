@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.dto.MultipleChoiceForm;
+import gd.fintech.lms.manager.service.LectureManagerService;
+import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.teacher.service.TestService;
 import gd.fintech.lms.teacher.vo.MultipleChoice;
 import gd.fintech.lms.teacher.vo.Test;
@@ -21,6 +23,8 @@ import gd.fintech.lms.teacher.vo.Test;
 public class TestController {
 	// 시험 관리를 위한 서비스
 	@Autowired private TestService testService;
+	// 강좌명을 가져오기 위한 서비스
+	@Autowired private LectureManagerService lectureManagerService;
 	
 	// 시험 정보 및 생성한 객관식 문제의 정보를 출력
 	// 매개변수:
@@ -50,6 +54,7 @@ public class TestController {
 	public String createTest(
 			@RequestParam("lectureNo") int lectureNo,
 			Model model) {
+		model.addAttribute("lectureName", lectureManagerService.getManagerLectureDetail(lectureNo).getLectureName());
 		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/createTest";
 	}
@@ -76,6 +81,7 @@ public class TestController {
 		Test test = testService.getTestDetailWithDateFormatting(lectureNo);
 		
 		model.addAttribute("test", test);
+		model.addAttribute("lectureName", lectureManagerService.getManagerLectureDetail(lectureNo).getLectureName());
 		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/modifyTest";
 	}
@@ -102,6 +108,7 @@ public class TestController {
 		Test test = testService.getTestDetail(lectureNo);
 		
 		model.addAttribute("test", test);
+		model.addAttribute("lectureName", lectureManagerService.getManagerLectureDetail(lectureNo).getLectureName());
 		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/createMultipleChoice";
 	}

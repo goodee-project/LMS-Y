@@ -6,7 +6,7 @@
 		<div class="container">
 			<ul class="navbar-nav m-n1">
 				<li class="nav-item">
-					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${param.lectureNo}">${param.lectureNo} 강의실</a>
+					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${param.lectureNo}">메인</a>
 				</li>
 				<li class="nav-item">
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&target=weekDay">출석</a>
@@ -39,7 +39,7 @@
 		<div class="container">
 			<ul class="navbar-nav m-n1">
 				<li class="nav-item">
-					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${lectureNo}">${lectureNo} 강의실</a>
+					<a class="nav-link ml-5" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${lectureNo}">메인</a>
 				</li>
 				<li class="nav-item">
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${lectureNo}&target=weekDay">출석</a>

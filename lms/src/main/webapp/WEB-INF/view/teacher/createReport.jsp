@@ -81,7 +81,7 @@
 				
 				<table class="table">
 					<tr class="small">
-						<th colspan="4">${param.lectureNo} 강의실</th>
+						<th colspan="4">${lectureName}</th>
 					</tr>
 					<tr>
 						<th class="align-middle">과제 제목</th>

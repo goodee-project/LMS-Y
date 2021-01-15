@@ -58,7 +58,7 @@
 				
 				<table class="table">
 					<tr class="small">
-						<th colspan="2">${lectureNo}번 문제</th>
+						<th colspan="2">${lectureName}</th>
 					</tr>
 					<tr>
 						<th class="align-middle" style="width: 20%">문제 내용</th>

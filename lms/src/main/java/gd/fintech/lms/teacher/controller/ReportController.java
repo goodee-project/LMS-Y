@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.manager.service.LectureManagerService;
 import gd.fintech.lms.student.vo.ReportSubmit;
 import gd.fintech.lms.teacher.service.ReportService;
 import gd.fintech.lms.teacher.vo.Report;
@@ -23,6 +24,8 @@ import gd.fintech.lms.teacher.vo.Report;
 public class ReportController {
 	// 강좌의 과제를 관리하기 위한 서비스
 	@Autowired private ReportService reportService;
+	// 강좌명을 가져오기 위한 서비스
+	@Autowired private LectureManagerService lectureManagerService;
 	
 	// 강사가 관리 가능한 과제 목록 출력
 	// 매개변수:
@@ -76,6 +79,7 @@ public class ReportController {
 	public String createReport(
 			@RequestParam("lectureNo") int lectureNo,
 			Model model) {
+		model.addAttribute("lectureName", lectureManagerService.getManagerLectureDetail(lectureNo).getLectureName());
 		model.addAttribute("lectureNo", lectureNo); // 강좌 메뉴에 사용될 lectureNo 등록
 		return "teacher/createReport";
 	}

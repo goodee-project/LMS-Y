@@ -39,12 +39,15 @@ public class AnswerSheetController {
 			model.addAttribute("mapList", map.get("mapList"));
 			model.addAttribute("userTotal", map.get("userTotal"));
 			model.addAttribute("multipleChoiceTotal", map.get("multipleChoiceTotal"));
+			model.addAttribute("lectureName", map.get("lectureName"));
 			return "student/scoreDetail";
 		}
 		
 		// 위의 조건이 만족하지 않으면(시험지를 미제출시) 시험 창으로 이동
 		List<MultipleChoice> list = answerSheetService.getMultipleChoiceList(lectureNo);
+		model.addAttribute("isTestable", map.get("isTestable"));
 		model.addAttribute("list", list);
+		model.addAttribute("lectureName", map.get("lectureName"));
 		return "student/createAnswerSheet";
 	}
 

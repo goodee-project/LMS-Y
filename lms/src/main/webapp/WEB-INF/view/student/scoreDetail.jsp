@@ -20,6 +20,8 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+		<!-- 메뉴+CSS 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
 		
 		<div class="jumbotron">
 			<div class="container">
@@ -31,20 +33,33 @@
 			<table class="table">
 				<thead>
 					<tr class="small">
-						<th colspan="3">총점: ${userTotal} / ${multipleChoiceTotal}</th>
+						<th colspan="5">
+							<div>${lectureName}</div>
+							<div>총점: ${userTotal} / ${multipleChoiceTotal}</div>
+						</th>
 					</tr>
 					<tr>
 						<th style="width: 20%">문제번호</th>
 						<th>문제</th>
+						<th>제출안</th>
+						<th>정답</th>
 						<th>점수</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="map" items="${mapList}">
 						<tr>
-							<th>${map.multipleChoice.multipleChoiceId}</th>
+							<th rowspan="2">${map.multipleChoice.multipleChoiceId}번 문제</th>
 							<td>${map.multipleChoice.multipleChoiceQuestion}</td>
+							<td>${map.answerSheet.answerSelect}</td>
+							<td>${map.multipleChoice.multipleChoiceAnswer}</td>
 							<td>${map.answerSheet.answerScore}</td>
+						</tr>
+						<tr class="small">
+							<td colspan="4">
+								<div>제출안: ${map.submitExample}</div>
+								<div>정답안: ${map.answerExample}</div>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

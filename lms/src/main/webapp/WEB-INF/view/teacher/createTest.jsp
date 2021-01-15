@@ -76,8 +76,8 @@
 				<input type="hidden" name="lectureNo" value="${param.lectureNo}">
 				
 				<table class="table">
-					<tr>
-						<th colspan="4">${param.lectureNo} 강의실</th>
+					<tr class="small">
+						<th colspan="4">${lectureName}</th>
 					</tr>
 					<tr>
 						<th style="width: 20%">시험 시작일</th>

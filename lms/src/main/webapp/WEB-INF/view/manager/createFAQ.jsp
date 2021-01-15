@@ -13,13 +13,26 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
         $(document).ready(function() {
-			// 입략 버튼 클릭시 유효성 검사
+	
+       		 let faqTitle  = $('#faqTitleId').val().replace(/^\s+/,'');  
+          		
+        	$('#faqTitleId').focus();
+        	$('#faqTitleId').blur(function(){
+        		if(faqTitle == '') {
+					$('#faqTitleMSG').text('제목을 입력하세요');
+					$('#faqTitleId').focus();
+					return;
+				} else{
+					$('#faqTitleMSG').text('');
+				}
+           });	
+			// 입력 버튼 클릭시 유효성 검사
 			$('#submitBtn').click(function() {
 				oEditors.getById["faqContent"].exec("UPDATE_CONTENTS_FIELD", []);
-
+				
 				let faqContent = $('#faqContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 				// 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
-				if ($('#faqTitleId').val() == '') {
+				if (faqTitle == '') {
 					alert('제목을 입력해주세요!');
 					$('#faqTitleId').focus();
 				// 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동	
@@ -76,7 +89,8 @@
 					
 					<tr>
 						<td>
-							<input class="form-control" placeholder="제목을 입력하여 주세요"  type="text" id="faqTitleId" name="faqTitle"> 
+							<input class="form-control" placeholder="제목을 입력하여 주세요"  type="text" id="faqTitleId" name="faqTitle">
+							<span id="faqTitleMSG"></span> 
 						</td>
 					</tr>
 					

@@ -10,10 +10,22 @@
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-        $(document).ready(function() {
-            
+    	$(document).ready(function(){
         	// 강사 Id 유효성검사
-			$('#nameId').focus();	
+			$('#teacherId').focus();	
+            $('#teacherId').blur(function(){
+                // 강사id 공백 검사 
+				if($('#teacherId').val() =="" ){
+					$('#teacherId').focus();
+					$('#teacherIdMsg').text("강사 id를 입력하여주세요");
+					return
+					
+				}else{
+					
+					$('#teacherIdMsg').text("");
+					
+					}
+			});		
 			// 강사 이름 유효성 검사 
 			$('#nameId').blur(function(){
 				// 강사 이름 공백 검사
@@ -83,25 +95,24 @@
 					
 					$('#totalMsg').text("");
 					
-					} 			
-		    });	
-		    // 버튼을 클릭하였을때 유효성검사
-			$('#btnId').click(function() {
-				// 공백 검사
-				if($('$('#nameId').val() == '' || $('#lectureNameId').val() == ''
-					|| $('#startDateId').val() == ''|| $('#endDateId').val() == ''|| $('#totalId').val() == '') {
-					alert('기입에 누락된 부분이 없는지 확인해주세요');
-				} else if (new Date($('#endDateId').val())
-					- new Date($('#startDateId').val()) <= 0) {	
-					alert(' 강좌의 시작일과 강좌의 종료일이 올바르지 않습니다!');
-					$('#startDateId').focus();
-				}else {
-					
-					$('#postId').submit();
-				}
+					}
 			});
-			console.log();  				 	
-     });
+				$('#btnId').click(function() {
+					// 공백 검사
+					if($('#nameId').val() == '' || $('#lectureNameId').val() == ''
+						|| $('#startDateId').val() == ''|| $('#endDateId').val() == ''|| $('#totalId').val() == '') {
+						alert('기입에 누락된 부분이 없는지 확인해주세요');
+					} else if (new Date($('#endDateId').val())
+						- new Date($('#startDateId').val()) <= 0) {	
+						alert(' 강좌의 시작일과 강좌의 종료일이 올바르지 않습니다!');
+						$('#startDateId').focus();
+					}else {
+						
+						$('#postId').submit();
+					}
+				});
+				console.log();  				 	
+	     });
         </script>
 	</head>
 	

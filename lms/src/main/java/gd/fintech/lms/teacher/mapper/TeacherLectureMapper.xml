@@ -27,7 +27,9 @@
 		FROM lecture l 
 		JOIN  subject s 
 		ON l.subject_no = s.subject_no
-		WHERE l.account_id = #{accountId}
+		WHERE (l.lecture_startdate >= NOW() OR
+		l.lecture_enddate >= NOW()) AND
+		l.account_id = #{accountId}
 		ORDER BY l.lecture_no ASC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

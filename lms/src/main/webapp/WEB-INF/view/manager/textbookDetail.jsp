@@ -22,20 +22,6 @@
 		</div>
 		
 		<div class="container">
-			<!-- 생성일자, 수정일자 -->
-			<div>
-				<table class="table d-flex justify-content-end">
-					<tr>
-						<th>등록일자</th>
-						<td>${textbookDetail.textbookCreateDate}</td>
-					</tr>
-					<tr>
-						<th>수정일자</th>
-						<td>${textbookDetail.textbookUpdateDate}</td>
-					</tr>
-				</table>
-			</div>
-			
 			<!-- 내용 -->
 			<div>
 				<table class="table">
@@ -67,6 +53,16 @@
 						<th>정보</th>
 						<td>${textbookDetail.textbookInfo}</td>
 					</tr>
+					<c:if test="${accountLevel != 1}">
+						<tr>
+							<th>등록일자</th>
+							<td>${textbookDetail.textbookCreateDate}</td>
+						</tr>
+						<tr>
+							<th>수정일자</th>
+							<td>${textbookDetail.textbookUpdateDate}</td>
+						</tr>
+					</c:if>
 				</table>
 			</div>
 			

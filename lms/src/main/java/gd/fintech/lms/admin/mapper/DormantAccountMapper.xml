@@ -19,6 +19,7 @@
 				AND m.manager_email LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
 		</if>
+		ORDER BY a.account_updatedate DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -40,6 +41,7 @@
 				AND t.teacher_email LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
 		</if>
+		ORDER BY a.account_updatedate DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
@@ -61,6 +63,7 @@
 				AND s.student_email LIKE CONCAT('%', #{searchKeyword}, '%')
 			</if>
 		</if>
+		ORDER BY a.account_updatedate DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

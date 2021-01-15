@@ -30,7 +30,10 @@ public class ManagerQueueService {
 	@Autowired private AccountMapper accountMapper;
 	
 	// 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력하는 메소드
-	// 매개변수: currentPage(현재 페이지)
+	// 매개변수:
+	// #1. currentPage(현재 페이지)
+	// #2. searchType(검색조건)
+	// #3. searchKeyword(검색어)
 	// 리턴값: 회원가입 승인대기 중인 운영자의 목록
 	public Map<String, Object> getManagerQueueList(int currentPage, String searchType, String searchKeyword) {
 		// 한 페이지에 보여줄 항목수 15개

@@ -135,7 +135,6 @@ public class DormantAccountService {
 		paramMap.put("searchKeyword", searchKeyword);
 		
 		List<Teacher> dormantAccountListByTeacher = dormantAccountMapper.selectDormantAccountListByTeacher(paramMap);
-		logger.debug("휴면계정 서비스 디버그" + dormantAccountListByTeacher);
 		returnMap.put("dormantAccountListByTeacher", dormantAccountListByTeacher);
 		
 		return returnMap;
@@ -205,7 +204,7 @@ public class DormantAccountService {
 	public void updateDormantAccountState(String accountId) {
 		// 정말 휴면계정인지 확인하기 위해 계정 상태를 불러오는 코드
 		String accountState = dormantAccountMapper.selectAccountState(accountId);
-		logger.debug("서비스 디버그 계정 상태" + accountState.toString());
+		logger.debug(accountState);
 		// 만약 계정 상태가 휴면이라면 활성화로 변경
 		if(accountState.equals("휴면")) {
 			accountMapper.updateAccountStateActiveByAccountId(accountId);	

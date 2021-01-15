@@ -4,11 +4,13 @@
 	<!-- 회원가입 승인대기 중인 운영자 목록을 페이징하여 출력하는 쿼리문 -->
 	<select id="selectManagerQueueList" parameterType="java.util.Map" resultType="gd.fintech.lms.admin.vo.ManagerQueue">
 		SELECT
-			account_id accountId,
-			manager_name managerName,
-			manager_email managerEmail,
-			manager_phone managerPhone
-		FROM manager_queue
+			m.account_id accountId,
+			m.manager_name managerName,
+			m.manager_email managerEmail,
+			m.manager_phone managerPhone
+		FROM manager_queue m
+		LEFT JOIN account a
+		ON m.account_id = a.account_id
 		<where>
 			<if test="searchKeyword != null">
 				<if test="searchType == 'all' or searchType == 'name'">
@@ -22,6 +24,7 @@
 				</if>
 			</if>
 		</where>
+		ORDER BY a.account_createdate DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

@@ -22,20 +22,6 @@
 		</div>
 		
 		<div class="container">		
-			<!-- 생성일자, 수정일자 -->
-			<div>
-				<table class="table d-flex justify-content-end">
-					<tr>
-						<th>등록일자</th>
-						<td>${subjectDetail.subjectCreateDate}</td>
-					</tr>
-					<tr>
-						<th>수정일자</th>
-						<td>${subjectDetail.subjectUpdateDate}</td>
-					</tr>
-				</table>
-			</div>
-			
 			<!-- 내용 -->
 			<div>
 				<table class="table">
@@ -54,6 +40,14 @@
 					<tr>
 						<th>정보</th>
 						<td>${subjectDetail.subjectInfo}</td>
+					</tr>
+					<tr>
+						<th>등록일자</th>
+						<td>${subjectDetail.subjectCreateDate}</td>
+					</tr>
+					<tr>
+						<th>수정일자</th>
+						<td>${subjectDetail.subjectUpdateDate}</td>
 					</tr>
 				</table>
 			</div>

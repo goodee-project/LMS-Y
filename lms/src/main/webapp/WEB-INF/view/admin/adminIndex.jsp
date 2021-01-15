@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>관리자 인덱스</title>
+		<title>대쉬보드</title>
 	</head>
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->
@@ -12,7 +12,7 @@
 		
 		<div class="jumbotron">
 			<div class="container">
-				<h1>관리자 인덱스</h1>
+				<h1>대쉬보드</h1>
 			</div>
 		</div>
 		

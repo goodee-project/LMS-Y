@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>운영자 인덱스</title>
+		<title>대쉬보드</title>
 		
 		<!-- jQuery 스크립트 -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -60,7 +60,7 @@
 		
 		<div class="jumbotron">
 			<div class=container>
-				<h1>운영자 인덱스</h1>
+				<h1>대쉬보드</h1>
 			</div>
 		</div>
 		

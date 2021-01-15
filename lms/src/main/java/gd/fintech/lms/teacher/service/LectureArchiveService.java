@@ -112,7 +112,7 @@ public class LectureArchiveService {
 	//강좌별 자료실 상세보기 메서드
 	//매개변수:강좌 자료실 고유번호
 	//리턴값:목록출력
-	public LectureArchive getLectureArchiveOne(int lectureNo,int lectureArchiveNo) {
+	public LectureArchive getLectureArchiveOne(int lectureArchiveNo) {
 		LectureArchive lectureArchive = lectureArchiveMapper.selectLectureArchiveOne(lectureArchiveNo);
 		return lectureArchive;
 	}

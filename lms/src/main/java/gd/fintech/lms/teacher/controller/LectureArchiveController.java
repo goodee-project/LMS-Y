@@ -75,7 +75,7 @@ public class LectureArchiveController {
 			@RequestParam(value="lectureNo")int lectureNo,
 			@RequestParam(value="lectureArchiveNo")int lectureArchiveNo) {
 		//강좌별 자료실 상세보기
-		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo,lectureNo);
+		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo);
 		
 		//세션정보
 		HttpSession session = ((HttpServletRequest)request).getSession();
@@ -147,13 +147,14 @@ public class LectureArchiveController {
 	public String modifyLectureArchive(Model model,HttpSession session,
 			@RequestParam(value="lectureNo")int lectureNo,
 			@RequestParam("lectureArchiveNo")int lectureArchiveNo) {
-		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo, lectureNo);
+		LectureArchive lectureArchive = lectureArchiveService.getLectureArchiveOne(lectureArchiveNo);
 		// 세션에 있는 아이디를 가져옴
 		String accountId = (String)session.getAttribute("accountId");
 		// 세션에 있는 아이디를 참조하여 teacherService의 getTeacherOne의 정보를 가져옴
 		//Map<String, Object> map = teacherService.getTeacherOne(accountId);
 		//logger.debug("map",map.get("teacher"));
 		//model.addAttribute("map",map.get("teacher"));
+		model.addAttribute("lectureNo",lectureNo);
 		model.addAttribute("accounId",accountId);
 		model.addAttribute("lectureArchive",lectureArchive);
 		return "/teacher/modifyLectureArchive";
@@ -165,15 +166,16 @@ public class LectureArchiveController {
 	public String modifyLectureArchive(LectureArchiveForm lectureArchiveForm,HttpSession session) {
 		lectureArchiveService.modifyLectureArchive(lectureArchiveForm, session);
 		
-		return "redirect:/teacher/lectureArchiveOne?lectureArchiveNo="+lectureArchiveForm.getLectureArchiveNo();
+		return "redirect:/teacher/lectureArchiveOne?lectureNo="+lectureArchiveForm.getLectureNo()+"&&lectureArchiveNo="+lectureArchiveForm.getLectureArchiveNo();
 	}
 	
 	//자료삭제
 	@GetMapping("/teacher/removeLectureArchiveFile")
 	public String removeLectureArchiveFile(Model model,
-			@RequestParam("lectureArchiveFileUUID")String lectureArchiveFileUUID) {
+			@RequestParam("lectureArchiveFileUUID")String lectureArchiveFileUUID,
+			@RequestParam("lectureNo")int lectureNo) {
 		LectureArchiveFile lectureArchiveFile = lectureArchiveService.getLectureArchiveFile(lectureArchiveFileUUID);
 		lectureArchiveService.removeFile(lectureArchiveFileUUID);
-		return "redirect:/teacher/modifyLectureArchive?lectureArchiveNo="+lectureArchiveFile.getLectureArchiveNo();
+		return "redirect:/teacher/modifyLectureArchive?lectureNo="+lectureNo+"&&lectureArchiveNo="+lectureArchiveFile.getLectureArchiveNo();
 	}
 }

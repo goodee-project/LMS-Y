@@ -21,7 +21,7 @@
 					if(remove) {
 						<c:forEach var="laf" items="${lectureArchive.lectureArchiveFileList}">
 							<c:if test="${not empty laf.lectureArchiveFileUUID}">
-								location.replace('${pageContext.request.contextPath}/teacher/removeLectureArchiveFile?lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}');
+								location.replace('${pageContext.request.contextPath}/teacher/removeLectureArchiveFile?lectureNo=${lectureNo}&&lectureArchiveFileUUID=${laf.lectureArchiveFileUUID}');
 							</c:if>
 						</c:forEach>
 						alert('삭제하였습니다.');
@@ -106,7 +106,7 @@
 						<!-- 자료 고유번호 -->
 						<input type="hidden" name="lectureArchiveNo" value="${lectureArchive.lectureArchiveNo}">
 						<!-- 강좌번호 -->
-						<input type="hidden" name="lectureNo" value="${lectureArchive.lectureNo}" readonly="readonly">
+						<input type="hidden" name="lectureNo" value="${param.lectureNo}" readonly="readonly">
 						<!-- 강사 아이디 -->
 						<input type="hidden" name="accountId" value="${teacher.accountId}">				
 						<!-- 강사 이름 -->

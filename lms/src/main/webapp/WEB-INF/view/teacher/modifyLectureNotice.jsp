@@ -56,6 +56,7 @@
 			</div>
 			<div class=container>
 				<form id="lectureNoticeForm" method="post" action="${pageContext.request.contextPath}/teacher/modifyLectureNotice">
+						<input type="hidden" name="lectureNo" value="${param.lectureNo}">
 						<table class="table">
 							<tr>
 								<td>공지번호</td>

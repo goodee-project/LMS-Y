@@ -142,7 +142,7 @@ public class LectureNoticeController {
 	public String modifyLectureNotice(LectureNotice lectureNotice) {
 		lectureNoticeService.modifyLectureNotice(lectureNotice);
 		logger.trace(lectureNotice + "<--- lectureNotice");
-		return "redirect:/teacher/lectureNoticeOne?lectureNoticeNo=" + lectureNotice.getLectureNoticeNo();
+		return "redirect:/teacher/lectureNoticeOne?lectureNo="+lectureNotice.getLectureNo()+"&&lectureNoticeNo=" + lectureNotice.getLectureNoticeNo();
 	}
 
 	// 강좌별 공지사항 삭제 메서드

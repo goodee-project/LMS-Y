@@ -32,14 +32,15 @@
 						        datasets: [{
 						            label: '강좌 출결 그래프(1일 단위)',
 						            backgroundColor: [
+						            	'rgba(54, 162, 235, 0.5)', 
 							            'rgba(255, 99, 132, 0.5)',
-							            'rgba(54, 162, 235, 0.5)', 
 							            'rgba(255, 206, 86, 0.5)', 
 							            'rgba(75, 192, 192, 0.5)', 
 							            'rgba(153, 102, 255, 0.5)', 
 							            'rgba(255, 159, 64, 0.5)'],
-						            borderColor: ['rgb(255, 99, 132,1.5)', 
-							            'rgba(54, 162, 235, 1.5)', 
+						            borderColor: [
+						            	'rgba(54, 162, 235, 1.5)',
+							            'rgb(255, 99, 132,1.5)', 
 							            'rgba(255, 206, 86, 1.5)', 
 							            'rgba(75, 192, 192, 1.5)', 
 							            'rgba(153, 102, 255, 1.5)', 
@@ -67,19 +68,21 @@
 					url : '${pageContext.request.contextPath}/student/reportChart?lectureNo='+${lectureNo},
 					type : 'get',
 					success : function(data){
-				        let myLabels = [];
-				        let myData = [];
-				        let myBackgroundColor = [];
-				        let myBorderColor = [];
-
+						// 데이터를 추가하기 위한 작업
+				        let myLabels = [];	// 그래프 라벨
+				        let myData = [];	// 그래프 데이터
+				        let myBackgroundColor = [];	// 그래프 배경
+				        let myBorderColor = [];	// 그래프 테두리
+						// 데이터 항목 추가하기
 				        $(data).each(function(key, value) {
-				            myLabels.push(value.reportTitle);
-				            myData.push(value.reportScore);
-				            
-				            let ranDegree = Math.floor(Math.random()*360);
-				            myBackgroundColor.push("hsl(" + ranDegree + ", 100%, 75%)");
-				            myBorderColor.push("hsl(" + ranDegree + ", 100%, 50%)");
+				            myLabels.push(value.reportTitle);	// 라벨 추가(과제 제목)
+				            myData.push(value.reportScore);		// 데이터 추가(과제 점수)
+				            // 색상값 추가
+				            let ranDegree = Math.floor(Math.random()*360);	// 색조 난수(0부터 360까지 색상환 각도)
+				            myBackgroundColor.push("hsl(" + ranDegree + ", 100%, 75%)");	// 배경값 추가(색조, 채도, 밝기)
+				            myBorderColor.push("hsl(" + ranDegree + ", 100%, 50%)");	// 테두리값 추가(색조, 채도, 밝기)
 				        });
+				        // 차트 생성 작업
 				        let ctx = $("#reportChart").get(0).getContext('2d');
 				        let chart = new Chart(ctx, {
 				            type: 'horizontalBar',
@@ -98,8 +101,8 @@
 									xAxes: [{
 										display: true,
 										ticks: {
-											suggestedMax: 100,
-											beginAtZero: true
+											suggestedMax: 100,	// 최대값
+											beginAtZero: true	// 시작값 0
 										}
 									}]
 								}
@@ -110,11 +113,6 @@
 			}
 			// 처음 접근시 차트 생성
 			showChart();
-	
-			// 강좌 선택시 차트 생성
-			$('#lecture').change(function(){
-				showChart();
-			});
 		});
 	</script>
 	<body>

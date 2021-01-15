@@ -150,9 +150,9 @@
 						휴면계정관리
 					</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="${pageContext.request.contextPath}/dormantAccountListByManager">운영자관리</a>
-						<a class="dropdown-item" href="${pageContext.request.contextPath}/dormantAccountListByTeacher">강사관리</a>
-						<a class="dropdown-item" href="${pageContext.request.contextPath}/dormantAccountListByStudent">학생관리</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/dormantAccountListByManager">운영자관리</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/dormantAccountListByTeacher">강사관리</a>
+						<a class="dropdown-item" href="${pageContext.request.contextPath}/admin/dormantAccountListByStudent">학생관리</a>
 					</div>
 			    </li>
 				<li class="nav-item">

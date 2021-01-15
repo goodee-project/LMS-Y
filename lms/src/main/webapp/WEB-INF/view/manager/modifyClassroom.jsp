@@ -12,20 +12,40 @@
         <script>
         $(document).ready(function() {
             
-        	// 강의실 번호 유효성 검사 
-			$('#numberId').focus();	
 		    // 버튼을 클릭했을때 공백여부 확인
 			$('#btnId').click(function() {
-				if($('#numberId').val() == '' || $('#sizeId').val() == '' || $('#totalId').val() == '') {
-					alert('누락된 부분이 있는지 확인하세요');
-					return;
-				} else {
+				// 강의실 번호 유효성 검사 
+				if($('#numberId').val() ==''){
+					$('#numberId').focus();
+					$('#numberMsg').text("강의실 호실을 입력해주세요");
+					return
+			
+				}else{
+						$('#numberMsg').text('');	
+					}	
+				// 강의실 면적 유효성 검사
+				if($('#sizeId').val() ==''){
+					$('#sizeId').focus();
+					$('#sizeMsg').text("강의실 면적을 입력해주세요");
+					return
+			
+				}else{
+						$('#sizeMsg').text('');	
+					}	
+				// 강의실 수용인원 유효성 검사		
+				if($('#totalId').val() ==''){
+					$('#totalId').focus();
+					$('#totalMsg').text("강의실 수용인원을 입력해주세요");
+					return
+			
+				}else{
+						$('#totalMsg').text('');	
+						
+				} 
 					$('#postId').submit();
-				}
 			});
 			console.log();  				 	
      });
-     
         </script>
 	</head>
 	
@@ -33,11 +53,13 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
+		
 		<div class="jumbotron">
-			<h1>강의실 수정</h1>
-		</div>	
-			<div>
+			<div class="container">	
+					<h1>강의실 수정</h1>
+				</div>
+			</div>
+			<div class="container">
 				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">
 					<table class=table>
 						<tr>
@@ -46,19 +68,19 @@
 						</tr>
 						<tr>
 							<td>강의실 호실</td>
-							<td><input class ="form-control col-sm-4 " type="text" name="classroomNumber" id="numberId" value="${classroom.classroomNumber}">
+							<td><input class ="form-control col-sm-4 " type="number" name="classroomNumber" id="numberId" value="${classroom.classroomNumber}">
 								<span id="numberMsg"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>강의실 면적 (단위:m<sup>2</sup>)</td>
-						   <td><input class ="form-control col-sm-4 " type="text" name="classroomSize" id="sizeId" value="${classroom.classroomSize}">
+						   <td><input class ="form-control col-sm-4 " type="number" name="classroomSize" id="sizeId" value="${classroom.classroomSize}">
 						   <span id="sizeMsg"></span>
 						   </td>
 						</tr>
 						<tr>
 							<td>강의실 수용 인원</td>
-							<td><input class ="form-control col-sm-4 " type="text" name="classroomTotal" id="totalId" value="${classroom.classroomTotal}">
+							<td><input class ="form-control col-sm-4 " type="number" name="classroomTotal" id="totalId" value="${classroom.classroomTotal}">
 								<span id="totalMsg"></span>
 							</td>	
 						</tr>
@@ -69,6 +91,5 @@
 						</div>
 				</form>
 			</div>
-		</div>
 	</body>
 </html>

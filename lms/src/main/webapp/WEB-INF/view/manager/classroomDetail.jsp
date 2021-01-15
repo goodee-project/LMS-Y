@@ -25,17 +25,15 @@
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-	
+		
+	<div class="jumbotron">
 		<div class=container>
-			<div class="jumbotron">
 				<h1>강의실 정보</h1>
-				
-			</div>
-			<div>
-				 <a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/classroomList">목록</a>
 			</div>
 		</div>
+	
 		
+
 		<div class=container>
 				<table class="table">
 				   <tr>
@@ -63,6 +61,7 @@
 						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
 						<a id="delBtnId" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
 					</div>	
+			</div>
 			</div>
 	</body>
 </html>

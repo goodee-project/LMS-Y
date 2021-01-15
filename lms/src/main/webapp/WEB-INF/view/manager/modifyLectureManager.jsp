@@ -102,14 +102,17 @@
 					if($('#nameId').val() == '' || $('#lectureNameId').val() == ''
 						|| $('#startDateId').val() == ''|| $('#endDateId').val() == ''|| $('#totalId').val() == '') {
 						alert('기입에 누락된 부분이 없는지 확인해주세요');
-						return;
-					} else {
+					} else if (new Date($('#endDateId').val())
+						- new Date($('#startDateId').val()) <= 0) {	
+						alert(' 강좌의 시작일과 강좌의 종료일이 올바르지 않습니다!');
+						$('#startDateId').focus();
+					}else {
+						
 						$('#postId').submit();
 					}
 				});
 				console.log();  				 	
-			
-		 });	     
+	     });
         </script>
 	</head>
 	

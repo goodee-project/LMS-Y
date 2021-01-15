@@ -83,18 +83,20 @@
 					
 					$('#totalMsg').text("");
 					
-					}
-
-				$('#postId').submit(); 			
+					} 			
 		    });	
 		    // 버튼을 클릭하였을때 유효성검사
 			$('#btnId').click(function() {
 				// 공백 검사
-				if($('#teacherId').val() == '' || $('#nameId').val() == '' || $('#lectureNameId').val() == ''
+				if($('$('#nameId').val() == '' || $('#lectureNameId').val() == ''
 					|| $('#startDateId').val() == ''|| $('#endDateId').val() == ''|| $('#totalId').val() == '') {
 					alert('기입에 누락된 부분이 없는지 확인해주세요');
-					return;
-				} else {
+				} else if (new Date($('#endDateId').val())
+					- new Date($('#startDateId').val()) <= 0) {	
+					alert(' 강좌의 시작일과 강좌의 종료일이 올바르지 않습니다!');
+					$('#startDateId').focus();
+				}else {
+					
 					$('#postId').submit();
 				}
 			});

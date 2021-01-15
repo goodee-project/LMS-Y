@@ -12,79 +12,54 @@
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            $(document).ready(function() {
-			
-               	// FAQ 제목 유효성 검사
-               	$('#faqTitleId').focus();	
-               	$('#faqTitleId').blur(function(){
-                 // FAQ 제목 공백 검사
-				 if($('#faqTitleId').val() ==""){
-					alert("입력요청")
-					 	$('#faqTitleId').focus();		
-					return
-					
-				}
-			});	
-    			
-            	$('#faqContentId').blur(function(){
-                    // FAQ 제목 공백 검사
-   				 if($('#faqContentId').val() ==""){
-   					alert("입력요청")
-   					 oEditors.getById["faqContentId"].exec("FOCUS");	
-   					return
-   					
-   				}
-   			});	
-    			
-            	$('#submitBtn').click(function(){
-            		oEditors.getById["faqContentId"].exec("UPDATE_CONTENTS_FIELD", []);		
-            		if($('#teacherId').val() == ''){
-            			alert('공백이 있는지 확인해주세요');
-            		} else  {
-    					$('#postId').submit();
-    				}
-              
-    				 if($('#faqContentId').val() ==""){
-    					 oEditors.getById["faqContentId"].exec("FOCUS");
-    						alert('FAQ 내용을 입력하여주세요');
-    						return
-    						
-    					} 
-    				
-            });// 이거 지우면 스마트 에디터 사라짐
+        $(document).ready(function() {
+			// 입략 버튼 클릭시 유효성 검사
+			$('#submitBtn').click(function() {
+				oEditors.getById["faqContent"].exec("UPDATE_CONTENTS_FIELD", []);
 
-    			  
-            	let oEditors = [];
-				nhn.husky.EZCreator.createInIFrame({
-					oAppRef: oEditors,
-					elPlaceHolder: "faqContentId",	// 적용할 textarea 태그의 id 속성 
-					sSkinURI: "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",	
-					htParams : {
-						bUseToolbar : true,			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseVerticalResizer : true,	// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-						bUseModeChanger : true,		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-						I18N_LOCALE : "ko_KR"
-					},
-					fCreator: "createSEditor2"
-				});
-                // 폼 유효성 검사
-                // code here...
-            	
-            });
-        </script>
-	</head>
+				let faqContent = $('#faqContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+				// 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+				if ($('#faqTitleId').val() == '') {
+					alert('제목을 입력해주세요!');
+					$('#faqTitleId').focus();
+				// 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동	
+				} else if (faqContent == '') {
+					alert('내용을 입력해주세요!');
+					oEditors.getById["faqContent"].exec("FOCUS");
+				} else{
+				// 유효성 검사를 만족했을 경우 submit
+				$('#formId').submit();
+				}
+			});
+
+			// NAVER SmartEditor2 적용 코드
+			let oEditors = [];
+			nhn.husky.EZCreator.createInIFrame({
+				oAppRef: oEditors,
+				elPlaceHolder: "faqContent",	// 적용할 textarea 태그의 id 속성
+				sSkinURI: "${pageContext.request.contextPath}/se2/SmartEditor2Skin.html",	
+				htParams : {
+					bUseToolbar : true,			// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseVerticalResizer : true,	// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+					bUseModeChanger : true,		// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+					I18N_LOCALE : "ko_KR"
+				},
+				fCreator: "createSEditor2"
+			});
+        });
+    </script>
+</head>
 	
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>자주하는 질문 작성</h1>
 			</div>
-			
+		</div>
 			<div>
-				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/createFAQ">
+				<form id="formId" method="post" action="${pageContext.request.contextPath}/manager/createFAQ">
 					
 				<table class="table">
 					<tr>
@@ -100,20 +75,19 @@
 					</tr>
 					
 					<tr>
-						<td><input class="form-control" placeholder="제목을 입력하여 주세요"  type="text" id="faqTitleId" name="faqTitle"> 
-							<span id="faqTitleId"></span>
+						<td>
+							<input class="form-control" placeholder="제목을 입력하여 주세요"  type="text" id="faqTitleId" name="faqTitle"> 
 						</td>
 					</tr>
 					
 				</table>
 				
-						<textarea id="faqContentId" name="faqContent" style="width: 100%" ></textarea>
+						<textarea id="faqContent" name="faqContent" style="width: 100%" ></textarea>
 			
 					<div class="form-group d-flex justify-content-end">
 						<button class="btn btn-outline-success" id= "submitBtn" type="button">입력</button>
 					</div>
 				</form>
 			</div>
-		</div>
 	</body>
 </html>

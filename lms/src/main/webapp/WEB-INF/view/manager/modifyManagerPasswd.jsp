@@ -72,7 +72,7 @@
 			
 			<!-- 사용중인 비밀번호 -->
 			<input style="width:500px; height:50px;" type="password" id="accountPw" class="form-control form-control-alternative" placeholder="현재 비밀번호">
-			<div id="pwMsg"></div>
+			<div style="color: red;" id="pwMsg"></div>
 			
 			<!-- 새 비밀번호 -->
 			<input  style="width:500px; height:50px;" type="password" id="newPw" name="accountPw" class="form-control form-control-alternative" placeholder="새 비밀번호" >
@@ -80,7 +80,7 @@
 			<!-- 새 비밀번호 확인 -->
 			<input  style="width:500px; height:50px;" type="password" id="PwCheck" class="form-control form-control-alternative" placeholder="새 비밀번호 확인">
 		<div>
-			<button id="btnId" type="button" class="btn btn-danger">확인</button>
+			<button id="btnId" type="button" class="btn btn-success">확인</button>
 			<a class="btn btn-danger" type="button" href="${pageContext.request.contextPath}/manager/managerDetail">취소</a>
 		</div>
 	</form>

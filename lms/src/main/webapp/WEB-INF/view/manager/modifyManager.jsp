@@ -19,13 +19,22 @@
                $('#emailId').focus();
                return;
             }else{
-               $('#ckEmail').text('');
+            	 
+               $('#ckEmail').text('사용 가능한 이메일 입니다');
             }
          });
          //전화번호 숫자만 입력
-         $("#phoneId").on("keyup", function() {
-             $(this).val($(this).val().replace(/[^0-9]/g,""));
-         });
+         $("#managerPhone").on("keyup", function() {
+        		$(this).val($(this).val().replace(/[^0-9]/g,""));
+				// 숫자 크기 체크
+				if($(this).val().length > 11 ) {
+					$('#ckPhone').text('전화번호를 확인하세요');
+					 $('#managerPhone').focus();
+					return;
+				}else {
+					$('#ckPhone').text('');
+				}
+			});
          
          // 이미지 변경 값이 있는지 확인하는 변수
          var imageCheck = '';
@@ -80,12 +89,12 @@
                  });
             });
        
-            // 작성 버튼 클릭 시 유효성 검사 실시  이메일 폰 이름 직책
+            // 작성 버튼 클릭 시 유효성 검사 실시  이메일,연락처,이름.직책,생일 
             $('#btnId').click(function() {
-
-               if($('#emailId').val()=='' ||  $('#managerPhone').val()=='' ||  $('#managerName').val()=='' || $('#managerPosition').val()==''
-            	   || $('#managerPosition').val()=='' ||$('#managerBirth').val()=='' ){a
-                     alert('입력부분을 다시 확인하세요');
+	
+               if($('#emailId').val()=='' ||  $('#managerPhone').val()==''||   $('#managerName').val()=='' || $('#managerPosition').val()=='' ||
+            	    $('#managerPosition').val()=='' ||$('#managerBirth').val()=='' ){
+                     alert('누락된 부분이 없는지 확인하세요');
                      return;
                }else{
                   // 유효성 검사를 만족했을 경우 submit
@@ -101,11 +110,13 @@
       <!-- 메뉴+CSS 인클루드 -->
       <jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
       
-      <div class="container">
+      
       <div class="jumbotron">
+      <div class="container">
          <h1>내 정보수정</h1>
-      </div>   
-         <div>
+      </div> 
+      </div>  
+        <div class="container">
             <form id="postId" method="post" action="${pageContext.request.contextPath}/manager/modifyManager" enctype="multipart/form-data">
                <table class=table>
                   <tr>
@@ -115,16 +126,18 @@
                   <tr>
                      <td>운영자 이메일</td>
                      <td><input class ="form-control col-sm-7"  id="emailId" type="text" name="managerEmail" value="${map.manager.managerEmail}">
-                        <div  id="ckEmail"></div>
+                        <div  style="color: red;" id="ckEmail"></div>
                      </td>
                   </tr>
                   <tr>
                      <td>운영자 연락처('-'없이 번호만 입력해주세요)</td>
-                     <td><input class ="form-control col-sm-7"  id="managerPhone" type="text" name="managerPhone" value="${map.manager.managerPhone}"></td>
+                     <td><input class ="form-control col-sm-7"  id="managerPhone" type="text" name="managerPhone" value="${map.manager.managerPhone}">
+                     	<div style="color: red;" id="ckPhone"></div>
+                     </td> 
                   </tr>
                   <tr>
                      <td>운영자 이름</td>
-                     <td><input class ="form-control col-sm-3" id="managerName" type="text" name="managerName" value="${map.manager.managerName}"></td>
+                     <td><input class ="form-control col-sm-3" id="managerName" type="text" name="managerName" value="${map.manager.managerName}"> </td>
                   </tr>
                   <tr>
                      <td>운영자 성별</td>
@@ -175,6 +188,5 @@
                  </div>   
             </form>
          </div>
-      </div>
    </body>
 </html>

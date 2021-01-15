@@ -27,16 +27,15 @@
 	<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
-		<div class=container>
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class=container>
+		
 				<h1>자주하는 질문 상세보기</h1>
 			</div>	
-			<a  class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/FAQList">목록</a>
+			
 		</div>	
 		<div class=container>
-			
 				<table class="table table-striped ">
-				  
 				   <tr>
 						<!--FAQ카테고리,FAQ 제목>-->
 						<th style="font-size:20px; width: 100%">[${faq.faqCategory}]${faq.faqTitle}</th>

@@ -58,7 +58,7 @@
 				<h1>자주하는 질문 작성</h1>
 			</div>
 		</div>
-			<div>
+			<div class="container">
 				<form id="formId" method="post" action="${pageContext.request.contextPath}/manager/createFAQ">
 					
 				<table class="table">

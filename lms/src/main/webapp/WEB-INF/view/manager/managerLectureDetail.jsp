@@ -59,6 +59,10 @@
 						<td>강의실</td>
 						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${lecture.classroom.classroomNo}">${lecture.classroom.classroomNumber}호실</a></td>
 					</tr>
+					<tr>
+						<td>강의계획서</td>
+						<td><a href="${pageContext.request.contextPath}/manager/syllabusDetail?lectureNo=${param.lectureNo}">강의계획서</a></td>
+					</tr>
 				</table>
 				<div>
 					<a style="float: right;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">수정</a>

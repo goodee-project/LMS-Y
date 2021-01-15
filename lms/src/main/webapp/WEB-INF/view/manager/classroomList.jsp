@@ -35,7 +35,7 @@
 					</tr>
 				<c:forEach items="${classroomList}" var="c">
 					<tr>
-						<td style="width:10%">${c.classroomNo}</td>
+						<td style="width:15%">${c.classroomNo}</td>
 						<td><a href="${pageContext.request.contextPath}/manager/classroomDetail?classroomNo=${c.classroomNo}">${c.classroomNumber}호실</a></td>
 						<td>${c.classroomTotal}명</td>
 					</tr>

@@ -33,7 +33,7 @@
 					<a class="btn btn-outline-primary mb-5" href="${pageContext.request.contextPath}/manager/createLectureManager">추가</a>	
 				<table class="table">
 					<tr>
-						<th>No</th>
+						<th>No.</th>
 						<th>강사</th>
 						<th style="width:40%">제목</th>
 						<th>수강기간</th>

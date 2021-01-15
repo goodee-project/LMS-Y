@@ -16,10 +16,11 @@
 		<h1>질문 상세보기</h1>
 	</div>
 	<div class="container">
-		<a
-			href="${pageContext.request.contextPath}/student/modifyStudentQuestion?questionNo=${question.questionNo}">[수정]</a>
-		<a
-			href="${pageContext.request.contextPath}/student/removeQuestion?questionNo=${question.questionNo}">[삭제]</a>
+		<c:if test="${accountId == question.accountId}">
+			<a href="${pageContext.request.contextPath}/student/modifyStudentQuestion?questionNo=${question.questionNo}">[수정]</a>
+			<a href="${pageContext.request.contextPath}/student/removeQuestion?questionNo=${question.questionNo}">[삭제]</a>
+		</c:if>
+		
 		<table class="table">
 			<tr>
 				<td>게시글 고유번호 :</td>
@@ -69,10 +70,11 @@
 					<!-- 파일이 크기 0 일때는 보이지 않음 -->
 					<c:if test="${qcf.questionCommentFileSize>0 }">
 					<tr>
-						<td>첨부파일 :</td>
+						<td>첨부파일
 						<a href="${pageContext.request.contextPath}/student/downloadStudentQuestionCommentFile?questionCommentFileUUID=${qcf.questionCommentFileUUID}">
 						${qcf.questionCommentFileOriginal}</a>
 						<td>${question.questionCommentFile}</td>
+						</td>
 					</tr>
 					</c:if>
 					</c:forEach>

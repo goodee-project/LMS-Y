@@ -53,8 +53,8 @@
 		attendance_remark attendanceRemark
 
 	FROM attendance
-	WHERE lecture_no='1'
-	AND account_id='student1'
+	WHERE lecture_no=#{lectureNo}
+	AND account_id=#{accountId}
 	ORDER BY attendance_day DESC
 	LIMIT #{beginRow}, #{rowPerPage}
 	</select>

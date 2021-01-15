@@ -186,10 +186,10 @@
 	
 	
 	<!-- 학생의 질문 추가  -->
-	<insert id="insertQuestion">
+	<insert id="insertQuestion" parameterType="gd.fintech.lms.student.vo.Question">
 		INSERT INTO question(
 			lecture_no,
-			account_id ,
+			account_id,
 			question_writer,
 			question_title,
 			question_content,

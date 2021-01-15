@@ -63,8 +63,7 @@
 				<tr>
 					
 					<td><a
-						href="${pageContext.request.contextPath}/student/createStudentQuestion?questionNo=${questionNo}">질문
-							추가</a></td>
+						href="${pageContext.request.contextPath}/student/createStudentQuestion?lectureNo=${lectureNo}">질문추가</a></td>
 				</tr>
 			</tbody>
 		</table>

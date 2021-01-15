@@ -173,10 +173,10 @@
 										
 					<tr>
 						<td>프로필 사진</td>
-						<td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""style="width: 170px; height: 200px;" /></td>
+						<td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""style="width: 170px; height: 200px;" />
 						<c:if
 							test="${not empty myImage.imageFileUUID}">
-							<a class="btn btn-outline-danger" href="#" id="removeBtn">삭제</a>
+							<a class="btn btn-outline-danger" href="#" id="removeBtn">삭제</a></td>
 						</c:if>
 						<td><input type="file" name="imageFileList" id="imageFileList">
 					</tr>

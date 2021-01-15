@@ -20,15 +20,15 @@
 				oEditors.getById["questionContent"].exec("UPDATE_CONTENTS_FIELD", []);
 
 				let contentText = $('#questionContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-				if ($('#lecutreNo').val() == '') {								// 과제 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+				if ($('#lecutreNo').val() == '') {								
 					alert('강좌번호를 입력해주세요!');
 					$('#lecutreNo').focus();
 					
-				} else if ($('#questionTitle').val() == '') {						// 과제 시작일을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+				} else if ($('#questionTitle').val() == '') {						
 					alert('질문 제목을 입력하세요!');
 					$('#questionTitle').focus();
 					
-				} else if (contentText == '') {										// 과제 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+				} else if (contentText == '') {										
 					alert('질문 내용을 입력해주세요!');
 					oEditors.getById["questionContent"].exec("FOCUS");
 					
@@ -72,12 +72,7 @@
 			<div class="container">
 				<form id="createQuestion" method="post" action="${pageContext.request.contextPath}/student/createStudentQuestion">
 					<table class="table">
-						
-						<tr>
-							<td>강좌번호</td>
-							<td><input id="lecutreNo" type="text" name="lectureNo"></td>
-						</tr>		
-			
+							
 						<tr>
 							<td>제목</td>
 							<td><input id="questionTitle" type="text" name="questionTitle"></td>

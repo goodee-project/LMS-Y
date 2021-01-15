@@ -9,11 +9,10 @@
 	<body>
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
 		<c:choose>
 			<c:when test="${classRegistrationNoCount==1}">
 				<!-- 강좌 메뉴 인클루드 -->
-				
+				<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
 			</c:when>
 			<c:otherwise>
 			</c:otherwise>

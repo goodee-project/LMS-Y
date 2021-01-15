@@ -3,7 +3,7 @@
 <mapper namespace="gd.fintech.lms.student.mapper.ReportSubmitMapper">
 	<!-- 강좌에 관련된 과제의 리스트 출력 -->
 	<select id="selectReportListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.Report">
-		SELECT DISTINCT
+		SELECT
 		    r.report_no reportNo,
 		    r.lecture_no lectureNo,
 		    r.report_title reportTitle,
@@ -18,8 +18,7 @@
 		    INNER JOIN class_registration c
 		        ON l.lecture_no = c.lecture_no
 		WHERE c.account_id = #{accountId}
-			AND l.lecture_no = #{lectureNo}
-		GROUP BY r.report_title
+			AND r.lecture_no = #{lectureNo}
 		ORDER BY r.report_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -141,10 +140,24 @@
 		FROM report_submit
 		WHERE report_submit_no = #{reportSubmitNo}
 	</select>
-	<!-- 과제물 개수를 세기위한 셀렉트문 -->
-	<select id="selectReportCount" resultType="int">
-		SELECT COUNT(*) 
+	<!-- 과제 개수를 세기위한 셀렉트문 -->
+	<select id="selectReportCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*)
+		FROM report r
+		   INNER JOIN class_registration c
+		       ON r.lecture_no = c.lecture_no
+		WHERE c.account_id = #{accountId}
+		   AND r.lecture_no = #{lectureNo}
+	</select>
+	<!-- 특정 과제 번호에 해당되며 제출기한에 해당되는 과제 가져오기 -->
+	<select id="selectReportDetailBySubmitDate" parameterType="int" resultType="gd.fintech.lms.teacher.vo.Report">
+		SELECT
+		  report_no reportNo,
+		  report_title reportTitle
 		FROM report
+		WHERE report_no = #{reportNo}
+		  AND report_startdate &lt;= NOW()
+		  AND report_enddate &gt;= NOW()
 	</select>
 	
 	<!-- 과제제출 정보 입력, 자동 증가값인 reportSubmitNo를 읽어오기위한 selectKey -->

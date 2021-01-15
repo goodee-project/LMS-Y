@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>강사</title>
+		<title>대쉬보드</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 		<script>
@@ -15,6 +15,7 @@
 						type : 'get',
 						success : function(data){
 						    $('#reportChart').empty();
+						    $('#reportBody').html('');
 						    $('#reportChart').append('<canvas id="chart-bar1" class="chart-canvas"></canvas>');
 						    if(data.length > 0) {
 						        let myLabels = [];
@@ -25,6 +26,13 @@
 						        $(data).each(function(key, value) {
 						            myLabels.push(value.reportTitle + ' ( % ) ');
 						            myData.push(value.submitRate);
+						            $('#reportBody').append(`
+										<tr>
+											<td>\${value.reportTitle}</td>
+											<td>\${value.submitRate}%</td>
+										</tr>	
+								     `);
+
 						            
 						            let ranDegree = Math.floor(Math.random()*360);
 						            myBackgroundColor.push("hsl(" + ranDegree + ", 100%, 75%)");
@@ -52,9 +60,10 @@
 						                    }]
 						                }
 						            }
-						        });        
+						        });
 						    } else {
 						        $('#reportChart').html('과제가 없습니다.');
+						        $('#reportTable').remove();
 						    }
 						}
 					});
@@ -63,6 +72,7 @@
 						type : 'get',
 						success : function(data){
 						    $('#testChart').empty();
+						    $('#testBody').html('');
 						    $('#testChart').append('<canvas id="chart-bar2" class="chart-canvas"></canvas>');
 						    if(data.length > 0) {
 						        let myLabels = [];
@@ -73,6 +83,12 @@
 						        $(data).each(function(key, value) {
 						            myLabels.push(value.multiplechoiceId + '번');
 						            myData.push(value.answerRate);
+						            $('#testBody').append(`
+											<tr>
+												<td>\${value.multiplechoiceId}번</td>
+												<td>\${value.answerRate}%</td>
+											</tr>	
+									     `);
 						            
 						            let ranDegree = Math.floor(Math.random()*360);
 						            myBackgroundColor.push("hsl(" + ranDegree + ", 100%, 75%)");
@@ -103,6 +119,7 @@
 						        });        
 						    } else {
 						        $('#testChart').html('평가가 없습니다.');
+						        $('#testTable').remove();
 						    }
 						}
 					});
@@ -123,7 +140,7 @@
 		
 		<div class="jumbotron">
 			<div class="container">
-				<h1>강사 인덱스</h1>
+				<h1>대쉬보드</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -139,13 +156,33 @@
 				</select>
 				<button class="btn btn-primary" type="submit">변경</button>
 			</form>
-			<div class="row">
-				<div class="col">
-					<div id="reportChart"></div>
-				</div>
-				<div class="col">
-					<div id="testChart"></div>
-				</div>
+			<div>
+				<h2><span class="badge badge-pill badge-info mt-5">강좌별 과제 제출률</span></h2>
+				<div id="reportChart"></div>
+				<table id="reportTable" class="table text-center">
+					<thead>
+						<tr>
+							<th>과제명</th>
+							<th>제출률(%)</th>
+						</tr>
+					</thead>
+					<tbody id="reportBody">
+					</tbody>
+				</table>
+			</div>
+			<div>
+				<h2><span class="badge badge-pill badge-info mt-5">강좌별 평가 문제 정답률</span></h2>
+				<div id="testChart"></div>
+				<table id="testTable" class="table text-center">
+					<thead>
+						<tr>
+							<th>문제</th>
+							<th>정답률(%)</th>
+						</tr>
+					</thead>
+					<tbody id="testBody">
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</body>

@@ -46,11 +46,16 @@ public class ReportSubmitService {
 	// 과제제출할 과제의 리스트들 출력
 	// 매개변수 : 과제제출할 학생의 계정 id
 	// 리턴값 : 강좌 1개에 대한 과제리스트
-	public Map<String, Object> getReportListByPage(int currentPage, HttpSession session) {
+	public Map<String, Object> getReportListByPage(int lectureNo, int currentPage, HttpSession session) {
 		// 페이지 당 보여줄 과제물 수
 		int rowPerPage = 5;
+		
+		Map<String, Object> countMap = new HashMap<>();
+		countMap.put("lectureNo", lectureNo);
+		countMap.put("accountId", session.getAttribute("accountId"));
+		
 		// 전체 과제물 수
-		int reportCount = reportSubmitMapper.selectReportCount();
+		int reportCount = reportSubmitMapper.selectReportCount(countMap);
 		int beginRow = (currentPage-1)*rowPerPage;
 		// 마지막 페이지
 		int lastPage = reportCount/rowPerPage;
@@ -71,9 +76,17 @@ public class ReportSubmitService {
 			navLastPage = lastPage;
 		}
 		
+		logger.debug("navPerPage: "+navPerPage);
+        logger.debug("계산된 시작 행: "+beginRow);
+        logger.debug("페이지당 보여줄 행 갯수: "+rowPerPage);
+        logger.debug("페이지 네비게이션 시작값: "+navBeginPage);
+        logger.debug("페이지 네비게이션 종료값: "+navLastPage);
+        logger.debug("총 페이지 갯수: "+lastPage);
+		
 		Map<String, Object> pageMap = new HashMap<>();
 		pageMap.put("rowPerPage", rowPerPage);
 		pageMap.put("beginRow", beginRow);
+		pageMap.put("lectureNo", lectureNo);
 		pageMap.put("accountId", session.getAttribute("accountId"));
 		List<Report> reportList = reportSubmitMapper.selectReportListByPage(pageMap);
 		
@@ -90,15 +103,21 @@ public class ReportSubmitService {
 	// 과제의 정보, 과제 제출 정보, 과제 제출 첨부파일의 정보의 상세 정보 출력
 	// 매개변수 : 과제 번호, 제출할 학생의 계정 id
 	// 리턴값 : 과제 정보, 제출한 과제 정보
-	public Report getReportDetail(int reportNo, HttpSession session) {
+	public Map<String, Object> getReportDetail(int reportNo, HttpSession session) {
 		Map<String, Object> paraMap = new HashMap<>();
 		paraMap.put("reportNo", reportNo);
 		paraMap.put("accountId", session.getAttribute("accountId"));
 		logger.debug(paraMap.toString());
 		
 		Report report = reportSubmitMapper.selectReportDetail(paraMap);
+		boolean isEditable = (reportSubmitMapper.selectReportDetailBySubmitDate(reportNo) != null);
+		logger.debug(isEditable+"");
 		
-		return report;
+		Map<String, Object> reportMap = new HashMap<>();
+		reportMap.put("report", report);
+		reportMap.put("isEditable", isEditable);
+		
+		return reportMap;
 	}
 	
 	// 과제의 제출정보, 첨부파일 정보 출력

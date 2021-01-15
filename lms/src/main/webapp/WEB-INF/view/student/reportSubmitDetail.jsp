@@ -99,10 +99,12 @@
 					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/modifyReportSubmit?reportSubmitNo=${rs.reportSubmitNo}">과제 수정</a>
 				</div>
 				</c:forEach>
-				<c:if test="${empty reportAndReportSubmit.reportSubmitList}">
-					<div class="d-flex justify-content-end">
-						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/createReportSubmit?reportNo=${reportAndReportSubmit.reportNo}">과제 제출</a>
-					</div>
+				<c:if test="${isEditable}">
+					<c:if test="${empty reportAndReportSubmit.reportSubmitList}">
+						<div class="d-flex justify-content-end">
+							<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/createReportSubmit?reportNo=${reportAndReportSubmit.reportNo}">과제 제출</a>
+						</div>
+					</c:if>
 				</c:if>
 			</div>
 		</div>

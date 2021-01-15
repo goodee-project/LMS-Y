@@ -22,6 +22,8 @@
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+	<!-- 강좌 메뉴 인클루드 -->
+	<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
 	<div class="jumbotron">
 		<div class="container">
 			<h1>과제 목록</h1>
@@ -55,10 +57,10 @@
 					<c:when test="${currentPage > 1}">
 						<li class="page-item">
 							<a class="page-link"
-							href="${pageContext.request.pathInfo}?currentPage=1">&lt;&lt;</a></li>
+							href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=1">&lt;&lt;</a></li>
 						<li class="page-item">
 							<a class="page-link"
-							href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}">&lt;</a>
+							href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${currentPage-1}">&lt;</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -82,7 +84,7 @@
 							<c:otherwise>
 								<li class="page-item">
 									<a class="page-link"
-									href="${pageContext.request.pathInfo}?currentPage=${i}">${i}</a>
+									href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${i}">${i}</a>
 								</li>
 							</c:otherwise>
 						</c:choose>
@@ -93,11 +95,11 @@
 					<c:when test="${currentPage < lastPage}">
 						<li class="page-item">
 							<a class="page-link"
-							href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">&gt;</a>
+							href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${currentPage+1}">&gt;</a>
 						</li>
 						<li class="page-item">
 							<a class="page-link"
-							href="${pageContext.request.pathInfo}?currentPage=${lastPage}">&gt;&gt;</a>
+							href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&currentPage=${lastPage}">&gt;&gt;</a>
 						</li>
 					</c:when>
 					<c:otherwise>

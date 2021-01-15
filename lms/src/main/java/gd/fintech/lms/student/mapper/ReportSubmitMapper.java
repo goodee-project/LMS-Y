@@ -13,7 +13,7 @@ import gd.fintech.lms.teacher.vo.Report;
 @Mapper
 public interface ReportSubmitMapper {
 	// 과제제출할 과제리스트 출력
-	// 매개변수 : 과제제출할 학생의 계정 id
+	// 매개변수 : 과제제출할 학생의 계정 id, 페이징
 	// 리턴값 : 강좌 1개에 관련된 과제 리스트 
 	List<Report> selectReportListByPage(Map<String, Object> map);
 	
@@ -33,8 +33,14 @@ public interface ReportSubmitMapper {
 	ReportSubmit selectReportSubmitOne(int reportSubmitNo);
 	
 	// 과제물 개수
+	// 매개변수 : 계정ID(accountId)와 강좌번호(lectureNo)
 	// 리턴값 : 과제물의 개수
-	int selectReportCount();
+	int selectReportCount(Map<String, Object> map);
+	
+	// 시작시간, 종료시간 비교해서 과제 번호와 이름을 가져옴
+	// 매개변수 : 과제 번호
+	// 리턴값 : 시간에 해당되는 과제 이름과 번호
+	Report selectReportDetailBySubmitDate(int reportNo);
 	
 	// 과제제출 입력
 	// 매개변수 : 과제제출 정보(과제제출번호, 과제번호, 계정 id, 입력날짜, 수정날짜, 제목, 내용)

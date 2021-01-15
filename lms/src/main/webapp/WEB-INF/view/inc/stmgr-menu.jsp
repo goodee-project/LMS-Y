@@ -21,7 +21,7 @@
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/reportList?lectureNo=${param.lectureNo}">과제</a>
 				</li>
 				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/testDetail?lectureNo=${param.lectureNo}">시험</a>
+			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/answerSheet?lectureNo=${param.lectureNo}">시험</a>
 				</li>
 			</ul>
 		</div>
@@ -48,7 +48,7 @@
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/reportList?lectureNo=${lectureNo}">과제</a>
 				</li>
 				<li class="nav-item">
-			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/testDetail?lectureNo=${lectureNo}">시험</a>
+			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/answerSheet?lectureNo=${lectureNo}">시험</a>
 				</li>
 			</ul>
 		</div>

@@ -37,13 +37,15 @@ public class ReportSubmitController {
 	// 리턴값 : 계정과 연관 있는 과제리스트
 	@GetMapping("/student/reportList")
 	public String reportList(Model model,
+			@RequestParam(value="lectureNo") int lectureNo,
 			@RequestParam(value="currentPage", defaultValue = "1") int currentPage,
 			HttpSession session) {
-		Map<String, Object> map = reportSubmitService.getReportListByPage(currentPage, session);
+		Map<String, Object> map = reportSubmitService.getReportListByPage(lectureNo, currentPage, session);
 		logger.debug(map.toString());
 		
 		model.addAttribute("reportList", map.get("reportList"));
 		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("lectureNo", lectureNo);
 		model.addAttribute("lastPage", map.get("lastPage"));
 		
 		model.addAttribute("navPerPage", map.get("navPerPage"));
@@ -63,8 +65,10 @@ public class ReportSubmitController {
 	public String reportSubmitDetail(Model model,
 			@RequestParam(value="reportNo") int reportNo,
 			HttpSession session) {
-		Report reportAndReportSubmit = reportSubmitService.getReportDetail(reportNo, session);
-		model.addAttribute("reportAndReportSubmit", reportAndReportSubmit);
+		Map<String, Object> reportMap = reportSubmitService.getReportDetail(reportNo, session);
+		
+		model.addAttribute("reportAndReportSubmit", reportMap.get("report"));
+		model.addAttribute("isEditable", reportMap.get("isEditable"));
 		return "/student/reportSubmitDetail";
 	}
 	

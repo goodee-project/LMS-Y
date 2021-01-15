@@ -71,8 +71,13 @@
 					</tr>
 					
 					<tr> 
-						<td>주소/상세주소</td>
-						<td>${map.student.studentAddressMain} ${map.student.studentAddressSub}</td>
+						<td>주소</td>
+						<td>${map.student.studentAddressMain}</td> 
+					</tr>
+					
+					<tr>
+						<td>상세주소</td>
+						<td>${map.student.studentAddressSub}</td>
 					</tr>
 					
 			</table>

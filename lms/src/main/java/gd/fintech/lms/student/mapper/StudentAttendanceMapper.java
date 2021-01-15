@@ -18,7 +18,7 @@ public interface StudentAttendanceMapper {
 	//학생 출석 전체 갯수
 	//매개변수:학생id
 	//리턴값:학생들의 출석 갯수
-	int attendanceCount(String accountId);
+	int attendanceCount(int lectureNo);
 	
 
 }

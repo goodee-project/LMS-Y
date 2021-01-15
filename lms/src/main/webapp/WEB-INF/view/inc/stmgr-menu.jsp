@@ -9,7 +9,7 @@
 				    <a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${param.lectureNo}">메인</a>
 				</li>
 				<li class="nav-item">
-				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/attendanceList?lectureNo=${param.lectureNo}&target=weekDay">출석</a>
+				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/studentAttendanceList?lectureNo=${param.lectureNo}">출석</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/syllabusDetail?lectureNo=${param.lectureNo}">강의계획서</a>
@@ -36,7 +36,7 @@
 				    <a class="nav-link" href="${pageContext.request.contextPath}/student/studentLectureOne?lectureNo=${lectureNo}">메인</a>
 				</li>
 				<li class="nav-item">
-				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/attendanceList?lectureNo=${lectureNo}&target=weekDay">출석</a>
+				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/attendanceList?lectureNo=${lectureNo}">출석</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/syllabusDetail?lectureNo=${lectureNo}">강의계획서</a>

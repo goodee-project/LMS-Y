@@ -2,6 +2,7 @@ package gd.fintech.lms.student.vo;
 
 import java.util.List;
 
+import gd.fintech.lms.manager.vo.Lecture;
 import lombok.Data;
 
 @Data
@@ -29,4 +30,7 @@ public class Attendance {
 		
 	//수강신청 vo
 	private List<ClassRegistration> classRegistrationList;
+	
+	//강의 정보 리스트
+	private Lecture lectureInfo;
 }

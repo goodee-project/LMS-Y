@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>[여기에 이 페이지의 특징을 잘 살린 제목을 넣어주세요]</title>
+<title>학생 출석부</title>
 
 <!-- jQuery 스크립트 -->
 <script
@@ -52,42 +52,58 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<c:if test="${null eq classregistrationAllList}">
-			<div>
+		<c:if test="${null eq attendanceCount}">
+			<ul class="pagination">
 				<!-- 처음으로, 이전 -->
-				<c:choose>
-					<c:when test="${currentPage > 1}">
-						<a href="${pageContext.request.pathInfo}?currentPage=1">[처음으로]</a>
-						<a
-							href="${pageContext.request.pathInfo}?currentPage=${currentPage-1}"><</a>
-					</c:when>
-					<c:otherwise>
-					</c:otherwise>
-				</c:choose>
-				<!-- 현재페이지 네비바 -->
-				<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
-					<c:if test="${i <= lastPage}">
-						<c:choose>
-							<c:when test="${i == currentPage}">
-								<a href="#">[${i}]</a>
-							</c:when>
-							<c:otherwise>
-								<a href="${pageContext.request.pathInfo}?currentPage=${i}">[${i}]</a>
-							</c:otherwise>
-						</c:choose>
-					</c:if>
-				</c:forEach>
-				<!-- 다음, 마지막으로 -->
-				<c:choose>
-					<c:when test="${currentPage < lastPage}">
-						<a
-							href="${pageContext.request.pathInfo}?currentPage=${currentPage+1}">></a>
-						<a href="${pageContext.request.pathInfo}?currentPage=${lastPage}">[마지막으로]</a>
-					</c:when>
-					<c:otherwise>
-					</c:otherwise>
-				</c:choose>
-			</div>
+					<c:choose>
+						<c:when test="${currentPage > '1'}">
+							<!-- 현재 페이지가 1보다 클시 -->
+							<!-- 현재 페이지가 1일시 -->
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=1&&attendanceCount=${attendanceCount}">&lt;&lt;</a></li>
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage-1}&&attendanceCount=${attendanceCount}">&lt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="#">
+									&lt;&lt; </a></li>
+							<li class="page-item disabled"><a class="page-link" href="#">&lt;</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+					<!-- 현재페이지 네비바 -->
+					<!-- 현재 페이지 표시 -->
+					<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
+						<c:if test="${i <= lastPage}">
+							<c:choose>
+								<c:when test="${i == currentPage}">
+									<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item"><a class="page-link"
+										href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${i}&&attendanceCount=${attendanceCount}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+					<!-- 다음, 마지막으로 -->
+					<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
+					<!-- 현재 페이지가 마지막 페이지 일시 -->
+					<c:choose>
+						<c:when test="${currentPage < lastPage}">
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage+1}&&attendanceCount=${attendanceCount}">&gt;</a></li>
+							<li class="page-item"><a class="page-link"
+								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${lastPage}&&attendanceCount=${attendanceCount}">&gt;&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item disabled"><a class="page-link" href="#">&gt;</a>
+							</li>
+							<li class="page-item disabled"><a class="page-link" href="#">&gt;&gt;</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+			</ul>
 		</c:if>
 	</div>
 </body>

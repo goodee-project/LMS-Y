@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="gd.fintech.lms.student.mapper.StudentAttendanceMapper">
+	
+	
+	<resultMap type="gd.fintech.lms.student.vo.Attendance" id="resultStudentAttendance">
+	<result property="lectureNo" column="lecture_no"/>
+	<result property="accountId" column="studentId"/>
+	<result property="attendanceDay" column="attendance_day"/>
+	<result property="attendanceCreateDate" column="attendance_createdate"/>
+	<result property="" column="attendance_updatedate"/>
+	<result property="" column="attendance_state"/>
+	<result property="" column="attendance_remark"/>
+	
+	<association property="classRegistrationList" javaType="gd.fintech.lms.student.vo.ClassRegistration">
+	<result property="classRegistrationNo" column="class_registration_no"/>
+	<result property="lectureNo" column="lecture_no"/>
+	<result property="accountId" column="student_id"/>
+	<result property="classRegistrationState" column="class_registration_state"/>
+	<result property="classRegistrationPoint" column="class_registration_point"/>
+	<result property="classRegistrationReview" column="class_registration_review"/>
+	<result property="classRegistrationCreateDate" column="class_registration_createdate"/>
+	</association>
+	
+	<association property="lectureInfo" javaType="gd.fintech.lms.manager.vo.Lecture">
+		<result property="lectureNo" column="lecture_no"/>
+		<result property="accountId" column="teacher_id"/>
+		<result property="subjectNo" column="subject_no"/>
+		<result property="teacherName" column="teacher_name"/>
+		<result property="lectureName" column="lecture_name"/>
+		<result property="textbookISBN" column="textbook_isbn"/>
+		<result property="lectureStartDate" column="lecture_startdate"/>
+		<result property="lectureEndDate" column="lecture_enddate"/>
+		<result property="lectureTotal" column="lecture_total"/>
+		<result property="classroomNo" column="classroom_no"/>
+		<result property="lectureCreateDate" column="lecture_createdate"/>
+		<result property="lectureUpdateDate" column="lecture_updatedate"/>
+	</association>
+	
+</resultMap>
+
+	<!-- 학생 출석  -->
+	<!-- 학생출석 날짜별 리스트 페이징 -->
+	<select id="studentAttendanceListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.Attendance">
+	SELECT
+		lecture_no lectureNo,
+		account_id accountId,
+		attendance_day attendanceDay,
+		attendance_createdate attendanceCreateDate,
+		attendance_updatedate attendanceUpdatedate,
+		attendance_state attendanceState,
+		attendance_remark attendanceRemark
+
+	FROM attendance
+	WHERE lecture_no='1'
+	AND account_id='student1'
+	ORDER BY attendance_day DESC
+	LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+
+	<!-- 강좌별 학생출석 전체 갯수 -->
+	<select id="attendanceCount" resultType="int">
+	SELECT 
+		COUNT(*)
+	FROM attendance
+	WHERE lecture_no=#{lectureNo}
+	</select>
+</mapper> 

@@ -22,14 +22,14 @@ public class StudentAttendanceService {
 	@Autowired
 	StudentAttendanceMapper studentAttendanceMapper;
 
-	public Map<String,Object> getStudentAttendanceListByPage(String accountId, int currentPage) {
+	public Map<String,Object> getStudentAttendanceListByPage(int lectureNo, int currentPage) {
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage - 1) * rowPerPage;
 
 		// 전체 페이지 갯수
-		int attendanceCount = studentAttendanceMapper.attendanceCount(accountId);
-		logger.debug(attendanceCount + "질문갯수");
+		int attendanceCount = studentAttendanceMapper.attendanceCount(lectureNo);
+		logger.debug(attendanceCount + "출석갯수");
 		// 마지막 페이지
 		int lastPage = attendanceCount / rowPerPage;
 
@@ -58,7 +58,7 @@ public class StudentAttendanceService {
 		Map<String, Object> parmMap = new HashMap<>();
 		parmMap.put("rowPerPage", rowPerPage);
 		parmMap.put("beginRow", beginRow);
-		parmMap.put("accountId", accountId);
+		parmMap.put("lectureNo", lectureNo);
 		parmMap.put("attendanceCount", attendanceCount);
 
 		// 담아주기

@@ -162,7 +162,7 @@
 						<td>메인주소</td>
 							<td><input class="form-control form-control-alternative" type="text" name="studentAddressMain" id="studentAddressMain" value="${map.student.studentAddressMain}" readonly="readonly">
 							<div class="input-group">
-							<input class="form-control col-sm-3" type="text" id="zipCode" placeholder="우편번호 입력">
+							<input class="form-control col-sm-3" type="text" id="zipCode" placeholder="우편번호">
 							<button class="btn btn-outline-primary" type="button" id="zipCodeSearch">우편번호 검색</button>
 						</div>
 						<div id="addAddr"></div>

@@ -103,21 +103,21 @@
 			
 			<!-- 페이지 네비게이션 바 -->
 			<!-- 검색된 항목이 있을 시에만 출력 -->
-			<div class="d-flex justify-content-center">
-				<c:if test="${lastPage != 0}">
+			<c:if test="${lastPage != 0}">
+				<div class="d-flex justify-content-center">
 					<ul class="pagination small">
 						<%-- 처음 버튼 --%>
 						<c:if test="${currentPage != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=1&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									처음
+									&lt;&lt;
 								</a>
 							</li>
 						</c:if>
@@ -126,14 +126,14 @@
 						<c:if test="${pageNaviBegin != 1}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviBegin-1}&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${pageNaviBegin == 1}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									이전
+									&lt;
 								</a>
 							</li>
 						</c:if>
@@ -160,14 +160,14 @@
 						<c:if test="${pageNaviEnd != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${pageNaviEnd+1}&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${pageNaviEnd == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									다음
+									&gt;
 								</a>
 							</li>
 						</c:if>
@@ -176,20 +176,20 @@
 						<c:if test="${currentPage != lastPage}">
 							<li class="page-item">
 								<a class="page-link" href="${pageContext.request.pathInfo}?currentPage=${lastPage}&searchType=${searchType}&searchKeyword=${searchKeyword}">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 						<c:if test="${currentPage == lastPage}">
 							<li class="page-item disabled">
 								<a class="page-link">
-									마지막
+									&gt;&gt;
 								</a>
 							</li>
 						</c:if>
 					</ul>
-				</c:if>
-			</div>
+				</div>
+			</c:if>
 		</div>
 	</body>
 </html>

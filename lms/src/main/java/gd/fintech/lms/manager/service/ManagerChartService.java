@@ -20,9 +20,11 @@ public class ManagerChartService {
 	// 운영자 차트 데이터 Mapper
 	@Autowired private ManagerChartMapper managerChartMapper;
 	
-	// 
+	// 강사와 학생의 인원수를 차트로 출력하는 메소드
+	// 매개변수: 없음
+	// 리턴값: 
 	public Map<String, Object> getTeacherAndStudentCountChart() {
-		logger.debug(null);
+		logger.debug("운영자 차트 디버그 " + managerChartMapper.selectTeacherAndStudentCount());
 		return managerChartMapper.selectTeacherAndStudentCount();
 	}
 	

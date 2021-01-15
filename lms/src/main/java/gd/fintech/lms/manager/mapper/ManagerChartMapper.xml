@@ -4,17 +4,11 @@
 	<!-- 강사와 학생의 수를 각각 출력하는 쿼리문 -->
 	<select id="selectTeacherAndStudentCount" resultType="java.util.Map">
 		SELECT
-			COUNT(*)
-		FROM teacher t
-		left join account a
-		ON t.account_id = a.account_id
-		where a.account_state = '활성화'
-		UNION
-		SELECT
-			COUNT(*)
-		FROM student s
-		left join account a
-		ON s.account_id = a.account_id
-		where a.account_state = '활성화'
+		   COUNT(t.account_id) teacherCount,
+		   COUNT(s.account_id) studentCount
+		FROM account a
+		LEFT JOIN teacher t ON a.account_id = t.account_id
+		LEFT JOIN student s ON a.account_id = s.account_id
+		WHERE a.account_state = '활성화'
 	</select>
 </mapper>

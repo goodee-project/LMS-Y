@@ -44,7 +44,7 @@
 					<div class="d-flex justify-content-end input-group">
 						<!-- 검색조건 -->
 						<div class="input-group-prepend">
-							<select id="searchType" name="searchType" class="form-control col-sm-15">
+							<select id="searchType" name="searchType" class="form-control" style="width:110px;">
 								<option value="all"
 									<c:if test="${searchType == 'all'}">selected</c:if>>전체</option>
 								<option value="name"

@@ -36,79 +36,14 @@ public class SyllabusController {
 	// 리턴값: syllabusDetail(고유번호에 해당하는 강의계획서 페이지)
 	// 강의계획서 정보를 출력
 	@GetMapping(value = {"/teacher/syllabusDetail", "/manager/syllabusDetail", "/student/syllabusDetail"})
-	public String syllabusDetail(Model model, HttpServletRequest request, HttpSession session,
+	public String syllabusDetail(Model model, HttpSession session,
 			@RequestParam(value = "lectureNo") int lectureNo) {
 		Map<String, Object> map = syllabusService.getSyllabusDetail(lectureNo);
 		
-		// 보여줄 페이지 값 returnValue
-		String returnValue = null;
+		model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
+		model.addAttribute("lectureDetail", map.get("lectureDetail"));
 		
-		// 강의계획서 정보가 없으면
-		if(map.get("syllabusDetail") == null) {
-			// 강사일 경우
-			if(request.getServletPath().matches("/teacher/syllabusDetail")) {
-				// session에서 accountId(아이디)를 출력
-				String accountId = (String)session.getAttribute("accountId");
-				// syllabus(강의계획서 정보) 출력
-				Syllabus syllabusDetail = (Syllabus)map.get("syllabusDetail");
-				// lectureDetail(강좌 정보) 출력
-				Lecture lectureDetail = (Lecture)map.get("lectureDetail");
-				// 강좌 정보에서 강좌를 담당하는 강사 아이디를 teacherId로 출력
-				String teacherId = lectureDetail.getAccountId();
-				
-				// teacherId(강좌를 담당하는 강사 아이디)와 accountId(현재 로그인 한 강사의 아이디)가 같으면 강의계획서 작성 페이지로 이동
-				if(teacherId.equals(accountId) && syllabusDetail == null) {
-					model.addAttribute("lectureDetail", map.get("lectureDetail"));
-					
-					returnValue = "redirect://teacher/createSyllabus?lectureNo=" + lectureNo;
-				// 같지않을 경우 강좌 정보 페이지로 이동
-				} else {
-					model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
-					model.addAttribute("lectureDetail", map.get("lectureDetail"));
-					
-					returnValue = "redirect:/teacher/teacherLectureOne?lectureNo=" + lectureNo;
-				}
-			}
-			// 운영자일 경우
-			else if(request.getServletPath().matches("/manager/syllabusDetail")) {
-				model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
-				model.addAttribute("lectureDetail", map.get("lectureDetail"));
-				
-				returnValue = "redirect:/manager/managerLectureDetail?lectureNo=" + lectureNo;
-			}
-			// 학생일 경우
-			else if(request.getServletPath().matches("/student/syllabusDetail")) {
-				model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
-				model.addAttribute("lectureDetail", map.get("lectureDetail"));
-				
-				returnValue = "redirect:/student/studentLectureOne?lectureNo=" + lectureNo;
-			}
-		// 강의계획서 정보가 있으면
-		} else {
-			// 강사일 경우
-			if(request.getServletPath().matches("/teacher/syllabusDetail")) {
-				model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
-				model.addAttribute("lectureDetail", map.get("lectureDetail"));
-				
-				returnValue = "/teacher/syllabusDetail";
-			}
-			// 운영자일 경우
-			else if(request.getServletPath().matches("/manager/syllabusDetail")) {
-				model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
-				model.addAttribute("lectureDetail", map.get("lectureDetail"));
-				
-				returnValue = "/teacher/syllabusDetail";
-			}
-			// 학생일 경우
-			else if(request.getServletPath().matches("/student/syllabusDetail")) {
-				model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
-				model.addAttribute("lectureDetail", map.get("lectureDetail"));
-				
-				returnValue = "/teacher/syllabusDetail";
-			}
-		}
-		
-		return returnValue;
+		return "/teacher/syllabusDetail";
 	}
 	
 	// 강사가 강의계획서를 작성할 수 있는 페이지를 출력하는 메소드

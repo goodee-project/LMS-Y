@@ -134,6 +134,11 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
+		<!-- 강좌 메뉴 인클루드 -->
+		<c:if test="${accountLevel == 2}">		
+			<jsp:include page="/WEB-INF/view/inc/lectmgr-menu.jsp"></jsp:include>
+		</c:if>
+		
 		<div class="jumbotron">
 			<div class="container">
 				<h1>${lectureDetail.lectureName} 강의계획서 수정</h1>

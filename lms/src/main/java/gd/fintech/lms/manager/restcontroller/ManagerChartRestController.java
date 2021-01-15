@@ -2,6 +2,8 @@ package gd.fintech.lms.manager.restcontroller;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +14,8 @@ import gd.fintech.lms.manager.service.ManagerChartService;
 
 @RestController
 public class ManagerChartRestController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	// 운영자 차트 데이터 Service
 	@Autowired ManagerChartService managerChartService;
 	
@@ -21,6 +25,7 @@ public class ManagerChartRestController {
 	@GetMapping("/manager/teacherAndStudentCountChart")
 	public Map<String, Object> teacherAndStudentCountChart() {
 		Map<String, Object> teacherAndStudentCountChart = managerChartService.getTeacherAndStudentCountChart();
+		logger.debug("차트 데이터 디버그" + teacherAndStudentCountChart);
 		return teacherAndStudentCountChart;
 	}
 }

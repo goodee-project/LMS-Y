@@ -33,21 +33,22 @@
 			<h1>출석 달력</h1>
 		</div>
 	</div>
-	<div class="container">
-		<table class="attendanceTableMenu">
-			<tr>
-			<td width="15%" style="text-align: right;">
-			<a class="btn btn-light" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=pre&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}"> ⇽ </a>
-			</td>
-			<td width="15%">
-			<h3>${currentYear}년 ${currentMonth}월 ${currentDay}일</h3>
-			</td>
-			<td width="15%" style="text-align: left;">
-			<a class="btn btn-light" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=next&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}"> ⇾ </a>
-			</td>
-			</tr>
-		</table>
-	</div>
+	<div class="container jumbotron bg-light">
+		<div class="container">
+			<table class="attendanceTableMenu">
+				<tr>
+				<td width="15%" style="text-align: right;">
+				<a class="btn btn-light" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=pre&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}"> ⇽ </a>
+				</td>
+				<td width="15%">
+				<h3>${currentYear}년 ${currentMonth}월 ${currentDay}일</h3>
+				</td>
+				<td width="15%" style="text-align: left;">
+				<a class="btn btn-light" href="${pageContext.request.contextPath}/teacher/attendanceList?lectureNo=${param.lectureNo}&&target=next&&currentYear=${currentYear}&&currentMonth=${currentMonth}&&currentDay=${currentDay}"> ⇾ </a>
+				</td>
+				</tr>
+			</table>
+		</div>
 	<div class=container>
 	<table>
 	<tr>
@@ -63,7 +64,7 @@
 	</table>
 	<table class="table">
 		<thead>
-			<tr>
+			<tr  class="text-center">
 				<td>학생아이디</td>
 				<td>학생이름</td>
 				<td>학생성별</td>
@@ -75,7 +76,7 @@
 		</thead>
 		<thead>
 			<c:forEach var="al" items="${attendance}">
-				<tr>
+				<tr  class="text-center">
 				<c:forEach var="als" items="${al.studentList}">
 					<td>${als.accountId}</td>
 					<td>${als.studentName}</td>
@@ -101,6 +102,7 @@
 			</c:forEach>
 		</thead>
 	</table>
+	</div>
 	</div>
 </body>
 </html>

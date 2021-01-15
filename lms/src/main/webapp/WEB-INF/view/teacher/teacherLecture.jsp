@@ -20,22 +20,22 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>강좌 번호</th>
-					<th>강사 이름</th>
-					<th>강좌 이름</th>
-					<th>과목 이름</th>
-					<th>상세보기</th>
+					<th class="text-center">강좌 번호</th>
+					<th class="text-center">강사 이름</th>
+					<th class="text-center">강좌 이름</th>
+					<th class="text-center">과목 이름</th>
+					<th class="text-center">상세보기</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:if test="${not empty teacherLectureList}">
 				<c:forEach var="tl" items="${teacherLectureList}">
 					<tr>
-						<td>${tl.lectureNo}</td>
-						<td>${tl.teacherName}</td>
-						<td>${tl.lectureName}</td>
-						<td>${tl.subject.subjectName}</td>
-						<td><a href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${tl.lectureNo}">상세보기</a></td>
+						<td class="text-center">${tl.lectureNo}</td>
+						<td class="text-center">${tl.teacherName}</td>
+						<td class="text-center">${tl.lectureName}</td>
+						<td class="text-center">${tl.subject.subjectName}</td>
+						<td class="text-center"><a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/teacherLectureOne?lectureNo=${tl.lectureNo}">상세보기</a></td>
 					</tr>
 				</c:forEach>
 				</c:if>
@@ -63,7 +63,7 @@
 				</c:otherwise>
 				</c:choose>
 				<!-- 현재 페이지 표시 -->
-				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=${currentPage}">${currentPage}</a></li>
+				<li class="page-item active"><a class="page-link" href="${pageContext.request.contextPath}/teacher/teacherLecture?currentPage=${currentPage}">${currentPage}</a></li>
 				<c:choose>
 					<c:when test="${currentPage < lastPage}">
 				<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->

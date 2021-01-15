@@ -30,7 +30,7 @@
 					<div class="justify-content-end mb-3 input-group">
 							<input class="form-control col-sm-2" type="text" name="lectureNoticeSearch" value="${lectureNoticeSearch}" placeholder="Search">
 						<div class="input-group-append">
-							<button class="btn btn-success" type="submit">버튼</button>
+							<button class="btn btn-success" type="submit">검색</button>
 						</div>
 					</div>
 				</form>
@@ -39,7 +39,7 @@
 				
 				<table class="table">
 					<thead>
-						<tr>
+						<tr class="text-center">
 							<th>No.</th>
 							<th>제목</th>
 							<th>작성일</th>
@@ -48,7 +48,7 @@
 					</thead>
 					<tbody>
 						<c:forEach var="ln" items="${lectureNoticeList}">
-							<tr>
+							<tr class="text-center">
 								<td>${ln.lectureNoticeNo}</td>
 								<td><a href="${pageContext.request.contextPath}/teacher/lectureNoticeOne?lectureNo=${lectureNo}&&lectureNoticeNo=${ln.lectureNoticeNo}">${ln.lectureNoticeTitle}</a></td>
 								<td>${ln.lectureNoticeCreateDate}</td>

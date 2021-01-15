@@ -24,9 +24,6 @@
 				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/availableLectureList">수강등록</a>
 				</li>
 				<li class="nav-item">
-				    <a class="nav-link" href="${pageContext.request.contextPath}/student/studentQuestionList">질문게시판</a>
-				</li>
-				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>
 				</li>
 				<li class="nav-item">

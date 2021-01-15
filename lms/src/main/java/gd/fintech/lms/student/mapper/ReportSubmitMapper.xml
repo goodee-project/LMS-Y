@@ -3,7 +3,7 @@
 <mapper namespace="gd.fintech.lms.student.mapper.ReportSubmitMapper">
 	<!-- 강좌에 관련된 과제의 리스트 출력 -->
 	<select id="selectReportListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.teacher.vo.Report">
-		SELECT
+		SELECT DISTINCT
 		    r.report_no reportNo,
 		    r.lecture_no lectureNo,
 		    r.report_title reportTitle,
@@ -18,6 +18,8 @@
 		    INNER JOIN class_registration c
 		        ON l.lecture_no = c.lecture_no
 		WHERE c.account_id = #{accountId}
+			AND l.lecture_no = #{lectureNo}
+		GROUP BY r.report_title
 		ORDER BY r.report_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>

@@ -30,7 +30,7 @@
 	<div class="container">
 		<table class="table">
 			<tr>
-				<th>강좌 No.</th>
+				<th>No.</th>
 				<th>강사 이름</th>
 				<th>과목 이름</th>
 				<th>수강 상태</th>
@@ -44,7 +44,7 @@
 					<tr>
 						<td>${c.lectureNo}</td>
 						<td>${c.teacherName}</td>
-						<td><a href="${pageContext.request.contextPath}/student/classRegistrationMyDetail?lectureNo=${c.lectureNo}&accountId=${accountId}">${c.lectureName}</a></td>
+						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${c.lectureNo}&accountId=${accountId}">${c.lectureName}</a></td>
 						<td>${c.classRegistrationState}</td>
 						<td>${c.classRegistrationCreateDate}</td>
 						<td>${c.classRegistrationPoint}</td>

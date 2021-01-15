@@ -59,12 +59,12 @@
 					<table class="table">
 						<tr>
 							<td>강좌 번호</td>
-							<td><input class="form-control" id="lectureNo" type="text" name="lectureNo" value="${lectureNo}"></td>
+							<td><input class="form-control" id="lectureNo" type="text" name="lectureNo" value="${lectureNo}" readonly="readonly"></td>
 						</tr>		
 			
 						<tr>
 							<td>과목 이름</td>
-							<td><input class="form-control" id="subjectName" type="text" name="subjectName" value="${lectureName}"></td>
+							<td><input class="form-control" id="subjectName" type="text" name="subjectName" value="${lectureName}" readonly="readonly"></td>
 						</tr>
 						
 						<tr>

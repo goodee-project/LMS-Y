@@ -4,13 +4,13 @@
 	<!-- 출결 현황에 대한 통계 쿼리 -->
 	<select id="selectAttendanceDataByAccountId" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT 
-			COUNT(case when a.attendance_state="출석" then a.attendance_state END) 출석,
-			COUNT(case when a.attendance_state="결석" then a.attendance_state END) 결석,
-			COUNT(case when a.attendance_state="외출" then a.attendance_state END) 외출,
-			COUNT(case when a.attendance_state="조퇴" then a.attendance_state END) 조퇴,
-			COUNT(case when a.attendance_state="지각" then a.attendance_state END) 지각,
-			COUNT(case when a.attendance_state!="결석" then a.attendance_state END) 참여일수,
-			s.subject_totalday 총일수
+			COUNT(case when a.attendance_state="출석" then a.attendance_state END) attendance,
+			COUNT(case when a.attendance_state="결석" then a.attendance_state END) absent,
+			COUNT(case when a.attendance_state="외출" then a.attendance_state END) outing,
+			COUNT(case when a.attendance_state="조퇴" then a.attendance_state END) earlyLeave,
+			COUNT(case when a.attendance_state="지각" then a.attendance_state END) late,
+			COUNT(case when a.attendance_state!="결석" then a.attendance_state END) attendanceDay,
+			s.subject_totalday subjectTotalday
 		FROM attendance a
 		INNER JOIN lecture l ON a.lecture_no = l.lecture_no
 		INNER JOIN subject s ON l.subject_no = s.subject_no
@@ -58,11 +58,25 @@
 	</select>
 	
 	<!-- 학생 과제 개수을 구하는 쿼리 -->
-	<select id="selectCountReportByAccountId" parameterType="String" resultType="int">
+	<select id="selectCountReportByAccountId" parameterType="java.util.Map" resultType="int">
 		SELECT count(rs.report_submit_score) totalScore
 		FROM report r
 		INNER JOIN lecture l ON r.lecture_no = l.lecture_no
 		INNER JOIN report_submit rs ON r.report_no = rs.report_no
-		WHERE rs.account_id = #{accountId}
+		WHERE 
+			r.lecture_no = #{lectureNo}  AND
+			rs.account_id = #{accountId}
+	</select>
+	
+	<!-- 학생이 부여받은 과제 점수 합계 -->
+	<select id="selectSumReportByAccountId" parameterType="java.util.Map" resultType="int">
+		SELECT 
+			(CASE WHEN SUM(rs.report_submit_score)!=0 THEN SUM(rs.report_submit_score) ELSE 0 END) totalScore
+		FROM report r
+		INNER JOIN lecture l ON r.lecture_no = l.lecture_no
+		INNER JOIN report_submit rs ON r.report_no = rs.report_no
+		WHERE
+			r.lecture_no = #{lectureNo}  AND
+			rs.account_id = #{accountId}
 	</select>
 </mapper>

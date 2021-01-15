@@ -46,9 +46,22 @@ public class StudentChartService {
 	}
 	
 	// 과제의 개수 구하는 메소드(총점을 구하기 위함)
-	// 매개변수: 학생 아이디
-	// 리턴값: 학생의 과제 개수
-	public int getReportTotalScore(String accountId) {
-		return studentChartMapper.selectCountReportByAccountId(accountId);
+	// 매개변수: 학생 아이디, 강의 번호
+	// 리턴값: 학생의 과제 개수에 따른 총점
+	public int getReportTotalScore(Map<String, Object> map) {
+		int count = studentChartMapper.selectCountReportByAccountId(map);	// 과제 개수
+		int totalScore = 0;	// 총점 변수
+		for(int i=0; i<count; i++) {
+			totalScore = count*100;
+		}
+		return totalScore;
+	}
+	
+	// 학생이 부여받은 과제 합계 메소드
+	// 매개변수: 학생 아이디, 강의 번호
+	// 리턴값: 학생이 부여받은 과제 합계
+	public int getReportSumScore(Map<String, Object> map) {
+		System.out.println(studentChartMapper.selectSumReportByAccountId(map)+" 강의 과제");
+		return studentChartMapper.selectSumReportByAccountId(map);
 	}
 }

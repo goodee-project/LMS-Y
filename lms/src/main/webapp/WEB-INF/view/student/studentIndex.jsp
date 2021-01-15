@@ -30,7 +30,7 @@
 						    data: {
 						        labels: ['출석','결석','외출','조퇴','지각'],
 						        datasets: [{
-						            label: '강좌 출결 그래프',
+						            label: '강좌 출결 그래프(1일 단위)',
 						            backgroundColor: [
 							            'rgba(255, 99, 132, 0.5)',
 							            'rgba(54, 162, 235, 0.5)', 
@@ -44,7 +44,7 @@
 							            'rgba(75, 192, 192, 1.5)', 
 							            'rgba(153, 102, 255, 1.5)', 
 							            'rgba(255, 159, 64, 1.5)'],
-						            data: [data.출석, data.결석, data.외출, data.조퇴, data.지각],
+						            data: [data.attendance, data.absent, data.outing, data.earlyLeave, data.late],
 						            borderWidth: 1
 						        }]
 						    },
@@ -67,48 +67,44 @@
 					url : '${pageContext.request.contextPath}/student/reportChart?lectureNo='+${lectureNo},
 					type : 'get',
 					success : function(data){
-					    if(data.length > 0) {
-					        let myLabels = [];
-					        let myData = [];
-					        let myBackgroundColor = [];
-					        let myBorderColor = [];
+				        let myLabels = [];
+				        let myData = [];
+				        let myBackgroundColor = [];
+				        let myBorderColor = [];
 
-					        $(data).each(function(key, value) {
-					            myLabels.push(value.reportTitle);
-					            myData.push(value.reportScore);
-					            
-					            let ranDegree = Math.floor(Math.random()*360);
-					            myBackgroundColor.push("hsl(" + ranDegree + ", 100%, 75%)");
-					            myBorderColor.push("hsl(" + ranDegree + ", 100%, 50%)");
-					        });
-					        let ctx = $("#reportChart").get(0).getContext('2d');
-					        let chart = new Chart(ctx, {
-					            type: 'horizontalBar',
-					            data: {
-					                labels: myLabels,
-					                datasets: [{
-					                    label:'과제별 점수',
-					                    backgroundColor: myBackgroundColor,
-					                    borderColor: myBorderColor,
-					                    data: myData,
-					                    borderWidth: 1
-					                }]
-					            },
-					            options: {
-					            	scales: {
-										xAxes: [{
-											display: true,
-											ticks: {
-												suggestedMax: 100,
-												beginAtZero: true
-											}
-										}]
-									}
-					            }
-					        });        
-					    } else {
-					        $('#testChart').html('평가가 없습니다.');
-					    }
+				        $(data).each(function(key, value) {
+				            myLabels.push(value.reportTitle);
+				            myData.push(value.reportScore);
+				            
+				            let ranDegree = Math.floor(Math.random()*360);
+				            myBackgroundColor.push("hsl(" + ranDegree + ", 100%, 75%)");
+				            myBorderColor.push("hsl(" + ranDegree + ", 100%, 50%)");
+				        });
+				        let ctx = $("#reportChart").get(0).getContext('2d');
+				        let chart = new Chart(ctx, {
+				            type: 'horizontalBar',
+				            data: {
+				                labels: myLabels,
+				                datasets: [{
+				                    label:'과제별 점수(100점 기준)',
+				                    backgroundColor: myBackgroundColor,
+				                    borderColor: myBorderColor,
+				                    data: myData,
+				                    borderWidth: 1
+				                }]
+				            },
+				            options: {
+				            	scales: {
+									xAxes: [{
+										display: true,
+										ticks: {
+											suggestedMax: 100,
+											beginAtZero: true
+										}
+									}]
+								}
+				            }
+				        });
 					}
 				});
 			}
@@ -135,25 +131,71 @@
 			<!-- 출석 차트 출력 -->
 			<div>
 				<h2><span class="badge badge-pill badge-info">출석 통계그래프</span></h2>
-				<div class="form-group d-flex justify-content-end">
-					<select class="form-control col-3" name="lecture">
-						<c:forEach var="l" items="${lectureList}">
-							<option value="${l.lectureNo}">${l.lectureName}</option>
-						</c:forEach>
-					</select>
-					<div class="input-group-append">
-					    <button class="btn btn-success" type="submit" id="search">검색</button>
+				<form action="${pageContext.request.contextPath}/student/index" method="get">
+					<div class="form-group d-flex justify-content-end">			
+						<select class="form-control col-3" name="lectureNo">
+							<c:forEach var="l" items="${lectureList}">
+								<option value="${l.lectureNo}" ${lectureNo == l.lectureNo ? 'selected="selected"' : ''}>${l.lectureName}</option>
+							</c:forEach>
+						</select>
+						<div class="input-group-append">
+						    <button class="btn btn-success" type="submit" id="search">검색</button>
+						</div>
 					</div>
-				</div>
+				</form>
 				<div>
 					<canvas id="attendanceChart"></canvas><br>
+					<table class="table text-center">
+						<thead class="thead-light">
+							<tr>
+								<th>출석</th>
+								<th>결석</th>
+								<th>외출</th>
+								<th>조퇴</th>
+								<th>지각</th>
+								<th>참여일수</th>
+								<th>총일수</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>${attendanceList.attendance}</td>
+								<td>${attendanceList.absent}</td>
+								<td>${attendanceList.outing}</td>
+								<td>${attendanceList.earlyLeave}</td>
+								<td>${attendanceList.late}</td>
+								<td>${attendanceList.attendanceDay}</td>
+								<td>${attendanceList.subjectTotalday}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>			
 			<!-- 출석 차트 출력 -->
 			<div>
 				<h2><span class="badge badge-pill badge-info mt-5">과제 통계그래프</span></h2>
 				<div>
-					<canvas id="reportChart"></canvas>
+					<canvas id="reportChart"></canvas><br>
+					<table class="table text-center">
+						<thead class="thead-light">
+							<tr>
+								<c:forEach var="rl" items="${reportList}">
+									<th>${rl.reportTitle}</th>
+								</c:forEach>
+								<th>합계</th>
+								<th>총점</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<c:forEach var="rl" items="${reportList}">
+									<th>${rl.reportScore}</th>
+								</c:forEach>
+								<td>${sumScore}</td>
+								<td>${totalScore}</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>

@@ -30,5 +30,12 @@ public interface StudentChartMapper {
 	List<Map<String, Object>> selectReportScoreByAccountId(Map<String, Object> map);
 	
 	// 과제 개수 구하는 메소드
-	int selectCountReportByAccountId(String accountId);
+	// 매개변수: 학생 아이디, 강의번호
+	// 리턴값: 과제의 개수
+	int selectCountReportByAccountId(Map<String, Object> map);
+	
+	// 부여받은 과제 점수 합계 구하는 메소드
+	// 매개변수: 학생 아이디, 강의 번호
+	// 리턴값: 학생이 부여받은 과제 점수 합계
+	int selectSumReportByAccountId(Map<String, Object> map);
 }

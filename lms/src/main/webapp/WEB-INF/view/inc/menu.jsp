@@ -18,10 +18,10 @@
 				    <a class="navbar-brand" href="${pageContext.request.contextPath}/student/index">LMS</a>
 				</li>
 				<li class="nav-item">
-				    <a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistration">수강신청 목록</a>
+				    <a class="nav-link" href="${pageContext.request.contextPath}/student/classRegistration">수강목록</a>
 				</li>
 				<li class="nav-item">
-				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/availableLectureList">수강등록</a>
+				  	<a class="nav-link" href="${pageContext.request.contextPath}/student/availableLectureList">수강신청</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>

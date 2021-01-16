@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.dto.TeacherForm;
 import gd.fintech.lms.teacher.service.TeacherService;
 import gd.fintech.lms.teacher.vo.AccountImage;
@@ -107,5 +109,71 @@ public class TeacherController {
 		
 		return "redirect:/logout";
 		
+	}
+	
+	//강사 경력추가 폼
+	//매개변수:강사ID
+	//리턴값:강사 경력입력 페이지
+	@GetMapping("/teacher/createTeacherCareer")
+	public String createTeacherCareer(HttpServletRequest request,Model model) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		model.addAttribute("accountId",accountId);
+		return "/teacher/createTeacherCareer";
+	}
+	//강사 경력추가 액션
+	//리턴값:강사 상세보기페이지
+	@PostMapping("/teacher/createTeacherCareer")
+	public String createTeacherCareer(Career career) {
+		teacherService.createTeacherCareer(career);
+		return "redirect:/teacher/teacherOne";
+	}
+	
+	//강사 경력삭제
+	@GetMapping("/teacher/removeTeacherCareer")
+	public String removeTeacherCareer(HttpServletRequest request,
+			@RequestParam(value="careerNo")int careerNo) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		
+		teacherService.removeTeacherCareer(careerNo, accountId);
+		return "redirect:/teacher/teacherOne";
+	}
+	
+	//강사 자격증 추가 폼
+	//매개변수:강사ID
+	//리턴값:강사 자격증 입력 페이지
+	@GetMapping("/teacher/createTeacherLicense")
+	public String createTeacherLicense(HttpServletRequest request,Model model) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		model.addAttribute("accountId",accountId);
+		return "/teacher/createTeacherLicense";
+	}
+	//강사 자격증 추가 액션
+	//리턴값:강사 상세보기 페이지
+	@PostMapping("/teacher/createTeacherLicense")
+	public String createTeacherLicense(License license) {
+		teacherService.createTeacherLicense(license);
+		return "redirect:/teacher/teacherOne";
+	}
+	
+	//강사 자격증 삭제
+	@GetMapping("/teacher/removeTeacherLicense")
+	public String removeTeacherLicense(HttpServletRequest request,
+			@RequestParam(value="licenseNo")int licenseNo) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+				
+		teacherService.removeTeacherLicense(licenseNo, accountId);
+		return "redirect:/teacher/teacherOne";
 	}
 }

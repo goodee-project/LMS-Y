@@ -10,12 +10,42 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
-				function sendError(url) {
+				//경력 삭제 유효성검사
+				$('#removeBtnCareer').click(function() {
+					let remove = confirm('정말 삭제하시겠습니까?');
+					
+					if(remove) {
+						<c:forEach var="m" items="${map.teacher.careerList}">
+						location.replace('${pageContext.request.contextPath}/teacher/removeTeacherCareer?careerNo=${m.careerNo}');
+						</c:forEach>
+						alert('삭제하였습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+	    		});
+
+				//자격증 삭제 유효성검사
+				$('#removeBtnLicense').click(function() {
+					let remove = confirm('정말 삭제하시겠습니까?');
+					
+					if(remove) {
+						<c:forEach var="m" items="${map.teacher.licenseList}">
+						location.replace('${pageContext.request.contextPath}/teacher/removeTeacherLicense?licenseNo=${m.licenseNo}');
+						</c:forEach>
+						alert('삭제하였습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+	    		});
+	    		
+				/*function sendError(url) {
 					$.ajax({
 						url : 'error.jsp',
 						data : 'url=' + encodeURIComponent(url)
 					});
-				}
+				}*/	
 			});
 		</script>
 		<style type="text/css">
@@ -85,6 +115,64 @@
 						<td>강사 한줄소개</td>
 						<td>${map.teacher.teacherInfo}</td>
 					</tr>
+				</table>
+				
+				<!-- 경력 테이블 -->
+				<p>
+				<div class="jumbotron">
+					<div class="container">
+						<h1>경력 사항&nbsp;<a class="text-center btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/createTeacherCareer">경력추가</a></h1>
+					</div>
+				</div>
+				<table class="table">
+					<thead>
+						<tr class="text-center">
+							<th>경력</th>
+							<th>경력 시작일</th>
+							<th>경력 종료일</th>
+							<th>삭제</th>
+						<tr>
+					</thead>
+					<tbody>
+						<c:forEach var="m" items="${map.teacher.careerList}">
+							<tr class="text-center">
+								<td>${m.careerContent}</td>
+								<td>${m.careerStartDate}</td>
+								<td>${m.careerEndDate}</td>
+								<td><a id="removeBtnCareer" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/teacher/removeTeacherCareer?careerNo=${m.careerNo}">경력삭제</a></td>
+							</tr>	
+						</c:forEach>
+					</tbody>
+				</table>
+
+				<!-- 자격증 테이블 -->
+				<p>
+				<div class="jumbotron">
+					<div class="container">
+						<h1>자격증 &nbsp;<a class="text-center btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/createTeacherLicense">자격증추가</a></h1>
+					</div>
+				</div>
+				<table class="table">
+					<thead>
+						<tr class="text-center">
+							<th>자격증 일련번호</th>
+							<th>자격증명</th>
+							<th>발급기관</th>
+							<th>발급일</th>
+							<th>삭제</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="m" items="${map.teacher.licenseList}">
+							<tr class="text-center">
+								<td>${m.licenseNumber}</td>
+								<td>${m.licenseName}</td>
+								<td>${m.licenseAgency}</td>
+								<td>${m.licenseGetDate}</td>
+								<td><a id="removeBtnLicense" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/teacher/removeTeacherLicense?licenseNo=${m.licenseNo}">경력삭제</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			</div>
 	</body>

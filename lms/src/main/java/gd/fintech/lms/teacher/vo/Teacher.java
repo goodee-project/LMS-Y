@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.License;
 import lombok.Data;
 
 
@@ -52,4 +54,10 @@ public class Teacher {
 	
 	//Multipart를 위한 프로퍼티 추가
 	private List<AccountImage> imageFileList;
+	
+	//경력vo
+	private List<Career> careerList;
+	
+	//자격증vo
+	private List<License> licenseList;
 }

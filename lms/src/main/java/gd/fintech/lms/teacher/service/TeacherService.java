@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.account.mapper.AddressMapper;
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.dto.TeacherForm;
 import gd.fintech.lms.teacher.mapper.TeacherMapper;
 import gd.fintech.lms.teacher.vo.AccountImage;
@@ -208,5 +210,33 @@ public class TeacherService {
 	//리턴값:조회되는 계정,이메일
 	public String getTeacherEmail(String accountId,String teacherEmail) {
 		return teacherMapper.selectTeacherEmail(accountId, teacherEmail);
+	}
+	
+	//강사 경력추가
+	//매개변수:경력vo
+	//리턴값:변경된 행 갯수
+	public void createTeacherCareer(Career career) {
+		teacherMapper.insertTeacherCareer(career);
+	}
+	
+	//강사 경력삭제
+	//매개변수:경력 고유번호,강사아이디
+	//리턴값:변경된 행 갯수
+	public void removeTeacherCareer(int careerNo,String accountId) {
+		teacherMapper.deleteTeacherCareer(careerNo);
+	}
+	
+	//강사 자격증추가
+	//매개변수:자격증vo
+	//리턴값:변경된 행 갯수
+	public void createTeacherLicense(License license) {
+		teacherMapper.insertTeacherLicense(license);
+	}
+	
+	//강사 자격증삭제
+	//매개변수:자격증 순번
+	//리턴값:변경된 행 갯수
+	public void removeTeacherLicense(int licenseNo,String accountId) {
+		teacherMapper.deleteTeacherLicense(licenseNo);
 	}
 }

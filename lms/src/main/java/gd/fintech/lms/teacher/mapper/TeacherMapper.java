@@ -1,11 +1,14 @@
 package gd.fintech.lms.teacher.mapper;
 
 import java.awt.Image;
+
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.teacher.vo.AccountImage;
 import gd.fintech.lms.teacher.vo.Teacher;
 
@@ -68,5 +71,24 @@ public interface TeacherMapper {
 	//매개변수:강사ID,강사 이메일
 	String selectTeacherEmail(String accountId,String teacherEmail);
 	
+	//강사 경력 추가
+	//매개변수:경력vo
+	//리턴값:변경된 행 갯수
+	int insertTeacherCareer(Career career);
+	
+	//강사 경력 삭제
+	//매개변수:경력번호
+	//리턴값:변경된 행 갯수
+	int deleteTeacherCareer(int careerNo);
+	
+	//강사 자격증 추가
+	//매개변수:자격증vo
+	//리턴값:변경된 행 갯수
+	int insertTeacherLicense(License license);
+	
+	//강사 자격증 삭제
+	//매개변수:자격증 순번
+	//리턴값:변경된 행 갯수
+	int deleteTeacherLicense(int licenseNo);
 	
 }

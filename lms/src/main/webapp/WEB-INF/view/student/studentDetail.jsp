@@ -26,14 +26,14 @@
 	<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
-		<div class=container>
-			<div class="jumbotron">
+		<div class=jumbotron>
+			<div class="container">
 				<h1>내 정보</h1>
 			</div>
 		</div>
 		<div class=container>
 			<div class="imagediv"><img src="${map.imageURI}" class="rounded-circle" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""  width="200px" height="200px" /></div>
-			<div class="imagediv"></div><a href="${pageContext.request.contextPath}/student/modifyStudent?accountId=${accountId}">[프로필 수정]</a>
+			<div class="imagediv"><a href="${pageContext.request.contextPath}/student/modifyStudent?accountId=${accountId}">[프로필 수정]</a></div>
 				<table class="table">
 				
 					<tr>

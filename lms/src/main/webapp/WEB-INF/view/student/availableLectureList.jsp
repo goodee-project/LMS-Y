@@ -32,14 +32,25 @@
 						<th>강사 이름</th>
 						<th>과목 이름</th>
 						<th>강좌 시작~종료일시</th>
+						<th>신청 하기</th>
 					</tr>
 				<tbody>
-					<c:forEach var="al" items="${availableLectureList}">
+					<c:forEach var="al" items="${availableLectureListMap}">
 					<tr>
-						<td>${al.lectureNo}</td>
-						<td>${al.teacherName}</td>
-						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${al.lectureNo}">${al.lectureName}</a></td>
-						<td>${al.lectureStartDate}~${al.lectureEndDate}</td>
+						<td>${al.lecture.lectureNo}</td>
+						<td>${al.lecture.teacherName}</td>
+						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${al.lecture.lectureNo}">${al.lecture.lectureName}</a></td>
+						<td>${al.lecture.lectureStartDate}~${al.lecture.lectureEndDate}</td>
+						<td>
+						<c:choose>
+							<c:when test="${al.isRegisterable}">
+								신청가능한 강좌입니다
+							</c:when>
+							<c:otherwise>
+								이미 신청한 강좌입니다
+							</c:otherwise>
+						</c:choose>
+						</td>
 					</tr>
 					</c:forEach>
 				</tbody>

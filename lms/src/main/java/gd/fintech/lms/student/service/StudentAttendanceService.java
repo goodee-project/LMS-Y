@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ public class StudentAttendanceService {
 	@Autowired
 	StudentAttendanceMapper studentAttendanceMapper;
 
-	public Map<String,Object> getStudentAttendanceListByPage(int lectureNo, int currentPage) {
+	public Map<String,Object> getStudentAttendanceListByPage(int lectureNo, int currentPage,HttpSession session) {
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage - 1) * rowPerPage;
@@ -60,6 +62,7 @@ public class StudentAttendanceService {
 		parmMap.put("beginRow", beginRow);
 		parmMap.put("lectureNo", lectureNo);
 		parmMap.put("attendanceCount", attendanceCount);
+		parmMap.put("accountId", session.getAttribute("accountId"));
 
 		// 담아주기
 		List<Attendance> attendanceList = studentAttendanceMapper.studentAttendanceListByPage(parmMap);

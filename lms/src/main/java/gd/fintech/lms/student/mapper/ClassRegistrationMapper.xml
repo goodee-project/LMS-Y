@@ -118,20 +118,24 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
-	<!-- 학생 강좌 상세보기 -->
+	<!-- 학생 신청한 강좌의 상세보기 -->
 	<select id="selectClassRegistrationLectureDetail" parameterType="java.util.Map" resultMap="resultClassRegistration">
 		SELECT
 			l.lecture_no, 
 			l.account_id, 
-			s.subject_name, 
+			s.subject_name,
 			l.teacher_name, 
-			l.lecture_name, 
+			l.lecture_name,
+			cr.class_registration_state, 
 			l.lecture_startdate, 
 			l.lecture_enddate
 		FROM lecture l
-		JOIN subject s 
-		ON l.subject_no = s.subject_no
-		WHERE lecture_no=#{lectureNo}
+			LEFT JOIN class_registration cr
+			ON l.lecture_no = cr.lecture_no
+			Left JOIN subject s 
+			ON l.subject_no  = s.subject_no
+		WHERE l.lecture_no =#{lectureNo}
+		group BY lecture_no 
 	</select>
 	
 	<!-- 수강 신청하능한 강의 갯수 -->
@@ -161,11 +165,20 @@
 	<!-- 수강 신청을 한 강좌 빼주기-->
 	<select id="selectRegistrationNoCount" parameterType="java.util.Map" resultType="int" >
 		SELECT 
-			COUNT(*) 
-		FROM class_registration
-		WHERE lecture_no=#{lectureNo} AND account_id=#{accountId}
+			COUNT(*)
+		FROM class_registration 
+		WHERE account_id=#{accountId} 
 	</select>
 	
-
+	<!-- 수강 신엉 -->
+	<select id="selectClassRegistrationDetailByAccountAndLecture" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
+	SELECT
+    class_registration_no classRegistrationNo,
+    	lecture_no lectureNo
+		FROM class_registration
+	WHERE account_id = #{accountId}
+    AND lecture_no = #{lectureNo}
+	</select>
+	
 	
 </mapper>

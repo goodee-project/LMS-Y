@@ -98,7 +98,7 @@
 		            },
 		            success : function(data){
 			            let str = `<div class="form-group">
-			            		   <select multiple class="form-control" name="studentAddressMain" onchange="$('#studentAddressMain').val(this.options[this.selectedIndex].value)" >`;
+			            		   <select multiple class="form-control" onchange="$('#studentAddressMain').val(this.options[this.selectedIndex].value)" >`;
 			            for(let i=0; i<data.length; i++) {
 			            	str += '<option>' + data[i] + '</option>';
 				        }
@@ -108,6 +108,16 @@
 		            }
 		        });
 			});
+			// 작성 버튼 클릭 시 유효성 검사 실시
+			$('#submitStudentOne').click(function() {
+				if($('#studentEmail').val()==''|| $('#studentEmail').val().replace(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,"")|| $('#teacherName').val()==''|| $('#teacherPhone').val()=='' ||$('#teacherAddressMain')=='' ||$('#teacherAddressSub')==''){
+						alert('입력부분을 다시 확인하세요');
+						return;
+				}else{
+					// 유효성 검사를 만족했을 경우 submit
+					$('#modifyStduentForm').submit();
+					}
+			});
 				
 		});
         </script>
@@ -116,8 +126,8 @@
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		
-		<div class="container">
-			<div class="jumbotron">
+		<div class="jumbotron">
+			<div class="container">
 				<h1>학생 정보 수정</h1>
 			</div>
 		</div>
@@ -126,24 +136,24 @@
 				<table class="table">
 					<tr>
 						<td>학생 아이디</td>
-						<td><input class="form-control form-control-alternative" type="text" name="accountId" id="accountId" value="${map.student.accountId}"></td>
-						
+						<td class="form-inline"><input class="form-control form-control-alternative" type="text" name="accountId" id="accountId" value="${map.student.accountId}"></td>
 					</tr>
 					<tr>
 						<td>학생 이메일</td>
 						<td><input class="form-control form-control-alternative"  type="text" name="studentEmail" id="studentEmail" placeholder="이메일을 입력해주세요!" value="${map.student.studentEmail}"></td>
-						<td><div Style="color:red;" id="ckEmail"></div></td>
-						<td><button class="btn btn-outline-primary" type="button" id="btnEmail">중복검사</button></td>
+						<td><div Style="color:red;" id="ckEmail"></div>
+							<button class="btn btn-outline-primary" type="button" id="btnEmail">중복검사</button>
+						</td>
 					</tr>
 					
 					<tr>
 						<td>학생 이름</td>
-						<td><input class="form-control form-control-alternative" type="text" name="studentName" id="studentName" value="${map.student.studentName}" placeholder="이름 입력"></td>
+						<td class="form-inline"><input class="form-control form-control-alternative" type="text" name="studentName" id="studentName" value="${map.student.studentName}" placeholder="이름 입력"></td>
 					</tr>
 					
 					<tr>
 						<td>학생 전화번호</td>
-						<td><input class="form-control form-control-alternative" type="text" name="studentPhone" id="studentPhone" value="${map.student.studentPhone}" placeholder="전화번호 입력"></td>
+						<td class="form-inline"><input class="form-control form-control-alternative" type="text" name="studentPhone" id="studentPhone" value="${map.student.studentPhone}" placeholder="전화번호 입력"></td>
 					</tr>
 					
 					<tr>
@@ -155,7 +165,7 @@
 					
 					<tr>
 						<td>학생 생년월일</td>
-						<td><input type="date" name="studentBirth" id="studentBirth" value="${map.student.studentBirth}"></td>	
+						<td class="form-inline"><input type="date" name="studentBirth" id="studentBirth" value="${map.student.studentBirth}"></td>	
 					</tr>
 					
 					<tr> 
@@ -166,23 +176,34 @@
 							<button class="btn btn-outline-primary" type="button" id="zipCodeSearch">우편번호 검색</button>
 						</div>
 						<div id="addAddr"></div>
-					</td>
+						</td>
+					</tr>
+					<tr>
 						<td>상세주소</td>
-							<td><input class="form-control form-control-alternative" type="text" name="studentAddressSub" id="studentAddressSub" value="${map.student.studentAddressSub}" placeholder="상세주소 입력"></td>
+							<td class="form-inline"><input class="form-control form-control-alternative" type="text" name="studentAddressSub" id="studentAddressSub" value="${map.student.studentAddressSub}" placeholder="상세주소 입력"></td>
+							<td></td>
 					</tr>
 										
 					<tr>
 						<td>프로필 사진</td>
 						<td><img src="${map.imageURI}" id="preview" onerror="this.src='https://www.flaticon.com/svg/static/icons/svg/149/149071.svg';" alt=""style="width: 170px; height: 200px;" />
-						<c:if
-							test="${not empty myImage.imageFileUUID}">
-							<a class="btn btn-outline-danger" href="#" id="removeBtn">삭제</a></td>
+						<c:if test="${not empty myImage.imageFileUUID}">
+							<a class="btn btn-outline-danger" href="#" id="removeBtn">삭제</a>
 						</c:if>
-						<td><input type="file" name="imageFileList" id="imageFileList">
+						<input type="file" name="imageFileList" id="imageFileList"></td>
+						<td></td>
 					</tr>
 					
 					<tr>
-						<td><button type="submit">수정</button></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						
+						<td>
+							<div style="text-align:right">
+								<button class="btn btn-outline-success" id="submitStudentOne" type="button">수정</button>
+							</div>
+						</td>
 					</tr>
 				</table>
 			</form>

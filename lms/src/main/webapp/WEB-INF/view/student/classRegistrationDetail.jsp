@@ -10,11 +10,11 @@
 		<!-- 부트스트랩(CSS) 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 		<c:choose>
-			<c:when test="${classRegistrationNoCount==1}">
-				<!-- 강좌 메뉴 인클루드 -->
-				<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
+			<c:when test="${isRegisterable}">
 			</c:when>
 			<c:otherwise>
+				<!-- 강좌 메뉴 인클루드 -->
+				<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
 			</c:otherwise>
 		</c:choose>
 		<div class=jumbotron>
@@ -34,21 +34,21 @@
 						<th>강좌 개강일</th>
 						<th>강좌 종강일</th>
 						<c:choose>
-							<c:when test="${classRegistrationNoCount==1}">
-							</c:when>
-							<c:otherwise>
+							<c:when test="${isRegisterable}">
 								<th class="text-center">
 									강의계획서
 								</th>
+							</c:when>
+							<c:otherwise>
 							</c:otherwise>
 						</c:choose>
 						<th class="text-center">
 							<c:choose>
-								<c:when test="${classRegistrationNoCount==1}">
-									출석 확인
+								<c:when test="${isRegisterable}">
+									수강 신청
 								</c:when>
 								<c:otherwise>
-									수강 신청
+									출석 확인
 								</c:otherwise>
 							</c:choose>
 						</th>
@@ -63,21 +63,21 @@
 							<td class="align-middle">${classRegistration.lectureInfo.lectureStartDate}</td>
 							<td class="align-middle">${classRegistration.lectureInfo.lectureEndDate}</td>
 							<c:choose>
-							<c:when test="${classRegistrationNoCount==1}">
-							</c:when>
-							<c:otherwise>
+							<c:when test="${isRegisterable}">
 								<td>
 									<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/syllabusDetail?lectureNo=${classRegistration.lectureInfo.lectureNo}">강의계획서</a>
 								</td>
+							</c:when>
+							<c:otherwise>
 							</c:otherwise>
 						</c:choose>
 							<td>
 							<c:choose>
-								<c:when test="${classRegistrationNoCount==1}">
-									<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/studentAttendanceList?accountId=${accountId}&lectureNo=${classRegistration.lectureInfo.lectureNo}">출석확인</a>
+								<c:when test="${isRegisterable}">
+									<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/classRegistrationChoose?lectureNo=${classRegistration.lectureInfo.lectureNo}&accountId=${accountId}">신청하기</a>
 								</c:when>
 								<c:otherwise>
-									<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/classRegistrationChoose?lectureNo=${classRegistration.lectureInfo.lectureNo}&accountId=${accountId}">신청하기</a>
+									<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/studentAttendanceList?accountId=${accountId}&lectureNo=${classRegistration.lectureInfo.lectureNo}">출석확인</a>
 								</c:otherwise>
 							</c:choose>
 							</td>

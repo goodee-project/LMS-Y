@@ -48,29 +48,35 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<h1>질문 수정</h1>
+		<!-- 강좌 메뉴 인클루드 -->
+		<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
+		<div class="jumbotron">
+			<div class="container">
+				<h1>질문 수정</h1>
+			</div>
 		</div>
 			<div class="container">
 				<form id="modifyQuestion" method="post" action="${pageContext.request.contextPath}/student/modifyStudentQuestion">
+				<input name="lectureNo" value="${question.lectureNo}" hidden="hidden">
 					<table class="table">
 						<tr>
 							<td>질문 번호</td>
-							<td><input type="text" name="questionNo" id="questionNo" value="${question.questionNo}" readonly="readonly"></td>
+							<td><input class="form-control" type="text" name="questionNo" id="questionNo" value="${question.questionNo}" readonly="readonly"></td>
 						</tr>
 					
 						<tr>
 							<td>제목</td>
-							<td><input type="text" name="questionTitle" id="questionTitle" value="${question.questionTitle}"></td>
+							<td><input class="form-control" type="text" name="questionTitle" id="questionTitle" value="${question.questionTitle}"></td>
 						</tr>
 						
 						<tr>
 							<td>내용</td>
-							<td><textarea name="questionContent" id="questionContent">${question.questionContent}</textarea></td>
+							<td><textarea rows="10" cols="100" style="width:800px; height:312px; display:none;" class="form-control" name="questionContent" id="questionContent">${question.questionContent}</textarea></td>
 						</tr>		
 						</table>
-					<button type="button" id="submitBtn">수정</button>
+					<div style="text-align:right">
+						<button class="btn btn-outline-success" type="button" id="submitBtn">수정</button>
+					</div>
 				</form>
 			</div>
 	</body>

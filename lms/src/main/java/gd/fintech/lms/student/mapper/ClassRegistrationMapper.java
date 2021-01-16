@@ -43,11 +43,11 @@ public interface ClassRegistrationMapper {
 	//수강 신청하기
 	int insertRegistration(Map<String,Object> map);
 	
+	int selectRegistrationNoCount(Map<String,Object>map);
+	
 	//수강 리뷰리스트
 	List<ClassRegistration> selectClassRegistrationReviewListByPage(Map<String,Object> map);
 	
-	//학생이 수강 신청한것인지 체크
-	//매개변수:
-	//리턴값:
-	int selectRegistrationNoCount(Map<String,Object>map);
+	//수강 신청가능/불가능 구별
+	ClassRegistration selectClassRegistrationDetailByAccountAndLecture(Map<String,Object>map);
 }

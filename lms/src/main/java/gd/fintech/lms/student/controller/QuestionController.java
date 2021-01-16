@@ -109,7 +109,7 @@ public class QuestionController {
 	//리턴값:질문 입력할수 있는 폼
 	@GetMapping("/student/createStudentQuestion")
 	public String addQuestion(
-			@RequestParam("lectureNo")int lectureNo,
+			@RequestParam(value="lectureNo")int lectureNo,
 			Model model) {
 		model.addAttribute("lectureNo",lectureNo);
 		return "student/createStudentQuestion";
@@ -119,9 +119,10 @@ public class QuestionController {
 	//매개변수:질문의 VO 와 세션
 	//리턴값:질문 리스트 질문 추가
 	@PostMapping("/student/createStudentQuestion")
-	public String addQuestion(Question question,HttpSession session) {
+	public String addQuestion(Question question,HttpSession session,
+			@RequestParam(value="lectureNo",required = false)int lectureNo) {
 		questionService.addQuestion(question, session);
-		return "redirect:/student/studentLectureQuestion?questionNo=+"+question.getQuestionNo();
+		return "redirect:/student/studentLectureQuestionList?lectureNo="+lectureNo;
 	}
 	
 	//학생의 질문 상세보기
@@ -153,7 +154,7 @@ public class QuestionController {
 		
 		logger.debug(question.toString());
 		model.addAttribute("question",question);
-		model.addAttribute("accountId",accountId);
+		model.addAttribute("accountId",session.getAttribute("accountId"));
 		return "student/studentQuestionDetail";
 	}
 	

@@ -22,27 +22,34 @@
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-
+	<!-- 강좌 메뉴 인클루드 -->
+	<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>${lectureNo}강좌 질문 게시판</h1>
+		</div>
+	</div>
+			<!-- studentlectureSearch-->
 	<div class="container">
-		<h1>강좌별 질문 게시판</h1>
-		<!-- studentlectureSearch-->
-		<form action="${pageContext.request.pathInfo}" method="get">
-			<input type="hidden" name="lectureNo" value="${lectureNo}"> <input
-				type="hidden" name="currentPage" value="1">
-			<div class="justify-content-end mb-3 input-group">
-				<input class="form-control col-sm-2" type="text"
-					name="studentLectureSearch" value="${studentlectureSearch}"
-					placeholder="Search">
-				<div class="input-group-append">
-					<button class="btn btn-success" type="submit">버튼</button>
+		<div style="text-align:left">	
+			<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/createStudentQuestion?lectureNo=${lectureNo}">질문추가</a>
+		</div>
+			<form action="${pageContext.request.pathInfo}" method="get">
+				<input type="hidden" name="lectureNo" value="${lectureNo}">
+				 <input type="hidden" name="currentPage" value="1">
+				<div class="justify-content-end mb-3 input-group">
+					<input class="form-control col-sm-2" type="text" name="studentLectureSearch" value="${studentlectureSearch}" placeholder="Search">
+					<div class="input-group-append">
+					<button class="btn btn-success" type="submit">Search</button>
 				</div>
-			</div>
-		</form>
+				</div>
+			</form>
+		</div>
+	<div class="container">
 		<table class="table ">
-			<tr>
-				<th>질문 No.</th>
-				<th>학생 Id</th>
-				<th>강좌 번호</th>
+			<thead>
+			<tr class="text-center">
+				<th>No.</th>
 				<th>작성자 이름</th>
 				<th>제목</th>
 				<th>생성 날짜</th>
@@ -51,25 +58,17 @@
 				<c:forEach var="q" items="${questionList}">
 					<tr>
 						<td>${q.questionNo}</td>
-						<td>${q.accountId}</td>
-						<td>${q.lectureNo}</td>
 						<td>${q.questionWriter}</td>
-						<td><a
-							href="${pageContext.request.contextPath}/student/studentQuestionDetail?questionNo=${q.questionNo}">${q.questionTitle}</a></td>
+						<td><a href="${pageContext.request.contextPath}/student/studentQuestionDetail?questionNo=${q.questionNo}">${q.questionTitle}</a></td>
 						<td>${q.questionCreateDate}</td>
 						<td>${q.questionCount}</td>
 					</tr>
 				</c:forEach>
-				<tr>
-					
-					<td><a
-						href="${pageContext.request.contextPath}/student/createStudentQuestion?lectureNo=${lectureNo}">질문추가</a></td>
-				</tr>
 			</tbody>
 		</table>
-
+	</div>
 		<c:if test="${null eq studentlectureSearch}">
-			
+			<div style="margin-left:40%">
 				<ul class="pagination">
 				<!-- 처음으로, 이전 -->
 					<c:choose>
@@ -121,8 +120,9 @@
 						</c:otherwise>
 					</c:choose>
 			</ul>
+			</div>
 		</c:if>
-
-	</div>
+		
+	
 </body>
 </html>

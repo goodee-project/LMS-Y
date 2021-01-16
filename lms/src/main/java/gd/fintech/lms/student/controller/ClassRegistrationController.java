@@ -49,12 +49,13 @@ public class ClassRegistrationController {
 	
 	//수강신청 할 수 있는 모든 수강 리스트
 	@GetMapping("/student/availableLectureList")
-	public String getClassRegistrationAllList(Model model,
+	public String availableLectureList(Model model,HttpSession session,
+
 			@RequestParam(value="currentPage",defaultValue="1") int currentPage) {
 		
-		Map<String, Object> map = classRegistrationService.getAvailableLectureList(currentPage);
+		Map<String, Object> map = classRegistrationService.getAvailableLectureList(currentPage,session);
 		
-		model.addAttribute("availableLectureList",map.get("availableLectureList"));
+		model.addAttribute("availableLectureListMap",map.get("availableLectureListMap"));
 		model.addAttribute("navPerPage",map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
 		model.addAttribute("navLastPage", map.get("navLastPage"));
@@ -64,39 +65,23 @@ public class ClassRegistrationController {
 		return "/student/availableLectureList";
 	} 
 	
-	//학생이 수강신청할 과목 정보보기(상세보기)
-	@GetMapping("/student/classRegistrationDetail")
-	public String getClassRegistrtaionOne(Model model,HttpServletRequest request,
-			@RequestParam(value="lectureNo",required = false)int lectureNo) {
-		
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		//Id 가지고오기
-		String accountId =(String)session.getAttribute("accountId");
-		System.out.println(accountId+"계정Id");
-		//학생이 수강신청 한 과목인지 아닌지의 여부를 int값으로 나타냄
-		int classRegistrationNoCount= classRegistrationService.getRegistrationNoCount(lectureNo, accountId);
-		
-		ClassRegistration classRegistration = classRegistrationService.getClassRegistrationLectureDetail(lectureNo);
-		model.addAttribute("classRegistration",classRegistration);
-		model.addAttribute("classRegistrationNoCount",classRegistrationNoCount);
-		model.addAttribute("accountId",accountId);
-		return "/student/classRegistrationDetail";
-	}
+	
 	
 	//학생이 신청한 수강 과목 정보보기(상세보기)
-	@GetMapping("/student/classRegistrationMyDetail")
-	public String getClassRegistrtaionMyOne(Model model,HttpServletRequest request,
+	@GetMapping("/student/classRegistrationDetail")
+	public String getClassRegistrtaionMyOne(Model model,HttpSession session,
 			@RequestParam(value="lectureNo",required = false)int lectureNo) {
 		
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		//Id 가지고오기
+		
 		String accountId =(String)session.getAttribute("accountId");
 		System.out.println(accountId+"계정Id");
 		
-		ClassRegistration classRegistration = classRegistrationService.getClassRegistrationLectureDetail(lectureNo);
-		model.addAttribute("classRegistration",classRegistration);
+		Map<String,Object> classRegistrationMap = classRegistrationService.getClassRegistrationLectureDetail(lectureNo,session);
+		model.addAttribute("classRegistration",classRegistrationMap.get("classRegistration"));
 		model.addAttribute("accountId",accountId);
-		return "/student/classRegistrationMyDetail";
+		model.addAttribute("isRegisterable",classRegistrationMap.get("isRegisterable"));
+		
+		return "/student/classRegistrationDetail";
 	}
 	//학생 수강신청 사유 입력폼
 	@GetMapping("/student/classRegistrationCancel")
@@ -127,10 +112,11 @@ public class ClassRegistrationController {
 	
 	//학생 수강신청
 	@GetMapping("/student/classRegistrationChoose")
-	public String classRegistartionChoose(
-			@RequestParam(value="accountId")String accountId,
+	public String classRegistartionChoose(HttpSession session,Model model,
 			@RequestParam(value="lectureNo")int lectureNo) {
-		classRegistrationService.insertRegistration(lectureNo, accountId);
+		model.addAttribute("lectureNo",lectureNo);
+		//수강 신청
+		classRegistrationService.insertRegistration(lectureNo,session);
 		return "redirect:/student/classRegistration";
 	}
 	

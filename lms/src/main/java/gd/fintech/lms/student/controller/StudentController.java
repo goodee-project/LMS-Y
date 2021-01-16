@@ -68,6 +68,7 @@ public class StudentController {
 		//Id를 가져오기
 		String accountId =(String)session.getAttribute("accountId");
 		studentService.modifyStudent(studentForm, session, accountId);
+		logger.debug(studentForm+"학생의 폼값");
 		return "redirect:/student/studentDetail";
 	}
 	

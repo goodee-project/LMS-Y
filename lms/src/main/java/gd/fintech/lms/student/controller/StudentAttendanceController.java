@@ -29,16 +29,12 @@ public class StudentAttendanceController {
 	//매개변수:학생id
 	//리턴값:계정에 대한 출석
 	@GetMapping("student/studentAttendanceList")
-	public String studentAttendanceList(Model model,HttpServletRequest request,
+	public String studentAttendanceList(Model model,HttpSession session,
 			@RequestParam(value="lectureNo",required = false)int lectureNo,
 			@RequestParam(value="currentPage",defaultValue = "1")int currentPage) {
-		HttpSession session = ((HttpServletRequest)request).getSession();
-		//Id 가지고오기
-		String accountId =(String)session.getAttribute("accountId");
-		System.out.println(accountId+"계정Id");
-		
-		
-		Map<String,Object> map= studentAttendanceService.getStudentAttendanceListByPage(lectureNo, currentPage);
+	
+
+		Map<String,Object> map= studentAttendanceService.getStudentAttendanceListByPage(lectureNo, currentPage,session);
 		model.addAttribute("attendanceList",map.get("attendanceList"));
 		model.addAttribute("navPerPage",map.get("navPerPage"));
 		model.addAttribute("navBeginPage", map.get("navBeginPage"));
@@ -48,7 +44,6 @@ public class StudentAttendanceController {
 		model.addAttribute("lastPage",map.get("lastPage"));
 		model.addAttribute("lectureNo",lectureNo);
 		model.addAttribute("currentPage",currentPage);
-		model.addAttribute("accountId",session.getAttribute("accountId"));
 		
 		return "student/studentAttendanceList";
 		

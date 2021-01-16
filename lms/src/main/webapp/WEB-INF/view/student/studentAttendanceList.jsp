@@ -22,19 +22,21 @@
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
 	<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
+	<!-- 강좌 메뉴 인클루드 -->
+	<jsp:include page="/WEB-INF/view/inc/stmgr-menu.jsp"></jsp:include>
 
-	<div class="container">
-		<div class="jumbotron">
-			<h1>${accountId}님의출석</h1>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>${lectureNo}강좌의 ${accountId}님의출석</h1>
 		</div>
 	</div>
 
 	<div class=container>
 		<table class="table">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<td>출석 날짜</td>
-					<td>강좌 번호</td>
+					<td>강좌 No(css확인후 제거)</td>
 					<td>계정 id</td>
 					<td>출석 상태</td>
 					<td>비고</td>
@@ -42,7 +44,7 @@
 			</thead>
 			<tbody>
 				<c:forEach var="a" items="${attendanceList}">
-					<tr>
+					<tr class="text-center">
 						<td>${a.attendanceCreateDate}</td>
 						<td>${a.lectureNo}</td>
 						<td>${a.accountId}</td>
@@ -53,6 +55,7 @@
 			</tbody>
 		</table>
 		<c:if test="${null eq attendanceCount}">
+		<div style="margin-left:40%">
 			<ul class="pagination">
 				<!-- 처음으로, 이전 -->
 					<c:choose>
@@ -103,7 +106,8 @@
 							</li>
 						</c:otherwise>
 					</c:choose>
-			</ul>
+				</ul>
+			</div>
 		</c:if>
 	</div>
 </body>

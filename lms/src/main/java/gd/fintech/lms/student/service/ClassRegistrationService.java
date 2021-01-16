@@ -1,5 +1,6 @@
   package gd.fintech.lms.student.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,20 +74,11 @@ public class ClassRegistrationService {
 		return map;
 	}
 	
-	//학생의 수강신청 체크(유무)
-	//매개변수:학생id,강좌번호
-	//리턴값:ㅁ
-	public int getRegistrationNoCount(int lectureNo,String accountId) {
-		Map<String,Object> map = new HashMap<>();
-		map.put("lectureNo",lectureNo);
-		map.put("accountId",accountId);
-		return classRegistrationMapper.selectRegistrationNoCount(map);
-	}
 	
 	//수강신청할 수 있는 목록전체(페이징)
 	//매개변수:lectureNo,currentPage
 	//리턴값:학생이 수강신청할 수 있는 모든 리스트
-	public Map<String,Object> getAvailableLectureList(int currentPage){
+	public Map<String,Object> getAvailableLectureList(int currentPage,HttpSession session){
 	
 		//보여줄 데이터 갯수
 		int rowPerPage=5;
@@ -123,8 +115,20 @@ public class ClassRegistrationService {
 		List<Lecture> availableLectureList = classRegistrationMapper.selectAvailableLectureList(pageMap);
 		logger.debug(availableLectureList.toString());
 		
+		List<Map<String, Object>> availableLectureListMap = new ArrayList<>();
+		for(Lecture l : availableLectureList) {
+			Map<String,Object>map = new HashMap<>();
+			map.put("accountId",session.getAttribute("accountId"));
+			map.put("lectureNo", l.getLectureNo());
+			ClassRegistration cr= classRegistrationMapper.selectClassRegistrationDetailByAccountAndLecture(map);
+			Map<String, Object> lectureMap = new HashMap<>();
+			lectureMap.put("lecture", l);
+			lectureMap.put("isRegisterable", (cr == null));
+			availableLectureListMap.add(lectureMap);
+		}
+		
 		Map<String,Object> map = new HashMap<>();
-		map.put("availableLectureList",availableLectureList);
+		map.put("availableLectureListMap",availableLectureListMap);
 		map.put("lastPage", lastPage);
 		map.put("navPerPage", navPerPage);
 		map.put("navBeginPage", navBeginPage);
@@ -135,19 +139,33 @@ public class ClassRegistrationService {
 	//학생 강좌 상세보기
 	//매개변수:강좌의 번호
 	//리턴값:강좌의 상세보기
-	public ClassRegistration getClassRegistrationLectureDetail(int lectureNo) {
+	public Map<String,Object> getClassRegistrationLectureDetail(int lectureNo,HttpSession session) {
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("accountId",session.getAttribute("accountId"));
+		paramMap.put("lectureNo", lectureNo);
 		ClassRegistration classRegistration = classRegistrationMapper.selectClassRegistrationLectureDetail(lectureNo);
-		return classRegistration;
+		ClassRegistration ck= classRegistrationMapper.selectClassRegistrationDetailByAccountAndLecture(paramMap);
+		Map<String,Object> map = new HashMap<>();
+		map.put("classRegistration",classRegistration);
+		map.put("isRegisterable",(ck==null));
+		
+		return map;
 	}
 	
 	//학생 수강신청하기
-	//
-	//
-	public int insertRegistration(int lectureNo,String accountId) {
-		
+	//매개변수:
+	//리턴값:
+	public int insertRegistration(int lectureNo,HttpSession session) {
+
 		Map<String,Object> map = new HashMap<>();
+		
 		map.put("lectureNo",lectureNo);
-		map.put("accountId",accountId );
+		map.put("accountId",session.getAttribute("accountId"));
+		int classRegistrationCk = classRegistrationMapper.selectRegistrationNoCount(map);
+		logger.debug(classRegistrationMapper.selectRegistrationNoCount(map)+"값넘기기");
+		map.put("classRegistrationCk",classRegistrationCk);
+		logger.debug(classRegistrationCk+"값");
 		return classRegistrationMapper.insertRegistration(map);
 	}
+	
 }

@@ -63,27 +63,30 @@
 	<body>
 		<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-		
-		<div class="container">
-			<div class="jumbotorn">
+
+		<div class="jumbotron">
+			<div class="container">
 				<h1>학생 질문 추가</h1>
 			</div>
 		</div>
 			<div class="container">
 				<form id="createQuestion" method="post" action="${pageContext.request.contextPath}/student/createStudentQuestion">
 					<table class="table">
-							
+						
+						<input class="form-control" id="lectureNo" type="hidden" name="lectureNo" value="${lectureNo}">
 						<tr>
 							<td>제목</td>
-							<td><input id="questionTitle" type="text" name="questionTitle"></td>
+							<td><input  class="form-control" id="questionTitle" type="text" name="questionTitle"></td>
 						</tr>
 						
 						<tr>
 							<td>내용</td>
-							<td><textarea id="questionContent" name="questionContent"></textarea></td>
+							<td><textarea rows="10" cols="100" style="width:900px; height:312px; display:none;" id="questionContent" name="questionContent"></textarea></td>
 						</tr>
 					</table>
-					<button type="button" id="submitBtn">[등록]</button>
+					<div style="text-align:right">
+					<button class="btn btn-outline-success" type="button" id="submitBtn">[등록]</button>
+					</div>
 				</form>
 			</div>
 	</body>

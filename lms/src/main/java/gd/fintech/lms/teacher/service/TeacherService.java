@@ -42,6 +42,15 @@ public class TeacherService {
 	//AddressMapper 객체 주입
 	@Autowired private AddressMapper addressMapper;
 	
+	//강사 자격증 경력 상세보기
+	public Map<String,Object> getTeacherInfoOne(String accountId){
+		Teacher teacher = teacherMapper.selectTeacherInfoOne(accountId);
+		Map<String,Object> map = new HashMap<>();
+		map.put("teacher",teacher);
+		return map;
+		
+	}
+	
 	//강사 아이디를 조회하여 정보결과를 가져오는 메서드
 	//매개변수:로그인뷰에 넣은 계정 ID
 	//리턴값:로그인한 계정 ID에 값이 있는 ID에 관련된 정보를 반환
@@ -49,7 +58,6 @@ public class TeacherService {
 	
 	//메퍼에서 강사ID에 따라 강사의 정보를 가져옴
 	Teacher teacher = teacherMapper.selectTeacherOne(accountId);
-	  
 	StringBuilder uri = null;
 	if (teacherMapper.selectMyImage(accountId) != null) {
 		try {

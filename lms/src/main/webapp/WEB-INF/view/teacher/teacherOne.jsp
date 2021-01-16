@@ -134,7 +134,7 @@
 						<tr>
 					</thead>
 					<tbody>
-						<c:forEach var="m" items="${map.teacher.careerList}">
+						<c:forEach var="m" items="${paramMap.teacher.careerList}">
 							<tr class="text-center">
 								<td>${m.careerContent}</td>
 								<td>${m.careerStartDate}</td>
@@ -163,7 +163,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="m" items="${map.teacher.licenseList}">
+						<c:forEach var="m" items="${paramMap.teacher.licenseList}">
 							<tr class="text-center">
 								<td>${m.licenseNumber}</td>
 								<td>${m.licenseName}</td>

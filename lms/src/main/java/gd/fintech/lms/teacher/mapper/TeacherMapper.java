@@ -21,6 +21,7 @@ public interface TeacherMapper {
 	//매개변수:회원가입 당시 입력한 데이터
 	//리턴값:강사ID 여부를 조회하여 반환
 	Teacher selectTeacherOne(String accountId);
+	Teacher selectTeacherInfoOne(String accountId);
 	
 	//현재 강사 프로필사진 출력
 	//매개변수:강사ID

@@ -16,6 +16,7 @@
 			INNER JOIN lecture l
 				ON r.lecture_no = l.lecture_no
 		WHERE l.lecture_no = #{lectureNo}
+		ORDER BY r.report_no DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	

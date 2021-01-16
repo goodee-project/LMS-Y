@@ -10,7 +10,7 @@
 		WHERE account_id = #{accountId}
 	</select>
 	<!-- 디폴트 강좌 선택 -->
-	<select id="selectDefaultLecture" parameterType="String" resultType="int">
+	<select id="selectDefaultLecture" parameterType="String" resultType="Integer">
 		SELECT
 			lecture_no lectureNo
 		FROM lecture

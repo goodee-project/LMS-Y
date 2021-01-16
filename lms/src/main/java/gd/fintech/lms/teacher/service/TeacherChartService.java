@@ -28,7 +28,7 @@ public class TeacherChartService {
 	// 계정에 디폴트 강좌를 가져옴
 	// 매개변수 : session
 	// 리턴값 : 디폴트 강좌번호 
-	public int getDefaultLecture(HttpSession session) {
+	public Integer getDefaultLecture(HttpSession session) {
 		return teacherChartMapper.selectDefaultLecture((String)session.getAttribute("accountId"));
 	}
 	

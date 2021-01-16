@@ -144,6 +144,10 @@
 			</div>
 		</div>
 		<div class="container">
+			<c:if test="${lectureNo eq null}">
+				강의하고 있는 강좌가 없습니다.
+			</c:if>
+			<c:if test="${lectureNo ne null}">
 			<form action="${pageContext.request.pathInfo}" method="get">
 				<select name="lectureNo">
 					<c:forEach var="l" items="${lectureList}">
@@ -184,6 +188,7 @@
 					</tbody>
 				</table>
 			</div>
+			</c:if>
 		</div>
 	</body>
 </html>

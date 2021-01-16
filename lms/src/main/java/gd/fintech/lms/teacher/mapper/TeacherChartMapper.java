@@ -19,7 +19,7 @@ public interface TeacherChartMapper {
 	// 계정에 디폴트 강좌를 가져옴
 	// 매개변수 : 계정ID
 	// 리턴값 : 디폴트 강좌번호 
-	public int selectDefaultLecture(String accountId);
+	public Integer selectDefaultLecture(String accountId);
 	
 	// 강좌별 과제 제출률
 	// 매개변수 : 강좌번호

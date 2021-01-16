@@ -53,7 +53,7 @@ public class IndexController {
 	// 리턴값: teacherIndex(뷰이름)
 	@GetMapping("/teacher/index")
 	public String teacherIndex(Model model, HttpSession session,
-			@RequestParam(value="lectureNo", defaultValue = "-1") int lectureNo) {
+			@RequestParam(value="lectureNo", defaultValue = "-1") Integer lectureNo) {
 		if(lectureNo==-1) {
 			lectureNo = teacherChartService.getDefaultLecture(session);
 		}

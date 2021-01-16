@@ -247,42 +247,42 @@
 						<tr>
 							<th>교재명</th>
 							<td>
-								<input type="text" id="textbookTitle" name="textbookTitle" value="${modifyTextbook.textbookTitle}">
+								<input type="text" id="textbookTitle" name="textbookTitle" class="form-control" value="${modifyTextbook.textbookTitle}">
 								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>가격</th>
 							<td>
-								<input type="text" id="textbookPrice" name="textbookPrice" value="${modifyTextbook.textbookPrice}">원
+								<input type="text" id="textbookPrice" name="textbookPrice" class="form-control" value="${modifyTextbook.textbookPrice}">
 								<div id="textbookPriceMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>저자</th>
 							<td>
-								<input type="text" id="textbookWriter" name="textbookWriter" value="${modifyTextbook.textbookWriter}">
+								<input type="text" id="textbookWriter" name="textbookWriter" class="form-control" value="${modifyTextbook.textbookWriter}">
 								<div id="textbookWriterMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>출판사</th>
 							<td>
-								<input type="text" id="textbookPublisher" name="textbookPublisher" value="${modifyTextbook.textbookPublisher}">
+								<input type="text" id="textbookPublisher" name="textbookPublisher" class="form-control" value="${modifyTextbook.textbookPublisher}">
 								<div id="textbookPublisherMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>출판일</th>
 							<td>
-								<input type="text" id="textbookPublishDate" name="textbookPublishDate" value="${modifyTextbook.textbookPublishDate}">
+								<input type="text" id="textbookPublishDate" name="textbookPublishDate" class="form-control" value="${modifyTextbook.textbookPublishDate}">
 								<div id="textbookPublishDateMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>정보</th>
 							<td>
-								<input type="text" id="textbookInfo" name="textbookInfo" value="${modifyTextbook.textbookInfo}">
+								<textarea id="textbookInfo" name="textbookInfo" class="form-control">${modifyTextbook.textbookInfo}</textarea>
 								<div id="textbookInfoMsg"></div>
 							</td>
 						</tr>

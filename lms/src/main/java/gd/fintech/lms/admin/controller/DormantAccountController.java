@@ -151,7 +151,7 @@ public class DormantAccountController {
 	// 리턴값: dormantAccountList 페이지로 이동
 	// 계정의 활성화 여부를 활성화로 변경
 	// 학생 휴면계정 목록으로 이동
-	@GetMapping("/admin/dormantAccountStateActiveStudent")
+	@GetMapping("/admin/dormantAccountStateActiveByStudent")
 	public String dormantAccountStateActiveStudent(@RequestParam(value = "accountId") String accountId) {
 		logger.debug(accountId.toString());
 		dormantAccountService.updateDormantAccountState(accountId);

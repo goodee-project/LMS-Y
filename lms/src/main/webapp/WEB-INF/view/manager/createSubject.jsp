@@ -151,21 +151,21 @@
 						<tr>
 							<th>과목명</th>
 							<td>
-								<input type="text" id="subjectName" name="subjectName">
+								<input type="text" id="subjectName" name="subjectName" class="form-control" placeholder="예)JAVA">
 								<div id="subjectNameMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>총 이수일수</th>
 							<td>
-								<input type="text" id="subjectTotalDay" name="subjectTotalDay">
+								<input type="text" id="subjectTotalDay" name="subjectTotalDay" class="form-control" placeholder="예)120">
 								<div id="subjectTotalDayMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>정보</th>
 							<td>
-								<input type="text" id="subjectInfo" name="subjectInfo">
+								<textarea id="subjectInfo" name="subjectInfo" class="form-control"></textarea>
 								<div id="subjectInfoMsg"></div>
 							</td>
 						</tr>

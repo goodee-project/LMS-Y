@@ -16,7 +16,7 @@
 					
 					if(accountStateActive) {
 						let activeAccountId = $('button[name=ActiveBtn]').val();
-						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveStudent?accountId=' + activeAccountId);
+						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveByManager?accountId=' + activeAccountId);
 						alert('계정 상태가 활성화로 전환되었습니다.');
 					} else {
 						alert('취소하였습니다.');
@@ -85,10 +85,10 @@
 							<c:forEach var="dormantAccountListByManager" items="${dormantAccountListByManager}">
 								<tr>
 									<td>${dormantAccountListByManager.accountId}</td>
-									<td>${dormantAccountListByManager.teacherName}</td>
-									<td>${dormantAccountListByManager.teacherEmail}</td>
+									<td>${dormantAccountListByManager.managerName}</td>
+									<td>${dormantAccountListByManager.managerEmail}</td>
 									<td>
-										<button type="button" id="ActiveBtn" class="btn btn-outline-success" value="${dormantAccountListByManager.accountId}">
+										<button type="button" id="ActiveBtn" name= "ActiveBtn" class="btn btn-outline-success" value="${dormantAccountListByManager.accountId}">
 											활성화
 										</button>
 									</td>

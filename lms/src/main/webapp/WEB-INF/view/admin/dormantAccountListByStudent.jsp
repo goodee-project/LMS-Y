@@ -16,7 +16,7 @@
 					
 					if(accountStateActive) {
 						let activeAccountId = $('button[name=ActiveBtn]').val();
-						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveStudent?accountId=' + activeAccountId);
+						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveByStudent?accountId=' + activeAccountId);
 						alert('계정 상태가 활성화로 전환되었습니다.');
 					} else {
 						alert('취소하였습니다.');

@@ -310,63 +310,49 @@
 						<tr>
 							<th>ISBN</th>
 							<td>
-								<input type="text" id="textbookISBN" name="textbookISBN" placeholder="예)978-89-509-7122-9">
-							</td>
-							<td>
+								<input type="text" id="textbookISBN" name="textbookISBN" class="form-control" placeholder="예)978-89-7050-947-1">
 								<div id="textbookISBNMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>교재명</th>
 							<td>
-								<input type="text" id="textbookTitle" name="textbookTitle">
-							</td>
-							<td>
+								<input type="text" id="textbookTitle" name="textbookTitle" class="form-control" placeholder="예)명품 자바 프로그래">
 								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>가격</th>
 							<td>
-								<input type="text" id="textbookPrice" name="textbookPrice">원
-							</td>
-							<td>
+								<input type="text" id="textbookPrice" name="textbookPrice" class="form-control" placeholder="예)33000">
 								<div id="textbookPriceMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>저자</th>
 							<td>
-								<input type="text" id="textbookWriter" name="textbookWriter">
-							</td>
-							<td>
+								<input type="text" id="textbookWriter" name="textbookWriter" class="form-control" placeholder="예)황기태">
 								<div id="textbookWriterMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>출판사</th>
 							<td>
-								<input type="text" id="textbookPublisher" name="textbookPublisher">
-							</td>
-							<td>
+								<input type="text" id="textbookPublisher" name="textbookPublisher" class="form-control" placeholder="예)생능출판">
 								<div id="textbookPublisherMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>출판일</th>
 							<td>
-								<input type="text" id="textbookPublishDate" name="textbookPublishDate">
-							</td>
-							<td>
+								<input type="text" id="textbookPublishDate" name="textbookPublishDate" class="form-control" placeholder="예)2019-08-16">
 								<div id="textbookPublishDateMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>정보</th>
 							<td>
-								<input type="text" id="textbookInfo" name="textbookInfo">
-							</td>
-							<td>
+								<textarea id="textbookInfo" name="textbookInfo" class="form-control"></textarea>
 								<div id="textbookInfoMsg"></div>
 							</td>
 						</tr>

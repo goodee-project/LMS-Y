@@ -87,8 +87,9 @@
 				</table>
 			</div>
 			
-			<div>
-				<button type="button" id="approveBtn" class="btn btn-outline-success">
+			<!-- 승인, 거절 버튼 -->
+			<div class="d-flex justify-content-end mb-3">
+				<button type="button" id="approveBtn" class="btn btn-outline-success mx-2">
 					승인
 				</button>
 				<button type="button" id="disapproveBtn" class="btn btn-outline-danger">

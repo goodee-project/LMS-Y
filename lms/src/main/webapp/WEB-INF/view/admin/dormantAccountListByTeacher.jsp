@@ -16,7 +16,7 @@
 					
 					if(accountStateActive) {
 						let activeAccountId = $('button[name=ActiveBtn]').val();
-						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveStudent?accountId=' + activeAccountId);
+						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveByTeacher?accountId=' + activeAccountId);
 						alert('계정 상태가 활성화로 전환되었습니다.');
 					} else {
 						alert('취소하였습니다.');
@@ -88,7 +88,7 @@
 									<td>${dormantAccountListByTeacher.teacherName}</td>
 									<td>${dormantAccountListByTeacher.teacherEmail}</td>
 									<td>
-										<button type="button" id="ActiveBtn" class="btn btn-outline-success" value="${dormantAccountListByTeacher.accountId}">
+										<button type="button" id="ActiveBtn" name= "ActiveBtn" class="btn btn-outline-success" value="${dormantAccountListByTeacher.accountId}">
 											활성화
 										</button>
 									</td>

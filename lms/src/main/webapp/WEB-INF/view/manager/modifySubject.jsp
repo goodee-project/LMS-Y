@@ -105,28 +105,22 @@
 						<tr>
 							<th>No.</th>
 							<td>${modifySubject.subjectNo}</td>
-							<td></td>
 						</tr>
 						<tr>
 							<th>과목명</th>
 							<td>${modifySubject.subjectName}</td>
-							<td></td>
 						</tr>
 						<tr>
 							<th>총 이수일수</th>
 							<td>
-								<input type="text" id="subjectTotalDay" name="subjectTotalDay" value="${modifySubject.subjectTotalDay}">
-							</td>
-							<td>
+								<input type="text" id="subjectTotalDay" name="subjectTotalDay" class="form-control" value="${modifySubject.subjectTotalDay}">
 								<div id="subjectTotalDayMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>정보</th>
-							<td>
-								<input type="text" id="subjectInfo" name="subjectInfo" value="${modifySubject.subjectInfo}">
-							</td>
-							<td>
+							<td>	
+								<textarea id="subjectInfo" name="subjectInfo" class="form-control">${modifySubject.subjectInfo}</textarea>
 								<div id="subjectInfoMsg"></div>
 							</td>
 						</tr>

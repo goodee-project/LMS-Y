@@ -35,6 +35,14 @@
 			<result property="licenseAgency" column="license_agency"/>
 			<result property="licenseGetDate" column="license_getdate"/>
 		</collection>
+		<collection property="educationList" ofType="gd.fintech.lms.account.vo.Education">
+			<result property="educationNo" column="education_no"/>
+			<result property="accountId" column="account_id"/>
+			<result property="educationSchool" column="education_school"/>
+			<result property="educationMajor" column="education_major"/>
+			<result property="educationStartDate" column="education_startdate"/>
+			<result property="educationEndDate" column="education_enddate"/>
+		</collection>
  	</resultMap>
 	<!-- 강사 정보 입력 -->
 	<insert id="insertTeacherFromQueue" parameterType="java.util.Map">
@@ -120,7 +128,13 @@
 			l.license_number,
 			l.license_name,
 			l.license_agency,
-			l.license_getdate
+			l.license_getdate,
+			e.education_no,
+			e.account_Id,
+			e.education_school,
+			e.education_major,
+			e.education_startdate,
+			e.education_enddate
 		FROM teacher t
 		LEFT JOIN
 			career c ON
@@ -128,6 +142,9 @@
 		LEFT JOIN
 			license l ON
 			l.account_id = t.account_id
+		LEFT JOIN
+			education e ON
+			e.account_Id =t.account_id
 		WHERE t.account_id = #{accountId}
 	</select>
 	<!-- 강사 이미지 추가 -->

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.Education;
 import gd.fintech.lms.account.vo.License;
 import lombok.Data;
 
@@ -60,4 +61,7 @@ public class Teacher {
 	
 	//자격증vo
 	private List<License> licenseList;
+	
+	//학력vo
+	private List<Education> educationList;
 }

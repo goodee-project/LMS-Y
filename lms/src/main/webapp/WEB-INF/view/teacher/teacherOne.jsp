@@ -116,6 +116,35 @@
 						<td>${map.teacher.teacherInfo}</td>
 					</tr>
 				</table>
+				<!-- 학력 테이블 -->
+				<p>
+				<div class="jumbotron">
+					<div class="container">
+						<h1>학력&nbsp;<a class="text-center btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/createTeacherEducation">학력추가</a></h1>
+					</div>
+				</div>
+				<table class="table">
+					<thead>
+						<tr class="text-center">
+							<th>출신학교</th>
+							<th>전공</th>
+							<th>입학일</th>
+							<th>졸업일</th>
+							<th>삭제</th>
+						<tr>
+					</thead>
+					<tbody>
+						<c:forEach var="m" items="${paramMap.teacher.educationList}">
+							<tr class="text-center">
+								<td>${m.educationSchool}</td>
+								<td>${m.educationMajor}</td>
+								<td>${m.educationStartDate}</td>
+								<td>${m.educationEndDate}</td>
+								<td><a id="removeBtnEducation" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/teacher/removeTeacherEducation?educationNo=${m.educationNo}">경력삭제</a></td>
+							</tr>	
+						</c:forEach>
+					</tbody>
+				</table>
 				
 				<!-- 경력 테이블 -->
 				<p>

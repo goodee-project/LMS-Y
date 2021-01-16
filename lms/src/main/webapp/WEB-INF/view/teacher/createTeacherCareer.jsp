@@ -19,13 +19,13 @@
 						return;
 					}
 
-					//
+					//시작날짜 마지막날짜에 대한 유효성검사
 					if ($('#careerStartDate').val().replace(/(\s*)/g, "") == "" ) {
-						alert('날짜를 입력해주세요!');
+						alert('시작일 날짜를 입력해주세요!');
 						return;
 					}
 					if ($('#careerEndDate').val().replace(/(\s*)/g, "") == "" ) {
-						alert('날짜를 입력해주세요!');
+						alert('끝일 날짜를 입력해주세요!');
 						return;
 					}
 

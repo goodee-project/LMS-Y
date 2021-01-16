@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import gd.fintech.lms.account.vo.Account;
 import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.Education;
 import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.dto.TeacherForm;
 import gd.fintech.lms.teacher.service.TeacherService;
@@ -176,6 +177,37 @@ public class TeacherController {
 		String accountId = (String)session.getAttribute("accountId");
 				
 		teacherService.removeTeacherLicense(licenseNo, accountId);
+		return "redirect:/teacher/teacherOne";
+	}
+	
+	//강사 학력 추가 폼
+	//매개변수:강사ID
+	//리턴값:강사 학력 입력 페이지
+	@GetMapping("/teacher/createTeacherEducation")
+	public String createTeacherEducation(HttpServletRequest request,Model model) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		model.addAttribute("accountId",accountId);
+		return "/teacher/createTeacherEducation";
+	}
+	//강사 학력 추가 액션
+	//리턴값:강사 상세보기 페이지
+	@PostMapping("/teacher/createTeacherEducation")
+	public String createTeacherEducation(Education education) {
+		teacherService.createTeacherEducation(education);
+		return "redirect:/teacher/teacherOne";
+	}
+	//강사 학력 삭제 
+	@GetMapping("/teacher/removeTeacherEducation")
+	public String removeTeacherEducation(HttpServletRequest request,
+			@RequestParam(value="educationNo")int educationNo) {
+		//세션정보 가져옴
+		HttpSession session = ((HttpServletRequest)request).getSession();
+		//세션에 있는 아이디 가져옴
+		String accountId = (String)session.getAttribute("accountId");
+		teacherService.removeTeacherEducation(educationNo);
 		return "redirect:/teacher/teacherOne";
 	}
 }

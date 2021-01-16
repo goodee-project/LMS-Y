@@ -10,13 +10,32 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script>
 			$(document).ready(function(){
+				//학력 삭제 유효성검사
+				$('#removeBtnEducation').click(function() {
+					let remove = confirm('정말 삭제하시겠습니까?');
+					
+					if(remove) {
+						<c:forEach var="m" items="${paramMap.teacher.educationList}">
+						<c:if test="${not empty m.educationNo}">
+						location.replace('${pageContext.request.contextPath}/teacher/removeTeacherEducation?educationNo=${m.educationNo}');
+						</c:if>
+						</c:forEach>
+						alert('삭제하였습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+	    		});
+				
 				//경력 삭제 유효성검사
 				$('#removeBtnCareer').click(function() {
 					let remove = confirm('정말 삭제하시겠습니까?');
 					
 					if(remove) {
-						<c:forEach var="m" items="${map.teacher.careerList}">
+						<c:forEach var="m" items="${paramMap.teacher.careerList}">
+						<c:if test="${not empty m.careerContent}">
 						location.replace('${pageContext.request.contextPath}/teacher/removeTeacherCareer?careerNo=${m.careerNo}');
+						</c:if>
 						</c:forEach>
 						alert('삭제하였습니다.');
 					} else {
@@ -30,8 +49,10 @@
 					let remove = confirm('정말 삭제하시겠습니까?');
 					
 					if(remove) {
-						<c:forEach var="m" items="${map.teacher.licenseList}">
+						<c:forEach var="m" items="${paramMap.teacher.licenseList}">
+						<c:if test="${not empty m.licenseNumber}">
 						location.replace('${pageContext.request.contextPath}/teacher/removeTeacherLicense?licenseNo=${m.licenseNo}');
+						</c:if>
 						</c:forEach>
 						alert('삭제하였습니다.');
 					} else {
@@ -135,12 +156,23 @@
 					</thead>
 					<tbody>
 						<c:forEach var="m" items="${paramMap.teacher.educationList}">
+						<c:if test="${empty m.educationNo}">
+							<tr>
+								<td class="text-center" colspan="5">
+									<span>학력에 데이터가 없습니다</span>
+								</td>
+							</tr>
+						</c:if>
+						</c:forEach>
+						<c:forEach var="m" items="${paramMap.teacher.educationList}">
 							<tr class="text-center">
 								<td>${m.educationSchool}</td>
 								<td>${m.educationMajor}</td>
 								<td>${m.educationStartDate}</td>
 								<td>${m.educationEndDate}</td>
-								<td><a id="removeBtnEducation" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/teacher/removeTeacherEducation?educationNo=${m.educationNo}">경력삭제</a></td>
+								<c:if test="${not empty m.educationNo}">
+								<td><button id="removeBtnEducation" class="btn btn-outline-danger">경력삭제</button></td>
+								</c:if>
 							</tr>	
 						</c:forEach>
 					</tbody>
@@ -164,11 +196,22 @@
 					</thead>
 					<tbody>
 						<c:forEach var="m" items="${paramMap.teacher.careerList}">
+						<c:if test="${empty m.careerContent}">
+							<tr>
+								<td class="text-center" colspan="5">
+									<span>경력에 데이터가 없습니다</span>
+								</td>
+							</tr>
+						</c:if>
+						</c:forEach>
+						<c:forEach var="m" items="${paramMap.teacher.careerList}">
 							<tr class="text-center">
 								<td>${m.careerContent}</td>
 								<td>${m.careerStartDate}</td>
 								<td>${m.careerEndDate}</td>
-								<td><a id="removeBtnCareer" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/teacher/removeTeacherCareer?careerNo=${m.careerNo}">경력삭제</a></td>
+								<c:if test="${not empty m.careerContent}">
+								<td><button id="removeBtnCareer" class="btn btn-outline-danger">경력삭제</button></td>
+								</c:if>
 							</tr>	
 						</c:forEach>
 					</tbody>
@@ -193,12 +236,23 @@
 					</thead>
 					<tbody>
 						<c:forEach var="m" items="${paramMap.teacher.licenseList}">
+						<c:if test="${empty m.licenseNumber}">
+							<tr>
+								<td class="text-center" colspan="5">
+									<span>자격증에 데이터가 없습니다</span>
+								</td>
+							</tr>
+						</c:if>
+						</c:forEach>
+						<c:forEach var="m" items="${paramMap.teacher.licenseList}">
 							<tr class="text-center">
 								<td>${m.licenseNumber}</td>
 								<td>${m.licenseName}</td>
 								<td>${m.licenseAgency}</td>
 								<td>${m.licenseGetDate}</td>
-								<td><a id="removeBtnLicense" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/teacher/removeTeacherLicense?licenseNo=${m.licenseNo}">경력삭제</a></td>
+								<c:if test="${not empty m.licenseNumber}">
+								<td><button id="removeBtnLicense" class="btn btn-outline-danger">경력삭제</button></td>
+								</c:if>
 							</tr>
 						</c:forEach>
 					</tbody>

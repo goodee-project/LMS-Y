@@ -31,7 +31,7 @@ public class TeacherLectureService {
 	// 리턴값:강사 아이디를 조회하여 강좌 정보 목록을 반환
 	public List<Lecture> getTeacherLectureListByPage(String accountId, int currentPage) {
 		// 현재 페이지 표시할 데이터 수
-		int rowPerPage = 3;
+		int rowPerPage = 10;
 		// 시작 페이지
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 전체 페이지 개수
@@ -71,5 +71,10 @@ public class TeacherLectureService {
 	public Lecture getTeacherLectureOne(int lectureNo) {
 		Lecture lecture = teacherLectureMapper.selectTeacherLectureOne(lectureNo);
 		return lecture;
+	}
+	
+	//강좌 페이징 총 개수
+	public int getTeacherLectureCount(String accountId) {
+		return teacherLectureMapper.selectTeacherLectureCount(accountId);
 	}
 }

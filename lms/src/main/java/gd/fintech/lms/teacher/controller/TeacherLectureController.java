@@ -45,8 +45,29 @@ public class TeacherLectureController {
 		String accountId = (String) session.getAttribute("accountId");
 
 		List<Lecture> teacherLectureList = teacherLectureService.getTeacherLectureListByPage(accountId, currentPage);
+		
+		// 현재 페이지 표시할 데이터 수
+		int rowPerPage = 2;
+		// 시작 페이지
+		int beginRow = (currentPage - 1) * rowPerPage;
+		// 전체 페이지 개수
+		int lectureCount = teacherLectureService.getTeacherLectureCount(accountId);
+		// 마지막 페이지
+		int lastPage = lectureCount / rowPerPage;
+		// 10 미만의 개수의 데이터가 있는 페이지 표시
+		if (lectureCount % rowPerPage != 0) {
+			lastPage += 1;
+		}
+		// 전체 페이지가 0개이면 현재 페이지도 0으로 표시
+		if (lastPage == 0) {
+			currentPage = 0;
+		}
 
 		// model을 이용해 뷰에 정보 보냄.
+		model.addAttribute("rowPerPage",rowPerPage);
+		model.addAttribute("beginRow",beginRow);
+		model.addAttribute("lectureCount",lectureCount);
+		model.addAttribute("lastPage",lastPage);
 		model.addAttribute("accountId", accountId);
 		model.addAttribute("teacherLectureList", teacherLectureList);
 		model.addAttribute("currentPage", currentPage);

@@ -50,7 +50,7 @@
 						<c:if test="${navBeginPage == 0 || navLastPage == 0}">
 							<tr>
 								<td class="text-center" colspan="5">
-									<span>질문게시판에 질문이 없습니다</span>
+									<span>공지사항에 게시글이 없습니다</span>
 								</td>
 							</tr>
 						</c:if>

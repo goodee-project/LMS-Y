@@ -114,9 +114,9 @@
 			
 				<table class="table">
 					<thead>
-						<tr>
+						<tr co>
 							<th>계정id</th>
-							<th>수강상태</th>
+							<th colspan="2">수강상태</th>
 						<tr>
 					</thead>
 					<tbody>

@@ -11,12 +11,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
 			$(document).ready(function() {
+				let currentPage = '<c:out value="${currentPage}"/>';
+				let searchType = $('#searchType option:selected').val();
+				let searchKeywordUnencode = $('#searchKeyword').val();
+				let searchKeyword = encodeURI(searchKeywordUnencode, "UTF-8");
+				
 				$('button[name=ActiveBtn]').click(function() {
 					let accountStateActive = confirm('정말 해당계정을 활성화하시겠습니까?');
 					
 					if(accountStateActive) {
 						let activeAccountId = $('button[name=ActiveBtn]').val();
-						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveByManager?accountId=' + activeAccountId);
+						location.replace('${pageContext.request.contextPath}/admin/dormantAccountStateActiveByManager?accountId=' + activeAccountId + '&currentPage=' + currentPage + '&searchType=' + searchType + '&searchKeyword=' + encodeURI(searchKeyword, "UTF-8"));
 						alert('계정 상태가 활성화로 전환되었습니다.');
 					} else {
 						alert('취소하였습니다.');

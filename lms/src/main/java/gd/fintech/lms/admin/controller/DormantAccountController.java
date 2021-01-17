@@ -68,6 +68,9 @@ public class DormantAccountController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchType", required = false, defaultValue = "all") String searchType,
 			@RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
+		logger.debug("강사 휴면계정 리스트 디버그 현재 페이지 " + currentPage);
+		logger.debug("강사 휴면계정 리스트 디버그 검색조건 " + searchType);
+		logger.debug("강사 휴면계정 리스트 디버그 검색어 " + searchKeyword);
 		Map<String, Object> map = dormantAccountService.getDormantAccountListByTeacher(currentPage, searchType, searchKeyword);
 		
 		// 휴면계정 목록
@@ -80,7 +83,6 @@ public class DormantAccountController {
 		// 페이지 관련 값
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", map.get("lastPage"));
-		logger.debug("컨트롤러 디버그 lastPage " + map.get("lastPage"));
 		model.addAttribute("pageNaviSize", map.get("pageNaviSize"));
 		model.addAttribute("pageNaviBegin", map.get("pageNaviBegin"));
 		model.addAttribute("pageNaviEnd", map.get("pageNaviEnd"));
@@ -126,12 +128,20 @@ public class DormantAccountController {
 	// 리턴값: dormantAccountList 페이지로 이동
 	// 계정의 활성화 여부를 활성화로 변경
 	// 운영자 휴면계정 목록으로 이동
-	@GetMapping("/admin/dormantAccountStateActiveByManager")
-	public String dormantAccountStateActiveByManager(@RequestParam(value = "accountId") String accountId) {
+	@GetMapping(value = "/admin/dormantAccountStateActiveByManager", produces = "application/text; charset=utf8")
+	public String dormantAccountStateActiveByManager(
+			@RequestParam(value = "accountId") String accountId,
+			@RequestParam(value = "currentPage", required = false) int currentPage,
+			@RequestParam(value = "searchType", required = false) String searchType,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 		logger.debug(accountId.toString());
 		dormantAccountService.updateDormantAccountState(accountId);
 		
-		return "redirect:/admin/dormantAccountListByManager";
+		logger.debug("현재 페이지" + currentPage);
+		logger.debug("검색조건" + searchType);
+		logger.debug("검색어" + searchKeyword);
+		
+		return "redirect:/admin/dormantAccountListByManager?currentPage=" + currentPage + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
 	}
 	
 	// 관리자가 강사 휴면계정의 계정 상태를 활성화로 변경하는 메소드
@@ -139,23 +149,29 @@ public class DormantAccountController {
 	// 리턴값: dormantAccountList 페이지로 이동
 	// 계정의 활성화 여부를 활성화로 변경
 	// 강사 휴면계정 목록으로 이동
-	@GetMapping("/admin/dormantAccountStateActiveByTeacher")
-	public String dormantAccountStateActiveByTeacher(@RequestParam(value = "accountId") String accountId) {
+	@GetMapping(value = "/admin/dormantAccountStateActiveByTeacher", produces = "application/text; charset=utf8")
+	public String dormantAccountStateActiveByTeacher(@RequestParam(value = "accountId") String accountId,
+			@RequestParam(value = "currentPage", required = false) int currentPage,
+			@RequestParam(value = "searchType", required = false) String searchType,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 		logger.debug(accountId.toString());
 		dormantAccountService.updateDormantAccountState(accountId);
 		
-		return "redirect:/admin/dormantAccountListByTeacher";
+		return "redirect:/admin/dormantAccountListByTeacher?currentPage=" + currentPage + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
 	}
 	// 관리자가 학생 휴면계정의 계정 상태를 활성화로 변경하는 메소드
 	// 매개변수: accountId(아이디)
 	// 리턴값: dormantAccountList 페이지로 이동
 	// 계정의 활성화 여부를 활성화로 변경
 	// 학생 휴면계정 목록으로 이동
-	@GetMapping("/admin/dormantAccountStateActiveByStudent")
-	public String dormantAccountStateActiveStudent(@RequestParam(value = "accountId") String accountId) {
+	@GetMapping(value = "/admin/dormantAccountStateActiveByStudent", produces = "application/text; charset=utf8")
+	public String dormantAccountStateActiveStudent(@RequestParam(value = "accountId") String accountId,
+			@RequestParam(value = "currentPage", required = false) int currentPage,
+			@RequestParam(value = "searchType", required = false) String searchType,
+			@RequestParam(value = "searchKeyword", required = false) String searchKeyword) {
 		logger.debug(accountId.toString());
 		dormantAccountService.updateDormantAccountState(accountId);
 		
-		return "redirect:/admin/dormantAccountListByStudent";
+		return "redirect:/admin/dormantAccountListByStudent?currentPage=" + currentPage + "&searchType=" + searchType + "&searchKeyword=" + searchKeyword;
 	}
 }

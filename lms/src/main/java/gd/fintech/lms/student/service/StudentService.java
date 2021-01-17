@@ -187,6 +187,13 @@ public class StudentService {
 		studentMapper.removeStudentImage(accountId);
 	}
 	
+	//강사 현재 아디디 계정이메일 정보 조회
+	//매개변수:강사ID,강사 이메일
+	//리턴값:조회되는 계정,이메일
+	public String getStudentEmail(String accountId,String studentEmail) {
+		return studentMapper.selectStudentEmail(accountId, studentEmail);
+	}
+	
 	//학생 비밃런호 변경
 	//매개변수:학생의 id,pw
 	//리턴값:변경된 비밀번호

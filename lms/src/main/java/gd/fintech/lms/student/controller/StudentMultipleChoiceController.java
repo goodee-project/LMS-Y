@@ -20,8 +20,8 @@ public class StudentMultipleChoiceController {
 	@Autowired StudentMultipleChoiceService studentMultipleChoiceService;
 	
 	//강좌별 객관식 문제 리스트 페이징
-	//매개변수:
-	//리턴값:
+	//매개변수:lectureNo,currentPage
+	//리턴값:학생의 객관식문제를 보여주는 페이지
 	@GetMapping("student/studentMultipleChoiceList")
 	public String getStudentMultipleListByPage(Model model,
 			@RequestParam(value="lectrueNo",required = false)int lectureNo,

@@ -50,4 +50,10 @@ public interface ClassRegistrationMapper {
 	
 	//수강 신청가능/불가능 구별
 	ClassRegistration selectClassRegistrationDetailByAccountAndLecture(Map<String,Object>map);
+	
+	//수강신청 상태변경
+	//매개변수:학생의 계정
+	//리턴값:변경되는 학생의 수강상태
+	int updateRegistrationState(String accountId);
+	
 }

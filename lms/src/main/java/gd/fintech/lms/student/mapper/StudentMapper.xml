@@ -180,6 +180,13 @@
 		WHERE account_id = #{accountId}  		
 	
 	</select>
+	<!-- 학생 이메일 체크 -->
+	<select id="selectStudentEmail" parameterType="String" resultType="String">
+		SELECT 
+				student_email studentEmail
+		FROM teacher
+		WHERE account_id = #{accountId} and student_email = #{studentEmail}
+	</select>
 	
 	<!-- 현재 비밀번호 확인 -->
 	<select id="selectStudentPw" parameterType="String" resultType="String">

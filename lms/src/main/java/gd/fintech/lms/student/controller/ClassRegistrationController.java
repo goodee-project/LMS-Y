@@ -31,13 +31,15 @@ public class ClassRegistrationController {
 	@Autowired ClassRegistrationCancelService classRegistrationCancelService;
 	
 	//학생의 수강신청 목록 리스트(페이징)
-	//매개변수:
-		//리턴값:
+	//매개변수: currentPage,session
+	//리턴값:학생이 수강신청한 리스트
 	@GetMapping("/student/classRegistration")
 	public String getClassRegistrationListByPage(Model model,
 			HttpSession session,
 			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
-
+		//학생의 수강상태 변경 메서드  수강중-> 수료
+		classRegistrationService.modifyRegistrationState(session);
+		
 		Map<String,Object> map=classRegistrationService.getClassRegistrationListByPage(currentPage, session);
 		model.addAttribute("classRegistrationList",map.get("classRegistrationList"));
 		model.addAttribute("navPerPage",map.get("navPerPage"));
@@ -52,8 +54,8 @@ public class ClassRegistrationController {
 	}
 	
 	//수강신청 할 수 있는 모든 수강 리스트
-	//매개변수:
-		//리턴값:
+	//매개변수:session,currentPage
+	//리턴값:학생이 신청할수있는 모든 수강의 리스트
 	@GetMapping("/student/availableLectureList")
 	public String availableLectureList(Model model,HttpSession session,
 
@@ -74,8 +76,8 @@ public class ClassRegistrationController {
 	
 	
 	//학생이 신청한 수강 과목 정보보기(상세보기)
-	//매개변수:
-		//리턴값:
+	//매개변수: session,lectureNo
+	//리턴값:학생이 신청한 모든 수강과목
 	@GetMapping("/student/classRegistrationDetail")
 	public String getClassRegistrtaionMyOne(Model model,HttpSession session,
 			@RequestParam(value="lectureNo",required = false)int lectureNo) {
@@ -92,6 +94,8 @@ public class ClassRegistrationController {
 		return "/student/classRegistrationDetail";
 	}
 	//학생 수강신청 사유 입력폼
+	//매개변수:
+	//리턴값:
 	@GetMapping("/student/classRegistrationCancel")
 	public String addCancel(Model model,HttpServletRequest request,
 		@RequestParam(value="classRegistrationNo")int classRegistrationNo,
@@ -107,6 +111,8 @@ public class ClassRegistrationController {
 	
 	
 	//학생 수강신청 취소
+	//매개변수:classRegistration,cancelConten
+	//리턴값:취소처리된 학생의 수강 행
 	@PostMapping("/student/classRegistrationCancel")
 	public String classRegistrationCancel(
 			@RequestParam(value="classRegistrationNo")int classRegistrationNo,
@@ -119,6 +125,8 @@ public class ClassRegistrationController {
 	}
 	
 	//학생 수강신청
+	//매개변수:session,lectureNo
+	//리턴값:학생이 수강신청을 하여 추가되는 행 
 	@GetMapping("/student/classRegistrationChoose")
 	public String classRegistartionChoose(HttpSession session,Model model,
 			@RequestParam(value="lectureNo")int lectureNo) {

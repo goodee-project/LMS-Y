@@ -34,6 +34,7 @@ public class ClassRegistrationService {
 		//보여줄 데이터 갯수
 		int rowPerPage = 5;
 		int beginRow = (currentPage-1)*rowPerPage;
+		
 		//전체 페이지
 		int classRegistrationCount = classRegistrationMapper.selectRegistrationCount((String)session.getAttribute("accountId"));
 
@@ -138,6 +139,16 @@ public class ClassRegistrationService {
 		
 		return map;
 	}
+	
+	//학생 수강신청 상태 수료로 변경
+	//매개변수:session
+	//리턴값:id에 따른 학생의 수강상태 변경
+	public int modifyRegistrationState(HttpSession session) {
+		String accountId = session.getAttribute("accountId").toString();
+		return classRegistrationMapper.updateRegistrationState(accountId); 
+	}
+	
+	
 	//학생 강좌 상세보기
 	//매개변수:강좌의 번호
 	//리턴값:강좌의 상세보기
@@ -155,8 +166,8 @@ public class ClassRegistrationService {
 	}
 	
 	//학생 수강신청하기
-	//매개변수:
-	//리턴값:
+	//매개변수:강좌의 번호,session
+	//리턴값:추가되는 학생의 행
 	public int insertRegistration(int lectureNo,HttpSession session) {
 
 		Map<String,Object> map = new HashMap<>();

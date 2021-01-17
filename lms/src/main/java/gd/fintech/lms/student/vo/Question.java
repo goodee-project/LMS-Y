@@ -6,7 +6,9 @@ import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.teacher.vo.QuestionComment;
 import gd.fintech.lms.teacher.vo.QuestionCommentFile;
 import lombok.Data;
+
 //학생이 질문을 등록하는 질문 게시판 vo
+
 @Data
 public class Question {
 	//해당 질문의 번호 (AutoIncrement)

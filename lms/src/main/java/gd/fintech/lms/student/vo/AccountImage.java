@@ -2,6 +2,8 @@ package gd.fintech.lms.student.vo;
 
 import lombok.Data;
 
+//학생 이미지 vo
+
 @Data
 public class AccountImage {
 	//계정 아이디

@@ -2,6 +2,8 @@ package gd.fintech.lms.student.vo;
 
 import lombok.Data;
 
+//학생 파일 업로드 vo
+
 @Data
 public class StudentQuestionCommentFile {
 	// 첨부파일 고유 식별자 (PK, UUID)

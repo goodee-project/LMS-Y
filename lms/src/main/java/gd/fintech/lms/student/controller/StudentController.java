@@ -30,8 +30,8 @@ public class StudentController {
 	@Autowired StudentService studentService;
 	
 	//학생 자신의 정보 상세보기
-	//매개변수
-	//리턴값:
+	//매개변수:session
+	//리턴값:session 정보로 학생 정보를 보여줌
 	@GetMapping("/student/studentDetail")
 	public String getStudentDetail(Model model,HttpServletRequest request) {
 		//세션 가져오기
@@ -47,8 +47,8 @@ public class StudentController {
 	}	
 	
 	//학생정보 수정 폼
-	//매개변수:
-	//리턴값:
+	//매개변수:session
+	//리턴값:session 정보를 이용하여 학생의 정보를 수정하는 페이지
 	@GetMapping("student/modifyStudent")
 	public String getStudentModify(Model model,HttpServletRequest request) {
 		
@@ -68,8 +68,8 @@ public class StudentController {
 	}
 	
 	//학생정보 수정 액션
-	//매개변수:
-		//리턴값:
+	//매개변수:session
+	//리턴값:학생의 세션을 이용하여 학생의 정보를 수정
 	@PostMapping("student/modifyStudent")
 	public String getStudentModify(StudentForm studentForm,HttpServletRequest request) {
 		//세션 가져오기
@@ -82,8 +82,8 @@ public class StudentController {
 	}
 	
 	//학생 이미지 삭제
-	//매개변수:
-		//리턴값:
+	//매개변수:accountId
+	//리턴값:session을 이용하여 accountImage를 제거함
 	@GetMapping("student/removeStudentFile")
 	public String removeStudentFile(Model model,
 			@RequestParam(value="accountId")String accountId,
@@ -93,8 +93,8 @@ public class StudentController {
 	}
 	
 	//학생 비밀번호 수정 폼
-	//매개변수:
-		//리턴값:
+	//매개변수:session
+	//리턴값:학생의 session을 이용하여 비밀번호를 수정하는 페이지
 	@GetMapping("student/modifyStudentPw")
 	public String modifyStudentPw(HttpServletRequest request,Model model) {
 		//세션 가져오기
@@ -106,8 +106,8 @@ public class StudentController {
 	}
 	
 	//학생 비밀번호 수정 액션
-	//매개변수:
-		//리턴값:
+	//매개변수:account
+	//리턴값:학생의 계정에 비밀번호를 변경함
 	@PostMapping("student/modifyStudentPw")
 	public String modifyStduentPw(Account account) {
 		studentService.modifyStudentPw(account);

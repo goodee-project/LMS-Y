@@ -36,7 +36,20 @@
 	</association>
 	
 </resultMap>
-		
+
+	<!-- 수강신청 상태변경 -->
+	<update id="updateRegistrationState" parameterType="String">
+	<![CDATA[
+	UPDATE class_registration cr
+	INNER JOIN lecture l ON cr.lecture_no = l.lecture_no
+	SET cr.class_registration_state = '수료'
+	WHERE
+   cr.account_id =#{accountId}
+   AND cr.class_registration_state='수강중' 
+   AND l.lecture_enddate < NOW()
+	]]>
+	</update>
+	 
 	<!-- 학생이 신청한 수강의 강좌 정보리스트 페이징 -->
 	<select id="selectClassRegistrationDetail" parameterType="java.util.Map" resultMap="resultClassRegistration">
 	SELECT

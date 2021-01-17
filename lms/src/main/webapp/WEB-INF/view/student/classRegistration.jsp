@@ -48,7 +48,9 @@
 						<td>
 							<c:choose> 
 								<c:when test ="${c.classRegistrationState=='취소'}"/>
-								<c:when test="${c.classRegistrationState=='수료'}"/>
+								<c:when test="${c.classRegistrationState=='수료'}">
+								<a href="${pageContext.request.contextPath}/student/createReview?lectureNo=${c.lectureNo}"></a>
+								</c:when>
 								<c:otherwise>
 								<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/student/classRegistrationCancel?classRegistrationNo=${c.classRegistrationNo}&lectureName=${c.lectureName}&lectureNo=${c.lectureNo}">수강 취소</a>
 								</c:otherwise>					

@@ -85,7 +85,7 @@
 						</tr>
 					</table>
 					<div style="text-align:right">
-					<button class="btn btn-outline-success" type="button" id="submitBtn">[등록]</button>
+					<button class="btn btn-outline-success" type="button" id="submitBtn">등록</button>
 					</div>
 				</form>
 			</div>

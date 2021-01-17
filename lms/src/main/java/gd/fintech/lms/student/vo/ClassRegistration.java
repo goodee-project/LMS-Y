@@ -2,10 +2,13 @@ package gd.fintech.lms.student.vo;
 
 import java.util.List;
 
+
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import lombok.Data;
+
 // 학생이 수강신청시 필요한 목록,상태 vo
+
 @Data
 public class ClassRegistration {
 	//학생 수강신청 번호

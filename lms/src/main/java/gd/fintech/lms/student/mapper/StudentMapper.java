@@ -78,6 +78,10 @@ public interface StudentMapper {
 	//매개변수:학생id,pw
 	String selectStudentPw(String accountId,String accountPw);
 	
+	//이메일 중복체크
+	//매개변수:학생id,학생 이메일
+	String selectStudentEmail(String accountId,String studentEmail);
+	
 	//학생 비밀번호 변경
 	//매개변수:
 	int updateStudentPw(Account account);

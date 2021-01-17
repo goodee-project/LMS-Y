@@ -5,6 +5,8 @@ import java.util.List;
 import gd.fintech.lms.manager.vo.Lecture;
 import lombok.Data;
 
+//학생 출석 vo
+
 @Data
 public class Attendance {
 	//강좌아이디

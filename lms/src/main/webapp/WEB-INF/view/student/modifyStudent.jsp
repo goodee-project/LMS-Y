@@ -110,7 +110,7 @@
 			});
 			// 작성 버튼 클릭 시 유효성 검사 실시
 			$('#submitStudentOne').click(function() {
-				if($('#studentEmail').val()==''|| $('#studentEmail').val().replace(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,"")|| $('#teacherName').val()==''|| $('#teacherPhone').val()=='' ||$('#teacherAddressMain')=='' ||$('#teacherAddressSub')==''){
+				if($('#studentEmail').val()==''|| $('#studentEmail').val().replace(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,"")|| $('#studentName').val()==''|| $('#studentPhone').val()=='' ||$('#studentAddressMain')=='' ||$('#studentAddressSub')==''){
 						alert('입력부분을 다시 확인하세요');
 						return;
 				}else{

@@ -158,7 +158,7 @@ public class SyllabusService {
 		// session에서 accountId(아이디)를 출력
 		String accountId = (String)session.getAttribute("accountId");
 		
-		logger.debug("서비스 디버그 아이디 " + accountId);
+		logger.debug("modifySyllabus 디버그 아이디 " + accountId);
 		
 		// 강좌를 담당하는 강사의 아이디를 확인하기 위한 코드
 		// 강좌 고유번호에 해당하는 강좌 정보를 출력
@@ -166,8 +166,14 @@ public class SyllabusService {
 		// 강좌를 담당하는 강사 아이디를 teacherId로 출력
 		String teacherId = lectureDetail.getAccountId();
 		
-		// teacherId(강좌를 담당하는 강사 아이디)와 accountId(현재 로그인 한 강사의 아이디)가 같으면 강의계획서 수정
-		if(teacherId.equals(accountId)) {
+		// 강의계획서에 운영자 서명이 있는지 확인하는 코드
+		// 강좌 고유번호에 해당하는 강의계획서 정보 출력
+		Syllabus syllabusDetail = syllabusMapper.selectSyllabusDetail(lectureNo);
+		// 강의계획서에 있는 운영자 서명을 managerSign로 출력
+		String managerSign = syllabusDetail.getSyllabusManagerSign();
+		
+		// teacherId(강좌를 담당하는 강사 아이디)와 accountId(현재 로그인 한 강사의 아이디)가 같고, 운영자 서명이 없으면 강의계획서 수정
+		if(teacherId.equals(accountId) && managerSign == null) {
 			// syllabus 객체를 생성하여 DTO를 VO로 변환 후 강의계획서 정보 저장
 			Syllabus syllabus = new Syllabus();
 			// syllabus(강의계획서 정보)에 lectureNo(강의계획서 고유번호) 추가
@@ -275,7 +281,7 @@ public class SyllabusService {
 			// MIME 타입을 설정하고 첨부파일 형태로, 파일명은 originalFileName으로 설정함
 			response.setContentType(fileContentType);
 			response.setContentLength((int)file.length());
-			response.setHeader("Content-Disposition", "attachment;filename=\""+originalFileName+"\";");
+			response.setHeader("Content-Disposition", "attachment;filename=\"" + originalFileName + "\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			
 			// 파일 컨텐츠를 작성하기 위해 스트림을 불러옴

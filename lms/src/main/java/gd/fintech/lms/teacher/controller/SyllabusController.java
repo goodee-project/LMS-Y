@@ -108,6 +108,8 @@ public class SyllabusController {
 		String accountId = (String)session.getAttribute("accountId");
 		// syllabus(강의계획서 정보) 출력
 		Syllabus syllabusDetail = (Syllabus)map.get("syllabusDetail");
+		// 강의계획서 정보에서 운영자 서명을 managerSign으로 출력
+		String managerSign = syllabusDetail.getSyllabusManagerSign();
 		// managerLectureDetail(강좌 정보) 출력
 		Lecture lectureDetail = (Lecture)map.get("lectureDetail");
 		// 강좌 정보에서 강좌를 담당하는 강사 아이디를 teacherId로 출력
@@ -115,8 +117,8 @@ public class SyllabusController {
 		
 		logger.debug(lectureDetail.toString());		
 		
-		// teacherId(강좌를 담당하는 강사 아이디)와 accountId(현재 로그인 한 강사의 아이디)가 같으면 수정 페이지 출력
-		if(teacherId.equals(accountId) && syllabusDetail != null) {
+		// teacherId(강좌를 담당하는 강사 아이디)와 accountId(현재 로그인 한 강사의 아이디)가 같고, 강의계획서 정보가 있고, 운영자 서명이 없을 때 수정 페이지 출력
+		if(teacherId.equals(accountId) && syllabusDetail != null && managerSign == null) {
 			model.addAttribute("syllabusDetail", map.get("syllabusDetail"));
 			model.addAttribute("lectureDetail", map.get("lectureDetail"));
 			return "/teacher/modifySyllabus";

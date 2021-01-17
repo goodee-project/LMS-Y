@@ -134,9 +134,24 @@
 								<c:forEach var="syllabusFile" items="${syllabusDetail.syllabusFileList}">
 									<%-- 파일 사이즈가 0 이상일 때만 보여줌 --%>
 									<c:if test="${syllabusFile.syllabusFileSize > 0}">
-										<a href="${pageContext.request.contextPath}/teacher/downloadSyllabusFile?syllabusFileUUID=${syllabusFile.syllabusFileUUID}">
-											${syllabusFile.syllabusFileOriginal}
-										</a>
+										<%-- 운영자에게 표시되는 다운로드 링크 --%>
+										<c:if test="${accountLevel == 3}">
+											<a href="${pageContext.request.contextPath}/manager/downloadSyllabusFile?syllabusFileUUID=${syllabusFile.syllabusFileUUID}">
+												${syllabusFile.syllabusFileOriginal}
+											</a>
+										</c:if>
+										<%-- 강사에게 표시되는 다운로드 링크 --%>
+										<c:if test="${accountLevel == 2}">
+											<a href="${pageContext.request.contextPath}/teacher/downloadSyllabusFile?syllabusFileUUID=${syllabusFile.syllabusFileUUID}">
+												${syllabusFile.syllabusFileOriginal}
+											</a>
+										</c:if>
+										<%-- 학생에게 표시되는 다운로드 링크 --%>
+										<c:if test="${accountLevel == 1}">
+											<a href="${pageContext.request.contextPath}/student/downloadSyllabusFile?syllabusFileUUID=${syllabusFile.syllabusFileUUID}">
+												${syllabusFile.syllabusFileOriginal}
+											</a>
+										</c:if>
 										<span class="small">${syllabusFile.syllabusFileSize} byte / ${syllabusFile.syllabusFileCount}회 다운로드</span>
 										<br>
 									</c:if>
@@ -157,7 +172,7 @@
 				
 				<!-- 수정 버튼 -->
 				<div class="d-flex justify-content-end mb-3">
-					<c:if test="${accountLevel == 2 && syllabusDetail.accountId == accountId}">
+					<c:if test="${accountLevel == 2 && syllabusDetail.accountId == accountId && syllabusDetail.syllabusManagerSign == null}">
 						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/teacher/modifySyllabus?lectureNo=${syllabusDetail.lectureNo}">
 							수정
 						</a>

@@ -48,32 +48,6 @@ public interface StudentMapper {
 	//리턴값:계정id에 해당하는 학생이름
 	String selectStudentName(String accountId);
 	
-	//학생 이미지 조회
-	//매개변수:학생id
-	//리턴값:학생계정id로 조회
-	AccountImage selectStudentImage(String accountId);
-	
-	//학생 프로필 이미지 추가
-	//매개변수:이미지Vo
-	//리턴값:해당 행 추가
-	int insertStudentImage(AccountImage accountImage);
-	
-	//학생 프로필 이미지 삭제
-	//매개변수:학생id
-	//리턴값:제거된 하나의 행
-	int removeStudentImage(String accountId);
-	
-	//학생 이미지만 수정
-	//매개변수:학생id
-	//리턴값:수정된 하나의 행
-	int updateStudentImage(String accountId,String studentImage);
-	int updateImageFile(AccountImage accountImage);
-	
-	//학생 이미지 출력 수정시 이전이미지 삭제
-	//매개변수:학생id
-	//리턴값:이미지VO
-	String updateStudentImagePrevious(String accountId);
-	
 	//학생 현재 비밀번호 확인
 	//매개변수:학생id,pw
 	String selectStudentPw(String accountId,String accountPw);
@@ -85,4 +59,34 @@ public interface StudentMapper {
 	//학생 비밀번호 변경
 	//매개변수:
 	int updateStudentPw(Account account);
+	
+	//현재 학생 프로필 사진 출력
+	//매개변수:
+	//리턴값:학생 이미지파일 전체
+	String selectStudentImageanddelete(String accountId);
+	
+	//학생 이미지 카운트
+	String selectImageFileUUIDCk(String accountId);
+
+	//학생 이미지 조회
+	AccountImage selectMyImage(String accountId);
+	
+	//학생 미미지 추가
+	//매개변수:이미지vo
+	//리턴값:추가되는 행
+	int insertStudentImage(AccountImage accountImage);
+	
+	//학생 이미지 삭제
+	//매개변수
+	//리턴값:
+	int deleteMyImage(String accountId);	
+	
+	//이미지 수정(이미지만)
+	//매개변수
+	//리턴값:
+	int updateStudentImage(String accountId,String studentImage);
+	int updateImageFile(AccountImage AccountImage);
+	
+	//이미지 수정 버튼 추가 -> 삭제버튼 클릭
+	int updateStudentImgbyDelete(String accountId);
 }

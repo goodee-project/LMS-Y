@@ -108,20 +108,7 @@
 		WHERE account_id=#{accountId}
 	</update>
 	
-	<!-- 학생 이미지 파일 조회 -->
-	<select id="selectStudentImage" parameterType="String" resultType="gd.fintech.lms.student.vo.AccountImage">
-	SELECT
-			account_id accountId,
-			image_file_uuid imageFileUUID,
-			image_file_original imageFileOriginal,
-			image_file_size imageFileSize,
-			image_file_type imageFileType,
-			image_file_createdate imageFileCreateDate
-	FROM account_image
-	WHERE account_id =#{accountId}
-	</select>
-	
-	<!-- 학생 이미지 추가 -->
+	<!-- account-image 학생 이미지 추가 -->
 	<insert id="insertStudentImage" parameterType="gd.fintech.lms.student.vo.AccountImage">
 	INSERT INTO account_image(
 			account_id,
@@ -140,51 +127,83 @@
 		)
 	</insert>
 	
-	<!-- 학생 이미지 삭제 -->
-	<delete id="removeStudentImage" parameterType="String">
-		DELETE FROM account_image
-		WHERE account_id = #{accountId}
-	</delete>
+	<!-- 학생 이미지 조회 -->
+	<select id="selectMyImage" parameterType="String" resultType="gd.fintech.lms.student.vo.AccountImage">
+      SELECT
+         account_id accountId,
+         image_file_uuid imageFileUUID,
+         image_file_original imageFileOriginal,
+         image_file_size imageFileSize,
+         image_file_type imageFileType,
+         image_file_createdate imageFileCreateDate
+      FROM account_image
+      WHERE account_id = #{accountId}
+   </select>
 	
-	<!-- 학생 이미지만 수정 -->
-	<update id="updateStudentImage" parameterType="java.util.Map">
-		UPDATE student
-		<set>
-			<if test="studentImage !=null">student_image = #{studentImage},</if>
-			student_updatedate = NOW()
-		</set>
-		WHERE account_id = #{accountId}
-	</update>
-	<update id="updateImageFile" parameterType="java.util.Map">
-		UPDATE account_image
-		SET
-			image_file_uuid = #{imageFileUUID},
-			image_file_original = #{imageFileOriginal},
-			image_file_size = #{imageFileSize},
-			image_file_type = #{imageFileType},
-			image_file_createdate = NOW()
-		WHERE account_id = #{accountId}
-	</update>
-	
-	<!-- 학생 이미지 수정시 이전 이미지 출력  -->
-	<select id="updateStudentImagePrevious" parameterType="String" resultType="String">
-		SELECT student_image
-		FROM student
-		WHERE  account_id = #{accountId}
-	</select>
-	<!-- 계정에 해당하는 운영자 이름 -->
+	<!-- 학생 이미지 카운트 -->
+   	<select id="selectImageFileUUIDCk" parameterType="String" resultType="String">
+      SELECT
+            image_file_uuid
+      FROM account_image
+      WHERE account_id = #{accountId}
+   	</select>
+   	
+   	<!-- 학생 이미지파일 삭제 -->
+   	<delete id="deleteMyImage" parameterType="String">
+   		DELETE FROM account_image
+      	WHERE account_id = #{accountId}
+   	</delete>
+   	
+   	<!-- 학생 사진 수정 -->
+   	<update id="updateStudentImage" parameterType="java.util.Map">
+   	 	UPDATE student
+      <set>
+         <if test="studentImage !=null">student_image = #{studentImage},</if>
+         student_updatedate = NOW()
+      </set>
+      WHERE account_id = #{accountId}
+   	</update>
+   	
+   	<!-- 학생 이미지파일 수정 -->
+   	<update id="updateImageFile" parameterType="java.util.Map">
+   		UPDATE account_image
+      SET
+         image_file_uuid = #{imageFileUUID},
+         image_file_original = #{imageFileOriginal},
+         image_file_size = #{imageFileSize},
+         image_file_type = #{imageFileType},
+         image_file_createdate = NOW()
+      WHERE account_id = #{accountId}
+   	</update>
+   	
+   	<!-- 이미지 수정 버튼 추가-> 삭제버튼 클릭 -->
+   	<update id="updateStudentImgbyDelete" parameterType="gd.fintech.lms.student.vo.Student">
+   		UPDATE student
+     	 SET
+         	student_image = NULL,
+         	student_updatedate = NOW()
+      	WHERE account_id = #{accountId}
+   	</update>
+   	
+   	<!-- 이미지 수정시 현재 이미지 출력 -->
+	<select id="selectStudentImageanddelete" parameterType="String" resultType="String">
+      SELECT student_image
+      FROM student
+      WHERE  account_id = #{accountId}
+   </select>
+	<!-- 계정에 해당하는 학생 이름 -->
 	<select id="selectStudentName" parameterType="String" resultType="String">
 	 	SELECT 
 	 		student_name studentName
 	 	FROM student 
 		WHERE account_id = #{accountId}  		
-	
 	</select>
+	
 	<!-- 학생 이메일 체크 -->
 	<select id="selectStudentEmail" parameterType="String" resultType="String">
 		SELECT 
 				student_email studentEmail
-		FROM teacher
+		FROM student
 		WHERE account_id = #{accountId} and student_email = #{studentEmail}
 	</select>
 	
@@ -206,6 +225,7 @@
 			account_updateDate = NOW()
 		WHERE account_id = #{accountId}
 	</update>
+	
 	<!-- 자격증을 입력하기 위한 쿼리 -->
 	<insert id="insertLicense" parameterType="gd.fintech.lms.account.vo.License">
 		INSERT INTO license (
@@ -222,7 +242,6 @@
 			#{licenseGetDate}
 		)
 	</insert>
-	
 	
 	<!-- 계정의 자격증 리스트 중 하나만 삭제하기 위한 쿼리 -->
 	<delete id="deleteLicenseByLicenseNo" parameterType="int">

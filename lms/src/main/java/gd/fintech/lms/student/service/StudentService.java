@@ -47,12 +47,12 @@ public class StudentService {
 		Student student=studentMapper.selectStudentOne(accountId);
 		
 		StringBuilder uri = null;
-		if(studentMapper.selectStudentImage(accountId) != null){
+		if(studentMapper.selectMyImage(accountId) != null){
 			try {
 				//파일의 경로 소스
 				File file = new File(FilePath.getFilePath()+student.getStudentImage());
 				// 파일 타입 설정
-				String contentType = studentMapper.selectStudentImage(accountId).getImageFileType();
+				String contentType = studentMapper.selectMyImage(accountId).getImageFileType();
 				
 				//바이트 배열로 파일 부르기
 				byte[] date =Files.readAllBytes(file.toPath());
@@ -98,8 +98,9 @@ public class StudentService {
 		//파일이 존재할 경우 for문을 돌면서 Multipartfile을 vo로 변환 후 첨부파일 추가
 		if(studentForm.getImageFileList() !=null) {
 			//기존에 있던 사진 정보 불러오기
-			studentMapper.selectStudentImage(accountId);
-			studentMapper.updateStudentImagePrevious(accountId);
+			studentMapper.selectMyImage(accountId);
+			//이전에 있던 이미지를 보여줌
+			studentMapper.selectStudentImageanddelete(accountId);
 			
 			for(MultipartFile sf : studentForm.getImageFileList()) {
 				String fileNameUUID = UUID.randomUUID().toString().replace("-","");
@@ -107,6 +108,7 @@ public class StudentService {
 				try {
 					//물리적 파일을 생성(하드 디스크)
 					String fileName = FilePath.getFilePath()+fileNameUUID;
+					
 					sf.transferTo(new File(fileName));
 					logger.debug("fileName"+fileName);
 					
@@ -128,18 +130,52 @@ public class StudentService {
 				accountImage.setImageFileType(sf.getContentType());
 				
 				//학생 이미지 조회 null 일시
-				if(studentMapper.selectStudentImage(accountId)==null) {
-					studentMapper.insertStudentImage(accountImage);
+				if(studentMapper.selectMyImage(accountId)!=null) {
+					studentMapper.updateImageFile(accountImage);//올린 이미지 입력
 					studentMapper.updateStudentImage(accountId, fileNameUUID);
-				}else if(studentMapper.selectStudentImage(accountId)!=null) {
-					studentMapper.updateImageFile(accountImage);
-					studentMapper.updateStudentImage(accountId, fileNameUUID);
-						
-					
+				}
+				//파일 없을시
+				if(studentMapper.selectMyImage(accountId)==null) {
+					studentMapper.insertStudentImage(accountImage);//accountImage
+					studentMapper.updateStudentImage(accountId, fileNameUUID);//studentImage
 				}
 			}
 		}
-		return true;
+	return true;
+	}
+	
+	//학생 이미지 제거
+		//매개변수:학생의 id
+		public void removeFIle(String accountId) {
+			//파일 제거
+			String fileName = FilePath.getFilePath()+accountId;
+			//파일 경로 이름지정
+			File file = new File(fileName);
+			//파일이 존재할시
+			if(file.exists()) {
+				file.delete();
+			}
+			studentMapper.deleteMyImage(accountId);
+			studentMapper.updateStudentImgbyDelete(accountId);
+		}
+		
+	//학생 자신의 이미지 파일
+	//매개변수:
+	//리턴값:
+	public AccountImage getStudentImageFIle(String accountId) {
+		return studentMapper.selectMyImage(accountId);
+	}
+	
+	//학생 자신의 사진
+	//매개변수:
+	//리턴값:
+	public AccountImage selectMyImage(String accountId) {
+		return studentMapper.selectMyImage(accountId);
+	}
+	
+	//학생 이미지 출력
+	public String getselectImageFileUUIDCk(String accountId) {
+		return studentMapper.selectImageFileUUIDCk(accountId);
 	}
 	//자격증을 볼 리스트
 	//매개변수:자격증 번호,이름
@@ -166,29 +202,8 @@ public class StudentService {
 		return studentMapper.selectReportOne(accountId);
 	}
 	
-	//학생의 이미지
-	//매개변수:학생의 id
-	//리턴값:학생 자신 이미지
-	public AccountImage getStudentImage(String accountId) {
-		return studentMapper.selectStudentImage(accountId);
-	}
-	
-	//학생 이미지 제거
-	//매개변수:학생의 id
-	public void removeStudentImage(String accountId) {
-		//파일 제거
-		String fileName = FilePath.getFilePath()+accountId;
-		//파일 경로 이름지정
-		File file = new File(fileName);
-		//파일이 존재할시
-		if(file.exists()) {
-			file.delete();
-		}
-		studentMapper.removeStudentImage(accountId);
-	}
-	
-	//강사 현재 아디디 계정이메일 정보 조회
-	//매개변수:강사ID,강사 이메일
+	//학생 현재 아이디 계정이메일 정보 조회
+	//매개변수:학생의 id,학생 이메일
 	//리턴값:조회되는 계정,이메일
 	public String getStudentEmail(String accountId,String studentEmail) {
 		return studentMapper.selectStudentEmail(accountId, studentEmail);
@@ -202,7 +217,7 @@ public class StudentService {
 	}
 	
 	//학생 id pw 조회
-	//매개변수:
+	//매개변수:계정 id, pw
 	//리턴값:id/pw 조회
 	public String getStudentPw(String accountId,String accountPw) {
 		return studentMapper.selectStudentPw(accountId, accountPw);

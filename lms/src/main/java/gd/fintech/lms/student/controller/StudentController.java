@@ -58,8 +58,9 @@ public class StudentController {
 		String accountId =(String)session.getAttribute("accountId");
 		Map<String,Object> map = studentService.getStudentDetail(accountId);
 		//Student student= studentService.getStudentDetail(accountId);
-		AccountImage myImage = studentService.getStudentImage(accountId);
-		
+		AccountImage myImage = studentService.selectMyImage(accountId);
+		//UUID의 카운팅하는 서비스를 모델로 뿌려줌
+		model.addAttribute("ImageFileUUID",studentService.getselectImageFileUUIDCk(accountId));
 		model.addAttribute("myImage",myImage);
 		model.addAttribute("session",session);
 		model.addAttribute("accountId",accountId);
@@ -76,8 +77,10 @@ public class StudentController {
 		HttpSession session =((HttpServletRequest)request).getSession();
 		//Id를 가져오기
 		String accountId =(String)session.getAttribute("accountId");
-		studentService.modifyStudent(studentForm, session, accountId);
-		logger.debug(studentForm+"학생의 폼값");
+		if(studentService.getStudentDetail(accountId)!=studentForm.getStudentImage()) {
+			studentService.modifyStudent(studentForm, session, accountId);
+			logger.debug(studentForm+"학생의 폼값");
+		}
 		return "redirect:/student/studentDetail";
 	}
 	
@@ -86,9 +89,9 @@ public class StudentController {
 	//리턴값:session을 이용하여 accountImage를 제거함
 	@GetMapping("student/removeStudentFile")
 	public String removeStudentFile(Model model,
-			@RequestParam(value="accountId")String accountId,
-			HttpServletRequest request) {
-		AccountImage accountImage = studentService.getStudentImage(accountId);
+			@RequestParam(value="accountId")String accountId,HttpServletRequest request) {
+		AccountImage accountImage = studentService.getStudentImageFIle(accountId);
+		studentService.removeFIle(accountId);;
 		return "redirect:/student/modifyStudent";
 	}
 	

@@ -19,7 +19,7 @@ public class StudentRestController {
 	//비밀번호 확인을 위한 메서드
 	//매개변수:강사ID,비밀번호
 	//리턴값:승인 또는 비승인
-	@PostMapping("/student/teacherPwCk")
+	@PostMapping("/student/studentPwCk")
 	public String studentPwCk(@RequestParam(value="accountId",required = true)String accountId,
 						@RequestParam(value="accountPw",required = true)String accountPw) {
 		String pwCk = studentService.getStudentPw(accountId, accountPw);
@@ -32,9 +32,9 @@ public class StudentRestController {
 	//이메일 중복체를 위한 메서드
 	//매개변수:계정 아이디,이메일
 	//리턴값:승인 또는 비승인
-	@PostMapping("/student/teacherEmailCk")
+	@PostMapping("/student/studentEmailCk")
 	public String studentEmailCk(@RequestParam(value="accountId",required = true)String accountId,
-			@RequestParam(value="teacherEmail",required = true)String studentEmail) {
+			@RequestParam(value="studentEmail",required = true)String studentEmail) {
 		String emailCk = studentService.getStudentEmail(accountId, studentEmail);
 		if(emailCk ==null) {
 			return "pass";

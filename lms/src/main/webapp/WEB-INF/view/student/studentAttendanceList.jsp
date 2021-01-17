@@ -42,13 +42,6 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:if test="${null eq attendanceCount}">
-							<tr>
-								<td class="text-center" colspan="5">
-									<span>해당 강좌의 출석이 없습니다</span>
-								</td>
-							</tr>
-						</c:if>
 				<c:forEach var="a" items="${attendanceList}">
 					<tr class="text-center">
 						<td>${a.attendanceCreateDate}</td>

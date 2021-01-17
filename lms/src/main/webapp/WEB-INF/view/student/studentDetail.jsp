@@ -97,6 +97,7 @@
 					</tr>
 				</thead>
 				<tbody>
+
 					<c:forEach var="l" items="${licenseMap.student.licenseList}">
 					<tr class="text-center">
 						<td>${l.licenseNumber}</td>

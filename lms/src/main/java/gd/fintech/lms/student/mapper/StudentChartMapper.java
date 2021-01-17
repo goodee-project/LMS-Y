@@ -22,7 +22,7 @@ public interface StudentChartMapper {
 	// 인덱스에서 보여지는 기본 강좌번호 조회 메소드
 	// 매개변수: 학생 계정
 	// 리턴값: 인덱스에 보여지는 기본 강좌번호
-	int selectDefaultLectureNoByAccountId(String accountId);
+	Integer selectDefaultLectureNoByAccountId(String accountId);
 
 	// 학생 과제 성적 통계를 산출하는 메소드
 	// 매개변수: 학생의 아이디, 강좌 번호

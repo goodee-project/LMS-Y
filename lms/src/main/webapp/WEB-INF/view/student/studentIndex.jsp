@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>학생 인덱스</title>
+		<title>대쉬보드</title>
 	</head>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
@@ -121,14 +122,13 @@
 		
 		<div class="jumbotron">
 			<div class=container>
-				<h1>학생 인덱스</h1>
+				<h1>대쉬보드</h1>
 			</div>
 		</div>
 		
 		<div class=container>
-			<!-- 출석 차트 출력 -->
+			<!-- 통계 차트를 위한 강좌 검색 -->
 			<div>
-				<h2><span class="badge badge-pill badge-info">출석 통계그래프</span></h2>
 				<form action="${pageContext.request.contextPath}/student/index" method="get">
 					<div class="form-group d-flex justify-content-end">			
 						<select class="form-control col-3" name="lectureNo">
@@ -141,9 +141,22 @@
 						</div>
 					</div>
 				</form>
-				<div>
+			</div>
+			<!-- 출석 차트 출력 -->
+			<div>
+				<h2><span class="badge badge-pill badge-info">출석 통계그래프</span></h2>
+				<c:if test="${lectureNo == null}">
+					<div class="alert alert-info text-center">
+						<strong>Info!</strong> 현재 신청한 강좌가 없습니다. <a href="${pageContext.request.contextPath}/student/availableLectureList" class="alert-link"> 신청하기</a>
+					</div>
+				</c:if>
+				<c:if test="${lectureNo != null}">
 					<canvas id="attendanceChart"></canvas><br>
-					<table class="table text-center">
+					<h5>출석 진행률</h5>
+					<div class="progress">
+						<div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${attendanceList.attendanceCount*100/attendanceList.subjectTotalday}%"></div>
+					</div>
+					<table class="table text-center mt-2">
 						<thead class="thead-light">
 							<tr>
 								<th>출석</th>
@@ -167,33 +180,40 @@
 							</tr>
 						</tbody>
 					</table>
-				</div>
-			</div>			
-			<!-- 출석 차트 출력 -->
+				</c:if>
+			</div>						
+			<!-- 과제 차트 출력 -->
 			<div>
 				<h2><span class="badge badge-pill badge-info mt-5">과제 통계그래프</span></h2>
 				<div>
-					<canvas id="reportChart"></canvas><br>
-					<table class="table text-center">
-						<thead class="thead-light">
-							<tr>
-								<c:forEach var="rl" items="${reportList}">
-									<th>${rl.reportTitle}</th>
-								</c:forEach>
-								<th>합계</th>
-								<th>총점</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<c:forEach var="rl" items="${reportList}">
-									<th>${rl.reportScore}</th>
-								</c:forEach>
-								<td>${sumScore}</td>
-								<td>${totalScore}</td>
-							</tr>
-						</tbody>
-					</table>
+					<c:if test="${lectureNo == null}">
+						<div class="alert alert-info text-center">
+							<strong>Info!</strong> 현재 신청한 강좌가 없습니다. <a href="${pageContext.request.contextPath}/student/availableLectureList" class="alert-link"> 신청하기</a>
+						</div>
+					</c:if>
+					<c:if test="${lectureNo != null}">
+						<canvas id="reportChart"></canvas><br>
+						<table class="table text-center">
+							<thead class="thead-light">
+								<tr>
+									<c:forEach var="rl" items="${reportList}">
+										<th>${rl.reportTitle}</th>
+									</c:forEach>
+									<th>합계</th>
+									<th>총점</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<c:forEach var="rl" items="${reportList}">
+										<th>${rl.reportScore}</th>
+									</c:forEach>
+									<td>${sumScore}</td>
+									<td>${totalScore}</td>
+								</tr>
+							</tbody>
+						</table>
+					</c:if>
 				</div>
 			</div>
 		</div>

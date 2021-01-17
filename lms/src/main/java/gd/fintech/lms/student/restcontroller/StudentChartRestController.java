@@ -25,7 +25,7 @@ public class StudentChartRestController {
 	// 리턴값: 출결 상태 리스트
 	@GetMapping("/student/attendanceChart")
 	public Map<String, Object> attendanceDataByAccountId(HttpSession session, 
-			@RequestParam(value = "lectureNo", required = true) int lectureNo) {
+			@RequestParam(value = "lectureNo", defaultValue = "-1") Integer lectureNo) {
 		// 로그인 된 계정 받아오기
 		String accountId = session.getAttribute("accountId").toString();
 		// 매개변수로 넘겨질 map 생성(아이디, 강좌번호)
@@ -40,7 +40,7 @@ public class StudentChartRestController {
 	// 리턴값: 학생의 과제명과 학생의 과제 점수, 과제 총점
 	@GetMapping("/student/reportChart")
 	public List<Map<String, Object>> reportScoreByAccountId(HttpSession session, 
-			@RequestParam(value = "lectureNo", required = true) int lectureNo) {
+			@RequestParam(value = "lectureNo", defaultValue = "-1") Integer lectureNo) {
 		// 로그인 된 계정 받아오기
 		String accountId = session.getAttribute("accountId").toString();
 		// 매개변수로 넘겨질 map 생성(아이디, 강좌번호)

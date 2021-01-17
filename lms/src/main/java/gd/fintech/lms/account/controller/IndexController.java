@@ -28,7 +28,7 @@ public class IndexController {
 	// 리턴값: studentIndex(뷰이름)
 	@GetMapping("/student/index")
 	public String studentIndex(HttpSession session, Model model,
-			@RequestParam(value="lectureNo", defaultValue = "-1") int lectureNo) {
+			@RequestParam(value="lectureNo", defaultValue = "-1") Integer lectureNo) {
 		String accountId = session.getAttribute("accountId").toString();
 		// 넘어오는 강의 번호가 없을 때 디폴트 강의번호 가져오는 메소드
 		if(lectureNo==-1) {

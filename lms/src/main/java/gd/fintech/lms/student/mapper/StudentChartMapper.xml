@@ -10,6 +10,7 @@
 			COUNT(case when a.attendance_state="조퇴" then a.attendance_state END) earlyLeave,
 			COUNT(case when a.attendance_state="지각" then a.attendance_state END) late,
 			COUNT(case when a.attendance_state!="결석" then a.attendance_state END) attendanceDay,
+			COUNT(a.attendance_state) attendanceCount,
 			s.subject_totalday subjectTotalday
 		FROM attendance a
 		INNER JOIN lecture l ON a.lecture_no = l.lecture_no
@@ -34,7 +35,7 @@
 	</select>
 	
 	<!-- 기본으로 보여지는 강좌 번호 -->
-	<select id="selectDefaultLectureNoByAccountId" parameterType="String" resultType="int">
+	<select id="selectDefaultLectureNoByAccountId" parameterType="String" resultType="Integer">
 		SELECT
 			a.lecture_no lectureNo
 		FROM attendance a

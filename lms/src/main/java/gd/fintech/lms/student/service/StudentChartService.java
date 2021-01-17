@@ -34,7 +34,7 @@ public class StudentChartService {
 	// 인덱스에서 출력될 기본 강좌 번호를 조회하는 메소드
 	// 매개변수: 학생 아이디
 	// 리턴값: 기본 강좌 번호
-	public int getDefaultLectureNo(String accountId) {
+	public Integer getDefaultLectureNo(String accountId) {
 		return studentChartMapper.selectDefaultLectureNoByAccountId(accountId);
 	}
 	
@@ -61,7 +61,6 @@ public class StudentChartService {
 	// 매개변수: 학생 아이디, 강의 번호
 	// 리턴값: 학생이 부여받은 과제 합계
 	public int getReportSumScore(Map<String, Object> map) {
-		System.out.println(studentChartMapper.selectSumReportByAccountId(map)+" 강의 과제");
 		return studentChartMapper.selectSumReportByAccountId(map);
 	}
 }

@@ -48,7 +48,7 @@
 					// 이메일 정규식
 					let emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 					// 이메일 정규식 체크
-					if(!emailRule.test($('#studentEmail').val())) {
+					if(!emailRule.test($('#managerEmail').val())) {
 						$('#emailCkMsg').text('이메일을 확인하세요');
 						return;
 					}

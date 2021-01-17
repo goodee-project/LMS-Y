@@ -25,6 +25,11 @@
 					}
 				});
 			});
+			// 로그아웃 비동기처리(세션값이 기등록 되어있는 경우를 대비)
+			$.ajax({
+				url: '${pageContext.request.contextPath}/logout',
+				method: 'get'
+			});
 		</script>
 	</head>
 	<body>

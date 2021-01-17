@@ -167,7 +167,10 @@ public class LoginController {
 	// 리턴값: 초기 로그인뷰
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		session.invalidate(); 	// 세션 종료
+		// 로그인 페이지에 재접속시에 세션값이 있으면 세션 종료
+		if(session.getAttribute("accountId") != null) {
+			session.invalidate(); 	// 세션 종료
+		}
 		return "account/login";
 	}
 }

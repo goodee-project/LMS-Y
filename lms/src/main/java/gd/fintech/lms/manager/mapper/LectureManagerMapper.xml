@@ -189,4 +189,34 @@
 				ON l.classroom_no = c.classroom_no
 		WHERE l.lecture_no = #{lectureNo}
 	</select>
+	<!-- 대기중 강좌 리스트 -->
+	<select id="selectlectureStudentList"  parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
+	  SELECT 
+	  	l.lecture_no lectureNo,
+   	 	l.lecture_name lectureName,
+   	    cr.account_id accountId,
+        cr.class_registration_state  classRegistrationState
+	  FROM class_registration cr
+	  INNER JOIN lecture l ON cr.lecture_no = l.lecture_no
+	  WHERE 
+    	    cr.class_registration_state = '대기' AND
+            l.lecture_no = #{lectureNo}
+	</select>
+	<!-- 수강중으로 변환 --> 
+	<update id="updatelectureStudentCk" parameterType="gd.fintech.lms.student.vo.ClassRegistration" >
+	UPDATE class_registration
+	SET class_registration_state = '수강중'
+	WHERE 
+    	lecture_no = #{lectureNo} AND
+    	account_id = #{accountId}
+	</update>
+	<!--  거절로 변환 -->
+	<update id="updatelectureStudentReject" parameterType="gd.fintech.lms.student.vo.ClassRegistration">
+	UPDATE class_registration
+	SET class_registration_state = '거절'
+	WHERE 
+    	lecture_no = #{lectureNo} AND
+    	account_id = #{accountId}
+	</update>
+	
 </mapper>

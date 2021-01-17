@@ -15,6 +15,7 @@ import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
+import gd.fintech.lms.student.vo.ClassRegistration;
 import gd.fintech.lms.teacher.vo.Teacher;
 
 
@@ -105,7 +106,7 @@ public class LectureManagerService {
 		return lectureManagerMapper.selectTeacherName(accountId);
 	}
 	
-	 // 강좌의 변경전의 강사 Id 및 강사 이름   
+	 // 강좌의 변경전의 강사 Id 및 강사 이름
 	 // 매개변수: 강사의 계정id 및 강사이름
 	 // 리턴값: 변경전의 강사id 와 강사이름의 확인
 	 public String getTeacherNameCk(String accountId,String teacherName) {
@@ -120,7 +121,7 @@ public class LectureManagerService {
 		
 	}
 	
-	// 강좌를 개설 하는 서비스
+	// 강좌를 개설 하는 서비스 
 	// 매개변수: 강좌의 정보 
 	// 리턴값: 입력 받은 정보가 들어간 행 추가 
 	public int createLecture(Lecture lecture){
@@ -135,6 +136,30 @@ public class LectureManagerService {
 		return lectureManagerMapper.updateLecture(lecture);
 	}
 	
+	
+	// 수강 대기중인 리스트
+	// 매개변수: 
+	//   
+	public List<ClassRegistration> getlectureStudentList(int lectureNo){
+		return lectureManagerMapper.selectlectureStudentList(lectureNo);
+	}
+	
+	// 강좌에서 수강 상태를 거절로 바꾸는 서비스 
+	public int modifylectureStudentReject(String accountId, int lectureNo) {
+		ClassRegistration classRegistration = new ClassRegistration();
+		classRegistration.setAccountId(accountId);
+		classRegistration.setLectureNo(lectureNo);
+		return lectureManagerMapper.updatelectureStudentReject(classRegistration);
+	}
+	
+	
+	// 강좌에서  수강상태를  수강중으로 바뀌는 서비스
+	public int modifylectureStudentCk(String accountId, int lectureNo ) {
+		ClassRegistration classRegistration = new ClassRegistration();
+		classRegistration.setAccountId(accountId);
+		classRegistration.setLectureNo(lectureNo);
+		return lectureManagerMapper.updatelectureStudentCk(classRegistration);
+	}
 	
 	// 강좌를 삭제하는 서비스
 	// 매개변수: 강좌의 정보 

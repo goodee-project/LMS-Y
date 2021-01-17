@@ -5,11 +5,43 @@
 <head>
 <meta charset="UTF-8">
 <title>강좌 상세보기</title>
+	
+	<!-- jQuery 스크립트 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+			$(document).ready(function() {
+				$('#approveBtn').click(function() {
+					let approve = confirm('정말 승인하시겠습니까?');
+					
+					if(approve) {
+						location.replace('${pageContext.request.contextPath}/admin/approveManagerMembership?accountId=${managerQueueDetail.accountId}');
+						alert('승인되었습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+        		});
+        		
+        		$('#disapproveBtn').click(function() {
+					let disapprove = confirm('거절하시겠습니까?');
+					
+					if(disapprove) {
+						location.replace('${pageContext.request.contextPath}/admin/disapproveManagerMembership?accountId=${managerQueueDetail.accountId}');
+						alert('거절되었습니다.');
+					} else {
+						alert('취소하였습니다.');
+						return;
+					}
+        		});
+        	});
+        </script>
+
+
 </head>
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
-	
+	  		
 		<div class="jumbotron">
  			<div class="container">
     			<h1>강좌 상세보기</h1>
@@ -63,10 +95,44 @@
 						<td>강의계획서</td>
 						<td><a href="${pageContext.request.contextPath}/manager/syllabusDetail?lectureNo=${param.lectureNo}">강의계획서</a></td>
 					</tr>
+					<tr>
+						<td colspan="2">
+							<a style="float: right;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">수정</a>
+						</td>
+					</tr>
 				</table>
-				<div>
-					<a style="float: right;" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">수정</a>
-				</div>
+				
+			</div>
+			<p>
+				
+					<div class="container">
+						<h1>학생 수강대기</h1>
+					</div>
+				
+				<div class="container">
+				
+			
+				<table class="table">
+					<thead>
+						<tr>
+							<th>계정id</th>
+							<th>수강상태</th>
+						<tr>
+					</thead>
+					<tbody>
+						<c:forEach var="s" items="${classRegistration}">
+							<tr>
+								
+								<td>${s.accountId}</td>
+								<td>${s.classRegistrationState}</td>
+								<td>
+								<a class="btn btn-outline-success" id="approveBtn" href="${pageContext.request.contextPath}/manager/modifylectureStudentCk?accountId=${s.accountId }&lectureNo=${s.lectureNo}">승인</a>
+								<a class="btn btn-outline-danger" id="disapproveBtn" href="${pageContext.request.contextPath}/manager/modifylectureStudentReject?accountId=${s.accountId}&lectureNo=${s.lectureNo}">거절</a> 
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 </body>
 </html>

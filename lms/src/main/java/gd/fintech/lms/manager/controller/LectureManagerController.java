@@ -5,6 +5,7 @@ package gd.fintech.lms.manager.controller;
 import java.util.List;
 import java.util.Map;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import gd.fintech.lms.manager.service.LectureManagerService;
 import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
+import gd.fintech.lms.student.vo.ClassRegistration;
 import gd.fintech.lms.teacher.vo.Teacher;
 
 
@@ -36,7 +39,7 @@ public class LectureManagerController {
 	// 매개변수: Model @RequestParam: currentPage (현재페이지)
 	// 리턴값: 강좌 리스트 페이지 출력
 	@GetMapping("/manager/managerLecture")
-	public String FAQList(Model model,
+	public String managerLectureList(Model model,
 		@RequestParam(value="currentPage",defaultValue = "1")int currentPage) {
 	 Map<String, Object> map = lectureManagerService.getManagerLectureListByPage(currentPage);
 	 logger.debug(map.toString());
@@ -50,6 +53,35 @@ public class LectureManagerController {
      	return "manager/managerLecture";
 	
 	}	
+	
+	// 강의 리스트
+	@GetMapping("/manager/lectureStudentList")
+	public String lectureStudentList(Model model, int lectureNo) {
+		List<ClassRegistration> studentList = lectureManagerService.getlectureStudentList(lectureNo);
+		model.addAttribute("studentList", studentList);
+		return "manager/managerLectureDetail";
+	}
+	
+	
+	
+	// 강좌에서 수강 상태를 거절로 바꾸는 액션 
+	@GetMapping("/manager/modifylectureStudentReject")
+ 	public String createManagerEducation(
+ 			@RequestParam (value="lectureNo")int lectureNo,
+ 			@RequestParam(value="accountId")String accountId) {
+		lectureManagerService.modifylectureStudentReject(accountId, lectureNo);
+ 		return "redirect:/manager/managerLectureDetail?lectureNo="+lectureNo;
+ 	}
+ 
+	// 강좌에서 수강상태를 수강중으로 바꾸는 액션 
+	@GetMapping("/manager/modifylectureStudentCk")
+	public String modifylectureStudentCk(
+			@RequestParam(value="lectureNo")int lectureNo,
+			@RequestParam(value="accountId")String accountId) {
+		lectureManagerService.modifylectureStudentCk(accountId, lectureNo);
+		return "redirect:/manager/managerLectureDetail?lectureNo="+lectureNo;
+	}
+
 	// 강좌 개설 폼
 	// 매개변수:model
 	// 리턴값: 강좌의 개설
@@ -112,6 +144,8 @@ public class LectureManagerController {
 	public String managerLectureDetail(Model model,
 			@RequestParam("lectureNo")int lectureNo) {
 		Lecture lecture = lectureManagerService.getManagerLectureDetail(lectureNo);
+		List<ClassRegistration> classRegistration = lectureManagerService.getlectureStudentList(lectureNo);
+		model.addAttribute("classRegistration", classRegistration);
 		model.addAttribute("lecture", lecture);
 		return "manager/managerLectureDetail";
 		}

@@ -9,6 +9,7 @@ import gd.fintech.lms.manager.vo.Classroom;
 import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.manager.vo.Subject;
 import gd.fintech.lms.manager.vo.Textbook;
+import gd.fintech.lms.student.vo.ClassRegistration;
 import gd.fintech.lms.teacher.vo.Teacher;
 
 // 운영자의 강좌에 대한 메퍼 인터페이스
@@ -54,6 +55,23 @@ public interface LectureManagerMapper {
 	// 매개변수: 강좌의 번호
 	// 리턴값:  행의 삭제
 	int deleteLecture(int lectureNo); 
+	
+	// 수강 대기중인 리스트 
+	// 매개변수: 강좌no
+	//  리턴값: 강좌 no에 해당하는 수강신청한 학생 목록
+	List<ClassRegistration> selectlectureStudentList(int lectureNo);
+	
+	// 상태가 수강증으로 바꾸는 쿼리 
+	// 매개변수 : 학생id  강좌no
+	//  리턴값 : 수강중으로 상태 변경
+	int  updatelectureStudentCk(ClassRegistration classRegistration);
+	
+	// 상태가 거절로 바꾸는 쿼리 
+	// 매개변수 : 학생id  강좌no
+	// 리턴값: 거절로 상태 변경 
+	int  updatelectureStudentReject(ClassRegistration classRegistration);
+	
+	
 	
 	// 강좌 수정
 	// 매개변수: 강좌의 정보

@@ -1,22 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.ManagerMapper">
-
+	<resultMap type="gd.fintech.lms.manager.vo.Manager" id="resultManagerDetail">
+		<result property="accountId" column="account_id"/>
+		<result property="managerEmail" column="manager_email"/>
+		<result property="managerPhone" column="manager_phone"/>
+		<result property="managerName" column="manager_name"/>
+		<result property="managerGender" column="manager_gender"/>
+		<result property="managerBirth" column="manager_birth"/>
+		<result property="managerAddressMain" column="manager_address_main"/>
+		<result property="managerAddressSub" column="manager_address_sub"/>
+		<result property="managerAccessDate" column="manager_accessdate"/>
+		<result property="managerPosition" column="manager_position"/>
+		<collection property="imageFileList" ofType="gd.fintech.lms.manager.vo.AccountImage">
+			<result property="accountId" column="account_id"/>
+			<result property="imageFileUUID" column="image_file_uuid"/>
+			<result property="imageFileOriginal" column="image_file_original"/>
+			<result property="imageFileSize" column="image_file_size"/>
+			<result property="imageFileType" column="image_file_type"/>
+			<result property="imageFileCreateDate" column="image_file_createdate"/>
+		</collection>
+		<collection property="careerList"  ofType="gd.fintech.lms.account.vo.Career">
+			<result property="careerNo" column="career_no"/>
+			<result property="accountId" column="account_id"/>
+			<result property="careerContent" column="career_content"/>
+			<result property="careerStartDate" column="career_startdate"/>
+			<result property="careerEndDate" column="career_enddate"/>
+		</collection>
+		<collection property="educationList" ofType="gd.fintech.lms.account.vo.Education">
+			<result property="educationNo" column="education_no"/>
+			<result property="accountId" column="account_id"/>
+			<result property="educationSchool" column="education_school"/>
+			<result property="educationMajor" column="education_Major"/>
+			<result property="educationStartDate" column="education_startdate"/>
+			<result property="educationEndDate" column="education_enddate"/>
+		</collection>
+		<collection property="licenseList" ofType="gd.fintech.lms.account.vo.License">
+			<result property="licenseNo" column="license_no"/>
+			<result property="accountId" column="account_id"/>
+			<result property="licenseNumber" column="license_number"/>
+			<result property="licenseName" column="license_name"/>
+			<result property="licenseAgency" column="license_agency"/>
+			<result property="licenseGetDate" column="license_getdate"/>
+		</collection>
+ 	</resultMap>
    <!-- 운영자의 정보 상세보기 -->
-   <select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
+   <select id="selectManagerOne" parameterType="String" resultMap="resultManagerDetail">
       SELECT
-         account_id accountId,
-         manager_email managerEmail,
-         manager_phone managerPhone,
-         manager_name managerName,
-         manager_gender managerGender,
-         manager_birth managerBirth,
-         manager_position managerPosition,
-         manager_address_main managerAddressMain,
-         manager_address_sub managerAddressSub,
-         manager_image managerImage
-      FROM manager
-      WHERE account_id =#{accountId}
+         m.account_id,
+         m.manager_email,
+         m.manager_phone,
+         m.manager_name,
+         m.manager_gender,
+         m.manager_birth,
+         m.manager_position,
+         m.manager_address_main,
+         m.manager_address_sub,
+         c.career_no,
+		 c.account_id,
+		 c.career_content,
+		 c.career_startdate,
+		 c.career_enddate,
+	     l.license_no,
+	   	 l.license_number,
+		 l.license_name,
+		 l.license_agency,
+		 l.license_getdate,
+		 e.education_no,
+		 e.account_Id,
+		 e.education_school,
+		 e.education_major,
+		 e.education_startdate,
+		 e.education_enddate
+     FROM manager m
+     LEFT JOIN
+		 career c ON
+		 c.account_id = m.account_id
+	 LEFT JOIN
+		 license l ON
+		 l.account_id = m.account_id
+	 LEFT JOIN
+		 education e ON
+		 e.account_Id = m.account_id
+	 WHERE m.account_id = #{accountId}
    </select>
 
    <!-- 운영자의 정보 수정하기 -->
@@ -148,5 +214,12 @@
       DELETE FROM account_image
       WHERE account_id = #{accountId}
    </delete>
+   
+   <!-- 한 행의 경력 내용을 삭제하는 쿼리 -->
+	<delete id="deleteCareerByManager" parameterType="int">
+		DELETE 
+		FROM career
+		WHERE career_no = #{careerNo}
+	</delete>
    
 </mapper>

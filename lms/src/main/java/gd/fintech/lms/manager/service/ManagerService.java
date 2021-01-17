@@ -20,7 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.account.mapper.AddressMapper;
+import gd.fintech.lms.account.mapper.CareerMapper;
+import gd.fintech.lms.account.mapper.EducationMapper;
+import gd.fintech.lms.account.mapper.LicenseMapper;
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.Education;
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.dto.ManagerForm;
 import gd.fintech.lms.manager.mapper.ManagerMapper;
 import gd.fintech.lms.manager.vo.AccountImage;
@@ -39,6 +45,15 @@ public class ManagerService {
    
    // 주소정보 mapper
    @Autowired private AddressMapper addressMapper;
+   
+   // 경력 정보 mapper
+   @Autowired private CareerMapper careerMapper;
+   
+   // 학력 정보 mapper 
+   @Autowired private EducationMapper educationMapper;
+    
+   // 자격증 정보 mapper
+   @Autowired private LicenseMapper licenseMapper;
    
    // 운영자 정보 상세보기
    // 매개변수: 운영자 id
@@ -190,4 +205,47 @@ public class ManagerService {
    public String getManagerPassword(String accountId,String accountPw) {
       return managerMapper.selectManagerPassword(accountId, accountPw);
    }   
+   
+   	// 운영자 경력추가
+ 	// 매개변수:경력vo
+ 	// 리턴값:변경된 행 갯수
+ 	public void createManagerCareer(Career career) {
+ 		careerMapper.insertCareer(career);
+ 	}
+ 	
+ 	// 운영자 경력삭제
+ 	// 운영자:경력 고유번호 , 운영자 id 
+ 	// 리턴값:변경된 행 갯수
+ 	public void removeManagerCareer(int careerNo, String accountId) {
+ 		managerMapper.deleteCareerByManager(careerNo);
+ 	}
+ 	
+ 	// 운영자 자격증추가
+ 	// 매개변수:자격증vo
+ 	// 리턴값:변경된 행 갯수
+ 	public void createManagerLicense(License license) {
+ 		licenseMapper.insertLicense(license);
+ 	}
+ 	
+ 	// 운영자 자격증삭제
+ 	// 매개변수:자격증 고유번호 , 운영자Id
+ 	// 리턴값:변경된 행 갯수
+ 	public void removeManagerLicense(int licenseNo,String accountId) {
+ 		licenseMapper.deleteLicenseByLicenseNo(licenseNo);
+ 	}
+ 	
+ 	// 운영자 학력추가
+ 	// 매개변수:학력vo
+ 	// 리턴값:변경된 행 갯수
+ 	public void createManagerEducation(Education education) {
+ 		educationMapper.insertEducation(education);
+ 	}
+ 	
+ 	// 운영자 학력삭제
+ 	// 매개변수:학력 순번
+ 	// 리턴값:변경된 행 갯수
+ 	public void removeManagerEducation(int educationNo, String accountId) {
+ 		educationMapper.deleteEducationByEducationNo(educationNo);
+ 	}
+   
 }

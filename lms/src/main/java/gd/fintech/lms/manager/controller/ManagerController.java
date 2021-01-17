@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.Education;
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.dto.ManagerForm;
 import gd.fintech.lms.manager.service.ManagerService;
 import gd.fintech.lms.manager.vo.AccountImage;
@@ -105,4 +108,109 @@ public class ManagerController {
       managerService.modifyManagerPasswd(account);
       return "redirect:/logout";
    }
+   
+   // 운영자 경력추가 폼
+   // 리턴값: 운영자 경력입력 페이지
+   @GetMapping("/manager/createManagerCareer")
+   public String createManagerCareer(HttpServletRequest request,Model model) {
+ 	  //세션정보 가져옴
+ 	  HttpSession session = ((HttpServletRequest)request).getSession();
+ 	  //세션에 있는 아이디 가져옴
+ 	  String accountId = (String)session.getAttribute("accountId");
+ 	  model.addAttribute("accountId",accountId);
+ 	  return "/manager/createManagerCareer";
+ 	}
+ 	
+   // 운영자 경력추가 액션
+   // 리턴값: 운영자  상세보기페이지
+   @PostMapping("/manager/createManagerCareer")
+   public String createManagerCareer(Career career) {
+ 		managerService.createManagerCareer(career);
+ 		return "redirect:/manager/managerDetail";
+ 	}
+ 	
+ 	// 운영자 경력삭제
+   	// 매개 변수: 경력 고유번호 
+   	// 리턴값: 경력 삭제와 운영자 상세보기 페이지로 이동   
+ 	@GetMapping("/manager/removeManagerCareer")
+ 	public String removeManagerCareer(HttpServletRequest request,
+ 		@RequestParam(value="careerNo")int careerNo) {
+ 		//세션정보 가져옴
+ 		HttpSession session = ((HttpServletRequest)request).getSession();
+ 		//세션에 있는 아이디 가져옴
+ 		String accountId = (String)session.getAttribute("accountId");
+ 		managerService.removeManagerCareer(careerNo, accountId);
+ 		return "redirect:/manager/managerDetail";
+ 	}
+ 	
+ 	// 운영자 자격증 추가 폼
+ 	// 매개변수:운영자ID
+ 	// 리턴값: 운영자 자격증 입력 페이지
+ 	@GetMapping("/manager/createManagerLicense")
+ 	public String createManagerLicense(HttpServletRequest request,Model model) {
+ 		//세션정보 가져옴
+ 		HttpSession session = ((HttpServletRequest)request).getSession();
+ 		//세션에 있는 아이디 가져옴
+ 		String accountId = (String)session.getAttribute("accountId");
+ 		model.addAttribute("accountId",accountId);
+ 		return "/manager/createManagerLicense";
+ 	}
+ 	// 운영자 자격증 추가 액션
+ 	// 매개변수: 자격증 정보 
+ 	// 리턴값: 운영자 상세보기 페이지
+ 	@PostMapping("/manager/createManagerLicense")
+ 	public String createManagerLicense(License license) {
+ 		managerService.createManagerLicense(license);
+ 		return "redirect:/manager/managerDetail";
+ 	}
+ 	
+ 	// 운영자 자격증 삭제
+ 	// 리턴값: 자격증 삭제 운영자 상세보기페이지로 이동 
+ 	@GetMapping("/manager/removeManagerLicense")
+ 	public String removeManagerLicense(HttpServletRequest request,
+ 		@RequestParam(value="licenseNo")int licenseNo) {
+ 		//세션정보 가져옴
+ 		HttpSession session = ((HttpServletRequest)request).getSession();
+ 		//세션에 있는 아이디 가져옴
+ 		String accountId = (String)session.getAttribute("accountId");
+ 		managerService.removeManagerLicense(licenseNo, accountId);
+ 		return "redirect:/manager/managerDetail";
+ 	}
+ 	
+ 	// 운영자 학력 추가 폼
+ 	// 매개변수: 운영자ID
+ 	// 리턴값: 운영자 학력 입력 페이지
+ 	@GetMapping("/manager/createManagerEducation")
+ 	public String createManagerEducation(HttpServletRequest request,Model model) {
+ 		//세션정보 가져옴
+ 		HttpSession session = ((HttpServletRequest)request).getSession();
+ 		//세션에 있는 아이디 가져옴
+ 		String accountId = (String)session.getAttribute("accountId");
+ 		model.addAttribute("accountId",accountId);
+ 		return "/manager/createManagerEducation";
+ 	}
+ 	
+ 	// 운영자 학력 추가 액션
+ 	// 학력 정보
+ 	// 리턴값: 운영자 상세보기 페이지
+ 	@PostMapping("/manager/createManagerEducation")
+ 	public String createManagerEducation(Education education) {
+ 		managerService.createManagerEducation(education);
+ 		return "redirect:/manager/managerDetail";
+ 	}
+ 	
+ 	
+ 	// 운영자 학력 삭제 
+ 	// 학력 고유 번호 
+ 	// 리턴값: 학력 삭제 운영자 상세보기페이지로 이동 
+ 	@GetMapping("/manager/removeManagerEducation")
+ 	public String removeManagerEducation(HttpServletRequest request,
+ 		@RequestParam(value="educationNo")int educationNo) {
+ 		//세션정보 가져옴
+ 		HttpSession session = ((HttpServletRequest)request).getSession();
+ 		//세션에 있는 아이디 가져옴
+ 		String accountId = (String)session.getAttribute("accountId");
+ 		managerService.removeManagerEducation(educationNo, accountId);
+ 		return "redirect:/manager/managerDetail";
+ 	}
 }

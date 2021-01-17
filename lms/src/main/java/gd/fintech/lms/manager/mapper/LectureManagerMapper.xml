@@ -99,7 +99,26 @@
 			lecture_updatedate = NOW()
 		WHERE lecture_no =#{lectureNo}
 	</update>
-
+	
+	<!-- 강좌에서 강사id로  강사 이름 검색  -->
+	<select id="selectTeacherName" parameterType="String" resultType="String">
+		 SELECT teacher_name teacherName
+	 	 FROM teacher
+ 		 WHERE account_id =#{accountId}
+	</select>
+	
+	<!-- 강좌에서 강사 이름 확인 -->
+	<select id="selectTeacherNameCk" parameterType="String" resultType="String">
+	  SELECT 
+	 	account_id accountId,
+	 	teacher_name teacherName
+	  FROM teacher
+ 	 WHERE 
+ 	 	account_id =#{accountId}
+		AND teacher_name =#{teacherName}
+	
+	</select> 
+	
 	<!-- accountId로 불러오는 강좌 정보 -->
 	<select id="selectTeacherLectureDetail" parameterType="String" resultType="gd.fintech.lms.manager.vo.Lecture">
 		SELECT

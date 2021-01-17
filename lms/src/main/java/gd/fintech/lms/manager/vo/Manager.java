@@ -2,6 +2,9 @@ package gd.fintech.lms.manager.vo;
 
 import java.util.List;
 
+import gd.fintech.lms.account.vo.Career;
+import gd.fintech.lms.account.vo.Education;
+import gd.fintech.lms.account.vo.License;
 import lombok.Data;
 
 // 운영자 vo : 운영자 정보 관련 vo
@@ -46,4 +49,15 @@ public class Manager {
 	
 	//Multipart를 위한 프로퍼티 추가
 	private List<AccountImage> imageFileList;
+	
+	// 경력vo
+	private List<Career> careerList;
+	
+	// 학력vo
+	private List<Education> educationList;
+	
+	// 자격증vo
+	private List<License> licenseList;
+	
+	
 }

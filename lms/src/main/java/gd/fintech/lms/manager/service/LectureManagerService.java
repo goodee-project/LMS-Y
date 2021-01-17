@@ -99,6 +99,20 @@ public class LectureManagerService {
 	public List<Teacher> getLectureTeacherList(){
 		return lectureManagerMapper.selectLectureTeacherList();
 	}
+	
+	// 강좌에서의 강사 이름 
+	public List<String> getTeacherName(String accountId) {
+		return lectureManagerMapper.selectTeacherName(accountId);
+	}
+	
+	 // 강좌의 변경전의 강사 Id 및 강사 이름   
+	 // 매개변수: 강사의 계정id 및 강사이름
+	 // 리턴값: 변경전의 강사id 와 강사이름의 확인
+	 public String getTeacherNameCk(String accountId,String teacherName) {
+	     return lectureManagerMapper.selectTeacherNameCk(accountId, teacherName);
+	 }  
+	
+	
 	// 강좌의 총 합을 보여주는 서비스
 	// 리턴값: 강좌 개수의 총 합
 	public int getLectureCount(){
@@ -120,6 +134,7 @@ public class LectureManagerService {
 	public int modifyLecture(Lecture lecture) {
 		return lectureManagerMapper.updateLecture(lecture);
 	}
+	
 	
 	// 강좌를 삭제하는 서비스
 	// 매개변수: 강좌의 정보 

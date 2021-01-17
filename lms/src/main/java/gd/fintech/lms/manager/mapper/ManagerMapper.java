@@ -64,4 +64,9 @@ public interface ManagerMapper {
 	// 매개변수: 운영자id
 	// 리턴값: 운영자 이미지
 	String selectManagerImageanddelete(String accountId);
+	
+	// 운영자의 경력을 삭제  
+	// 매개변수: 경력의 고유번호 
+	// 리턴값:  행의 삭제  
+	int deleteCareerByManager(int careerNo);
 }

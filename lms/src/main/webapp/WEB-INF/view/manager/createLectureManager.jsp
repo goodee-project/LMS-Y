@@ -26,6 +26,7 @@
 					
 					}
 			});		
+
 			// 강사 이름 유효성 검사 
 			$('#nameId').blur(function(){
 				// 강사 이름 공백 검사
@@ -39,6 +40,33 @@
 					$('#nameIdMsg').text("");
 					
 					}
+			});
+			// 강사id 를 이용하여 강사 이름 추가 
+			$('#Search').click(function() {
+				if($('#accountId').val() == '') {
+					alert('강사 아이디를 입력하시오');
+					return;
+				}
+				$.ajax({			             
+		            url : '${pageContext.request.contextPath}/manager/teacherName',
+		            type : 'GET',
+		            data : {accountId:$('#accountId').val()},
+		            error : function(){
+		                alert('데이터에 오류가 있습니다');
+		            },
+		            success : function(data){			           
+			            let str = `<td class="form-group">
+			           			 <select name="teacherName">`;
+			            for(let i=0; i<data.length; i++) {
+						  str += '<option>' + data[i] + '</option>';
+					 }
+					     str += '</select> </div>';
+			            $('input[name = teacherName]').attr('value',data); 
+		                $('#addAddr').empty();
+						$('#addAddr').append(str);
+		            }
+		        });
+				$('#nameMsg').text('');
 			});
 			// 강좌 이름 유효성 검사	
 			$('#lectureNameId').blur(function(){
@@ -99,17 +127,34 @@
 			});
 				$('#btnId').click(function() {
 					// 공백 검사
-					if($('#nameId').val() == '' || $('#lectureNameId').val() == ''
+					if($('#nameId').val() == '' || $('#lectureNameId').val() == ''  || $('#teacherName').val() == ''
 						|| $('#startDateId').val() == ''|| $('#endDateId').val() == ''|| $('#totalId').val() == '') {
 						alert('기입에 누락된 부분이 없는지 확인해주세요');
 					} else if (new Date($('#endDateId').val())
 						- new Date($('#startDateId').val()) <= 0) {	
 						alert(' 강좌의 시작일과 강좌의 종료일이 올바르지 않습니다!');
 						$('#startDateId').focus();
-					}else {
-						
-						$('#postId').submit();
-					}
+					}else if($('#accountId').val() == '') {
+							alert('강사 아이디를 입력하시오');
+							return;
+							
+						}// 강사의 ID 와 강사 이름 확인
+						$.ajax({
+							url: '${pageContext.request.contextPath}/manager/lectureNameCheck',
+							type: 'post',
+							data: {accountId:$('#accountId').val(),teacherName:$('#teacherName').val()},
+							success: function(data) {
+								if(data == 0) {
+									alert(' 강사ID 강사 이름이 올바르지 않습니다!');
+									$('#teacherName').focus();
+									$('#nameMsg').text('검색을 눌러주세요!');
+									return;
+								}else {
+									$('#postId').submit();
+								}	
+							}
+						});
+										
 				});
 				console.log();  				 	
 	     });
@@ -132,7 +177,7 @@
 					<tr>
 						<td>강사 Id</td>							
 						<td>
-							<select class ="form-control col-sm-4"  name="accountId">
+							<select class ="form-control col-sm-4"  id="accountId"name="accountId">
 								<c:forEach items="${teacherList}" var="teacher">	
 									<option value="${teacher.accountId}">${teacher.accountId}</option>
 								</c:forEach>
@@ -150,9 +195,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td>강사 이름</td>							
-						<td><input class ="form-control col-sm-4" type="text" name="teacherName" id="nameId">
-							<span id="nameIdMsg"></span>
+						<td>강사 이름</td>						
+						<td class="input-group">
+							<input  readonly="readonly"  class ="form-control col-sm-4" value="" type="text"  name="teacherName" id="teacherName">
+							<button class="btn btn-success" type="button" id="Search">검색</button>
+							<span id="nameMsg" class="col-sm-4"></span>
 						</td>
 					</tr>
 					<tr>
@@ -189,7 +236,7 @@
 					<tr>	
 						<!-- 숫자만입력 -->
 						<td>강좌 정원</td>							
-						<td><input class ="form-control col-sm-4" type="text" name="lectureTotal" id="totalId" >
+						<td><input class ="form-control col-sm-4" type="number" name="lectureTotal" id="totalId" >
 							<span id="totalIdMsg"></span>
 						</td>
 					</tr>

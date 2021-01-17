@@ -36,6 +36,11 @@ public interface LectureManagerMapper {
 	// 리턴값: 강사 목록
 	List<Teacher> selectLectureTeacherList();
 	
+	// 강좌에서의 강사이름 검색
+	// 매개변수: 강사의 계정id
+	// 리턴값: 강사의 계정id에 해당 하는 강사이름
+	List<String> selectTeacherName(String accountId);
+	
 	// 강좌 개수
 	// 리턴값: 행의 총 개수
 	int selectLectureCount();
@@ -54,6 +59,11 @@ public interface LectureManagerMapper {
 	// 매개변수: 강좌의 정보
 	// 리턴값:  행의 수정
 	int updateLecture(Lecture lecture); 
+	
+	// 강사 이름을 변경 하기전에  확인
+	// 매개변수: 강사 id 와 강사이름
+	// 리턴값: 강사id 에 해당하는 강사 id,강사 이름
+	String selectTeacherNameCk (String accountId, String teacherName);
 	
 	// 강좌 번호를 이용한 강좌 상세보기
 	// 매개변수: 강좌의 번호

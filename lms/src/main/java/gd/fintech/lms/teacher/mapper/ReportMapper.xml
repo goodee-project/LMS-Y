@@ -50,7 +50,7 @@
 			<result property="reportSubmitCreateDate" column="report_submit_createdate" />
 			<result property="reportSubmitUpdateDate" column="report_submit_updatedate" />
 			<collection property="reportSubmitFileList" ofType="gd.fintech.lms.student.vo.ReportSubmitFile">
-				<result property="reportSubmitFileUUID" column="report_submit_no" />
+				<result property="reportSubmitFileUUID" column="report_submit_file_uuid" />
 				<result property="reportSubmitFileOriginal" column="report_submit_file_original" />
 				<result property="reportSubmitFileSize" column="report_submit_file_size" />
 				<result property="reportSubmitFileType" column="report_submit_file_type" />

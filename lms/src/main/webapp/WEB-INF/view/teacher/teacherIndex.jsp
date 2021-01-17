@@ -62,7 +62,11 @@
 						            }
 						        });
 						    } else {
-						        $('#reportChart').html('과제가 없습니다.');
+						        $('#reportChart').html(`
+										<div class="alert alert-info text-center">
+											<strong>Info!</strong> 현재 제출한 과제가 없습니다. <a href="${pageContext.request.contextPath}/teacher/reportList?lectureNo=${lectureNo}" class="alert-link"> 제출하기</a>
+										</div>
+								        `);
 						        $('#reportTable').remove();
 						    }
 						}
@@ -118,7 +122,11 @@
 						            }
 						        });        
 						    } else {
-						        $('#testChart').html('평가가 없습니다.');
+						        $('#testChart').html(`
+										<div class="alert alert-info text-center">
+										<strong>Info!</strong> 현재 출제한 평가가 없습니다. <a href="${pageContext.request.contextPath}/teacher/testDetail?lectureNo=${lectureNo}" class="alert-link"> 제출하기</a>
+									</div>
+							        `);
 						        $('#testTable').remove();
 						    }
 						}
@@ -145,7 +153,9 @@
 		</div>
 		<div class="container">
 			<c:if test="${lectureNo eq null}">
-				강의하고 있는 강좌가 없습니다.
+				<div class="alert alert-info text-center">
+					<strong>Info!</strong> 현재 강의하고 있는 강좌가 없습니다.
+				</div>
 			</c:if>
 			<c:if test="${lectureNo ne null}">
 			<form action="${pageContext.request.pathInfo}" method="get">

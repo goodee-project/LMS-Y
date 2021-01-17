@@ -47,7 +47,7 @@ public class TeacherLectureController {
 		List<Lecture> teacherLectureList = teacherLectureService.getTeacherLectureListByPage(accountId, currentPage);
 		
 		// 현재 페이지 표시할 데이터 수
-		int rowPerPage = 2;
+		int rowPerPage = 10;
 		// 시작 페이지
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 전체 페이지 개수
@@ -62,8 +62,21 @@ public class TeacherLectureController {
 		if (lastPage == 0) {
 			currentPage = 0;
 		}
+		//페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		//네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
 
 		// model을 이용해 뷰에 정보 보냄.
+		model.addAttribute("navPerPage",navPerPage);
+		model.addAttribute("navBeginPage",navBeginPage);
+		model.addAttribute("navLastPage",navLastPage);
 		model.addAttribute("rowPerPage",rowPerPage);
 		model.addAttribute("beginRow",beginRow);
 		model.addAttribute("lectureCount",lectureCount);

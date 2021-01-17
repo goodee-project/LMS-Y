@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.teacher.mapper.TeacherMapper">
-	<resultMap type="gd.fintech.lms.teacher.vo.Teacher" id="resultTeacherOne">
-		<result property="accountId" column="account_id"/>
-		<result property="teacherEmail" column="teacher_email"/>
-		<result property="teacherPhone" column="teacher_phone"/>
-		<result property="teacherName" column="teacher_name"/>
-		<result property="teacherGender" column="teacher_gender"/>
-		<result property="teacherBirth" column="teacher_birth"/>
-		<result property="teacherAddressMain" column="teacher_address_main"/>
-		<result property="teacherAddressSub" column="teacher_address_sub"/>
-		<result property="teacherAccessDate" column="teacher_accessdate"/>
-		<result property="teacherInfo" column="teacher_info"/>
-		<collection property="imageFileList" ofType="gd.fintech.lms.teacher.vo.AccountImage">
-			<result property="accountId" column="account_id"/>
-			<result property="imageFileUUID" column="image_file_uuid"/>
-			<result property="imageFileOriginal" column="image_file_original"/>
-			<result property="imageFileSize" column="image_file_size"/>
-			<result property="imageFileType" column="image_file_type"/>
-			<result property="imageFileCreateDate" column="image_file_createdate"/>
-		</collection>
-		<collection property="careerList"  ofType="gd.fintech.lms.account.vo.Career">
-			<result property="careerNo" column="career_no"/>
-			<result property="accountId" column="account_id"/>
-			<result property="careerContent" column="career_content"/>
-			<result property="careerStartDate" column="career_startdate"/>
-			<result property="careerEndDate" column="career_enddate"/>
-		</collection>
-		<collection property="licenseList" ofType="gd.fintech.lms.account.vo.License">
-			<result property="licenseNo" column="license_no"/>
-			<result property="accountId" column="account_id"/>
-			<result property="licenseNumber" column="license_number"/>
-			<result property="licenseName" column="license_name"/>
-			<result property="licenseAgency" column="license_agency"/>
-			<result property="licenseGetDate" column="license_getdate"/>
-		</collection>
-		<collection property="educationList" ofType="gd.fintech.lms.account.vo.Education">
-			<result property="educationNo" column="education_no"/>
-			<result property="accountId" column="account_id"/>
-			<result property="educationSchool" column="education_school"/>
-			<result property="educationMajor" column="education_major"/>
-			<result property="educationStartDate" column="education_startdate"/>
-			<result property="educationEndDate" column="education_enddate"/>
-		</collection>
- 	</resultMap>
-	<!-- 강사 정보 입력 -->
-	<insert id="insertTeacherFromQueue" parameterType="java.util.Map">
-		INSERT INTO teacher(
+   <resultMap type="gd.fintech.lms.teacher.vo.Teacher" id="resultTeacherOne">
+      <result property="accountId" column="account_id"/>
+      <result property="teacherEmail" column="teacher_email"/>
+      <result property="teacherPhone" column="teacher_phone"/>
+      <result property="teacherName" column="teacher_name"/>
+      <result property="teacherGender" column="teacher_gender"/>
+      <result property="teacherBirth" column="teacher_birth"/>
+      <result property="teacherAddressMain" column="teacher_address_main"/>
+      <result property="teacherAddressSub" column="teacher_address_sub"/>
+      <result property="teacherAccessDate" column="teacher_accessdate"/>
+      <result property="teacherInfo" column="teacher_info"/>
+      <collection property="imageFileList" ofType="gd.fintech.lms.teacher.vo.AccountImage">
+         <result property="accountId" column="account_id"/>
+         <result property="imageFileUUID" column="image_file_uuid"/>
+         <result property="imageFileOriginal" column="image_file_original"/>
+         <result property="imageFileSize" column="image_file_size"/>
+         <result property="imageFileType" column="image_file_type"/>
+         <result property="imageFileCreateDate" column="image_file_createdate"/>
+      </collection>
+      <collection property="careerList"  ofType="gd.fintech.lms.account.vo.Career">
+         <result property="careerNo" column="career_no"/>
+         <result property="accountId" column="account_id"/>
+         <result property="careerContent" column="career_content"/>
+         <result property="careerStartDate" column="career_startdate"/>
+         <result property="careerEndDate" column="career_enddate"/>
+      </collection>
+      <collection property="licenseList" ofType="gd.fintech.lms.account.vo.License">
+         <result property="licenseNo" column="license_no"/>
+         <result property="accountId" column="account_id"/>
+         <result property="licenseNumber" column="license_number"/>
+         <result property="licenseName" column="license_name"/>
+         <result property="licenseAgency" column="license_agency"/>
+         <result property="licenseGetDate" column="license_getdate"/>
+      </collection>
+      <collection property="educationList" ofType="gd.fintech.lms.account.vo.Education">
+         <result property="educationNo" column="education_no"/>
+         <result property="accountId" column="account_id"/>
+         <result property="educationSchool" column="education_school"/>
+         <result property="educationMajor" column="education_major"/>
+         <result property="educationStartDate" column="education_startdate"/>
+         <result property="educationEndDate" column="education_enddate"/>
+      </collection>
+    </resultMap>
+   <!-- 강사 정보 입력 -->
+   <insert id="insertTeacherFromQueue" parameterType="java.util.Map">
+      INSERT INTO teacher(
             account_id,
             teacher_email,
             teacher_name,
@@ -72,213 +72,229 @@
             #{managerIdAccess}
             FROM teacher_queue
             WHERE account_id = #{accountId}
-	</insert>
-	<!-- 강사 정보 수정 -->
-	<update id="updateTeacherInfo" parameterType="gd.fintech.lms.teacher.vo.Teacher">
-		UPDATE teacher
-			<set>
-			<if test="teacherEmail !=null">teacher_email = #{teacherEmail},</if>
-			<if test="teacherName !=null">teacher_name = #{teacherName},</if>
-			<if test="teacherPhone !=null">teacher_phone = #{teacherPhone},</if>
-			<if test="teacherGender !=null">teacher_gender = #{teacherGender},</if>
-			<if test="teacherBirth !=null">teacher_birth = #{teacherBirth},</if>
-			<if test="teacherAddressMain !=null">teacher_address_main = #{teacherAddressMain},</if>
-			<if test="teacherAddressSub !=null">teacher_address_sub = #{teacherAddressSub},</if>
-			<if test="teacherImage !=null">teacher_image = #{teacherImage},</if>
-			<if test="teacherInfo !=null">teacher_info = #{teacherInfo},</if>
-			teacher_updatedate = NOW()
-		</set>
-		WHERE account_id = #{accountId}
-	</update>
-	<!-- 강사 정보 상세보기 -->
-	<select id="selectTeacherOne" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Teacher">
-		SELECT 
-			account_id accountId,
-			teacher_email teacherEmail,
-			teacher_name teacherName,
-			teacher_phone teacherPhone,
-			teacher_gender teacherGender,
-			teacher_birth teacherBirth,
-			teacher_address_main teacherAddressMain,
-			teacher_address_sub teacherAddressSub,
-			teacher_image teacherImage,
-			teacher_info teacherInfo 
-		FROM teacher 
-		WHERE account_id = #{accountId}
-	</select>
-	<!-- 강사 정보 상세보기 -->
-	<select id="selectTeacherInfoOne" parameterType="String" resultMap="resultTeacherOne">
-		SELECT
-			t.account_id,
-			t.teacher_email,
-			t.teacher_phone,
-			t.teacher_name,
-			t.teacher_gender,
-			t.teacher_birth,
-			t.teacher_address_main,
-			t.teacher_address_sub,
-			t.teacher_accessdate,
-			t.teacher_info,
-			c.career_no,
-			c.account_id,
-			c.career_content,
-			c.career_startdate,
-			c.career_enddate,
-			l.license_no,
-			l.license_number,
-			l.license_name,
-			l.license_agency,
-			l.license_getdate,
-			e.education_no,
-			e.account_Id,
-			e.education_school,
-			e.education_major,
-			e.education_startdate,
-			e.education_enddate
-		FROM teacher t
-		LEFT JOIN
-			career c ON
-			c.account_id = t.account_id
-		LEFT JOIN
-			license l ON
-			l.account_id = t.account_id
-		LEFT JOIN
-			education e ON
-			e.account_Id =t.account_id
-		WHERE t.account_id = #{accountId}
-	</select>
-	<!-- 강사 이미지 추가 -->
-	<insert id="insertTeacherImage" parameterType="gd.fintech.lms.teacher.vo.AccountImage">
-		INSERT INTO account_image(
-			account_id,
-			image_file_uuid,
-			image_file_original,
-			image_file_size,
-			image_file_type,
-			image_file_createdate
-		) VALUES (
-			#{accountId},
-			#{imageFileUUID},
-			#{imageFileOriginal},
-			#{imageFileSize},
-			#{imageFileType},
-			NOW()
-		)
-	</insert>
-	
-	<!-- 강사 이미지 조회 -->
-	<select id="selectMyImage" parameterType="String" resultType="gd.fintech.lms.teacher.vo.AccountImage">
-		SELECT
-			account_id accountId,
-			image_file_uuid imageFileUUID,
-			image_file_original imageFileOriginal,
-			image_file_size imageFileSize,
-			image_file_type imageFileType,
-			image_file_createdate imageFileCreateDate
-		FROM account_image
-		WHERE account_id = #{accountId}
-	</select>
-	
-	<!-- 강사 이미지파일 삭제 -->
-	<delete id="deleteMyImage" parameterType="String">
-		DELETE FROM account_image
-		WHERE account_id = #{accountId}
-	</delete>
+   </insert>
+   <!-- 강사 정보 수정 -->
+   <update id="updateTeacherInfo" parameterType="gd.fintech.lms.teacher.vo.Teacher">
+      UPDATE teacher
+         <set>
+         <if test="teacherEmail !=null">teacher_email = #{teacherEmail},</if>
+         <if test="teacherName !=null">teacher_name = #{teacherName},</if>
+         <if test="teacherPhone !=null">teacher_phone = #{teacherPhone},</if>
+         <if test="teacherGender !=null">teacher_gender = #{teacherGender},</if>
+         <if test="teacherBirth !=null">teacher_birth = #{teacherBirth},</if>
+         <if test="teacherAddressMain !=null">teacher_address_main = #{teacherAddressMain},</if>
+         <if test="teacherAddressSub !=null">teacher_address_sub = #{teacherAddressSub},</if>
+         <if test="teacherInfo !=null">teacher_info = #{teacherInfo},</if>
+         teacher_updatedate = NOW()
+      </set>
+      WHERE account_id = #{accountId}
+   </update>
+   <!-- 강사 정보 상세보기 -->
+   <select id="selectTeacherOne" parameterType="String" resultType="gd.fintech.lms.teacher.vo.Teacher">
+      SELECT 
+         account_id accountId,
+         teacher_email teacherEmail,
+         teacher_name teacherName,
+         teacher_phone teacherPhone,
+         teacher_gender teacherGender,
+         teacher_birth teacherBirth,
+         teacher_address_main teacherAddressMain,
+         teacher_address_sub teacherAddressSub,
+         teacher_image teacherImage,
+         teacher_info teacherInfo 
+      FROM teacher 
+      WHERE account_id = #{accountId}
+   </select>
+   <!-- 강사 정보 상세보기 -->
+   <select id="selectTeacherInfoOne" parameterType="String" resultMap="resultTeacherOne">
+      SELECT
+         t.account_id,
+         t.teacher_email,
+         t.teacher_phone,
+         t.teacher_name,
+         t.teacher_gender,
+         t.teacher_birth,
+         t.teacher_address_main,
+         t.teacher_address_sub,
+         t.teacher_accessdate,
+         t.teacher_info,
+         c.career_no,
+         c.account_id,
+         c.career_content,
+         c.career_startdate,
+         c.career_enddate,
+         l.license_no,
+         l.license_number,
+         l.license_name,
+         l.license_agency,
+         l.license_getdate,
+         e.education_no,
+         e.account_Id,
+         e.education_school,
+         e.education_major,
+         e.education_startdate,
+         e.education_enddate
+      FROM teacher t
+      LEFT JOIN
+         career c ON
+         c.account_id = t.account_id
+      LEFT JOIN
+         license l ON
+         l.account_id = t.account_id
+      LEFT JOIN
+         education e ON
+         e.account_Id =t.account_id
+      WHERE t.account_id = #{accountId}
+   </select>
+   <!-- 강사 이미지 추가 -->
+   <insert id="insertTeacherImage" parameterType="gd.fintech.lms.teacher.vo.AccountImage">
+      INSERT INTO account_image(
+         account_id,
+         image_file_uuid,
+         image_file_original,
+         image_file_size,
+         image_file_type,
+         image_file_createdate
+      ) VALUES (
+         #{accountId},
+         #{imageFileUUID},
+         #{imageFileOriginal},
+         #{imageFileSize},
+         #{imageFileType},
+         NOW()
+      )
+   </insert>
+   
+   <!-- 강사 이미지 조회 -->
+   <select id="selectMyImage" parameterType="String" resultType="gd.fintech.lms.teacher.vo.AccountImage">
+      SELECT
+         account_id accountId,
+         image_file_uuid imageFileUUID,
+         image_file_original imageFileOriginal,
+         image_file_size imageFileSize,
+         image_file_type imageFileType,
+         image_file_createdate imageFileCreateDate
+      FROM account_image
+      WHERE account_id = #{accountId}
+   </select>
+   
+   <!-- 강사 이미지파일 삭제 -->
+   <delete id="deleteMyImage" parameterType="String">
+      DELETE FROM account_image
+      WHERE account_id = #{accountId}
+   </delete>
 
-	<!-- 사진 수정 -->
-	<update id="updateTeacherImage" parameterType="java.util.Map">
-		UPDATE teacher
-		<set>
-			<if test="teacherImage !=null">teacher_image = #{teacherImage},</if>
-			teacher_updatedate = NOW()
-		</set>
-		WHERE account_id = #{accountId}
-	</update>
-	<update id="updateImageFile" parameterType="java.util.Map">
-		UPDATE account_image
-		SET
-			image_file_uuid = #{imageFileUUID},
-			image_file_original = #{imageFileOriginal},
-			image_file_size = #{imageFileSize},
-			image_file_type = #{imageFileType},
-			image_file_createdate = NOW()
-		WHERE account_id = #{accountId}
-	</update>
-	
-	<!-- 이미지 수정할때 현재 이미지 출력 -->
-	<select id="selectTeacherImageanddelete" parameterType="String" resultType="String">
-		SELECT teacher_image
-		FROM teacher
-		WHERE  account_id = #{accountId}
-	</select>
-	
-	<!--강사 패스워드 변경  -->
-	<update id="updateTeacherPw" parameterType="gd.fintech.lms.account.vo.Account">
-		UPDATE account
-		SET
-			account_pw =PASSWORD(#{accountPw}),
-			account_updateDate = NOW()
-		WHERE account_id = #{accountId}
-	</update>
-	
-	<!-- 강사 현재 비밀번호 체크-->
-	<select id="selectTeacherPw" parameterType="String" resultType="String">
-		SELECT 
-			COUNT(*),
-			account_id accountId,
-			account_pw accountPw
-		FROM account
-		WHERE account_pw = PASSWORD(#{accountPw}) and account_id = #{accountId}
-	</select>
-	
-	<!-- 강사 이메일 체크 -->
-	<select id="selectTeacherEmail" parameterType="String" resultType="String">
-		SELECT 
-			teacher_email teacherEmail
-		FROM teacher
-		WHERE account_id = #{accountId} and teacher_email = #{teacherEmail}
-	</select>
-	
-	<!-- 강사 경력 추가 -->
-	<insert id="insertTeacherCareer" parameterType="gd.fintech.lms.account.vo.Career">
-		INSERT INTO career(
-			account_id,
-			career_content,
-			career_startdate,
-			career_enddate
-		) VALUES (
-			#{accountId},
-			#{careerContent},
-			#{careerStartDate},
-			#{careerEndDate}
-		)
-	</insert>
-	
-	<!-- 강사 경력 삭제 -->
-	<delete id="deleteTeacherCareer" parameterType="int">
-		DELETE FROM career
-		WHERE career_no = #{careerNo}
-	</delete>
-	
-	<!-- 강사 자격증 추가 -->
-	<insert id="insertTeacherLicense" parameterType="gd.fintech.lms.account.vo.License">
-		INSERT INTO license(
-			account_id,
-			license_number,
-			license_name,
-			license_agency,
-			license_getdate
-		) VALUE (
-			#{accountId},
-			#{licenseNumber},		
-			#{licenseName},	
-			#{licenseAgency},	
-			#{licenseGetDate}		
-		)
-	</insert>
-	<!-- 강사 자격증 삭제 -->
-	<delete id="deleteTeacherLicense" parameterType="int">
-		DELETE FROM license
-		WHERE license_no = #{licenseNo}
-	</delete>
+   <!-- 사진 수정 -->
+   <update id="updateTeacherImage" parameterType="java.util.Map">
+      UPDATE teacher
+      <set>
+         <if test="teacherImage !=null">teacher_image = #{teacherImage},</if>
+         teacher_updatedate = NOW()
+      </set>
+      WHERE account_id = #{accountId}
+   </update>
+   
+   <!-- updateTeacherImgbyDelete -->
+   <update id="updateTeacherImgbyDelete" parameterType="gd.fintech.lms.teacher.vo.Teacher">
+      UPDATE teacher
+      SET
+         teacher_image = NULL,
+         teacher_updatedate = NOW()
+      WHERE account_id = #{accountId}
+   </update>
+   <update id="updateImageFile" parameterType="java.util.Map">
+      UPDATE account_image
+      SET
+         image_file_uuid = #{imageFileUUID},
+         image_file_original = #{imageFileOriginal},
+         image_file_size = #{imageFileSize},
+         image_file_type = #{imageFileType},
+         image_file_createdate = NOW()
+      WHERE account_id = #{accountId}
+   </update>
+   
+   <!-- 이미지 수정할때 현재 이미지 출력 -->
+   <select id="selectTeacherImageanddelete" parameterType="String" resultType="String">
+      SELECT teacher_image
+      FROM teacher
+      WHERE  account_id = #{accountId}
+   </select>
+   
+   <!--강사 패스워드 변경  -->
+   <update id="updateTeacherPw" parameterType="gd.fintech.lms.account.vo.Account">
+      UPDATE account
+      SET
+         account_pw =PASSWORD(#{accountPw}),
+         account_updateDate = NOW()
+      WHERE account_id = #{accountId}
+   </update>
+   
+   <!-- 강사 현재 비밀번호 체크-->
+   <select id="selectTeacherPw" parameterType="String" resultType="String">
+      SELECT 
+         COUNT(*),
+         account_id accountId,
+         account_pw accountPw
+      FROM account
+      WHERE account_pw = PASSWORD(#{accountPw}) and account_id = #{accountId}
+   </select>
+   
+   <!-- 강사 이메일 체크 -->
+   <select id="selectTeacherEmail" parameterType="String" resultType="String">
+      SELECT 
+         teacher_email teacherEmail
+      FROM teacher
+      WHERE account_id = #{accountId} and teacher_email = #{teacherEmail}
+   </select>
+   
+   <!-- 강사 경력 추가 -->
+   <insert id="insertTeacherCareer" parameterType="gd.fintech.lms.account.vo.Career">
+      INSERT INTO career(
+         account_id,
+         career_content,
+         career_startdate,
+         career_enddate
+      ) VALUES (
+         #{accountId},
+         #{careerContent},
+         #{careerStartDate},
+         #{careerEndDate}
+      )
+   </insert>
+   
+   <!-- 강사 경력 삭제 -->
+   <delete id="deleteTeacherCareer" parameterType="int">
+      DELETE FROM career
+      WHERE career_no = #{careerNo}
+   </delete>
+   
+   <!-- 강사 자격증 추가 -->
+   <insert id="insertTeacherLicense" parameterType="gd.fintech.lms.account.vo.License">
+      INSERT INTO license(
+         account_id,
+         license_number,
+         license_name,
+         license_agency,
+         license_getdate
+      ) VALUE (
+         #{accountId},
+         #{licenseNumber},      
+         #{licenseName},   
+         #{licenseAgency},   
+         #{licenseGetDate}      
+      )
+   </insert>
+   <!-- 강사 자격증 삭제 -->
+   <delete id="deleteTeacherLicense" parameterType="int">
+      DELETE FROM license
+      WHERE license_no = #{licenseNo}
+   </delete>
+   
+   <!-- ck -->
+   <select id="selectImageFileUUIDCk" parameterType="String" resultType="String">
+      SELECT
+            image_file_uuid
+      FROM account_image
+      WHERE account_id = #{accountId}
+   </select>
 </mapper>

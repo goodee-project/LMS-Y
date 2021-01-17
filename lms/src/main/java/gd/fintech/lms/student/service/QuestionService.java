@@ -17,6 +17,8 @@ import gd.fintech.lms.student.mapper.QuestionMapper;
 import gd.fintech.lms.student.mapper.StudentMapper;
 import gd.fintech.lms.student.vo.Question;
 
+//강좌별 질문게시판 서비스
+
 @Service
 @Transactional
 public class QuestionService {

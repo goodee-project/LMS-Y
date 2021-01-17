@@ -57,8 +57,8 @@ public interface QuestionMapper {
 	int studentQuestionCount(String accountId,String studentMyQuestionSearch);
 	
 	//강좌 질문 갯수
-	//매개변수:
-	//리턴값:
+	//매개변수:강좌 번호
+	//리턴값:강좌에 대한 질문의 갯수
 	int lectureQuestionCount(int lectureNo,String studentLectureSearch);
 	
 	//질문의 조회수 증가

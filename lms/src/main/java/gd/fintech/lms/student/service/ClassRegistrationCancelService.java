@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.student.mapper.ClassRegistrationCancelMapper;
 
+//학생 수강신청 취소 및 취소 사유서비스
+
 @Service
 @Transactional
 public class ClassRegistrationCancelService {

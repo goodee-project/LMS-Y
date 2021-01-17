@@ -19,6 +19,7 @@ import gd.fintech.lms.FilePath;
 import gd.fintech.lms.student.mapper.StudentQuestionCommentFileMapper;
 import gd.fintech.lms.student.vo.StudentQuestionCommentFile;
 
+//학생이 질문에 대한 답의 파일 서비스
 
 @Service
 @Transactional

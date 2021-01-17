@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.student.vo.AccountImage;
 import gd.fintech.lms.student.vo.Student;
 //학생의 정보를 보여주는 게시판
@@ -16,10 +17,21 @@ public interface StudentMapper {
 	//리턴값:해당하는 행 수정한 값
 	int insertStudentFromQueue(Map<String, Object> map);
 	
-	//학생 상세보기(정보보기)
+	//학생 상세보기(정보보기+학력)
 	//매개변수: 학생계정의id
 	//리턴값: 학생의 모든 정보(id,email,name,phone,gender,birth,address,image,accessdate)
 	Student selectStudentOne(String accountId);
+	Student selectStudentLisence(String accountId);
+	
+	// 자격증을 입력하기 위한 메소드
+	// 매개변수: 입력된 값(account_id, license_number, license_name, license_agency, license_getdate)
+	// 리턴값: 자격증 정보를 입력한 행
+	int insertLicense(License license);
+		
+	// 계정의 자격증 리스트 중 하나만 삭제하기 위한 메소드
+	// 매개변수: 자격증 번호
+	// 리턴값: 한 내용의 자격증 정보를 삭제한 행
+	int deleteLicenseByLicenseNo(int licenseNo);
 	
 	//학생 정보 수정액션
 	//매개변수: 학생Vo

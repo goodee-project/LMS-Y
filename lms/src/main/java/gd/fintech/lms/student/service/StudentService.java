@@ -22,18 +22,22 @@ import com.fasterxml.jackson.databind.deser.Deserializers.Base;
 
 import gd.fintech.lms.FilePath;
 import gd.fintech.lms.account.mapper.AddressMapper;
+import gd.fintech.lms.account.mapper.LicenseMapper;
 import gd.fintech.lms.account.vo.Account;
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.dto.StudentForm;
 import gd.fintech.lms.student.mapper.StudentMapper;
 import gd.fintech.lms.student.vo.AccountImage;
 import gd.fintech.lms.student.vo.Student;
+
+//학생의 서비스
 
 @Service
 @Transactional
 public class StudentService {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired StudentMapper studentMapper;
-
+	
 	@Autowired AddressMapper addressMapper;
 	//학생 자신의 정보 상세보기
 	//매개변수:학생의 id
@@ -137,6 +141,15 @@ public class StudentService {
 		}
 		return true;
 	}
+	//자격증을 볼 리스트
+	//매개변수:자격증 번호,이름
+	//리턴값:입력한 자격증을 보여주는 리스트
+	public Map<String,Object> getLicensList(String accountId) {
+		Student student = studentMapper.selectStudentLisence(accountId);
+		Map<String,Object> map = new HashMap<>();
+		map.put("student",student);
+		return map;
+	}
 	
 	//우편주소로 조회하는 주소 리스트
 	//매개변수:우편주소
@@ -187,4 +200,19 @@ public class StudentService {
 	public String getStudentPw(String accountId,String accountPw) {
 		return studentMapper.selectStudentPw(accountId, accountPw);
 	}
+	//자격증 추가
+	//매개변수:자격증vo
+	//리턴값:추가되는 자격증 행
+	public int createLicense(License license) {
+		return studentMapper.insertLicense(license);
+	}
+	//자격증 삭제
+	//매개변수:자격증의 고유번호
+	//리턴값:삭제되는 자격증 행
+	public void removeLicense(int licenseNo) {
+		studentMapper.deleteLicenseByLicenseNo(licenseNo);
+	}
+	
+	
+	
 }

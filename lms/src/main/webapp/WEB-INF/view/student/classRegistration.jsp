@@ -35,8 +35,6 @@
 				<th>과목 이름</th>
 				<th>수강 상태</th>
 				<th>수강신청일</th>
-				<th>수강 리뷰(점수)</th>
-				<th>리뷰(텍스트)</th>
 				<th>수강 취소</th>
 			</tr>
 			<tbody>
@@ -47,8 +45,6 @@
 						<td><a href="${pageContext.request.contextPath}/student/classRegistrationDetail?lectureNo=${c.lectureNo}&accountId=${accountId}">${c.lectureName}</a></td>
 						<td>${c.classRegistrationState}</td>
 						<td>${c.classRegistrationCreateDate}</td>
-						<td>${c.classRegistrationPoint}</td>
-						<td>${c.classRegistrationReview}</td>
 						<td>
 							<c:choose> 
 								<c:when test ="${c.classRegistrationState=='취소'}"/>

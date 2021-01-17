@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import gd.fintech.lms.student.mapper.StudentMultipleChoiceMapper;
 import gd.fintech.lms.student.vo.MultipleChoice;
 
+//학생 강좌별 시험 리스트
 
 @Service
 @Transactional

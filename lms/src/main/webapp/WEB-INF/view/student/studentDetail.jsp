@@ -79,7 +79,36 @@
 						<td>상세주소</td>
 						<td>${map.student.studentAddressSub}</td>
 					</tr>
-					
+			</table>
+			
+			<div class="jumbotron">
+				<div class="container">
+					<h1>자격증 <a class="text-center btn btn-outline-primary" href="${pageContext.request.contextPath}/student/createStudentLicense">자격증추가</a></h1>
+				</div>
+			</div>
+			<table class="table">
+				<thead>
+					<tr class="text-center">
+						<th>자격증 No.</th>
+						<th>자격증명</th>
+						<th>발급기관</th>
+						<th>발급일</th>
+						<th>자격증 삭제</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="l" items="${licenseMap.student.licenseList}">
+					<tr class="text-center">
+						<td>${l.licenseNumber}</td>
+						<td>${l.licenseName}</td>
+						<td>${l.licenseAgency}</td>
+						<td>${l.licenseGetDate}</td>
+						<td>
+							<a id="removeBtnLicense" class="btn btn-outline-danger" href="${pageContext.request.contextPath}/student/removeLicense?licenseNo=${l.licenseNo}">삭제</a>
+						</td>
+					</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 		</div>
 	</body>

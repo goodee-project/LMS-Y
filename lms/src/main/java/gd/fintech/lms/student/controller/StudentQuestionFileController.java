@@ -1,5 +1,7 @@
 package gd.fintech.lms.student.controller;
 
+//학생 강좌별 질문게시판의 파일에 대한 컨트롤러
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

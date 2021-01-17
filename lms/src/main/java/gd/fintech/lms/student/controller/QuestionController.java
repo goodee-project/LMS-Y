@@ -23,6 +23,8 @@ import gd.fintech.lms.teacher.service.LectureArchiveService;
 import gd.fintech.lms.teacher.service.LectureNoticeService;
 import gd.fintech.lms.teacher.service.QuestionCommentService;
 
+//학생의 강좌별 질문게시판에 대한 컨트롤러
+
 @Controller
 public class QuestionController {
 	Logger logger = LoggerFactory.getLogger(QuestionController.class);
@@ -33,7 +35,7 @@ public class QuestionController {
 	//모든학생의 질문 리스트(페이징)
 	//질문 리스트 10개씩 보여줌(페이징)
 	//매개변수:질문의 번호
-	//리턴값:질문의 순번으로 모든학생의 질문 리스트 보여줌
+	//리턴값:질문의 순번으로 모든학생의 질문 리스트 보여줌 
 	@GetMapping("student/studentQuestionList")
 	public String studentQuestionList(Model model,
 			@RequestParam(value="studentQuestionSearch",required = false)String studentQuestionSearch,

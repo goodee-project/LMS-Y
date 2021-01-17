@@ -13,12 +13,12 @@ public interface StudentAttendanceMapper {
 	//학생 별 출석 리스트
 	//매개변수:currentPage,lectureNo
 	//리턴값:강좌별 출석리스트
-	List<Attendance> studentAttendanceListByPage(Map<String,Object>map);
+	List<Attendance> studentAttendanceListByPage(Map<String,Object> map);
 	
 	//학생 출석 전체 갯수
-	//매개변수:학생id
+	//매개변수:
 	//리턴값:학생들의 출석 갯수
-	int attendanceCount(int lectureNo);
+	int attendanceCount(Map<String,Object> map);
 	
 
 }

@@ -2,7 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.student.mapper.StudentMapper">
 
-	
+	<resultMap type="gd.fintech.lms.student.vo.Student" id="studentLicense">
+		<result property="accountId" column="account_id"/>
+		<result property="studentEmail" column="student_email"/>
+		<result property="studentName" column="student_name"/>
+		<result property="studentPhone" column="student_phone"/>
+		<result property="studentBirth" column="student_birth"/>
+		<result property="studentAddressMain" column="student_address_main"/>
+		<result property="studentAddressSub" column="student_address_sub"/>
+		<result property="studentAccessDate" column="student_accessdate"/>
+		<result property="studentUpdateDate" column="student_updatedate"/>
+		<result property="mangerIdAccess" column="manager_id_access"/>
+		<collection property="licenseList" ofType="gd.fintech.lms.account.vo.License">
+			<result property="licenseNo" column="license_no"/>
+			<result property="accountId" column="account_id"/>
+			<result property="licenseNumber" column="license_number"/>
+			<result property="licenseName" column="license_name"/>
+			<result property="licenseAgency" column="license_agency"/>
+			<result property="licenseGetDate" column="license_getdate"/>
+		</collection>
+	</resultMap>
 	<!-- 학생 회원가입시 필요한 기본정보 -->
 	<insert id="insertStudentFromQueue" parameterType="java.util.Map">
 		INSERT INTO student(
@@ -51,7 +70,26 @@
 		WHERE account_id=#{accountId}
 		
 	</select>
-	
+	<!-- 학생 자격증정보 보기 -->
+	<select id="selectStudentLisence" parameterType="String" resultMap="studentLicense">
+		SELECT
+		s.account_id,
+		s.student_name,
+		l.license_no,
+		l.account_id,
+		l.license_number,
+		l.license_name,
+		l.license_agency,
+		l.license_getdate
+			
+		FROM student s
+		LEFT JOIN 
+			license l
+		ON  s.account_id = l.account_id
+		WHERE s.account_id=#{accountId}
+		
+		
+	</select>
 	
 	<!-- 학생 정보 수정 액션-->
 	<update id="updateStudent" parameterType="gd.fintech.lms.student.vo.Student" >
@@ -161,6 +199,29 @@
 			account_updateDate = NOW()
 		WHERE account_id = #{accountId}
 	</update>
+	<!-- 자격증을 입력하기 위한 쿼리 -->
+	<insert id="insertLicense" parameterType="gd.fintech.lms.account.vo.License">
+		INSERT INTO license (
+			account_Id,
+			license_number,
+			license_name,
+			license_agency,
+			license_getdate
+		) VALUES (
+			#{accountId},
+			#{licenseNumber},
+			#{licenseName},
+			#{licenseAgency},
+			#{licenseGetDate}
+		)
+	</insert>
+	
+	
+	<!-- 계정의 자격증 리스트 중 하나만 삭제하기 위한 쿼리 -->
+	<delete id="deleteLicenseByLicenseNo" parameterType="int">
+		DELETE FROM license
+		WHERE license_no = #{licenseNo}
+	</delete>
 	
 </mapper>
 

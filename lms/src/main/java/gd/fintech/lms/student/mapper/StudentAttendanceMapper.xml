@@ -60,10 +60,11 @@
 	</select>
 
 	<!-- 강좌별 학생출석 전체 갯수 -->
-	<select id="attendanceCount" resultType="int">
+	<select id="attendanceCount" parameterType="java.util.Map"  resultType="int">
 	SELECT 
 		COUNT(*)
 	FROM attendance
 	WHERE lecture_no=#{lectureNo}
+	AND account_id=#{accountId}
 	</select>
 </mapper> 

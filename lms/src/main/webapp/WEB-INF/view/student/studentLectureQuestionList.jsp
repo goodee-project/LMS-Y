@@ -70,56 +70,56 @@
 		<c:if test="${null eq studentlectureSearch}">
 			<div style="margin-left:40%">
 				<ul class="pagination">
-				<!-- 처음으로, 이전 -->
-					<c:choose>
-						<c:when test="${currentPage > '1'}">
-							<!-- 현재 페이지가 1보다 클시 -->
-							<!-- 현재 페이지가 1일시 -->
-							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=1&&studentlectureSearch=${studentlectureSearch}">&lt;&lt;</a></li>
-							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage-1}&&studentlectureSearch=${studentlectureSearch}">&lt;</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled"><a class="page-link" href="#">
-									&lt;&lt; </a></li>
-							<li class="page-item disabled"><a class="page-link" href="#">&lt;</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-					<!-- 현재페이지 네비바 -->
-					<!-- 현재 페이지 표시 -->
-					<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
-						<c:if test="${i <= lastPage}">
+						<c:if test="${null == studentlectureSearch}">
 							<c:choose>
-								<c:when test="${i == currentPage}">
-									<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+								<c:when test="${currentPage > '1'}">
+									<!-- 현재 페이지가 1보다 클시 -->
+									<!-- 현재 페이지가 1일시 -->
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=1"> &lt;&lt;</a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=${currentPage-1}"> &lt;</a></li>
 								</c:when>
 								<c:otherwise>
-									<li class="page-item"><a class="page-link"
-										href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${i}&&studentlectureSearch=${studentlectureSearch}">${i}</a></li>
+									<li class="page-item disabled">
+										<a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=1"> &lt;&lt;</a>
+									</li>
+									<li class="page-item disabled">	
+										<a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=${currentPage-1}">&lt;</a>
+									</li>
+								</c:otherwise>
+								</c:choose>
+									<!-- 현재 페이지 표시 -->
+									<!-- 현재 페이지 표시 -->
+									<c:forEach var="i" begin="${navBeginPage}" end="${navLastPage}">
+										<c:if test="${i <= lastPage}">
+											<c:choose>
+												<c:when test="${i == currentPage}">
+												<li class="page-item active"><a class="page-link" href="#">${i}</a></li>
+												</c:when>
+												<c:otherwise>
+												<li class="page-item">
+												<a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=${i}">${i}</a></li>
+												</c:otherwise>
+											</c:choose>
+										</c:if>
+									</c:forEach>
+									<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
+									<!-- 현재 페이지가 마지막 페이지 일시 -->
+								<c:choose>
+								<c:when test="${currentPage < lastPage}">
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=${currentPage+1}">&gt;</a></li>
+									<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=${lastPage}">&gt;&gt;</a></li>
+								</c:when>
+								<c:otherwise>
+								<li class="page-item disabled">
+									<a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=${currentPage+1}">&gt;</a>
+								</li>
+								<li class="page-item disabled">
+									<a class="page-link" href="${pageContext.request.contextPath}/student/studentLectureQuestionList?lectureNo=${lectureNo}&currentPage=${lastPage}">&gt;&gt;</a>
+								</li>
 								</c:otherwise>
 							</c:choose>
 						</c:if>
-					</c:forEach>
-					<!-- 다음, 마지막으로 -->
-					<!-- 현재 페이지가 마지막 페이지 보다 작을시 -->
-					<!-- 현재 페이지가 마지막 페이지 일시 -->
-					<c:choose>
-						<c:when test="${currentPage < lastPage}">
-							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${currentPage+1}&&studentlectureSearch=${studentlectureSearch}">&gt;</a></li>
-							<li class="page-item"><a class="page-link"
-								href="${pageContext.request.pathInfo}?lectureNo=${lectureNo}&&currentPage=${lastPage}&&studentlectureSearch=${studentlectureSearch}">&gt;&gt;</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item disabled"><a class="page-link" href="#">&gt;</a>
-							</li>
-							<li class="page-item disabled"><a class="page-link" href="#">&gt;&gt;</a>
-							</li>
-						</c:otherwise>
-					</c:choose>
-			</ul>
+					</ul>
 			</div>
 		</c:if>
 		

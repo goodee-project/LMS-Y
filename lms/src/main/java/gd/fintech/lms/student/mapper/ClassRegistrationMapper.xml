@@ -170,7 +170,7 @@
 		WHERE account_id=#{accountId} 
 	</select>
 	
-	<!-- 수강 신엉 -->
+	<!-- 수강 신청할수있는 과목보기 -->
 	<select id="selectClassRegistrationDetailByAccountAndLecture" parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
 	SELECT
     class_registration_no classRegistrationNo,

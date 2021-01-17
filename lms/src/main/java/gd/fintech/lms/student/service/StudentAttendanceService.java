@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import gd.fintech.lms.student.mapper.StudentAttendanceMapper;
 import gd.fintech.lms.student.vo.Attendance;
-import gd.fintech.lms.student.vo.ClassRegistration;
-import gd.fintech.lms.student.vo.Question;
+
 
 @Service
 @Transactional
@@ -28,9 +27,13 @@ public class StudentAttendanceService {
 		// 페이지의 데이터 갯수
 		int rowPerPage = 10;
 		int beginRow = (currentPage - 1) * rowPerPage;
-
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("lectureNo", lectureNo);
+		map.put("accountId",session.getAttribute("accountId"));
 		// 전체 페이지 갯수
-		int attendanceCount = studentAttendanceMapper.attendanceCount(lectureNo);
+		int attendanceCount = studentAttendanceMapper.attendanceCount(map);
+		
 		logger.debug(attendanceCount + "출석갯수");
 		// 마지막 페이지
 		int lastPage = attendanceCount / rowPerPage;
@@ -68,14 +71,14 @@ public class StudentAttendanceService {
 		List<Attendance> attendanceList = studentAttendanceMapper.studentAttendanceListByPage(parmMap);
 		logger.debug(attendanceList.toString());
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("attendanceList", attendanceList);
-		map.put("lastPage", lastPage);
-		map.put("navPerPage", navPerPage);
-		map.put("navBeginPage", navBeginPage);
-		map.put("navLastPage", navLastPage);
+		Map<String, Object> attendanceMap = new HashMap<>();
+		attendanceMap.put("attendanceList", attendanceList);
+		attendanceMap.put("lastPage", lastPage);
+		attendanceMap.put("navPerPage", navPerPage);
+		attendanceMap.put("navBeginPage", navBeginPage);
+		attendanceMap.put("navLastPage", navLastPage);
 		
-		return map;
+		return attendanceMap;
 	}
 	
 }

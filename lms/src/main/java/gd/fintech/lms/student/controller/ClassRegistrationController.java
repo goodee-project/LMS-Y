@@ -22,6 +22,8 @@ import gd.fintech.lms.student.service.ClassRegistrationService;
 import gd.fintech.lms.student.vo.ClassRegistration;
 import gd.fintech.lms.student.vo.ClassRegistrationCancel;
 
+//학생의 수강 신청및 쉬소에 대한 컨트롤러
+
 @Controller
 public class ClassRegistrationController {
 	@Autowired ClassRegistrationService classRegistrationService;
@@ -29,6 +31,8 @@ public class ClassRegistrationController {
 	@Autowired ClassRegistrationCancelService classRegistrationCancelService;
 	
 	//학생의 수강신청 목록 리스트(페이징)
+	//매개변수:
+		//리턴값:
 	@GetMapping("/student/classRegistration")
 	public String getClassRegistrationListByPage(Model model,
 			HttpSession session,
@@ -48,6 +52,8 @@ public class ClassRegistrationController {
 	}
 	
 	//수강신청 할 수 있는 모든 수강 리스트
+	//매개변수:
+		//리턴값:
 	@GetMapping("/student/availableLectureList")
 	public String availableLectureList(Model model,HttpSession session,
 
@@ -68,6 +74,8 @@ public class ClassRegistrationController {
 	
 	
 	//학생이 신청한 수강 과목 정보보기(상세보기)
+	//매개변수:
+		//리턴값:
 	@GetMapping("/student/classRegistrationDetail")
 	public String getClassRegistrtaionMyOne(Model model,HttpSession session,
 			@RequestParam(value="lectureNo",required = false)int lectureNo) {

@@ -1,5 +1,7 @@
 package gd.fintech.lms.student.controller;
 
+// 학생의 객관식 시험문제에 대한 컨트롤러
+
 import java.util.Map;
 
 import org.slf4j.Logger;

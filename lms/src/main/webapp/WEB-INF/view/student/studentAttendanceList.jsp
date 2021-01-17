@@ -36,7 +36,6 @@
 			<thead>
 				<tr class="text-center">
 					<td>출석 날짜</td>
-					<td>강좌 No(css확인후 제거)</td>
 					<td>계정 id</td>
 					<td>출석 상태</td>
 					<td>비고</td>
@@ -46,7 +45,6 @@
 				<c:forEach var="a" items="${attendanceList}">
 					<tr class="text-center">
 						<td>${a.attendanceCreateDate}</td>
-						<td>${a.lectureNo}</td>
 						<td>${a.accountId}</td>
 						<td>${a.attendanceState}</td>
 						<td>${a.attendanceRemark}</td>

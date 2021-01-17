@@ -2,6 +2,7 @@ package gd.fintech.lms.student.vo;
 
 import java.util.List;
 
+import gd.fintech.lms.account.vo.License;
 import gd.fintech.lms.manager.vo.Lecture;
 import lombok.Data;
 //학생 정보 vo
@@ -48,4 +49,7 @@ public class Student {
 	
 	// 해당 과제를 참조하고 있는 과제제출 리스트
 	private List<ReportSubmit> reportSubmitList;
+	
+	//학생 자격증 리스트
+	private List<License> licenseList;
 }

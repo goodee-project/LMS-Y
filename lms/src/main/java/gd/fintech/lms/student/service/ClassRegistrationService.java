@@ -17,6 +17,8 @@ import gd.fintech.lms.manager.vo.Lecture;
 import gd.fintech.lms.student.mapper.ClassRegistrationMapper;
 import gd.fintech.lms.student.vo.ClassRegistration;
 
+//학생 수강신청 서비스
+
 @Service
 @Transactional
 public class ClassRegistrationService {

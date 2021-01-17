@@ -23,4 +23,5 @@ public class License {
 	
 	// 발급일
 	private String licenseGetDate;	
+	
 }

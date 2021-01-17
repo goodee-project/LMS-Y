@@ -247,35 +247,35 @@
 						<tr>
 							<th>교재명</th>
 							<td>
-								<input type="text" id="textbookTitle" name="textbookTitle" class="form-control" value="${modifyTextbook.textbookTitle}">
+								<input type="text" id="textbookTitle" name="textbookTitle" class="form-control" value="${modifyTextbook.textbookTitle}" placeholder="예)명품 자바 프로그래밍">
 								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>가격</th>
 							<td>
-								<input type="text" id="textbookPrice" name="textbookPrice" class="form-control" value="${modifyTextbook.textbookPrice}">
+								<input type="text" id="textbookPrice" name="textbookPrice" class="form-control" value="${modifyTextbook.textbookPrice}" placeholder="예)33000">
 								<div id="textbookPriceMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>저자</th>
 							<td>
-								<input type="text" id="textbookWriter" name="textbookWriter" class="form-control" value="${modifyTextbook.textbookWriter}">
+								<input type="text" id="textbookWriter" name="textbookWriter" class="form-control" value="${modifyTextbook.textbookWriter}" placeholder="예)황기태">
 								<div id="textbookWriterMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>출판사</th>
 							<td>
-								<input type="text" id="textbookPublisher" name="textbookPublisher" class="form-control" value="${modifyTextbook.textbookPublisher}">
+								<input type="text" id="textbookPublisher" name="textbookPublisher" class="form-control" value="${modifyTextbook.textbookPublisher}" placeholder="예)생능출판">
 								<div id="textbookPublisherMsg"></div>
 							</td>
 						</tr>
 						<tr>
 							<th>출판일</th>
 							<td>
-								<input type="text" id="textbookPublishDate" name="textbookPublishDate" class="form-control" value="${modifyTextbook.textbookPublishDate}">
+								<input type="text" id="textbookPublishDate" name="textbookPublishDate" class="form-control" value="${modifyTextbook.textbookPublishDate}" placeholder="예)2019-08-16">
 								<div id="textbookPublishDateMsg"></div>
 							</td>
 						</tr>

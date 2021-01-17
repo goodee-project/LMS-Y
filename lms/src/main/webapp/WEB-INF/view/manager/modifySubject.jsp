@@ -113,7 +113,7 @@
 						<tr>
 							<th>총 이수일수</th>
 							<td>
-								<input type="text" id="subjectTotalDay" name="subjectTotalDay" class="form-control" value="${modifySubject.subjectTotalDay}">
+								<input type="text" id="subjectTotalDay" name="subjectTotalDay" class="form-control" value="${modifySubject.subjectTotalDay}" placeholder="예)120">
 								<div id="subjectTotalDayMsg"></div>
 							</td>
 						</tr>

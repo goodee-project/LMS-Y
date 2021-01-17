@@ -317,7 +317,7 @@
 						<tr>
 							<th>교재명</th>
 							<td>
-								<input type="text" id="textbookTitle" name="textbookTitle" class="form-control" placeholder="예)명품 자바 프로그래">
+								<input type="text" id="textbookTitle" name="textbookTitle" class="form-control" placeholder="예)명품 자바 프로그래밍">
 								<div id="textbookTitleMsg"></div>
 							</td>
 						</tr>

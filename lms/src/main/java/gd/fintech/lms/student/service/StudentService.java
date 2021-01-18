@@ -160,20 +160,22 @@ public class StudentService {
 		}
 		
 	//학생 자신의 이미지 파일
-	//매개변수:
-	//리턴값:
+	//매개변수:이미지파일의 학생의 계정
+	//리턴값:조회되는 행
 	public AccountImage getStudentImageFIle(String accountId) {
 		return studentMapper.selectMyImage(accountId);
 	}
 	
-	//학생 자신의 사진
-	//매개변수:
-	//리턴값:
+	//학생 자신의 사진 조회
+	//매개변수:계정의 id
+	//리턴값:조회 되는 행
 	public AccountImage selectMyImage(String accountId) {
 		return studentMapper.selectMyImage(accountId);
 	}
 	
 	//학생 이미지 출력
+	//매개변수:이미지 파일의 학생의 계정
+	//리턴값:조회되는 행
 	public String getselectImageFileUUIDCk(String accountId) {
 		return studentMapper.selectImageFileUUIDCk(accountId);
 	}

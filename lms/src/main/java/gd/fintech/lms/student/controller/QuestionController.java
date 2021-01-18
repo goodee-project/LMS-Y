@@ -31,62 +31,11 @@ public class QuestionController {
 	@Autowired QuestionService questionService;
 	@Autowired QuestionCommentService questionCommentService;
 	
-	
-	//모든학생의 질문 리스트(페이징)
-	//질문 리스트 10개씩 보여줌(페이징)
-	//매개변수:질문의 번호
-	//리턴값:질문의 순번으로 모든학생의 질문 리스트 보여줌 
-	@GetMapping("student/studentQuestionList")
-	public String studentQuestionList(Model model,
-			@RequestParam(value="studentQuestionSearch",required = false)String studentQuestionSearch,
-			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
-		
-		Map<String,Object> map = questionService.getQuestionListByPage(studentQuestionSearch, currentPage);
-		
-		
-		model.addAttribute("questionAllList",map.get("questionAllList"));
-		logger.debug(map.get("questionAllList")+"=리스트정보");
-		model.addAttribute("navPerPage",map.get("navPerPage"));
-		model.addAttribute("navBeginPage", map.get("navBeginPage"));
-		model.addAttribute("navLastPage", map.get("navLastPage"));
-		
-		model.addAttribute("lastPage",map.get("lastPage"));
-		logger.debug(map.get("lastPage")+"=라스트페이지수");
-		model.addAttribute("studentQuestionSearch",studentQuestionSearch);
-		model.addAttribute("questionCount",map.get("questionCount"));
-		model.addAttribute("currentPage",currentPage);
-		
-		
-		return  "student/studentQuestionList";
-	}
-	//나의 질문 리스트(페이징)
-	//질문 리스트 10개씩 보여줌
-	//매개변수:학생의 id
-	//리턴값:해당 학생의 id로 나오는 리스트
-	@GetMapping("student/studentMyQuestion")
-	public String myStudentQuestionList(Model model,
-			@RequestParam(value="accountId",required = false)String accountId,
-			@RequestParam(value="studentMyQuestionSearch",required = false)String studentMyQuestionSearch,
-			@RequestParam(value="currentPage",defaultValue="1")int currentPage) {
-		Map<String,Object> map = questionService.getStudentQuestionListByPage(accountId, currentPage,studentMyQuestionSearch);
-		
-		model.addAttribute("studentMyQuestionSearch",studentMyQuestionSearch);
-		model.addAttribute("questionList",map.get("questionList"));
-		model.addAttribute("navPerPage",map.get("navPerPage"));
-		model.addAttribute("navBeginPage", map.get("navBeginPage"));
-		model.addAttribute("navLastPage", map.get("navLastPage"));
-		
-		model.addAttribute("lastPage",map.get("lastPage"));
-		model.addAttribute("accountId",accountId);
-		model.addAttribute("questionCount",map.get("questionCount"));
-		model.addAttribute("currentPage",currentPage);
-		return "student/studentMyQuestion";
-	}
 	//강좌별 질문 리스트(페이징)
 	//질문 리스트 10개씩 보여줌
 	//매개변수:강좌의 번호
 	//리턴값:해당 강좌의 번호로 나오는 리스트
-	@GetMapping("student/studentLectureQuestionList")
+	@GetMapping("/student/studentLectureQuestionList")
 	public String lectureQuestionList(Model model,
 			@RequestParam(value="lectureNo",required = false)int lectureNo,
 			@RequestParam(value="studentLectureSearch",required = false)String studentLectureSearch,
@@ -147,7 +96,7 @@ public class QuestionController {
 		}
 		//시스템 현재시간
 		long currentTime = System.currentTimeMillis();
-		if(currentTime - updateTime>24*60*601000) {
+		if(currentTime - updateTime>24*60*60*1000) {
 			//조회수 증가 코드
 			questionService.increaseQuestionCount(questionNo);
 			session.setAttribute("updateTime"+questionNo, currentTime);
@@ -184,10 +133,10 @@ public class QuestionController {
 	//매개변수:질문의 번호
 	//리턴값:질문의 번호를 참조해 게시판 질문 삭제
 	@GetMapping("student/removeQuestion")
-	public String removeQuestion(@RequestParam(value="questionNo")int questionNo) {
+	public String removeQuestion(@RequestParam(value="questionNo")int questionNo){
 		Question question = questionService.getQuestionOne(questionNo);
 		questionService.removeQuestion(questionNo);
-		return "redirect:/student/studentQuestionList?questionNo="+question.getQuestionNo();
+		return "redirect:/student/studentLectureQuestionList?lectureNo="+question.getLectureNo();
 	}
 	
 	// 질문게시판 댓글의 첨부파일 다운로드

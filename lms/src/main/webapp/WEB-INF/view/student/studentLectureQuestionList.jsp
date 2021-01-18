@@ -56,7 +56,7 @@
 						<th>조회수</th>
 				<tbody>
 					<c:forEach var="q" items="${questionList}">
-						<tr>
+						<tr class="text-center">
 							<td>${q.questionNo}</td>
 							<td>${q.questionWriter}</td>
 							<td><a

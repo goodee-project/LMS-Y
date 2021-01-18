@@ -58,6 +58,7 @@ public interface StudentMapper {
 	
 	//학생 비밀번호 변경
 	//매개변수:
+	//리턴값:
 	int updateStudentPw(Account account);
 	
 	//현재 학생 프로필 사진 출력
@@ -66,9 +67,13 @@ public interface StudentMapper {
 	String selectStudentImageanddelete(String accountId);
 	
 	//학생 이미지 카운트
+	//매개변수:
+	//리턴값:
 	String selectImageFileUUIDCk(String accountId);
 
 	//학생 이미지 조회
+	//매개변수:
+	//리턴값:
 	AccountImage selectMyImage(String accountId);
 	
 	//학생 미미지 추가
@@ -77,7 +82,7 @@ public interface StudentMapper {
 	int insertStudentImage(AccountImage accountImage);
 	
 	//학생 이미지 삭제
-	//매개변수
+	//매개변수:
 	//리턴값:
 	int deleteMyImage(String accountId);	
 	
@@ -85,8 +90,14 @@ public interface StudentMapper {
 	//매개변수
 	//리턴값:
 	int updateStudentImage(String accountId,String studentImage);
+	
+	//이미지파일 수정
+	//매개변수:
+	//리턴값:
 	int updateImageFile(AccountImage AccountImage);
 	
 	//이미지 수정 버튼 추가 -> 삭제버튼 클릭
+	//매개변수:
+	//리턴값:
 	int updateStudentImgbyDelete(String accountId);
 }

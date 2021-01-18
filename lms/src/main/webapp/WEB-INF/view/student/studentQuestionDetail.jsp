@@ -83,10 +83,10 @@
 				</tbody>
 			</table>
 			<c:if test="${accountId == question.accountId}">
-						<div style="text-align:right;">
-							<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/modifyStudentQuestion?questionNo=${question.questionNo}">수정</a>
-							<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/student/removeQuestion?questionNo=${question.questionNo}">삭제</a>
-						</div>
+				<div style="text-align:right;">
+					<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/student/modifyStudentQuestion?questionNo=${question.questionNo}">수정</a>
+					<a class="btn btn-outline-danger" href="${pageContext.request.contextPath}/student/removeQuestion?questionNo=${question.questionNo}">삭제</a>
+				</div>
 			</c:if>
 		</div>
   	</body>

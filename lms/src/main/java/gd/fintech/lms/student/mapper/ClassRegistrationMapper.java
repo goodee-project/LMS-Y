@@ -37,18 +37,23 @@ public interface ClassRegistrationMapper {
 	List<Lecture> selectAvailableLectureList(Map<String,Object> map);
 	
 	//모든 수강신청 가능한 강좌 갯수
-	//리턴값: 수강 신청이 가능한 강좌의 수
+	//매개변수:
+	//리턴값:수강 신청이 가능한 강좌의 수
 	int selectAvailableLectureCount();
 	
 	//수강 신청하기
+	//리턴값:lectureNo
+	//매개변수:수강신청 목록에 추가되는 행
 	int insertRegistration(Map<String,Object> map);
 	
+	//수강 신청
+	//매개변수:강좌의번호,session
+	//리턴값:강좌의 갯수
 	int selectRegistrationNoCount(Map<String,Object>map);
 	
-	//수강 리뷰리스트
-	List<ClassRegistration> selectClassRegistrationReviewListByPage(Map<String,Object> map);
-	
 	//수강 신청가능/불가능 구별
+	//매개변수:
+	//리턴값:신청가능 한 강좌 
 	ClassRegistration selectClassRegistrationDetailByAccountAndLecture(Map<String,Object>map);
 	
 	//수강신청 상태변경

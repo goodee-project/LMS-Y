@@ -150,7 +150,7 @@ public class ClassRegistrationService {
 	
 	
 	//학생 강좌 상세보기
-	//매개변수:강좌의 번호
+	//매개변수:강좌의 번호,session
 	//리턴값:강좌의 상세보기
 	public Map<String,Object> getClassRegistrationLectureDetail(int lectureNo,HttpSession session) {
 		Map<String,Object> paramMap = new HashMap<>();

@@ -23,7 +23,7 @@ public interface SubjectMapper {
 	// #2. searchKeyword(검색어)
 	// 리턴값: 과목 정보의 총 항목수
 	// 검색을 했다면 검색 결과에 따른 과목의 총 항목수 출력
-	int selectSubjectCount(String searchType, String searchKeyword);
+	int selectSubjectCount(Map<String, Object> map);
 	
 	// 과목 정보를 출력
 	// 매개변수: SubjectNo(과목 고유번호)

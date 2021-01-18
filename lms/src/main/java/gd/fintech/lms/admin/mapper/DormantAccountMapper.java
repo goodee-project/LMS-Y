@@ -32,28 +32,22 @@ public interface DormantAccountMapper {
 	List<Student> selectDormantAccountListByStudent(Map<String, Object> map);
 	
 	// 운영자 휴면계정 목록의 페이징을 위해 총 항목수를 출력
-	// 매개변수:
-	// #1. searchType(검색조건)
-	// #2. searchKeyword(검색어)
+	// 매개변수: map에 저장된 검색 변수 searchType(검색조건), searchKeyword(검색어)
 	// 리턴값: 운영자 휴면계정의 총 항목수
 	// 검색을 했다면 검색 결과에 따른 휴면계정 총 항목수 출력
-	int selectDormantAccountCountByManager(String searchType, String searchKeyword);
+	int selectDormantAccountCountByManager(Map<String, Object> map);
 	
 	// 강사 휴면계정 목록의 페이징을 위해 총 항목수를 출력
-	// 매개변수:
-	// #1. searchType(검색조건)
-	// #2. searchKeyword(검색어)
+	// 매개변수: map에 저장된 검색 변수 searchType(검색조건), searchKeyword(검색어)
 	// 리턴값: 강사 휴면계정의 총 항목수
 	// 검색을 했다면 검색 결과에 따른 휴면계정 총 항목수 출력
-	int selectDormantAccountCountByTeacher(String searchType, String searchKeyword);
+	int selectDormantAccountCountByTeacher(Map<String, Object> map);
 	
 	// 학생 휴면계정 목록의 페이징을 위해 총 항목수를 출력
-	// 매개변수:
-	// #1. searchType(검색조건)
-	// #2. searchKeyword(검색어)
+	// 매개변수: map에 저장된 검색 변수 searchType(검색조건), searchKeyword(검색어)
 	// 리턴값: 학생 휴면계정의 총 항목수
 	// 검색을 했다면 검색 결과에 따른 휴면계정 총 항목수 출력
-	int selectDormantAccountCountByStudent(String searchType, String searchKeyword);
+	int selectDormantAccountCountByStudent(Map<String, Object> map);
 	
 	// 계정 상태를 출력
 	// 매개변수: accountId(아이디)

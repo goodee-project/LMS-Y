@@ -48,7 +48,7 @@ public class SyllabusService {
 	
 	// 강의계획서를 출력하는 메소드
 	// 매개변수: syllabusNo(강의계획서 고유번호)
-	// 리턴값
+	// 리턴값:
 	// #1. 고유번호에 해당하는 강의계획서
 	// #2. 강의계획서 작성자 이름
 	public Map<String, Object> getSyllabusDetail(int lectureNo) {
@@ -77,9 +77,6 @@ public class SyllabusService {
 		// syllabusWriter(강의계획서 작성자)을 출력
 		String syllabusWriter = syllabusMapper.selectTeacherName(accountId);
 		
-		logger.debug("서비스 디버그 아이디 " + accountId);
-		logger.debug("서비스 디버그 작성자 " + syllabusWriter);
-		
 		// 강좌를 담당하는 강사의 아이디를 확인하기 위한 코드
 		// 강좌 고유번호에 해당하는 강좌 정보를 출력
 		Lecture lectureDetail = lectureMapper.selectTeacherLectureOne(lectureNo);
@@ -99,11 +96,7 @@ public class SyllabusService {
 			// syllabus(강의계획서 정보)에 syllabusContent(강의계획서 내용) 추가
 			syllabus.setSyllabusContent(syllabusForm.getSyllabusContent());
 			
-			logger.debug("서비스 디버그 아이디 " + accountId);
-			logger.debug("서비스 디버그 작성자 " + syllabusWriter);
-			
 			syllabusMapper.insertSyllabus(syllabus);
-			logger.debug("서비스 디버그 강의계획서 정보 " + syllabus);
 			
 			// 첨부된 파일이 있을 경우 for문을 돌면서 MultipartFile을 VO로 변환 후 첨부파일 추가
 			if(syllabusForm.getSyllabusFileList() != null) {
@@ -249,9 +242,11 @@ public class SyllabusService {
 	
 	// 강의계획서에 첨부된 파일을 다운로드하는 메소드
 	// 매개변수:
-	// #1: syllabusFileUUID)
-	// #2, #3: 다운로드를 진행하기 위한 서블릿 리퀘스트 및 리스폰스 객체
+	// #1: request
+	// #2: response
+	// #3: syllabusFileUUID
 	// 리턴값: 다운로드 성공 여부
+	// 다운로드를 진행하기 위한 서블릿 리퀘스트 및 리스폰스 객체를 매개변수로 받아옴
 	public boolean downloadQuestionCommentFile(HttpServletRequest request, HttpServletResponse response, String syllabusFileUUID) {
 		// 서버에 업로드된 파일을 가져옴
 		String fileName = FilePath.getFilePath() + syllabusFileUUID;
@@ -342,7 +337,14 @@ public class SyllabusService {
 		
 		// 만약 강좌를 담당하는 강사 아이디와 현대 로그인 한 강사의 아이디가 같고, 강사 서명과 강사 서명일자가 없다면 서명
 		if((teacherId.equals(accountId)) && (teacherSign == null && teacherSignDate == null)) {
-			syllabusMapper.updateTeacherSign(lectureNo, syllabusTeacherSign);
+			// syllabus(강의계획서 정보) 객체 생성
+			Syllabus syllabus = new Syllabus();
+			// syllabus에 lectureNo(강의계획서 고유번호) 저장
+			syllabus.setLectureNo(lectureNo);
+			// syllabus에 syllabusTeacherSign(강의계획서 강사 서명) 저장
+			syllabus.setSyllabusTeacherSign(syllabusTeacherSign);
+			// 강사가 강의계획서에 서명하는 Mapper 실행
+			syllabusMapper.updateTeacherSign(syllabus);
 			logger.debug("서명 성공");
 		} else {
 			logger.debug("서명 실패");
@@ -375,7 +377,14 @@ public class SyllabusService {
 		
 		// 만약 강사 서명과 강사 서명일자, 운영자 서명과 운영자 서명일자가 없다면 서명
 		if((teacherSign != null && teacherSignDate != null) && (managerSign == null && managerSignDate == null)) {
-			syllabusMapper.updateManagerSign(lectureNo, syllabusManagerSign);
+			// syllabus(강의계획서 정보) 객체 생성
+			Syllabus syllabus = new Syllabus();
+			// syllabus에 lectureNo(강의계획서 고유번호) 저장
+			syllabus.setLectureNo(lectureNo);
+			// syllabus에 syllabusTeacherSign(강의계획서 운영자 서명) 저장
+			syllabus.setSyllabusManagerSign(syllabusManagerSign);
+			// 운영자가 강의계획서에 서명하는 Mapper 실행
+			syllabusMapper.updateManagerSign(syllabus);
 			logger.debug("서명 성공");
 		} else {
 			logger.debug("서명 실패");

@@ -23,7 +23,7 @@ public interface TextbookMapper {
 	// #2. searchKeyword(검색어)
 	// 리턴값: 교재 정보의 총 항목수
 	// 검색을 했다면 검색 결과에 따른 교재의 총 항목수 출력
-	int selectTextbookCount(String searchType, String searchKeyword);
+	int selectTextbookCount(Map<String, Object> map);
 	
 	// 교재 정보를 출력
 	// 매개변수: textbookISBN(교재 ISBN)

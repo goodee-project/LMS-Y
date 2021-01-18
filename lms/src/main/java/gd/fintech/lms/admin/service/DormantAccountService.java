@@ -32,13 +32,18 @@ public class DormantAccountService {
 	// #2. searchType(검색조건)
 	// #3. searchKeyword(검색어)
 	// 리턴값: 운영자 휴면계정 목록
-	public Map<String, Object> getDormantAccountListByManager(int currentPage, String searchType, String searchKeyword) {		
+	public Map<String, Object> getDormantAccountListByManager(int currentPage, String searchType, String searchKeyword) {
+		// 검색값 저장
+		Map<String, Object> searchMap = new HashMap<>();
+		searchMap.put("searchType", searchType);
+		searchMap.put("searchKeyword", searchKeyword);
+		
 		// 한 페이지에 보여줄 항목수 15개
 		int rowPerPage = 15;
 		// 해당 페이지에 표시한 항목
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 총 항목수
-		int totalCount = dormantAccountMapper.selectDormantAccountCountByManager(searchType, searchKeyword);
+		int totalCount = dormantAccountMapper.selectDormantAccountCountByManager(searchMap);
 		// 마지막 페이지
 		int lastPage = totalCount / rowPerPage;
 		// 페이지 네비게이션 바에 표시할 페이지 수
@@ -89,13 +94,18 @@ public class DormantAccountService {
 	// #2. searchType(검색조건)
 	// #3. searchKeyword(검색어)
 	// 리턴값: 강사 휴면계정 목록
-	public Map<String, Object> getDormantAccountListByTeacher(int currentPage, String searchType, String searchKeyword) {		
+	public Map<String, Object> getDormantAccountListByTeacher(int currentPage, String searchType, String searchKeyword) {
+		// 검색값 저장
+		Map<String, Object> searchMap = new HashMap<>();
+		searchMap.put("searchType", searchType);
+		searchMap.put("searchKeyword", searchKeyword);
+		
 		// 한 페이지에 보여줄 항목수 15개
 		int rowPerPage = 15;
 		// 해당 페이지에 표시한 항목
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 총 항목수
-		int totalCount = dormantAccountMapper.selectDormantAccountCountByTeacher(searchType, searchKeyword);
+		int totalCount = dormantAccountMapper.selectDormantAccountCountByTeacher(searchMap);
 		// 마지막 페이지
 		int lastPage = totalCount / rowPerPage;
 		// 페이지 네비게이션 바에 표시할 페이지 수
@@ -146,13 +156,18 @@ public class DormantAccountService {
 	// #2. searchType(검색조건)
 	// #3. searchKeyword(검색어)
 	// 리턴값: 학생 휴면계정 목록
-	public Map<String, Object> getDormantAccountListByStudent(int currentPage, String searchType, String searchKeyword) {		
+	public Map<String, Object> getDormantAccountListByStudent(int currentPage, String searchType, String searchKeyword) {
+		// 검색값 저장
+		Map<String, Object> searchMap = new HashMap<>();
+		searchMap.put("searchType", searchType);
+		searchMap.put("searchKeyword", searchKeyword);
+		
 		// 한 페이지에 보여줄 항목수 15개
 		int rowPerPage = 15;
 		// 해당 페이지에 표시한 항목
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 총 항목수
-		int totalCount = dormantAccountMapper.selectDormantAccountCountByStudent(searchType, searchKeyword);
+		int totalCount = dormantAccountMapper.selectDormantAccountCountByStudent(searchMap);
 		// 마지막 페이지
 		int lastPage = totalCount / rowPerPage;
 		// 페이지 네비게이션 바에 표시할 페이지 수

@@ -33,12 +33,12 @@ public interface SyllabusMapper {
 	// #1. lectureNo(강의계획서 고유번호)
 	// #2. syllabusTeacherSign(강사 서명)
 	// 리턴값: 변경된 행의 갯수
-	int updateTeacherSign(int lectureNo, String syllabusTeacherSign);
+	int updateTeacherSign(Syllabus syllabus);
 	
 	// 운영자가 강의계획서에 서명
 	// 매개변수:
 	// #1. lectureNo(강의계획서 고유번호)
 	// #2. syllabusManagerSign(운영자 서명)
 	// 리턴값: 변경된 행의 갯수
-	int updateManagerSign(int lectureNo, String syllabusManagerSign);
+	int updateManagerSign(Syllabus syllabus);
 }

@@ -277,7 +277,7 @@
 					}
 					
 					// 정보 유효성 검사
-					if(info = '') {
+					if(info == '') {
 						$('#textbookInfoMsg').text('정보를 입력하세요');
 						$('#textbookInfo').focus();
 						return;

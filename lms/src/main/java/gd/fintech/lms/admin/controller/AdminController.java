@@ -28,11 +28,13 @@ public class AdminController {
 	// 리턴값: adminDetail(관리자 정보를 출력하는 페이지)
 	@GetMapping("/admin/adminDetail")
 	public String adminDetail(Model model, HttpSession session) {
-		// 세션정보를 가져옴
+		// 세션에서 accountId(아이디)를 가져옴
 		String accountId = (String)session.getAttribute("accountId");
+		// accountId(아이디)에 해당하는 운용자 정보를 adminDetail(운영자 정보)에 저장
 		Admin adminDetail = accountService.getAdminOne(accountId);
 		logger.debug(adminDetail.toString());
-		model.addAttribute("accountId", accountId);
+		
+		// 운영자 정보
 		model.addAttribute("adminDetail", adminDetail);
 		
 		return "/admin/adminDetail";

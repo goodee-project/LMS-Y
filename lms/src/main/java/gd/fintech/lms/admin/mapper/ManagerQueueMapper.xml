@@ -29,7 +29,7 @@
 	</select>
 	
 	<!-- 회원가입 승인대기 중인 운영자 목록의 페이징을 위해 총 항목수를 출력하는 쿼리문 -->
-	<select id="selectManagerQueueCount" parameterType="String" resultType="int">
+	<select id="selectManagerQueueCount" parameterType="java.util.Map" resultType="int">
 		SELECT
 			COUNT(*)
 		FROM manager_queue

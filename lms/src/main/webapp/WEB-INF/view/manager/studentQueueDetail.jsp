@@ -24,11 +24,11 @@
     		});
     		
     		$('#disapproveBtn').click(function() {
-				let disapprove = confirm('정말 회원가입을 거부하시겠습니까?');
+				let disapprove = confirm('정말 회원가입을 거절하시겠습니까?');
 				
 				if(disapprove) {
 					location.replace('${pageContext.request.contextPath}/manager/disapproveStudent?accountId=${studentQueueDetail.accountId}');
-					alert('회원가입이 거부되었습니다.');
+					alert('회원가입이 거절되었습니다.');
 				} else {
 					alert('취소하였습니다.');
 					return;

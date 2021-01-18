@@ -82,7 +82,7 @@ public class LMSNoticeController {
 		}
 		// 시스템 현재시간 
 		long currentTime = System.currentTimeMillis();
-		if(currentTime - updateTime > 24*60*601000) {
+		if(currentTime - updateTime > 24*60*60*1000) {
 			lmsNoticeService.increaseLMSNoticeCountOfViews(lmsNoticeNo);
 			session.setAttribute("updateTime"+lmsNoticeNo, currentTime);
 		}

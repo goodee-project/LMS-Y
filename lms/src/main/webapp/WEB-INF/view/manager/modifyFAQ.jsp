@@ -83,7 +83,12 @@
 							<!-- FAQCategory -->
 							<select name="faqCategory" style="width: 100%" class="btn btn-default dropdown-toggle">
 								<c:forEach items="${categoryList}" var="cl">	
-									<option  value="${cl.faqCategory}">${cl.faqCategory}</option>
+								<c:if test="${cl.faqCategory == faq.faqCategory}"    >	
+									<option  value="${cl.faqCategory}" selected="selected">${cl.faqCategory}</option>
+								</c:if>
+								<c:if test="${cl.faqCategory != faq.faqCategory}"    >	
+										<option  value="${cl.faqCategory}">${cl.faqCategory}</option>
+									</c:if>
 								</c:forEach>
 							</select>
 							

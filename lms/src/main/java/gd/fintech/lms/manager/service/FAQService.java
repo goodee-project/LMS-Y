@@ -37,7 +37,7 @@ public class FAQService {
 	public Map<String, Object> getFAQListByPage(int currentPage, String categoryFaqSearch){
 		//  페이지당 표시되는 데이터 수
 		int rowPerPage = 15;
-		// 현재 페이지에서 시작하는 데이터 
+		// 현재 페이지에서 시작하는 데이터
 		int beginRow = (currentPage - 1) * rowPerPage;
 		// 전체 페이지 개수
 		int countFAQ = faqMapper.selectFAQCount(categoryFaqSearch);
@@ -51,9 +51,9 @@ public class FAQService {
 			currentPage = 0;
 		}
 		
-		// 페이지 네비에서 표시할 페이지 수 
+		// 페이지 네비에서 표시할 페이지 수
 		int navPerPage = 10;
-		// 페이지 네비에서의 처음 페이지	                  
+		// 페이지 네비에서의 처음 페이지
 		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
 		// 페이지 네비에서의  마지막 페이지
 		int navLastPage = (navBeginPage + navPerPage) - 1;

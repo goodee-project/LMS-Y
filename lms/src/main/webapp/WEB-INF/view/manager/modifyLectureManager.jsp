@@ -178,7 +178,12 @@
 						<td>
 							<select class ="form-control col-sm-4" id="accountId" name="accountId">
 								<c:forEach items="${teacherList}" var="teacher">	
-									<option value="${teacher.accountId}">${teacher.accountId}</option>
+									<c:if  test="${teacher.accountId == lecture.accountId}">
+										<option  value="${teacher.accountId}" selected="selected">${teacher.accountId}</option>
+									</c:if>
+									<c:if  test="${teacher.accountId != lecture.accountId}">
+										<option value="${teacher.accountId}">${teacher.accountId}</option>
+									</c:if>
 								</c:forEach>
 							</select>
 						</td>
@@ -188,13 +193,18 @@
 						<td>
 							<select class ="form-control col-sm-4" name="subjectNo" >
 								<c:forEach items="${subjectList}" var="subject"> 	
+								<c:if test="${subject.subjectNo == lecture.subjectNo}">
+									<option value="${subject.subjectNo}" selected="selected">${subject.subjectName}</option>
+								</c:if>
+								<c:if test="${subject.subjectNo != lecture.subjectNo}">
 									<option value="${subject.subjectNo}">${subject.subjectName}</option>
+								</c:if>
 								</c:forEach>
 							</select>
 						</td>
 					</tr>
 					<tr>
-						<td>강사 이름</td>							
+						<td>강사 이름</td>
 						<td class="input-group">
 							<input readonly="readonly" class ="form-control col-sm-4" value="" type="text"  name="teacherName" id="teacherName">
 							<button class="btn btn-success" type="button" id="Search">검색</button>
@@ -202,11 +212,16 @@
 						</td>
 					</tr>
 					<tr>
-						<td>교재명</td>							
+						<td>교재명</td>
 						<td>
 							<select class ="form-control col-sm-4"name="textbookISBN" >
 								<c:forEach items="${textbookList}" var="textbook">	
-									<option value="${textbook.textbookISBN}">교재이름:${textbook.textbookTitle}</option>
+									<c:if test="${textbook.textbookISBN == lecture.textbookISBN }"    >
+										<option  value="${textbook.textbookISBN}" selected="selected">교재이름:${textbook.textbookTitle}</option>
+									</c:if>
+									<c:if test="${textbook.textbookISBN =! lecture.textbookISBN }"    >
+										<option  value="${textbook.textbookISBN}" >교재이름:${textbook.textbookTitle}</option>
+									</c:if>
 								</c:forEach>
 							</select>
 						</td>
@@ -236,12 +251,16 @@
 						</td>
 					</tr>
 					<tr>
-					
 						<td>강의실</td>	
 					<td>						
 						<select name="classroomNo" class ="form-control col-sm-4">
-								<c:forEach items="${classroomList}" var="c">	
-									<option value="${c.classroomNo}">${c.classroomNumber}호실</option>
+								<c:forEach items="${classroomList}" var="c">
+									<c:if test="${c.classroomNo == lecture.classroomNo}"    >
+										<option value="${c.classroomNo}" selected="selected">${c.classroomNumber}호실</option>
+									</c:if>
+									<c:if test="${c.classroomNo != lecture.classroomNo}"    >
+										<option value="${c.classroomNo}">${c.classroomNumber}호실</option>
+									</c:if>
 								</c:forEach>
 							</select>
 						</td>

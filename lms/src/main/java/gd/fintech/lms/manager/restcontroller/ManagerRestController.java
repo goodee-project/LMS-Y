@@ -24,4 +24,16 @@ public class ManagerRestController {
 		String managerPwck = managerService.getManagerPassword(accountId, accountPw);
 		return managerPwck;
 	}
+	// 운영자의 이메일 확인 하는 메소드
+	// 매개변수: 운영자의 계정id, 운영자 이메일
+	// 리턴값: 승인 또는 비승인
+	@PostMapping("/manager/managerEmailCk")
+	public String managerEmailCk(@RequestParam(value="accountId",required = true)String accountId,
+			@RequestParam(value="managerEmail",required = true)String managerEmail) {
+		String emailCk = managerService.getManagerEmail(accountId, managerEmail);
+		if(emailCk ==null) {
+			return "pass";
+		}
+		return "noPass";
+	}
 }

@@ -109,11 +109,11 @@
 	
 	<!-- 강좌에서 강사 이름 확인 -->
 	<select id="selectTeacherNameCk" parameterType="String" resultType="String">
-	  SELECT 
+	  SELECT
 	 	account_id accountId,
 	 	teacher_name teacherName
 	  FROM teacher
- 	 WHERE 
+ 	 WHERE
  	 	account_id =#{accountId}
 		AND teacher_name =#{teacherName}
 	
@@ -191,7 +191,7 @@
 	</select>
 	<!-- 대기중 강좌 리스트 -->
 	<select id="selectlectureStudentList"  parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
-	  SELECT 
+	  SELECT
 	  	l.lecture_no lectureNo,
    	 	l.lecture_name lectureName,
    	    cr.account_id accountId,
@@ -206,7 +206,7 @@
 	<update id="updatelectureStudentCk" parameterType="gd.fintech.lms.student.vo.ClassRegistration" >
 	UPDATE class_registration
 	SET class_registration_state = '수강중'
-	WHERE 
+	WHERE
     	lecture_no = #{lectureNo} AND
     	account_id = #{accountId}
 	</update>
@@ -214,7 +214,7 @@
 	<update id="updatelectureStudentReject" parameterType="gd.fintech.lms.student.vo.ClassRegistration">
 	UPDATE class_registration
 	SET class_registration_state = '거절'
-	WHERE 
+	WHERE
     	lecture_no = #{lectureNo} AND
     	account_id = #{accountId}
 	</update>

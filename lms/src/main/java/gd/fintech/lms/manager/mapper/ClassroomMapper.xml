@@ -56,10 +56,4 @@
 		WHERE classroom_no =#{classroomNo}
 	</update>
 
-	<!-- classroomNo 에 해당하는 강의실 삭제 -->
-	<delete id="deleteClassroom" parameterType="int">
-		Delete FROM classroom
-		WHERE classroom_no = #{classroomNo}
-	</delete>
-	
 </mapper>

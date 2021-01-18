@@ -89,15 +89,6 @@ public class ClassroomService {
 		return classroomMapper.updateClassroom(classroom);
 	}
 	
-	
-	// 강의실 삭제하는 서비스
-	// 매개변수: 강의실 고유번호 
-	// 리턴값: 강의실 고유번호에 해당하는 행 삭제   
-  	public int removeClassroom(int classroomNo) {
-		return classroomMapper.deleteClassroom(classroomNo);
-	}
-	
-	
 	// 강의실 상세정보 서비스
 	// 매개변수: 강의실의 고유번호
 	// 리턴값:  강의실 고유번호에 해당하는 상세정보

@@ -2,6 +2,8 @@ package gd.fintech.lms.manager.vo;
 
 import lombok.Data;
 
+// 운영자 이미지 vo
+
 @Data
 public class AccountImage {	
 	//계정 아이디

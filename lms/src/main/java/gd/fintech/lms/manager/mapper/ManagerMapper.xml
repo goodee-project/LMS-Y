@@ -45,7 +45,23 @@
 		</collection>
  	</resultMap>
    <!-- 운영자의 정보 상세보기 -->
-   <select id="selectManagerOne" parameterType="String" resultMap="resultManagerDetail">
+   <select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
+    SELECT 
+         account_id accountId,
+         manager_email managerEmail,
+         manager_name managerName,
+         manager_phone managerPhone,
+         manager_gender managerGender,
+         manager_birth managerBirth,
+         manager_address_main managerAddressMain,
+         manager_address_sub managerAddressSub,
+         manager_image managerImage,
+         manager_position managerPosition 
+      FROM manager 
+      WHERE account_id = #{accountId}
+   </select>
+   
+   <select id="selectManagerInfoOne" parameterType="String" resultMap="resultManagerDetail">
       SELECT
          m.account_id,
          m.manager_email,
@@ -139,7 +155,12 @@
       FROM manager
       WHERE account_id = #{accountId}
    </select>
-   
+   <select id="selectManagerEmail" parameterType="String" resultType="String">
+   	SELECT
+   		manager_email managerEmail
+   	FROM manager
+    WHERE account_id = #{accountId} and manager_email =#{managerEmail}
+   </select>
    <!--운영자의 비밀번호를 수정하기전에 확인  -->
    <select id="selectManagerPassword" parameterType="String" resultType="String">
      SELECT
@@ -161,7 +182,7 @@
    </update>
    
    <!-- 운영자의 이미지 조회 -->
-   <select id="selectManagerImage" parameterType="String" resultType="gd.fintech.lms.manager.vo.AccountImage">
+   <select id="selectMyImage" parameterType="String" resultType="gd.fintech.lms.manager.vo.AccountImage">
       SELECT
          account_id accountId,
          image_file_uuid imageFileUUID,
@@ -198,6 +219,16 @@
          NOW()
       )
    </insert>
+   <!-- 운영자 id에 해당하는 이미지를 null  -->
+   <update id="updateManagerImageByDelete" parameterType="gd.fintech.lms.manager.vo.Manager">
+   	UPDATE manager
+   SET 
+   		manager_image = NULL,
+        manager_updatedate = NOW()
+    WHERE account_id =#{accountId}
+   </update>
+   
+   
    
    <!-- 운영자 이미지 수정 -->
    <update id="updateManagerImage" parameterType="java.util.Map">
@@ -209,8 +240,19 @@
       WHERE account_id = #{accountId}
    </update>
    
+   <update id="updateImageFile" parameterType="java.util.Map">
+   UPDATE account_image
+		SET
+			image_file_uuid = #{imageFileUUID},
+			image_file_original = #{imageFileOriginal},
+			image_file_size = #{imageFileSize},
+			image_file_type = #{imageFileType},
+			image_file_createdate = NOW()
+		WHERE account_id = #{accountId}
+   </update>
+   
    <!-- 운영자 이미지 삭제 -->
-   <delete id="deleteManagerImage" parameterType="String">
+   <delete id="deleteMyImage" parameterType="String">
       DELETE FROM account_image
       WHERE account_id = #{accountId}
    </delete>
@@ -221,5 +263,12 @@
 		FROM career
 		WHERE career_no = #{careerNo}
 	</delete>
+	
+	<select id="selectImageFileUUIDCk" parameterType="String" resultType="String">
+	 SELECT
+            image_file_uuid
+      FROM account_image
+      WHERE account_id = #{accountId}
+	</select>
    
 </mapper>

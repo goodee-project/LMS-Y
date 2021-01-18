@@ -7,20 +7,7 @@
 <title>강의실 정보</title>
 <!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-        $(document).ready(function() {
-    		$('#delBtnId').click(function() {
-				let remove = confirm('정말 삭제하시겠습니까?');
-				if(remove) {
-					location.replace('${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}');
-					alert('삭제하였습니다.');
-				} else {
-					alert('취소하였습니다.');
-					return false;
-				}
-    		});
-    	});
-        </script>  
+
 </head>
 <body>
 	<!-- 메뉴+CSS 인클루드 -->
@@ -59,9 +46,8 @@
 				</table>
 					<div class="d-flex justify-content-end" >
 						<a class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyClassroom?classroomNo=${classroom.classroomNo}">수정</a>
-						<a id="delBtnId" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/removeClassroom?classroomNo=${classroom.classroomNo}">삭제</a>
 					</div>	
 			</div>
-			</div>
+		
 	</body>
 </html>

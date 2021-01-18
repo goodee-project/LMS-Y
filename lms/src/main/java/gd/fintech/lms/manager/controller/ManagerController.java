@@ -41,8 +41,10 @@ public class ManagerController {
       // 세션에 있는 id를 가져온다
       String accountId = (String)session.getAttribute("accountId");
       Map<String,Object> map = managerService.getManagerDetail(accountId);
+      Map<String,Object> paramMap = managerService.getManagerInforOne(accountId);
       model.addAttribute("accountId", accountId);
       model.addAttribute("map",map);
+      model.addAttribute("paramMap", paramMap);
        logger.debug("map"+ map );
       return "/manager/managerDetail";
    }
@@ -56,7 +58,8 @@ public class ManagerController {
       // 세션에 있는 id를 가져온다
       String accountId = (String)session.getAttribute("accountId");
       Map<String, Object> map = managerService.getManagerDetail(accountId);
-      AccountImage myImage = managerService.getManagerImage(accountId);
+      AccountImage myImage = managerService.selectMyImage(accountId);
+      model.addAttribute("ImageFileUUID", managerService.getImageFileUUIDCk(accountId));
       model.addAttribute("session", session);
       model.addAttribute("accountId", accountId);
       model.addAttribute("map",map);
@@ -75,17 +78,21 @@ public class ManagerController {
       HttpSession session = ((HttpServletRequest)request).getSession();
       // 세션에 있는 id를 가져온다
       String accountId = (String)session.getAttribute("accountId");
-      managerService.modifyManager(managerForm, session, accountId);
+      if(managerService.getManagerDetail(accountId) != managerForm.getManagerImage()) {
+    	  managerService.modifyManager(managerForm, session, accountId);
+      }
+      
       return "redirect:/manager/managerDetail";
    }
    
    // 운영자 이미지 삭제
    // 리턴값: 이미지가 삭제된 운영자 수정 폼
    @GetMapping("manager/removeManagerFile")
-   public String removeStudentFile(Model model,
+   public String removeManagerFile(Model model,
       @RequestParam(value="accountId")String accountId,HttpServletRequest request) {
-      AccountImage accountImage = managerService.getManagerImage(accountId);
+      AccountImage accountImage = managerService.getManagerImageFIle(accountId);
       logger.debug("accountImage"+ accountImage);
+      managerService.removeFIle(accountId);
       return "redirect:/manager/modifyManager";
       }
    
@@ -100,7 +107,7 @@ public class ManagerController {
       return"/manager/modifyManagerPasswd";
    }
    
-   // 운영자의 비밀번호를 변경 액션 
+   // 운영자의 비밀번호를 변경 액션
    // 매개변수: 계정 정보
    // 리턴값: 로그아웃
    @PostMapping("/manager/modifyManagerPasswd")
@@ -129,9 +136,12 @@ public class ManagerController {
  		return "redirect:/manager/managerDetail";
  	}
  	
+   
+   
+   
  	// 운영자 경력삭제
-   	// 매개 변수: 경력 고유번호 
-   	// 리턴값: 경력 삭제와 운영자 상세보기 페이지로 이동   
+   	// 매개 변수: 경력 고유번호
+   	// 리턴값: 경력 삭제와 운영자 상세보기 페이지로 이동
  	@GetMapping("/manager/removeManagerCareer")
  	public String removeManagerCareer(HttpServletRequest request,
  		@RequestParam(value="careerNo")int careerNo) {
@@ -156,7 +166,7 @@ public class ManagerController {
  		return "/manager/createManagerLicense";
  	}
  	// 운영자 자격증 추가 액션
- 	// 매개변수: 자격증 정보 
+ 	// 매개변수: 자격증 정보
  	// 리턴값: 운영자 상세보기 페이지
  	@PostMapping("/manager/createManagerLicense")
  	public String createManagerLicense(License license) {
@@ -165,7 +175,7 @@ public class ManagerController {
  	}
  	
  	// 운영자 자격증 삭제
- 	// 리턴값: 자격증 삭제 운영자 상세보기페이지로 이동 
+ 	// 리턴값: 자격증 삭제 운영자 상세보기페이지로 이동
  	@GetMapping("/manager/removeManagerLicense")
  	public String removeManagerLicense(HttpServletRequest request,
  		@RequestParam(value="licenseNo")int licenseNo) {
@@ -200,9 +210,9 @@ public class ManagerController {
  	}
  	
  	
- 	// 운영자 학력 삭제 
- 	// 학력 고유 번호 
- 	// 리턴값: 학력 삭제 운영자 상세보기페이지로 이동 
+ 	// 운영자 학력 삭제
+ 	// 학력 고유 번호
+ 	// 리턴값: 학력 삭제 운영자 상세보기페이지로 이동
  	@GetMapping("/manager/removeManagerEducation")
  	public String removeManagerEducation(HttpServletRequest request,
  		@RequestParam(value="educationNo")int educationNo) {

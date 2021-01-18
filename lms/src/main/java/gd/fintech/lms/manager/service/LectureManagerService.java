@@ -20,7 +20,7 @@ import gd.fintech.lms.teacher.vo.Teacher;
 
 
 
-// /Lecture 를 관리하는 서비스 
+// /Lecture 를 관리하는 서비스
 
 @Service
 @Transactional
@@ -82,26 +82,32 @@ public class LectureManagerService {
 		}
 	
 	// 강좌에서의 강의실 리스트
+    // 리턴값: 강의실 리스트
 	public List<Classroom> getLectureClassroomList(){
 		return lectureManagerMapper.selectLectureClassroomList();
 	}
 	
 	// 강좌에서의 교재 리스트
+	// 리턴값: 교재 리스트
 	public List<Textbook> getLectureTextBookList(){
 		return lectureManagerMapper.selectLectureTextbookList();
 	}
 	
 	// 강좌에서의 과목 리스트
+	// 리턴값: 과목 리스트
 	public List<Subject> getLectureSubjectList(){
 		return lectureManagerMapper.selectLectureSubjectList();
 	}
 	
 	// 강좌에서 강사 리스트
+	// 리턴값: 강사 리스트
 	public List<Teacher> getLectureTeacherList(){
 		return lectureManagerMapper.selectLectureTeacherList();
 	}
 	
-	// 강좌에서의 강사 이름 
+	// 강좌에서의 강사 이름
+	// 매개변수: 강사id 
+	// 리턴값:  강사id에 해당하는  강사 이름
 	public List<String> getTeacherName(String accountId) {
 		return lectureManagerMapper.selectTeacherName(accountId);
 	}
@@ -121,30 +127,32 @@ public class LectureManagerService {
 		
 	}
 	
-	// 강좌를 개설 하는 서비스 
-	// 매개변수: 강좌의 정보 
-	// 리턴값: 입력 받은 정보가 들어간 행 추가 
+	// 강좌를 개설 하는 서비스
+	// 매개변수: 강좌의 정보
+	// 리턴값: 입력 받은 정보가 들어간 행 추가
 	public int createLecture(Lecture lecture){
 		return lectureManagerMapper.insertLecture(lecture);
 		
 	}
 	
 	// 강좌를 수정하는 서비스
-	// 매개변수: 강좌의 정보 
-	// 리턴값: 입력 받은 정보가 들어간 행 수정 
+	// 매개변수: 강좌의 정보
+	// 리턴값: 입력 받은 정보가 들어간 행 수정
 	public int modifyLecture(Lecture lecture) {
 		return lectureManagerMapper.updateLecture(lecture);
 	}
 	
 	
 	// 수강 대기중인 리스트
-	// 매개변수: 
-	//   
+	// 매개변수: 강좌 번호
+	// 강좌 번호에 해당하는 수강 대기중인 리스트
 	public List<ClassRegistration> getlectureStudentList(int lectureNo){
 		return lectureManagerMapper.selectlectureStudentList(lectureNo);
 	}
 	
-	// 강좌에서 수강 상태를 거절로 바꾸는 서비스 
+	// 강좌에서 수강 상태를 거절로 변경하는 서비스
+	// 매개변수: 계정id  강좌id
+	// 리턴값: 수강 상태를 거절로 변경
 	public int modifylectureStudentReject(String accountId, int lectureNo) {
 		ClassRegistration classRegistration = new ClassRegistration();
 		classRegistration.setAccountId(accountId);
@@ -153,7 +161,9 @@ public class LectureManagerService {
 	}
 	
 	
-	// 강좌에서  수강상태를  수강중으로 바뀌는 서비스
+	// 강좌에서  수강상태를  수강중으로 변경하는 서비스
+	// 매개변수: 계정id 강좌id
+	// 리턴값: 수강 상태를 수강중으로 변경
 	public int modifylectureStudentCk(String accountId, int lectureNo ) {
 		ClassRegistration classRegistration = new ClassRegistration();
 		classRegistration.setAccountId(accountId);

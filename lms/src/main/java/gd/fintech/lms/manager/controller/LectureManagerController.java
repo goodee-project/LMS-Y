@@ -32,10 +32,10 @@ public class LectureManagerController {
 	//debugLogger
 	private final Logger logger = LoggerFactory.getLogger(LectureManagerController.class);
 	
-	// 강좌  
+	// 강좌
 	@Autowired private LectureManagerService lectureManagerService;
 	
-	// 강좌 리스트 
+	// 강좌 리스트
 	// 매개변수: Model @RequestParam: currentPage (현재페이지)
 	// 리턴값: 강좌 리스트 페이지 출력
 	@GetMapping("/manager/managerLecture")
@@ -64,7 +64,7 @@ public class LectureManagerController {
 	
 	
 	
-	// 강좌에서 수강 상태를 거절로 바꾸는 액션 
+	// 강좌에서 수강 상태를 거절로 바꾸는 액션
 	@GetMapping("/manager/modifylectureStudentReject")
  	public String createManagerEducation(
  			@RequestParam (value="lectureNo")int lectureNo,
@@ -73,7 +73,7 @@ public class LectureManagerController {
  		return "redirect:/manager/managerLectureDetail?lectureNo="+lectureNo;
  	}
  
-	// 강좌에서 수강상태를 수강중으로 바꾸는 액션 
+	// 강좌에서 수강상태를 수강중으로 바꾸는 액션
 	@GetMapping("/manager/modifylectureStudentCk")
 	public String modifylectureStudentCk(
 			@RequestParam(value="lectureNo")int lectureNo,

@@ -96,16 +96,4 @@ public class ClassroomController{
 		return "manager/classroomDetail";
 		
 	}
-	
-	// 강의실 삭제 
-	// 매개변수: 강의실 고유번호
-	// 리턴값: classroomNo에 해당하는 강의실 삭제
-	@GetMapping("/manager/removeClassroom")
-	public String removeClassroom(
-			@RequestParam(value="classroomNo")int classroomNo) {
-		classroomService.removeClassroom(classroomNo);
-		return  "redirect:/manager/classroomList";
-	}
-	
-	
 }

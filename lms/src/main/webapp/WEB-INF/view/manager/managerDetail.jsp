@@ -15,7 +15,7 @@
 				let remove = confirm('정말 삭제하시겠습니까?');
 				
 				if(remove) {
-					<c:forEach var="m" items="${map.manager.educationList}">
+					<c:forEach var="m" items="${paramMap.manager.educationList}">
 					<c:if test="${not empty m.educationNo}">
 					location.replace('${pageContext.request.contextPath}/manager/removeManagerEducation?educationNo=${m.educationNo}');
 					</c:if>
@@ -32,7 +32,7 @@
 				let remove = confirm('정말 삭제하시겠습니까?');
 				
 				if(remove) {
-					<c:forEach var="m" items="${map.manager.careerList}">
+					<c:forEach var="m" items="${paramMap.manager.careerList}">
 					<c:if test="${not empty m.careerContent}">
 					location.replace('${pageContext.request.contextPath}/manager/removeManagerCareer?careerNo=${m.careerNo}');
 					</c:if>
@@ -49,7 +49,7 @@
 				let remove = confirm('정말 삭제하시겠습니까?');
 				
 				if(remove) {
-					<c:forEach var="m" items="${map.manager.licenseList}">
+					<c:forEach var="m" items="${paramMap.manager.licenseList}">
 					<c:if test="${not empty m.licenseNumber}">
 					location.replace('${pageContext.request.contextPath}/manager/removeManagerLicense?licenseNo=${m.licenseNo}');
 					</c:if>
@@ -81,7 +81,7 @@
 	
 		<div class="jumbotron">
 				<div class="container">
-					<h1>내 정보 상세보기</h1>
+					<h1>내 정보</h1>
 				</div>
 			</div>
 		<div class=container>
@@ -153,7 +153,7 @@
 						<tr>
 					</thead>
 					<tbody>
-						<c:forEach var="m" items="${map.manager.educationList}">
+						<c:forEach var="m" items="${paramMap.manager.educationList}">
 						<c:if test="${empty m.educationNo}">
 							<tr>
 								<td class="text-center" colspan="5">
@@ -162,7 +162,7 @@
 							</tr>
 						</c:if>
 						</c:forEach>
-						<c:forEach var="m" items="${map.manager.educationList}">
+						<c:forEach var="m" items="${paramMap.manager.educationList}">
 							<tr class="text-center">
 								<td>${m.educationSchool}</td>
 								<td>${m.educationMajor}</td>
@@ -193,7 +193,7 @@
 						<tr>
 					</thead>
 					<tbody>
-						<c:forEach var="m" items="${map.manager.careerList}">
+						<c:forEach var="m" items="${paramMap.manager.careerList}">
 						<c:if test="${empty m.careerContent}">
 							<tr>
 								<td class="text-center" colspan="5">
@@ -202,7 +202,7 @@
 							</tr>
 						</c:if>
 						</c:forEach>
-						<c:forEach var="m" items="${map.manager.careerList}">
+						<c:forEach var="m" items="${paramMap.manager.careerList}">
 							<tr class="text-center">
 								<td>${m.careerContent}</td>
 								<td>${m.careerStartDate}</td>
@@ -233,7 +233,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="m" items="${map.manager.licenseList}">
+						<c:forEach var="m" items="${paramMap.manager.licenseList}">
 						<c:if test="${empty m.licenseNumber}">
 							<tr>
 								<td class="text-center" colspan="5">
@@ -242,7 +242,7 @@
 							</tr>
 						</c:if>
 						</c:forEach>
-						<c:forEach var="m" items="${map.manager.licenseList}">
+						<c:forEach var="m" items="${paramMap.manager.licenseList}">
 							<tr class="text-center">
 								<td>${m.licenseNumber}</td>
 								<td>${m.licenseName}</td>

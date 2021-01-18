@@ -29,7 +29,7 @@ public class TeacherLectureService {
 	// 강사의 강좌 목록 출력 메서드
 	// 매개변수: 강사 아이디
 	// 리턴값:강사 아이디를 조회하여 강좌 정보 목록을 반환
-	public List<Lecture> getTeacherLectureListByPage(String accountId, int currentPage) {
+	public Map<String, Object> getTeacherLectureListByPage(String accountId, int currentPage) {
 		// 현재 페이지 표시할 데이터 수
 		int rowPerPage = 10;
 		// 시작 페이지
@@ -46,23 +46,37 @@ public class TeacherLectureService {
 		if (lastPage == 0) {
 			currentPage = 0;
 		}
-		Map<String, Object> map = new HashMap<String, Object>();
+		// 페이지 네비바에 표시할 페이지 수
+		int navPerPage = 10;
+		// 네비바 첫번째 페이지
+		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
+		// 네비바 마지막 페이지
+		int navLastPage = (navBeginPage + navPerPage) - 1;
+		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
+		if (navLastPage > lastPage) {
+			navLastPage = lastPage;
+		}
+		Map<String, Object> pageMap = new HashMap<String, Object>();
 		//현재 페이지 표시할 데이터 수
-		map.put("rowPerPage", rowPerPage);
+		pageMap.put("rowPerPage", rowPerPage);
 		//시작 페이지
-		map.put("beginRow", beginRow);
+		pageMap.put("beginRow", beginRow);
 		//강사 아이디
-		map.put("accountId", accountId);
+		pageMap.put("accountId", accountId);
+		pageMap.put("currentPage", currentPage);
+		List<Lecture> teacherLecture = teacherLectureMapper.selectTeacherLectureListByPage(pageMap);
+		logger.trace(teacherLecture + "<---lectureList");
+		Map<String, Object> map = new HashMap<>();
 		//마지막 페이지
 		map.put("lastPage", lastPage);
-		
-		List<Lecture> lectureList = teacherLectureMapper.selectTeacherLectureListByPage(map);
 		//강좌목록
-		map.put("lectureList", lectureList);
+		map.put("teacherLecture", teacherLecture);
+		map.put("navPerPage", navPerPage);
+		map.put("navBeginPage", navBeginPage);
+		map.put("navLastPage", navLastPage);
 		//Logger 디버깅
-		logger.trace(lectureList + "<---lectureList");
 		
-		return lectureList;
+		return map;
 	}
 
 	// 강사 강좌별 정보 출력 메서드

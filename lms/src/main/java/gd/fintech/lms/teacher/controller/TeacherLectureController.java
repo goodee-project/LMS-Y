@@ -3,6 +3,7 @@ package gd.fintech.lms.teacher.controller;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -36,53 +37,24 @@ public class TeacherLectureController {
 	// 매개변수:강사 아이디
 	// 리턴값:강사 아이디 참조하여 정보를 띄우는 뷰페이지
 	@GetMapping("/teacher/teacherLecture")
-	public String teacherLecture(Model model, HttpServletRequest request,
+	public String teacherLecture(Model model, HttpSession session,
 			@RequestParam(value = "currentPage",defaultValue = "1") int currentPage) {
 
-		// 세션정보 가져옴
-		HttpSession session = ((HttpServletRequest) request).getSession();
 		// 세션에 있는 아이디 가져옴
 		String accountId = (String) session.getAttribute("accountId");
 
-		List<Lecture> teacherLectureList = teacherLectureService.getTeacherLectureListByPage(accountId, currentPage);
+		Map<String, Object> map = teacherLectureService.getTeacherLectureListByPage(accountId, currentPage);
 		
-		// 현재 페이지 표시할 데이터 수
-		int rowPerPage = 10;
-		// 시작 페이지
-		int beginRow = (currentPage - 1) * rowPerPage;
-		// 전체 페이지 개수
-		int lectureCount = teacherLectureService.getTeacherLectureCount(accountId);
-		// 마지막 페이지
-		int lastPage = lectureCount / rowPerPage;
-		// 10 미만의 개수의 데이터가 있는 페이지 표시
-		if (lectureCount % rowPerPage != 0) {
-			lastPage += 1;
-		}
-		// 전체 페이지가 0개이면 현재 페이지도 0으로 표시
-		if (lastPage == 0) {
-			currentPage = 0;
-		}
-		//페이지 네비바에 표시할 페이지 수
-		int navPerPage = 10;
-		//네비바 첫번째 페이지
-		int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
-		// 네비바 마지막 페이지
-		int navLastPage = (navBeginPage + navPerPage) - 1;
-		// 네비바의 마지막 페이지와 라스트페이지가 달라질 경우 같게 설정
-		if (navLastPage > lastPage) {
-			navLastPage = lastPage;
-		}
+		
 
 		// model을 이용해 뷰에 정보 보냄.
-		model.addAttribute("navPerPage",navPerPage);
-		model.addAttribute("navBeginPage",navBeginPage);
-		model.addAttribute("navLastPage",navLastPage);
-		model.addAttribute("rowPerPage",rowPerPage);
-		model.addAttribute("beginRow",beginRow);
-		model.addAttribute("lectureCount",lectureCount);
-		model.addAttribute("lastPage",lastPage);
+		model.addAttribute("teacherLecture",map.get("teacherLecture"));
+		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("accountId", accountId);
-		model.addAttribute("teacherLectureList", teacherLectureList);
+		model.addAttribute("navPerPage", map.get("navPerPage"));
+		model.addAttribute("navBeginPage", map.get("navBeginPage"));
+		model.addAttribute("navLastPage", map.get("navLastPage"));
+		model.addAttribute("accountId", session.getAttribute("accountId"));
 		model.addAttribute("currentPage", currentPage);
 		return "/teacher/teacherLecture";
 	}

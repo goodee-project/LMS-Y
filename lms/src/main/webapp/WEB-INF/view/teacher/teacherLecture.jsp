@@ -28,8 +28,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:if test="${not empty teacherLectureList}">
-				<c:forEach var="tl" items="${teacherLectureList}">
+				<c:if test="${not empty teacherLecture}">
+				<c:forEach var="tl" items="${teacherLecture}">
 					<tr>
 						<td class="text-center">${tl.lectureNo}</td>
 						<td class="text-center">${tl.teacherName}</td>
@@ -39,14 +39,14 @@
 					</tr>
 				</c:forEach>
 				</c:if>
-				<c:if test="${empty teacherLectureList}">
+				<c:if test="${empty teacherLecture}">
 					<tr>			
 						<td class="text-center" colspan="5">현재 강의중인 강좌가 없습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>
 		</table>
-		<c:if test="${not empty teacherLectureList}">
+		<c:if test="${not empty teacherLecture}">
 			<div style="margin-left:35%">
 				<ul class="pagination">
 					<c:choose>
@@ -69,7 +69,8 @@
 						<c:if test="${i <= lastPage}">
 							<c:choose>
 								<c:when test="${i == currentPage}">
-								<li class="page-item active"><a class="page-link" href="#">${i}</a></li>
+								<li class="page-item active">
+								<a class="page-link" href="#">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<li class="page-item">

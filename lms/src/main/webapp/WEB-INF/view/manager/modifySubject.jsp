@@ -54,9 +54,9 @@
 				// 수정 버튼 클릭 시 최종 유효성 검사 및 등록
 				$('#submitBtn').click(function() {
 					// totalDay에 입력한 총 이수일수 저장
-					totalDay = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					totalDay = $('#subjectTotalDay').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					// info에 입력한 정보 저장
-					info = $('#subjectName').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+					info = $('#subjectInfo').val().replace(/<.+?>|\s+|&nbsp;/g, '');
 					
 					// 총 이수일수 유효성 검사
 					if(totalDay == '') {
@@ -82,7 +82,7 @@
 
 					$('#subjectForm').submit();
 					alert('과목 정보가 수정되었습니다');
-				})
+				});
             });
         </script>
 	</head>

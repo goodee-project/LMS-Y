@@ -13,11 +13,16 @@
 			COUNT(a.attendance_state) attendanceCount,
 			s.subject_totalday subjectTotalday
 		FROM attendance a
-		INNER JOIN lecture l ON a.lecture_no = l.lecture_no
-		INNER JOIN subject s ON l.subject_no = s.subject_no
+			INNER JOIN lecture l 
+				ON a.lecture_no = l.lecture_no
+			INNER JOIN subject s 
+				ON l.subject_no = s.subject_no
+			INNER JOIN class_registration cr 
+				ON l.lecture_no = cr.lecture_no
 		WHERE 
 			a.account_id = #{accountId}
 			AND a.lecture_no= #{lectureNo}
+			AND cr.class_registration_state = '수강중'
 	</select>
 	
 	<!-- 카테고리를 위한 강좌 리스트 조회하는 쿼리 -->
@@ -26,8 +31,10 @@
 			CONCAT(l.lecture_name,_UTF8MB4' (',l.teacher_name,_UTF8MB4')') lectureName,
 			l.lecture_no lectureNo
 		FROM lecture l
-		INNER JOIN attendance a ON l.lecture_no = a.lecture_no
-		INNER JOIN class_registration cr ON a.lecture_no = cr.lecture_no
+			INNER JOIN attendance a 
+				ON l.lecture_no = a.lecture_no
+			INNER JOIN class_registration cr 
+				ON a.lecture_no = cr.lecture_no
 		WHERE 
 			a.account_id=#{accountId} AND
 			(cr.class_registration_state = "수강중" OR
@@ -39,8 +46,13 @@
 		SELECT
 			a.lecture_no lectureNo
 		FROM attendance a
-		INNER JOIN lecture l ON a.lecture_no = l.lecture_no
-		WHERE a.account_id = #{accountId}
+			INNER JOIN lecture l 
+				ON a.lecture_no = l.lecture_no
+			INNER JOIN class_registration cr 
+				ON l.lecture_no = cr.lecture_no
+		WHERE 
+			a.account_id = #{accountId}
+			AND cr.class_registration_state = '수강중'
 		LIMIT 0,1
 	</select>
 	
@@ -50,11 +62,16 @@
 			r.report_title reportTitle,
 			rs.report_submit_score reportScore
 		FROM report r
-		INNER JOIN lecture l ON r.lecture_no = l.lecture_no
-		INNER JOIN report_submit rs ON r.report_no = rs.report_no
+			INNER JOIN lecture l 
+				ON r.lecture_no = l.lecture_no
+			INNER JOIN report_submit rs 
+				ON r.report_no = rs.report_no
+			INNER JOIN class_registration cr 
+				ON l.lecture_no = cr.lecture_no
 		WHERE 
 			rs.account_id = #{accountId}
 			AND l.lecture_no = #{lectureNo}
+			AND cr.class_registration_state = '수강중'
 		ORDER BY report_submit_score DESC
 	</select>
 	
@@ -62,8 +79,10 @@
 	<select id="selectCountReportByAccountId" parameterType="java.util.Map" resultType="int">
 		SELECT count(rs.report_submit_score) totalScore
 		FROM report r
-		INNER JOIN lecture l ON r.lecture_no = l.lecture_no
-		INNER JOIN report_submit rs ON r.report_no = rs.report_no
+			INNER JOIN lecture l 
+				ON r.lecture_no = l.lecture_no
+			INNER JOIN report_submit rs 
+				ON r.report_no = rs.report_no
 		WHERE 
 			r.lecture_no = #{lectureNo}  AND
 			rs.account_id = #{accountId}
@@ -74,8 +93,10 @@
 		SELECT 
 			(CASE WHEN SUM(rs.report_submit_score)!=0 THEN SUM(rs.report_submit_score) ELSE 0 END) totalScore
 		FROM report r
-		INNER JOIN lecture l ON r.lecture_no = l.lecture_no
-		INNER JOIN report_submit rs ON r.report_no = rs.report_no
+			INNER JOIN lecture l 
+				ON r.lecture_no = l.lecture_no
+			INNER JOIN report_submit rs 
+				ON r.report_no = rs.report_no
 		WHERE
 			r.lecture_no = #{lectureNo}  AND
 			rs.account_id = #{accountId}

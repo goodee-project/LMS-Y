@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.LectureManagerMapper">
-
-
 	<!-- 운영자가 개설한 강좌의 리스트 -->
 	<select id="selectLectureListByPage" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Lecture">
 		SELECT
@@ -44,7 +42,7 @@
 		SELECT account_id accountId
 		FROM teacher
 	</select>
-
+	
 	<!-- 강좌에서의 과목 정보 -->
 	<select id="selectLectureSubjectList" parameterType="java.util.Map" resultType="gd.fintech.lms.manager.vo.Subject">
 		SELECT
@@ -52,7 +50,7 @@
 			subject_name subjectName
 		FROM subject
 	</select>
-
+	
 	<!-- 강좌 개설 -->
 	<insert id="insertLecture" parameterType="gd.fintech.lms.manager.vo.Lecture">
 		INSERT INTO lecture(
@@ -79,10 +77,10 @@
 			#{classroomNo},
 			NOW(),
 			NOW()
-
+	
 		)
 	</insert>
-
+	
 	<!-- 강좌 수정 -->
 	<update id="updateLecture" parameterType="gd.fintech.lms.manager.vo.Lecture">
 		UPDATE lecture
@@ -191,32 +189,31 @@
 	</select>
 	<!-- 대기중 강좌 리스트 -->
 	<select id="selectlectureStudentList"  parameterType="java.util.Map" resultType="gd.fintech.lms.student.vo.ClassRegistration">
-	  SELECT
-	  	l.lecture_no lectureNo,
-   	 	l.lecture_name lectureName,
-   	    cr.account_id accountId,
-        cr.class_registration_state  classRegistrationState
-	  FROM class_registration cr
-	  INNER JOIN lecture l ON cr.lecture_no = l.lecture_no
-	  WHERE 
-    	    cr.class_registration_state = '대기' AND
-            l.lecture_no = #{lectureNo}
+		SELECT
+			l.lecture_no lectureNo,
+			l.lecture_name lectureName,
+			cr.account_id accountId,
+			cr.class_registration_state  classRegistrationState
+		FROM class_registration cr
+		INNER JOIN lecture l ON cr.lecture_no = l.lecture_no
+		WHERE
+			cr.class_registration_state = '대기' AND
+			l.lecture_no = #{lectureNo}
 	</select>
-	<!-- 수강중으로 변환 --> 
+	<!-- 수강중으로 변환 -->
 	<update id="updatelectureStudentCk" parameterType="gd.fintech.lms.student.vo.ClassRegistration" >
 	UPDATE class_registration
 	SET class_registration_state = '수강중'
 	WHERE
-    	lecture_no = #{lectureNo} AND
-    	account_id = #{accountId}
+		lecture_no = #{lectureNo} AND
+		account_id = #{accountId}
 	</update>
 	<!--  거절로 변환 -->
 	<update id="updatelectureStudentReject" parameterType="gd.fintech.lms.student.vo.ClassRegistration">
 	UPDATE class_registration
 	SET class_registration_state = '거절'
 	WHERE
-    	lecture_no = #{lectureNo} AND
-    	account_id = #{accountId}
+		lecture_no = #{lectureNo} AND
+		account_id = #{accountId}
 	</update>
-	
 </mapper>

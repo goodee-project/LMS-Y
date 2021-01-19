@@ -12,19 +12,19 @@ import lombok.Data;
 @Data
 public class Lecture {
 	// 강좌 번호
-	private int lectureNo; 
+	private int lectureNo;
 	
 	// 강좌 id
 	private String accountId;
 	
 	// 과목 번호
-	private int subjectNo; 
+	private int subjectNo;
 	
 	// 강사 이름 
-	private String teacherName; 
+	private String teacherName;
 	
 	// 강좌 이름 
-	private String lectureName; 
+	private String lectureName;
 	
 	// 교재 고유번호(국제 표준 도서 번호)
 	private String textbookISBN;
@@ -32,20 +32,20 @@ public class Lecture {
 	// 시작 날짜
 	private String lectureStartDate;
 	
-    // 종료 날짜
-	private String lectureEndDate; 
+	// 종료 날짜
+	private String lectureEndDate;
 	
 	// 강좌 정원수
 	private int lectureTotal;
 	
 	// 강의실 번호
-	private int classroomNo; 
+	private int classroomNo;
 	
 	// 강좌 생성날짜
-	private String lectureCreateDate; 
+	private String lectureCreateDate;
 	
 	// 강좌 수정날짜
-	private String lectureUpdateDate; 
+	private String lectureUpdateDate;
 	
 	// 강좌 정보 리스트
 	private List<Lecture>lectureInfo;
@@ -74,6 +74,7 @@ public class Lecture {
 	//과목 vo 추가
 	private Subject	subject;
 	
-	private ClassRegistration classRegistration; 
+	// 수강 vo 추가
+	private ClassRegistration classRegistration;
 	
 }

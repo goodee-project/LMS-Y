@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Manager {
 	// 계정 id
-	private String accountId; 
+	private String accountId;
 	
 	// 운영자 E-mail
 	private String managerEmail;
@@ -30,7 +30,7 @@ public class Manager {
 	private String managerBirth;
 	
 	// 운영자 직책
-	private String managerPosition; 
+	private String managerPosition;
 	
 	// 운영자 주소
 	private String managerAddressMain;
@@ -39,13 +39,13 @@ public class Manager {
 	private String managerAddressSub;
 	
 	// 운영자 프로필 이미지
-	private String managerImage; 
+	private String managerImage;
 	
 	// 운영자 승인 날짜
 	private String managerAccessDate;
 	
 	// 운영자 개인정보 수정 날짜
-	private String managerUpdateDate; 
+	private String managerUpdateDate;
 	
 	//Multipart를 위한 프로퍼티 추가
 	private List<AccountImage> imageFileList;

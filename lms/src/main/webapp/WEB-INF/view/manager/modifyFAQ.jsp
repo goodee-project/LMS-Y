@@ -9,43 +9,43 @@
 		<!-- NAVER SmartEditor2 스크립트 -->
 		<script src="${pageContext.request.contextPath}/se2/js/service/HuskyEZCreator.js"></script>
 		<!-- jQuery 스크립트 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-        $(document).ready(function() {
-           
-          //  let faqTitle  = $('#faqTitleId').val().replace(/^\s+/,'');  
-      		
-        	$('#faqTitleId').focus();
-        	$('#faqTitleId').blur(function(){
-        		if( $('#faqTitleId').val() == '') {
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+
+		//  let faqTitle  = $('#faqTitleId').val().replace(/^\s+/,'');
+		
+			$('#faqTitleId').focus();
+			$('#faqTitleId').blur(function(){
+		if( $('#faqTitleId').val() == '') {
 					$('#faqTitleMSG').text('제목을 입력하세요');
 					$('#faqTitleId').focus();
 					return;
 				} else{
 					$('#faqTitleMSG').text('');	
 				}
-           });	
-        	// 입력 버튼 클릭시 유효성 검사
-        	$('#submitBtn').click(function() {
-  				oEditors.getById["faqContent"].exec("UPDATE_CONTENTS_FIELD", []);
-  				
-  			  	let faqTitle  = $('#faqTitleId').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-  				let faqContent = $('#faqContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-  				// 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
-  				if (faqTitle  == '') {
-  					alert('제목을 입력해주세요!');
-  					$('#faqTitleId').focus();
-  				// 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동	
-  				} else if (faqContent == '') {
-  					alert('내용을 입력해주세요!');
-  					oEditors.getById["faqContent"].exec("FOCUS");
-  				} else{
-  				// 유효성 검사를 만족했을 경우 submit
-  				$('#formId').submit();
-  				}
-          	});
-        	// NAVER SmartEditor2 적용 코드
-        	let oEditors = [];
+});
+	// 입력 버튼 클릭시 유효성 검사
+			$('#submitBtn').click(function() {
+				oEditors.getById["faqContent"].exec("UPDATE_CONTENTS_FIELD", []);
+				
+			  	let faqTitle  = $('#faqTitleId').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+				let faqContent = $('#faqContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+				// 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+				if (faqTitle  == '') {
+					alert('제목을 입력해주세요!');
+					$('#faqTitleId').focus();
+				// 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동	
+				} else if (faqContent == '') {
+					alert('내용을 입력해주세요!');
+					oEditors.getById["faqContent"].exec("FOCUS");
+				} else{
+				// 유효성 검사를 만족했을 경우 submit
+				$('#formId').submit();
+				}
+			});
+			// NAVER SmartEditor2 적용 코드
+			let oEditors = [];
 			nhn.husky.EZCreator.createInIFrame({
 				oAppRef: oEditors,
 				elPlaceHolder: "faqContent",	// 적용할 textarea 태그의 id 속성 
@@ -58,8 +58,8 @@
 				},
 				fCreator: "createSEditor2"
 			});
-        });
-    </script>
+		});
+	</script>
 </head>
 
 <body>
@@ -102,10 +102,10 @@
 					</tr>
 					</table>
 						<textarea  id="faqContent" name="faqContent"style="width: 100%" >${faq.faqContent}</textarea>
-	  				<div class="text-right">
-			  			<button class="btn btn-outline-success" id= "submitBtn" type="button">수정</button>
-			  		</div>
-			  	</div>	
+					<div class="text-right">
+						<button class="btn btn-outline-success" id= "submitBtn" type="button">수정</button>
+					</div>
+				</div>	
 				</form>
 			</div>
 	</body>

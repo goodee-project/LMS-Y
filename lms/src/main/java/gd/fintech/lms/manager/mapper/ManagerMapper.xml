@@ -2,246 +2,245 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="gd.fintech.lms.manager.mapper.ManagerMapper">
 	<resultMap type="gd.fintech.lms.manager.vo.Manager" id="resultManagerDetail">
-		<result property="accountId" column="account_id"/>
-		<result property="managerEmail" column="manager_email"/>
-		<result property="managerPhone" column="manager_phone"/>
-		<result property="managerName" column="manager_name"/>
-		<result property="managerGender" column="manager_gender"/>
-		<result property="managerBirth" column="manager_birth"/>
-		<result property="managerAddressMain" column="manager_address_main"/>
-		<result property="managerAddressSub" column="manager_address_sub"/>
-		<result property="managerAccessDate" column="manager_accessdate"/>
-		<result property="managerPosition" column="manager_position"/>
+		<result property="accountId" column="account_id" />
+		<result property="managerEmail" column="manager_email" />
+		<result property="managerPhone" column="manager_phone" />
+		<result property="managerName" column="manager_name" />
+		<result property="managerGender" column="manager_gender" />
+		<result property="managerBirth" column="manager_birth" />
+		<result property="managerAddressMain" column="manager_address_main" />
+		<result property="managerAddressSub" column="manager_address_sub" />
+		<result property="managerAccessDate" column="manager_accessdate" />
+		<result property="managerPosition" column="manager_position" />
 		<collection property="imageFileList" ofType="gd.fintech.lms.manager.vo.AccountImage">
-			<result property="accountId" column="account_id"/>
-			<result property="imageFileUUID" column="image_file_uuid"/>
-			<result property="imageFileOriginal" column="image_file_original"/>
-			<result property="imageFileSize" column="image_file_size"/>
-			<result property="imageFileType" column="image_file_type"/>
-			<result property="imageFileCreateDate" column="image_file_createdate"/>
+			<result property="accountId" column="account_id" />
+			<result property="imageFileUUID" column="image_file_uuid" />
+			<result property="imageFileOriginal" column="image_file_original" />
+			<result property="imageFileSize" column="image_file_size" />
+			<result property="imageFileType" column="image_file_type" />
+			<result property="imageFileCreateDate" column="image_file_createdate" />
 		</collection>
-		<collection property="careerList"  ofType="gd.fintech.lms.account.vo.Career">
-			<result property="careerNo" column="career_no"/>
-			<result property="accountId" column="account_id"/>
-			<result property="careerContent" column="career_content"/>
-			<result property="careerStartDate" column="career_startdate"/>
-			<result property="careerEndDate" column="career_enddate"/>
-		</collection>
+			<collection property="careerList" ofType="gd.fintech.lms.account.vo.Career">
+				<result property="careerNo" column="career_no" />
+				<result property="accountId" column="account_id" />
+				<result property="careerContent" column="career_content" />
+				<result property="careerStartDate" column="career_startdate" />
+				<result property="careerEndDate" column="career_enddate" />
+			</collection>
 		<collection property="educationList" ofType="gd.fintech.lms.account.vo.Education">
-			<result property="educationNo" column="education_no"/>
-			<result property="accountId" column="account_id"/>
-			<result property="educationSchool" column="education_school"/>
-			<result property="educationMajor" column="education_Major"/>
-			<result property="educationStartDate" column="education_startdate"/>
-			<result property="educationEndDate" column="education_enddate"/>
-		</collection>
+				<result property="educationNo" column="education_no" />
+				<result property="accountId" column="account_id" />
+				<result property="educationSchool" column="education_school" />
+				<result property="educationMajor" column="education_Major" />
+				<result property="educationStartDate" column="education_startdate" />
+				<result property="educationEndDate" column="education_enddate" />
+			</collection>
 		<collection property="licenseList" ofType="gd.fintech.lms.account.vo.License">
-			<result property="licenseNo" column="license_no"/>
-			<result property="accountId" column="account_id"/>
-			<result property="licenseNumber" column="license_number"/>
-			<result property="licenseName" column="license_name"/>
-			<result property="licenseAgency" column="license_agency"/>
-			<result property="licenseGetDate" column="license_getdate"/>
-		</collection>
- 	</resultMap>
-   <!-- 운영자의 정보 상세보기 -->
-   <select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
-    SELECT 
-         account_id accountId,
-         manager_email managerEmail,
-         manager_name managerName,
-         manager_phone managerPhone,
-         manager_gender managerGender,
-         manager_birth managerBirth,
-         manager_address_main managerAddressMain,
-         manager_address_sub managerAddressSub,
-         manager_image managerImage,
-         manager_position managerPosition 
-      FROM manager 
-      WHERE account_id = #{accountId}
-   </select>
-   
-   <select id="selectManagerInfoOne" parameterType="String" resultMap="resultManagerDetail">
-      SELECT
-         m.account_id,
-         m.manager_email,
-         m.manager_phone,
-         m.manager_name,
-         m.manager_gender,
-         m.manager_birth,
-         m.manager_position,
-         m.manager_address_main,
-         m.manager_address_sub,
-         c.career_no,
-		 c.account_id,
-		 c.career_content,
-		 c.career_startdate,
-		 c.career_enddate,
-	     l.license_no,
-	   	 l.license_number,
-		 l.license_name,
-		 l.license_agency,
-		 l.license_getdate,
-		 e.education_no,
-		 e.account_Id,
-		 e.education_school,
-		 e.education_major,
-		 e.education_startdate,
-		 e.education_enddate
-     FROM manager m
-     LEFT JOIN
-		 career c ON
-		 c.account_id = m.account_id
-	 LEFT JOIN
-		 license l ON
-		 l.account_id = m.account_id
-	 LEFT JOIN
-		 education e ON
-		 e.account_Id = m.account_id
-	 WHERE m.account_id = #{accountId}
-   </select>
+				<result property="licenseNo" column="license_no" />
+				<result property="accountId" column="account_id" />
+				<result property="licenseNumber" column="license_number" />
+				<result property="licenseName" column="license_name" />
+				<result property="licenseAgency" column="license_agency" />
+				<result property="licenseGetDate" column="license_getdate" />
+			</collection>
+		</resultMap>
+	<!-- 운영자의 정보 상세보기 -->
+	<select id="selectManagerOne" parameterType="String" resultType="gd.fintech.lms.manager.vo.Manager">
+		SELECT
+			account_id accountId,
+			manager_email managerEmail,
+			manager_name managerName,
+			manager_phone managerPhone,
+			manager_gender managerGender,
+			manager_birth managerBirth,
+			manager_address_main managerAddressMain,
+			manager_address_sub managerAddressSub,
+			manager_image managerImage,
+			manager_position managerPosition
+		FROM manager
+		WHERE account_id = #{accountId}
+	</select>
 
-   <!-- 운영자의 정보 수정하기 -->
-   <update id="updateManager" parameterType="gd.fintech.lms.manager.vo.Manager">
-      UPDATE manager
-      <set>
-         <if test="managerEmail !=null">manager_email =#{managerEmail},</if>
-         <if test="managerPhone !=null">manager_phone =#{managerPhone},</if>
-         <if test="managerName !=null">manager_name =#{managerName},</if>
-         <if test="managerGender !=null">manager_gender =#{managerGender},</if>
-         <if test="managerBirth !=null">manager_birth =#{managerBirth},</if>
-         <if test="managerPosition !=null">manager_position=#{managerPosition},</if>
-         <if test="managerAddressMain !=null">manager_address_main =#{managerAddressMain},</if>
-         <if test="managerAddressSub !=null">manager_address_sub =#{managerAddressSub},</if>
-         <if test="managerImage !=null">manager_image =#{managerImage},</if>
-         manager_updatedate = NOW()
-      </set>
-      WHERE account_id =#{accountId}
-   </update>
+	<select id="selectManagerInfoOne" parameterType="String"
+		resultMap="resultManagerDetail">
+		SELECT
+			m.account_id,
+			m.manager_email,
+			m.manager_phone,
+			m.manager_name,
+			m.manager_gender,
+			m.manager_birth,
+			m.manager_position,
+			m.manager_address_main,
+			m.manager_address_sub,
+			c.career_no,
+			c.account_id,
+			c.career_content,
+			c.career_startdate,
+			c.career_enddate,
+			l.license_no,
+			l.license_number,
+			l.license_name,
+			l.license_agency,
+			l.license_getdate,
+			e.education_no,
+			e.account_Id,
+			e.education_school,
+			e.education_major,
+			e.education_startdate,
+			e.education_enddate
+		FROM manager m
+		LEFT JOIN
+			career c ON
+			c.account_id = m.account_id
+		LEFT JOIN
+			license l ON
+			l.account_id = m.account_id
+		LEFT JOIN
+			education e ON
+			e.account_Id = m.account_id
+		WHERE m.account_id = #{accountId}
+	</select>
 
-   <!-- 운영자 정보 입력 -->
-   <insert id="insertManagerFromQueue" parameterType="String">
-      INSERT INTO
-      manager(
-         account_id,
-         manager_email,
-         manager_name,
-         manager_phone,
-         manager_gender,
-         manager_birth,
-         manager_address_main,
-         manager_address_sub,
-         manager_accessdate,
-         manager_updatedate
-      ) SELECT
-         account_id,
-         manager_email,
-         manager_name,
-         manager_phone,
-         manager_gender,
-         manager_birth,
-         manager_address_main,
-         manager_address_sub,
-         NOW(),
-         NOW()
-      FROM manager_queue
-      WHERE account_id = #{accountId}
-   </insert>
+	<!-- 운영자의 정보 수정하기 -->
+	<update id="updateManager" parameterType="gd.fintech.lms.manager.vo.Manager">
+		UPDATE manager
+		<set>
+			<if test="managerEmail !=null">manager_email =#{managerEmail},</if>
+			<if test="managerPhone !=null">manager_phone =#{managerPhone},</if>
+			<if test="managerName !=null">manager_name =#{managerName},</if>
+			<if test="managerGender !=null">manager_gender =#{managerGender},</if>
+			<if test="managerBirth !=null">manager_birth =#{managerBirth},</if>
+			<if test="managerPosition !=null">manager_position=#{managerPosition},</if>
+			<if test="managerAddressMain !=null">manager_address_main =#{managerAddressMain},</if>
+			<if test="managerAddressSub !=null">manager_address_sub =#{managerAddressSub},</if>
+			<if test="managerImage !=null">manager_image =#{managerImage},</if>
+			manager_updatedate = NOW()
+		</set>
+		WHERE account_id =#{accountId}
+	</update>
 
-   <!-- 계정에 해당하는 운영자 이름 -->
-   <select id="selectManagerName" parameterType="String" resultType="String">
-      SELECT
-         manager_name managerName
-      FROM manager
-      WHERE account_id = #{accountId}
-   </select>
-   <select id="selectManagerEmail" parameterType="String" resultType="String">
-   	SELECT
-   		manager_email managerEmail
-   	FROM manager
-    WHERE account_id = #{accountId} and manager_email =#{managerEmail}
-   </select>
-   <!--운영자의 비밀번호를 수정하기전에 확인  -->
-   <select id="selectManagerPassword" parameterType="String" resultType="String">
-     SELECT
-        account_id accountId,
-        account_pw accountPW
-      FROM account
-     WHERE 
-        account_pw = PASSWORD(#{accountPw}) 
-        AND account_id = #{accountId}
-   </select>
-   
-   <!-- 운영자의 비밀번호 수정 -->
-   <update id="updateManagerPassword" parameterType="gd.fintech.lms.account.vo.Account">
-      UPDATE account
-      SET 
-         account_pw = PASSWORD(#{accountPw}),   
-         account_updatedate = NOW()
-      WHERE account_Id = #{accountId}   
-   </update>
-   
-   <!-- 운영자의 이미지 조회 -->
-   <select id="selectMyImage" parameterType="String" resultType="gd.fintech.lms.manager.vo.AccountImage">
-      SELECT
-         account_id accountId,
-         image_file_uuid imageFileUUID,
-         image_file_original imageFileOriginal,
-         image_file_size imageFileSize,
-         image_file_type imageFileType,
-         image_file_createdate imageFileCreateDate
-      FROM account_image
-      WHERE account_id = #{accountId}
-   </select>
-   
-   <!-- 이미지 수정할때 현재 이미지 출력 -->
-   <select id="selectManagerImageanddelete" parameterType="String" resultType="String">
-      SELECT manager_image
-      FROM manager
-      WHERE  account_id = #{accountId}
-   </select>
-   
-   <!-- 운영자 이미지 추가 -->
-   <insert id="insertManagerImage" parameterType="gd.fintech.lms.manager.vo.AccountImage">
-      INSERT INTO account_image(
-         account_id,
-         image_file_uuid,
-         image_file_original,
-         image_file_size,
-         image_file_type,
-         image_file_createdate
-      ) VALUES (
-         #{accountId},
-         #{imageFileUUID},
-         #{imageFileOriginal},
-         #{imageFileSize},
-         #{imageFileType},
-         NOW()
-      )
-   </insert>
-   <!-- 운영자 id에 해당하는 이미지를 null  -->
-   <update id="updateManagerImageByDelete" parameterType="gd.fintech.lms.manager.vo.Manager">
-   	UPDATE manager
-   SET 
-   		manager_image = NULL,
-        manager_updatedate = NOW()
-    WHERE account_id =#{accountId}
-   </update>
-   
-   
-   
-   <!-- 운영자 이미지 수정 -->
-   <update id="updateManagerImage" parameterType="java.util.Map">
-      UPDATE manager
-      <set>
-         <if test="managerImage !=null">manager_image = #{managerImage},</if>
-         manager_updatedate = NOW()
-      </set>
-      WHERE account_id = #{accountId}
-   </update>
-   
-   <update id="updateImageFile" parameterType="java.util.Map">
-   UPDATE account_image
+	<!-- 운영자 정보 입력 -->
+	<insert id="insertManagerFromQueue" parameterType="String">
+		INSERT INTO
+			manager(
+			account_id,
+			manager_email,
+			manager_name,
+			manager_phone,
+			manager_gender,
+			manager_birth,
+			manager_address_main,
+			manager_address_sub,
+			manager_accessdate,
+			manager_updatedate
+		) SELECT
+			account_id,
+			manager_email,
+			manager_name,
+			manager_phone,
+			manager_gender,
+			manager_birth,
+			manager_address_main,
+			manager_address_sub,
+			NOW(),
+			NOW()
+		FROM manager_queue
+		WHERE account_id = #{accountId}
+	</insert>
+
+	<!-- 계정에 해당하는 운영자 이름 -->
+	<select id="selectManagerName" parameterType="String" resultType="String">
+		SELECT
+			manager_name managerName
+		FROM manager
+		WHERE account_id = #{accountId}
+	</select>
+	<select id="selectManagerEmail" parameterType="String" resultType="String">
+		SELECT
+			manager_email managerEmail
+		FROM manager
+		WHERE account_id = #{accountId} and manager_email =#{managerEmail}
+	</select>
+	<!--운영자의 비밀번호를 수정하기전에 확인 -->
+	<select id="selectManagerPassword" parameterType="String" resultType="String">
+		SELECT
+			account_id accountId,
+			account_pw accountPW
+		FROM account
+		WHERE
+			account_pw = PASSWORD(#{accountPw})
+			AND account_id = #{accountId}
+	</select>
+
+	<!-- 운영자의 비밀번호 수정 -->
+	<update id="updateManagerPassword" parameterType="gd.fintech.lms.account.vo.Account">
+		UPDATE account
+		SET
+			account_pw = PASSWORD(#{accountPw}),
+			account_updatedate = NOW()
+		WHERE account_Id = #{accountId}
+	</update>
+
+	<!-- 운영자의 이미지 조회 -->
+	<select id="selectMyImage" parameterType="String" resultType="gd.fintech.lms.manager.vo.AccountImage">
+		SELECT
+			account_id accountId,
+			image_file_uuid imageFileUUID,
+			image_file_original imageFileOriginal,
+			image_file_size imageFileSize,
+			image_file_type imageFileType,
+			image_file_createdate imageFileCreateDate
+		FROM account_image
+		WHERE account_id = #{accountId}
+	</select>
+
+	<!-- 이미지 수정할때 현재 이미지 출력 -->
+	<select id="selectManagerImageanddelete" parameterType="String" resultType="String">
+		SELECT manager_image
+		FROM manager
+		WHERE account_id = #{accountId}
+	</select>
+
+	<!-- 운영자 이미지 추가 -->
+	<insert id="insertManagerImage" parameterType="gd.fintech.lms.manager.vo.AccountImage">
+		INSERT INTO account_image(
+			account_id,
+			image_file_uuid,
+			image_file_original,
+			image_file_size,
+			image_file_type,
+			image_file_createdate
+		) VALUES (
+			#{accountId},
+			#{imageFileUUID},
+			#{imageFileOriginal},
+			#{imageFileSize},
+			#{imageFileType},
+			NOW()
+		)
+	</insert>
+	<!-- 운영자 id에 해당하는 이미지를 null -->
+	<update id="updateManagerImageByDelete" parameterType="gd.fintech.lms.manager.vo.Manager">
+		UPDATE manager
+		SET
+			manager_image = NULL,
+			manager_updatedate = NOW()
+		WHERE account_id =#{accountId}
+	</update>
+	
+	<!-- 운영자 이미지 수정 -->
+	<update id="updateManagerImage" parameterType="java.util.Map">
+		UPDATE manager
+		<set>
+			<if test="managerImage !=null">manager_image = #{managerImage},</if>
+			manager_updatedate = NOW()
+		</set>
+		WHERE account_id = #{accountId}
+	</update>
+
+	<update id="updateImageFile" parameterType="java.util.Map">
+		UPDATE account_image
 		SET
 			image_file_uuid = #{imageFileUUID},
 			image_file_original = #{imageFileOriginal},
@@ -249,26 +248,25 @@
 			image_file_type = #{imageFileType},
 			image_file_createdate = NOW()
 		WHERE account_id = #{accountId}
-   </update>
-   
-   <!-- 운영자 이미지 삭제 -->
-   <delete id="deleteMyImage" parameterType="String">
-      DELETE FROM account_image
-      WHERE account_id = #{accountId}
-   </delete>
-   
-   <!-- 한 행의 경력 내용을 삭제하는 쿼리 -->
+	</update>
+
+	<!-- 운영자 이미지 삭제 -->
+	<delete id="deleteMyImage" parameterType="String">
+		DELETE FROM account_image
+		WHERE account_id = #{accountId}
+	</delete>
+
+	<!-- 한 행의 경력 내용을 삭제하는 쿼리 -->
 	<delete id="deleteCareerByManager" parameterType="int">
-		DELETE 
-		FROM career
+		DELETE FROM career
 		WHERE career_no = #{careerNo}
 	</delete>
-	
+
 	<select id="selectImageFileUUIDCk" parameterType="String" resultType="String">
-	 SELECT
-            image_file_uuid
-      FROM account_image
-      WHERE account_id = #{accountId}
+		SELECT
+			image_file_uuid
+		FROM account_image
+		WHERE account_id = #{accountId}
 	</select>
-   
+
 </mapper>

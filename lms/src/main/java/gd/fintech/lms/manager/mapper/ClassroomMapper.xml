@@ -44,8 +44,8 @@
 			#{classroomTotal}
 		)
 	</insert>
-
-
+	
+	
 	<!-- classroomNo 에 해당하는 강의실 정보 수정 -->
 	<update id="updateClassroom" parameterType="gd.fintech.lms.manager.vo.Classroom">
 		UPDATE classroom

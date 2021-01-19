@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class FAQCategory {
-	// FAQ 카테고리 
+	// FAQ 카테고리
 	private String faqCategory;
 
 }

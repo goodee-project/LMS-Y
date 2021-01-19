@@ -9,13 +9,13 @@ import lombok.Data;
 @Data
 public class Classroom {
 	// 강의실 고유번호 
-	private int classroomNo; 
+	private int classroomNo;
 	
 	// 강의실 번호
-	private int classroomNumber; 
+	private int classroomNumber;
 	
 	// 강의실 규격
-	private int classroomSize; 
+	private int classroomSize;
 	
 	// 강의실 수용 인원
 	private int classroomTotal;

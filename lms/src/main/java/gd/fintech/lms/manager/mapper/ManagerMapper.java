@@ -17,9 +17,7 @@ public interface ManagerMapper {
 	Manager selectManagerOne(String accountId);
 	Manager selectManagerInfoOne(String accountId);
 	
-	
-	
-	// 운영자 정보 수정 
+	// 운영자 정보 수정
 	// 매개변수: 운영자 정보
 	// 리턴값: 행의 수정
 	int updateManager(Manager manager);
@@ -29,17 +27,17 @@ public interface ManagerMapper {
 	// 리턴값: 행의 입력
 	int insertManagerFromQueue(String accountId);
 	
-	// 계정 아이디에 해당하는 운영자의 이름 
+	// 계정 아이디에 해당하는 운영자의 이름
 	// 매개변수:운영자 Id
-	// 리턴값: 계정 아이디에 해당하는 운영자의 이름 
+	// 리턴값: 계정 아이디에 해당하는 운영자의 이름
 	String selectManagerName(String accountId);
 	
-	// 운영자의 계정 이메일 중복 체크 
+	// 운영자의 계정 이메일 중복 체크
 	// 매개변수: 운영자id , 운영자 이메일
 	String selectManagerEmail(String accountId, String managerEmail);
 	
 	// 운영자의 비밀번호를 수정
-	// 매개변수: 계정 정보 
+	// 매개변수: 계정 정보
 	// 리턴값: 행의 수정
 	int updateManagerPassword(Account account);
 	
@@ -48,9 +46,9 @@ public interface ManagerMapper {
 	// 리턴값: 계정아이디에 해당하는 운영자의 id,password
 	String selectManagerPassword (String accountId, String accountPw );
 	
-	// 운영자의 경력을 삭제  
-	// 매개변수: 경력의 고유번호 
-	// 리턴값:  행의 삭제  
+	// 운영자의 경력을 삭제
+	// 매개변수: 경력의 고유번호
+	// 리턴값:  행의 삭제
 	int deleteCareerByManager(int careerNo);
 	
 	
@@ -59,7 +57,7 @@ public interface ManagerMapper {
 	// 리턴값: 운영자 이미지
 	String selectManagerImageanddelete(String accountId);
 	
-	// 삭제시 사용할 이미지 수정 
+	// 삭제시 사용할 이미지 수정
 	int updateManagerImageByDelete(String accountId);
 	
 	// 운영자 이미지 카운트

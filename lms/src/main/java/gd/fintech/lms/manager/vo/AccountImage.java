@@ -5,7 +5,7 @@ import lombok.Data;
 // 운영자 이미지 vo
 
 @Data
-public class AccountImage {	
+public class AccountImage {
 	//계정 아이디
 	private String accountId;
 	

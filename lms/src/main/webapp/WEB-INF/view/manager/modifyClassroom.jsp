@@ -11,8 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
         $(document).ready(function() {
-            
-		    // 버튼을 클릭했을때 공백여부 확인
+		
+			// 버튼을 클릭했을때 공백여부 확인
 			$('#btnId').click(function() {
 				// 강의실 번호 유효성 검사 
 				if($('#numberId').val() ==''){
@@ -21,7 +21,7 @@
 					return
 			
 				}else{
-						$('#numberMsg').text('');	
+						$('#numberMsg').text('');
 					}	
 				// 강의실 면적 유효성 검사
 				if($('#sizeId').val() ==''){
@@ -30,7 +30,7 @@
 					return
 			
 				}else{
-						$('#sizeMsg').text('');	
+						$('#sizeMsg').text('');
 					}	
 				// 강의실 수용인원 유효성 검사		
 				if($('#totalId').val() ==''){
@@ -39,14 +39,14 @@
 					return
 			
 				}else{
-						$('#totalMsg').text('');	
+						$('#totalMsg').text('');
 						
 				} 
 					$('#postId').submit();
 			});
-			console.log();  				 	
-     });
-        </script>
+			console.log();
+	});
+		</script>
 	</head>
 	
 	<body>
@@ -74,9 +74,9 @@
 						</tr>
 						<tr>
 							<td>강의실 면적 (단위:m<sup>2</sup>)</td>
-						   <td><input class ="form-control col-sm-4 " type="number" name="classroomSize" id="sizeId" value="${classroom.classroomSize}">
-						   <span id="sizeMsg"></span>
-						   </td>
+						<td><input class ="form-control col-sm-4 " type="number" name="classroomSize" id="sizeId" value="${classroom.classroomSize}">
+							<span id="sizeMsg"></span>
+						</td>
 						</tr>
 						<tr>
 							<td>강의실 수용 인원</td>
@@ -86,7 +86,7 @@
 						</tr>
 						
 					</table>
-			  			<div class="text-right">
+						<div class="text-right">
 							<button class="btn btn-outline-success" id="btnId" type="button">수정</button>
 						</div>
 				</form>

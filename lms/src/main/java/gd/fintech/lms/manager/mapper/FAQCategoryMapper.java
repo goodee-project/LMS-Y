@@ -11,20 +11,18 @@ import gd.fintech.lms.manager.vo.FAQCategory;
 
 @Mapper
 public interface FAQCategoryMapper {
-	// FAQ의 카테고리 목록 
+	// FAQ의 카테고리 목록
 	// 리턴값: 카테고리 리스트
-	List<FAQCategory> selectFAQCategoryList(); 
+	List<FAQCategory> selectFAQCategoryList();
 	
 	// FAQ카테고리 입력
 	// 매개변수: 카테고리 정보
-	// 리턴값: 행의 추가 
-	int insertFAQCategory(FAQCategory faqCategory); 
-		
+	// 리턴값: 행의 추가
+	int insertFAQCategory(FAQCategory faqCategory);
+	
 	// FAQ카테고리 수정
 	// 매개변수: 카테고리 수정
 	// 리턴값: 행의 수정
 	int updateFAQCategory(FAQCategory faqCategory);
-		
 	
-
 }

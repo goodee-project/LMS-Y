@@ -13,12 +13,12 @@ public interface ClassroomMapper {
 	// 강의실 목록
 	// 매개변수: MAP beginRow, rowPerPage
 	// 리턴값: 강의실 리스트
-	List<Classroom> selectClassroomListByPage(Map<String, Object> map);  
+	List<Classroom> selectClassroomListByPage(Map<String, Object> map);
 	
 	// 강의실 입력
 	// 매개변수: 강의실 정보
 	// 리턴값: 행의 추가
-	int insertClassromm(Classroom classroom); 
+	int insertClassromm(Classroom classroom);
 	
 	// 강의실 수정
 	// 매개변수: 강의실 정보
@@ -29,8 +29,9 @@ public interface ClassroomMapper {
 	// 매개변수: 강의실 고유번호
 	// 리턴값: 해당하는 강의실의 상세한 정보
 	Classroom classroomDetail(int classroomNo);
-
+	
 	// 강의실 개수
-  	// 리턴값: 강의실의 행의 총 개수
+	// 리턴값: 강의실의 행의 총 개수
 	int selectClassroomCount();
+	
 }

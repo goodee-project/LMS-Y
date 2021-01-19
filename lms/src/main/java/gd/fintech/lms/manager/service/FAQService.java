@@ -17,7 +17,7 @@ import gd.fintech.lms.manager.mapper.FAQMapper;
 import gd.fintech.lms.manager.mapper.ManagerMapper;
 import gd.fintech.lms.manager.vo.FAQ;
 
-// FAQ 를 관리하는 서비스 
+// FAQ 를 관리하는 서비스
 
 @Service
 @Transactional
@@ -82,15 +82,15 @@ public class FAQService {
 	// 매개변수: FAQ의 정보 
 	// 리턴값: 입력받은 정보가 들어간 행의 추가
 	public int createFAQ(FAQ faq, HttpSession session){
-		// 세션을 가져오고 
+		// 세션을 가져오고
 		String sessionAcountId = (String)session.getAttribute("accountId");
 		logger.debug("현재 로그인한 사용자 ID:"+sessionAcountId);
 		faq.setAccountId(sessionAcountId);
-	    faq.setFaqWriter(managerMapper.selectManagerName(sessionAcountId));
+		faq.setFaqWriter(managerMapper.selectManagerName(sessionAcountId));
 		return faqMapper.insertFAQ(faq);
 	}
 	
-	// FAQ를 수정하는 서비스 
+	// FAQ를 수정하는 서비스
 	// 매개변수: FAQ의 정보
 	// 리턴값:  선택한 행을 입력받은 정보로 수정
 	public int modifyFAQ(FAQ faq){
@@ -108,12 +108,12 @@ public class FAQService {
 	// 매개변수: FAQ의 고유번호
 	// 리턴값: faqNo의 행 삭제
 	public int removeFAQ(int faqNo) {
-		return faqMapper.deleteFAQ(faqNo);	
+		return faqMapper.deleteFAQ(faqNo);
 	}
 	
-	// FAQ의 조회수가 +1 증가하는 서비스 
+	// FAQ의 조회수가 +1 증가하는 서비스
 	// 매개변수 : FAQ의 고유번호
-	// 리턴값: faqNo의 해당하는 count +1 
+	// 리턴값: faqNo의 해당하는 count +1
 	public int increaseFAQCountUp(int faqNo) {
 		return faqMapper.updateFAQCountUp(faqNo);
 	}

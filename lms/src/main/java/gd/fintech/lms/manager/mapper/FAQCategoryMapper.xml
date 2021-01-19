@@ -3,28 +3,28 @@
 <mapper namespace="gd.fintech.lms.manager.mapper.FAQCategoryMapper">
 	
 	<!-- faq 카테고리 리스트 -->
- 	<select id="selectFAQCategoryList" resultType="gd.fintech.lms.manager.vo.FAQCategory">
-    	SELECT 
+	<select id="selectFAQCategoryList" resultType="gd.fintech.lms.manager.vo.FAQCategory">
+		SELECT
 			faq_category faqCategory
- 		FROM faq_category
- 		ORDER BY FIELD(faq_category,'공통','강사','학생','고객지원','기타');
- 	</select>
+		FROM faq_category
+		ORDER BY FIELD(faq_category,'공통','강사','학생','고객지원','기타');
+	</select>
 	
-	  <!-- faq 카테고리를 추가 -->
+	<!-- faq 카테고리를 추가 -->
 	<insert id="insertFAQCategory" parameterType="gd.fintech.lms.manager.vo.FAQCategory">
-		INSERT INTO faq_category(   
-      	faq_category 
+		INSERT INTO faq_category(
+			faq_category
 			)VALUE(
-	  	#{faqCategory}
-   		 )
+		#{faqCategory}
+		)
 	</insert>
 	
 	<!-- faq 카테고리를 수정 -->
 	<update id="updateFAQCategory" parameterType="gd.fintech.lms.manager.vo.FAQCategory" >
 		UPDATE faq_category
-    	SET
-      		faq_category = #{faqCategory}
-    	WHERE faq_category = #{faqCategory}
+		SET
+			faq_category = #{faqCategory}
+		WHERE faq_category = #{faqCategory}
 	</update>
 	
 </mapper>

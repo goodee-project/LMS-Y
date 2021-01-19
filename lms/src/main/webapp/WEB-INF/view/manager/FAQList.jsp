@@ -8,13 +8,13 @@
 		<title>자주하는질문</title>
 		
 		<!-- jQuery 스크립트 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                // 폼 유효성 검사
-                // code here...
-            });
-        </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+		// 폼 유효성 검사
+		// code here
+	});
+</script>
 	</head>
 	
 	<body>
@@ -26,7 +26,7 @@
     			<h1>자주하는질문</h1>
  			 </div>
 			</div>
-			<!-- 카테고리 -->	
+			<!-- 자주하는질문 상단 카테고리 목록 -->
 			<div class="container">
 				<div class="row">
 					<div class="col">
@@ -36,10 +36,7 @@
 				<td>
 					<a style="height:45px; width:150px;" class="btn btn-outline-success mb-3" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1&categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
 				</td>
-					<c:if test="${status.count%5 eq 0}"> 
-						<tr>
-					</c:if>
-				</c:forEach>
+			</c:forEach>
 			<!-- FAQList -->
 				</div>
 			</div>

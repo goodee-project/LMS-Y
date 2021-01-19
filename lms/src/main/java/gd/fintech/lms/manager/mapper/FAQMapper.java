@@ -10,20 +10,20 @@ import gd.fintech.lms.manager.vo.FAQ;
 
 @Mapper 
 public interface FAQMapper {
-	// FAQ 목록 페이지 
+	// FAQ 목록 페이지
 	// 매개변수: MAP beginRow, rowPerPage
 	// 리턴값: FAQ 리스트
-  	List<FAQ> selectFAQListByPage(Map<String, Object> map);  
-  	
-  	// FAQ 개수
-  	// 매개변수: 선택한 faqCategory
-  	// 리턴값: FAQ의 행의 총 개수
+	List<FAQ> selectFAQListByPage(Map<String, Object> map);
+	
+	// FAQ 개수
+	// 매개변수: 선택한 faqCategory
+	// 리턴값: FAQ의 행의 총 개수
 	int selectFAQCount(String categoryFaqSearch);
 	
 	// FAQ 입력
-	// 매개변수: FAQ의 정보  
+	// 매개변수: FAQ의 정보
 	// 리턴값: 행의 추가
-	int insertFAQ(FAQ faq); 
+	int insertFAQ(FAQ faq);
 	
 	// FAQ 수정
 	// 매개변수: FAQ의 정보
@@ -33,16 +33,16 @@ public interface FAQMapper {
 	// FAQ 삭제
 	// 매개변수: FAQ의 번호
 	// 리턴값: 선택한 행의 삭제
-	int deleteFAQ(int faqNo); 
+	int deleteFAQ(int faqNo);
 	
 	// FAQ 상세보기
 	// 매개변수: FAQ의 번호
-	// 리턴값: 선택한 FAQ번호 해당하는 FAQ 상세한 정보  
-	FAQ selectFAQDetail(int faqNo); 
+	// 리턴값: 선택한 FAQ번호 해당하는 FAQ 상세한 정보
+	FAQ selectFAQDetail(int faqNo);
 	
 	// FAQ count+1
 	// 매개변수: FAQ의 번호
 	// 리턴값: 선택한 FAQ의 번호에 해당하는 FAQ의 조회수 1증가
-	int updateFAQCountUp(int faqNo);  
+	int updateFAQCountUp(int faqNo);
 	
 }

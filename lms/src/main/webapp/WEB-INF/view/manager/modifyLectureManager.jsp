@@ -8,13 +8,13 @@
 		<title>강좌 수정</title>
 		
 		<!-- jQuery 스크립트 -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
 		$(document).ready(function(){
-        	// 강사 Id 유효성검사
+			// 강사 Id 유효성검사
 			$('#teacherId').focus();	
-            $('#teacherId').blur(function(){
-                // 강사id 공백 검사 
+			$('#teacherId').blur(function(){
+				// 강사id 공백 검사 
 				if($('#teacherId').val() =="" ){
 					$('#teacherId').focus();
 					$('#teacherIdMsg').text("강사 id를 입력하여주세요");
@@ -25,8 +25,8 @@
 					$('#teacherIdMsg').text("");
 					
 					}
-			});		
-         // 강사 이름 유효성 검사 
+			});
+			// 강사 이름 유효성 검사 
 			$('#nameId').blur(function(){
 				// 강사 이름 공백 검사
 				if($('#nameId').val() ==''){
@@ -46,29 +46,25 @@
 					alert('강사 아이디를 입력하시오');
 					return;
 				}
-				$.ajax({			             
-		            url : '${pageContext.request.contextPath}/manager/teacherName',
-		            type : 'GET',
-		            data : {accountId:$('#accountId').val()},
-		            error : function(){
-		                alert('데이터에 오류가 있습니다');
-		            },
-		            success : function(data){			           
-			            let str = `<td class="form-group">
-			           			 <select name="teacherName">`;
-			            for(let i=0; i<data.length; i++) {
-						  str += '<option>' + data[i] + '</option>';
-					 }
-					     str += '</select> </div>';
-			            $('input[name = teacherName]').attr('value',data); 
-		                $('#addAddr').empty();
-						$('#addAddr').append(str);
-		            }
-		        });
+				$.ajax({
+					url : '${pageContext.request.contextPath}/manager/teacherName',
+					type : 'GET',
+						data : {accountId:$('#accountId').val()},
+						error : function(){
+						alert('데이터에 오류가 있습니다');
+					},
+						success : function(data){
+					let str = `<td class="form-group">
+							<select name="teacherName">`;
+						
+						$('input[name = teacherName]').attr('value',data);
+						$('#addAddr').empty();
+					}
+				});
 				$('#nameMsg').text('');
 			});
 				
-			// 강좌 이름 유효성 검사	
+			// 강좌 이름 유효성 검사
 			$('#lectureNameId').blur(function(){
 				// 강좌 이름 공백 검사
 				if($('#lectureNameId').val() ==''){
@@ -81,7 +77,7 @@
 					$('#lectureNameIdMsg').text("");
 					
 					}
-			});		
+			});
 			// 강좌 시작 날짜 유효성 검사	
 			$('#startDateId').blur(function(){
 				// 강좌 시작 날짜 공백 검사
@@ -109,7 +105,7 @@
 					$('#endDateIdMsg').text("");
 					
 					}
-			});		
+			});
 					
 			// 강좌 정원 유효성 검사
 			$('#totalId').blur(function(){
@@ -131,7 +127,7 @@
 					|| $('#startDateId').val() == ''|| $('#endDateId').val() == ''|| $('#totalId').val() == '') {
 					alert('기입에 누락된 부분이 없는지 확인해주세요');
 				} else if (new Date($('#endDateId').val())
-					- new Date($('#startDateId').val()) <= 0) {	
+					- new Date($('#startDateId').val()) <= 0) {
 					alert(' 강좌의 시작일과 강좌의 종료일이 올바르지 않습니다!');
 					$('#startDateId').focus();
 				}else if($('#accountId').val() == '') {
@@ -154,11 +150,11 @@
 							}	
 						}
 					});
-									
+			
 			});
-			console.log();  				 	
-     });
-        </script>
+			console.log();
+		});
+		</script>
 	</head>
 	
 	<body>
@@ -166,15 +162,15 @@
 		<jsp:include page="/WEB-INF/view/inc/menu.jsp"></jsp:include>
 	
 		<div class="jumbotron">
- 			<div class="container">
-    			<h1>강좌 수정</h1>
- 			 </div>
+			<div class="container">
+				<h1>강좌 수정</h1>
+			 </div>
 			</div>
 				<form id="postId" method="post" action="${pageContext.request.contextPath}/manager/modifyLectureManager?lectureNo=${lecture.lectureNo}">
 					<div class="container">
 				<table class="table"> 
 					<tr>
-						<td>강사 Id</td>							
+						<td>강사 Id</td>
 						<td>
 							<select class ="form-control col-sm-4" id="accountId" name="accountId">
 								<c:forEach items="${teacherList}" var="teacher">	
@@ -227,32 +223,32 @@
 						</td>
 					</tr>
 					<tr>
-						<td>강좌명</td>							
+						<td>강좌명</td>
 						<td><input class ="form-control col-sm-4"type="text" name="lectureName" id="lectureNameId" value="${lecture.lectureName}">
 							<span id="lectureNameIdMsg"></span>
 						</td>
 					</tr>
 					<tr>	
-						<td>강좌 시작일</td>							
+						<td>강좌 시작일</td>
 						<td><input class ="form-control col-sm-4" type="date"  name="lectureStartDate" id="startDateId" value="${lecture.lectureStartDate}">
 							<span id="startDateIdMsg"></span>
 						</td>
 					</tr>
 					<tr>	
-						<td>강좌 종료일</td>							
+						<td>강좌 종료일</td>
 						<td><input class ="form-control col-sm-4"type="date"  name="lectureEndDate" id="endDateId" value="${lecture.lectureEndDate}">
 							<span id="endDateIdMsg"></span>
 						</td>
 					</tr>
 					<tr>	
-						<td>강좌 정원</td>							
+						<td>강좌 정원</td>
 						<td><input class ="form-control col-sm-4"type="number"  name="lectureTotal" id="lectureTotalId" value="${lecture.lectureTotal}" >
 							<span id="totalIdMsg"></span>
 						</td>
 					</tr>
 					<tr>
 						<td>강의실</td>	
-					<td>						
+					<td>
 						<select name="classroomNo" class ="form-control col-sm-4">
 								<c:forEach items="${classroomList}" var="c">
 									<c:if test="${c.classroomNo == lecture.classroomNo}"    >

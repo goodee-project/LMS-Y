@@ -20,15 +20,15 @@ import gd.fintech.lms.teacher.vo.Teacher;
 
 
 
-// /Lecture 를 관리하는 서비스
+// Lecture 를 관리하는 서비스
 
 @Service
 @Transactional
 public class LectureManagerService {
 	// logger
-    private final Logger logger = LoggerFactory.getLogger(LectureManagerService.class);
+	private final Logger logger = LoggerFactory.getLogger(LectureManagerService.class);
 	
-    // LectureManager에 대한 메퍼
+	// LectureManager에 대한 메퍼
 	@Autowired private LectureManagerMapper lectureManagerMapper;
 	
 
@@ -38,7 +38,7 @@ public class LectureManagerService {
 		public Map<String, Object> getManagerLectureListByPage(int currentPage ){
 			//  페이지당 표시되는 데이터 수
 			int rowPerPage = 15;
-			// 현재 페이지에서 시작하는 데이터 
+			// 현재 페이지에서 시작하는 데이터
 			int beginRow = (currentPage - 1) * rowPerPage;
 			// 전체 페이지 개수
 			int countLecture = lectureManagerMapper.selectLectureCount();
@@ -52,9 +52,9 @@ public class LectureManagerService {
 				currentPage = 0;
 			}
 			
-			// 페이지 네비에서 표시할 페이지 수 
+			// 페이지 네비에서 표시할 페이지 수
 			int navPerPage = 10;
-			// 페이지 네비에서의 처음 페이지	                  
+			// 페이지 네비에서의 처음 페이지
 			int navBeginPage = (currentPage-1)/navPerPage*navPerPage + 1;
 			// 페이지 네비에서의  마지막 페이지
 			int navLastPage = (navBeginPage + navPerPage) - 1;
@@ -82,7 +82,7 @@ public class LectureManagerService {
 		}
 	
 	// 강좌에서의 강의실 리스트
-    // 리턴값: 강의실 리스트
+	// 리턴값: 강의실 리스트
 	public List<Classroom> getLectureClassroomList(){
 		return lectureManagerMapper.selectLectureClassroomList();
 	}
@@ -112,12 +112,12 @@ public class LectureManagerService {
 		return lectureManagerMapper.selectTeacherName(accountId);
 	}
 	
-	 // 강좌의 변경전의 강사 Id 및 강사 이름
-	 // 매개변수: 강사의 계정id 및 강사이름
-	 // 리턴값: 변경전의 강사id 와 강사이름의 확인
-	 public String getTeacherNameCk(String accountId,String teacherName) {
-	     return lectureManagerMapper.selectTeacherNameCk(accountId, teacherName);
-	 }  
+	// 강좌의 변경전의 강사 Id 및 강사 이름
+	// 매개변수: 강사의 계정id 및 강사이름
+	// 리턴값: 변경전의 강사id 와 강사이름의 확인
+	public String getTeacherNameCk(String accountId,String teacherName) {
+		return lectureManagerMapper.selectTeacherNameCk(accountId, teacherName);
+	}
 	
 	
 	// 강좌의 총 합을 보여주는 서비스
@@ -178,7 +178,7 @@ public class LectureManagerService {
 		return lectureManagerMapper.deleteLecture(lectureNo);	
 	}
 	
-	// 강좌 상세보기 서비스 
+	// 강좌 상세보기 서비스
 	// 매개변수: 강좌 고유번호
 	// 리턴값: 강좌 고유번호에 대한 강좌 상세보기
 	public Lecture getManagerLectureDetail(int lectureNo) {

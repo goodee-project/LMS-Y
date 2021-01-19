@@ -40,21 +40,23 @@ public class LectureManagerController {
 	// 리턴값: 강좌 리스트 페이지 출력
 	@GetMapping("/manager/managerLecture")
 	public String managerLectureList(Model model,
-		@RequestParam(value="currentPage",defaultValue = "1")int currentPage) {
-	 Map<String, Object> map = lectureManagerService.getManagerLectureListByPage(currentPage);
-	 logger.debug(map.toString());
-	 model.addAttribute("currentPage",currentPage);
-	 model.addAttribute("ManagerLectureList",map.get("ManagerLectureList"));
-	 model.addAttribute("lastPage",map.get("lastPage"));
-	 model.addAttribute("navBeginPage",map.get("navBeginPage"));
-	 model.addAttribute("navLastPage",map.get("navLastPage"));
-     model.addAttribute("navPerPage",map.get("navPerPage"));
-     
-     	return "manager/managerLecture";
+			@RequestParam(value="currentPage",defaultValue = "1")int currentPage) {
+		Map<String, Object> map = lectureManagerService.getManagerLectureListByPage(currentPage);
+		logger.debug(map.toString());
+		model.addAttribute("currentPage",currentPage);
+		model.addAttribute("ManagerLectureList",map.get("ManagerLectureList"));
+		model.addAttribute("lastPage",map.get("lastPage"));
+		model.addAttribute("navBeginPage",map.get("navBeginPage"));
+		model.addAttribute("navLastPage",map.get("navLastPage"));
+		model.addAttribute("navPerPage",map.get("navPerPage"));
+		
+		return "manager/managerLecture";
 	
-	}	
+	}
 	
-	// 강의 리스트
+	// 강좌 고유번호에 해당하는 수강 상태가 대기중인  리스트
+	// 매개변수: 강좌 고유번호
+	// 리턴값: 강좌 고유번호에 해당하는 수강대기중인 리스트
 	@GetMapping("/manager/lectureStudentList")
 	public String lectureStudentList(Model model, int lectureNo) {
 		List<ClassRegistration> studentList = lectureManagerService.getlectureStudentList(lectureNo);
@@ -62,9 +64,9 @@ public class LectureManagerController {
 		return "manager/managerLectureDetail";
 	}
 	
-	
-	
 	// 강좌에서 수강 상태를 거절로 바꾸는 액션
+	// 매개변수: 강좌 고유번호 계정id
+	// 리턴값: 변경후 강좌 고유번호에 해당하는 강좌 상세보기
 	@GetMapping("/manager/modifylectureStudentReject")
  	public String createManagerEducation(
  			@RequestParam (value="lectureNo")int lectureNo,
@@ -74,6 +76,8 @@ public class LectureManagerController {
  	}
  
 	// 강좌에서 수강상태를 수강중으로 바꾸는 액션
+	// 매개변수: 강좌 고유번호 계정 id 
+	// 리턴값: 변경후 강좌 고유번호에 해당하는 강좌 상세보기
 	@GetMapping("/manager/modifylectureStudentCk")
 	public String modifylectureStudentCk(
 			@RequestParam(value="lectureNo")int lectureNo,
@@ -87,16 +91,16 @@ public class LectureManagerController {
 	// 리턴값: 강좌의 개설
 	@GetMapping("/manager/createLectureManager")
 	public String createLecture(Model model) {
-	 List<Textbook> textbookList = lectureManagerService.getLectureTextBookList();
-	 List<Subject>	subjectList = lectureManagerService.getLectureSubjectList();
-	 List<Classroom> classroomList = lectureManagerService.getLectureClassroomList();
-	 List<Teacher> teacherList = lectureManagerService.getLectureTeacherList();
-	 logger.debug("classroomList"+ classroomList );
-	 model.addAttribute("classroomList", classroomList);
-	 model.addAttribute("textbookList", textbookList);
-	 model.addAttribute("subjectList", subjectList);
-	 model.addAttribute("teacherList", teacherList);
-	return "manager/createLectureManager";
+			List<Textbook> textbookList = lectureManagerService.getLectureTextBookList();
+			List<Subject>	subjectList = lectureManagerService.getLectureSubjectList();
+			List<Classroom> classroomList = lectureManagerService.getLectureClassroomList();
+			List<Teacher> teacherList = lectureManagerService.getLectureTeacherList();
+		logger.debug("classroomList"+ classroomList );
+		model.addAttribute("classroomList", classroomList);
+		model.addAttribute("textbookList", textbookList);
+		model.addAttribute("subjectList", subjectList);
+		model.addAttribute("teacherList", teacherList);
+		return "manager/createLectureManager";
 	}
 	
 	
@@ -115,12 +119,12 @@ public class LectureManagerController {
 	// 리턴값: 강좌 개설 액션
 	@GetMapping("/manager/modifyLectureManager")
 	public String modifyLecture(Model model, 
-			@RequestParam(name="lectureNo")int lectureNo) {
-		List<Textbook> textbookList = lectureManagerService.getLectureTextBookList();
-		List<Subject>	subjectList = lectureManagerService.getLectureSubjectList();
-		List<Classroom> classroomList = lectureManagerService.getLectureClassroomList();
-		List<Teacher> teacherList = lectureManagerService.getLectureTeacherList();
-		Lecture lecture = lectureManagerService.getManagerLectureDetail(lectureNo);
+		@RequestParam(name="lectureNo")int lectureNo) {
+			List<Textbook> textbookList = lectureManagerService.getLectureTextBookList();
+			List<Subject>	subjectList = lectureManagerService.getLectureSubjectList();
+			List<Classroom> classroomList = lectureManagerService.getLectureClassroomList();
+			List<Teacher> teacherList = lectureManagerService.getLectureTeacherList();
+			Lecture lecture = lectureManagerService.getManagerLectureDetail(lectureNo);
 		model.addAttribute("lecture", lecture);
 		model.addAttribute("classroomList", classroomList);
 		model.addAttribute("textbookList", textbookList);
@@ -148,6 +152,6 @@ public class LectureManagerController {
 		model.addAttribute("classRegistration", classRegistration);
 		model.addAttribute("lecture", lecture);
 		return "manager/managerLectureDetail";
-		}
+	}
 	
 }

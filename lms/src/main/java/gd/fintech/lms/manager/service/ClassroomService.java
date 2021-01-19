@@ -20,19 +20,19 @@ import gd.fintech.lms.manager.vo.Classroom;
 @Transactional
 public class ClassroomService {
 	//debugLogger
-	private final Logger logger = LoggerFactory.getLogger(ClassroomService.class);	
+	private final Logger logger = LoggerFactory.getLogger(ClassroomService.class);
 	
 	// Classroom 에 대한 메퍼
 	@Autowired private ClassroomMapper classroomMapper;
 	
 	
 	// 강의실 리스트를 보여주는 서비스
-	// 매개변수: 현재 페이지 
+	// 매개변수: 현재 페이지
 	// 리턴값: 현재 페이지의 강의실 리스트
 	public Map<String, Object> getClassroomListByPage(int currentPage){
 		//  페이지당 표시되는 데이터 수
 		int rowPerPage = 10;
-		// 현재 페이지에서 시작하는 데이터 
+		// 현재 페이지에서 시작하는 데이터
 		int beginRow = (currentPage -1)*rowPerPage;
 		// 전체 페이지 개수
 		int countClassroom = classroomMapper.selectClassroomCount();
@@ -74,17 +74,17 @@ public class ClassroomService {
 	}
 	
 	
-	// 강의실 추가하는 서비스 
-	// 매개변수: 강의실의 정보 
-	// 리턴값:  입력한 정보의 행 추가 
+	// 강의실 추가하는 서비스
+	// 매개변수: 강의실의 정보
+	// 리턴값:  입력한 정보의 행 추가
 	public int createClassroom(Classroom classroom) {
 		return classroomMapper.insertClassromm(classroom);
 	}
 	
 	
 	// 강의실 수정하는 서비스
-	// 매개변수: 강의실의 정보 
-	// 리턴값:  입력한 정보의 행 수정 
+	// 매개변수: 강의실의 정보
+	// 리턴값:  입력한 정보의 행 수정
 	public int modifyClassroom(Classroom classroom){
 		return classroomMapper.updateClassroom(classroom);
 	}

@@ -47,25 +47,22 @@
 					alert('강사 아이디를 입력하시오');
 					return;
 				}
-				$.ajax({			             
+				$.ajax({
 		            url : '${pageContext.request.contextPath}/manager/teacherName',
 		            type : 'GET',
 		            data : {accountId:$('#accountId').val()},
 		            error : function(){
 		                alert('데이터에 오류가 있습니다');
 		            },
-		            success : function(data){			           
-			            let str = `<td class="form-group">
-			           			 <select name="teacherName">`;
-			            for(let i=0; i<data.length; i++) {
-						  str += '<option>' + data[i] + '</option>';
-					 }
+		            success : function(data){
+					let str = `<td class="form-group">
+						 <select name="teacherName">`;
+
 					     str += '</select> </div>';
-			            $('input[name = teacherName]').attr('value',data); 
-		                $('#addAddr').empty();
-						$('#addAddr').append(str);
-		            }
-		        });
+					$('input[name = teacherName]').attr('value',data); 
+					$('#addAddr').empty();
+					}
+				});
 				$('#nameMsg').text('');
 			});
 			// 강좌 이름 유효성 검사	

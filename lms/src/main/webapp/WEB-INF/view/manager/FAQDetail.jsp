@@ -4,13 +4,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>FAQDetail</title>
+		<title>자주하는 질문 상세보기</title>
 		
 		<!-- jQuery 스크립트 -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
         $(document).ready(function() {
-    		$('#delBtnId').click(function() {
+			$('#delBtnId').click(function() {
 				let remove = confirm('정말 삭제하시겠습니까?');
 				if(remove) {
 					location.replace('${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}');
@@ -46,15 +46,16 @@
 					</tr>
 					<tr >
 						<!--  FAQ 내용  -->
-						<td  height="150" class="viewcon" >${faq.faqContent}</td>
+						<td height="150" >${faq.faqContent}</td>
 					</tr>
-					<tr>
-					</tr>
-				</table>
-						<div class="d-flex justify-content-end" >
-							<a id="testBtnId" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
-							<a id="delBtnId" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
-						</div>
-			</div>
-</body>
+			</table>
+			<!-- 작성할때 acoountId 와 FAQ에 등록된 accountId가 다를경우 버튼 x -->
+			<c:if test="${accountId eq faq.accountId}">
+				<div class="d-flex justify-content-end" >
+					<a id="testBtnId" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/manager/modifyFAQ?faqNo=${faq.faqNo}">수정</a>
+					<a id="delBtnId" class="btn btn-outline-danger mx-2" href="${pageContext.request.contextPath}/manager/removeFAQ?faqNo=${faq.faqNo}">삭제</a>
+				</div>
+			</c:if>
+		</div>
+	</body>
 </html>

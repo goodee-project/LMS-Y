@@ -39,24 +39,19 @@ public class ManagerService {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// 운영자정보 mapper
-	@Autowired
-	private ManagerMapper managerMapper;
+	@Autowired private ManagerMapper managerMapper;
 
 	// 주소정보 mapper
-	@Autowired
-	private AddressMapper addressMapper;
+	@Autowired private AddressMapper addressMapper;
 
 	// 경력 정보 mapper
-	@Autowired
-	private CareerMapper careerMapper;
+	@Autowired private CareerMapper careerMapper;
 
 	// 학력 정보 mapper
-	@Autowired
-	private EducationMapper educationMapper;
+	@Autowired private EducationMapper educationMapper;
 
 	// 자격증 정보 mapper
-	@Autowired
-	private LicenseMapper licenseMapper;
+	@Autowired private LicenseMapper licenseMapper;
 
 	// 운영자 정보 상세보기
 	// 매개변수: 운영자 id

@@ -13,37 +13,41 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
         $(document).ready(function() {
-        		
-          	$('#faqTitleId').focus();
-          	$('#faqTitleId').blur(function(){
-          		if( $('#faqTitleId').val() == '') {
-  					$('#faqTitleMSG').text('제목을 입력하세요');
-  					$('#faqTitleId').focus();
-  					return;
-  				} else{
-  					$('#faqTitleMSG').text('');	
-  				}
-             });	
-          	// 입력 버튼 클릭시 유효성 검사
-          	$('#submitBtn').click(function() {
-  				oEditors.getById["faqContent"].exec("UPDATE_CONTENTS_FIELD", []);
-  				
-  			  	let faqTitle  = $('#faqTitleId').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-  				let faqContent = $('#faqContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
-  				// 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
-  				if (faqTitle  == '') {
-  					alert('제목을 입력해주세요!');
-  					$('#faqTitleId').focus();
-  				// 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동	
-  				} else if (faqContent == '') {
-  					alert('내용을 입력해주세요!');
-  					oEditors.getById["faqContent"].exec("FOCUS");
-  				} else{
-  				// 유효성 검사를 만족했을 경우 submit
-  				$('#formId').submit();
-  				}
-          	});
-          	
+
+        	$('#faqTitleId').focus();
+            $('#faqTitleId').blur(function(){
+                // 강사id 공백 검사 
+				if($('#faqTitleId').val() == ''){
+					$('#faqTitleId').focus();
+					$('#faqTitleIdMsg').text("제목을 입력하여주세요");
+					return
+					
+				}else{
+					$('#faqTitleIdMsg').text("");
+					
+					}
+			});
+				
+			
+			// 입략 버튼 클릭시 유효성 검사
+			$('#submitBtn').click(function() {
+				oEditors.getById["faqContent"].exec("UPDATE_CONTENTS_FIELD", []);
+
+				let faqContent = $('#faqContent').val().replace(/<.+?>|\s+|&nbsp;/g, '');
+				// 제목을 입력하지 않았을 경우 입력 요구 및 포커스 이동
+				if ($('#faqTitleId').val() == '') {
+					alert('제목을 입력해주세요!');
+					$('#faqTitleId').focus();
+				// 내용을 입력하지 않았을 경우 입력 요구 및 포커스 이동	
+				} else if (faqContent == '') {
+					alert('내용을 입력해주세요!');
+					oEditors.getById["faqContent"].exec("FOCUS");
+				} else{
+				// 유효성 검사를 만족했을 경우 submit
+				$('#formId').submit();
+				}
+			});
+
 			// NAVER SmartEditor2 적용 코드
 			let oEditors = [];
 			nhn.husky.EZCreator.createInIFrame({
@@ -88,8 +92,8 @@
 					
 					<tr>
 						<td>
-							<input class="form-control" placeholder="제목을 입력하여 주세요"  type="text" id="faqTitleId" name="faqTitle">
-							<span id="faqTitleMSG"></span> 
+							<input class="form-control" placeholder="제목을 입력하여 주세요"  type="text" id="faqTitleId" name="faqTitle"> 
+							<span id="faqTitleIdMsg"></span>
 						</td>
 					</tr>
 					

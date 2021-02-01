@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import gd.fintech.lms.AccountLevel;
 import gd.fintech.lms.manager.service.FAQCategoryService;
 import gd.fintech.lms.manager.service.FAQService;
 import gd.fintech.lms.manager.vo.FAQ;
@@ -22,34 +23,36 @@ import gd.fintech.lms.manager.vo.FAQCategory;
 // FAQ 관련 컨트롤러
 
 @Controller
-public class FAQController {
+public class FAQController {	
 	//debugLogger
 	private final Logger logger = LoggerFactory.getLogger(FAQController.class);
 	
 	@Autowired private FAQService faqService;
-	@Autowired private FAQCategoryService faqCategoryService;
+	@Autowired private FAQCategoryService faqCategoryService;	
 		
 	// FAQ 리스트
 	// 매개변수: Model @RequestParam: currentPage (현재페이지) @RequestParam: categoryFaqSearch(FAQ 카테고리 검색)
 	// 리턴값: FAQ 리스트 페이지 출력
-	@GetMapping("/manager/FAQList")
+	@GetMapping(value = {"/faq/FAQList", "/manager/FAQList", "/teacher/FAQList", "/student/FAQList"})
 	public String FAQList(Model model,
-		@RequestParam(value="currentPage",defaultValue = "1")int currentPage,
-		@RequestParam(value="categoryFaqSearch", required = false) String categoryFaqSearch) {
-	Map<String, Object> map = faqService.getFAQListByPage(currentPage,categoryFaqSearch);
-	logger.debug(map.toString());
-	List<FAQCategory> categoryList = faqCategoryService.getFAQCategoryList();
-	model.addAttribute("categoryFaqSearch", categoryFaqSearch);
-	model.addAttribute("categoryList", categoryList);
-	model.addAttribute("currentPage",currentPage);
-	model.addAttribute("faqList",map.get("faqList"));
-	model.addAttribute("lastPage",map.get("lastPage"));
-	model.addAttribute("navBeginPage",map.get("navBeginPage"));
-	model.addAttribute("navLastPage",map.get("navLastPage"));
-	model.addAttribute("navPerPage",map.get("navPerPage"));
-	logger.debug("categoryList",categoryList);
-	logger.debug("categoryFaqSearch",categoryFaqSearch);
-	return "manager/FAQList";
+			@RequestParam(value="currentPage",defaultValue = "1")int currentPage,
+			@RequestParam(value="categoryFaqSearch", required = false) String categoryFaqSearch,
+			HttpSession session) {
+	  Map<String, Object> map = faqService.getFAQListByPage(currentPage,categoryFaqSearch);
+	  logger.debug(map.toString());
+	  List<FAQCategory> categoryList = faqCategoryService.getFAQCategoryList();
+	  model.addAttribute("categoryFaqSearch", categoryFaqSearch);
+	  model.addAttribute("categoryList", categoryList);
+	  model.addAttribute("currentPage",currentPage);
+	  model.addAttribute("faqList",map.get("faqList"));
+	  model.addAttribute("lastPage",map.get("lastPage"));
+	  model.addAttribute("navBeginPage",map.get("navBeginPage"));
+	  model.addAttribute("navLastPage",map.get("navLastPage"));
+	  model.addAttribute("navPerPage",map.get("navPerPage"));
+	  model.addAttribute("managerLevel", AccountLevel.MANAGER.getValue());
+	  logger.debug("categoryList",categoryList);
+	  logger.debug("categoryFaqSearch",categoryFaqSearch);
+	  return "manager/FAQList";
 	}
 
 	// FAQ 작성 폼
@@ -73,7 +76,7 @@ public class FAQController {
 	
 	// FAQ 수정 폼
 	// 매개변수: model,  @RequestParam: faqNo(FAQ고유번호)
-	// 리턴값: faqNo에 해당하는 FAQ을 수정하는 페이지
+	// 리턴값: faqNo에 해당하는 FAQ을 수정하는 페이지 
 	@GetMapping("/manager/modifyFAQ")
 	public String modifyFAQ(Model model, @RequestParam(name="faqNo")int faqNo) {
 		FAQ faq = faqService.getFAQDetail(faqNo);
@@ -90,13 +93,13 @@ public class FAQController {
 	@PostMapping("/manager/modifyFAQ")
 	public String modifyFAQ(FAQ faq) {
 		faqService.modifyFAQ(faq);
-		return "redirect:/manager/FAQDetail?faqNo="+faq.getFaqNo();
+		return "redirect:/FAQDetail?faqNo="+faq.getFaqNo();
 	}
 	
 	// FAQ 상세정보
 	// 매개변수: model, @RequestParam: faqNo(FAQ고유번호)
-	// 리턴값: 입력한 faqNo에 해당하는 FAQ 상세정보
-	@GetMapping("/manager/FAQDetail")
+	// 리턴값: 입력한 faqNo에 해당하는 FAQ 상세정보 
+	@GetMapping("/FAQDetail")
 	public String faqDetail(Model model,
 			@RequestParam("faqNo")int faqNo,
 			HttpSession session) {
@@ -112,12 +115,13 @@ public class FAQController {
 		long currentTime = System.currentTimeMillis(); 
 		if(currentTime - updateTime > 24*60*60*1000) {
 			faqService.increaseFAQCountUp(faqNo);
-			session.setAttribute("updateTime"+faqNo, currentTime);
+			session.setAttribute("updateTime"+faqNo, currentTime);			
 		}
 		model.addAttribute("faq", faq);
-		return "manager/FAQDetail";
+		model.addAttribute("managerLevel", AccountLevel.MANAGER.getValue());
+		return "/manager/FAQDetail";
 		
-	}
+	}	
 	
 	// FAQ 삭제
 	// 매개변수: @RequestParam: faqNo(FAQ고유번호)

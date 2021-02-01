@@ -8,13 +8,13 @@
 		<title>자주하는질문</title>
 		
 		<!-- jQuery 스크립트 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script>
-		$(document).ready(function() {
-		// 폼 유효성 검사
-		// code here
-	});
-</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // 폼 유효성 검사
+                // code here...
+            });
+        </script>
 	</head>
 	
 	<body>
@@ -26,24 +26,26 @@
     			<h1>자주하는질문</h1>
  			 </div>
 			</div>
-			<!-- 자주하는질문 상단 카테고리 목록 -->
+			<!-- 카테고리 -->	
 			<div class="container">
 				<div class="row">
 					<div class="col">
 					
-			<span><a style="height:45px; width:150px;" class="btn btn-outline-success mb-3" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1">전체</a></span>
+			<span><a style="height:45px; width:150px;" class="btn btn-outline-success mb-3" href="${pageContext.request.contextPath}/faq/FAQList?currentPage=1">전체</a></span>
 			<c:forEach items="${categoryList}" var="cl" varStatus="status"> 
 				<td>
-					<a style="height:45px; width:150px;" class="btn btn-outline-success mb-3" href="${pageContext.request.contextPath}/manager/FAQList?currentPage=1&categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
+					<a style="height:45px; width:150px;" class="btn btn-outline-success mb-3" href="${pageContext.request.contextPath}/faq/FAQList?currentPage=1&categoryFaqSearch=${cl.faqCategory}">${cl.faqCategory}</a>
 				</td>
-			</c:forEach>
+				</c:forEach>
 			<!-- FAQList -->
 				</div>
 			</div>
 			</div>
 				<div class="container">
 				<p></p>
+				<c:if test="${accountLevel eq managerLevel}">
 					<a class="btn btn-outline-primary mb-3 " href="${pageContext.request.contextPath}/manager/createFAQ">추가</a>
+				</c:if>
 				</div>	
 			<div class="container">
 				<table class="table">
@@ -59,7 +61,7 @@
 					<tr>
 						<td>${f.faqNo}</td>
 						<td>${f.faqCategory}</td>
-						<td><a href="${pageContext.request.contextPath}/manager/FAQDetail?faqNo=${f.faqNo}">${f.faqTitle}</a></td>
+						<td><a href="${pageContext.request.contextPath}/FAQDetail?faqNo=${f.faqNo}">${f.faqTitle}</a></td>
 						<td>${f.faqWriter}</td>
 						<td>${f.faqUpdateDate}</td>
 						<td>${f.faqCount}</td>
@@ -257,7 +259,7 @@
 					</ul>
 				</div>
 			</c:if>
-			</c:if>
-			</div>
+		  </c:if>
+		</div>
 	</body>
 </html>

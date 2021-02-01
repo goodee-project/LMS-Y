@@ -27,6 +27,9 @@
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/lmsNoticeList">LMS 공지사항</a>
 				</li>
 				<li class="nav-item">
+			 		<a class="nav-link" href="${pageContext.request.contextPath}/student/FAQList">자주하는질문</a>
+				</li>
+				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
 				</li>
 			</ul>
@@ -58,6 +61,9 @@
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/lmsNoticeList">LMS 공지사항</a>
+				</li>
+				<li class="nav-item">
+			 		<a class="nav-link" href="${pageContext.request.contextPath}/teacher/FAQList">자주하는질문</a>
 				</li>
 				<li class="nav-item">
 			 		<a class="nav-link" href="${pageContext.request.contextPath}/receiveMessage">쪽지함</a>
